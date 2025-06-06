@@ -1,7 +1,7 @@
 from src.d_types import CppInclude, SBInc
 
 CALL_MAP: dict[str, tuple[str, str, list[CppInclude]]] = {
-    "print": ("std::cout << ", " << std:: endl;", [SBInc("iostream")])
+    "print": ("std::cout << ", " << std:: endl", [SBInc("iostream")])
 }
 
 

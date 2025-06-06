@@ -26,9 +26,12 @@ def handle_fn_def(
 def _calc_fn_signature(
     node: ast.FunctionDef, ret_imports: set[CppInclude], handle_expr
 ) -> str:
-    assert node.returns is not None, "function return type must be specified"
-    py_return_type = handle_expr(node.returns, ret_imports)
-    cpp_ret_type: str = lookup_cpp_type(py_return_type, ret_imports)
+    cpp_ret_type: str
+    if node.returns is None:
+        cpp_ret_type = "void"
+    else:
+        py_return_type = handle_expr(node.returns, ret_imports)
+        cpp_ret_type = lookup_cpp_type(py_return_type, ret_imports)
     fn_name: str = node.name
     cpp_args: list[str] = []
     for py_arg in node.args.args:
