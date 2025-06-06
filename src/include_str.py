@@ -8,4 +8,4 @@ def calc_includes_string(ret_imports: set[CppInclude]) -> str:
             ret.append(f"#include <{imp.val}>\n")
         else:
             ret.append(f'#include "{imp.val}"\n')
-    return "".join(ret)
+    return "".join(ret) + "\n"
