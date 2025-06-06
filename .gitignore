@@ -1,0 +1,4 @@
+/.venv
+/.idea
+/test_dir/cpp/build
+**/__pycache__/**
