@@ -1,8 +1,12 @@
 from src.first import return_something
 from src.second import return_friend
 from src.third import using_inline_string
+from src.fourth import string_as_argument
 
 if __name__ == "__main__":
     print(return_something(1, 9))
     print(return_friend())
     print(using_inline_string())
+    input: str = "not changed"
+    string_as_argument(input)
+    print(input)
