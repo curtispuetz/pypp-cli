@@ -7,6 +7,8 @@ if __name__ == "__main__":
     print(return_something(1, 9))
     print(return_friend())
     print(using_inline_string())
-    input: str = "not changed"
-    string_as_argument(input)
+    input: str = "a"
+    result: str = string_as_argument(input)
+    input = "b"
+    print(result)
     print(input)

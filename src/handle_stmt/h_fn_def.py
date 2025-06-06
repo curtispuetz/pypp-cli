@@ -1,7 +1,7 @@
 import ast
 
 from src.d_types import CppInclude
-from src.mapping.types import lookup_cpp_type
+from src.mapping.types import lookup_cpp_type, lookup_cpp_fn_arg
 
 
 def handle_fn_def(
@@ -37,9 +37,9 @@ def _calc_fn_signature(
     for py_arg in node.args.args:
         arg_name: str = py_arg.arg
         assert py_arg.annotation is not None, "function argument type must be specified"
-        # TODO: extract this two function calls to a helper method
+        # TODO: extract these two function calls to a helper method
         py_arg_type = handle_expr(py_arg.annotation, ret_imports)
-        cpp_arg_type = lookup_cpp_type(py_arg_type, ret_imports)
-        cpp_args.append(f"{cpp_arg_type} {arg_name}")
+        cpp_arg = lookup_cpp_fn_arg(py_arg_type, ret_imports)
+        cpp_args.append(f"{cpp_arg} {arg_name}")
     cpp_args_str = ", ".join(cpp_args)
     return f"{cpp_ret_type} {fn_name}({cpp_args_str})"

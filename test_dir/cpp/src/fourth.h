@@ -2,4 +2,4 @@
 
 #include <string>
 
-void string_as_argument(std::string input);
+std::string string_as_argument(const std::string &input);

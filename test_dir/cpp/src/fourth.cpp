@@ -1,3 +1,8 @@
 #include "fourth.h"
 
-void string_as_argument(std::string input) { input = "changed"; }
+std::string string_as_argument(const std::string &input) {
+    if (input < "abc") {
+        return input;
+    }
+    return "abc";
+}
