@@ -19,6 +19,7 @@ def handle_if(
     or_else: list[str] = []
     for or_else_node in node.orelse:
         or_else.append(handle_stmt(or_else_node, ret_imports, ret_h_file))
+    if len(or_else) == 0:
+        return f"if ({test_str}) {{{body_str}}}"
     or_else_str = "".join(or_else)
-
     return f"if ({test_str}) {{{body_str}}} else {{{or_else_str}}}"
