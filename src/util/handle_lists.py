@@ -3,7 +3,6 @@ import ast
 from src.d_types import CppInclude
 
 
-# TODO: find places that should be using this or handle_exprs
 def handle_stmts(
     stmts: list[ast.stmt],
     ret_imports: set[CppInclude],
