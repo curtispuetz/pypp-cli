@@ -1,0 +1,19 @@
+- Lists
+  - declaring
+  - referencing an element
+  - referencing a slice
+  - updating an element
+  - updating a slice
+- Tuples
+- Sets
+- Dictionaries
+- Comments
+- All the operators
+- Numpy arrays
+- For loops
+- While loops
+- Try-Catch
+- Match-Case (can do later)
+- import math library
+- file handling
+- Classes
