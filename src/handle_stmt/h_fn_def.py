@@ -2,6 +2,7 @@ import ast
 
 from src.d_types import CppInclude
 from src.mapping.types import lookup_cpp_type, lookup_cpp_fn_arg
+from src.util.handle_lists import handle_stmts
 
 
 def handle_fn_def(
@@ -16,10 +17,7 @@ def handle_fn_def(
     # also returns a list of imports that should be appended
     fn_signature = _calc_fn_signature(node, ret_imports, handle_expr)
     ret_h_file.append(fn_signature + ";")
-    body: list[str] = []
-    for body_node in node.body:
-        body.append(handle_stmt(body_node, ret_imports, ret_h_file))
-    body_str = " ".join(body)
+    body_str: str = handle_stmts(node.body, ret_imports, ret_h_file, handle_stmt)
     return f"{fn_signature} {{{body_str}}}"
 
 

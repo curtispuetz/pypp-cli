@@ -24,11 +24,7 @@ def handle_if(
             handle_expr,
         )
     else:
-        or_else: list[str] = []
-        for or_else_node in node.orelse:
-            or_else.append(handle_stmt(or_else_node, ret_imports, ret_h_file))
-        or_else_str = "".join(or_else)
-
+        or_else_str = handle_stmts(node.orelse, ret_imports, ret_h_file, handle_stmt)
         return f"{_if_else_body(test_str, body_str)}{{{or_else_str}}}"
 
 
