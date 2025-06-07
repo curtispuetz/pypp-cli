@@ -4,7 +4,9 @@ from src.d_types import CppInclude
 from src.handle_expr.h_call import handle_call
 from src.handle_expr.h_compare import handle_compare
 from src.handle_expr.h_constant import handle_constant
+from src.handle_expr.h_list import handle_list
 from src.handle_expr.h_name import handle_name
+from src.handle_expr.h_subscript import handle_subscript
 
 
 def handle_expr(node: ast.expr, ret_imports: set[CppInclude]) -> str:
@@ -16,4 +18,8 @@ def handle_expr(node: ast.expr, ret_imports: set[CppInclude]) -> str:
         return handle_constant(node)
     if isinstance(node, ast.Call):
         return handle_call(node, ret_imports, handle_expr)
+    if isinstance(node, ast.Subscript):
+        return handle_subscript(node, ret_imports, handle_expr)
+    if isinstance(node, ast.List):
+        return handle_list(node, ret_imports, handle_expr)
     raise Exception(f"code expr type {node} not handled")

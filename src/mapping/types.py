@@ -14,6 +14,8 @@ _D = tuple[str, list[CppInclude], _FnArg]
 TYPES_MAP: dict[str, _D] = {
     "str": ("std::string", [SBInc("string")], _FnArg(True, True)),
     "int": ("int", [], _FnArg(False, False)),
+    # TODO: test the vector as a function argument
+    "list": ("std::vector", [SBInc("vector")], _FnArg(True, True)),
 }
 
 
@@ -36,6 +38,15 @@ def lookup_cpp_fn_arg(python_type: str, ret_imports: set[CppInclude]) -> str:
     if val[2].reference:
         ret += "&"
     return ret
+
+
+def lookup_cpp_subscript_value_type(
+    python_type: str, ret_imports: set[CppInclude]
+) -> tuple[str, str]:
+    val = _lookup_cpp_type(python_type, ret_imports)
+    if val is None:
+        return python_type + "[", "]"
+    return val[0] + "<", ">"  # Note: will it always be square brackets
 
 
 def _lookup_cpp_type(python_type: str, ret_imports: set[CppInclude]) -> _D | None:

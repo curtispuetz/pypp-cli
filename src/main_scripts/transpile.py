@@ -42,7 +42,10 @@ def pypp_transpile():
         cpp_file = py_src_file.with_suffix(".cpp")
         h_file = py_src_file.with_suffix(".h")
         cpp, h = calc_src_file_cpp_and_h_source(src_file_py_ast_tree, h_file)
-        with open(os.path.join(C_CPP_SRC_DIR, cpp_file), "x") as cpp_write_file:
+        full_path = os.path.join(C_CPP_SRC_DIR, cpp_file)
+        full_dir = os.path.dirname(full_path)
+        os.makedirs(full_dir, exist_ok=True)
+        with open(full_path, "x") as cpp_write_file:
             cpp_write_file.write(cpp)
         with open(os.path.join(C_CPP_SRC_DIR, h_file), "x") as h_write_file:
             h_write_file.write(h)
