@@ -11,26 +11,13 @@ from src.handle_stmt.h_import_from import handle_import_from
 from src.handle_stmt.h_return import handle_return
 
 
-# TODO: move this to a separate file and have it have handle_stmt as a parameter?
-# TODO: find places that should be using this or handle_exprs
-def handle_stmts(
-    stmts: list[ast.stmt], ret_imports: set[CppInclude], ret_h_file: list[str]
-) -> str:
-    ret: list[str] = []
-    for node in stmts:
-        ret.append(handle_stmt(node, ret_imports, ret_h_file))
-    return " ".join(ret)
-
-
 def handle_stmt(
     node: ast.stmt, ret_imports: set[CppInclude], ret_h_file: list[str]
 ) -> str:
     if isinstance(node, ast.FunctionDef):
         return handle_fn_def(node, ret_imports, ret_h_file, handle_stmt, handle_expr)
     if isinstance(node, ast.If):
-        return handle_if(
-            node, ret_imports, ret_h_file, handle_stmt, handle_stmts, handle_expr
-        )
+        return handle_if(node, ret_imports, ret_h_file, handle_stmt, handle_expr)
     if isinstance(node, ast.AnnAssign):
         return handle_ann_assign(node, ret_imports, handle_expr)
     if isinstance(node, ast.Return):

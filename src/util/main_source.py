@@ -2,8 +2,9 @@ import ast
 from pathlib import Path
 
 from src.d_types import CppInclude
-from src.handle_stmt.stmt import handle_stmts
+from src.handle_stmt.stmt import handle_stmt
 from src.include_str import calc_includes_string
+from src.util.handle_lists import handle_stmts
 from src.util.handle_main_stmts import handle_main_stmts
 
 
@@ -17,7 +18,9 @@ def calc_main_cpp_source(main_py: ast.Module) -> str:
 def calc_src_file_cpp_and_h_source(src_py: ast.Module, h_file: Path) -> tuple[str, str]:
     ret_imports: set[CppInclude] = set()
     ret_h_file: list[str] = []
-    cpp_source_minus_include: str = handle_stmts(src_py.body, ret_imports, ret_h_file)
+    cpp_source_minus_include: str = handle_stmts(
+        src_py.body, ret_imports, ret_h_file, handle_stmt
+    )
     cpp_include = f'#include "{h_file}"\n\n'
     ret_cpp_str = cpp_include + cpp_source_minus_include
 

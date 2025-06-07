@@ -1,6 +1,7 @@
 import ast
 
 from src.d_types import CppInclude
+from src.util.handle_lists import handle_stmts
 
 
 def handle_if(
@@ -8,11 +9,10 @@ def handle_if(
     ret_imports: set[CppInclude],
     ret_h_file: list[str],
     handle_stmt,
-    handle_stmts,
     handle_expr,
 ) -> str:
     test_str = handle_expr(node.test, ret_imports)
-    body_str = handle_stmts(node.body, ret_imports, ret_h_file)
+    body_str = handle_stmts(node.body, ret_imports, ret_h_file, handle_stmt)
     if len(node.orelse) == 0:
         return "if (" + test_str + ") {" + body_str + "}"
     if len(node.orelse) == 1 and isinstance(node.orelse[0], ast.If):
@@ -21,7 +21,6 @@ def handle_if(
             ret_imports,
             ret_h_file,
             handle_stmt,
-            handle_stmts,
             handle_expr,
         )
     else:
@@ -35,4 +34,3 @@ def handle_if(
 
 def _if_else_body(test_str: str, body_str: str) -> str:
     return "if (" + test_str + ") {" + body_str + "} else "
-
