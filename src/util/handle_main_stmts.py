@@ -1,7 +1,8 @@
 import ast
 
 from src.d_types import CppInclude
-from src.handle_stmt.stmt import handle_stmts
+from src.handle_stmt.stmt import handle_stmt
+from src.util.handle_lists import handle_stmts
 
 
 def handle_main_stmts(stmts: list[ast.stmt], ret_imports: set[CppInclude]) -> str:
@@ -10,10 +11,10 @@ def handle_main_stmts(stmts: list[ast.stmt], ret_imports: set[CppInclude]) -> st
         raise Exception(
             "Correctly defined main guard as the last stmt in main.py is required"
         )
-    before_main = handle_stmts(stmts[:-1], ret_imports, [])
+    before_main = handle_stmts(stmts[:-1], ret_imports, [], handle_stmt)
     assert isinstance(main_stmt, ast.If), "shouldn't happen"
     inside_main = handle_stmts(
-        main_stmt.body + [ast.Return(ast.Constant(0))], ret_imports, []
+        main_stmt.body + [ast.Return(ast.Constant(0))], ret_imports, [], handle_stmt
     )
     return f"{before_main} int main() {{{inside_main}}}"
 
