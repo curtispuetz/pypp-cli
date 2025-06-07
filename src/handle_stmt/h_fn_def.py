@@ -12,9 +12,6 @@ def handle_fn_def(
     handle_stmt,
     handle_expr,
 ) -> str:
-    # TODO: redo this using the current recursive approach
-    # returns a list of strings that is the function lines of code, and
-    # also returns a list of imports that should be appended
     fn_signature = _calc_fn_signature(node, ret_imports, handle_expr)
     ret_h_file.append(fn_signature + ";")
     body_str: str = handle_stmts(node.body, ret_imports, ret_h_file, handle_stmt)
@@ -35,7 +32,6 @@ def _calc_fn_signature(
     for py_arg in node.args.args:
         arg_name: str = py_arg.arg
         assert py_arg.annotation is not None, "function argument type must be specified"
-        # TODO: extract these two function calls to a helper method
         py_arg_type = handle_expr(py_arg.annotation, ret_imports)
         cpp_arg = lookup_cpp_fn_arg(py_arg_type, ret_imports)
         cpp_args.append(f"{cpp_arg} {arg_name}")
