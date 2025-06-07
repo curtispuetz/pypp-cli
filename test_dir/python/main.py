@@ -2,7 +2,7 @@ from src.first import return_something
 from src.second import return_friend
 from src.third import using_inline_string
 from src.fourth import string_as_argument
-from src.if_elif_else import if_elif_else_fn
+from src.if_elif_else.if_elif_else import if_elif_else_fn
 from src.lists.lists import list_fn
 
 if __name__ == "__main__":
