@@ -20,3 +20,19 @@ def string_ops():
     print("Hello" + " " + "World" + "!")
     print("A" + "B")
     print("AB" * 5)
+    # Upper
+    print("ab".upper())
+    # Lower
+    print("AB".lower())
+    # Find
+    print(str("abcdefg".find("b")))
+    # Index
+    print(str("abcbc".index("bc")))
+    # rindex
+    print(str("abab".rindex("ab")))
+    # count
+    print(str("ababab".count("ab")))
+    # startswith
+    print(str("abab".startswith("ab")))
+    # endswith
+    print(str("abab".endswith("ab")))
