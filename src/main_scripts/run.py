@@ -8,7 +8,8 @@ def pypp_run():
     exe_path = Path(C_CPP_BUILD_RELEASE_DIR) / "pyppDefaultExeName.exe"
     print("py++ running executable...")
     subprocess.run([str(exe_path)], check=True)
-    print("py++ run finished")
+    # TODO later: uncomment this print later maybe
+    # print("py++ run finished")
 
 
 if __name__ == "__main__":
