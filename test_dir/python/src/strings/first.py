@@ -19,3 +19,4 @@ def string_ops():
     print(s_concat)
     print("Hello" + " " + "World" + "!")
     print("A" + "B")
+    print("AB" * 5)
