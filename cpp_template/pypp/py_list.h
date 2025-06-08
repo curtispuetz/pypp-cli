@@ -117,6 +117,14 @@ public:
         return data[index];
     }
 
+    const T& operator[](int index) const {
+        if (index < 0) index += data.size();
+        if (index < 0 || index >= data.size()) {
+            throw std::out_of_range("list index out of range");
+        }
+        return data[index];
+    }
+
     PyList<T> operator[](const PySlice &sl) const {
         return slice(sl.start, sl.stop, sl.step);
     }

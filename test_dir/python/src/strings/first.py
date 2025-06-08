@@ -63,3 +63,12 @@ def string_ops():
     print(s)
     s *= -5
     print(s)
+    # split
+    l: list[str] = "0,1,2".split(",")
+    print(l)
+    l2: list[str] = "0 1 2".split()
+    print(l2)
+    # join
+    print(" ".join(['1', '2', '3']))
+    s_joined: str = ", ".join(['a', 'b', 'c', 'd'])
+    print(s_joined)
