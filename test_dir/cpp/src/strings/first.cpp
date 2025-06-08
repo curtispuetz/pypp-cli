@@ -35,4 +35,12 @@ void string_ops() {
     to_pystr(PyStr("a") < PyStr("a")).print();
     to_pystr(PyStr("a") <= PyStr("a")).print();
     to_pystr(PyStr("a") != PyStr("a")).print();
+    s.print();
+    s += PyStr("n");
+    s += PyStr("");
+    s.print();
+    s *= 5;
+    s.print();
+    s *= -5;
+    s.print();
 }

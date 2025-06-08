@@ -194,3 +194,19 @@ bool PyStr::operator>=(const PyStr &other) const {
 bool PyStr::operator!=(const PyStr &other) const {
     return s != other.str();
 }
+
+void PyStr::operator+=(const PyStr& other) {
+    s += other.str();
+}
+
+void PyStr::operator*=(const int rep) {
+    if (rep <= 0) {
+        s.clear();
+        return;
+    }
+    std::string original = s;
+    s.reserve(original.size() * rep);
+    for (int i = 1; i < rep; ++i) {
+        s += original;
+    }
+}
