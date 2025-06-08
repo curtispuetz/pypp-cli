@@ -17,7 +17,7 @@ def handle_expr(node: ast.expr, ret_imports: set[CppInclude]) -> str:
     if isinstance(node, ast.Name):
         return handle_name(node)
     if isinstance(node, ast.Constant):
-        return handle_constant(node)
+        return handle_constant(node, ret_imports)
     if isinstance(node, ast.Call):
         return handle_call(node, ret_imports, handle_expr)
     if isinstance(node, ast.Subscript):

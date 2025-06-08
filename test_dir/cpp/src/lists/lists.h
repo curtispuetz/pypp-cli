@@ -1,5 +1,7 @@
 #pragma once
 
+#include "py_str.h"
+#include "pypp_util/to_py_str.h"
 #include <vector>
 
-int list_fn();
+PyStr list_fn();

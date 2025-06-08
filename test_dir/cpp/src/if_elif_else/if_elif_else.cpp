@@ -1,26 +1,26 @@
 #include "if_elif_else\if_elif_else.h"
 
-std::string if_elif_else_fn(int a, int b) {
-    std::string ret;
+PyStr if_elif_else_fn(int a, int b) {
+    PyStr ret;
     if (a < b) {
-        ret = "less than";
+        ret = PyStr("less than");
     } else if (a == b) {
-        ret = "equal";
+        ret = PyStr("equal");
     } else {
-        ret = "greater than";
+        ret = PyStr("greater than");
     }
     return ret;
 }
-std::string if_elif_elif_else_fn(int a, int b) {
-    std::string ret;
+PyStr if_elif_elif_else_fn(int a, int b) {
+    PyStr ret;
     if (a < b) {
-        ret = "less than";
+        ret = PyStr("less than");
     } else if (a == b) {
-        ret = "equal";
+        ret = PyStr("equal");
     } else if (a > b) {
-        ret = "dunno";
+        ret = PyStr("dunno");
     } else {
-        ret = "greater than";
+        ret = PyStr("greater than");
     }
     return ret;
 }

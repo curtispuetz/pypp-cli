@@ -1,3 +1,3 @@
 #include "second.h"
 
-std::string return_friend() { return "friend"; }
+PyStr return_friend() { return PyStr("friend"); }

@@ -1,41 +1,47 @@
 from dataclasses import dataclass
 
-from src.d_types import CppInclude, SBInc
+from src.d_types import CppInclude, SBInc, QInc
 
 
 @dataclass(frozen=True, slots=True)
-class _FnArg:
+class FnArgInfo:
     const: bool
     reference: bool
 
 
-_D = tuple[str, list[CppInclude], _FnArg]
+@dataclass(frozen=True, slots=True)
+class TypeMapInfo:
+    val: str
+    other_ann_assign: bool
+    includes: list[CppInclude]
+    fn_arg_info: FnArgInfo
 
-TYPES_MAP: dict[str, _D] = {
-    "str": ("std::string", [SBInc("string")], _FnArg(True, True)),
-    "int": ("int", [], _FnArg(False, False)),
+
+TYPES_MAP: dict[str, TypeMapInfo] = {
+    "str": TypeMapInfo("PyStr", True, [QInc("py_str.h")], FnArgInfo(True, True)),
+    "int": TypeMapInfo("int", False, [], FnArgInfo(False, False)),
     # TODO: test the vector as a function argument
-    "list": ("std::vector", [SBInc("vector")], _FnArg(True, True)),
+    "list": TypeMapInfo("std::vector", False, [SBInc("vector")], FnArgInfo(True, True)),
 }
 
 
 def lookup_cpp_type(python_type: str, ret_imports: set[CppInclude]) -> str:
     # The way it works is that whenever you looked up the type, it automatically
     # is added to the ret_imports
-    val = _lookup_cpp_type(python_type, ret_imports)
+    val = lookup_cpp_type_info(python_type, ret_imports)
     if val is None:
         return python_type
-    return val[0]
+    return val.val
 
 
 def lookup_cpp_fn_arg(python_type: str, ret_imports: set[CppInclude]) -> str:
-    val = _lookup_cpp_type(python_type, ret_imports)
+    val = lookup_cpp_type_info(python_type, ret_imports)
     if val is None:
         return python_type  # NOTE: or, should always references be passed?
-    ret = val[0]
-    if val[2].const:
+    ret = val.val
+    if val.fn_arg_info.const:
         ret = "const " + ret
-    if val[2].reference:
+    if val.fn_arg_info.reference:
         ret += "&"
     return ret
 
@@ -43,16 +49,18 @@ def lookup_cpp_fn_arg(python_type: str, ret_imports: set[CppInclude]) -> str:
 def lookup_cpp_subscript_value_type(
     python_type: str, ret_imports: set[CppInclude]
 ) -> tuple[str, str]:
-    val = _lookup_cpp_type(python_type, ret_imports)
+    val = lookup_cpp_type_info(python_type, ret_imports)
     if val is None:
         return python_type + "[", "]"
-    return val[0] + "<", ">"  # Note: will it always be square brackets
+    return val.val + "<", ">"  # Note: will it always be square brackets
 
 
-def _lookup_cpp_type(python_type: str, ret_imports: set[CppInclude]) -> _D | None:
+def lookup_cpp_type_info(
+    python_type: str, ret_imports: set[CppInclude]
+) -> TypeMapInfo | None:
     if python_type not in TYPES_MAP:
         return None
     val = TYPES_MAP[python_type]
-    for include in val[1]:
+    for include in val.includes:
         ret_imports.add(include)
     return val

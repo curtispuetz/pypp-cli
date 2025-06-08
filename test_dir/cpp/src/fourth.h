@@ -1,5 +1,5 @@
 #pragma once
 
-#include <string>
+#include "py_str.h"
 
-std::string string_as_argument(const std::string &input);
+PyStr string_as_argument(const PyStr &input);

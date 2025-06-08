@@ -1,5 +1,5 @@
 #pragma once
 
-#include <string>
+#include "py_str.h"
 
-std::string return_friend();
+PyStr return_friend();
