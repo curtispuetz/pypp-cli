@@ -24,4 +24,5 @@ void string_ops() {
     to_pystr(PyStr("ababab").count(PyStr("ab"))).print();
     to_pystr(PyStr("abab").startswith(PyStr("ab"))).print();
     to_pystr(PyStr("abab").endswith(PyStr("ab"))).print();
+    PyStr("abcdab").replace(PyStr("ab"), PyStr("xy")).print();
 }

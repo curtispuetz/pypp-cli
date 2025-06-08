@@ -11,7 +11,7 @@ class PyStr {
 public:
     PyStr(const std::string &str = "");
 
-    PyStr replace(const std::string &old, const std::string &replacement, int count = -1) const;
+    PyStr replace(const PyStr &old, const PyStr &replacement, int count = -1) const;
     int find(const PyStr &sub) const;
     int index(const PyStr &sub) const;
     int rindex(const PyStr &sub) const;

@@ -36,3 +36,5 @@ def string_ops():
     print(str("abab".startswith("ab")))
     # endswith
     print(str("abab".endswith("ab")))
+    # replace
+    print("abcdab".replace("ab", "xy"))
