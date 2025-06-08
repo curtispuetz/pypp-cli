@@ -14,8 +14,8 @@ int main() {
     using_inline_string().print();
     string_as_argument(PyStr("hello")).print();
     if_elif_else_fn(6, 6).print();
-    list_fn().print();
     number_ops();
     string_ops();
+    list_fn();
     return 0;
 }
