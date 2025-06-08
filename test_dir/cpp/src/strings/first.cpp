@@ -11,4 +11,8 @@ void string_ops() {
     s[PySlice(2, 5, 2)].print();
     s[PySlice(2, -1, 2)].print();
     s[PySlice(0, -1, 1)].print();
+    PyStr s_concat = PyStr("Hello ") + PyStr("World");
+    s_concat.print();
+    (((PyStr("Hello") + PyStr(" ")) + PyStr("World")) + PyStr("!")).print();
+    (PyStr("A") + PyStr("B")).print();
 }

@@ -31,6 +31,7 @@ public:
     static PyStr join(const std::string &sep, const std::vector<PyStr> &parts);
     size_t len() const;
 
+    PyStr operator+(const PyStr &other) const;
     PyStr operator[](int i) const;
     PyStr operator[](const PySlice &sl) const;
 
