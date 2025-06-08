@@ -7,18 +7,6 @@
 
 PyStr::PyStr(const std::string &str) : s(str) {}
 
-PyStr::operator std::string() const { return s; }
-
-void PyStr::append(const std::string &suffix) { s += suffix; }
-
-char PyStr::pop() {
-    if (s.empty())
-        throw std::out_of_range("pop from empty string");
-    char last = s.back();
-    s.pop_back();
-    return last;
-}
-
 PyStr PyStr::replace(const std::string &old, const std::string &replacement, int count) const {
     std::string result = s;
     size_t pos = 0;
@@ -116,7 +104,7 @@ std::vector<PyStr> PyStr::split(const std::string &sep) const {
 PyStr PyStr::join(const std::string &sep, const std::vector<PyStr> &parts) {
     std::ostringstream oss;
     for (size_t i = 0; i < parts.size(); ++i) {
-        oss << static_cast<std::string>(parts[i]);
+        oss << parts[i].str();
         if (i != parts.size() - 1)
             oss << sep;
     }

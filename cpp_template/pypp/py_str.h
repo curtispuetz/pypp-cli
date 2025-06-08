@@ -11,10 +11,6 @@ class PyStr {
 public:
     PyStr(const std::string &str = "");
 
-    operator std::string() const;
-
-    void append(const std::string &suffix);
-    char pop();
     PyStr replace(const std::string &old, const std::string &replacement, int count = -1) const;
     int find(const PyStr &sub) const;
     int index(const PyStr &sub) const;
