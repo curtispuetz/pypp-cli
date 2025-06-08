@@ -9,6 +9,7 @@ from src.handle_expr.h_list import handle_list
 from src.handle_expr.h_name import handle_name
 from src.handle_expr.h_subscript import handle_subscript
 from src.handle_expr.h_unary_op import handle_unary_op
+from src.handle_expr.handle_slice import handle_slice
 
 
 def handle_expr(node: ast.expr, ret_imports: set[CppInclude]) -> str:
@@ -28,4 +29,6 @@ def handle_expr(node: ast.expr, ret_imports: set[CppInclude]) -> str:
         return handle_attribute(node, ret_imports, handle_expr)
     if isinstance(node, ast.UnaryOp):
         return handle_unary_op(node, ret_imports, handle_expr)
+    if isinstance(node, ast.Slice):
+        return handle_slice(node, ret_imports, handle_expr)
     raise Exception(f"code expr type {node} not handled")
