@@ -48,7 +48,6 @@ def list_fn():
     print(str([1, 2] > [1, 2]))
     print(str([1, 2] >= [1, 2]))
     print(str([1, 2] != [1, 2]))
-    # TODO: slicing
     # concatenation
     c: list[int] = [1, 2] + [3, 4]
     print(c)
@@ -59,3 +58,14 @@ def list_fn():
     print(d)
     c *= 3
     print(c)
+    # slicing
+    print(c[1:4])
+    print(c[1:-1:2])
+    print(c[1::2])
+    print(c[1:])
+    print(c[:4])
+    print(c[::2])
+    print(c[:])
+    print(c[-2:5])
+    print(c[-4:-1])
+    print(c[5:1:-1])

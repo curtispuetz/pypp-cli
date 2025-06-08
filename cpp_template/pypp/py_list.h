@@ -4,11 +4,21 @@
 #include <stdexcept>
 #include <algorithm>
 #include <iostream>
+#include "py_slice.h"
 
 template<typename T>
 class PyList {
 private:
     std::vector<T> data;
+
+    PyList<T> slice(int start, int stop, int step) const {
+        PyList<T> result;
+        std::vector<int> indices = compute_slice_indices(start, stop, step, static_cast<int>(data.size()));
+        for (int i : indices) {
+            result.data.push_back(data[i]);
+        }
+        return result;
+    }
 
     static std::vector<T> repeat_data(const std::vector<T>& input, int count) {
         std::vector<T> result;
@@ -105,6 +115,10 @@ public:
             throw std::out_of_range("list index out of range");
         }
         return data[index];
+    }
+
+    PyList<T> operator[](const PySlice &sl) const {
+        return slice(sl.start, sl.stop, sl.step);
     }
 
     // Print
