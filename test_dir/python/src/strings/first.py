@@ -1,4 +1,6 @@
 def string_ops():
+    # TODO later: there are a number of small string methods that I don't have tested
+    #  below or implemented in PyStr
     # declaration
     s: str = "  abd  "
     # printing
@@ -39,4 +41,7 @@ def string_ops():
     # replace
     print("abcdab".replace("ab", "xy"))
     # TODO: check split and join after PyList is implemented a bit
-
+    # strip
+    print(s.strip())
+    print(s.lstrip())
+    print(s.rstrip())
