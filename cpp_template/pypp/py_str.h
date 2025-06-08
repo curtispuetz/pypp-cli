@@ -2,9 +2,11 @@
 
 #include <string>
 #include <vector>
+#include "py_slice.h"
 
 class PyStr {
     std::string s;
+    PyStr slice(int start, int stop, int step = 1) const;
 
 public:
     PyStr(const std::string &str = "");
@@ -29,7 +31,9 @@ public:
     static PyStr join(const std::string &sep, const std::vector<PyStr> &parts);
     size_t len() const;
 
-    char operator[](int i) const;
+    PyStr operator[](int i) const;
+    PyStr operator[](const PySlice &sl) const;
+
     bool operator==(const PyStr &other) const;
     bool operator<(const PyStr &other) const;
     bool operator<=(const PyStr &other) const;
