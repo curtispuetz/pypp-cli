@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from src.d_types import CppInclude, SBInc, QInc
+from src.d_types import CppInclude, QInc
 
 
 @dataclass(frozen=True, slots=True)
@@ -23,7 +23,7 @@ TYPES_MAP: dict[str, TypeMapInfo] = {
     "int": TypeMapInfo("int", False, [], FnArgInfo(False, False)),
     "float": TypeMapInfo("double", False, [], FnArgInfo(False, False)),
     # TODO: test the vector as a function argument
-    "list": TypeMapInfo("std::vector", False, [SBInc("vector")], FnArgInfo(True, True)),
+    "list": TypeMapInfo("PyList", False, [QInc("py_list.h")], FnArgInfo(True, True)),
 }
 
 
