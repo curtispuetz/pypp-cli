@@ -1,6 +1,6 @@
 import ast
 
-from src.cmpop import lookup_cmpop
+from src._types.cmpop import lookup_cmpop
 from src.d_types import CppInclude
 
 
