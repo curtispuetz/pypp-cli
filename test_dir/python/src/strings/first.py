@@ -21,6 +21,7 @@ def string_ops():
     print(s_concat)
     print("Hello" + " " + "World" + "!")
     print("A" + "B")
+    # repetition
     print("AB" * 5)
     # Upper
     print("ab".upper())
@@ -53,3 +54,12 @@ def string_ops():
     print(str("a" < "a"))
     print(str("a" <= "a"))
     print(str("a" != "a"))
+    # aug assignments
+    print(s)
+    s += "n"
+    s += ""
+    print(s)
+    s *= 5
+    print(s)
+    s *= -5
+    print(s)

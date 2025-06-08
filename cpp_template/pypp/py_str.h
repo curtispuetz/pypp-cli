@@ -39,6 +39,8 @@ public:
     bool operator>(const PyStr &other) const;
     bool operator>=(const PyStr &other) const;
     bool operator!=(const PyStr &other) const;
+    void operator+=(const PyStr &other);
+    void operator*=(const int rep);
 
     std::string str() const;
     void print() const;

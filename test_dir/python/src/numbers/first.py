@@ -19,7 +19,7 @@ def number_ops():
     print(str(-7 // 2))  # Should be -4
     g: int = (-14 // 2) // ((-2 + 4) * 1)  # Should be -4
     print(str(g))
-    # increment operators
+    # aug assignments
     g += 2
     print(str(g))
     g -= 2
