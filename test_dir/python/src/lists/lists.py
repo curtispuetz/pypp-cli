@@ -21,3 +21,23 @@ def list_fn():
     # reverse
     a.reverse()
     print(a)
+    # count
+    print(str(a.count(2)))
+    # index
+    print(str(a.index(2)))
+    # remove
+    a.remove(2)
+    print(a)
+    # insert
+    a.insert(4, 2)
+    print(a)
+    # pop
+    popped_val: int = a.pop()
+    print(str(popped_val))
+    print(a)
+    popped_val2: int = a.pop(1)
+    print(str(popped_val2))
+    print(a)
+    # clear
+    a.clear()
+    print(a)
