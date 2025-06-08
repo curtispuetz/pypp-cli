@@ -127,6 +127,10 @@ size_t PyStr::len() const {
     return s.length();
 }
 
+PyStr PyStr::operator+(const PyStr &other) const {
+    return PyStr(s + other.str());
+}
+
 PyStr PyStr::operator[](int i) const {
     if (i < 0) {
         i += s.length();

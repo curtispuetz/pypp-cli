@@ -5,7 +5,9 @@ import ast
 from src.d_types import CppInclude, QInc
 
 
-def lookup_op(_type: ast.operator, ret_imports: set[CppInclude]) -> tuple[str, str, str]:
+def lookup_op(
+    _type: ast.operator, ret_imports: set[CppInclude]
+) -> tuple[str, str, str]:
     if isinstance(_type, ast.Add):
         return "", "+", ""
     if isinstance(_type, ast.Sub):

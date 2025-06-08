@@ -15,5 +15,7 @@ def string_ops():
     print(s[2::2])
     print(s[:])
     # concatenation
-    # s_concat = "Hello " + "World"
-    # print(s_concat)
+    s_concat: str = "Hello " + "World"
+    print(s_concat)
+    print("Hello" + " " + "World" + "!")
+    print("A" + "B")

@@ -12,4 +12,5 @@
   - py_str.py
   - pypp_util
 - print something other than a string (for now)
+- print with multiple args (i.e. print(a, b))
 - You cannot do integer math and expect a float returned

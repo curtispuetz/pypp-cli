@@ -14,8 +14,8 @@ def number_ops():
     e: int = 4 + 2 * 4 + 4
     print(str(d))
     print(str(e))
-    f: int = 10//5
+    f: int = 10 // 5
     print(str(f))
-    print(str(-7//2))  # Should be -4
+    print(str(-7 // 2))  # Should be -4
     g: int = (-14 // 2) // ((-2 + 4) * 1)  # Should be -4
     print(str(g))
