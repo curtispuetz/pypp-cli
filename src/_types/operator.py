@@ -2,15 +2,19 @@
 #                  | RShift | BitOr | BitXor | BitAnd | FloorDiv
 import ast
 
+from src.d_types import CppInclude, QInc
 
-def lookup_op(_type: ast.operator):
+
+def lookup_op(_type: ast.operator, ret_imports: set[CppInclude]) -> tuple[str, str, str]:
     if isinstance(_type, ast.Add):
-        return "+"
+        return "", "+", ""
     if isinstance(_type, ast.Sub):
-        return "-"
+        return "", "-", ""
     if isinstance(_type, ast.Mult):
-        return "*"
+        return "", "*", ""
     if isinstance(_type, ast.Div):
-        return "/"
-    # TODO: handle floor div
+        return "", "/", ""
+    if isinstance(_type, ast.FloorDiv):
+        ret_imports.add(QInc("pypp_util/floor_div.h"))
+        return "py_floor_div(", ", ", ")"
     raise f"cmpop type {_type} is not handled"
