@@ -19,7 +19,9 @@ class TypeMapInfo:
 
 TYPES_MAP: dict[str, TypeMapInfo] = {
     "str": TypeMapInfo("PyStr", True, [QInc("py_str.h")], FnArgInfo(True, True)),
+    # NOTE: technically I don't think this is necessary since int and int are the same
     "int": TypeMapInfo("int", False, [], FnArgInfo(False, False)),
+    "float": TypeMapInfo("double", False, [], FnArgInfo(False, False)),
     # TODO: test the vector as a function argument
     "list": TypeMapInfo("std::vector", False, [SBInc("vector")], FnArgInfo(True, True)),
 }

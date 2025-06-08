@@ -3,6 +3,7 @@
 #include "src/fourth.h"
 #include "src/if_elif_else/if_elif_else.h"
 #include "src/lists/lists.h"
+#include "src/numbers/first.h"
 #include "src/second.h"
 #include "src/strings/first.h"
 #include "src/third.h"
@@ -15,5 +16,6 @@ int main() {
     if_elif_else_fn(6, 6).print();
     list_fn().print();
     string_ops();
+    number_ops();
     return 0;
 }
