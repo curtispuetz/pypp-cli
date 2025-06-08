@@ -14,4 +14,9 @@ void number_ops() {
     int e = (4 + (2 * 4)) + 4;
     to_pystr(d).print();
     to_pystr(e).print();
+    int f = py_floor_div(10, 5);
+    to_pystr(f).print();
+    to_pystr(py_floor_div(-7, 2)).print();
+    int g = py_floor_div((py_floor_div(-14, 2)), ((-2 + 4) * 1));
+    to_pystr(g).print();
 }
