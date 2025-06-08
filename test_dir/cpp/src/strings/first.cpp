@@ -15,4 +15,5 @@ void string_ops() {
     s_concat.print();
     (((PyStr("Hello") + PyStr(" ")) + PyStr("World")) + PyStr("!")).print();
     (PyStr("A") + PyStr("B")).print();
+    (PyStr("AB") * 5).print();
 }

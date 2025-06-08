@@ -131,6 +131,14 @@ PyStr PyStr::operator+(const PyStr &other) const {
     return PyStr(s + other.str());
 }
 
+PyStr PyStr::operator*(const int rep) const {
+    std::string result;
+    for (int i = 0; i < rep; ++i) {
+        result += s;
+    }
+    return PyStr(result);
+}
+
 PyStr PyStr::operator[](int i) const {
     if (i < 0) {
         i += s.length();

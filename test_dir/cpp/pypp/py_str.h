@@ -32,6 +32,7 @@ public:
     size_t len() const;
 
     PyStr operator+(const PyStr &other) const;
+    PyStr operator*(const int rep) const;
     PyStr operator[](int i) const;
     PyStr operator[](const PySlice &sl) const;
 
