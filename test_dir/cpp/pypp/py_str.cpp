@@ -152,24 +152,10 @@ PyStr PyStr::operator[](int i) const {
 
 PyStr PyStr::slice(int start, int stop, int step) const {
     std::string result;
-    int n = static_cast<int>(s.size());
-
-    // Handle negative indexing
-    if (start < 0) start += n;
-    if (stop < 0) stop += n;
-
-    // Clamp boundaries
-    if (start < 0) start = 0;
-    if (stop > n) stop = n;
-
-    if (step > 0 && start < stop) {
-        for (int i = start; i < stop; i += step)
-            result += s[i];
-    } else if (step < 0 && start > stop) {
-        for (int i = start; i > stop; i += step)
-            result += s[i];
+    std::vector<int> indices = compute_slice_indices(start, stop, step, static_cast<int>(s.size()));
+    for (int i : indices) {
+        result += s[i];
     }
-
     return PyStr(result);
 }
 
