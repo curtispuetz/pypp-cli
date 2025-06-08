@@ -41,3 +41,11 @@ def list_fn():
     # clear
     a.clear()
     print(a)
+    # lexographical comparisons
+    print(str([1, 2] == [1, 2]))
+    print(str([1, 2] < [1, 2]))
+    print(str([1, 2] <= [1, 2]))
+    print(str([1, 2] > [1, 2]))
+    print(str([1, 2] >= [1, 2]))
+    print(str([1, 2] != [1, 2]))
+    # TODO: test concatenation, slicing, and repetition

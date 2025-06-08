@@ -104,4 +104,28 @@ public:
         }
         std::cout << "]" << std::endl;
     }
+
+    bool operator==(const PyList<T>& other) const {
+        return data == other.data;
+    }
+
+    bool operator!=(const PyList<T>& other) const {
+        return data != other.data;
+    }
+
+    bool operator<(const PyList<T>& other) const {
+        return data < other.data;
+    }
+
+    bool operator<=(const PyList<T>& other) const {
+        return data <= other.data;
+    }
+
+    bool operator>(const PyList<T>& other) const {
+        return data > other.data;
+    }
+
+    bool operator>=(const PyList<T>& other) const {
+        return data >= other.data;
+    }
 };

@@ -14,3 +14,4 @@
 - print something other than a string (for now)
 - print with multiple args (i.e. print(a, b))
 - You cannot do integer math and expect a float returned
+- del my_list[i] (use my_list.pop(i) instead)

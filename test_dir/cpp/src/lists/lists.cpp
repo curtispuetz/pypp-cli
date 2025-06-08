@@ -1,7 +1,7 @@
 #include "lists\lists.h"
 
 void list_fn() {
-    PyList<int> a = {1, 2, 3, 4, 5};
+    PyList<int> a = PyList({1, 2, 3, 4, 5});
     a.print();
     a[0] = 10;
     a.print();
@@ -30,4 +30,10 @@ void list_fn() {
     a.print();
     a.clear();
     a.print();
+    to_pystr(PyList({1, 2}) == PyList({1, 2})).print();
+    to_pystr(PyList({1, 2}) < PyList({1, 2})).print();
+    to_pystr(PyList({1, 2}) <= PyList({1, 2})).print();
+    to_pystr(PyList({1, 2}) > PyList({1, 2})).print();
+    to_pystr(PyList({1, 2}) >= PyList({1, 2})).print();
+    to_pystr(PyList({1, 2}) != PyList({1, 2})).print();
 }
