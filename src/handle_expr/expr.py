@@ -2,6 +2,7 @@ import ast
 
 from src.d_types import CppInclude
 from src.handle_expr.h_attribute import handle_attribute
+from src.handle_expr.h_bin_op import handle_bin_op
 from src.handle_expr.h_call import handle_call
 from src.handle_expr.h_compare import handle_compare
 from src.handle_expr.h_constant import handle_constant
@@ -31,4 +32,6 @@ def handle_expr(node: ast.expr, ret_imports: set[CppInclude]) -> str:
         return handle_unary_op(node, ret_imports, handle_expr)
     if isinstance(node, ast.Slice):
         return handle_slice(node, ret_imports, handle_expr)
+    if isinstance(node, ast.BinOp):
+        return handle_bin_op(node, ret_imports, handle_expr)
     raise Exception(f"code expr type {node} not handled")
