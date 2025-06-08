@@ -1,8 +1,9 @@
 #pragma once
 
 #include <string>
-#include <vector>
+#include <ostream>
 #include "py_slice.h"
+#include "py_list.h"
 
 class PyStr {
     std::string s;
@@ -25,8 +26,8 @@ public:
     PyStr lstrip() const;
     PyStr rstrip() const;
     // TODO: I'll have to check these later and use my PyList type instead of std::vector
-    std::vector<PyStr> split(const PyStr &sep = PyStr(" ")) const;
-    PyStr join(const std::vector<PyStr> &parts);
+    PyList<PyStr> split(const PyStr &sep = PyStr(" ")) const;
+    PyStr join(const PyList<PyStr> &parts);
     size_t len() const;
 
     PyStr operator+(const PyStr &other) const;
@@ -46,4 +47,5 @@ public:
 
     std::string str() const;
     void print() const;
+    friend std::ostream& operator<<(std::ostream& os, const PyStr& pystr);
 };

@@ -43,4 +43,12 @@ void string_ops() {
     s.print();
     s *= -5;
     s.print();
+    PyList<PyStr> l = PyStr("0,1,2").split(PyStr(","));
+    l.print();
+    PyList<PyStr> l2 = PyStr("0 1 2").split();
+    l2.print();
+    PyStr(" ").join(PyList({PyStr("1"), PyStr("2"), PyStr("3")})).print();
+    PyStr s_joined = PyStr(", ").join(
+        PyList({PyStr("a"), PyStr("b"), PyStr("c"), PyStr("d")}));
+    s_joined.print();
 }

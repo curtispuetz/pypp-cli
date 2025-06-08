@@ -14,5 +14,5 @@ if __name__ == "__main__":
     print(string_as_argument("hello"))
     print(if_elif_else_fn(6, 6))
     number_ops()
-    string_ops()
     list_fn()
+    string_ops()
