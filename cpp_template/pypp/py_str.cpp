@@ -90,23 +90,23 @@ PyStr PyStr::rstrip() const {
     return (end == std::string::npos) ? PyStr("") : PyStr(s.substr(0, end + 1));
 }
 
-std::vector<PyStr> PyStr::split(const std::string &sep) const {
+std::vector<PyStr> PyStr::split(const PyStr &sep) const {
     std::vector<PyStr> result;
     size_t start = 0, end;
-    while ((end = s.find(sep, start)) != std::string::npos) {
+    while ((end = s.find(sep.str(), start)) != std::string::npos) {
         result.emplace_back(s.substr(start, end - start));
-        start = end + sep.length();
+        start = end + sep.len();
     }
     result.emplace_back(s.substr(start));
     return result;
 }
 
-PyStr PyStr::join(const std::string &sep, const std::vector<PyStr> &parts) {
+PyStr PyStr::join(const std::vector<PyStr> &parts) {
     std::ostringstream oss;
     for (size_t i = 0; i < parts.size(); ++i) {
         oss << parts[i].str();
         if (i != parts.size() - 1)
-            oss << sep;
+            oss << s;
     }
     return PyStr(oss.str());
 }

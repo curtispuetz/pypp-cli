@@ -38,3 +38,5 @@ def string_ops():
     print(str("abab".endswith("ab")))
     # replace
     print("abcdab".replace("ab", "xy"))
+    # TODO: check split and join after PyList is implemented a bit
+

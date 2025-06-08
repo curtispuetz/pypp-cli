@@ -23,8 +23,9 @@ public:
     PyStr strip() const;
     PyStr lstrip() const;
     PyStr rstrip() const;
-    std::vector<PyStr> split(const std::string &sep = " ") const;
-    static PyStr join(const std::string &sep, const std::vector<PyStr> &parts);
+    // TODO: I'll have to check these later and use my PyList type instead of std::vector
+    std::vector<PyStr> split(const PyStr &sep = PyStr(" ")) const;
+    PyStr join(const std::vector<PyStr> &parts);
     size_t len() const;
 
     PyStr operator+(const PyStr &other) const;
