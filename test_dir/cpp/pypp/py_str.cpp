@@ -7,15 +7,15 @@
 
 PyStr::PyStr(const std::string &str) : s(str) {}
 
-PyStr PyStr::replace(const std::string &old, const std::string &replacement, int count) const {
+PyStr PyStr::replace(const PyStr &old, const PyStr &replacement, int count) const {
     std::string result = s;
     size_t pos = 0;
     int replaced = 0;
-    while ((pos = result.find(old, pos)) != std::string::npos) {
+    while ((pos = result.find(old.str(), pos)) != std::string::npos) {
         if (count != -1 && replaced >= count)
             break;
-        result.replace(pos, old.length(), replacement);
-        pos += replacement.length();
+        result.replace(pos, old.len(), replacement.str());
+        pos += replacement.len();
         ++replaced;
     }
     return PyStr(result);
