@@ -49,3 +49,5 @@ def list_fn():
     print(str([1, 2] >= [1, 2]))
     print(str([1, 2] != [1, 2]))
     # TODO: test concatenation, slicing, and repetition
+    # c: list[int] = [1, 2] + [3, 4]
+    # print(c)

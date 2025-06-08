@@ -19,4 +19,12 @@ void number_ops() {
     to_pystr(py_floor_div(-7, 2)).print();
     int g = py_floor_div((py_floor_div(-14, 2)), ((-2 + 4) * 1));
     to_pystr(g).print();
+    g += 2;
+    to_pystr(g).print();
+    g -= 2;
+    to_pystr(g).print();
+    g *= 5;
+    to_pystr(g).print();
+    g /= 5;
+    to_pystr(g).print();
 }
