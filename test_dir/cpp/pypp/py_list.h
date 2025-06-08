@@ -10,9 +10,21 @@ class PyList {
 private:
     std::vector<T> data;
 
+    static std::vector<T> repeat_data(const std::vector<T>& input, int count) {
+        std::vector<T> result;
+        if (count <= 0) return result;
+
+        result.reserve(input.size() * count);
+        for (int i = 0; i < count; ++i) {
+            result.insert(result.end(), input.begin(), input.end());
+        }
+        return result;
+    }
+
 public:
     // Constructors
     PyList() = default;
+    PyList(const std::vector<T>& vec) : data(vec) {}
     PyList(std::initializer_list<T> init) : data(init) {}
 
     // Append
@@ -127,5 +139,27 @@ public:
 
     bool operator>=(const PyList<T>& other) const {
         return data >= other.data;
+    }
+
+    PyList<T> operator+(const PyList<T>& other) const  {
+        PyList<T> result;
+        result.data.reserve(data.size() + other.data.size());
+        result.data.insert(result.data.end(), data.begin(), data.end());
+        result.data.insert(result.data.end(), other.data.begin(), other.data.end());
+        return result;
+    }
+
+    PyList<T> operator*(int count) const {
+        return PyList<T>(repeat_data(data, count));
+    }
+
+    PyList<T>& operator+=(const PyList<T>& other) {
+        data.insert(data.end(), other.data.begin(), other.data.end());
+        return *this;
+    }
+
+    PyList<T>& operator*=(int count) {
+        data = repeat_data(data, count);
+        return *this;
     }
 };

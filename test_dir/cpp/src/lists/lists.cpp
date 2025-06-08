@@ -36,4 +36,12 @@ void list_fn() {
     to_pystr(PyList({1, 2}) > PyList({1, 2})).print();
     to_pystr(PyList({1, 2}) >= PyList({1, 2})).print();
     to_pystr(PyList({1, 2}) != PyList({1, 2})).print();
+    PyList<int> c = PyList({1, 2}) + PyList({3, 4});
+    c.print();
+    c += PyList({5, 6});
+    c.print();
+    PyList<int> d = c * 3;
+    d.print();
+    c *= 3;
+    c.print();
 }
