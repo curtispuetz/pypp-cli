@@ -9,7 +9,11 @@ void list_fn() {
     a.print();
     to_pystr(a[-1]).print();
     int b = a[-1];
+    to_pystr(b).print();
     b = 20;
     to_pystr(b).print();
+    a.print();
+    to_pystr(a.len()).print();
+    a.reverse();
     a.print();
 }
