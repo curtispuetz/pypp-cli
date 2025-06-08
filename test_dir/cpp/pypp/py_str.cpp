@@ -123,7 +123,7 @@ PyStr PyStr::join(const std::string &sep, const std::vector<PyStr> &parts) {
     return PyStr(oss.str());
 }
 
-size_t PyStr::length() const {
+size_t PyStr::len() const {
     return s.length();
 }
 

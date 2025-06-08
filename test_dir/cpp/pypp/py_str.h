@@ -27,7 +27,7 @@ public:
     PyStr rstrip() const;
     std::vector<PyStr> split(const std::string &sep = " ") const;
     static PyStr join(const std::string &sep, const std::vector<PyStr> &parts);
-    size_t length() const;
+    size_t len() const;
 
     char operator[](int i) const;
     bool operator==(const PyStr &other) const;

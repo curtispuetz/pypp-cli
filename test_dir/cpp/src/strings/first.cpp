@@ -3,4 +3,5 @@
 void string_ops() {
     PyStr s = PyStr("abd");
     s.print();
+    to_pystr(s.len()).print();
 }
