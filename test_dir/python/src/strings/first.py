@@ -46,3 +46,10 @@ def string_ops():
     print(s.strip())
     print(s.lstrip())
     print(s.rstrip())
+    # lexographical comparisons
+    print(str("a" == "a"))
+    print(str("a" > "a"))
+    print(str("a" >= "a"))
+    print(str("a" < "a"))
+    print(str("a" <= "a"))
+    print(str("a" != "a"))

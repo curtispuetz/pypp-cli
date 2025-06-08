@@ -29,4 +29,10 @@ void string_ops() {
     s.strip().print();
     s.lstrip().print();
     s.rstrip().print();
+    to_pystr(PyStr("a") == PyStr("a")).print();
+    to_pystr(PyStr("a") > PyStr("a")).print();
+    to_pystr(PyStr("a") >= PyStr("a")).print();
+    to_pystr(PyStr("a") < PyStr("a")).print();
+    to_pystr(PyStr("a") <= PyStr("a")).print();
+    to_pystr(PyStr("a") != PyStr("a")).print();
 }

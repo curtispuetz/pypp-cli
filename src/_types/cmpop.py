@@ -4,10 +4,17 @@ import ast
 
 
 def lookup_cmpop(_type: ast.cmpop):
-    if isinstance(_type, ast.Gt):
-        return ">"
-    if isinstance(_type, ast.Lt):
-        return "<"
     if isinstance(_type, ast.Eq):
         return "=="
+    if isinstance(_type, ast.Gt):
+        return ">"
+    if isinstance(_type, ast.GtE):
+        return ">="
+    if isinstance(_type, ast.Lt):
+        return "<"
+    if isinstance(_type, ast.LtE):
+        return "<="
+    if isinstance(_type, ast.NotEq):
+        return "!="
+
     raise f"cmpop type {_type} is not handled"
