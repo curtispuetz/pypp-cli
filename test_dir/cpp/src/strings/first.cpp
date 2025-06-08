@@ -16,4 +16,12 @@ void string_ops() {
     (((PyStr("Hello") + PyStr(" ")) + PyStr("World")) + PyStr("!")).print();
     (PyStr("A") + PyStr("B")).print();
     (PyStr("AB") * 5).print();
+    PyStr("ab").upper().print();
+    PyStr("AB").lower().print();
+    to_pystr(PyStr("abcdefg").find(PyStr("b"))).print();
+    to_pystr(PyStr("abcbc").index(PyStr("bc"))).print();
+    to_pystr(PyStr("abab").rindex(PyStr("ab"))).print();
+    to_pystr(PyStr("ababab").count(PyStr("ab"))).print();
+    to_pystr(PyStr("abab").startswith(PyStr("ab"))).print();
+    to_pystr(PyStr("abab").endswith(PyStr("ab"))).print();
 }

@@ -33,43 +33,43 @@ PyStr PyStr::replace(const std::string &old, const std::string &replacement, int
     return PyStr(result);
 }
 
-int PyStr::find(const std::string &sub) const {
-    size_t pos = s.find(sub);
+int PyStr::find(const PyStr &sub) const {
+    size_t pos = s.find(sub.str());
     return (pos == std::string::npos) ? -1 : static_cast<int>(pos);
 }
 
-int PyStr::index(const std::string &sub) const {
+int PyStr::index(const PyStr &sub) const {
     int pos = find(sub);
     if (pos == -1)
         throw std::runtime_error("substring not found");
     return pos;
 }
 
-int PyStr::rindex(const std::string &sub) const {
-    size_t pos = s.rfind(sub);
+int PyStr::rindex(const PyStr &sub) const {
+    size_t pos = s.rfind(sub.str());
     if (pos == std::string::npos)
         throw std::runtime_error("substring not found");
     return static_cast<int>(pos);
 }
 
-int PyStr::count(const std::string &sub) const {
+int PyStr::count(const PyStr &sub) const {
     int c = 0;
     size_t pos = 0;
-    while ((pos = s.find(sub, pos)) != std::string::npos) {
+    while ((pos = s.find(sub.str(), pos)) != std::string::npos) {
         ++c;
-        pos += sub.length();
+        pos += sub.len();
     }
     return c;
 }
 
-bool PyStr::startswith(const std::string &prefix) const {
-    return s.substr(0, prefix.size()) == prefix;
+bool PyStr::startswith(const PyStr &prefix) const {
+    return s.substr(0, prefix.len()) == prefix.str();
 }
 
-bool PyStr::endswith(const std::string &suffix) const {
-    if (suffix.size() > s.size())
+bool PyStr::endswith(const PyStr &suffix) const {
+    if (suffix.len() > s.size())
         return false;
-    return s.substr(s.size() - suffix.size()) == suffix;
+    return s.substr(s.size() - suffix.len()) == suffix.str();
 }
 
 PyStr PyStr::lower() const {

@@ -16,12 +16,12 @@ public:
     void append(const std::string &suffix);
     char pop();
     PyStr replace(const std::string &old, const std::string &replacement, int count = -1) const;
-    int find(const std::string &sub) const;
-    int index(const std::string &sub) const;
-    int rindex(const std::string &sub) const;
-    int count(const std::string &sub) const;
-    bool startswith(const std::string &prefix) const;
-    bool endswith(const std::string &suffix) const;
+    int find(const PyStr &sub) const;
+    int index(const PyStr &sub) const;
+    int rindex(const PyStr &sub) const;
+    int count(const PyStr &sub) const;
+    bool startswith(const PyStr &prefix) const;
+    bool endswith(const PyStr &suffix) const;
     PyStr lower() const;
     PyStr upper() const;
     PyStr strip() const;
