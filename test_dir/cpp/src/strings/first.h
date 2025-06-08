@@ -2,4 +2,4 @@
 
 #include "py_str.h"
 
-PyStr return_friend();
+void string_ops();

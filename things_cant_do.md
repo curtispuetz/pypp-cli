@@ -4,3 +4,11 @@
 - let things have references to variables that have gone out of scope and deleted (this is like the hard one)
 - define a variable without a Python type hint
 - use variables differently from their type hints
+- Name things with these names:
+  - PyStr
+  - etc.
+- Use those class override method things
+- Name a file in the root of the src dir:
+  - py_str.py
+  - pypp_util
+- print something other than a string (for now)

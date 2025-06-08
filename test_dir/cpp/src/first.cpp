@@ -1,11 +1,11 @@
 #include "first.h"
 
-std::string return_something(int a, int b) {
-    std::string ret;
+PyStr return_something(int a, int b) {
+    PyStr ret;
     if (a > b) {
-        ret = "abc";
+        ret = PyStr("abc");
     } else {
-        ret = "xyz";
+        ret = PyStr("xyz");
     }
     return ret;
 }

@@ -1,5 +1,5 @@
 #pragma once
 
-#include <string>
+#include "py_str.h"
 
-std::string return_something(int a, int b);
+PyStr return_something(int a, int b);

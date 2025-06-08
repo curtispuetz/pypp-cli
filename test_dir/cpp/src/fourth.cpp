@@ -1,8 +1,8 @@
 #include "fourth.h"
 
-std::string string_as_argument(const std::string &input) {
-    if (input < "abc") {
+PyStr string_as_argument(const PyStr &input) {
+    if (input < PyStr("abc")) {
         return input;
     }
-    return "abc";
+    return PyStr("abc");
 }
