@@ -13,6 +13,6 @@ if __name__ == "__main__":
     print(using_inline_string())
     print(string_as_argument("hello"))
     print(if_elif_else_fn(6, 6))
-    list_fn()
     number_ops()
     string_ops()
+    list_fn()

@@ -7,6 +7,7 @@
 class PyStr {
     std::string s;
     PyStr slice(int start, int stop, int step = 1) const;
+    static std::string repeat_string(const std::string& input, int rep);
 
 public:
     PyStr(const std::string &str = "");
@@ -30,6 +31,8 @@ public:
 
     PyStr operator+(const PyStr &other) const;
     PyStr operator*(const int rep) const;
+    void operator+=(const PyStr &other);
+    void operator*=(const int rep);
     PyStr operator[](int i) const;
     PyStr operator[](const PySlice &sl) const;
 
@@ -39,8 +42,7 @@ public:
     bool operator>(const PyStr &other) const;
     bool operator>=(const PyStr &other) const;
     bool operator!=(const PyStr &other) const;
-    void operator+=(const PyStr &other);
-    void operator*=(const int rep);
+
 
     std::string str() const;
     void print() const;
