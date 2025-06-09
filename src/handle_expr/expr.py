@@ -13,11 +13,13 @@ from src.handle_expr.h_unary_op import handle_unary_op
 from src.handle_expr.handle_slice import handle_slice
 
 
-def handle_expr(node: ast.expr, ret_imports: set[CppInclude]) -> str:
+def handle_expr(
+    node: ast.expr, ret_imports: set[CppInclude], skip_cpp_lookup: bool = False
+) -> str:
     if isinstance(node, ast.Compare):
         return handle_compare(node, ret_imports, handle_expr)
     if isinstance(node, ast.Name):
-        return handle_name(node)
+        return handle_name(node, ret_imports, skip_cpp_lookup)
     if isinstance(node, ast.Constant):
         return handle_constant(node, ret_imports)
     if isinstance(node, ast.Call):

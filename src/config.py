@@ -14,3 +14,5 @@ C_PYTHON_MAIN_FILE: str = os.path.join(C_PYTHON_DIR, "main.py")
 C_PYTHON_SRC_DIR: str = os.path.join(C_PYTHON_DIR, "src")
 
 C_CPP_TEMPLATE_DIR: str = os.path.join(dirname, "../cpp_template")
+
+# TODO: if the PyList has string elements, print the elements with quotes around it.

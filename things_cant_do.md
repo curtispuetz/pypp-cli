@@ -15,3 +15,5 @@
 - print with multiple args (i.e. print(a, b))
 - You cannot do integer math and expect a float returned
 - del my_list[i] (use my_list.pop(i) instead)
+- Modify an object passed to a function (because the C++ always uses const)
+- Use multiline string literals as comments
