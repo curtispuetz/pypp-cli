@@ -17,3 +17,4 @@
 - del my_list[i] (use my_list.pop(i) instead)
 - Modify an object passed to a function (because the C++ always uses const)
 - Use multiline string literals as comments
+- In Python you can assume a dict maintains insertion order, but in a the C++ build you can't

@@ -5,7 +5,6 @@
 #include <algorithm>
 #include <iostream>
 #include "py_slice.h"
-#include "py_type_traits.h"
 
 template<typename T>
 class PyList {
@@ -134,11 +133,7 @@ public:
     void print() const {
         std::cout << "[";
         for (size_t i = 0; i < data.size(); ++i) {
-            if constexpr (is_pystr<T>::value) {
-                std::cout << "'" << data[i] << "'";
-            } else {
-                std::cout << data[i];
-            }
+            std::cout << data[i];
             if (i != data.size() - 1) std::cout << ", ";
         }
         std::cout << "]" << std::endl;

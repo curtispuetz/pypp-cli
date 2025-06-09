@@ -172,7 +172,7 @@ void PyStr::print() const {
 }
 
 std::ostream& operator<<(std::ostream& os, const PyStr& pystr) {
-    return os << pystr.str();
+    return os << "'" << pystr.str() << "'";
 }
 
 bool PyStr::operator==(const PyStr &other) const {
