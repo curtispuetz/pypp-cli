@@ -48,8 +48,3 @@ public:
     void print() const;
     friend std::ostream& operator<<(std::ostream& os, const PyStr& pystr);
 };
-
-template<>
-struct is_pystr<PyStr> {
-    static constexpr bool value = true;
-};

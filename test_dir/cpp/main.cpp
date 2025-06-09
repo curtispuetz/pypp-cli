@@ -1,5 +1,6 @@
 #include "py_list.h"
 #include "py_str.h"
+#include "src/dicts/first.h"
 #include "src/first.h"
 #include "src/fourth.h"
 #include "src/if_elif_else/if_elif_else.h"
@@ -25,5 +26,6 @@ int main() {
     my_list.print();
     PyList<PyStr> str_list = PyList({PyStr("ab"), PyStr("cd")});
     str_list.print();
+    dict_fn();
     return 0;
 }

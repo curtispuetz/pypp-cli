@@ -7,6 +7,7 @@ from src.lists.lists import list_fn
 from src.strings.first import string_ops
 from src.numbers.first import number_ops
 from src.lists.as_arg import list_as_arg, list_as_mutable_arg
+from src.dicts.first import dict_fn
 
 if __name__ == "__main__":
     print(return_something(1, 9))
@@ -21,5 +22,6 @@ if __name__ == "__main__":
     list_as_arg(my_list)
     list_as_mutable_arg(my_list)
     print(my_list)
-    str_list: list[str] = ['ab', 'cd']
+    str_list: list[str] = ["ab", "cd"]
     print(str_list)
+    dict_fn()
