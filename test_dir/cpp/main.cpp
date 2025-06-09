@@ -23,5 +23,7 @@ int main() {
     list_as_arg(my_list);
     list_as_mutable_arg(my_list);
     my_list.print();
+    PyList<PyStr> str_list = PyList({PyStr("ab"), PyStr("cd")});
+    str_list.print();
     return 0;
 }

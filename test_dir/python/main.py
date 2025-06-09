@@ -21,3 +21,5 @@ if __name__ == "__main__":
     list_as_arg(my_list)
     list_as_mutable_arg(my_list)
     print(my_list)
+    str_list: list[str] = ['ab', 'cd']
+    print(str_list)
