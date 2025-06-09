@@ -25,7 +25,6 @@ public:
     PyStr strip() const;
     PyStr lstrip() const;
     PyStr rstrip() const;
-    // TODO: I'll have to check these later and use my PyList type instead of std::vector
     PyList<PyStr> split(const PyStr &sep = PyStr(" ")) const;
     PyStr join(const PyList<PyStr> &parts);
     size_t len() const;
