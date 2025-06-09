@@ -1,7 +1,9 @@
+#include "py_list.h"
 #include "py_str.h"
 #include "src/first.h"
 #include "src/fourth.h"
 #include "src/if_elif_else/if_elif_else.h"
+#include "src/lists/as_arg.h"
 #include "src/lists/lists.h"
 #include "src/numbers/first.h"
 #include "src/second.h"
@@ -17,5 +19,9 @@ int main() {
     number_ops();
     list_fn();
     string_ops();
+    PyList<int> my_list = PyList({1, 2, 3, 4});
+    list_as_arg(my_list);
+    list_as_mutable_arg(my_list);
+    my_list.print();
     return 0;
 }

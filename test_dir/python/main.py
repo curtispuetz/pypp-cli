@@ -6,6 +6,7 @@ from src.if_elif_else.if_elif_else import if_elif_else_fn
 from src.lists.lists import list_fn
 from src.strings.first import string_ops
 from src.numbers.first import number_ops
+from src.lists.as_arg import list_as_arg, list_as_mutable_arg
 
 if __name__ == "__main__":
     print(return_something(1, 9))
@@ -16,3 +17,7 @@ if __name__ == "__main__":
     number_ops()
     list_fn()
     string_ops()
+    my_list: list[int] = [1, 2, 3, 4]
+    list_as_arg(my_list)
+    list_as_mutable_arg(my_list)
+    print(my_list)
