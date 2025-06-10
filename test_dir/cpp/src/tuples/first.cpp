@@ -12,4 +12,7 @@ void tuples_fn() {
     to_pystr(PyTup(1, 2) <= PyTup(1, 2)).print();
     to_pystr(PyTup(1, 2) > PyTup(1, 2)).print();
     to_pystr(PyTup(1, 2) >= PyTup(1, 2)).print();
+    PyTup(1, 2).print();
+    PyTup(1, 2, PyStr("a")).print();
+    to_pystr(PyTup(1, 2).len()).print();
 }
