@@ -6,3 +6,4 @@
 #include "pypp_util/to_py_str.h"
 
 void dict_fn();
+void _fn_dict_arg(const PyDict<int, int> &d);

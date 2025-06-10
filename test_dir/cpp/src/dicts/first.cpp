@@ -46,4 +46,6 @@ void dict_fn() {
     a.pop(0);
     a_copy.print();
     a.print();
+    _fn_dict_arg({{0, 1}, {1, 2}});
 }
+void _fn_dict_arg(const PyDict<int, int> &d) { d.print(); }
