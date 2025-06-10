@@ -17,4 +17,18 @@ def dict_fn():
     if not c.has_value():
         print("no value")
     print(c.value_or("no value from value_or"))
-    #
+    # setting
+    a[3] = "d"
+    print(a)
+    val: str = a.setdefault(4, "e")
+    print(val)
+    print(a)
+    val = a.setdefault(4, "f")
+    print(val)
+    print(a)
+    # keys
+    print(a.keys())
+    # values
+    print(a.values())
+    # TODO: items
+    # print(a.items())

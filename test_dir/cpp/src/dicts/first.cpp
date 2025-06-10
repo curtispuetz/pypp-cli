@@ -15,4 +15,14 @@ void dict_fn() {
         PyStr("no value").print();
     }
     c.value_or(PyStr("no value from value_or")).print();
+    a[3] = PyStr("d");
+    a.print();
+    PyStr val = a.setdefault(4, PyStr("e"));
+    val.print();
+    a.print();
+    val = a.setdefault(4, PyStr("f"));
+    val.print();
+    a.print();
+    a.keys().print();
+    a.values().print();
 }
