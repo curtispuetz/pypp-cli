@@ -99,7 +99,6 @@ public:
     }
 
     // contains(key)
-    // TODO: will I use this instead of IN?
     bool contains(const K& key) const {
         return data.find(key) != data.end();
     }

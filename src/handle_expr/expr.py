@@ -9,6 +9,7 @@ from src.handle_expr.h_constant import handle_constant
 from src.handle_expr.h_dict import handle_dict
 from src.handle_expr.h_list import handle_list
 from src.handle_expr.h_name import handle_name
+from src.handle_expr.h_set import handle_set
 from src.handle_expr.h_subscript import handle_subscript
 from src.handle_expr.h_tuple import handle_tuple
 from src.handle_expr.h_unary_op import handle_unary_op
@@ -42,4 +43,6 @@ def handle_expr(
         return handle_tuple(node, ret_imports, handle_expr)
     if isinstance(node, ast.Dict):
         return handle_dict(node, ret_imports, handle_expr)
+    if isinstance(node, ast.Set):
+        return handle_set(node, ret_imports, handle_expr)
     raise Exception(f"code expr type {node} not handled")

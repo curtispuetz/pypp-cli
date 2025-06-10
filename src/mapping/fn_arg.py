@@ -1,4 +1,4 @@
-FN_ARG_CONST_REF: set[str] = {"PyStr", "PyList", "PyDict", "PyTup"}
+FN_ARG_CONST_REF: set[str] = {"PyStr", "PyList", "PyDict", "PyTup", "PySet"}
 
 
 def lookup_cpp_fn_arg(cpp_arg: str, is_const: bool) -> str:

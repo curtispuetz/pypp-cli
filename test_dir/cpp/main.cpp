@@ -8,6 +8,7 @@
 #include "src/lists/lists.h"
 #include "src/numbers/first.h"
 #include "src/second.h"
+#include "src/sets/first.h"
 #include "src/strings/first.h"
 #include "src/third.h"
 #include "src/tuples/first.h"
@@ -29,5 +30,6 @@ int main() {
     str_list.print();
     tuples_fn();
     dict_fn();
+    set_fn();
     return 0;
 }
