@@ -61,3 +61,8 @@ def dict_fn():
     a.pop(0)
     print(a_copy)
     print(a)
+    _fn_dict_arg({0: 1, 1: 2})
+
+
+def _fn_dict_arg(d: dict[int, int]):
+    print(d)

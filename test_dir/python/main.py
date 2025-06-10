@@ -27,5 +27,5 @@ if __name__ == "__main__":
     str_list: list[str] = ["ab", "cd"]
     print(str_list)
     tuples_fn()
-    dict_fn()
     set_fn()
+    dict_fn()
