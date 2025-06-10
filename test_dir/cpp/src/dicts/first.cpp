@@ -40,4 +40,10 @@ void dict_fn() {
     pop_val = a.pop(10, PyStr("default value"));
     pop_val.print();
     a.print();
+    to_pystr(a.len()).print();
+    to_pystr(a.contains(5)).print();
+    PyDict<int, PyStr> a_copy(a.copy());
+    a.pop(0);
+    a_copy.print();
+    a.print();
 }

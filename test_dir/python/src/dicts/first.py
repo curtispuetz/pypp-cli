@@ -52,3 +52,12 @@ def dict_fn():
     pop_val = a.pop(10, "default value")
     print(pop_val)
     print(a)
+    # length
+    print(str(len(a)))
+    # contains
+    print(str(5 in a))
+    # copy
+    a_copy: dict[int, str] = a.copy()
+    a.pop(0)
+    print(a_copy)
+    print(a)

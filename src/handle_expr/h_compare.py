@@ -12,5 +12,7 @@ def handle_compare(node: ast.Compare, ret_imports: set[CppInclude], handle_expr)
     right_str = handle_expr(right, ret_imports)
     assert len(node.ops) == 1, "Not supported"
     op = node.ops[0]
+    if isinstance(op, ast.In):
+        return f"{right_str}.contains({left_str})"
     op_str = lookup_cmpop(op)
     return f"{left_str} {op_str} {right_str}"

@@ -126,23 +126,9 @@ public:
         return new_dict;
     }
 
-    // static fromkeys()
-    static PyDict<K, V> fromkeys(const std::vector<K>& keys, const V& value) {
-        PyDict<K, V> new_dict;
-        for (const auto& key : keys)
-            new_dict.data[key] = value;
-        return new_dict;
-    }
-
-    // popitem()
-    std::pair<K, V> popitem() {
-        if (data.empty())
-            throw std::out_of_range("popitem(): dictionary is empty");
-        auto it = data.begin();
-        auto item = *it;
-        data.erase(it);
-        return item;
-    }
+    // TODO later: support dict.fromkeys
+    // NOTE: the popitem() method is not supported because this map is not
+    // ordered by the insertion order of the items like the Python dict is.
 
     // Print
     void print() const {
