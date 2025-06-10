@@ -27,7 +27,7 @@ int main() {
     my_list.print();
     PyList<PyStr> str_list = PyList({PyStr("ab"), PyStr("cd")});
     str_list.print();
-    dict_fn();
     tuples_fn();
+    dict_fn();
     return 0;
 }
