@@ -17,4 +17,4 @@ def lookup_cmpop(_type: ast.cmpop):
     if isinstance(_type, ast.NotEq):
         return "!="
 
-    raise f"cmpop type {_type} is not handled"
+    raise Exception(f"cmpop type {_type} is not handled")

@@ -19,7 +19,7 @@ def lookup_op(
     if isinstance(_type, ast.FloorDiv):
         ret_imports.add(QInc("pypp_util/floor_div.h"))
         return "py_floor_div(", ", ", ")"
-    raise f"cmpop type {_type} is not handled"
+    raise Exception(f"operator type {_type} is not handled")
 
 
 def lookup_simple_op(_type: ast.operator) -> str:
