@@ -191,6 +191,12 @@ public:
         return *this;
     }
 
+    // Iterator support
+    auto begin() { return data.begin(); }
+    auto end() { return data.end(); }
+    auto begin() const { return data.begin(); }
+    auto end() const { return data.end(); }
+
     template<typename U>
     friend std::ostream& operator<<(std::ostream& os, const PyList<U>& list);
 };

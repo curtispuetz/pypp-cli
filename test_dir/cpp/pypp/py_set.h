@@ -2,6 +2,7 @@
 #include <initializer_list>
 #include <stdexcept>
 #include <iostream>
+#include <sstream>
 
 template<typename T>
 class PySet {
@@ -79,6 +80,48 @@ public:
         return result;
     }
 
+    // Update: add elements from another container
+    template<typename Iterable>
+    void update(const Iterable& other) {
+        for (const auto& elem : other) {
+            data.insert(elem);
+        }
+    }
+
+    // Difference update: remove elements found in another container
+    template<typename Iterable>
+    void difference_update(const Iterable& other) {
+        for (const auto& elem : other) {
+            data.erase(elem);
+        }
+    }
+
+    // Intersection update: keep only elements also in another container
+    template<typename Iterable>
+    void intersection_update(const Iterable& other) {
+        std::unordered_set<T> other_set(other.begin(), other.end());
+        for (auto it = data.begin(); it != data.end(); ) {
+            if (other_set.find(*it) == other_set.end()) {
+                it = data.erase(it);
+            } else {
+                ++it;
+            }
+        }
+    }
+
+    // Symmetric difference update: elements in either set but not both
+    template<typename Iterable>
+    void symmetric_difference_update(const Iterable& other) {
+        std::unordered_set<T> other_set(other.begin(), other.end());
+        for (const auto& elem : other_set) {
+            if (data.find(elem) != data.end()) {
+                data.erase(elem);
+            } else {
+                data.insert(elem);
+            }
+        }
+    }
+
     // Comparison operators (issubset, issuperset, equality)
     bool issubset(const PySet<T>& other) const {
         for (const auto& item : data) {
@@ -112,18 +155,38 @@ public:
     }
 
     // Iterator support
+    auto begin() { return data.begin(); }
+    auto end() { return data.end(); }
     auto begin() const { return data.begin(); }
     auto end() const { return data.end(); }
 
     // For debugging
-    void print() const {
-        std::cout << "{";
+    void print(std::ostream& os) const {
+        if (data.size() == 0) {
+            os << "set()";
+            return;
+        }
+        os << "{";
         int i = 0;
         for (const auto& item : data) {
-            std::cout << item;
-            if (i != data.size() - 1) std::cout << ", ";
+            os << item;
+            if (i != data.size() - 1) os << ", ";
             i++;
         }
-        std::cout << "}" << std::endl;
+        os << "}";
     }
+
+    void print() const {
+        print(std::cout);
+        std::cout << std::endl;
+    }
+
+    template<typename U>
+    friend std::ostream& operator<<(std::ostream& os, const PySet<U>& other);
 };
+
+template<typename T>
+std::ostream& operator<<(std::ostream& os, const PySet<T>& other) {
+    other.print(os);
+    return os;
+}
