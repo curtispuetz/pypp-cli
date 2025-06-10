@@ -18,3 +18,8 @@ def tuples_fn():
     print(str((1, 2) <= (1, 2)))
     print(str((1, 2) > (1, 2)))
     print(str((1, 2) >= (1, 2)))
+    # printing
+    print((1, 2))
+    print((1, 2, "a"))
+    # length
+    print(str(len((1, 2))))

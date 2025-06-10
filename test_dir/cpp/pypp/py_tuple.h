@@ -2,6 +2,7 @@
 #include <stdexcept>
 #include <utility>
 #include <any>
+#include <iostream>
 
 template<typename... Args>
 class PyTup {
@@ -57,6 +58,18 @@ private:
         return getters[index](this);
     }
 
+    // Helper for printing
+    template <std::size_t I = 0>
+    void print_impl() const {
+        if constexpr (I < sizeof...(Args)) {
+            std::cout << std::get<I>(data);
+            if constexpr (I + 1 < sizeof...(Args)) {
+                std::cout << ", ";
+            }
+            print_impl<I + 1>();
+        }
+    }
+
 public:
     // Constructor
     PyTup(Args... args) : data(std::make_tuple(args...)) {}
@@ -83,6 +96,18 @@ public:
     const auto& get() const {
         static_assert(I < sizeof...(Args), "index is out of bounds");
         return std::get<I>(data);
+    }
+
+    // New: Length method
+    std::size_t len() const {
+        return sizeof...(Args);
+    }
+
+    // New: Print method
+    void print() const {
+        std::cout << "(";
+        print_impl();
+        std::cout << ")" << std::endl;
     }
 
     // Comparison operators
