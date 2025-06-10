@@ -4,6 +4,7 @@
 #include <stdexcept>
 #include <algorithm>
 #include <iostream>
+#include <sstream>
 #include "py_slice.h"
 
 template<typename T>
@@ -129,15 +130,20 @@ public:
         return slice(sl.start, sl.stop, sl.step);
     }
 
-    // Print
-    void print() const {
-        std::cout << "[";
+    void print(std::ostream& os) const {
+        os << "[";
         for (size_t i = 0; i < data.size(); ++i) {
-            std::cout << data[i];
-            if (i != data.size() - 1) std::cout << ", ";
+            os << data[i];
+            if (i != data.size() - 1) os << ", ";
         }
-        std::cout << "]" << std::endl;
+        os << "]";
     }
+
+    void print() const {
+        print(std::cout);
+        std::cout << std::endl;
+    }
+
 
     bool operator==(const PyList<T>& other) const {
         return data == other.data;
@@ -184,4 +190,14 @@ public:
         data = repeat_data(data, count);
         return *this;
     }
+
+    template<typename U>
+    friend std::ostream& operator<<(std::ostream& os, const PyList<U>& list);
 };
+
+
+template<typename T>
+std::ostream& operator<<(std::ostream& os, const PyList<T>& list) {
+    list.print(os);
+    return os;
+}

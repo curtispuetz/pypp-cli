@@ -108,6 +108,7 @@ public:
     // Print method (now calls print_impl with std::cout)
     void print() const {
         print(std::cout); // Default to printing to std::cout
+        std::cout << std::endl;
     }
 
     // Overloaded print method to print to any ostream
