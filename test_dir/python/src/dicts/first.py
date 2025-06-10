@@ -62,6 +62,8 @@ def dict_fn():
     print(a_copy)
     print(a)
     _fn_dict_arg({0: 1, 1: 2})
+    # TODO later: handle addition
+    # print({0: 1} | {1: 2})
 
 
 def _fn_dict_arg(d: dict[int, int]):
