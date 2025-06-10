@@ -1,3 +1,5 @@
+#pragma once
+
 #include <tuple>
 #include <stdexcept>
 #include <utility>
@@ -58,15 +60,15 @@ private:
         return getters[index](this);
     }
 
-    // Helper for printing
+    // Helper for printing (now takes an ostream reference)
     template <std::size_t I = 0>
-    void print_impl() const {
+    void print_impl(std::ostream& os) const {
         if constexpr (I < sizeof...(Args)) {
-            std::cout << std::get<I>(data);
+            os << std::get<I>(data);
             if constexpr (I + 1 < sizeof...(Args)) {
-                std::cout << ", ";
+                os << ", ";
             }
-            print_impl<I + 1>();
+            print_impl<I + 1>(os); // Pass the ostream to the next recursive call
         }
     }
 
@@ -98,16 +100,21 @@ public:
         return std::get<I>(data);
     }
 
-    // New: Length method
+    // Length method
     std::size_t len() const {
         return sizeof...(Args);
     }
 
-    // New: Print method
+    // Print method (now calls print_impl with std::cout)
     void print() const {
-        std::cout << "(";
-        print_impl();
-        std::cout << ")" << std::endl;
+        print(std::cout); // Default to printing to std::cout
+    }
+
+    // Overloaded print method to print to any ostream
+    void print(std::ostream& os) const {
+        os << "(";
+        print_impl(os); // Pass the ostream to the helper
+        os << ")";
     }
 
     // Comparison operators
@@ -117,4 +124,16 @@ public:
     bool operator<=(const PyTup& other) const { return data <= other.data; }
     bool operator>(const PyTup& other)  const { return data >  other.data; }
     bool operator>=(const PyTup& other) const { return data >= other.data; }
+
+    // Friend declaration for the stream insertion operator
+    // This allows the operator to access private members if needed (though print() is public)
+    template<typename... OtherArgs>
+    friend std::ostream& operator<<(std::ostream& os, const PyTup<OtherArgs...>& tup);
 };
+
+// Stream insertion operator overload
+template<typename... Args>
+std::ostream& operator<<(std::ostream& os, const PyTup<Args...>& tup) {
+    tup.print(os); // Call the flexible print method
+    return os;     // Return the ostream reference to allow chaining
+}

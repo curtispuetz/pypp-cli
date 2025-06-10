@@ -25,4 +25,5 @@ void dict_fn() {
     a.print();
     a.keys().print();
     a.values().print();
+    a.items().print();
 }

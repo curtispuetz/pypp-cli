@@ -1,3 +1,5 @@
+#pragma once
+
 #include <unordered_map>
 #include <vector>
 #include <optional>
@@ -6,6 +8,7 @@
 #include <utility>
 #include <initializer_list>
 #include "py_list.h"
+#include "py_tuple.h"
 
 
 template<typename K, typename V>
@@ -40,11 +43,10 @@ public:
     }
 
     // items()
-    // TODO: maybe this should use the PyTuple type later
-    PyList<std::pair<K, V>> items() const {
-        std::vector<std::pair<K, V>> result;
+    PyList<PyTup<K, V>> items() const {
+        std::vector<PyTup<K, V>> result;
         for (const auto& pair : data)
-            result.push_back(pair);
+            result.push_back(PyTup(pair.first, pair.second));
         return PyList(result);
     }
 

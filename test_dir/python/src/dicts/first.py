@@ -30,5 +30,5 @@ def dict_fn():
     print(a.keys())
     # values
     print(a.values())
-    # TODO: items
-    # print(a.items())
+    # items
+    print(a.items())
