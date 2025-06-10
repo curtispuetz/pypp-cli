@@ -9,6 +9,7 @@ from src.numbers.first import number_ops
 from src.lists.as_arg import list_as_arg, list_as_mutable_arg
 from src.dicts.first import dict_fn
 from src.tuples.first import tuples_fn
+from src.sets.first import set_fn
 
 if __name__ == "__main__":
     print(return_something(1, 9))
@@ -27,3 +28,4 @@ if __name__ == "__main__":
     print(str_list)
     tuples_fn()
     dict_fn()
+    set_fn()
