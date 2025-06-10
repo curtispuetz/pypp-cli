@@ -18,3 +18,6 @@
 - Modify an object passed to a function (because the C++ always uses const)
 - Use multiline string literals as comments
 - In Python you can assume a dict maintains insertion order, but in a the C++ build you can't
+- dict.get() method does not have the second 'default value' argument
+- Use the Python None. Instead you use PyppOpt (optional)
+- Print an optional

@@ -48,10 +48,19 @@ public:
         return PyList(result);
     }
 
-    // get(key, default)
+    // get(key)
+    std::optional<V> get(const K& key) const {
+        auto it = data.find(key);
+        if (it != data.end())
+            return it->second;
+        return std::nullopt;
+    }
+
     V get(const K& key, const V& default_value) const {
         auto it = data.find(key);
-        return it != data.end() ? it->second : default_value;
+        if (it != data.end())
+            return it->second;
+        return default_value;
     }
 
     // update(other_dict)
