@@ -23,3 +23,5 @@
 - Print an optional
 - Make large tuples (use a list for large collections instead)
 - Redefine variables
+- Call methods or functions C++ reserved keywords (i.e. union, etc.)
+- <, <=, >=, > comparisons on sets.
