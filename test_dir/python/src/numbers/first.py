@@ -1,3 +1,6 @@
+from test_dir.python.pypp.pypp_print import pypp_print
+
+
 def number_ops():
     a: int = 1 + 2
     print(str(a))
@@ -28,3 +31,5 @@ def number_ops():
     print(str(g))
     g /= 5
     print(str(g))
+    # print a string
+    pypp_print(1)

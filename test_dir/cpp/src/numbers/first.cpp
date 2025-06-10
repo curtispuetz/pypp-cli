@@ -27,4 +27,5 @@ void number_ops() {
     to_pystr(g).print();
     g /= 5;
     to_pystr(g).print();
+    std::cout << 1 << std::endl;
 }

@@ -6,4 +6,6 @@ import ast
 def lookup_unary_op(_type: ast.unaryop) -> str:
     if isinstance(_type, ast.USub):
         return "-"
+    if isinstance(_type, ast.Not):
+        return "!"
     raise Exception(f"unary op type {_type} is not handled")
