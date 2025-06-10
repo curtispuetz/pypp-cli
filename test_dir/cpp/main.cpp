@@ -10,6 +10,7 @@
 #include "src/second.h"
 #include "src/strings/first.h"
 #include "src/third.h"
+#include "src/tuples/first.h"
 
 int main() {
     return_something(1, 9).print();
@@ -27,5 +28,6 @@ int main() {
     PyList<PyStr> str_list = PyList({PyStr("ab"), PyStr("cd")});
     str_list.print();
     dict_fn();
+    tuples_fn();
     return 0;
 }

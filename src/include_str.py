@@ -13,6 +13,7 @@ def calc_includes_string(ret_imports: set[CppInclude]) -> str:
                 "test_dir/python/pypp/custom_types.h",
                 "test_dir/python/pypp/optional.h",
                 "test_dir/python/pypp/pypp_print.h",
+                "test_dir/python/pypp/tuple_get.h",
             }:
                 continue
             ret.append(f'#include "{imp.val}"\n')

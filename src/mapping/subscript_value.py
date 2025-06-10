@@ -1,4 +1,4 @@
-SUBSCRIPT_VALUE_SQ_BRACKETS: set[str] = {"PyStr", "PyList", "PyDict"}
+SUBSCRIPT_VALUE_SQ_BRACKETS: set[str] = {"PyStr", "PyList", "PyDict", "PyTup"}
 
 
 def lookup_cpp_subscript_value_type(cpp_value: str) -> tuple[str, str]:

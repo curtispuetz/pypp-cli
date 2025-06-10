@@ -96,7 +96,6 @@ public:
     V& operator[](const K& key) {
         return data[key];
     }
-
     const V& operator[](const K& key) const {
         auto it = data.find(key);
         if (it == data.end()) throw std::out_of_range("Key not found");
