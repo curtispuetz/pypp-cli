@@ -29,4 +29,15 @@ void dict_fn() {
     PyDict<int, PyList<int>> d(
         {{0, PyList({1, 2, 3})}, {1, PyList({4, 5, 6})}});
     d.print();
+    d.clear();
+    d[0] = PyList({1});
+    d.print();
+    a.update({{4, PyStr("z")}, {5, PyStr("x")}});
+    a.print();
+    PyStr pop_val = a.pop(1);
+    pop_val.print();
+    a.print();
+    pop_val = a.pop(10, PyStr("default value"));
+    pop_val.print();
+    a.print();
 }

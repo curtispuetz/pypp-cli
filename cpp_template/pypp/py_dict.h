@@ -72,6 +72,16 @@ public:
     }
 
     // pop(key, default)
+    V pop(const K& key) {
+        auto it = data.find(key);
+        if (it != data.end()) {
+            V value = it->second;
+            data.erase(it);
+            return value;
+        }
+        throw std::invalid_argument("key not in dict");
+    }
+
     V pop(const K& key, const V& default_value) {
         auto it = data.find(key);
         if (it != data.end()) {
