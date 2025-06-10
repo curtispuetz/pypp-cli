@@ -38,3 +38,17 @@ def dict_fn():
         1: [4, 5, 6],
     }
     print(d)
+    # clear
+    d.clear()
+    d[0] = [1]
+    print(d)
+    # update
+    a.update({4: "z", 5: "x"})
+    print(a)
+    # pop
+    pop_val: str = a.pop(1)
+    print(pop_val)
+    print(a)
+    pop_val = a.pop(10, "default value")
+    print(pop_val)
+    print(a)
