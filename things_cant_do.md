@@ -22,3 +22,4 @@
 - Use the Python None. Instead you use PyppOpt (optional)
 - Print an optional
 - Make large tuples (use a list for large collections instead)
+- Redefine variables
