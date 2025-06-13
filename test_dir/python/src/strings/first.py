@@ -1,5 +1,5 @@
 def string_ops():
-    # TODO later: there are a number of small string methods that I don't have tested
+    # TODO later: there are a number of little string methods that I don't have tested
     #  below or implemented in PyStr
     # declaration
     s: str = "  abd  "

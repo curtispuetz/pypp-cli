@@ -1,4 +1,5 @@
 # Things you can't do in py++ (only the C++ won't work)
+#### Note: some things in here could be old, or could be removed from the list in the future. The list is also a WIP.
 - overwrite built-in Python keywords
 - use variables out of their scope
 - let things have references to variables that have gone out of scope and deleted (this is like the hard one)
@@ -15,7 +16,6 @@
 - print with multiple args (i.e. print(a, b))
 - You cannot do integer math and expect a float returned
 - del my_list[i] (use my_list.pop(i) instead)
-- Modify an object passed to a function (because the C++ always uses const)
 - Use multiline string literals as comments
 - In Python you can assume a dict maintains insertion order, but in a the C++ build you can't
 - dict.get() method does not have the second 'default value' argument
@@ -24,4 +24,5 @@
 - Make large tuples (use a list for large collections instead)
 - Redefine variables
 - Call methods or functions C++ reserved keywords (i.e. union, etc.)
+  - Or maybe these can just be changed to 'keyword_' in the C++?
 - <, <=, >=, > comparisons on sets.
