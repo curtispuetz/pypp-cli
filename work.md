@@ -15,5 +15,7 @@
 - Try-Catch
 - Match-Case (can do later)
 - import math library
+- the time library
+- multiprocessing library
 - file handling
 - Classes
