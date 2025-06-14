@@ -12,7 +12,7 @@
 template <typename T> class NpArr {
   private:
     std::vector<T> data_;
-    std::vector<size_t> shape_;
+    PyList<size_t> shape_;
     std::vector<size_t> strides_;
 
     // Helper to calculate the flat index from multidimensional indices
@@ -20,7 +20,7 @@ template <typename T> class NpArr {
         // Unpack indices into a vector
         std::vector<size_t> indices = {i, static_cast<size_t>(dims)...};
 
-        if (indices.size() != shape_.size()) {
+        if (indices.size() != shape_.len()) {
             throw std::out_of_range(
                 "Incorrect number of dimensions for indexing.");
         }
@@ -39,7 +39,7 @@ template <typename T> class NpArr {
     void print_recursive(std::ostream &os, size_t dim_index,
                          std::vector<size_t> &current_indices,
                          int indent_level) const {
-        if (dim_index == shape_.size() - 1) {
+        if (dim_index == shape_.len() - 1) {
             // Last dimension, print elements
             for (size_t i = 0; i < shape_[dim_index]; ++i) {
                 current_indices[dim_index] = i;
@@ -73,8 +73,8 @@ template <typename T> class NpArr {
 
   public:
     // Constructor takes a vector for the shape
-    NpArr(const std::vector<size_t> &shape) : shape_(shape) {
-        if (shape_.empty()) {
+    NpArr(const PyList<size_t> &shape) : shape_(shape) {
+        if (shape_.len() == 0) {
             throw std::invalid_argument(
                 "Shape must have at least one dimension.");
         }
@@ -83,16 +83,15 @@ template <typename T> class NpArr {
                             static_cast<size_t>(1), std::multiplies<size_t>());
         data_.resize(total_size);
 
-        strides_.resize(shape_.size());
+        strides_.resize(shape_.len());
         strides_.back() = 1;
-        for (int i = shape_.size() - 2; i >= 0; --i) {
+        for (int i = shape_.len() - 2; i >= 0; --i) {
             strides_[i] = strides_[i + 1] * shape_[i + 1];
         }
     }
 
     // Constructor that takes an initializer list for convenience
-    NpArr(std::initializer_list<size_t> shape)
-        : NpArr(std::vector<size_t>(shape)) {}
+    NpArr(std::initializer_list<size_t> shape) : NpArr(PyList<size_t>(shape)) {}
 
     // Variadic template for direct access, e.g., arr(0, 1, 2)
     template <typename... Dims> T &operator()(size_t i, Dims... dims) {
@@ -109,7 +108,7 @@ template <typename T> class NpArr {
 
     const PyList<int> shape() const {
         std::vector<int> ret;
-        ret.reserve(shape_.size());
+        ret.reserve(shape_.len());
         for (size_t val : shape_) {
             ret.push_back(static_cast<int>(val));
         }
@@ -125,7 +124,7 @@ template <typename T> class NpArr {
             return;
         }
 
-        std::vector<size_t> current_indices(shape_.size());
+        std::vector<size_t> current_indices(shape_.len());
         print_recursive(
             os, 0, current_indices,
             1); // Start recursion from dimension 0, initial indent 1
