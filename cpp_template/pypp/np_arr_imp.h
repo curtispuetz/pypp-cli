@@ -41,6 +41,7 @@ template <typename T> class NpArr {
                          int indent_level) const {
         if (dim_index == shape_.len() - 1) {
             // Last dimension, print elements
+            os << "[";
             for (size_t i = 0; i < shape_[dim_index]; ++i) {
                 current_indices[dim_index] = i;
                 size_t flat_index = 0;
@@ -52,6 +53,7 @@ template <typename T> class NpArr {
                     os << " ";
                 }
             }
+            os << "]";
         } else {
             // Not the last dimension, print opening bracket
             os << "[";
