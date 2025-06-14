@@ -31,11 +31,10 @@ def handle_call(node: ast.Call, ret_imports: set[CppInclude], handle_expr):
         tuple_arg = handle_expr(node.args[0], ret_imports)
         index_arg = handle_expr(node.args[1], ret_imports)
         return f"{tuple_arg}.get<{index_arg}>()"
-    elif caller_str.startswith("pypp_np"):
+    elif caller_str.startswith("pypp_np") and caller_str.endswith(
+        ("zeros", "ones", "full")
+    ):
         fn_name = caller_str[8:]
-        assert fn_name in {"zeros", "ones", "full"}, (
-            "no not name anything starting with 'pypp_np'"
-        )
         ret_imports.add(QInc("np_arr.h"))
         cpp_dtype = handle_expr(node.args[-1], ret_imports)
         shape_str = handle_expr(node.args[0], ret_imports)
