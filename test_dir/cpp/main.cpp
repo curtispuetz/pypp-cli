@@ -7,6 +7,7 @@
 #include "src/lists/as_arg.h"
 #include "src/lists/lists.h"
 #include "src/numbers/first.h"
+#include "src/numpy_arrays/first.h"
 #include "src/second.h"
 #include "src/sets/first.h"
 #include "src/strings/first.h"
@@ -31,5 +32,6 @@ int main() {
     tuples_fn();
     dict_fn();
     set_fn();
+    numpy_arrays_fn();
     return 0;
 }
