@@ -104,7 +104,7 @@ template <typename T> class PyList {
     void reverse() { std::reverse(data.begin(), data.end()); }
 
     // Size
-    int len() const { return data.size(); }
+    size_t len() const { return data.size(); }
 
     // Operator []
     // So modifications of operators are allowed?
