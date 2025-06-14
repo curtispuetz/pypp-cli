@@ -1,12 +1,18 @@
-# from typing import Annotated, Literal
-#
-# import numpy as np
-# from numpy.typing import NDArray
-#
-#
-# def numpy_arrays_fn():
-#     a: Annotated[NDArray[np.uint8], Literal[1080, 1920, 3]] = np.ones((2, 3, 4, 5), int)
-#     print(a)
+import numpy as np
+
+from test_dir.python.pypp.libs.numpy.creation import (
+    pypp_np_zeros,
+    pypp_np_ones,
+    pypp_np_full,
+)
+from test_dir.python.pypp.libs.numpy.impl import PyppNpArr
+
 
 def numpy_arrays_fn():
     print("start of numpy arrays")
+    a: PyppNpArr[np.float32] = pypp_np_zeros([2, 3], np.float32)
+    a.print()
+    b: PyppNpArr[np.float32] = pypp_np_ones([2, 3], np.float32)
+    b.print()
+    c: PyppNpArr[np.float32] = pypp_np_full([2, 3], -1, np.float32)
+    c.print()

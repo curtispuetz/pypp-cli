@@ -1,12 +1,12 @@
 import ast
 
-from src.d_types import CppInclude, SBInc
+from src.d_types import CppInclude, SBInc, QInc
 from src.mapping.calls import lookup_cpp_call
 from src.util.handle_lists import handle_exprs
 
 
 def handle_call(node: ast.Call, ret_imports: set[CppInclude], handle_expr):
-    caller_str = handle_expr(node.func, ret_imports, skip_cpp_lookup=True)
+    caller_str: str = handle_expr(node.func, ret_imports, skip_cpp_lookup=True)
     cpp_call_start, cpp_call_end = lookup_cpp_call(caller_str, ret_imports)
     if caller_str == "print":
         assert len(node.args) == 1, "only one argument supported for print statements"
@@ -31,5 +31,25 @@ def handle_call(node: ast.Call, ret_imports: set[CppInclude], handle_expr):
         tuple_arg = handle_expr(node.args[0], ret_imports)
         index_arg = handle_expr(node.args[1], ret_imports)
         return f"{tuple_arg}.get<{index_arg}>()"
+    elif caller_str.startswith("pypp_np"):
+        fn_name = caller_str[8:]
+        assert fn_name in {"zeros", "ones", "full"}, (
+            "no not name anything starting with 'pypp_np'"
+        )
+        ret_imports.add(QInc("np_arr.h"))
+        cpp_dtype = handle_expr(node.args[-1], ret_imports)
+        shape_str = handle_expr(node.args[0], ret_imports)
+        args_str: list[str] = [_add_size_t_to_shape_string(shape_str)]
+        if fn_name == "full":
+            fill_value = handle_expr(node.args[1], ret_imports)
+            args_str.append(fill_value)
+        return f"pypp_np::{fn_name}<{cpp_dtype}>({', '.join(args_str)})"
     args_str = handle_exprs(node.args, ret_imports, handle_expr)
     return f"{cpp_call_start}{args_str}{cpp_call_end}"
+
+
+def _add_size_t_to_shape_string(shape_str: str):
+    assert shape_str.startswith("PyList"), (
+        "list should be used as the first parameter for pypp_np_* methods"
+    )
+    return shape_str[0:6] + "<size_t>" + shape_str[6:]

@@ -29,6 +29,8 @@ def handle_stmt(
         return handle_stmt_expr(node, ret_imports, handle_expr)
     if isinstance(node, ast.ImportFrom):
         return handle_import_from(node, ret_imports)
+    if isinstance(node, ast.Import):
+        return ""
     if isinstance(node, ast.AugAssign):
         return handle_aug_assign(node, ret_imports, handle_expr)
     raise Exception(f"code stmt type {node} not handled")

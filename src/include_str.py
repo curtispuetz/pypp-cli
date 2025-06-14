@@ -9,12 +9,7 @@ def calc_includes_string(ret_imports: set[CppInclude]) -> str:
         else:
             # TODO later: these specific strings should be different in the future
             #  once I figure out how to deal with the custom Py++ Python code there
-            if imp.val in {
-                "test_dir/python/pypp/custom_types.h",
-                "test_dir/python/pypp/optional.h",
-                "test_dir/python/pypp/pypp_print.h",
-                "test_dir/python/pypp/tuple_get.h",
-            }:
+            if imp.val.startswith("test_dir/python/pypp/"):
                 continue
             ret.append(f'#include "{imp.val}"\n')
     return "".join(ret) + "\n"

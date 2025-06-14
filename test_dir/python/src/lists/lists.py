@@ -69,3 +69,6 @@ def list_fn():
     print(c[-2:5])
     print(c[-4:-1])
     print(c[5:1:-1])
+    # list of strings
+    e: list[str] = ["a", "b"]
+    print(e)
