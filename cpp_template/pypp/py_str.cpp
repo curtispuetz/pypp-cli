@@ -1,13 +1,14 @@
 #include "py_str.h"
 #include <algorithm>
 #include <cctype>
+#include <iostream>
 #include <sstream>
 #include <stdexcept>
-#include <iostream>
 
 PyStr::PyStr(const std::string &str) : s(str) {}
 
-PyStr PyStr::replace(const PyStr &old, const PyStr &replacement, int count) const {
+PyStr PyStr::replace(const PyStr &old, const PyStr &replacement,
+                     int count) const {
     std::string result = s;
     size_t pos = 0;
     int replaced = 0;
@@ -111,19 +112,18 @@ PyStr PyStr::join(const PyList<PyStr> &parts) {
     return PyStr(oss.str());
 }
 
-size_t PyStr::len() const {
-    return s.length();
-}
+int PyStr::len() const { return s.length(); }
 
-std::string PyStr::repeat_string(const std::string& input, int rep) {
-        if (rep <= 0) return "";
-        std::string result;
-        result.reserve(input.size() * rep);
-        for (int i = 0; i < rep; ++i) {
-            result += input;
-        }
-        return result;
+std::string PyStr::repeat_string(const std::string &input, int rep) {
+    if (rep <= 0)
+        return "";
+    std::string result;
+    result.reserve(input.size() * rep);
+    for (int i = 0; i < rep; ++i) {
+        result += input;
     }
+    return result;
+}
 
 PyStr PyStr::operator+(const PyStr &other) const {
     return PyStr(s + other.str());
@@ -133,13 +133,9 @@ PyStr PyStr::operator*(const int rep) const {
     return PyStr(repeat_string(s, rep));
 }
 
-void PyStr::operator+=(const PyStr& other) {
-    s += other.str();
-}
+void PyStr::operator+=(const PyStr &other) { s += other.str(); }
 
-void PyStr::operator*=(const int rep) {
-    s = repeat_string(s, rep);
-}
+void PyStr::operator*=(const int rep) { s = repeat_string(s, rep); }
 
 PyStr PyStr::operator[](int i) const {
     if (i < 0) {
@@ -150,9 +146,10 @@ PyStr PyStr::operator[](int i) const {
     return PyStr(std::string(1, s.at(i)));
 }
 
-PyStr PyStr::slice(int start, int stop, int step) const {
+PyStr PyStr::slice(int start, std::optional<int> stop, int step) const {
     std::string result;
-    std::vector<int> indices = compute_slice_indices(start, stop, step, static_cast<int>(s.size()));
+    std::vector<int> indices =
+        compute_slice_indices(start, stop, step, static_cast<int>(s.size()));
     for (int i : indices) {
         result += s[i];
     }
@@ -163,38 +160,22 @@ PyStr PyStr::operator[](const PySlice &sl) const {
     return slice(sl.start, sl.stop, sl.step);
 }
 
-std::string PyStr::str() const {
-    return s;
-}
+const std::string &PyStr::str() const { return s; }
 
-void PyStr::print() const {
-    std::cout << s << std::endl;
-}
+void PyStr::print() const { std::cout << s << std::endl; }
 
-std::ostream& operator<<(std::ostream& os, const PyStr& pystr) {
+std::ostream &operator<<(std::ostream &os, const PyStr &pystr) {
     return os << "'" << pystr.str() << "'";
 }
 
-bool PyStr::operator==(const PyStr &other) const {
-    return s == other.str();
-}
+bool PyStr::operator==(const PyStr &other) const { return s == other.str(); }
 
-bool PyStr::operator<(const PyStr &other) const {
-    return s < other.str();
-}
+bool PyStr::operator<(const PyStr &other) const { return s < other.str(); }
 
-bool PyStr::operator<=(const PyStr &other) const {
-    return s <= other.str();
-}
+bool PyStr::operator<=(const PyStr &other) const { return s <= other.str(); }
 
-bool PyStr::operator>(const PyStr &other) const {
-    return s > other.str();
-}
+bool PyStr::operator>(const PyStr &other) const { return s > other.str(); }
 
-bool PyStr::operator>=(const PyStr &other) const {
-    return s >= other.str();
-}
+bool PyStr::operator>=(const PyStr &other) const { return s >= other.str(); }
 
-bool PyStr::operator!=(const PyStr &other) const {
-    return s != other.str();
-}
+bool PyStr::operator!=(const PyStr &other) const { return s != other.str(); }

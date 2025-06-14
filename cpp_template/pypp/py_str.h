@@ -1,19 +1,21 @@
 #pragma once
 
-#include <string>
-#include <ostream>
-#include "py_slice.h"
 #include "py_list.h"
+#include "py_slice.h"
+#include <optional>
+#include <ostream>
+#include <string>
 
 class PyStr {
     std::string s;
-    PyStr slice(int start, int stop, int step = 1) const;
-    static std::string repeat_string(const std::string& input, int rep);
+    PyStr slice(int start, std::optional<int> stop, int step = 1) const;
+    static std::string repeat_string(const std::string &input, int rep);
 
-public:
+  public:
     PyStr(const std::string &str = "");
 
-    PyStr replace(const PyStr &old, const PyStr &replacement, int count = -1) const;
+    PyStr replace(const PyStr &old, const PyStr &replacement,
+                  int count = -1) const;
     int find(const PyStr &sub) const;
     int index(const PyStr &sub) const;
     int rindex(const PyStr &sub) const;
@@ -27,7 +29,7 @@ public:
     PyStr rstrip() const;
     PyList<PyStr> split(const PyStr &sep = PyStr(" ")) const;
     PyStr join(const PyList<PyStr> &parts);
-    size_t len() const;
+    int len() const;
 
     PyStr operator+(const PyStr &other) const;
     PyStr operator*(const int rep) const;
@@ -43,8 +45,15 @@ public:
     bool operator>=(const PyStr &other) const;
     bool operator!=(const PyStr &other) const;
 
-
-    std::string str() const;
+    const std::string &str() const;
     void print() const;
-    friend std::ostream& operator<<(std::ostream& os, const PyStr& pystr);
+    friend std::ostream &operator<<(std::ostream &os, const PyStr &pystr);
 };
+
+namespace std {
+template <> struct hash<PyStr> {
+    std::size_t operator()(const PyStr &p) const noexcept {
+        return std::hash<std::string>()(p.str());
+    }
+};
+} // namespace std

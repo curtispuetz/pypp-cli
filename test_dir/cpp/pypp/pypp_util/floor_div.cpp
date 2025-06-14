@@ -1,6 +1,5 @@
 #include "pypp_util/floor_div.h"
 
-
 int py_floor_div(int a, int b) {
     int div = a / b;
     int rem = a % b;

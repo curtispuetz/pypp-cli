@@ -1,5 +1,6 @@
 #pragma once
 
+#include <optional>
 #include <vector>
 
 struct PySlice {
@@ -11,4 +12,5 @@ struct PySlice {
         : start(start), stop(stop), step(step) {}
 };
 
-std::vector<int> compute_slice_indices(int start, int stop, int step, int n);
+std::vector<int> compute_slice_indices(int start, std::optional<int> stop,
+                                       int step, int n);
