@@ -1,19 +1,17 @@
 #pragma once
 
-#include <unordered_map>
-#include <vector>
-#include <optional>
-#include <stdexcept>
-#include <iostream>
-#include <utility>
-#include <initializer_list>
 #include "py_list.h"
 #include "py_tuple.h"
+#include <initializer_list>
+#include <iostream>
+#include <optional>
+#include <stdexcept>
+#include <unordered_map>
+#include <utility>
+#include <vector>
 
-
-template<typename K, typename V>
-class PyDict {
-public:
+template <typename K, typename V> class PyDict {
+  public:
     // Underlying map
     std::unordered_map<K, V> data;
 
@@ -22,14 +20,12 @@ public:
     PyDict(std::initializer_list<std::pair<const K, V>> init) : data(init) {}
 
     // clear()
-    void clear() {
-        data.clear();
-    }
+    void clear() { data.clear(); }
 
     // keys()
     PyList<K> keys() const {
         std::vector<K> result;
-        for (const auto& [key, _] : data)
+        for (const auto &[key, _] : data)
             result.push_back(key);
         return PyList(result);
     }
@@ -37,7 +33,7 @@ public:
     // values()
     PyList<V> values() const {
         std::vector<V> result;
-        for (const auto& [_, value] : data)
+        for (const auto &[_, value] : data)
             result.push_back(value);
         return PyList(result);
     }
@@ -45,20 +41,20 @@ public:
     // items()
     PyList<PyTup<K, V>> items() const {
         std::vector<PyTup<K, V>> result;
-        for (const auto& pair : data)
+        for (const auto &pair : data)
             result.push_back(PyTup(pair.first, pair.second));
         return PyList(result);
     }
 
     // get(key)
-    std::optional<V> get(const K& key) const {
+    std::optional<V> get(const K &key) const {
         auto it = data.find(key);
         if (it != data.end())
             return it->second;
         return std::nullopt;
     }
 
-    V get(const K& key, const V& default_value) const {
+    V get(const K &key, const V &default_value) const {
         auto it = data.find(key);
         if (it != data.end())
             return it->second;
@@ -66,13 +62,13 @@ public:
     }
 
     // update(other_dict)
-    void update(const PyDict<K, V>& other) {
-        for (const auto& [key, value] : other.data)
+    void update(const PyDict<K, V> &other) {
+        for (const auto &[key, value] : other.data)
             data[key] = value;
     }
 
     // pop(key, default)
-    V pop(const K& key) {
+    V pop(const K &key) {
         auto it = data.find(key);
         if (it != data.end()) {
             V value = it->second;
@@ -82,7 +78,7 @@ public:
         throw std::invalid_argument("key not in dict");
     }
 
-    V pop(const K& key, const V& default_value) {
+    V pop(const K &key, const V &default_value) {
         auto it = data.find(key);
         if (it != data.end()) {
             V value = it->second;
@@ -93,30 +89,25 @@ public:
     }
 
     // setdefault(key, default)
-    V& setdefault(const K& key, const V& default_value) {
+    V &setdefault(const K &key, const V &default_value) {
         auto [it, inserted] = data.emplace(key, default_value);
         return it->second;
     }
 
     // contains(key)
-    bool contains(const K& key) const {
-        return data.find(key) != data.end();
-    }
+    bool contains(const K &key) const { return data.find(key) != data.end(); }
 
     // operator[] access/assignment like Python
-    V& operator[](const K& key) {
-        return data[key];
-    }
-    const V& operator[](const K& key) const {
+    V &operator[](const K &key) { return data[key]; }
+    const V &operator[](const K &key) const {
         auto it = data.find(key);
-        if (it == data.end()) throw std::out_of_range("Key not found");
+        if (it == data.end())
+            throw std::out_of_range("Key not found");
         return it->second;
     }
 
     // Size
-    size_t len() const {
-        return data.size();
-    }
+    int len() const { return data.size(); }
 
     // copy()
     PyDict<K, V> copy() const {
@@ -133,8 +124,9 @@ public:
     void print() const {
         std::cout << "{";
         bool first = true;
-        for (const auto& [key, value] : data) {
-            if (!first) std::cout << ", ";
+        for (const auto &[key, value] : data) {
+            if (!first)
+                std::cout << ", ";
             first = false;
             std::cout << key << ": " << value;
         }
