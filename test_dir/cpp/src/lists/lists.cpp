@@ -46,11 +46,11 @@ void list_fn() {
     c.print();
     c[PySlice(1, 4, 1)].print();
     c[PySlice(1, -1, 2)].print();
-    c[PySlice(1, NULL, 2)].print();
-    c[PySlice(1, NULL, 1)].print();
+    c[PySlice(1, std::nullopt, 2)].print();
+    c[PySlice(1, std::nullopt, 1)].print();
     c[PySlice(0, 4, 1)].print();
-    c[PySlice(0, NULL, 2)].print();
-    c[PySlice(0, NULL, 1)].print();
+    c[PySlice(0, std::nullopt, 2)].print();
+    c[PySlice(0, std::nullopt, 1)].print();
     c[PySlice(-2, 5, 1)].print();
     c[PySlice(-4, -1, 1)].print();
     c[PySlice(5, 1, -1)].print();
