@@ -69,10 +69,13 @@ def list_fn():
     print(c[-2:5])
     print(c[-4:-1])
     print(c[5:1:-1])
-    # list of strings
-    e: list[str] = ["a", "b"]
-    print(e)
     # slice setting. Note: This is not supported in the transpiled C++ right now, and
     #  no error is thrown either!
     # c[1:4] = [-2, -2, -2, -2]
     # print(c)
+    # list of strings
+    e: list[str] = ["a", "b"]
+    print(e)
+    # initialize empty
+    f: list[int] = []
+    print(f)

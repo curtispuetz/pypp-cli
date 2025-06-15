@@ -56,4 +56,6 @@ void list_fn() {
     c[PySlice(5, 1, -1)].print();
     PyList<PyStr> e = PyList({PyStr("a"), PyStr("b")});
     e.print();
+    PyList<int> f = PyList<int>({});
+    f.print();
 }

@@ -27,9 +27,9 @@ if __name__ == "__main__":
     str_list: list[str] = ["ab", "cd"]
     print(str_list)
     tuples_fn()
-    dict_fn()
-    set_fn()
-    list_fn()
     string_ops()
     numpy_arrays_fn()
     for_loop_fn()
+    list_fn()
+    set_fn()
+    dict_fn()
