@@ -12,6 +12,9 @@ class PyppNpArr(Generic[T]):
     def __call__(self, *args) -> NDArray[T]:
         return self._d[*args]
 
+    def set(self, loc: tuple[int, ...], value: T | int | float):
+        self._d[loc] = value
+
     def print(self):
         print(self._d)
 

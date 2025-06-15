@@ -21,8 +21,6 @@ int main() {
     string_as_argument(PyStr("hello")).print();
     if_elif_else_fn(6, 6).print();
     number_ops();
-    list_fn();
-    string_ops();
     PyList<int> my_list = PyList({1, 2, 3, 4});
     list_as_arg(my_list);
     list_as_mutable_arg(my_list);
@@ -32,6 +30,8 @@ int main() {
     tuples_fn();
     dict_fn();
     set_fn();
+    list_fn();
+    string_ops();
     numpy_arrays_fn();
     return 0;
 }

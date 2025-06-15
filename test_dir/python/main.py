@@ -28,6 +28,6 @@ if __name__ == "__main__":
     tuples_fn()
     dict_fn()
     set_fn()
-    numpy_arrays_fn()
     list_fn()
     string_ops()
+    numpy_arrays_fn()
