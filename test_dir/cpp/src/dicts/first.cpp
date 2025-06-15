@@ -25,7 +25,6 @@ void dict_fn() {
     a.print();
     a.keys().print();
     a.values().print();
-    a.items().print();
     PyDict<int, PyList<int>> d(
         {{0, PyList({1, 2, 3})}, {1, PyList({4, 5, 6})}});
     d.print();

@@ -31,7 +31,8 @@ def dict_fn():
     # values
     print(a.values())
     # items
-    print(a.items())
+    # note: items() should only be used for iterating over in a loop for now.
+    # print(a.items())
     # dict with list as value
     d: dict[int, list[int]] = {
         0: [1, 2, 3],

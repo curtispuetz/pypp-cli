@@ -28,3 +28,4 @@
 - <, <=, >=, > comparisons on sets.
 - set values in a list via list slicing
 - for loop else statements and type comments (what are for loop type comments?)
+- name something 'pypp_hardcoded_it_tup'
