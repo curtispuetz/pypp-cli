@@ -59,8 +59,8 @@ def numpy_arrays_fn():
     # access with np.float32
     k: float = a(0, 0)
     print(str(k))
-    l: np.float32 = a(0, 0)
-    print(str(l))
+    l1: np.float32 = a(0, 0)
+    print(str(l1))
     # setting elements
     a.set((0, 0), 1.0)
     a.print()

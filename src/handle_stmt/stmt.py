@@ -7,6 +7,7 @@ from src.handle_stmt.h_assign import handle_assign
 from src.handle_stmt.h_aug_assign import handle_aug_assign
 from src.handle_stmt.h_expr import handle_stmt_expr
 from src.handle_stmt.h_fn_def import handle_fn_def
+from src.handle_stmt.h_for import handle_for
 from src.handle_stmt.h_if import handle_if
 from src.handle_stmt.h_import_from import handle_import_from
 from src.handle_stmt.h_return import handle_return
@@ -33,4 +34,6 @@ def handle_stmt(
         return ""
     if isinstance(node, ast.AugAssign):
         return handle_aug_assign(node, ret_imports, handle_expr)
+    if isinstance(node, ast.For):
+        return handle_for(node, ret_imports, ret_h_file, handle_stmt, handle_expr)
     raise Exception(f"code stmt type {node} not handled")

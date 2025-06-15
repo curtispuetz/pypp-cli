@@ -6,6 +6,7 @@
 #include "src/if_elif_else/if_elif_else.h"
 #include "src/lists/as_arg.h"
 #include "src/lists/lists.h"
+#include "src/loops/for_.h"
 #include "src/numbers/first.h"
 #include "src/numpy_arrays/first.h"
 #include "src/second.h"
@@ -33,5 +34,6 @@ int main() {
     list_fn();
     string_ops();
     numpy_arrays_fn();
+    for_loop_fn();
     return 0;
 }
