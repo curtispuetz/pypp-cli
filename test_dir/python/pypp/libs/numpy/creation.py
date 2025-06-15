@@ -24,3 +24,11 @@ def pypp_np_ones(shape: list[int], dtype: Type[T]) -> PyppNpArr[T]:
 def pypp_np_full(shape: list[int], fill_value, dtype: Type[T]) -> PyppNpArr[T]:
     _check_dtype(dtype)
     return PyppNpArr(np.full(shape, fill_value, dtype))
+
+
+U = TypeVar("U")
+
+
+def pypp_np_array(data: list[U], dtype: Type[T]) -> PyppNpArr[T]:
+    _check_dtype(dtype)
+    return PyppNpArr(np.array(data, dtype))

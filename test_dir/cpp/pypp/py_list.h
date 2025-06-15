@@ -35,6 +35,7 @@ template <typename T> class PyList {
     }
 
   public:
+    using value_type = T;
     // Constructors
     PyList() = default;
     PyList(const std::vector<T> &vec) : data(vec) {}

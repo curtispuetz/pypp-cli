@@ -7,6 +7,7 @@
 #include <numeric>
 #include <stdexcept>
 #include <string>
+#include <type_traits> // Required for std::true_type, std::false_type
 #include <vector>
 
 template <typename T> class NpArr {
@@ -95,6 +96,38 @@ template <typename T> class NpArr {
     // Constructor that takes an initializer list for convenience
     NpArr(std::initializer_list<size_t> shape) : NpArr(PyList<size_t>(shape)) {}
 
+    // Default constructor for an empty array
+    NpArr() : NpArr({0}) {
+        data_.clear(); // Make sure data is empty for shape (0,)
+    }
+
+    // constructor for internal use by the `from_pylist` factory method.
+    // It takes a shape and moves the already-flattened data vector.
+    NpArr(const PyList<size_t> &shape, std::vector<T> &&data)
+        : shape_(shape), data_(std::move(data)) {
+        // This constructor assumes the provided data is already validated and
+        // flattened. It calculates the strides based on the given shape.
+        strides_.resize(shape_.len());
+        if (!(shape_.len() == 0)) {
+            strides_.back() = 1;
+            for (int i = shape_.len() - 2; i >= 0; --i) {
+                strides_[i] = strides_[i + 1] * shape_[i + 1];
+            }
+        }
+
+        // Final sanity check to ensure shape and data size match.
+        size_t total_size = shape_.len() == 0
+                                ? 0
+                                : std::accumulate(shape_.begin(), shape_.end(),
+                                                  static_cast<size_t>(1),
+                                                  std::multiplies<size_t>());
+        if (data_.size() != total_size) {
+            throw std::logic_error("Internal error: data size and shape "
+                                   "mismatch during construction. The list was "
+                                   "likely ragged in a deeper dimension.");
+        }
+    }
+
     // Variadic template for direct access, e.g., arr(0, 1, 2)
     template <typename... Dims> T &operator()(size_t i, Dims... dims) {
         return data_[get_index(i, dims...)];
@@ -121,7 +154,7 @@ template <typename T> class NpArr {
 
     // Print method similar to NumPy
     void print(std::ostream &os = std::cout) const {
-        if (data_.empty()) {
+        if (shape_.len() == 1 && shape_[0] == 0) {
             os << "[]" << std::endl;
             return;
         }
