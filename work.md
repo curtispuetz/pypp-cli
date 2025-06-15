@@ -16,7 +16,7 @@
 - All the operators on the different types. AAGP
 - Numpy arrays. AAGP
 - For loops. AAGP
-- While loops
+- While loops. AAGP
 - Try-Catch
 - Match-Case (can do later)
 - import math library
