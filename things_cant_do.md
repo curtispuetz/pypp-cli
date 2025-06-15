@@ -26,3 +26,4 @@
 - Call methods or functions C++ reserved keywords (i.e. union, etc.)
   - Or maybe these can just be changed to 'keyword_' in the C++?
 - <, <=, >=, > comparisons on sets.
+- set values in a list via list slicing

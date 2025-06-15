@@ -19,8 +19,6 @@ if __name__ == "__main__":
     print(string_as_argument("hello"))
     print(if_elif_else_fn(6, 6))
     number_ops()
-    list_fn()
-    string_ops()
     my_list: list[int] = [1, 2, 3, 4]
     list_as_arg(my_list)
     list_as_mutable_arg(my_list)
@@ -31,3 +29,5 @@ if __name__ == "__main__":
     dict_fn()
     set_fn()
     numpy_arrays_fn()
+    list_fn()
+    string_ops()

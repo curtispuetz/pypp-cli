@@ -72,3 +72,7 @@ def list_fn():
     # list of strings
     e: list[str] = ["a", "b"]
     print(e)
+    # slice setting. Note: This is not supported in the transpiled C++ right now, and
+    #  no error is thrown either!
+    # c[1:4] = [-2, -2, -2, -2]
+    # print(c)
