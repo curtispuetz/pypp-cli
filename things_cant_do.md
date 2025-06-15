@@ -29,3 +29,5 @@
 - set values in a list via list slicing
 - for loop else statements and type comments (what are for loop type comments?)
 - name something 'pypp_hardcoded_it_tup'
+- Iterate over a tuple (in pypp, tuples are just used as short data containers; lists, sets, or np arrays can be used 
+for longer collections.)
