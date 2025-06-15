@@ -3,8 +3,8 @@ from typing import Union
 
 
 @dataclass(frozen=True, slots=True)
-class SBInc:
-    # Square Bracket Include
+class AngInc:
+    # Angle Bracket Include
     val: str
 
 
@@ -14,6 +14,6 @@ class QInc:
     val: str
 
 
-CppInclude = Union[SBInc, QInc]
+CppInclude = Union[AngInc, QInc]
 
 HAndCppParts = tuple[list[str], list[str]]

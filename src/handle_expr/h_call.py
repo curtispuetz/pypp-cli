@@ -1,6 +1,6 @@
 import ast
 
-from src.d_types import CppInclude, SBInc, QInc
+from src.d_types import CppInclude, AngInc, QInc
 from src.mapping.calls import lookup_cpp_call
 from src.util.handle_lists import handle_exprs
 
@@ -16,18 +16,18 @@ def handle_call(node: ast.Call, ret_imports: set[CppInclude], handle_expr):
     elif caller_str == "pypp_print":
         # TODO later: I need to decide what to do with printing and how that should work
         assert len(node.args) == 1
-        ret_imports.add(SBInc("iostream"))
+        ret_imports.add(AngInc("iostream"))
         cpp_call_start = "std::cout << "
         cpp_call_end = " << std::endl"
     elif caller_str == "PyppOpt":
         if len(node.args) == 0:
-            ret_imports.add(SBInc("optional"))
+            ret_imports.add(AngInc("optional"))
             return "std::nullopt"
         cpp_call_start = ""
         cpp_call_end = ""
     elif caller_str == "pypp_tg":
         assert len(node.args) == 2
-        ret_imports.add(SBInc("any"))
+        ret_imports.add(AngInc("any"))
         tuple_arg = handle_expr(node.args[0], ret_imports)
         index_arg = handle_expr(node.args[1], ret_imports)
         return f"{tuple_arg}.get<{index_arg}>()"
