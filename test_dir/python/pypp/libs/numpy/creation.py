@@ -30,5 +30,7 @@ U = TypeVar("U")
 
 
 def pypp_np_array(data: list[U], dtype: Type[T]) -> PyppNpArr[T]:
+    if len(data) == 0:
+        raise Exception("empty numpy array is not supported")
     _check_dtype(dtype)
     return PyppNpArr(np.array(data, dtype))
