@@ -17,4 +17,19 @@ void numpy_arrays_fn() {
     pypp_np::zeros<long double>(PyList<size_t>({2, 3})).print();
     pypp_np::zeros<bool>(PyList<size_t>({2, 3})).print();
     pypp_np::ones<bool>(PyList<size_t>({2, 3})).print();
+    NpArr<double> d = pypp_np::array<double>(PyList({9.0, 10.0}));
+    d.print();
+    NpArr<double> e = pypp_np::array<double>(
+        PyList({PyList({1.0, 2.0}), PyList({3.0, 4.0})}));
+    e.print();
+    NpArr<double> f = pypp_np::array<double>(
+        PyList({PyList({PyList({1.0, 2.0}), PyList({3.0, 4.0})}),
+                PyList({PyList({1.0, 2.0}), PyList({3.0, 99.0})})}));
+    f.print();
+    NpArr<double> g = pypp_np::array<double>(
+        PyList({PyList({PyList({PyList({1.0, 2.0}), PyList({3.0, 4.0})}),
+                        PyList({PyList({1.0, 2.0}), PyList({3.0, 99.0})})}),
+                PyList({PyList({PyList({1.0, 2.0}), PyList({3.0, 4.0})}),
+                        PyList({PyList({1.0, 2.0}), PyList({3.0, -77.0})})})}));
+    g.print();
 }

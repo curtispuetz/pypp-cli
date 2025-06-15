@@ -1,6 +1,7 @@
 #pragma once
 
 #include "np_arr_imp.h"
+#include "np_arr_util.h"
 #include <initializer_list>
 #include <vector>
 
@@ -39,6 +40,29 @@ NpArr<T> full(const PyList<size_t> &shape, const T &value) {
 template <typename T>
 NpArr<T> full(std::initializer_list<size_t> shape, const T &value) {
     return full<T>(PyList<size_t>(shape), value);
+}
+
+template <typename T, typename U> NpArr<T> array(const PyList<U> &list) {
+    // 1. Deduce the shape from the nested list structure.
+    PyList<size_t> shape;
+    deduce_shape_recursive(list, shape);
+
+    // 2. Flatten the nested list into a single vector.
+    std::vector<T> flat_data;
+    // Calculate total size to reserve memory efficiently.
+    size_t total_size = shape.len() == 0
+                            ? 0
+                            : std::accumulate(shape.begin(), shape.end(),
+                                              static_cast<size_t>(1),
+                                              std::multiplies<size_t>());
+
+    if (total_size > 0) {
+        flat_data.reserve(total_size);
+        flatten_recursive(list, flat_data);
+    }
+
+    // 3. Use the private constructor to create the NpArr instance.
+    return NpArr<T>(shape, std::move(flat_data));
 }
 
 } // namespace pypp_np
