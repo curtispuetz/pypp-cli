@@ -31,9 +31,9 @@ int main() {
     tuples_fn();
     string_ops();
     numpy_arrays_fn();
-    for_loop_fn();
     list_fn();
     set_fn();
     dict_fn();
+    for_loop_fn();
     return 0;
 }

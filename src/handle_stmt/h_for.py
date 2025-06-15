@@ -25,8 +25,7 @@ def handle_for(
             + body_str
             + "}"
         )
-    # TODO: handle other for loop types
-    return ""
+    return f"for (auto {target_str} : {iter_str})" + "{" + body_str + "}"
 
 
 @dataclass(frozen=True, slots=True)
