@@ -15,7 +15,7 @@
 - Comments. MDN
 - All the operators on the different types. AAGP
 - Numpy arrays. AAGP
-- For loops
+- For loops. AAGP
 - While loops
 - Try-Catch
 - Match-Case (can do later)
