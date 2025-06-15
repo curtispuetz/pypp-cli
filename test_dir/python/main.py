@@ -11,6 +11,7 @@ from src.dicts.first import dict_fn
 from src.tuples.first import tuples_fn
 from src.sets.first import set_fn
 from src.numpy_arrays.first import numpy_arrays_fn
+from src.loops.for_ import for_loop_fn
 
 if __name__ == "__main__":
     print(return_something(1, 9))
@@ -31,3 +32,4 @@ if __name__ == "__main__":
     list_fn()
     string_ops()
     numpy_arrays_fn()
+    for_loop_fn()

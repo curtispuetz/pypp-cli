@@ -40,8 +40,8 @@ void numpy_arrays_fn() {
     to_pystr(j).print();
     double k = a(0, 0);
     to_pystr(k).print();
-    float l = a(0, 0);
-    to_pystr(l).print();
+    float l1 = a(0, 0);
+    to_pystr(l1).print();
     a.set(PyTup(0, 0), 1.0);
     a.print();
     a.set(PyTup(0, 0), 2);
