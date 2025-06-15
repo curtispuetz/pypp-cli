@@ -38,4 +38,6 @@ void set_fn() {
     a.print();
     PyList<PySet<int>> list_of_sets = PyList({PySet({1, 2}), PySet({3, 4})});
     list_of_sets.print();
+    PySet<int> c = PySet<int>({});
+    c.print();
 }

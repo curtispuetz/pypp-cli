@@ -27,3 +27,4 @@
   - Or maybe these can just be changed to 'keyword_' in the C++?
 - <, <=, >=, > comparisons on sets.
 - set values in a list via list slicing
+- for loop else statements and type comments (what are for loop type comments?)

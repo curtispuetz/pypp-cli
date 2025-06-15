@@ -64,6 +64,9 @@ def dict_fn():
     _fn_dict_arg({0: 1, 1: 2})
     # TODO later: handle addition
     # print({0: 1} | {1: 2})
+    # initialize empty
+    e: dict[int, int] = {}
+    print(e)
 
 
 def _fn_dict_arg(d: dict[int, int]):

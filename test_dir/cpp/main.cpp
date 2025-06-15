@@ -29,11 +29,11 @@ int main() {
     PyList<PyStr> str_list = PyList({PyStr("ab"), PyStr("cd")});
     str_list.print();
     tuples_fn();
-    dict_fn();
-    set_fn();
-    list_fn();
     string_ops();
     numpy_arrays_fn();
     for_loop_fn();
+    list_fn();
+    set_fn();
+    dict_fn();
     return 0;
 }
