@@ -67,6 +67,9 @@ def dict_fn():
     # initialize empty
     e: dict[int, int] = {}
     print(e)
+    # a nested dict
+    f: dict[int, dict[int, int]] = {0: {0: 1}, 1: {0: 1}}
+    print(f)
 
 
 def _fn_dict_arg(d: dict[int, int]):

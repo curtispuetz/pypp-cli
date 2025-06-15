@@ -121,15 +121,29 @@ template <typename K, typename V> class PyDict {
     // ordered by the insertion order of the items like the Python dict is.
 
     // Print
-    void print() const {
-        std::cout << "{";
+    void print(std::ostream &os) const {
+        os << "{";
         bool first = true;
         for (const auto &[key, value] : data) {
             if (!first)
-                std::cout << ", ";
+                os << ", ";
             first = false;
-            std::cout << key << ": " << value;
+            os << key << ": " << value;
         }
-        std::cout << "}" << std::endl;
+        os << "}";
     }
+
+    void print() const {
+        print(std::cout);
+        std::cout << std::endl;
+    }
+
+    template <typename U, typename Z>
+    friend std::ostream &operator<<(std::ostream &os, const PyDict<U, Z> &dict);
 };
+
+template <typename K, typename V>
+std::ostream &operator<<(std::ostream &os, const PyDict<K, V> &dict) {
+    dict.print(os);
+    return os;
+}
