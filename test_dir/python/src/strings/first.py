@@ -71,3 +71,6 @@ def string_ops():
     print(" ".join(["1", "2", "3"]))
     s_joined: str = ", ".join(["a", "b", "c", "d"])
     print(s_joined)
+    # initialize empty
+    a: str = ""
+    print(a)
