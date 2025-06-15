@@ -10,6 +10,4 @@ def handle_dict(node: ast.Dict, ret_imports: set[CppInclude], handle_expr) -> st
         k = handle_expr(k_node, ret_imports)
         v = handle_expr(v_node, ret_imports)
         ret.append("{" + f"{k}, {v}" + "}")
-    # TODO: check dict works if it isn't an assignment. I think it will only work on
-    #  assignments.
     return "{" + ", ".join(ret) + "}"

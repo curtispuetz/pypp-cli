@@ -51,4 +51,6 @@ void string_ops() {
     PyStr s_joined = PyStr(", ").join(
         PyList({PyStr("a"), PyStr("b"), PyStr("c"), PyStr("d")}));
     s_joined.print();
+    PyStr a = PyStr("");
+    a.print();
 }
