@@ -41,4 +41,21 @@ void for_loop_fn() {
     }
     a.print();
     d.print();
+    PyDict<int, PyDict<int, PyDict<int, int>>> e(
+        {{0, {{0, {{0, 1}, {2, 3}}}}}});
+    for (const auto &pypp_hardcoded_it_tup : e.items()) {
+        auto &k1 = pypp_hardcoded_it_tup.get<0>();
+        auto &v1 = pypp_hardcoded_it_tup.get<1>();
+        for (const auto &pypp_hardcoded_it_tup : v1.items()) {
+            auto &k2 = pypp_hardcoded_it_tup.get<0>();
+            auto &v2 = pypp_hardcoded_it_tup.get<1>();
+            for (const auto &pypp_hardcoded_it_tup : v2.items()) {
+                auto &k3 = pypp_hardcoded_it_tup.get<0>();
+                auto &v3 = pypp_hardcoded_it_tup.get<1>();
+                a.append(k3);
+                a.append(v3);
+            }
+        }
+    }
+    a.print();
 }
