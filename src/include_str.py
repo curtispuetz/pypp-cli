@@ -1,10 +1,10 @@
-from src.d_types import CppInclude, SBInc
+from src.d_types import CppInclude, AngInc
 
 
 def calc_includes_string(ret_imports: set[CppInclude]) -> str:
     ret: list[str] = []
     for imp in ret_imports:
-        if isinstance(imp, SBInc):
+        if isinstance(imp, AngInc):
             ret.append(f"#include <{imp.val}>\n")
         else:
             # TODO later: these specific strings should be different in the future
