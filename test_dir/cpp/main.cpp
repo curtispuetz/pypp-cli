@@ -7,6 +7,7 @@
 #include "src/lists/as_arg.h"
 #include "src/lists/lists.h"
 #include "src/loops/for_.h"
+#include "src/loops/while_.h"
 #include "src/numbers/first.h"
 #include "src/numpy_arrays/first.h"
 #include "src/second.h"
@@ -35,5 +36,6 @@ int main() {
     set_fn();
     dict_fn();
     for_loop_fn();
+    while_loop_fn();
     return 0;
 }

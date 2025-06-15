@@ -11,6 +11,7 @@ from src.handle_stmt.h_for import handle_for
 from src.handle_stmt.h_if import handle_if
 from src.handle_stmt.h_import_from import handle_import_from
 from src.handle_stmt.h_return import handle_return
+from src.handle_stmt.h_while import handle_while
 
 
 def handle_stmt(
@@ -36,4 +37,6 @@ def handle_stmt(
         return handle_aug_assign(node, ret_imports, handle_expr)
     if isinstance(node, ast.For):
         return handle_for(node, ret_imports, ret_h_file, handle_stmt, handle_expr)
+    if isinstance(node, ast.While):
+        return handle_while(node, ret_imports, ret_h_file, handle_stmt, handle_expr)
     raise Exception(f"code stmt type {node} not handled")

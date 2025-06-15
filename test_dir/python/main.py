@@ -12,6 +12,7 @@ from src.tuples.first import tuples_fn
 from src.sets.first import set_fn
 from src.numpy_arrays.first import numpy_arrays_fn
 from src.loops.for_ import for_loop_fn
+from src.loops.while_ import while_loop_fn
 
 if __name__ == "__main__":
     print(return_something(1, 9))
@@ -33,3 +34,4 @@ if __name__ == "__main__":
     set_fn()
     dict_fn()
     for_loop_fn()
+    while_loop_fn()
