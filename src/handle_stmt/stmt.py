@@ -39,4 +39,9 @@ def handle_stmt(
         return handle_for(node, ret_imports, ret_h_file, handle_stmt, handle_expr)
     if isinstance(node, ast.While):
         return handle_while(node, ret_imports, ret_h_file, handle_stmt, handle_expr)
+    if isinstance(node, ast.Break):
+        return "break;"
+    if isinstance(node, ast.Continue):
+        return "continue;"
+    # TODO: support the Python pass keyword (maybe just a semi colon?)
     raise Exception(f"code stmt type {node} not handled")
