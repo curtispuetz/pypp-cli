@@ -32,4 +32,18 @@ void numpy_arrays_fn() {
                 PyList({PyList({PyList({1.0, 2.0}), PyList({3.0, 4.0})}),
                         PyList({PyList({1.0, 2.0}), PyList({3.0, -77.0})})})}));
     g.print();
+    double h = d(0) * 56.455432737426;
+    to_pystr(h).print();
+    double i = d(0);
+    to_pystr(i).print();
+    double j = d(0);
+    to_pystr(j).print();
+    double k = a(0, 0);
+    to_pystr(k).print();
+    float l = a(0, 0);
+    to_pystr(l).print();
+    a.set(PyTup(0, 0), 1.0);
+    a.print();
+    a.set(PyTup(0, 0), 2);
+    a.print();
 }

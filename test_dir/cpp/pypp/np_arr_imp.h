@@ -1,6 +1,7 @@
 #pragma once
 
 #include "py_list.h"
+#include "py_tuple.h"
 #include <algorithm>
 #include <initializer_list>
 #include <iostream>
@@ -8,6 +9,7 @@
 #include <stdexcept>
 #include <string>
 #include <type_traits> // Required for std::true_type, std::false_type
+#include <utility>     // Required for std::index_sequence
 #include <vector>
 
 template <typename T> class NpArr {
@@ -34,6 +36,28 @@ template <typename T> class NpArr {
             index += indices[k] * strides_[k];
         }
         return index;
+    }
+
+    // Implementation part of the tuple unpacking mechanism.
+    // It receives an index sequence (like 0, 1, 2, ...) and uses it to
+    // call get() for each index on the tuple, effectively unpacking it.
+    template <typename... Ts, size_t... Is>
+    size_t get_index_from_tuple_impl(const PyTup<Ts...> &t,
+                                     std::index_sequence<Is...>) const {
+        // This expands to: return get_index(t.template get<0>(), t.template
+        // get<1>(), ...);
+        return get_index(t.template get<Is>()...);
+    }
+
+    // Kicks off the tuple unpacking.
+    // It deduces the tuple type and creates an integer sequence from 0 to N-1,
+    // where N is the number of elements in the tuple.
+    template <typename... Ts>
+    size_t get_index_from_tuple(const PyTup<Ts...> &t) const {
+        // This generates the required std::index_sequence for the
+        // implementation function.
+        return get_index_from_tuple_impl(
+            t, std::make_index_sequence<sizeof...(Ts)>{});
     }
 
     // Recursive helper for printing
@@ -101,7 +125,7 @@ template <typename T> class NpArr {
         data_.clear(); // Make sure data is empty for shape (0,)
     }
 
-    // constructor for internal use by the `from_pylist` factory method.
+    // Constructor for internal use by the `from_pylist` factory method.
     // It takes a shape and moves the already-flattened data vector.
     NpArr(const PyList<size_t> &shape, std::vector<T> &&data)
         : shape_(shape), data_(std::move(data)) {
@@ -136,6 +160,11 @@ template <typename T> class NpArr {
     template <typename... Dims>
     const T &operator()(size_t i, Dims... dims) const {
         return data_[get_index(i, dims...)];
+    }
+
+    template <typename... Dims>
+    void set(const PyTup<int, Dims...> &i, const T &value) {
+        data_[get_index_from_tuple(i)] = value;
     }
 
     // Fill the entire array with a value

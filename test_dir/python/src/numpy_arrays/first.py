@@ -48,3 +48,21 @@ def numpy_arrays_fn():
         np.float64,
     )
     g.print()
+    # Calculations
+    h: float = d(0) * 56.455432737426
+    print(str(h))
+    # access
+    i: float = d(0)
+    print(str(i))
+    j: np.float64 = d(0)
+    print(str(j))
+    # access with np.float32
+    k: float = a(0, 0)
+    print(str(k))
+    l: np.float32 = a(0, 0)
+    print(str(l))
+    # setting elements
+    a.set((0, 0), 1.0)
+    a.print()
+    a.set((0, 0), 2)
+    a.print()
