@@ -43,5 +43,4 @@ def handle_stmt(
         return "break;"
     if isinstance(node, ast.Continue):
         return "continue;"
-    # TODO: support the Python pass keyword (maybe just a semi colon?)
     raise Exception(f"code stmt type {node} not handled")
