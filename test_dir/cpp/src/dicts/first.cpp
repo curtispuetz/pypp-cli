@@ -49,5 +49,7 @@ void dict_fn() {
     _fn_dict_arg({{0, 1}, {1, 2}});
     PyDict<int, int> e({});
     e.print();
+    PyDict<int, PyDict<int, int>> f({{0, {{0, 1}}}, {1, {{0, 1}}}});
+    f.print();
 }
 void _fn_dict_arg(const PyDict<int, int> &d) { d.print(); }

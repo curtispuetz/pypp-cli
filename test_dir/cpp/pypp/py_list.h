@@ -131,21 +131,6 @@ template <typename T> class PyList {
         return slice(sl.start, sl.stop, sl.step);
     }
 
-    void print(std::ostream &os) const {
-        os << "[";
-        for (size_t i = 0; i < data.size(); ++i) {
-            os << data[i];
-            if (i != data.size() - 1)
-                os << ", ";
-        }
-        os << "]";
-    }
-
-    void print() const {
-        print(std::cout);
-        std::cout << std::endl;
-    }
-
     bool operator==(const PyList<T> &other) const { return data == other.data; }
 
     bool operator!=(const PyList<T> &other) const { return data != other.data; }
@@ -186,6 +171,21 @@ template <typename T> class PyList {
     auto end() { return data.end(); }
     auto begin() const { return data.begin(); }
     auto end() const { return data.end(); }
+
+    void print(std::ostream &os) const {
+        os << "[";
+        for (size_t i = 0; i < data.size(); ++i) {
+            os << data[i];
+            if (i != data.size() - 1)
+                os << ", ";
+        }
+        os << "]";
+    }
+
+    void print() const {
+        print(std::cout);
+        std::cout << std::endl;
+    }
 
     template <typename U>
     friend std::ostream &operator<<(std::ostream &os, const PyList<U> &list);
