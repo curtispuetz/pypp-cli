@@ -36,14 +36,7 @@ def for_loop_fn():
     print(a)
     print(d)
     # looping over nested dicts
-    e: dict[int, dict[int, dict[int, int]]] = {
-        0: {
-            0: {
-                0: 1,
-                2: 3
-            }
-        }
-    }
+    e: dict[int, dict[int, dict[int, int]]] = {0: {0: {0: 1, 2: 3}}}
     for k1, v1 in e.items():
         for k2, v2 in v1.items():
             for k3, v3 in v2.items():
