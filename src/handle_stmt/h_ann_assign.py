@@ -1,6 +1,7 @@
 import ast
 
 from src.d_types import CppInclude
+from src.util.inner_strings import calc_inside_ang, calc_inside_sq
 
 
 def handle_ann_assign(
@@ -8,7 +9,7 @@ def handle_ann_assign(
 ) -> str:
     type_cpp: str = handle_expr(node.annotation, ret_imports)
     if type_cpp.startswith("PyppOpt[") and type_cpp.endswith("]"):
-        type_cpp = "std::optional<" + _calc_inner_str(type_cpp) + ">"
+        type_cpp = "std::optional<" + calc_inside_sq(type_cpp) + ">"
     target_str = handle_expr(node.target, ret_imports)
     if node.value is None:
         return f"{type_cpp} {target_str};"
@@ -26,13 +27,4 @@ def handle_ann_assign(
 
 
 def _empty_initialize(s: str, type_cpp: str):
-    return f"{s}<{_calc_inner_str_sq(type_cpp)}>" + "({})"
-
-
-# TODO: dry these repeated methods (not just in this file)
-def _calc_inner_str_sq(s: str) -> str:
-    return s.split("<", 1)[1][:-1]
-
-
-def _calc_inner_str(s: str) -> str:
-    return s.split("[", 1)[1][:-1]
+    return f"{s}<{calc_inside_ang(type_cpp)}>" + "({})"
