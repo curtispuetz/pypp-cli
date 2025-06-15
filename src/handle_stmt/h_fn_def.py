@@ -3,6 +3,7 @@ import ast
 from src.d_types import CppInclude
 from src.mapping.fn_arg import lookup_cpp_fn_arg
 from src.util.handle_lists import handle_stmts
+from src.util.inner_strings import calc_inside_rd
 
 
 def handle_fn_def(
@@ -34,13 +35,9 @@ def _calc_fn_signature(
         py_arg_type: str = handle_expr(py_arg.annotation, ret_imports)
         is_const: bool = True
         if py_arg_type.startswith("PyppMut(") and py_arg_type.endswith(")"):
-            py_arg_type = _calc_inner_str(py_arg_type)
+            py_arg_type = calc_inside_rd(py_arg_type)
             is_const = False
         cpp_arg = lookup_cpp_fn_arg(py_arg_type, is_const)
         cpp_args.append(f"{cpp_arg} {arg_name}")
     cpp_args_str = ", ".join(cpp_args)
     return f"{cpp_ret_type} {fn_name}({cpp_args_str})"
-
-
-def _calc_inner_str(s: str) -> str:
-    return s.split("(", 1)[1][:-1]
