@@ -7,7 +7,7 @@ void set_fn() {
     a.print();
     a.discard(4);
     a.print();
-    a.discard(3);
+    a.remove(3);
     a.print();
     to_pystr(a.contains(1)).print();
     PySet<int> b = PySet({1, 5});

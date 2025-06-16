@@ -1,8 +1,8 @@
 #pragma once
 
+#include "exceptions/stdexcept.h"
 #include <any>
 #include <iostream>
-#include <stdexcept>
 #include <tuple>
 #include <utility>
 
@@ -36,7 +36,7 @@ template <typename... Args> class PyTup {
     static constexpr std::size_t index_impl(const std::tuple<Args...> &tup,
                                             const T &value) {
         if constexpr (I == sizeof...(Args)) {
-            throw std::out_of_range("value not found in tuple");
+            throw PyppValueError("tuple.index(x): x not in tuple");
         } else {
             // Check if types are compatible before comparison
             if constexpr (std::is_same_v<
@@ -49,20 +49,6 @@ template <typename... Args> class PyTup {
             // Otherwise, just continue the search
             return index_impl<T, I + 1>(tup, value);
         }
-    }
-
-    // operator[] helper
-    template <std::size_t... Is>
-    std::any get_by_index(std::size_t index, std::index_sequence<Is...>) const {
-        using getter = std::any (*)(const PyTup *);
-        static constexpr getter getters[] = {[](const PyTup *self) -> std::any {
-            return std::get<Is>(self->data);
-        }...};
-
-        if (index >= sizeof...(Args))
-            throw std::out_of_range("index out of range");
-
-        return getters[index](this);
     }
 
     // Helper for printing (now takes an ostream reference)
@@ -93,11 +79,15 @@ template <typename... Args> class PyTup {
 
     // Compile-time access: Idiomatic, efficient, and fully typed
     template <std::size_t I> auto &get() {
-        static_assert(I < sizeof...(Args), "index is out of bounds");
+        if (I >= sizeof...(Args)) {
+            throw PyppIndexError("tuple index out of range");
+        }
         return std::get<I>(data);
     }
     template <std::size_t I> const auto &get() const {
-        static_assert(I < sizeof...(Args), "index is out of bounds");
+        if (I >= sizeof...(Args)) {
+            throw PyppIndexError("tuple index out of range");
+        }
         return std::get<I>(data);
     }
 

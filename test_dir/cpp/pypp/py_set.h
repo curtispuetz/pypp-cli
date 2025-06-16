@@ -1,9 +1,9 @@
 #pragma once
 
+#include "exceptions/stdexcept.h"
 #include <initializer_list>
 #include <iostream>
 #include <sstream>
-#include <stdexcept>
 #include <unordered_set>
 
 template <typename T> class PySet {
@@ -22,7 +22,7 @@ template <typename T> class PySet {
     void remove(const T &value) {
         auto it = data.find(value);
         if (it == data.end()) {
-            throw std::runtime_error("KeyError: element not found in set");
+            throw PyppKeyError("set.remove(x): x not in set");
         }
         data.erase(it);
     }

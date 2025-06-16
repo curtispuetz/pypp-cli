@@ -1,11 +1,11 @@
 #pragma once
 
+#include "exceptions/stdexcept.h"
 #include "py_list.h"
 #include "py_tuple.h"
 #include <initializer_list>
 #include <iostream>
 #include <optional>
-#include <stdexcept>
 #include <unordered_map>
 #include <utility>
 #include <vector>
@@ -75,7 +75,7 @@ template <typename K, typename V> class PyDict {
             data.erase(it);
             return value;
         }
-        throw std::invalid_argument("key not in dict");
+        throw PyppKeyError("dict.pop(x): x not in dict");
     }
 
     V pop(const K &key, const V &default_value) {
@@ -102,7 +102,7 @@ template <typename K, typename V> class PyDict {
     const V &operator[](const K &key) const {
         auto it = data.find(key);
         if (it == data.end())
-            throw std::out_of_range("Key not found");
+            throw PyppKeyError("dict[x]: x not in dict");
         return it->second;
     }
 

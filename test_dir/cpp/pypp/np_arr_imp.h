@@ -1,12 +1,13 @@
 #pragma once
 
+#include "exceptions/stdexcept.h"
+#include "exceptions/system_error.h"
 #include "py_list.h"
 #include "py_tuple.h"
 #include <algorithm>
 #include <initializer_list>
 #include <iostream>
 #include <numeric>
-#include <stdexcept>
 #include <string>
 #include <type_traits> // Required for std::true_type, std::false_type
 #include <utility>     // Required for std::index_sequence
@@ -24,14 +25,19 @@ template <typename T> class NpArr {
         std::vector<size_t> indices = {i, static_cast<size_t>(dims)...};
 
         if (indices.size() != shape_.len()) {
-            throw std::out_of_range(
-                "Incorrect number of dimensions for indexing.");
+            throw PyppIndexError(
+                "too many indices for array: array is " +
+                std::to_string(shape_.len()) + "-dimensional, but " +
+                std::to_string(indices.size()) + " were indexed");
         }
 
         size_t index = 0;
         for (size_t k = 0; k < indices.size(); ++k) {
             if (indices[k] >= shape_[k]) {
-                throw std::out_of_range("Index out of bounds.");
+                throw PyppIndexError("index " + std::to_string(indices[k]) +
+                                     " is out of bounds for axis " +
+                                     std::to_string(k) + " with size " +
+                                     std::to_string(shape_[k]));
             }
             index += indices[k] * strides_[k];
         }
@@ -102,8 +108,7 @@ template <typename T> class NpArr {
     // Constructor takes a vector for the shape
     NpArr(const PyList<size_t> &shape) : shape_(shape) {
         if (shape_.len() == 0) {
-            throw std::invalid_argument(
-                "Shape must have at least one dimension.");
+            throw PyppValueError("empty numpy array is not supported");
         }
         size_t total_size =
             std::accumulate(shape_.begin(), shape_.end(),
@@ -146,9 +151,13 @@ template <typename T> class NpArr {
                                                   static_cast<size_t>(1),
                                                   std::multiplies<size_t>());
         if (data_.size() != total_size) {
-            throw std::logic_error("Internal error: data size and shape "
-                                   "mismatch during construction. The list was "
-                                   "likely ragged in a deeper dimension.");
+            throw PyppSystemError(
+                "(this could be a Pypp bug) Data size and "
+                "shape mismatch during "
+                "construction of numpy array. The list was "
+                "likely ragged in a deeper "
+                "dimension.",
+                std::error_code(errno, std::system_category()));
         }
     }
 
