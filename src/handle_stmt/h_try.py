@@ -1,6 +1,6 @@
 import ast
 
-from src._types.exception_handler import handle_exception_handlers
+from src.handle_other.exception_handler import handle_exception_handlers
 from src.d_types import CppInclude
 from src.util.handle_lists import handle_stmts
 

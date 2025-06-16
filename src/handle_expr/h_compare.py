@@ -1,6 +1,6 @@
 import ast
 
-from src._types.cmpop import lookup_cmpop
+from src.handle_other.cmpop import handle_cmpop
 from src.d_types import CppInclude
 
 
@@ -14,5 +14,5 @@ def handle_compare(node: ast.Compare, ret_imports: set[CppInclude], handle_expr)
     op = node.ops[0]
     if isinstance(op, ast.In):
         return f"{right_str}.contains({left_str})"
-    op_str = lookup_cmpop(op)
+    op_str = handle_cmpop(op)
     return f"{left_str} {op_str} {right_str}"
