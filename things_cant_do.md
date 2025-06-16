@@ -32,3 +32,5 @@
 - Iterate over a tuple (in pypp, tuples are just used as short data containers; lists, sets, or np arrays can be used 
 for longer collections.)
 - Use the pass keyword (use print('pass') instead perhaps)
+- Use the caught exception as a name only with str() around it (i.e. for 'except Exception as e' e needs to be 
+wrapped with str() if used)

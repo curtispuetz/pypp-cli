@@ -1,6 +1,6 @@
 import ast
 
-from src.d_types import CppInclude
+from src.d_types import CppInclude, QInc
 from src.handle_stmt.stmt import handle_stmt
 from src.util.handle_lists import handle_stmts
 
@@ -16,7 +16,14 @@ def handle_main_stmts(stmts: list[ast.stmt], ret_imports: set[CppInclude]) -> st
     inside_main = handle_stmts(
         main_stmt.body + [ast.Return(ast.Constant(0))], ret_imports, [], handle_stmt
     )
-    return f"{before_main} int main() {{{inside_main}}}"
+    ret_imports.add(QInc("pypp_util/main_error_handler.h"))
+    return (
+        before_main
+        + " int main() { try {"
+        + inside_main
+        + "} catch (...) { handle_fatal_exception(); return EXIT_FAILURE;} }"
+    )
+    # return f"{before_main} int main() {{{inside_main}}}"
 
 
 def _is_proper_main(node: ast.stmt) -> bool:

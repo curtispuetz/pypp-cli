@@ -71,6 +71,7 @@ def dict_fn():
     # a nested dict
     f: dict[int, dict[int, int]] = {0: {0: 1}, 1: {0: 1}}
     print(f)
+    # TODO: test exceptions for all types (tuple, string, set, list, dict, np_arr, numbers)
 
 
 def _fn_dict_arg(d: dict[int, int]):

@@ -16,6 +16,7 @@ def string_ops():
     print(s[2:5:2])
     print(s[2::2])
     print(s[:])
+    # TODO: ensure that no crazy slicing that is completely not valid breaks the C++.
     # concatenation
     s_concat: str = "Hello " + "World"
     print(s_concat)

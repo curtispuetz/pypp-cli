@@ -1,7 +1,7 @@
 #pragma once
 
+#include "exceptions/stdexcept.h"
 #include "py_list.h"
-#include <stdexcept>
 #include <vector>
 
 // Helper to check if a type is a PyList
@@ -24,8 +24,9 @@ static void deduce_shape_recursive(const ListType &list,
             const auto &first_sublist = list[0];
             for (size_t i = 1; i < list.len(); ++i) {
                 if (list[i].len() != first_sublist.len()) {
-                    throw std::invalid_argument(
-                        "Inconsistent sublist length; array must not be "
+                    throw PyppValueError(
+                        "Inconsistent list lengths found when initializing "
+                        "numpy array; array must not be "
                         "ragged.");
                 }
             }

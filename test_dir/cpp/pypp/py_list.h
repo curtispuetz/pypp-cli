@@ -1,11 +1,11 @@
 #pragma once
 
+#include "exceptions/stdexcept.h"
 #include "py_slice.h"
 #include <algorithm>
 #include <iostream>
 #include <optional>
 #include <sstream>
-#include <stdexcept>
 #include <vector>
 
 template <typename T> class PyList {
@@ -52,12 +52,12 @@ template <typename T> class PyList {
             return ret;
         }
         if (data.empty()) {
-            throw std::out_of_range("pop from empty list");
+            throw PyppIndexError("pop from empty list");
         }
         if (index < 0)
             index += data.size();
         if (index < 0 || index >= static_cast<int>(data.size())) {
-            throw std::out_of_range("pop index out of range");
+            throw PyppIndexError("list.pop(x): x out of range");
         }
         T value = data[index];
         data.erase(data.begin() + index);
@@ -79,7 +79,7 @@ template <typename T> class PyList {
     void remove(const T &value) {
         auto it = std::find(data.begin(), data.end(), value);
         if (it == data.end()) {
-            throw std::invalid_argument("value not in list");
+            throw PyppValueError("list.remove(x): x not in list");
         }
         data.erase(it);
     }
@@ -91,7 +91,7 @@ template <typename T> class PyList {
     int index(const T &value) const {
         auto it = std::find(data.begin(), data.end(), value);
         if (it == data.end()) {
-            throw std::invalid_argument("value not in list");
+            throw PyppValueError("list.index(x): x not in list");
         }
         return it - data.begin();
     }
@@ -113,7 +113,7 @@ template <typename T> class PyList {
         if (index < 0)
             index += data.size();
         if (index < 0 || index >= static_cast<int>(data.size())) {
-            throw std::out_of_range("list index out of range");
+            throw PyppIndexError("list index out of range");
         }
         return data[index];
     }
@@ -122,7 +122,7 @@ template <typename T> class PyList {
         if (index < 0)
             index += data.size();
         if (index < 0 || index >= data.size()) {
-            throw std::out_of_range("list index out of range");
+            throw PyppIndexError("list index out of range");
         }
         return data[index];
     }

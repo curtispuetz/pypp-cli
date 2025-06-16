@@ -1,9 +1,9 @@
 #include "py_str.h"
+#include "exceptions/stdexcept.h"
 #include <algorithm>
 #include <cctype>
 #include <iostream>
 #include <sstream>
-#include <stdexcept>
 
 PyStr::PyStr(const std::string &str) : s(str) {}
 
@@ -30,14 +30,14 @@ int PyStr::find(const PyStr &sub) const {
 int PyStr::index(const PyStr &sub) const {
     int pos = find(sub);
     if (pos == -1)
-        throw std::runtime_error("substring not found");
+        throw PyppValueError("substring not found");
     return pos;
 }
 
 int PyStr::rindex(const PyStr &sub) const {
     size_t pos = s.rfind(sub.str());
     if (pos == std::string::npos)
-        throw std::runtime_error("substring not found");
+        throw PyppValueError("substring not found");
     return static_cast<int>(pos);
 }
 
@@ -141,7 +141,7 @@ PyStr PyStr::operator[](int i) const {
     if (i < 0) {
         i += s.length();
         if (i < 0)
-            throw std::out_of_range("index out of range");
+            throw PyppIndexError("string index out of range");
     }
     return PyStr(std::string(1, s.at(i)));
 }

@@ -9,7 +9,7 @@ def set_fn():
     a.discard(4)
     print(a)
     # removing
-    a.discard(3)
+    a.remove(3)
     print(a)
     # contains
     print(str(1 in a))
