@@ -11,6 +11,8 @@ void string_ops() {
     s[PySlice(2, 5, 2)].print();
     s[PySlice(2, std::nullopt, 2)].print();
     s[PySlice(0, std::nullopt, 1)].print();
+    PyStr("invalid slice: ").print();
+    s[PySlice(-6, -13421423, 1345)].print();
     PyStr s_concat = PyStr("Hello ") + PyStr("World");
     s_concat.print();
     (((PyStr("Hello") + PyStr(" ")) + PyStr("World")) + PyStr("!")).print();
