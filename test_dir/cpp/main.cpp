@@ -16,9 +16,12 @@
 #include "src/numpy_arrays/exceptions.h"
 #include "src/numpy_arrays/first.h"
 #include "src/second.h"
+#include "src/sets/exceptions.h"
 #include "src/sets/first.h"
+#include "src/strings/exceptions.h"
 #include "src/strings/first.h"
 #include "src/third.h"
+#include "src/tuples/exceptions.h"
 #include "src/tuples/first.h"
 
 int main() {
@@ -47,6 +50,9 @@ int main() {
         dict_exceptions_fn();
         list_exceptions_fn();
         numpy_array_exceptions_fn();
+        set_exceptions_fn();
+        string_exceptions_fn();
+        tuple_exceptions_fn();
         return 0;
     } catch (...) {
         handle_fatal_exception();

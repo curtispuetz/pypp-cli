@@ -17,6 +17,9 @@ from src.excpetions.throw_ import throw_fn
 from src.dicts.exceptions import dict_exceptions_fn
 from src.lists.exceptions import list_exceptions_fn
 from src.numpy_arrays.exceptions import numpy_array_exceptions_fn
+from src.sets.exceptions import set_exceptions_fn
+from src.strings.exceptions import string_exceptions_fn
+from src.tuples.exceptions import tuple_exceptions_fn
 
 if __name__ == "__main__":
     print(return_something(1, 9))
@@ -43,3 +46,6 @@ if __name__ == "__main__":
     dict_exceptions_fn()
     list_exceptions_fn()
     numpy_array_exceptions_fn()
+    set_exceptions_fn()
+    string_exceptions_fn()
+    tuple_exceptions_fn()
