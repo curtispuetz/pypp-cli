@@ -6,11 +6,11 @@ void dict_fn() {
     a[0].print();
     PyStr default_v = a.get(-1, PyStr("default value"));
     default_v.print();
-    std::optional<PyStr> b = a.get(1);
+    PyppOpt<PyStr> b = a.dg_opt(1);
     if (b.has_value()) {
         b.value().print();
     }
-    std::optional<PyStr> c = a.get(-1);
+    PyppOpt<PyStr> c = a.dg_opt(-1);
     if (!c.has_value()) {
         PyStr("no value").print();
     }
@@ -50,10 +50,18 @@ void dict_fn() {
     e.print();
     PyDict<int, PyDict<int, int>> f({{0, {{0, 1}}}, {1, {{0, 1}}}});
     f.print();
-    PyDict<int, int> &f_0(f[0]);
-    f_0[99] = 98;
+    PyDict<int, int> &f0(f[0]);
+    f0[99] = 98;
     f.print();
     f[1][77] = 76;
     f.print();
+    PyppOpt<PyDict<int, int>> f1 = f.dg_opt(1);
+    if (f1.has_value()) {
+        f1.value()[9] = 8;
+    }
+    f.print();
+    PyDict<int, int> g({{0, 1}, {1, 2}});
+    int g0 = g.dg(1);
+    to_pystr(g0).print();
 }
 void _fn_dict_arg(const PyDict<int, int> &d) { d.print(); }

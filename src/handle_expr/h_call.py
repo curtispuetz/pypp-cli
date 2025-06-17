@@ -26,11 +26,16 @@ def handle_call(node: ast.Call, ret_imports: set[CppInclude], handle_expr):
         cpp_call_start = ""
         cpp_call_end = ""
     elif caller_str == "pypp_tg":
-        assert len(node.args) == 2
+        assert len(node.args) == 2, "incorrect number of args when calling pypp_tg"
         ret_imports.add(AngInc("any"))
         tuple_arg = handle_expr(node.args[0], ret_imports)
         index_arg = handle_expr(node.args[1], ret_imports)
         return f"{tuple_arg}.get<{index_arg}>()"
+    elif caller_str in {"pypp_dg_opt", "pypp_dg"}:
+        assert len(node.args) == 2, "incorrect number of args when calling pypp_dg_opt"
+        dict_arg = handle_expr(node.args[0], ret_imports)
+        index_arg = handle_expr(node.args[1], ret_imports)
+        return f"{dict_arg}.dg{'_opt' if caller_str.endswith('t') else ''}({index_arg})"
     elif caller_str.startswith("pypp_np") and caller_str.endswith(
         ("zeros", "ones", "full", "array")
     ):
