@@ -35,12 +35,12 @@ int main() {
         tuples_fn();
         string_ops();
         numpy_arrays_fn();
-        list_fn();
         set_fn();
-        dict_fn();
         for_loop_fn();
         while_loop_fn();
         throw_fn();
+        list_fn();
+        dict_fn();
         return 0;
     } catch (...) {
         handle_fatal_exception();

@@ -8,7 +8,7 @@ void list_fn() {
     a.append(11);
     a.print();
     to_pystr(a[-1]).print();
-    int b = a[-1];
+    int &b = a[-1];
     to_pystr(b).print();
     b = 20;
     to_pystr(b).print();
@@ -58,4 +58,10 @@ void list_fn() {
     e.print();
     PyList<int> f = PyList<int>({});
     f.print();
+    PyList<PyList<int>> g = PyList({PyList({1, 2}), PyList({3, 4})});
+    PyList<int> &g_0 = g[0];
+    g_0.append(99);
+    g.print();
+    g[1].append(98);
+    g.print();
 }

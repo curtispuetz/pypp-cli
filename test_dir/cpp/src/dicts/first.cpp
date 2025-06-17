@@ -50,5 +50,10 @@ void dict_fn() {
     e.print();
     PyDict<int, PyDict<int, int>> f({{0, {{0, 1}}}, {1, {{0, 1}}}});
     f.print();
+    PyDict<int, int> &f_0(f[0]);
+    f_0[99] = 98;
+    f.print();
+    f[1][77] = 76;
+    f.print();
 }
 void _fn_dict_arg(const PyDict<int, int> &d) { d.print(); }
