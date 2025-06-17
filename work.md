@@ -17,10 +17,18 @@
 - Numpy arrays. AAGP
 - For loops. AAGP
 - While loops. AAGP
-- Try-Catch
-- Match-Case (can do later)
+- Try-Catch. AAGP
+- Match-Case. MDN
+- List, set, and dict comprehensions
+- Type Aliases
+- With statements
+- Assert statement
+- Yield
+- Joined strings
+- Starred arguments?
 - import math library
 - the time library
 - multiprocessing library
 - file handling
+- json library
 - Classes
