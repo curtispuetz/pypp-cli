@@ -17,7 +17,7 @@ def string_ops():
     print(s[2::2])
     print(s[:])
     print("invalid slice: ")
-    print(s[-6: -13421423: 1345])
+    print(s[-6:-13421423:1345])
     # concatenation
     s_concat: str = "Hello " + "World"
     print(s_concat)
