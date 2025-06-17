@@ -34,3 +34,4 @@ for longer collections.)
 - Use the pass keyword (use print('pass') instead perhaps)
 - Use the caught exception as a name only with str() around it (i.e. for 'except Exception as e' e needs to be 
 wrapped with str() if used)
+- Reassign things. (e.g. l: list[int] = [1, 2]; l = [];)
