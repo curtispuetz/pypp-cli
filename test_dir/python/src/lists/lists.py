@@ -87,3 +87,10 @@ def list_fn():
     print(g)
     g[1].append(98)
     print(g)
+    # test passing a list inline
+    # TODO: test inline passing for other collections
+    _test_fn(["1", "2"])
+
+
+def _test_fn(arg1: list[str]):
+    print(arg1)

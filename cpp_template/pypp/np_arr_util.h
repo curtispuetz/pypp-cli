@@ -26,8 +26,7 @@ static void deduce_shape_recursive(const ListType &list,
                 if (list[i].len() != first_sublist.len()) {
                     throw PyppValueError(
                         "Inconsistent list lengths found when initializing "
-                        "numpy array; array must not be "
-                        "ragged.");
+                        "numpy array; array is ragged.");
                 }
             }
             // Recurse into the first sublist to determine the shape of the

@@ -43,9 +43,6 @@ def handle_call(node: ast.Call, ret_imports: set[CppInclude], handle_expr):
         ret_imports.add(QInc("np_arr.h"))
         cpp_dtype = handle_expr(node.args[-1], ret_imports)
         first_arg_str = handle_expr(node.args[0], ret_imports)
-        if fn_name != "array":
-            # in this case the first arg is a 'shape'
-            first_arg_str = _add_size_t_to_shape_string(first_arg_str)
         args_str: list[str] = [first_arg_str]
         if fn_name == "full":
             fill_value = handle_expr(node.args[1], ret_imports)
@@ -53,10 +50,3 @@ def handle_call(node: ast.Call, ret_imports: set[CppInclude], handle_expr):
         return f"pypp_np::{fn_name}<{cpp_dtype}>({', '.join(args_str)})"
     args_str = handle_exprs(node.args, ret_imports, handle_expr)
     return f"{cpp_call_start}{args_str}{cpp_call_end}"
-
-
-def _add_size_t_to_shape_string(shape_str: str):
-    assert shape_str.startswith("PyList"), (
-        "list should be used as the first parameter for pypp_np_* methods"
-    )
-    return shape_str[0:6] + "<size_t>" + shape_str[6:]
