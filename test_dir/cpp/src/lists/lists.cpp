@@ -65,4 +65,6 @@ void list_fn() {
     g.print();
     g[1].append(98);
     g.print();
+    _test_fn(PyList({PyStr("1"), PyStr("2")}));
 }
+void _test_fn(const PyList<PyStr> &arg1) { arg1.print(); }

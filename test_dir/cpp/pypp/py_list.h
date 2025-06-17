@@ -118,6 +118,7 @@ template <typename T> class PyList {
         return data[index];
     }
 
+    // TODO later: delete this because I think I don't need it.
     const T &operator[](int index) const {
         if (index < 0)
             index += data.size();

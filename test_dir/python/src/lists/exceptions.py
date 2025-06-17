@@ -13,13 +13,12 @@ def list_exceptions_fn():
     try:
         b.remove(4)
     except ValueError as e:
-        print('value error: ' + str(e))
+        print("value error: " + str(e))
     try:
         b.index(4)
     except ValueError as e:
-        print('value error: ' + str(e))
+        print("value error: " + str(e))
     try:
         b[3]
     except IndexError as e:
         print("index error: " + str(e))
-

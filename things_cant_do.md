@@ -35,4 +35,7 @@ for longer collections.)
 - Use the caught exception as a name only with str() around it (i.e. for 'except Exception as e' e needs to be 
 wrapped with str() if used)
 - Reassign things. (e.g. l: list[int] = [1, 2]; l = [];)
-- You can't use negative i for list.pop(i)
+- Use negative i for list.pop(i)
+- Pass an empty list (or probably dict or set or any other collection?) somewhere. You need to first declare a variable so that you can specify the lists type (i.e. a: list[int] = []).
+Additionally, you need to be careful when passing any collection inline, because C++ needs to be able to cast your collection
+to the expected collection, which does work in most cases I think.

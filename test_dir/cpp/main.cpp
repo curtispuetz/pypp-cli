@@ -13,6 +13,7 @@
 #include "src/loops/for_.h"
 #include "src/loops/while_.h"
 #include "src/numbers/first.h"
+#include "src/numpy_arrays/exceptions.h"
 #include "src/numpy_arrays/first.h"
 #include "src/second.h"
 #include "src/sets/first.h"
@@ -45,6 +46,7 @@ int main() {
         dict_fn();
         dict_exceptions_fn();
         list_exceptions_fn();
+        numpy_array_exceptions_fn();
         return 0;
     } catch (...) {
         handle_fatal_exception();
