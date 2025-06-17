@@ -9,7 +9,7 @@ def handle_ann_assign(
 ) -> str:
     type_cpp: str = handle_expr(node.annotation, ret_imports)
     if type_cpp.startswith("PyppOpt[") and type_cpp.endswith("]"):
-        type_cpp = "std::optional<" + calc_inside_sq(type_cpp) + ">"
+        type_cpp = "PyppOpt<" + calc_inside_sq(type_cpp) + ">"
     target_str = handle_expr(node.target, ret_imports)
     if node.value is None:
         return f"{type_cpp} {target_str};"

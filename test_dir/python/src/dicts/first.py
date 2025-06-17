@@ -1,3 +1,4 @@
+from test_dir.python.pypp.dict_get import pypp_dg_opt, pypp_dg
 from test_dir.python.pypp.optional import PyppOpt
 
 
@@ -10,10 +11,10 @@ def dict_fn():
     # get
     default_v: str = a.get(-1, "default value")
     print(default_v)
-    b: PyppOpt[str] = PyppOpt(a.get(1))
+    b: PyppOpt[str] = pypp_dg_opt(a, 1)
     if b.has_value():
         print(b.value())
-    c: PyppOpt[str] = PyppOpt(a.get(-1))
+    c: PyppOpt[str] = pypp_dg_opt(a, -1)
     if not c.has_value():
         print("no value")
     print(c.value_or("no value from value_or"))
@@ -73,11 +74,19 @@ def dict_fn():
     print(f)
     # TODO: test exceptions for all types (tuple, string, set, list, dict, np_arr, numbers)
     # modifying references
-    f_0: dict[int, int] = f[0]
-    f_0[99] = 98
+    f0: dict[int, int] = f[0]
+    f0[99] = 98
     print(f)
     f[1][77] = 76
     print(f)
+    f1: PyppOpt[dict[int, int]] = pypp_dg_opt(f, 1)
+    if f1.has_value():
+        f1.value()[9] = 8
+    print(f)
+    # test pypp_dg
+    g: dict[int, int] = {0: 1, 1: 2}
+    g0: int = pypp_dg(g, 1)
+    print(str(g0))
 
 
 def _fn_dict_arg(d: dict[int, int]):

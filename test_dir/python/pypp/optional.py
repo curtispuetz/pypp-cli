@@ -49,24 +49,3 @@ class PyppOpt(Generic[T]):
 
     def __bool__(self) -> bool:
         return self._has_value
-
-    def __eq__(self, other: object) -> bool:
-        if isinstance(other, PyppOpt):
-            return self._has_value == other._has_value and self._value == other._value
-        if other is None:
-            return not self._has_value
-        return False
-
-    def __ne__(self, other: object) -> bool:
-        return not self.__eq__(other)
-
-    def __repr__(self) -> str:
-        if self._has_value:
-            return f"Optional({self._value!r})"
-        return "Optional(None)"
-
-
-def a(b: int) -> PyppOpt[int]:
-    if b > 0:
-        return PyppOpt(1)
-    return PyppOpt()

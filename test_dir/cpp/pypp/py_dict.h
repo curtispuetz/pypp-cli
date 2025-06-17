@@ -3,9 +3,9 @@
 #include "exceptions/stdexcept.h"
 #include "py_list.h"
 #include "py_tuple.h"
+#include "pypp_optional.h"
 #include <initializer_list>
 #include <iostream>
-#include <optional>
 #include <unordered_map>
 #include <utility>
 #include <vector>
@@ -46,12 +46,21 @@ template <typename K, typename V> class PyDict {
         return PyList(result);
     }
 
-    // get(key)
-    std::optional<V> get(const K &key) const {
+    // opeartor[] allows for read-only access, like Python's dict[x]
+    // dg == dict get. matches pypp's naming
+    V &dg(const K &key) {
+        auto it = data.find(key);
+        if (it == data.end())
+            throw PyppKeyError("dict[x]: x not in dict");
+        return it->second;
+    }
+
+    // get_opt(key)
+    PyppOpt<V> dg_opt(const K &key) {
         auto it = data.find(key);
         if (it != data.end())
-            return it->second;
-        return std::nullopt;
+            return PyppOpt<V>(it->second);
+        return PyppOpt<V>();
     }
 
     V get(const K &key, const V &default_value) const {
@@ -97,14 +106,8 @@ template <typename K, typename V> class PyDict {
     // contains(key)
     bool contains(const K &key) const { return data.find(key) != data.end(); }
 
-    // operator[] access/assignment like Python
+    // operator[] allows for assignment, like Pythons dict[x] = y
     V &operator[](const K &key) { return data[key]; }
-    const V &operator[](const K &key) const {
-        auto it = data.find(key);
-        if (it == data.end())
-            throw PyppKeyError("dict[x]: x not in dict");
-        return it->second;
-    }
 
     // Size
     int len() const { return data.size(); }
