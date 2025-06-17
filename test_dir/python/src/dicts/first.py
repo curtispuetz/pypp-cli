@@ -72,6 +72,12 @@ def dict_fn():
     f: dict[int, dict[int, int]] = {0: {0: 1}, 1: {0: 1}}
     print(f)
     # TODO: test exceptions for all types (tuple, string, set, list, dict, np_arr, numbers)
+    # modifying references
+    f_0: dict[int, int] = f[0]
+    f_0[99] = 98
+    print(f)
+    f[1][77] = 76
+    print(f)
 
 
 def _fn_dict_arg(d: dict[int, int]):

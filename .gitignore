@@ -2,3 +2,4 @@
 /.idea
 /test_dir/cpp/build
 **/__pycache__/**
+/test_dir2

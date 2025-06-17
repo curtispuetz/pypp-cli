@@ -79,3 +79,11 @@ def list_fn():
     # initialize empty
     f: list[int] = []
     print(f)
+    # modifying references
+    g: list[list[int]] = [[1, 2], [3, 4]]
+    g_0: list[int] = g[0]
+    g_0.append(99)
+    print(g)
+    g[1].append(98)
+    print(g)
+

@@ -18,6 +18,8 @@ def handle_ann_assign(
         value_str = _empty_initialize("PyList", type_cpp)
     elif value_str == "set()":
         value_str = _empty_initialize("PySet", type_cpp)
+    if isinstance(node.value, ast.Subscript):
+        type_cpp += "&"
     if type_cpp.startswith("PyDict<"):
         # TODO later: consider that dicts are handle differently here than lists
         #  and sets. It might be nice if they are handled the same, but it seems hard.
