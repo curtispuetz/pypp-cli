@@ -138,6 +138,9 @@ void PyStr::operator+=(const PyStr &other) { s += other.str(); }
 void PyStr::operator*=(const int rep) { s = repeat_string(s, rep); }
 
 PyStr PyStr::operator[](int i) const {
+    if (i > static_cast<int>(s.length()) - 1) {
+        throw PyppIndexError("string index out of range");
+    }
     if (i < 0) {
         i += s.length();
         if (i < 0)

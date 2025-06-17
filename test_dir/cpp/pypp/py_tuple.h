@@ -79,11 +79,15 @@ template <typename... Args> class PyTup {
 
     // Compile-time access: Idiomatic, efficient, and fully typed
     template <std::size_t I> auto &get() {
+        // NOTE: I think this is actually unnessary because if it is true it
+        // results in a compile-time error anyway.
         if (I >= sizeof...(Args)) {
             throw PyppIndexError("tuple index out of range");
         }
         return std::get<I>(data);
     }
+
+    // TODO later: delete this because I think I don't need it.
     template <std::size_t I> const auto &get() const {
         if (I >= sizeof...(Args)) {
             throw PyppIndexError("tuple index out of range");
