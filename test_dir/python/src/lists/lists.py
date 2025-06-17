@@ -1,4 +1,5 @@
 def list_fn():
+    print("LIST RESULTS:")
     # Declaration
     a: list[int] = [1, 2, 3, 4, 5]
     print(a)

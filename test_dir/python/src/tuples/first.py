@@ -2,6 +2,7 @@ from test_dir.python.pypp.tuple_get import pypp_tg
 
 
 def tuples_fn():
+    print("TUPLE RESULTS:")
     a: tuple[int, float, str] = (1, 1.2, "a")
     # count
     print(str(a.count(2)))

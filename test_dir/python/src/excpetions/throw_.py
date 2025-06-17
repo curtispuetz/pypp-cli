@@ -1,4 +1,5 @@
 def throw_fn():
+    print("EXCEPTION RESULTS:")
     # raising an exception and catching all
     try:
         raise Exception("test")

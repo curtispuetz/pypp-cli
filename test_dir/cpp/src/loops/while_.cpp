@@ -1,6 +1,7 @@
 #include "loops\while_.h"
 
 void while_loop_fn() {
+    PyStr("WHILE LOOP RESULTS:").print();
     PyList<int> a = PyList<int>({});
     int i = 0;
     while (i < 3) {

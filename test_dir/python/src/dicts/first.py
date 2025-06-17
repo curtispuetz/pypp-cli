@@ -3,6 +3,7 @@ from test_dir.python.pypp.optional import PyppOpt
 
 
 def dict_fn():
+    print("DICT RESULTS:")
     # declaration
     a: dict[int, str] = {0: "a", 1: "b", 2: "c"}
     print(a)

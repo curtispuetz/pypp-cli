@@ -1,6 +1,7 @@
 #include "sets\first.h"
 
 void set_fn() {
+    PyStr("SET RESULTS:").print();
     PySet<int> a = PySet({1, 2, 3});
     a.print();
     a.add(4);

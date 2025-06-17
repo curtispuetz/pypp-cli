@@ -1,4 +1,5 @@
 def for_loop_fn():
+    print("FOR RESULTS:")
     # looping with 'range()'
     ret: list[int] = []
     for i in range(2, 10, 2):

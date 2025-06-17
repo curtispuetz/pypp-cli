@@ -1,4 +1,5 @@
 def set_fn():
+    print("SET RESULTS:")
     # declaration
     a: set[int] = {1, 2, 3}
     print(a)

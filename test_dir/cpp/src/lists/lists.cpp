@@ -1,6 +1,7 @@
 #include "lists\lists.h"
 
 void list_fn() {
+    PyStr("LIST RESULTS:").print();
     PyList<int> a = PyList({1, 2, 3, 4, 5});
     a.print();
     a[0] = 10;

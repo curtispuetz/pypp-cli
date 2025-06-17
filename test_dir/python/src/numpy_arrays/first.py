@@ -10,7 +10,7 @@ from test_dir.python.pypp.libs.numpy.impl import PyppNpArr
 
 
 def numpy_arrays_fn():
-    print("start of numpy arrays")
+    print("NUMPY ARRAY RESULTS: ")
     # Zeros, ones, and full
     a: PyppNpArr[np.float32] = pypp_np_zeros([2, 3], np.float32)
     a.print()

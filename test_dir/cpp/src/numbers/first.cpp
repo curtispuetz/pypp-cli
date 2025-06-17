@@ -1,6 +1,7 @@
 #include "numbers\first.h"
 
 void number_ops() {
+    PyStr("NUMBER RESULTS:").print();
     int a = 1 + 2;
     to_pystr(a).print();
     to_pystr(2 + 2).print();

@@ -1,7 +1,7 @@
 #include "numpy_arrays\first.h"
 
 void numpy_arrays_fn() {
-    PyStr("start of numpy arrays").print();
+    PyStr("NUMPY ARRAY RESULTS: ").print();
     NpArr<float> a = pypp_np::zeros<float>(PyList<size_t>({2, 3}));
     a.print();
     NpArr<float> b = pypp_np::ones<float>(PyList<size_t>({2, 3}));

@@ -1,6 +1,7 @@
 #include "strings\first.h"
 
 void string_ops() {
+    PyStr("STRING RESULTS:").print();
     PyStr s = PyStr("  abd  ");
     s.print();
     to_pystr(s.len()).print();
