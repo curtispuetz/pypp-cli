@@ -1,6 +1,7 @@
 #include "dicts\first.h"
 
 void dict_fn() {
+    PyStr("DICT RESULTS:").print();
     PyDict<int, PyStr> a({{0, PyStr("a")}, {1, PyStr("b")}, {2, PyStr("c")}});
     a.print();
     a[0].print();

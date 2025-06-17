@@ -1,4 +1,5 @@
 def while_loop_fn():
+    print("WHILE LOOP RESULTS:")
     # typical while loop
     a: list[int] = []
     i: int = 0

@@ -1,6 +1,7 @@
 #include "excpetions\throw_.h"
 
 void throw_fn() {
+    PyStr("EXCEPTION RESULTS:").print();
     try {
         throw PyppException(PyStr("test").str());
     } catch (const PyppException &) {

@@ -2,6 +2,7 @@ from test_dir.python.pypp.pypp_print import pypp_print
 
 
 def number_ops():
+    print("NUMBER RESULTS:")
     a: int = 1 + 2
     print(str(a))
     print(str(2 + 2))

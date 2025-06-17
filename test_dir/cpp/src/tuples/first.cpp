@@ -1,6 +1,7 @@
 #include "tuples\first.h"
 
 void tuples_fn() {
+    PyStr("TUPLE RESULTS:").print();
     PyTup<int, double, PyStr> a = PyTup(1, 1.2, PyStr("a"));
     to_pystr(a.count(2)).print();
     to_pystr(a.index(1.2)).print();
