@@ -39,3 +39,4 @@ wrapped with str() if used)
 - Pass an empty list (or probably dict or set or any other collection?) somewhere. You need to first declare a variable so that you can specify the lists type (i.e. a: list[int] = []).
 Additionally, you need to be careful when passing any collection inline, because C++ needs to be able to cast your collection
 to the expected collection, which does work in most cases I think.
+- Use 'global' and 'non local'
