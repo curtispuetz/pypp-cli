@@ -14,6 +14,8 @@ from src.numpy_arrays.first import numpy_arrays_fn
 from src.loops.for_ import for_loop_fn
 from src.loops.while_ import while_loop_fn
 from src.excpetions.throw_ import throw_fn
+from src.dicts.exceptions import dict_exceptions_fn
+from src.lists.exceptions import list_exceptions_fn
 
 if __name__ == "__main__":
     print(return_something(1, 9))
@@ -37,3 +39,5 @@ if __name__ == "__main__":
     throw_fn()
     list_fn()
     dict_fn()
+    dict_exceptions_fn()
+    list_exceptions_fn()

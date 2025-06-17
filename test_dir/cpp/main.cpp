@@ -1,12 +1,14 @@
 #include "py_list.h"
 #include "py_str.h"
 #include "pypp_util/main_error_handler.h"
+#include "src/dicts/exceptions.h"
 #include "src/dicts/first.h"
 #include "src/excpetions/throw_.h"
 #include "src/first.h"
 #include "src/fourth.h"
 #include "src/if_elif_else/if_elif_else.h"
 #include "src/lists/as_arg.h"
+#include "src/lists/exceptions.h"
 #include "src/lists/lists.h"
 #include "src/loops/for_.h"
 #include "src/loops/while_.h"
@@ -41,6 +43,8 @@ int main() {
         throw_fn();
         list_fn();
         dict_fn();
+        dict_exceptions_fn();
+        list_exceptions_fn();
         return 0;
     } catch (...) {
         handle_fatal_exception();

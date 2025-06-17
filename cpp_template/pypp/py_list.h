@@ -46,13 +46,13 @@ template <typename T> class PyList {
 
     // Pop
     T pop(int index = -1) {
+        if (data.empty()) {
+            throw PyppIndexError("pop from empty list");
+        }
         if (index == -1) {
             T ret = data[data.size() - 1];
             data.pop_back();
             return ret;
-        }
-        if (data.empty()) {
-            throw PyppIndexError("pop from empty list");
         }
         if (index < 0)
             index += data.size();
