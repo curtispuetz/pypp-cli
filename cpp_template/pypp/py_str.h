@@ -7,13 +7,59 @@
 #include <ostream>
 #include <string>
 
-// TODO: test iteration over a PyStr
 class PyStr {
     std::string s;
     PyStr slice(int start, std::optional<int> stop, int step = 1) const;
     static std::string repeat_string(const std::string &input, int rep);
 
+    class iterator {
+      public:
+        // C++20 Iterator Traits
+        using iterator_concept = std::forward_iterator_tag;
+        using iterator_category = std::forward_iterator_tag;
+        using value_type = PyStr;
+        using difference_type = std::ptrdiff_t;
+        using pointer = PyStr *;
+        using reference =
+            PyStr; // Returning by value, so reference is the value type
+
+        iterator(std::string::const_iterator it) : m_it(it) {}
+
+        // Dereference operator: Returns a PyStr of the current character
+        reference operator*() const { return PyStr(std::string(1, *m_it)); }
+
+        // Pre-increment operator
+        iterator &operator++() {
+            m_it++;
+            return *this;
+        }
+
+        // Post-increment operator
+        iterator operator++(int) {
+            iterator tmp = *this;
+            ++(*this);
+            return tmp;
+        }
+
+        // Equality operators
+        friend bool operator==(const iterator &a, const iterator &b) {
+            return a.m_it == b.m_it;
+        };
+
+        friend bool operator!=(const iterator &a, const iterator &b) {
+            return a.m_it != b.m_it;
+        };
+
+      private:
+        std::string::const_iterator m_it;
+    };
+
   public:
+    inline iterator begin() { return iterator(s.cbegin()); }
+    inline iterator end() { return iterator(s.cend()); }
+    inline iterator begin() const { return iterator(s.cbegin()); }
+    inline iterator end() const { return iterator(s.cend()); }
+
     PyStr(const std::string &str = "");
 
     PyStr replace(const PyStr &old, const PyStr &replacement,

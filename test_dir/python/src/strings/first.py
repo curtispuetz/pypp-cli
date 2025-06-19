@@ -77,3 +77,8 @@ def string_ops():
     # initialize empty
     a: str = ""
     print(a)
+    # iterate over a string
+    list_of_chars: list[str] = []
+    for c in "abcdefg":
+        list_of_chars.append(c)
+    print(list_of_chars)
