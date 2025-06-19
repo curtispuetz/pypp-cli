@@ -191,7 +191,7 @@ template <typename T> class NpArr {
     int size() const { return data_.size(); }
 
     // Print method similar to NumPy
-    void print(std::ostream &os = std::cout) const {
+    void print(std::ostream &os) const {
         if (shape_.len() == 1 && shape_[0] == 0) {
             os << "[]" << std::endl;
             return;
@@ -201,6 +201,19 @@ template <typename T> class NpArr {
         print_recursive(
             os, 0, current_indices,
             1); // Start recursion from dimension 0, initial indent 1
-        os << std::endl;
     }
+
+    void print() const {
+        print(std::cout);
+        std::cout << std::endl;
+    }
+
+    template <typename U>
+    friend std::ostream &operator<<(std::ostream &os, const NpArr<U> &arr);
 };
+
+template <typename T>
+std::ostream &operator<<(std::ostream &os, const NpArr<T> &arr) {
+    arr.print(os);
+    return os;
+}
