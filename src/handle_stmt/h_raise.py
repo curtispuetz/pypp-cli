@@ -1,11 +1,11 @@
 import ast
 
-from src.d_types import CppInclude
 from src.mapping.exceptions import lookup_cpp_exception_type
 from src.util.inner_strings import calc_inside_rd
+from src.util.ret_imports import RetImports
 
 
-def handle_raise(node: ast.Raise, ret_imports: set[CppInclude], handle_expr) -> str:
+def handle_raise(node: ast.Raise, ret_imports: RetImports, handle_expr) -> str:
     assert node.cause is None, "exception cause not supported"
     assert node.exc is not None, "raising without exception type is not supported"
     exe_str = handle_expr(node.exc, ret_imports)

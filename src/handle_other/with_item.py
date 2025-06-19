@@ -1,12 +1,13 @@
 import ast
 
-from src.d_types import CppInclude, QInc
+from src.d_types import QInc
 from src.util.handle_lists import handle_exprs
+from src.util.ret_imports import RetImports, add_inc
 
 
 def handle_with_item(
     nodes: list[ast.withitem],
-    ret_imports: set[CppInclude],
+    ret_imports: RetImports,
     handle_expr,
 ) -> str:
     error_str: str = (
@@ -15,7 +16,7 @@ def handle_with_item(
     node, args = _assert_with_item_is_open(nodes, error_str)
     args_str = handle_exprs(args, ret_imports, handle_expr)
     variable_name = _assert_variable_name(node, error_str)
-    ret_imports.add(QInc("pypp_text_io.h"))
+    add_inc(ret_imports, QInc("pypp_text_io.h"))
     return f"PyTextIO {variable_name}({args_str});"
 
 

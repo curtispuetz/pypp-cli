@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 
 from src.d_types import CppInclude, QInc
+from src.util.ret_imports import RetImports, add_inc
 
 
 @dataclass(frozen=True, slots=True)
@@ -24,12 +25,16 @@ TYPES_MAP: dict[str, TypeMapInfo] = {
 }
 
 
-def lookup_cpp_type(python_type: str, ret_imports: set[CppInclude]) -> str:
+def lookup_cpp_type(
+    python_type: str,
+    ret_imports: RetImports,
+    include_in_header: bool = False,
+) -> str:
     # The way it works is that whenever you looked up the type, it automatically
     # is added to the ret_imports
     if python_type not in TYPES_MAP:
         return python_type
     val = TYPES_MAP[python_type]
     for include in val.includes:
-        ret_imports.add(include)
+        add_inc(ret_imports, include, include_in_header)
     return val.val

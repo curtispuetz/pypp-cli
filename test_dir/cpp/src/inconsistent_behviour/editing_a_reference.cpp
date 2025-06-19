@@ -1,4 +1,5 @@
 #include "inconsistent_behviour\editing_a_reference.h"
+#include "pypp_util/print.h"
 
 void editing_a_reference_fn() {
     PyList<int> a = PyList({1, 2, 3});

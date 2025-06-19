@@ -1,4 +1,7 @@
 #include "lists\lists.h"
+#include "py_slice.h"
+#include "pypp_util/print.h"
+#include "pypp_util/to_py_str.h"
 
 void list_fn() {
     print(PyStr("LIST RESULTS:"));

@@ -1,6 +1,5 @@
 import ast
 
-from src.d_types import CppInclude
 from src.handle_expr.h_attribute import handle_attribute
 from src.handle_expr.h_bin_op import handle_bin_op
 from src.handle_expr.h_call import handle_call
@@ -15,37 +14,41 @@ from src.handle_expr.h_subscript import handle_subscript
 from src.handle_expr.h_tuple import handle_tuple
 from src.handle_expr.h_unary_op import handle_unary_op
 from src.handle_expr.h_slice import handle_slice
+from src.util.ret_imports import RetImports
 
 
 def handle_expr(
-    node: ast.expr, ret_imports: set[CppInclude], skip_cpp_lookup: bool = False
+    node: ast.expr,
+    ret_imports: RetImports,
+    include_in_header: bool = False,
+    skip_cpp_lookup: bool = False,
 ) -> str:
     if isinstance(node, ast.Compare):
-        return handle_compare(node, ret_imports, handle_expr)
+        return handle_compare(node, ret_imports, handle_expr, include_in_header)
     if isinstance(node, ast.Name):
-        return handle_name(node, ret_imports, skip_cpp_lookup)
+        return handle_name(node, ret_imports, skip_cpp_lookup, include_in_header)
     if isinstance(node, ast.Constant):
-        return handle_constant(node, ret_imports)
+        return handle_constant(node, ret_imports, include_in_header)
     if isinstance(node, ast.Call):
-        return handle_call(node, ret_imports, handle_expr)
+        return handle_call(node, ret_imports, handle_expr, include_in_header)
     if isinstance(node, ast.Subscript):
-        return handle_subscript(node, ret_imports, handle_expr)
+        return handle_subscript(node, ret_imports, handle_expr, include_in_header)
     if isinstance(node, ast.List):
-        return handle_list(node, ret_imports, handle_expr)
+        return handle_list(node, ret_imports, handle_expr, include_in_header)
     if isinstance(node, ast.Attribute):
-        return handle_attribute(node, ret_imports, handle_expr)
+        return handle_attribute(node, ret_imports, handle_expr, include_in_header)
     if isinstance(node, ast.UnaryOp):
-        return handle_unary_op(node, ret_imports, handle_expr)
+        return handle_unary_op(node, ret_imports, handle_expr, include_in_header)
     if isinstance(node, ast.Slice):
-        return handle_slice(node, ret_imports, handle_expr)
+        return handle_slice(node, ret_imports, handle_expr, include_in_header)
     if isinstance(node, ast.BinOp):
-        return handle_bin_op(node, ret_imports, handle_expr)
+        return handle_bin_op(node, ret_imports, handle_expr, include_in_header)
     if isinstance(node, ast.Tuple):
-        return handle_tuple(node, ret_imports, handle_expr)
+        return handle_tuple(node, ret_imports, handle_expr, include_in_header)
     if isinstance(node, ast.Dict):
-        return handle_dict(node, ret_imports, handle_expr)
+        return handle_dict(node, ret_imports, handle_expr, include_in_header)
     if isinstance(node, ast.Set):
-        return handle_set(node, ret_imports, handle_expr)
+        return handle_set(node, ret_imports, handle_expr, include_in_header)
     if isinstance(node, ast.JoinedStr):
-        return handle_joined_string(node, ret_imports, handle_expr)
+        return handle_joined_string(node, ret_imports, handle_expr, include_in_header)
     raise Exception(f"code expr type {node} not handled")

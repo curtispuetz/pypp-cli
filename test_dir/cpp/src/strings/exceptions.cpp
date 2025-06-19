@@ -1,4 +1,9 @@
 #include "strings\exceptions.h"
+#include "exceptions/stdexcept.h"
+#include "py_str.h"
+#include "pypp_util/print.h"
+#include "pypp_util/to_py_str.h"
+#include <string>
 
 void string_exceptions_fn() {
     print(PyStr("STRING EXCEPTIONS RESULTS:"));

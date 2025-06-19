@@ -1,14 +1,14 @@
 import ast
 
-from src.d_types import CppInclude
 from src.mapping.fn_arg import lookup_cpp_fn_arg
 from src.util.handle_lists import handle_stmts
 from src.util.inner_strings import calc_inside_rd
+from src.util.ret_imports import RetImports
 
 
 def handle_fn_def(
     node: ast.FunctionDef,
-    ret_imports: set[CppInclude],
+    ret_imports: RetImports,
     ret_h_file: list[str],
     handle_stmt,
     handle_expr,
@@ -20,19 +20,21 @@ def handle_fn_def(
 
 
 def _calc_fn_signature(
-    node: ast.FunctionDef, ret_imports: set[CppInclude], handle_expr
+    node: ast.FunctionDef, ret_imports: RetImports, handle_expr
 ) -> str:
     cpp_ret_type: str
     if node.returns is None:
         cpp_ret_type = "void"
     else:
-        cpp_ret_type = handle_expr(node.returns, ret_imports)
+        cpp_ret_type = handle_expr(node.returns, ret_imports, include_in_header=True)
     fn_name: str = node.name
     cpp_args: list[str] = []
     for py_arg in node.args.args:
         arg_name: str = py_arg.arg
         assert py_arg.annotation is not None, "function argument type must be specified"
-        py_arg_type: str = handle_expr(py_arg.annotation, ret_imports)
+        py_arg_type: str = handle_expr(
+            py_arg.annotation, ret_imports, include_in_header=True
+        )
         is_const: bool = True
         if py_arg_type.startswith("PyppMut(") and py_arg_type.endswith(")"):
             py_arg_type = calc_inside_rd(py_arg_type)

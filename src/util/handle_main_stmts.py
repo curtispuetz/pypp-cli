@@ -1,11 +1,12 @@
 import ast
 
-from src.d_types import CppInclude, QInc
+from src.d_types import QInc
 from src.handle_stmt.stmt import handle_stmt
 from src.util.handle_lists import handle_stmts
+from src.util.ret_imports import RetImports, add_inc
 
 
-def handle_main_stmts(stmts: list[ast.stmt], ret_imports: set[CppInclude]) -> str:
+def handle_main_stmts(stmts: list[ast.stmt], ret_imports: RetImports) -> str:
     main_stmt = stmts[-1]
     if not _is_proper_main(main_stmt):
         raise Exception(
@@ -16,7 +17,7 @@ def handle_main_stmts(stmts: list[ast.stmt], ret_imports: set[CppInclude]) -> st
     inside_main = handle_stmts(
         main_stmt.body + [ast.Return(ast.Constant(0))], ret_imports, [], handle_stmt
     )
-    ret_imports.add(QInc("pypp_util/main_error_handler.h"))
+    add_inc(ret_imports, QInc("pypp_util/main_error_handler.h"))
     return (
         before_main
         + " int main() { try {"

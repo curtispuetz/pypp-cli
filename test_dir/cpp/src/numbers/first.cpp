@@ -1,4 +1,9 @@
 #include "numbers\first.h"
+#include "py_str.h"
+#include "pypp_util/floor_div.h"
+#include "pypp_util/print.h"
+#include "pypp_util/to_py_str.h"
+#include <iostream>
 
 void number_ops() {
     print(PyStr("NUMBER RESULTS:"));
