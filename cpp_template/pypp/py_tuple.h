@@ -6,8 +6,6 @@
 #include <tuple>
 #include <utility>
 
-// TODO: add support for PyTup to be iterable, and then test that. After this is
-// added the .raw() method can be removed because it is not needed anymore.
 template <typename... Args> class PyTup {
   private:
     std::tuple<Args...> data;
