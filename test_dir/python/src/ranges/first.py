@@ -15,8 +15,6 @@ def ranges_fn():
     print(range(5, 10))
     print(range(10, 5, -1))
     print(range(5, 10, 1))
-    # TODO: test accessing the attributes
-
 
 def _iter_and_print(arg1: range):
     a1: list[int] = []

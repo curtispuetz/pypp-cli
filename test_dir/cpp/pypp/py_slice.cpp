@@ -33,15 +33,15 @@ std::vector<int> PySlice::_compute_slice_indices(int start,
 }
 
 std::vector<int> PySlice::compute_slice_indices(int collection_length) const {
-    return _compute_slice_indices(start, stop, step, collection_length);
+    return _compute_slice_indices(m_start, m_stop, m_step, collection_length);
 }
 
 std::ostream &operator<<(std::ostream &os, const PySlice &pyslice) {
-    os << "slice(" << pyslice.start << ", ";
-    if (pyslice.stop.has_value()) {
-        os << pyslice.stop.value();
+    os << "slice(" << pyslice.m_start << ", ";
+    if (pyslice.m_stop.has_value()) {
+        os << pyslice.m_stop.value();
     } else {
         os << "None";
     }
-    return os << ", " << pyslice.step << ")";
+    return os << ", " << pyslice.m_step << ")";
 }
