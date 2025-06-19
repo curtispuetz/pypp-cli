@@ -64,7 +64,6 @@ def dict_fn():
     a.pop(0)
     print(a_copy)
     print(a)
-    _fn_dict_arg({0: 1, 1: 2})
     # TODO later: handle addition
     # print({0: 1} | {1: 2})
     # initialize empty
@@ -87,7 +86,9 @@ def dict_fn():
     g: dict[int, int] = {0: 1, 1: 2}
     g0: int = pypp_dg(g, 1)
     print(str(g0))
+    # inline passing
+    _inline_dict({0: 1, 1: 2})
 
 
-def _fn_dict_arg(d: dict[int, int]):
+def _inline_dict(d: dict[int, int]):
     print(d)

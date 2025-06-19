@@ -7,3 +7,4 @@
 #include "pypp_util/to_py_str.h"
 
 void set_fn();
+void _inline_set(const PySet<double> &s);

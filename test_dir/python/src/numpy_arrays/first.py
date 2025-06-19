@@ -66,3 +66,9 @@ def numpy_arrays_fn():
     print(a)
     a.set((0, 0), 2)
     print(a)
+    # inline passing
+    _inline_numpy_arr(pypp_np_array([1.0, 3.0], np.float64))
+
+
+def _inline_numpy_arr(arr: PyppNpArr[np.float64]):
+    print(arr)

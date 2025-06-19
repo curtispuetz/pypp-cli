@@ -19,6 +19,7 @@ def ranges_fn():
     b: dict[range, int] = {a: 1, range(1, 4): 2}
     print(b)
 
+
 def _iter_and_print(arg1: range):
     a1: list[int] = []
     for i in arg1:

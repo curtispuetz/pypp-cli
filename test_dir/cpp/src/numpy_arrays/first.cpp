@@ -46,4 +46,6 @@ void numpy_arrays_fn() {
     print(a);
     a.set(PyTup(0, 0), 2);
     print(a);
+    _inline_numpy_arr(pypp_np::array<double>(PyList({1.0, 3.0})));
 }
+void _inline_numpy_arr(const NpArr<double> &arr) { print(arr); }

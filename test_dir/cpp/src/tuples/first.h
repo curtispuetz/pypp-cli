@@ -7,3 +7,4 @@
 #include <any>
 
 void tuples_fn();
+void _inline_tuple(const PyTup<double, PyStr> &tup);
