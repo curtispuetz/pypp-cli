@@ -10,6 +10,12 @@ template <typename T> class PyppOpt {
   public:
     PyppOpt() = default;
 
+    // TODO later: There is some stuff that is incomplete here because this
+    // optional only holds a reference. I might need to hold values. This
+    // constructor below might make that possible.
+
+    // PyppOpt(T val) : _value(std::ref(val)) {}
+
     PyppOpt(T &ref) : _value(ref) {}
 
     bool has_value() const { return _value.has_value(); }

@@ -1,14 +1,11 @@
 #pragma once
 
 #include <exceptions/stdexcept.h>
+#include <format>
 #include <ostream>
 
 struct PyRange {
   private:
-    const int m_start;
-    const int m_stop;
-    const int m_step;
-
     // The iterator class for PyRange.
     // It holds the current value in the sequence and the step.
     struct iterator {
@@ -43,6 +40,9 @@ struct PyRange {
     };
 
   public:
+    const int m_start;
+    const int m_stop;
+    const int m_step;
     /**
      * @brief Constructor for a range with a start of 0 and a step of 1.
      * @example PyRange(10) -> 0, 1, 2, 3, 4, 5, 6, 7, 8, 9
@@ -74,13 +74,49 @@ struct PyRange {
     // Returns an iterator to the end of the range.
     // The 'end' iterator's value is the 'stop' value.
     iterator end() const { return iterator{m_stop, m_step}; }
+
+    void print(std::ostream &os) const {
+        os << "range(" << m_start << ", " << m_stop;
+        if (m_step != 1) {
+            os << ", " << m_step;
+        }
+        os << ")";
+    }
+    bool operator==(const PyRange &other) const {
+        return m_start == other.m_start && m_stop == other.m_stop &&
+               m_step == other.m_step;
+    }
     friend std::ostream &operator<<(std::ostream &os, const PyRange &pyrange);
 };
 
 inline std::ostream &operator<<(std::ostream &os, const PyRange &pyrange) {
-    os << "range(" << pyrange.m_start << ", " << pyrange.m_stop;
-    if (pyrange.m_step != 1) {
-        os << ", " << pyrange.m_step;
-    }
-    return os << ")";
+    pyrange.print(os);
+    return os;
 }
+
+namespace std {
+// Hash function for usage as a key in PyDict and PySet
+template <> struct hash<PyRange> {
+    std::size_t operator()(const PyRange &p) const noexcept {
+        std::size_t seed = 0;
+        seed ^= std::hash<int>()(p.m_start) + 0x9e3779b9 + (seed << 6) +
+                (seed >> 2);
+        seed ^=
+            std::hash<int>()(p.m_stop) + 0x9e3779b9 + (seed << 6) + (seed >> 2);
+        seed ^=
+            std::hash<int>()(p.m_step) + 0x9e3779b9 + (seed << 6) + (seed >> 2);
+        return seed;
+    }
+};
+// Formatter for std::format
+template <> struct formatter<PyRange> : formatter<string> {
+    constexpr auto parse(format_parse_context &ctx) { return ctx.begin(); }
+
+    template <typename FormatContext>
+    auto format(const PyRange &pyrange, FormatContext &ctx) const {
+        std::ostringstream oss;
+        pyrange.print(oss);
+        return std::format_to(ctx.out(), "{}", oss.str());
+    }
+};
+} // namespace std

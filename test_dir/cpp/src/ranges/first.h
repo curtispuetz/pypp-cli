@@ -1,5 +1,6 @@
 #pragma once
 
+#include "py_dict.h"
 #include "py_list.h"
 #include "py_range.h"
 #include "py_str.h"
