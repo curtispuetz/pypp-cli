@@ -1,8 +1,6 @@
 from src.d_types import CppInclude, QInc
 
 CALL_MAP: dict[str, tuple[str, str, list[CppInclude]]] = {
-    # TODO: change this behavior to actually just use std::cout << << std::endl;
-    #  I'll still call a print() function and include "pypp_print.h"
     "print": ("print(", ")", [QInc("pypp_util/print.h")]),
     "len": ("", ".len()", []),
     "str": ("to_pystr(", ")", [QInc("pypp_util/to_py_str.h")]),
