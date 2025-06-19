@@ -1,5 +1,3 @@
-
-
 def tuple_exceptions_fn():
     print("TUPLE EXCEPTIONS RESULTS:")
     a: tuple[int, float, str] = (2, 2.2, "b")

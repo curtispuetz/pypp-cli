@@ -13,7 +13,7 @@ from src.handle_expr.h_set import handle_set
 from src.handle_expr.h_subscript import handle_subscript
 from src.handle_expr.h_tuple import handle_tuple
 from src.handle_expr.h_unary_op import handle_unary_op
-from src.handle_expr.handle_slice import handle_slice
+from src.handle_expr.h_slice import handle_slice
 
 
 def handle_expr(
