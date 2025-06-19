@@ -13,8 +13,7 @@ void string_esc_chars_fn() {
     PyStr j = PyStr("abcd\f");
     PyStr k = PyStr("\\");
     PyStr l1 = PyStr("abcd\\");
-    (((((((((((a + b) + c) + d) + e) + f) + g) + h) + i) + j) + k) + l1)
-        .print();
+    print(((((((((((a + b) + c) + d) + e) + f) + g) + h) + i) + j) + k) + l1);
     PyStr m = PyStr("abcd\\\\");
-    m.print();
+    print(m);
 }

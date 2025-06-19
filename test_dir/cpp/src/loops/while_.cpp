@@ -1,14 +1,14 @@
 #include "loops\while_.h"
 
 void while_loop_fn() {
-    PyStr("WHILE LOOP RESULTS:").print();
+    print(PyStr("WHILE LOOP RESULTS:"));
     PyList<int> a = PyList<int>({});
     int i = 0;
     while (i < 3) {
         a.append(i);
         i += 1;
     }
-    a.print();
+    print(a);
     while (true) {
         a.append(i);
         if (i > 3) {
@@ -16,7 +16,7 @@ void while_loop_fn() {
         }
         i += 1;
     }
-    a.print();
+    print(a);
     while (i < 7) {
         if (i == 5) {
             i += 1;
@@ -25,5 +25,5 @@ void while_loop_fn() {
         a.append(i);
         i += 1;
     }
-    a.print();
+    print(a);
 }

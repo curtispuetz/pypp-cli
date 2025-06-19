@@ -10,9 +10,6 @@ def handle_call(node: ast.Call, ret_imports: set[CppInclude], handle_expr):
     cpp_call_start, cpp_call_end = lookup_cpp_call(caller_str, ret_imports)
     if caller_str == "print":
         assert len(node.args) == 1, "only one argument supported for print statements"
-        if isinstance(node.args[0], ast.BinOp):
-            cpp_call_start = "("
-            cpp_call_end = ")" + cpp_call_end
     elif caller_str == "pypp_print":
         # TODO later: I need to decide what to do with printing and how that should work
         assert len(node.args) == 1
