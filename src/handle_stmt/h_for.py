@@ -6,6 +6,7 @@ from src.util.handle_lists import handle_stmts
 from src.util.inner_strings import calc_inside_rd
 
 
+# TODO: handle enumerate(), zip(), and reverse() keywords
 def handle_for(
     node: ast.For,
     ret_imports: set[CppInclude],
