@@ -1,6 +1,8 @@
 def for_loop_fn():
     print("FOR RESULTS:")
     # looping with 'range()'
+    # TODO: test with 1 and 2 args (not just 3 args), and also different variables than
+    #  i
     ret: list[int] = []
     for i in range(2, 10, 2):
         ret.append(i)
