@@ -9,6 +9,7 @@
 #include "src/first.h"
 #include "src/fourth.h"
 #include "src/if_elif_else/if_elif_else.h"
+#include "src/inconsistent_behviour/editing_a_reference.h"
 #include "src/lists/as_arg.h"
 #include "src/lists/exceptions.h"
 #include "src/lists/lists.h"
@@ -64,6 +65,7 @@ int main() {
         f_strings_fn();
         ranges_fn();
         slices_fn();
+        editing_a_reference_fn();
         return 0;
     } catch (...) {
         handle_fatal_exception();

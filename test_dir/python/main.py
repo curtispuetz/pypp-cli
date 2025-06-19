@@ -25,6 +25,8 @@ from src.strings.escape_characters import string_esc_chars_fn
 from src.strings.f_strings import f_strings_fn
 from src.ranges.first import ranges_fn
 from src.slices.first import slices_fn
+from src.inconsistent_behviour.editing_a_reference import \
+    editing_a_reference_fn
 
 if __name__ == "__main__":
     print(return_something(1, 9))
@@ -59,3 +61,4 @@ if __name__ == "__main__":
     f_strings_fn()
     ranges_fn()
     slices_fn()
+    editing_a_reference_fn()
