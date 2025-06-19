@@ -17,6 +17,7 @@
 #include "src/numbers/first.h"
 #include "src/numpy_arrays/exceptions.h"
 #include "src/numpy_arrays/first.h"
+#include "src/ranges/first.h"
 #include "src/second.h"
 #include "src/sets/exceptions.h"
 #include "src/sets/first.h"
@@ -60,6 +61,7 @@ int main() {
         file_io_fn();
         string_esc_chars_fn();
         f_strings_fn();
+        ranges_fn();
         return 0;
     } catch (...) {
         handle_fatal_exception();
