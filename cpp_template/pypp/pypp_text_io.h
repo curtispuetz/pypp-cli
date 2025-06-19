@@ -3,7 +3,6 @@
 #include "py_list.h"
 #include "py_str.h"
 #include <fstream>
-#include <string>
 
 class PyTextIO {
   private:
