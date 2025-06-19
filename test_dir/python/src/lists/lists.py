@@ -11,7 +11,11 @@ def list_fn():
     print(a)
     # Accessing - indices
     print(str(a[-1]))
-    # Showing modification behaviour
+    # Showing reassigning a reference behaviour
+    # BIG NOTE: you shouldn't do this in pypp. This results in inconsistent behavior
+    #  between the Python and C++ executions. In python when you reassign the original
+    #  stays the same without modification, and in C++ when you reassign the original
+    #  changes as well.
     b: int = a[-1]
     print(str(b))
     b = 20
