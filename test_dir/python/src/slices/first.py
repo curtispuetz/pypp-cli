@@ -37,3 +37,6 @@ def slices_fn():
     print(a[2::2])
     print(s[g])
     print(s[2::2])
+    # using as a key
+    h: set[slice] = {e, g}
+    print(h)

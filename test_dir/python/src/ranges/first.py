@@ -15,6 +15,9 @@ def ranges_fn():
     print(range(5, 10))
     print(range(10, 5, -1))
     print(range(5, 10, 1))
+    # using as a key
+    b: dict[range, int] = {a: 1, range(1, 4): 2}
+    print(b)
 
 def _iter_and_print(arg1: range):
     a1: list[int] = []

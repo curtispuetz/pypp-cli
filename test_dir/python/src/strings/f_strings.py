@@ -11,6 +11,7 @@ def f_strings_fn():
     my_dict: dict[int, int] = {0: 1}
     b: str = (
         f"list: {[1, 2]}, tuple: {(1, 2)}, set: {my_set}, dict: {my_dict}, "
-        f"numpy array: {pypp_np_zeros([2], np.float32)}"
+        f"numpy array: {pypp_np_zeros([2], np.float32)}, slice: {slice(10)}, "
+        f"range: {range(1)}"
     )
     print(b)
