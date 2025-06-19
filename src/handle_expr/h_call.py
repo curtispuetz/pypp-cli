@@ -36,6 +36,8 @@ def handle_call(node: ast.Call, ret_imports: set[CppInclude], handle_expr):
         dict_arg = handle_expr(node.args[0], ret_imports)
         index_arg = handle_expr(node.args[1], ret_imports)
         return f"{dict_arg}.dg{'_opt' if caller_str.endswith('t') else ''}({index_arg})"
+    elif caller_str == "pypp_get_resources":
+        ret_imports.add(QInc("pypp_resources.h"))
     elif caller_str.startswith("pypp_np") and caller_str.endswith(
         ("zeros", "ones", "full", "array")
     ):

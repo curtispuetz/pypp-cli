@@ -10,7 +10,6 @@ def handle_try(
     ret_imports: set[CppInclude],
     ret_h_file: list[str],
     handle_stmt,
-    handle_expr,
 ):
     assert len(node.orelse) == 0, "else not supported for try...except"
     assert len(node.finalbody) == 0, "finally not supported for try...except"
