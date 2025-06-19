@@ -2,10 +2,12 @@
 
 #include "py_list.h"
 #include "py_slice.h"
+#include <format>
 #include <optional>
 #include <ostream>
 #include <string>
 
+// TODO: test iteration over a PyStr
 class PyStr {
     std::string s;
     PyStr slice(int start, std::optional<int> stop, int step = 1) const;
@@ -51,9 +53,20 @@ class PyStr {
 };
 
 namespace std {
+// Hash function for usage as a key in PyDict and PySet
 template <> struct hash<PyStr> {
     std::size_t operator()(const PyStr &p) const noexcept {
         return std::hash<std::string>()(p.str());
+    }
+};
+
+// Formatter for std::format
+template <> struct formatter<PyStr, char> {
+    constexpr auto parse(format_parse_context &ctx) { return ctx.begin(); }
+
+    template <typename FormatContext>
+    auto format(const PyStr &p, FormatContext &ctx) const {
+        return std::format_to(ctx.out(), "{}", p.str());
     }
 };
 } // namespace std

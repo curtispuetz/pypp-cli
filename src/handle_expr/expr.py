@@ -7,6 +7,7 @@ from src.handle_expr.h_call import handle_call
 from src.handle_expr.h_compare import handle_compare
 from src.handle_expr.h_constant import handle_constant
 from src.handle_expr.h_dict import handle_dict
+from src.handle_expr.h_joined_string import handle_joined_string
 from src.handle_expr.h_list import handle_list
 from src.handle_expr.h_name import handle_name
 from src.handle_expr.h_set import handle_set
@@ -45,5 +46,6 @@ def handle_expr(
         return handle_dict(node, ret_imports, handle_expr)
     if isinstance(node, ast.Set):
         return handle_set(node, ret_imports, handle_expr)
-    # TODO: handle f-strings, or JoinedStr.
+    if isinstance(node, ast.JoinedStr):
+        return handle_joined_string(node, ret_imports, handle_expr)
     raise Exception(f"code expr type {node} not handled")

@@ -1,6 +1,7 @@
 #include "strings\escape_characters.h"
 
 void string_esc_chars_fn() {
+    print(PyStr("STRING ESC CHARS RESULTS:"));
     PyStr a = PyStr("\n");
     PyStr b = PyStr("abcd\n");
     PyStr c = PyStr("\t");

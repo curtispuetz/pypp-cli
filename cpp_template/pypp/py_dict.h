@@ -4,6 +4,7 @@
 #include "py_list.h"
 #include "py_tuple.h"
 #include "pypp_optional.h"
+#include <format>
 #include <initializer_list>
 #include <iostream>
 #include <unordered_map>
@@ -150,3 +151,17 @@ std::ostream &operator<<(std::ostream &os, const PyDict<K, V> &dict) {
     dict.print(os);
     return os;
 }
+
+namespace std {
+// formatter for std::format
+template <typename K, typename V> struct formatter<PyDict<K, V>, char> {
+    constexpr auto parse(format_parse_context &ctx) { return ctx.begin(); }
+
+    template <typename FormatContext>
+    auto format(const PyDict<K, V> &dict, FormatContext &ctx) const {
+        std::ostringstream oss;
+        dict.print(oss);
+        return std::format_to(ctx.out(), "{}", oss.str());
+    }
+};
+} // namespace std
