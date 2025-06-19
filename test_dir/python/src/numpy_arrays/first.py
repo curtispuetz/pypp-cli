@@ -13,32 +13,32 @@ def numpy_arrays_fn():
     print("NUMPY ARRAY RESULTS: ")
     # Zeros, ones, and full
     a: PyppNpArr[np.float32] = pypp_np_zeros([2, 3], np.float32)
-    a.print()
+    print(a)
     b: PyppNpArr[np.float32] = pypp_np_ones([2, 3], np.float32)
-    b.print()
+    print(b)
     c: PyppNpArr[np.float32] = pypp_np_full([2, 3], -1, np.float32)
-    c.print()
+    print(c)
     # All the supported types
-    pypp_np_zeros([2, 3], np.float64).print()
-    pypp_np_zeros([2, 3], np.int16).print()
-    pypp_np_zeros([2, 3], np.uint16).print()
-    pypp_np_zeros([2, 3], np.int32).print()
-    pypp_np_zeros([2, 3], np.uint64).print()
-    pypp_np_zeros([2, 3], np.uint).print()
-    pypp_np_zeros([2, 3], np.longdouble).print()
-    pypp_np_zeros([2, 3], np.bool).print()
-    pypp_np_ones([2, 3], np.bool).print()
+    print(pypp_np_zeros([2, 3], np.float64))
+    print(pypp_np_zeros([2, 3], np.int16))
+    print(pypp_np_zeros([2, 3], np.uint16))
+    print(pypp_np_zeros([2, 3], np.int32))
+    print(pypp_np_zeros([2, 3], np.uint64))
+    print(pypp_np_zeros([2, 3], np.uint))
+    print(pypp_np_zeros([2, 3], np.longdouble))
+    print(pypp_np_zeros([2, 3], np.bool))
+    print(pypp_np_ones([2, 3], np.bool))
     # array 1D
     d: PyppNpArr[np.float64] = pypp_np_array([9.0, 10.0], np.float64)
-    d.print()
+    print(d)
     # array 2D
     e: PyppNpArr[np.float64] = pypp_np_array([[1.0, 2.0], [3.0, 4.0]], np.float64)
-    e.print()
+    print(e)
     # array 3D
     f: PyppNpArr[np.float64] = pypp_np_array(
         [[[1.0, 2.0], [3.0, 4.0]], [[1.0, 2.0], [3.0, 99.0]]], np.float64
     )
-    f.print()
+    print(f)
     # array 4D
     g: PyppNpArr[np.float64] = pypp_np_array(
         [
@@ -47,7 +47,7 @@ def numpy_arrays_fn():
         ],
         np.float64,
     )
-    g.print()
+    print(g)
     # Calculations
     h: float = d(0) * 56.455432737426
     print(str(h))
@@ -63,6 +63,6 @@ def numpy_arrays_fn():
     print(str(l1))
     # setting elements
     a.set((0, 0), 1.0)
-    a.print()
+    print(a)
     a.set((0, 0), 2)
-    a.print()
+    print(a)

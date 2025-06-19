@@ -18,6 +18,9 @@ class PyppNpArr(Generic[T]):
     def print(self):
         print(self._d)
 
+    def __str__(self) -> str:
+        return self._d.__str__()
+
     @property
     def raw(self) -> NDArray[T]:
         return self._d
