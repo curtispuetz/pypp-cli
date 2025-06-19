@@ -1,15 +1,15 @@
 import ast
 from dataclasses import dataclass
 
-from src.d_types import CppInclude
 from src.util.handle_lists import handle_stmts
 from src.util.inner_strings import calc_inside_rd
+from src.util.ret_imports import RetImports
 
 
 # TODO: handle enumerate(), zip(), and reverse() keywords
 def handle_for(
     node: ast.For,
-    ret_imports: set[CppInclude],
+    ret_imports: RetImports,
     ret_h_file: list[str],
     handle_stmt,
     handle_expr,

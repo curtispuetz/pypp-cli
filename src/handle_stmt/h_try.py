@@ -1,13 +1,13 @@
 import ast
 
 from src.handle_other.exception_handler import handle_exception_handlers
-from src.d_types import CppInclude
 from src.util.handle_lists import handle_stmts
+from src.util.ret_imports import RetImports
 
 
 def handle_try(
     node: ast.Try,
-    ret_imports: set[CppInclude],
+    ret_imports: RetImports,
     ret_h_file: list[str],
     handle_stmt,
 ):

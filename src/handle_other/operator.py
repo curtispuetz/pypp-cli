@@ -2,11 +2,12 @@
 #                  | RShift | BitOr | BitXor | BitAnd | FloorDiv
 import ast
 
-from src.d_types import CppInclude, QInc
+from src.d_types import QInc
+from src.util.ret_imports import RetImports, add_inc
 
 
 def handle_operator(
-    node: ast.operator, ret_imports: set[CppInclude]
+    node: ast.operator, ret_imports: RetImports
 ) -> tuple[str, str, str]:
     if isinstance(node, ast.Add):
         return "", "+", ""
@@ -17,7 +18,7 @@ def handle_operator(
     if isinstance(node, ast.Div):
         return "", "/", ""
     if isinstance(node, ast.FloorDiv):
-        ret_imports.add(QInc("pypp_util/floor_div.h"))
+        add_inc(ret_imports, QInc("pypp_util/floor_div.h"))
         return "py_floor_div(", ", ", ")"
     raise Exception(f"operator type {node} is not handled")
 

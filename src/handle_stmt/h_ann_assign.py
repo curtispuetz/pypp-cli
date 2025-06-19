@@ -1,12 +1,10 @@
 import ast
 
-from src.d_types import CppInclude
 from src.util.inner_strings import calc_inside_ang, calc_inside_sq
+from src.util.ret_imports import RetImports
 
 
-def handle_ann_assign(
-    node: ast.AnnAssign, ret_imports: set[CppInclude], handle_expr
-) -> str:
+def handle_ann_assign(node: ast.AnnAssign, ret_imports: RetImports, handle_expr) -> str:
     type_cpp: str = handle_expr(node.annotation, ret_imports)
     if type_cpp.startswith("PyppOpt[") and type_cpp.endswith("]"):
         type_cpp = "PyppOpt<" + calc_inside_sq(type_cpp) + ">"

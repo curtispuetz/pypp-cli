@@ -1,12 +1,12 @@
 import ast
 
-from src.d_types import CppInclude
 from src.util.handle_lists import handle_stmts
+from src.util.ret_imports import RetImports
 
 
 def handle_while(
     node: ast.While,
-    ret_imports: set[CppInclude],
+    ret_imports: RetImports,
     ret_h_file: list[str],
     handle_stmt,
     handle_expr,
