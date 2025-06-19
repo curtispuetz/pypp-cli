@@ -5,6 +5,6 @@ void file_io_fn() {
     text_file.print();
     {
         PyTextIO file(text_file, PyStr("w"));
-        file.write(PyStr("Line 1"));
+        file.write(PyStr("Line 1\n"));
     }
 }

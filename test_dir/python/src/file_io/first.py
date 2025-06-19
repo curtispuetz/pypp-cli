@@ -7,5 +7,5 @@ def file_io_fn():
     # TODO: handle escape characters like \n in strings. I think to solve this whenever
     #  I put something inside a PyStr() then I need to escape everything.
     with open(text_file, "w") as file:
-        file.write("Line 1")
+        file.write("Line 1\n")
     # TODO: keep testing the rest of the options. Also test os things
