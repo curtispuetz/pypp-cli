@@ -1,4 +1,5 @@
 def ranges_fn():
+    print("RANGE RESULTS:")
     # single arg
     a: range = range(10)
     _iter_and_print(a)
@@ -10,6 +11,11 @@ def ranges_fn():
     #  C++ for loop syntax is used.
     for i in range(10, 5, 1):
         print(i)
+    print(range(10))
+    print(range(5, 10))
+    print(range(10, 5, -1))
+    print(range(5, 10, 1))
+    # TODO: test accessing the attributes
 
 
 def _iter_and_print(arg1: range):

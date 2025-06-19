@@ -5,6 +5,7 @@ CALL_MAP: dict[str, tuple[str, str, list[CppInclude]]] = {
     "len": ("", ".len()", []),
     "str": ("to_pystr(", ")", [QInc("pypp_util/to_py_str.h")]),
     "range": ("PyRange(", ")", [QInc("py_range.h")]),
+    "slice": ("PySlice(", ")", [QInc("py_slice.h")]),
 }
 
 

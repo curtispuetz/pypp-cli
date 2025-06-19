@@ -149,18 +149,14 @@ PyStr PyStr::operator[](int i) const {
     return PyStr(std::string(1, s.at(i)));
 }
 
-PyStr PyStr::slice(int start, std::optional<int> stop, int step) const {
+PyStr PyStr::operator[](const PySlice &sl) const {
     std::string result;
     std::vector<int> indices =
-        compute_slice_indices(start, stop, step, static_cast<int>(s.size()));
+        sl.compute_slice_indices(static_cast<int>(s.size()));
     for (int i : indices) {
         result += s[i];
     }
     return PyStr(result);
-}
-
-PyStr PyStr::operator[](const PySlice &sl) const {
-    return slice(sl.start, sl.stop, sl.step);
 }
 
 const std::string &PyStr::str() const { return s; }

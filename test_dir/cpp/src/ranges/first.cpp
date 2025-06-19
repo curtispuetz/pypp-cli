@@ -1,6 +1,7 @@
 #include "ranges\first.h"
 
 void ranges_fn() {
+    print(PyStr("RANGE RESULTS:"));
     PyRange a = PyRange(10);
     _iter_and_print(a);
     _iter_and_print(PyRange(10, 19));
@@ -8,6 +9,10 @@ void ranges_fn() {
     for (int i = 10; i < 5; i += 1) {
         print(i);
     }
+    print(PyRange(10));
+    print(PyRange(5, 10));
+    print(PyRange(10, 5, -1));
+    print(PyRange(5, 10, 1));
 }
 void _iter_and_print(PyRange arg1) {
     PyList<int> a1 = PyList<int>({});
