@@ -12,12 +12,12 @@ def ranges_fn():
         print(i)
 
 
-
 def _iter_and_print(arg1: range):
     a1: list[int] = []
     for i in arg1:
         a1.append(i)
     print(a1)
+
 
 def _range_as_return() -> range:
     return range(9, 1, -2)
