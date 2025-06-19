@@ -110,7 +110,6 @@ inline PyStr basename(const PyStr &p) {
 /**
  * @brief Splits a path into a (head, tail) pair.
  */
-// TODO: see what python returns for this. Or just delete it.
 inline PyTup<PyStr, PyStr> split(const PyStr &p) {
     fs::path path_obj(p.str());
     return PyTup(PyStr(path_obj.parent_path().string()),
