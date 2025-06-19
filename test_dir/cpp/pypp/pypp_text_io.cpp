@@ -2,6 +2,7 @@
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
+#include <string>
 
 void PyTextIO::check_file_open() const {
     if (!file_stream.is_open()) {

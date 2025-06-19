@@ -1,7 +1,6 @@
 #pragma once
 
 #include "py_str.h"
-#include <string>
 
 // TODO later: Use this when printing in collections (it looks way better). But
 // it is a little tricky to set this up
