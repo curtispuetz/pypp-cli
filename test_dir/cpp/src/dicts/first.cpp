@@ -46,7 +46,6 @@ void dict_fn() {
     a.pop(0);
     print(a_copy);
     print(a);
-    _fn_dict_arg({{0, 1}, {1, 2}});
     PyDict<int, int> e({});
     print(e);
     PyDict<int, PyDict<int, int>> f({{0, {{0, 1}}}, {1, {{0, 1}}}});
@@ -64,5 +63,6 @@ void dict_fn() {
     PyDict<int, int> g({{0, 1}, {1, 2}});
     int g0 = g.dg(1);
     print(to_pystr(g0));
+    _inline_dict({{0, 1}, {1, 2}});
 }
-void _fn_dict_arg(const PyDict<int, int> &d) { print(d); }
+void _inline_dict(const PyDict<int, int> &d) { print(d); }

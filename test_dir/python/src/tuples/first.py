@@ -24,3 +24,9 @@ def tuples_fn():
     print((1, 2, "a"))
     # length
     print(str(len((1, 2))))
+    # inline passing
+    _inline_tuple((1.2, "z"))
+
+
+def _inline_tuple(tup: tuple[float, str]):
+    print(tup)

@@ -7,3 +7,4 @@
 #include "pypp_util/to_py_str.h"
 
 void numpy_arrays_fn();
+void _inline_numpy_arr(const NpArr<double> &arr);

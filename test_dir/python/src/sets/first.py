@@ -60,3 +60,9 @@ def set_fn():
     # initialize empty
     c: set[int] = set()
     print(c)
+    # inline passing
+    _inline_set({1.2, 4.4})
+
+
+def _inline_set(s: set[float]):
+    print(s)

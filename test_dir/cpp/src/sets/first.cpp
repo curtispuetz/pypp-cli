@@ -41,4 +41,6 @@ void set_fn() {
     print(list_of_sets);
     PySet<int> c = PySet<int>({});
     print(c);
+    _inline_set(PySet({1.2, 4.4}));
 }
+void _inline_set(const PySet<double> &s) { print(s); }
