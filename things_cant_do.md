@@ -34,7 +34,7 @@ for longer collections.)
 - Use the pass keyword (use print('pass') instead perhaps)
 - Use the caught exception as a name only with str() around it (i.e. for 'except Exception as e' e needs to be 
 wrapped with str() if used)
-- Reassign things. (e.g. l: list[int] = [1, 2]; l = [];)
+- Reassign a reference (e.g. l: list[int] = [1, 2]; l = [];). This will not cause any errors, but will result in inconsistent behaviour between the Python and C++ execution.
 - Use negative i for list.pop(i)
 - Pass an empty list (or probably dict or set or any other collection?) somewhere. You need to first declare a variable so that you can specify the lists type (i.e. a: list[int] = []).
 Additionally, you need to be careful when passing any collection inline, because C++ needs to be able to cast your collection
