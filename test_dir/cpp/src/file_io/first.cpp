@@ -2,7 +2,7 @@
 
 void file_io_fn() {
     PyStr text_file = pypp_get_resources(PyStr("test.txt"));
-    text_file.print();
+    print(text_file);
     {
         PyTextIO file(text_file, PyStr("w"));
         file.write(PyStr("Line 1\n"));

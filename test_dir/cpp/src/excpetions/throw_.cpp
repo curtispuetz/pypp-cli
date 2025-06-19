@@ -1,30 +1,30 @@
 #include "excpetions\throw_.h"
 
 void throw_fn() {
-    PyStr("EXCEPTION RESULTS:").print();
+    print(PyStr("EXCEPTION RESULTS:"));
     try {
         throw PyppException(PyStr("test").str());
     } catch (const PyppException &) {
-        PyStr("exception happened").print();
+        print(PyStr("exception happened"));
     }
     try {
         throw PyppTypeError(PyStr("test").str());
     } catch (const PyppTypeError &) {
-        PyStr("type error caught").print();
+        print(PyStr("type error caught"));
     }
     try {
         throw PyppTypeError(PyStr("test").str());
     } catch (const PyppTypeError &pypp_e) {
         std::string e = pypp_e.what();
-        (PyStr("type error caught: ") + to_pystr(e)).print();
+        print(PyStr("type error caught: ") + to_pystr(e));
     }
     try {
         throw PyppTypeError(PyStr("test").str());
     } catch (const PyppTypeError &) {
-        PyStr("type error caught").print();
+        print(PyStr("type error caught"));
     } catch (const PyppValueError &) {
-        PyStr("value error caught").print();
+        print(PyStr("value error caught"));
     } catch (const PyppException &) {
-        PyStr("other error caught").print();
+        print(PyStr("other error caught"));
     }
 }

@@ -5,5 +5,6 @@
 #include "py_set.h"
 #include "py_str.h"
 #include "py_tuple.h"
+#include "pypp_util/print.h"
 
 void for_loop_fn();

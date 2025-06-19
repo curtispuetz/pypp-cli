@@ -1,7 +1,7 @@
 #include "numpy_arrays\first.h"
 
 void numpy_arrays_fn() {
-    PyStr("NUMPY ARRAY RESULTS: ").print();
+    print(PyStr("NUMPY ARRAY RESULTS: "));
     NpArr<float> a = pypp_np::zeros<float>(PyList({2, 3}));
     a.print();
     NpArr<float> b = pypp_np::ones<float>(PyList({2, 3}));
@@ -33,15 +33,15 @@ void numpy_arrays_fn() {
                         PyList({PyList({1.0, 2.0}), PyList({3.0, -77.0})})})}));
     g.print();
     double h = d(0) * 56.455432737426;
-    to_pystr(h).print();
+    print(to_pystr(h));
     double i = d(0);
-    to_pystr(i).print();
+    print(to_pystr(i));
     double j = d(0);
-    to_pystr(j).print();
+    print(to_pystr(j));
     double k = a(0, 0);
-    to_pystr(k).print();
+    print(to_pystr(k));
     float l1 = a(0, 0);
-    to_pystr(l1).print();
+    print(to_pystr(l1));
     a.set(PyTup(0, 0), 1.0);
     a.print();
     a.set(PyTup(0, 0), 2);
