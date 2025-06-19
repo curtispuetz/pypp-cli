@@ -19,6 +19,7 @@
 #include "src/second.h"
 #include "src/sets/exceptions.h"
 #include "src/sets/first.h"
+#include "src/strings/escape_characters.h"
 #include "src/strings/exceptions.h"
 #include "src/strings/first.h"
 #include "src/third.h"
@@ -55,6 +56,7 @@ int main() {
         string_exceptions_fn();
         tuple_exceptions_fn();
         file_io_fn();
+        string_esc_chars_fn();
         return 0;
     } catch (...) {
         handle_fatal_exception();

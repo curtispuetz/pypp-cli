@@ -15,7 +15,7 @@ from src.util.delete_cpp_files import delete_cpp_main_and_src_dir
 from src.util.get_py import get_main_py_ast_tree, get_src_py_ast_tree
 from src.util.main_source import calc_main_cpp_source, calc_src_file_cpp_and_h_source
 
-
+# TODO: consider how I can put some imports into the .cpp files instead of the .h files
 def pypp_transpile():
     if os.path.isdir(C_CPP_DIR) and not os.path.isdir(C_CPP_BUILD_DIR):
         shutil.rmtree(C_CPP_DIR)
