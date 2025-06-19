@@ -9,7 +9,6 @@
 
 class PyStr {
     std::string s;
-    PyStr slice(int start, std::optional<int> stop, int step = 1) const;
     static std::string repeat_string(const std::string &input, int rep);
 
     class iterator {

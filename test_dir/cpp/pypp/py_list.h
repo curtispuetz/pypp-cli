@@ -13,16 +13,6 @@ template <typename T> class PyList {
   private:
     std::vector<T> data;
 
-    PyList<T> slice(int start, std::optional<int> stop, int step) const {
-        PyList<T> result;
-        std::vector<int> indices = compute_slice_indices(
-            start, stop, step, static_cast<int>(data.size()));
-        for (int i : indices) {
-            result.data.push_back(data[i]);
-        }
-        return result;
-    }
-
     static std::vector<T> repeat_data(const std::vector<T> &input, int count) {
         std::vector<T> result;
         if (count <= 0)
@@ -130,7 +120,13 @@ template <typename T> class PyList {
     }
 
     PyList<T> operator[](const PySlice &sl) const {
-        return slice(sl.start, sl.stop, sl.step);
+        PyList<T> result;
+        std::vector<int> indices =
+            sl.compute_slice_indices(static_cast<int>(data.size()));
+        for (int i : indices) {
+            result.data.push_back(data[i]);
+        }
+        return result;
     }
 
     bool operator==(const PyList<T> &other) const { return data == other.data; }

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <exceptions/stdexcept.h>
+#include <ostream>
 
 struct PyRange {
   private:
@@ -73,4 +74,13 @@ struct PyRange {
     // Returns an iterator to the end of the range.
     // The 'end' iterator's value is the 'stop' value.
     iterator end() const { return iterator{m_stop, m_step}; }
+    friend std::ostream &operator<<(std::ostream &os, const PyRange &pyrange);
 };
+
+inline std::ostream &operator<<(std::ostream &os, const PyRange &pyrange) {
+    os << "range(" << pyrange.m_start << ", " << pyrange.m_stop;
+    if (pyrange.m_step != 1) {
+        os << ", " << pyrange.m_step;
+    }
+    return os << ")";
+}

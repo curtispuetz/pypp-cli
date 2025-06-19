@@ -21,6 +21,7 @@
 #include "src/second.h"
 #include "src/sets/exceptions.h"
 #include "src/sets/first.h"
+#include "src/slices/first.h"
 #include "src/strings/escape_characters.h"
 #include "src/strings/exceptions.h"
 #include "src/strings/f_strings.h"
@@ -62,6 +63,7 @@ int main() {
         string_esc_chars_fn();
         f_strings_fn();
         ranges_fn();
+        slices_fn();
         return 0;
     } catch (...) {
         handle_fatal_exception();
