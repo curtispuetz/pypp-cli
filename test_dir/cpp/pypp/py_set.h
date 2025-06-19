@@ -1,6 +1,7 @@
 #pragma once
 
 #include "exceptions/stdexcept.h"
+#include <format>
 #include <initializer_list>
 #include <iostream>
 #include <sstream>
@@ -178,3 +179,17 @@ std::ostream &operator<<(std::ostream &os, const PySet<T> &other) {
     other.print(os);
     return os;
 }
+
+namespace std {
+// Formatter for std::format
+template <typename T> struct formatter<PySet<T>, char> {
+    constexpr auto parse(format_parse_context &ctx) { return ctx.begin(); }
+
+    template <typename FormatContext>
+    auto format(const PySet<T> &s, FormatContext &ctx) const {
+        std::ostringstream oss;
+        s.print(oss);
+        return std::format_to(ctx.out(), "{}", oss.str());
+    }
+};
+} // namespace std

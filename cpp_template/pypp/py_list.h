@@ -3,6 +3,7 @@
 #include "exceptions/stdexcept.h"
 #include "py_slice.h"
 #include <algorithm>
+#include <format>
 #include <iostream>
 #include <optional>
 #include <sstream>
@@ -197,3 +198,28 @@ std::ostream &operator<<(std::ostream &os, const PyList<T> &list) {
     list.print(os);
     return os;
 }
+
+namespace std {
+// Hash function for usage as a key in PyDict and PySet
+template <typename T> struct hash<PyList<T>> {
+    std::size_t operator()(const PyList<T> &p) const noexcept {
+        std::size_t seed = 0;
+        for (const auto &item : p) {
+            seed ^=
+                std::hash<T>()(item) + 0x9e3779b9 + (seed << 6) + (seed >> 2);
+        }
+        return seed;
+    }
+};
+// Formatter for std::format
+template <typename T> struct formatter<PyList<T>, char> {
+    constexpr auto parse(format_parse_context &ctx) { return ctx.begin(); }
+
+    template <typename FormatContext>
+    auto format(const PyList<T> &p, FormatContext &ctx) const {
+        std::ostringstream oss;
+        p.print(oss);
+        return std::format_to(ctx.out(), "{}", oss.str());
+    }
+};
+} // namespace std

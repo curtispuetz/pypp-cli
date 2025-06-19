@@ -40,3 +40,4 @@ wrapped with str() if used)
 Additionally, you need to be careful when passing any collection inline, because C++ needs to be able to cast your collection
 to the expected collection, which does work in most cases I think.
 - Use 'global' and 'non local'
+- Use curly braces inside f-string curly braces (e.g. f'my set: {{1, 2}}, my dict: {{0: 1}}')

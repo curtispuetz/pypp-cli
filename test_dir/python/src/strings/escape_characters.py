@@ -1,4 +1,5 @@
 def string_esc_chars_fn():
+    print("STRING ESC CHARS RESULTS:")
     a: str = "\n"
     b: str = "abcd\n"
     c: str = "\t"

@@ -6,6 +6,8 @@
 #include <tuple>
 #include <utility>
 
+// TODO: add support for PyTup to be iterable, and then test that. After this is
+// added the .raw() method can be removed because it is not needed anymore.
 template <typename... Args> class PyTup {
   private:
     std::tuple<Args...> data;
@@ -119,6 +121,9 @@ template <typename... Args> class PyTup {
     bool operator>(const PyTup &other) const { return data > other.data; }
     bool operator>=(const PyTup &other) const { return data >= other.data; }
 
+    // raw access to the underlying tuple
+    const std::tuple<Args...> &raw() const { return data; }
+
     // Friend declaration for the stream insertion operator
     // This allows the operator to access private members if needed (though
     // print() is public)
@@ -133,3 +138,29 @@ std::ostream &operator<<(std::ostream &os, const PyTup<Args...> &tup) {
     tup.print(os); // Call the flexible print method
     return os;     // Return the ostream reference to allow chaining
 }
+
+namespace std {
+// Hash function for usage as a key in PyDict and PySet
+template <typename... Args> struct hash<PyTup<Args...>> {
+    std::size_t operator()(const PyTup<Args...> &tup) const noexcept {
+        return std::apply(
+            [](const auto &...args) {
+                return (std::hash<std::decay_t<decltype(args)>>{}(args) ^ ...);
+            },
+            tup.raw());
+    }
+};
+
+// Formatter for std::format
+template <typename... Args> struct formatter<PyTup<Args...>, char> {
+    constexpr auto parse(format_parse_context &ctx) { return ctx.begin(); }
+
+    template <typename FormatContext>
+    auto format(const PyTup<Args...> &tup, FormatContext &ctx) const {
+        std::ostringstream oss;
+        tup.print(oss); // Use the print method to format the tuple
+        return std::format_to(ctx.out(), "{}", oss.str());
+    }
+};
+
+} // namespace std

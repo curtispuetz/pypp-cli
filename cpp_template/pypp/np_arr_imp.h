@@ -5,6 +5,7 @@
 #include "py_list.h"
 #include "py_tuple.h"
 #include <algorithm>
+#include <format>
 #include <initializer_list>
 #include <iostream>
 #include <numeric>
@@ -217,3 +218,17 @@ std::ostream &operator<<(std::ostream &os, const NpArr<T> &arr) {
     arr.print(os);
     return os;
 }
+
+namespace std {
+// Formatter for std::format
+template <typename T> struct formatter<NpArr<T>, char> {
+    constexpr auto parse(format_parse_context &ctx) { return ctx.begin(); }
+
+    template <typename FormatContext>
+    auto format(const NpArr<T> &arr, FormatContext &ctx) const {
+        std::ostringstream oss;
+        arr.print(oss);
+        return std::format_to(ctx.out(), "{}", oss.str());
+    }
+};
+} // namespace std

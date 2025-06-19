@@ -22,6 +22,7 @@ from src.strings.exceptions import string_exceptions_fn
 from src.tuples.exceptions import tuple_exceptions_fn
 from src.file_io.first import file_io_fn
 from src.strings.escape_characters import string_esc_chars_fn
+from src.strings.f_strings import f_strings_fn
 
 if __name__ == "__main__":
     print(return_something(1, 9))
@@ -53,3 +54,4 @@ if __name__ == "__main__":
     tuple_exceptions_fn()
     file_io_fn()
     string_esc_chars_fn()
+    f_strings_fn()
