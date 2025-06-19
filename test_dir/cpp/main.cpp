@@ -4,6 +4,7 @@
 #include "src/dicts/exceptions.h"
 #include "src/dicts/first.h"
 #include "src/excpetions/throw_.h"
+#include "src/file_io/first.h"
 #include "src/first.h"
 #include "src/fourth.h"
 #include "src/if_elif_else/if_elif_else.h"
@@ -53,6 +54,7 @@ int main() {
         set_exceptions_fn();
         string_exceptions_fn();
         tuple_exceptions_fn();
+        file_io_fn();
         return 0;
     } catch (...) {
         handle_fatal_exception();

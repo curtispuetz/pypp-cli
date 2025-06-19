@@ -14,6 +14,7 @@ from src.handle_stmt.h_raise import handle_raise
 from src.handle_stmt.h_return import handle_return
 from src.handle_stmt.h_try import handle_try
 from src.handle_stmt.h_while import handle_while
+from src.handle_stmt.h_width import handle_with
 
 
 def handle_stmt(
@@ -48,5 +49,7 @@ def handle_stmt(
     if isinstance(node, ast.Raise):
         return handle_raise(node, ret_imports, handle_expr)
     if isinstance(node, ast.Try):
-        return handle_try(node, ret_imports, ret_h_file, handle_stmt, handle_expr)
+        return handle_try(node, ret_imports, ret_h_file, handle_stmt)
+    if isinstance(node, ast.With):
+        return handle_with(node, ret_imports, ret_h_file, handle_stmt, handle_expr)
     raise Exception(f"code stmt type {node} not handled")

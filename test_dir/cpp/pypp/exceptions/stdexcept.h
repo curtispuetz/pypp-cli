@@ -32,6 +32,8 @@ class PyppKeyError : public std::out_of_range {
         : std::out_of_range("PyppKeyError: " + msg) {}
 };
 
+// This is not used and zero division will do indefined behavior in the C++
+// execution?
 class PyppZeroDivisionError : public std::domain_error {
   public:
     explicit PyppZeroDivisionError(const std::string &msg)
