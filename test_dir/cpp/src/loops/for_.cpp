@@ -6,6 +6,12 @@ void for_loop_fn() {
     for (int i = 2; i < 10; i += 2) {
         ret.append(i);
     }
+    for (int j = 2; j < 4; j += 1) {
+        ret.append(j);
+    }
+    for (int k = 0; k < 2; k += 1) {
+        ret.append(k);
+    }
     print(ret);
     PyList<int> a = PyList<int>({});
     for (const auto &val : ret) {

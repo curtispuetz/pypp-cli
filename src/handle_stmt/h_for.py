@@ -23,9 +23,8 @@ def handle_for(
         # it is used explicitly in the loop, I might as well convert it to the
         # traditional C++ for loop syntax, since it is slightly more performant.
         iter_args: _IterArgs = _calc_iter_args(iter_str)
-        # TODO: looks like I hardcoded the i here. I need to use the actual variable.
         return (
-            f"for (int {target_str} = {iter_args.start}; i < {iter_args.stop}; i += {iter_args.step}) "
+            f"for (int {target_str} = {iter_args.start}; {target_str} < {iter_args.stop}; {target_str} += {iter_args.step}) "
             + "{"
             + body_str
             + "}"
@@ -49,4 +48,12 @@ class _IterArgs:
 
 def _calc_iter_args(s: str) -> _IterArgs:
     arr: list[str] = s.split("(", 1)[1][:-1].split(",")
-    return _IterArgs(*(int(a) for a in arr))
+    if len(arr) == 3:
+        return _IterArgs(*(int(a) for a in arr))
+    if len(arr) == 2:
+        # start and stop were supplied
+        return _IterArgs(int(arr[0]), int(arr[1]), 1)
+    if len(arr) == 1:
+        # stop was supplied
+        return _IterArgs(0, int(arr[0]), 1)
+    raise AssertionError("Shouldn't happen")
