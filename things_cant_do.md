@@ -44,3 +44,13 @@ to the expected collection, which does work in most cases I think.
 - Iterate over tuples
 - Access range and slice attributes
 - Use comparison operators for ranges and slices (i.e. slice(1) == slice(1))
+- (tricky one) note that all returns in pypp are by value, so therefore you should avoid returning large objects except when that large object is constructed in the function/method, 
+because in this case the C++ compiler optimizes it to not do a copy. This also means you shouldn't return some object and then modify that object and expect all references to that 
+object to update. This one is so tricky! But I believe (not 100% sure yet) that as long as you don't program anything 'weird' you don't run into this issue. If you do something 
+'weird' then you can run into this issue and there will be different behaviour between running with Python vs. C++. Note: I could easily solve this problem by adding
+a Ref() wrapper so that I can specify
+functions/methods to return a reference, and a pypp_ref() function to create a reference to a variable, but I won't right now, because I think it is not a pattern that a programming
+language needs! Buy not adding these, users cannot use them, which I think is a good thing. I will see in the future if a use-case for it ever makes sense and then I would change my
+mind. I don't think it makes sense because you never need a reference to an object in your current scope (just use the object you are trying to create a reference of) and you never
+need to return a reference because you should instead inject that reference to where you need to by the normal means (i.e. passing as a function argument or constructor/setter 
+injection)
