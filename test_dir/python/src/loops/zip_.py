@@ -1,0 +1,23 @@
+from test_dir.python.pypp.tuple_get import pypp_tg
+
+
+def zip_fn():
+    print("ZIP RESULTS:")
+    # over two lists
+    a: list[int] = []
+    for x, z in zip([1, 2], [3, 4]):
+        a.append(x)
+        a.append(z)
+    print(a)
+    # over multiple different types. list, set, string, and dict items
+    b: dict[float, int] = {1.1: 4, 2.2: 5}
+    for x, z, y, w in zip([1, 2], {"a", "b"}, "ab", b.items()):
+        # Note: The sets and dicts in C++ order is not guaranteed, so you could see
+        # different strings
+        print(f"{x}, {z}, {y}, {pypp_tg(w, 0)}, {pypp_tg(w, 0)}")
+    # assign zip to a variable
+    c: zip[list[int], set[int]] = zip([1, 2], {3, 4})
+    for x, z in c:
+        a.append(x)
+        a.append(z)
+    print(a)

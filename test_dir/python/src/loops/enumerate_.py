@@ -34,12 +34,13 @@ def enumerate_fn():
         a.append(pypp_tg(val, 0))
         a.append(pypp_tg(val, 1))
     print(a)
-    # test assigning enumerate to a variable
+    # assigning enumerate to a variable
     e: enumerate = enumerate([1, 2])
     for j, val in e:
         a.append(j)
         a.append(val)
     print(a)
+    # passing as an arg
     _enumerate_as_arg(enumerate([1, 2]))
 
 

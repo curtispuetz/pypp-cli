@@ -39,6 +39,7 @@ template <typename K, typename V> class PyDict {
         return PyList(result);
     }
 
+    // TODO: use a iterator for keys, values, items
     // items()
     PyList<PyTup<K, V>> items() const {
         std::vector<PyTup<K, V>> result;

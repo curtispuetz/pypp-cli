@@ -22,7 +22,9 @@ def handle_for(
     iter_str = handle_expr(node.iter, ret_imports)
     if iter_str.startswith("PyEnumerate(") and iter_str.endswith(")"):
         add_inc(ret_imports, QInc("py_enumerate.h"))
-    if iter_str.startswith("PyRange(") and iter_str.endswith(")"):
+    elif iter_str.startswith("PyZip(") and iter_str.endswith(")"):
+        add_inc(ret_imports, QInc("py_zip.h"))
+    elif iter_str.startswith("PyRange(") and iter_str.endswith(")"):
         # This is not necessary because PyRange can be iterated over directly, but if
         # it is used explicitly in the loop, I might as well convert it to the
         # traditional C++ for loop syntax, since it is slightly more performant.
