@@ -23,12 +23,6 @@ def handle_call(
     )
     if caller_str == "print":
         assert len(node.args) == 1, "only one argument supported for print statements"
-    elif caller_str == "pypp_print":
-        # TODO later: I need to decide what to do with printing and how that should work
-        assert len(node.args) == 1
-        add_inc(ret_imports, AngInc("iostream"), include_in_header)
-        cpp_call_start = "std::cout << "
-        cpp_call_end = " << std::endl"
     elif caller_str == "PyppOpt":
         if len(node.args) == 0:
             add_inc(ret_imports, AngInc("optional"), include_in_header)

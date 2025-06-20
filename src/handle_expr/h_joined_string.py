@@ -35,6 +35,5 @@ def handle_formatted_value(
     include_in_header: bool,
 ) -> str:
     assert node.conversion == -1, "formatting with f strings not supported"
-    # shouldn't happen if node.conversion is -1
-    assert node.format_spec is None, "Shouldn't happen"
+    assert node.format_spec is None, "Nested f-stream feature not supported"
     return handle_expr(node.value, ret_imports, include_in_header)

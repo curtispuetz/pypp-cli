@@ -3,7 +3,6 @@
 #include "pypp_util/floor_div.h"
 #include "pypp_util/print.h"
 #include "pypp_util/to_py_str.h"
-#include <iostream>
 
 void number_ops() {
     print(PyStr("NUMBER RESULTS:"));
@@ -33,5 +32,4 @@ void number_ops() {
     print(to_pystr(g));
     g /= 5;
     print(to_pystr(g));
-    std::cout << 1 << std::endl;
 }
