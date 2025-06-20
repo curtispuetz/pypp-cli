@@ -40,7 +40,7 @@ wrapped with str() if used)
 Additionally, you need to be careful when passing any collection inline, because C++ needs to be able to cast your collection
 to the expected collection, which does work in most cases I think.
 - Use 'global' and 'non local'
-- Use curly braces inside f-string curly braces (e.g. f'my set: {{1, 2}}, my dict: {{0: 1}}')
+- Use curly braces inside f-string curly braces (e.g. f'{{a string}}, my dict: {{{0: 1}}}')
 - Iterate over tuples
 - Access range and slice attributes
 - Use comparison operators for ranges and slices (i.e. slice(1) == slice(1))
@@ -55,3 +55,4 @@ mind. I don't think it makes sense because you never need a reference to an obje
 need to return a reference because you should instead inject that reference to where you need to by the normal means (i.e. passing as a function argument or constructor/setter 
 injection)
 - Create a dictionary inline and use its methods immediately (i.e. {0: 1}.keys())
+- print a inline defined dictionary (i.e. print({0: 1}))

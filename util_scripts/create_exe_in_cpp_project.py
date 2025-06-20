@@ -29,16 +29,17 @@ if __name__ == "__main__":
         file.write(f"\nadd_subdirectory({subproject_dir_name})")
     # Add a main file with empty int main() function
     with open(new_main, "w") as file:
-        file.writelines([
-            "#include <pypp_util/main_error_handler.h>\n",
-            '#include <cstdlib>  // Required for EXIT_FAILURE'
-            "\n",
-            "int main() {\n",
-            "    try {\n",
-            "        return 0;\n",
-            "    } catch (...) {\n",
-            "        handle_fatal_exception();\n",
-            "        return EXIT_FAILURE;\n",
-            "    }\n",
-            "}\n"
-        ])
+        file.writelines(
+            [
+                "#include <pypp_util/main_error_handler.h>\n",
+                "#include <cstdlib>  // Required for EXIT_FAILURE\n",
+                "int main() {\n",
+                "    try {\n",
+                "        return 0;\n",
+                "    } catch (...) {\n",
+                "        handle_fatal_exception();\n",
+                "        return EXIT_FAILURE;\n",
+                "    }\n",
+                "}\n",
+            ]
+        )

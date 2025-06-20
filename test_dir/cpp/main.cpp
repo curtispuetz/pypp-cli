@@ -19,6 +19,7 @@
 #include "src/numbers/first.h"
 #include "src/numpy_arrays/exceptions.h"
 #include "src/numpy_arrays/first.h"
+#include "src/printing/first.h"
 #include "src/ranges/first.h"
 #include "src/second.h"
 #include "src/sets/exceptions.h"
@@ -68,6 +69,7 @@ int main() {
         slices_fn();
         editing_a_reference_fn();
         enumerate_fn();
+        printing_fn();
         return 0;
     } catch (...) {
         handle_fatal_exception();
