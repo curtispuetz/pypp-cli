@@ -29,12 +29,4 @@ void zip_fn() {
         print(PyStr(std::format("{}, {}, {}, {}, {}", x, z, y, w.get<0>(),
                                 w.get<0>())));
     }
-    PyZip<PyList<int>, PySet<int>> c = PyZip(PyList({1, 2}), PySet({3, 4}));
-    for (const auto &pypp_hardcoded_it_tup : c) {
-        auto &x = pypp_hardcoded_it_tup.get<0>();
-        auto &z = pypp_hardcoded_it_tup.get<1>();
-        a.append(x);
-        a.append(z);
-    }
-    print(a);
 }

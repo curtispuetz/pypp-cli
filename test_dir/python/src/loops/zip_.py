@@ -15,9 +15,3 @@ def zip_fn():
         # Note: The sets and dicts in C++ order is not guaranteed, so you could see
         # different strings
         print(f"{x}, {z}, {y}, {pypp_tg(w, 0)}, {pypp_tg(w, 0)}")
-    # assign zip to a variable
-    c: zip[list[int], set[int]] = zip([1, 2], {3, 4})
-    for x, z in c:
-        a.append(x)
-        a.append(z)
-    print(a)

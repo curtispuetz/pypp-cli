@@ -1,5 +1,7 @@
 #include "loops\enumerate_.h"
 #include "py_dict.h"
+#include "py_enumerate.h"
+#include "py_list.h"
 #include "py_set.h"
 #include "py_str.h"
 #include "pypp_util/print.h"
@@ -43,25 +45,6 @@ void enumerate_fn() {
         a.append(i);
         a.append(val.get<0>());
         a.append(val.get<1>());
-    }
-    print(a);
-    PyEnumerate e = PyEnumerate(PyList({1, 2}));
-    for (const auto &pypp_hardcoded_it_tup : e) {
-        auto &j = pypp_hardcoded_it_tup.get<0>();
-        auto &val = pypp_hardcoded_it_tup.get<1>();
-        a.append(j);
-        a.append(val);
-    }
-    print(a);
-    _enumerate_as_arg(PyEnumerate(PyList({1, 2})));
-}
-void _enumerate_as_arg(PyEnumerate<PyList<int>> en) {
-    PyList<int> a = PyList<int>({});
-    for (const auto &pypp_hardcoded_it_tup : en) {
-        auto &i = pypp_hardcoded_it_tup.get<0>();
-        auto &val = pypp_hardcoded_it_tup.get<1>();
-        a.append(i);
-        a.append(val);
     }
     print(a);
 }

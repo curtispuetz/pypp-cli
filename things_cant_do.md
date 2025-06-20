@@ -56,4 +56,4 @@ need to return a reference because you should instead inject that reference to w
 injection)
 - Create a dictionary inline and use its methods immediately (i.e. {0: 1}.keys())
 - print a inline defined dictionary (i.e. print({0: 1}))
-- pass a zip or reversed variable as an argument
+- assign an enumerate, zip, or reversed type to a variable
