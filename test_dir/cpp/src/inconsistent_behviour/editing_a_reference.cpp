@@ -3,6 +3,7 @@
 #include "pypp_util/print.h"
 
 void editing_a_reference_fn() {
+    print(PyStr("INCONSISTENT BEHAVIOR RESULTS:"));
     PyList<int> a = PyList({1, 2, 3});
     PyList<int> b = a;
     b.append(4);

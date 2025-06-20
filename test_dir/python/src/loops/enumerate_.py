@@ -2,6 +2,7 @@ from test_dir.python.pypp.tuple_get import pypp_tg
 
 
 def enumerate_fn():
+    print("ENUMERATE RESULTS:")
     # over a list
     a: list[int] = []
     for i, val in enumerate([1, 2, 3]):
@@ -37,5 +38,14 @@ def enumerate_fn():
     e: enumerate = enumerate([1, 2])
     for j, val in e:
         a.append(j)
+        a.append(val)
+    print(a)
+    _enumerate_as_arg(enumerate([1, 2]))
+
+
+def _enumerate_as_arg(en: enumerate[list[int]]):
+    a: list[int] = []
+    for i, val in en:
+        a.append(i)
         a.append(val)
     print(a)

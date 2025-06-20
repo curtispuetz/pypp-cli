@@ -2,6 +2,7 @@ from test_dir.python.pypp.custom_types import PyppMut
 
 
 def editing_a_reference_fn():
+    print("INCONSISTENT BEHAVIOR RESULTS:")
     # Here is inconsistent behavior between Python and C++. For, now the solution is to
     # not do this. Why would you want to create a reference to an object when you
     # already have that object in your scope!?

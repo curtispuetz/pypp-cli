@@ -2,9 +2,11 @@
 #include "py_dict.h"
 #include "py_list.h"
 #include "py_set.h"
+#include "py_str.h"
 #include "pypp_util/print.h"
 
 void printing_fn() {
+    print(PyStr("PRINTING RESULTS:"));
     print(1);
     print(1.2);
     print(true);
