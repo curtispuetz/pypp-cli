@@ -29,6 +29,7 @@ from src.inconsistent_behviour.editing_a_reference import editing_a_reference_fn
 from src.loops.enumerate_ import enumerate_fn
 from src.printing.first import printing_fn
 from src.loops.zip_ import zip_fn
+from src.loops.reversed_ import reversed_fn
 
 if __name__ == "__main__":
     print(return_something(1, 9))
@@ -67,3 +68,4 @@ if __name__ == "__main__":
     enumerate_fn()
     printing_fn()
     zip_fn()
+    reversed_fn()

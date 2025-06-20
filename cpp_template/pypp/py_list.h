@@ -181,6 +181,11 @@ template <typename T> class PyList {
     auto end() { return data.end(); }
     auto begin() const { return data.begin(); }
     auto end() const { return data.end(); }
+    // Reverse iterator support
+    auto rbegin() { return data.rbegin(); }
+    auto rend() { return data.rend(); }
+    auto rbegin() const { return data.crbegin(); } // Const version
+    auto rend() const { return data.crend(); }     // Const version
 
     void print(std::ostream &os) const {
         os << "[";

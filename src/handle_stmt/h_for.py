@@ -24,6 +24,8 @@ def handle_for(
         add_inc(ret_imports, QInc("py_enumerate.h"))
     elif iter_str.startswith("PyZip(") and iter_str.endswith(")"):
         add_inc(ret_imports, QInc("py_zip.h"))
+    elif iter_str.startswith("PyReversed(") and iter_str.endswith(")"):
+        add_inc(ret_imports, QInc("py_reversed.h"))
     elif iter_str.startswith("PyRange(") and iter_str.endswith(")"):
         # This is not necessary because PyRange can be iterated over directly, but if
         # it is used explicitly in the loop, I might as well convert it to the

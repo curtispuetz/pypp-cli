@@ -147,6 +147,7 @@ template <typename T> class PySet {
     auto end() { return data.end(); }
     auto begin() const { return data.begin(); }
     auto end() const { return data.end(); }
+    // Note: set is not ordered, so reverse iterators are not meaningful.
 
     // For debugging
     void print(std::ostream &os) const {
