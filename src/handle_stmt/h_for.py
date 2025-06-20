@@ -7,7 +7,6 @@ from src.util.inner_strings import calc_inside_rd
 from src.util.ret_imports import RetImports, add_inc
 
 
-# TODO: handle enumerate(), zip(), and reverse() keywords
 def handle_for(
     node: ast.For,
     ret_imports: RetImports,
