@@ -6,7 +6,7 @@ cml = "CMakeLists.txt"
 
 # Config
 parent_dir = os.path.join(src_dir, "app_benchmarking")
-subproject_name = "enumerate"
+subproject_name = "reversed"
 
 if __name__ == "__main__":
     parent_cmake_lists = os.path.join(parent_dir, cml)

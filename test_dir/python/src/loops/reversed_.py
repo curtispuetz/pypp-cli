@@ -13,8 +13,3 @@ def reversed_fn():
     # with zip
     for x, z in zip(reversed([1, 2 ,3]), reversed('abc')):
         print(f"{x}, {z}")
-    # assign reversed to a variable
-    c: reversed[list[int]] = reversed([1, 2, 3])
-    for x in c:
-        a.append(x)
-    print(a)

@@ -23,9 +23,4 @@ void reversed_fn() {
         auto &z = pypp_hardcoded_it_tup.get<1>();
         print(PyStr(std::format("{}, {}", x, z)));
     }
-    PyReversed<PyList<int>> c = PyReversed(PyList({1, 2, 3}));
-    for (const auto &x : c) {
-        a.append(x);
-    }
-    print(a);
 }
