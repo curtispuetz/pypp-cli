@@ -16,6 +16,7 @@
 #include "src/loops/enumerate_.h"
 #include "src/loops/for_.h"
 #include "src/loops/while_.h"
+#include "src/loops/zip_.h"
 #include "src/numbers/first.h"
 #include "src/numpy_arrays/exceptions.h"
 #include "src/numpy_arrays/first.h"
@@ -70,6 +71,7 @@ int main() {
         editing_a_reference_fn();
         enumerate_fn();
         printing_fn();
+        zip_fn();
         return 0;
     } catch (...) {
         handle_fatal_exception();

@@ -8,6 +8,7 @@ CALL_MAP: dict[str, tuple[str, str, list[CppInclude]]] = {
     "range": ("PyRange(", ")", [QInc("py_range.h")]),
     "slice": ("PySlice(", ")", [QInc("py_slice.h")]),
     "enumerate": ("PyEnumerate(", ")", [QInc("py_enumerate.h")]),
+    "zip": ("PyZip(", ")", [QInc("py_zip.h")]),
 }
 
 
