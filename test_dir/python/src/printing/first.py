@@ -1,4 +1,5 @@
 def printing_fn():
+    print("PRINTING RESULTS:")
     # integer
     print(1)
     # float
