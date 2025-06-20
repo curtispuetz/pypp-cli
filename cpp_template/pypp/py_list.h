@@ -14,6 +14,10 @@ template <typename T> class PyList {
     std::vector<T> data;
 
     static std::vector<T> repeat_data(const std::vector<T> &input, int count) {
+        if (input.size() == 1) {
+            // Optimization for the common [1] * count case
+            return std::vector(count, input[0]);
+        }
         std::vector<T> result;
         if (count <= 0)
             return result;
@@ -31,9 +35,17 @@ template <typename T> class PyList {
     PyList() = default;
     PyList(const std::vector<T> &vec) : data(vec) {}
     PyList(std::initializer_list<T> init) : data(init) {}
+    PyList(const int size, const T &value) : data(size, value) {}
+    PyList(const int size) : data(size) {}
 
     // Append
-    void append(const T &value) { data.push_back(value); }
+    void append(const T &value) {
+        data.push_back(value); // copy
+    }
+
+    void append(T &&value) {
+        data.push_back(std::move(value)); // move
+    }
 
     // Pop
     T pop(int index = -1) {
@@ -219,3 +231,10 @@ template <typename T> struct formatter<PyList<T>, char> {
     }
 };
 } // namespace std
+
+// This can be used as a helper function to create the PyList so that the
+// mapping from Python to C++ is more clear.
+template <typename T>
+PyList<T> create_list_full(const int size, const T &value) {
+    return PyList<T>(size, value);
+}

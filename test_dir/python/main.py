@@ -26,6 +26,7 @@ from src.strings.f_strings import f_strings_fn
 from src.ranges.first import ranges_fn
 from src.slices.first import slices_fn
 from src.inconsistent_behviour.editing_a_reference import editing_a_reference_fn
+from src.loops.enumerate_ import enumerate_fn
 
 if __name__ == "__main__":
     print(return_something(1, 9))
@@ -61,3 +62,4 @@ if __name__ == "__main__":
     ranges_fn()
     slices_fn()
     editing_a_reference_fn()
+    enumerate_fn()

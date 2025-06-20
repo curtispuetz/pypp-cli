@@ -13,6 +13,7 @@
 #include "src/lists/as_arg.h"
 #include "src/lists/exceptions.h"
 #include "src/lists/lists.h"
+#include "src/loops/enumerate_.h"
 #include "src/loops/for_.h"
 #include "src/loops/while_.h"
 #include "src/numbers/first.h"
@@ -66,6 +67,7 @@ int main() {
         ranges_fn();
         slices_fn();
         editing_a_reference_fn();
+        enumerate_fn();
         return 0;
     } catch (...) {
         handle_fatal_exception();

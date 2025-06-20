@@ -9,7 +9,7 @@ if __name__ == "__main__":
     shutil.rmtree(target_dir)
     os.mkdir(target_dir)
     shutil.copy(
-        os.path.join(src_dir, "CMakeLists.txt"),
+        os.path.join(src_dir, "CMakeListsForMainProj.txt"),
         os.path.join(target_dir, "CMakeLists.txt"),
     )
     shutil.copy(
