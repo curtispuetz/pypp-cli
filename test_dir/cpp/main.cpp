@@ -15,6 +15,7 @@
 #include "src/lists/lists.h"
 #include "src/loops/enumerate_.h"
 #include "src/loops/for_.h"
+#include "src/loops/reversed_.h"
 #include "src/loops/while_.h"
 #include "src/loops/zip_.h"
 #include "src/numbers/first.h"
@@ -72,6 +73,7 @@ int main() {
         enumerate_fn();
         printing_fn();
         zip_fn();
+        reversed_fn();
         return 0;
     } catch (...) {
         handle_fatal_exception();

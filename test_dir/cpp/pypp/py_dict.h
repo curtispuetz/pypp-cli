@@ -40,6 +40,7 @@ template <typename K, typename V> class PyDict {
     }
 
     // TODO: use a iterator for keys, values, items
+    // Note: dict is not ordered so reverse iterators are not meaningful.
     // items()
     PyList<PyTup<K, V>> items() const {
         std::vector<PyTup<K, V>> result;

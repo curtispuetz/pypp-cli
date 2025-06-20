@@ -7,6 +7,7 @@ SUBSCRIPT_VALUE_SQ_BRACKETS: set[str] = {
     "NpArr",
     "PyEnumerate",
     "PyZip",
+    "PyReversed",
 }
 
 

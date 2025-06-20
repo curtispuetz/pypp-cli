@@ -53,11 +53,61 @@ class PyStr {
         std::string::const_iterator m_it;
     };
 
+    class reverse_iterator {
+      public:
+        // C++ Iterator Traits
+        using iterator_category = std::forward_iterator_tag;
+        using value_type = PyStr;
+        using difference_type = std::ptrdiff_t;
+        using pointer = PyStr *;
+        using reference = PyStr; // Returning by value
+
+        // Constructor takes the underlying string's reverse iterator
+        reverse_iterator(std::string::const_reverse_iterator it) : m_it(it) {}
+
+        // Dereference operator: Returns a PyStr of the current character
+        reference operator*() const { return PyStr(std::string(1, *m_it)); }
+
+        // Pre-increment operator
+        reverse_iterator &operator++() {
+            m_it++;
+            return *this;
+        }
+
+        // Post-increment operator
+        reverse_iterator operator++(int) {
+            reverse_iterator tmp = *this;
+            ++(*this);
+            return tmp;
+        }
+
+        // Equality operators
+        friend bool operator==(const reverse_iterator &a,
+                               const reverse_iterator &b) {
+            return a.m_it == b.m_it;
+        };
+        friend bool operator!=(const reverse_iterator &a,
+                               const reverse_iterator &b) {
+            return a.m_it != b.m_it;
+        };
+
+      private:
+        std::string::const_reverse_iterator m_it;
+    };
+
   public:
     inline iterator begin() { return iterator(s.cbegin()); }
     inline iterator end() { return iterator(s.cend()); }
     inline iterator begin() const { return iterator(s.cbegin()); }
     inline iterator end() const { return iterator(s.cend()); }
+    // Reverse iterator support
+    inline reverse_iterator rbegin() { return reverse_iterator(s.crbegin()); }
+    inline reverse_iterator rend() { return reverse_iterator(s.crend()); }
+
+    inline reverse_iterator rbegin() const {
+        return reverse_iterator(s.crbegin());
+    }
+    inline reverse_iterator rend() const { return reverse_iterator(s.crend()); }
 
     PyStr(const std::string &str = "");
 

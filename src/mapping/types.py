@@ -23,6 +23,7 @@ TYPES_MAP: dict[str, TypeMapInfo] = {
     "slice": TypeMapInfo("PySlice", [QInc("py_slice.h")]),
     "enumerate": TypeMapInfo("PyEnumerate", [QInc("py_enumerate.h")]),
     "zip": TypeMapInfo("PyZip", [QInc("py_zip.h")]),
+    "reversed": TypeMapInfo("PyReversed", [QInc("py_reversed.h")]),
     "PyppNpArr": TypeMapInfo("NpArr", [QInc("np_arr.h")]),
 }
 
