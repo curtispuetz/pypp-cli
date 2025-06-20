@@ -1,3 +1,6 @@
+# TODO later: It is probably easier to specify the types with are not constant refs,
+#  i.e. values. Its a shorter list.
+# TODO: check this functionality because I think there might be something wrong.
 FN_ARG_CONST_REF: set[str] = {"PyStr", "PyList", "PyDict", "PyTup", "PySet", "NpArr"}
 
 

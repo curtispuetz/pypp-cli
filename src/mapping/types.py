@@ -21,6 +21,7 @@ TYPES_MAP: dict[str, TypeMapInfo] = {
     "set": TypeMapInfo("PySet", [QInc("py_set.h")]),
     "range": TypeMapInfo("PyRange", [QInc("py_range.h")]),
     "slice": TypeMapInfo("PySlice", [QInc("py_slice.h")]),
+    "enumerate": TypeMapInfo("PyEnumerate", [QInc("py_enumerate.h")]),
     "PyppNpArr": TypeMapInfo("NpArr", [QInc("np_arr.h")]),
 }
 
