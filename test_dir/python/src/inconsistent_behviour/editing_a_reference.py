@@ -8,7 +8,8 @@ def editing_a_reference_fn():
     a: list[int] = [1, 2, 3]
     b: list[int] = a
     b.append(4)
-    print(a)  # prints [1, 2, 3, 4] in Python, but [1, 2, 3] in C++
+    # prints [1, 2, 3, 4] in Python, but [1, 2, 3] in C++
+    print(f"inconsistent behavior: {a}")
 
     # Here is another example of pretty much the same thing, (and again, its
     # inconsistent behavior). Here, you can just use c still. You don't need d.
@@ -22,7 +23,7 @@ def editing_a_reference_fn():
     c: list[int] = [1, 2, 3]
     d: list[int] = update_and_return_new(c)
     d[-1] = 99
-    print(c)
+    print(f"inconsistent behavior: {c}")
 
 
 def update_and_return_new(l1: PyppMut(list[int])) -> list[int]:

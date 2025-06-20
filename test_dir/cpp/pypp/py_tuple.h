@@ -1,6 +1,7 @@
 #pragma once
 
 #include "exceptions/stdexcept.h"
+#include "py_str.h"
 #include <any>
 #include <format>
 #include <iostream>
@@ -65,8 +66,20 @@ template <typename... Args> class PyTup {
     }
 
   public:
-    // Constructor
-    PyTup(Args... args) : data(std::make_tuple(args...)) {}
+    template <
+        typename... UArgs,
+        typename = std::enable_if_t<
+            !std::conjunction_v<std::is_same<std::decay_t<UArgs>, PyTup>...> &&
+            !std::conjunction_v<
+                std::is_same<std::decay_t<UArgs>, std::tuple<Args...>>...>>>
+    PyTup(UArgs &&...args) : data(std::forward<UArgs>(args)...) {}
+
+    // 2. Make your tuple copy constructor take a const reference.
+    // This is good practice and allows construction from const tuples.
+    PyTup(const std::tuple<Args...> &args) : data(args) {}
+
+    // 3. Your tuple move constructor is fine as is.
+    PyTup(std::tuple<Args...> &&args) : data(std::move(args)) {}
 
     // Count method
     template <typename T> int count(const T &value) const {
@@ -130,6 +143,9 @@ template <typename... Args> class PyTup {
     friend std::ostream &operator<<(std::ostream &os,
                                     const PyTup<OtherArgs...> &tup);
 };
+
+// dedction guide
+template <typename... Ts> PyTup(Ts...) -> PyTup<Ts...>;
 
 // Stream insertion operator overload
 template <typename... Args>

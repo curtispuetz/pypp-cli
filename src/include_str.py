@@ -10,7 +10,7 @@ def calc_includes(ret_imports: RetImports) -> tuple[str, str]:
     for imp in ret_imports.cpp:
         # There could be duplicates in header and cpp, so check if it is already in the
         #  header.
-        if not imp in ret_imports.header:
+        if imp not in ret_imports.header:
             _add_include(imp, ret_cpp)
     return _final_result(ret_h), _final_result(ret_cpp)
 

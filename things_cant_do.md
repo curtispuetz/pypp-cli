@@ -54,3 +54,4 @@ language needs! Buy not adding these, users cannot use them, which I think is a 
 mind. I don't think it makes sense because you never need a reference to an object in your current scope (just use the object you are trying to create a reference of) and you never
 need to return a reference because you should instead inject that reference to where you need to by the normal means (i.e. passing as a function argument or constructor/setter 
 injection)
+- Create a dictionary inline and use its methods immediately (i.e. {0: 1}.keys())
