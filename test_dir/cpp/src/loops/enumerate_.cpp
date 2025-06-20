@@ -45,4 +45,12 @@ void enumerate_fn() {
         a.append(val.get<1>());
     }
     print(a);
+    PyEnumerate e = PyEnumerate(PyList({1, 2}));
+    for (const auto &pypp_hardcoded_it_tup : e) {
+        auto &j = pypp_hardcoded_it_tup.get<0>();
+        auto &val = pypp_hardcoded_it_tup.get<1>();
+        a.append(j);
+        a.append(val);
+    }
+    print(a);
 }

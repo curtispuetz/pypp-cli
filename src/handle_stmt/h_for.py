@@ -20,9 +20,8 @@ def handle_for(
     body_str = handle_stmts(node.body, ret_imports, ret_h_file, handle_stmt)
     target_str: str = handle_expr(node.target, ret_imports)
     iter_str = handle_expr(node.iter, ret_imports)
-    if iter_str.startswith("enumerate(") and iter_str.endswith(")"):
+    if iter_str.startswith("PyEnumerate(") and iter_str.endswith(")"):
         add_inc(ret_imports, QInc("py_enumerate.h"))
-        iter_str = f"PyEnumerate({calc_inside_rd(iter_str)})"
     if iter_str.startswith("PyRange(") and iter_str.endswith(")"):
         # This is not necessary because PyRange can be iterated over directly, but if
         # it is used explicitly in the loop, I might as well convert it to the
