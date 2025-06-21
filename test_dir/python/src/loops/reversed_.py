@@ -11,5 +11,5 @@ def reversed_fn():
         b.append(x)
     print(b)
     # with zip
-    for x, z in zip(reversed([1, 2 ,3]), reversed('abc')):
+    for x, z in zip(reversed([1, 2, 3]), reversed("abc")):
         print(f"{x}, {z}")

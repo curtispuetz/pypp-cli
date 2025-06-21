@@ -30,6 +30,7 @@ void dict_fn() {
     print(a);
     print(a.keys());
     print(a.values());
+    print(a.items());
     PyDict<int, PyList<int>> d(
         {{0, PyList({1, 2, 3})}, {1, PyList({4, 5, 6})}});
     print(d);

@@ -16,4 +16,7 @@ void printing_fn() {
     print(a);
     print(PyList({PyList({PyList({-1})})}));
     print(PyTup(1, 2));
+    print(1, 2, 3, 4);
+    print(PyStr("multiple arguments:"), PyList({1, 2}), a, PySet({1, 2}),
+          PyTup(5, 6), 3.14, a.keys(), a.values(), a.items());
 }

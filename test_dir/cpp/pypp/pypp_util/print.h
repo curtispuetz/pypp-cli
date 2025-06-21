@@ -2,6 +2,6 @@
 
 #include <iostream>
 
-template <typename T> void print(const T &value) {
-    std::cout << value << std::endl;
+template <typename... Args> void print(const Args &...args) {
+    ((std::cout << args << ' '), ...) << std::endl;
 }

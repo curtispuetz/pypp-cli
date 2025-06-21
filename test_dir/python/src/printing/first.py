@@ -1,3 +1,5 @@
+# TODO: consider fixing the inconsistent quotes around strings printed from the C++
+#  side. It is inconsistent with the Python printing
 def printing_fn():
     print("PRINTING RESULTS:")
     # integer
@@ -17,3 +19,16 @@ def printing_fn():
     print([[[-1]]])
     # tuple
     print((1, 2))
+    # multiple arguments
+    print(1, 2, 3, 4)
+    print(
+        "multiple arguments:",
+        [1, 2],
+        a,
+        {1, 2},
+        (5, 6),
+        3.14,
+        a.keys(),
+        a.values(),
+        a.items(),
+    )
