@@ -84,7 +84,19 @@ I think it will be useful to see the literal translation of your Python code to 
 note, I am interested in how that mapping can work.
 
 ## What works today?
-What works currently is most of functions, if-else statements, numbers/math, strings, lists, sets, and
-dicts. For a more complete picture of what works currently and how it works, take a look at 
-the test_dir where there is a python directory and a cpp directory containing the C++ code transpiled
-from the python directory.
+What works currently is:
+- functions
+- if-else statements
+- numbers/math
+- strings, lists, sets, dicts, and tuples
+- numpy arrays
+- exception handling and raising exceptions
+- for and while loops
+- for loops with enuemrate, zip, or reversed
+- range and slice keywords
+- printing with 'print()' (a few types might not print; pending testing)
+- file-io (needs a little more testing, but almost done)
+
+For a complete picture of what works currently and how it works, take a look at 
+the test_dir where there is a python directory and a cpp directory containing the C++ code 
+transpiled from the python directory.
