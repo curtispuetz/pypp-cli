@@ -32,3 +32,5 @@ def printing_fn():
         a.values(),
         a.items(),
     )
+    # print a list of booleans
+    print([True, False])

@@ -19,4 +19,5 @@ void printing_fn() {
     print(1, 2, 3, 4);
     print(PyStr("multiple arguments:"), PyList({1, 2}), a, PySet({1, 2}),
           PyTup(5, 6), 3.14, a.keys(), a.values(), a.items());
+    print(PyList({true, false}));
 }
