@@ -2,6 +2,7 @@
 
 #include "exceptions/stdexcept.h"
 #include "py_str.h"
+#include "pypp_util/print_py_value.h"
 #include <any>
 #include <format>
 #include <iostream>
@@ -56,7 +57,7 @@ template <typename... Args> class PyTup {
     // Helper for printing (now takes an ostream reference)
     template <std::size_t I = 0> void print_impl(std::ostream &os) const {
         if constexpr (I < sizeof...(Args)) {
-            os << std::get<I>(data);
+            print_py_value(os, std::get<I>(data));
             if constexpr (I + 1 < sizeof...(Args)) {
                 os << ", ";
             }

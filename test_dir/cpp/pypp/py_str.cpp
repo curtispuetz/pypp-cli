@@ -164,7 +164,7 @@ const std::string &PyStr::str() const { return s; }
 void PyStr::print() const { std::cout << s << std::endl; }
 
 std::ostream &operator<<(std::ostream &os, const PyStr &pystr) {
-    return os << "'" << pystr.str() << "'";
+    return os << pystr.str();
 }
 
 bool PyStr::operator==(const PyStr &other) const { return s == other.str(); }

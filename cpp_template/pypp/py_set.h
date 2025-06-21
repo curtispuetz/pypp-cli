@@ -1,6 +1,7 @@
 #pragma once
 
 #include "exceptions/stdexcept.h"
+#include "pypp_util/print_py_value.h"
 #include <format>
 #include <initializer_list>
 #include <iostream>
@@ -158,7 +159,7 @@ template <typename T> class PySet {
         os << "{";
         int i = 0;
         for (const auto &item : data) {
-            os << item;
+            print_py_value(os, item);
             if (i != data.size() - 1)
                 os << ", ";
             i++;
