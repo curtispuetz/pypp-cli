@@ -4,6 +4,7 @@
 #include "exceptions/system_error.h"
 #include "py_list.h"
 #include "py_tuple.h"
+#include "pypp_util/print_py_value.h"
 #include <algorithm>
 #include <format>
 #include <initializer_list>
@@ -80,7 +81,7 @@ template <typename T> class NpArr {
                 for (size_t k = 0; k < current_indices.size(); ++k) {
                     flat_index += current_indices[k] * strides_[k];
                 }
-                os << data_[flat_index];
+                print_py_value(os, data_[flat_index]);
                 if (i < shape_[dim_index] - 1) {
                     os << " ";
                 }
