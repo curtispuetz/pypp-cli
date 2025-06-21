@@ -1,5 +1,5 @@
-# TODO: consider fixing the inconsistent quotes around strings printed from the C++
-#  side. It is inconsistent with the Python printing
+# TODO later: consider fixing how booleans are printed as 0 or 1 in the C++
+#  (inconsistent to the Python printing)
 def printing_fn():
     print("PRINTING RESULTS:")
     # integer
