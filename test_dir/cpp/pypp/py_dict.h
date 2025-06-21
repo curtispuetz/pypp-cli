@@ -11,6 +11,163 @@
 #include <utility>
 #include <vector>
 
+// PyDictKeys
+template <typename K, typename V> class PyDictKeys {
+    using MapType = std::unordered_map<K, V>;
+    const MapType &map;
+
+  public:
+    explicit PyDictKeys(const MapType &m) : map(m) {}
+
+    class iterator {
+        using ItType = typename MapType::const_iterator;
+        ItType it;
+
+      public:
+        using iterator_category = std::forward_iterator_tag;
+        using value_type = const K;
+        using difference_type = std::ptrdiff_t;
+        using pointer = const K *;
+        using reference = const K &;
+
+        iterator(ItType i) : it(i) {}
+        reference operator*() const { return it->first; }
+        pointer operator->() const { return &(it->first); }
+        iterator &operator++() {
+            ++it;
+            return *this;
+        }
+        iterator operator++(int) {
+            iterator tmp = *this;
+            ++it;
+            return tmp;
+        }
+        bool operator==(const iterator &other) const { return it == other.it; }
+        bool operator!=(const iterator &other) const { return it != other.it; }
+    };
+
+    iterator begin() const { return iterator(map.begin()); }
+    iterator end() const { return iterator(map.end()); }
+
+    friend std::ostream &operator<<(std::ostream &os, const PyDictKeys &keys) {
+        os << "dict_keys([";
+        bool first = true;
+        for (const auto &key : keys) {
+            if (!first)
+                os << ", ";
+            os << key;
+            first = false;
+        }
+        os << "])";
+        return os;
+    }
+};
+
+// PyDictValues
+template <typename K, typename V> class PyDictValues {
+    using MapType = std::unordered_map<K, V>;
+    const MapType &map;
+
+  public:
+    explicit PyDictValues(const MapType &m) : map(m) {}
+
+    class iterator {
+        using ItType = typename MapType::const_iterator;
+        ItType it;
+
+      public:
+        using iterator_category = std::forward_iterator_tag;
+        using value_type = const V;
+        using difference_type = std::ptrdiff_t;
+        using pointer = const V *;
+        using reference = const V &;
+
+        iterator(ItType i) : it(i) {}
+        reference operator*() const { return it->second; }
+        pointer operator->() const { return &(it->second); }
+        iterator &operator++() {
+            ++it;
+            return *this;
+        }
+        iterator operator++(int) {
+            iterator tmp = *this;
+            ++it;
+            return tmp;
+        }
+        bool operator==(const iterator &other) const { return it == other.it; }
+        bool operator!=(const iterator &other) const { return it != other.it; }
+    };
+
+    iterator begin() const { return iterator(map.begin()); }
+    iterator end() const { return iterator(map.end()); }
+
+    friend std::ostream &operator<<(std::ostream &os,
+                                    const PyDictValues &values) {
+        os << "dict_values([";
+        bool first = true;
+        for (const auto &value : values) {
+            if (!first)
+                os << ", ";
+            os << value;
+            first = false;
+        }
+        os << "])";
+        return os;
+    }
+};
+
+// PyDictItems
+template <typename K, typename V> class PyDictItems {
+    using MapType = std::unordered_map<K, V>;
+    const MapType &map;
+
+  public:
+    explicit PyDictItems(const MapType &m) : map(m) {}
+
+    class iterator {
+        using ItType = typename MapType::const_iterator;
+        ItType it;
+
+      public:
+        using iterator_category = std::forward_iterator_tag;
+        using value_type = PyTup<const K &, const V &>;
+        using difference_type = std::ptrdiff_t;
+        using pointer = void;
+        using reference = PyTup<const K &, const V &>;
+
+        iterator(ItType i) : it(i) {}
+        reference operator*() const { return {it->first, it->second}; }
+        iterator &operator++() {
+            ++it;
+            return *this;
+        }
+        iterator operator++(int) {
+            iterator tmp = *this;
+            ++it;
+            return tmp;
+        }
+        bool operator==(const iterator &other) const { return it == other.it; }
+        bool operator!=(const iterator &other) const { return it != other.it; }
+    };
+
+    iterator begin() const { return iterator(map.begin()); }
+    iterator end() const { return iterator(map.end()); }
+
+    friend std::ostream &operator<<(std::ostream &os,
+                                    const PyDictItems &items) {
+        os << "dict_items([";
+        bool first = true;
+        for (const auto &kv : items) {
+            if (!first)
+                os << ", ";
+            os << "(" << kv.get<0>() << ", " << kv.get<1>() << ")";
+            first = false;
+        }
+        os << "])";
+        return os;
+    }
+};
+
 template <typename K, typename V> class PyDict {
   public:
     // Underlying map
@@ -23,31 +180,10 @@ template <typename K, typename V> class PyDict {
     // clear()
     void clear() { data.clear(); }
 
-    // keys()
-    PyList<K> keys() const {
-        std::vector<K> result;
-        for (const auto &[key, _] : data)
-            result.push_back(key);
-        return PyList(result);
-    }
-
-    // values()
-    PyList<V> values() const {
-        std::vector<V> result;
-        for (const auto &[_, value] : data)
-            result.push_back(value);
-        return PyList(result);
-    }
-
-    // TODO: use a iterator for keys, values, items
-    // Note: dict is not ordered so reverse iterators are not meaningful.
-    // items()
-    PyList<PyTup<K, V>> items() const {
-        std::vector<PyTup<K, V>> result;
-        for (const auto &pair : data)
-            result.push_back(PyTup(pair.first, pair.second));
-        return PyList(result);
-    }
+    // Note: dict is not ordered. Reverse iterators are not meaningful.
+    PyDictKeys<K, V> keys() const { return PyDictKeys<K, V>(data); }
+    PyDictValues<K, V> values() const { return PyDictValues<K, V>(data); }
+    PyDictItems<K, V> items() const { return PyDictItems<K, V>(data); }
 
     // opeartor[] allows for read-only access, like Python's dict[x]
     // dg == dict get. matches pypp's naming

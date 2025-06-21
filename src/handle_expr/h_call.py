@@ -21,9 +21,7 @@ def handle_call(
     cpp_call_start, cpp_call_end = lookup_cpp_call(
         caller_str, ret_imports, include_in_header
     )
-    if caller_str == "print":
-        assert len(node.args) == 1, "only one argument supported for print statements"
-    elif caller_str == "PyppOpt":
+    if caller_str == "PyppOpt":
         if len(node.args) == 0:
             add_inc(ret_imports, AngInc("optional"), include_in_header)
             return "std::nullopt"
