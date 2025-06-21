@@ -4,6 +4,7 @@
 #include "py_list.h"
 #include "py_tuple.h"
 #include "pypp_optional.h"
+#include "pypp_util/print_py_value.h"
 #include <format>
 #include <initializer_list>
 #include <iostream>
@@ -55,7 +56,7 @@ template <typename K, typename V> class PyDictKeys {
         for (const auto &key : keys) {
             if (!first)
                 os << ", ";
-            os << key;
+            print_py_value(os, key);
             first = false;
         }
         os << "])";
@@ -108,7 +109,7 @@ template <typename K, typename V> class PyDictValues {
         for (const auto &value : values) {
             if (!first)
                 os << ", ";
-            os << value;
+            print_py_value(os, value);
             first = false;
         }
         os << "])";
@@ -160,7 +161,11 @@ template <typename K, typename V> class PyDictItems {
         for (const auto &kv : items) {
             if (!first)
                 os << ", ";
-            os << "(" << kv.get<0>() << ", " << kv.get<1>() << ")";
+            os << "(";
+            print_py_value(os, kv.get<0>());
+            os << ", ";
+            print_py_value(os, kv.get<1>());
+            os << ")";
             first = false;
         }
         os << "])";
@@ -270,7 +275,9 @@ template <typename K, typename V> class PyDict {
             if (!first)
                 os << ", ";
             first = false;
-            os << key << ": " << value;
+            print_py_value(os, key);
+            os << ": ";
+            print_py_value(os, value);
         }
         os << "}";
     }

@@ -2,6 +2,7 @@
 
 #include "exceptions/stdexcept.h"
 #include "py_slice.h"
+#include "pypp_util/print_py_value.h"
 #include <algorithm>
 #include <format>
 #include <iostream>
@@ -190,7 +191,7 @@ template <typename T> class PyList {
     void print(std::ostream &os) const {
         os << "[";
         for (size_t i = 0; i < data.size(); ++i) {
-            os << data[i];
+            print_py_value(os, data[i]);
             if (i != data.size() - 1)
                 os << ", ";
         }
