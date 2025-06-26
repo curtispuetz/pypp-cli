@@ -21,13 +21,7 @@ def handle_call(
     cpp_call_start, cpp_call_end = lookup_cpp_call(
         caller_str, ret_imports, include_in_header
     )
-    if caller_str == "PyppOpt":
-        if len(node.args) == 0:
-            add_inc(ret_imports, AngInc("optional"), include_in_header)
-            return "std::nullopt"
-        cpp_call_start = ""
-        cpp_call_end = ""
-    elif caller_str == "pypp_tg":
+    if caller_str == "pypp_tg":
         assert len(node.args) == 2, "incorrect number of args when calling pypp_tg"
         add_inc(ret_imports, AngInc("any"), include_in_header)
         tuple_arg = handle_expr(node.args[0], ret_imports)
