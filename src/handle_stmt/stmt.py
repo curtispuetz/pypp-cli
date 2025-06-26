@@ -47,6 +47,6 @@ def handle_stmt(node: ast.stmt, ret_imports: RetImports, ret_h_file: list[str]) 
         return handle_try(node, ret_imports, ret_h_file, handle_stmt)
     if isinstance(node, ast.With):
         return handle_with(node, ret_imports, ret_h_file, handle_stmt, handle_expr)
-    if isinstance(node, ast.ImportFrom) or isinstance(node, ast.Import):
+    if isinstance(node, (ast.ImportFrom, ast.Import)):
         raise Exception("import statements after other code is not supported")
     raise Exception(f"code stmt type {node} not handled")

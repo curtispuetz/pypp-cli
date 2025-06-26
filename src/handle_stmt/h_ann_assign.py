@@ -16,7 +16,7 @@ def handle_ann_assign(
     target_str = handle_expr(node.target, ret_imports)
     if node.value is None:
         return f"{type_cpp} {target_str};"
-    if isinstance(node.value, ast.ListComp) or isinstance(node.value, ast.SetComp):
+    if isinstance(node.value, (ast.ListComp, ast.SetComp, ast.DictComp)):
         return f"{type_cpp} {target_str}; " + handle_comp(
             node.value, ret_imports, ret_h_file, handle_expr, handle_stmt, target_str
         )

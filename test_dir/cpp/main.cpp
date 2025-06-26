@@ -2,6 +2,7 @@
 #include "py_str.h"
 #include "pypp_util/main_error_handler.h"
 #include "pypp_util/print.h"
+#include "src/dicts/comprehensions.h"
 #include "src/dicts/exceptions.h"
 #include "src/dicts/first.h"
 #include "src/excpetions/throw_.h"
@@ -74,6 +75,7 @@ int main() {
         file_io_fn();
         list_comprehension_fn();
         set_comprehension_fn();
+        dict_comprehension_fn();
         return 0;
     } catch (...) {
         handle_fatal_exception();

@@ -5,7 +5,7 @@ from src.util.ret_imports import RetImports
 
 
 def handle_comp(
-    node: ast.ListComp | ast.SetComp,
+    node: ast.ListComp | ast.SetComp | ast.DictComp,
     ret_imports: RetImports,
     ret_h_file: list[str],
     handle_expr,
@@ -20,20 +20,32 @@ def handle_comp(
     gen_node = node.generators[0]
     assert len(gen_node.ifs) == 0, "ifs not supported in list comprehensions"
     assert not gen_node.is_async, "async not supported in list comprehensions"
-    append_call_node: ast.Call = ast.Call(
-        func=ast.Attribute(
-            value=ast.Name(id=target_str, ctx=ast.Load()),
-            attr="append" if isinstance(node, ast.ListComp) else "add",
-            ctx=ast.Load(),
-        ),
-        args=[node.elt],
-        keywords=[],
-    )
-    append_exp_node: ast.Expr = ast.Expr(value=append_call_node)
+    if isinstance(node, ast.DictComp):
+        # a[3] = "d"
+        logic_exp_node: ast.Assign = ast.Assign(
+            targets=[ast.Subscript(
+                value=ast.Name(id=target_str, ctx=ast.Load()),
+                slice=node.key,
+                ctx=ast.Store(),
+            )],
+            value=node.value,
+            type_comment=None,
+        )
+    else:
+        append_or_add_node: ast.Call = ast.Call(
+            func=ast.Attribute(
+                value=ast.Name(id=target_str, ctx=ast.Load()),
+                attr="append" if isinstance(node, ast.ListComp) else "add",
+                ctx=ast.Load(),
+            ),
+            args=[node.elt],
+            keywords=[],
+        )
+        logic_exp_node: ast.Expr = ast.Expr(value=append_or_add_node)
     for_node: ast.For = ast.For(
         target=gen_node.target,
         iter=gen_node.iter,
-        body=[append_exp_node],
+        body=[logic_exp_node],
         orelse=[],
         type_comment=None,
     )
