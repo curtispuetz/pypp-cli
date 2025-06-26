@@ -1,28 +1,29 @@
 #pragma once
 
-#include "exceptions/stdexcept.h"
+#include "py_tuple.h"
 #include <optional>
-#include <ostream>
-#include <vector>
+#include <stdexcept>
 
 struct PySlice {
-  private:
-    std::vector<int> _compute_slice_indices(int start, std::optional<int> stop,
-                                            int step,
-                                            int collection_length) const;
-
   public:
-    int m_start;
-    std::optional<int> m_stop;
-    int m_step;
+    PySlice(std::optional<int> start, std::optional<int> stop, int step);
 
-    explicit PySlice(int stop) : m_start(0), m_stop(stop), m_step(1) {}
-    PySlice(int start, std::optional<int> stop, int step = 1)
-        : m_start(start), m_stop(stop), m_step(step) {}
-    std::vector<int> compute_slice_indices(int collection_length) const;
+    int stop_index(int collection_size) const;
+    int start_index(int collection_size) const;
+    PyTup<int, int, int> indices(int collection_size) const;
+    int calc_slice_length(int collection_size) const;
+
+    std::optional<int> start() const { return _start; }
+    std::optional<int> stop() const { return _stop; }
+    int step() const { return _step; }
     void print(std::ostream &os) const;
     bool operator==(const PySlice &other) const;
     friend std::ostream &operator<<(std::ostream &os, const PySlice &pyslice);
+
+  private:
+    std::optional<int> _start;
+    std::optional<int> _stop;
+    int _step;
 };
 
 namespace std {
@@ -30,16 +31,21 @@ namespace std {
 template <> struct hash<PySlice> {
     size_t operator()(const PySlice &slice) const {
         std::size_t seed = 0;
-        seed ^= std::hash<int>()(slice.m_start) + 0x9e3779b9 + (seed << 6) +
-                (seed >> 2);
-        if (slice.m_stop.has_value()) {
-            seed ^= std::hash<int>()(*slice.m_stop) + 0x9e3779b9 + (seed << 6) +
+        if (slice.start().has_value()) {
+            seed ^= std::hash<int>()(*slice.start()) + 0x9e3779b9 +
+                    (seed << 6) + (seed >> 2);
+        } else {
+            seed ^= std::hash<std::nullptr_t>()(nullptr) + 0x9e3779b9 +
+                    (seed << 6) + (seed >> 2);
+        }
+        if (slice.stop().has_value()) {
+            seed ^= std::hash<int>()(*slice.stop()) + 0x9e3779b9 + (seed << 6) +
                     (seed >> 2);
         } else {
             seed ^= std::hash<std::nullptr_t>()(nullptr) + 0x9e3779b9 +
                     (seed << 6) + (seed >> 2);
         }
-        seed ^= std::hash<int>()(slice.m_step) + 0x9e3779b9 + (seed << 6) +
+        seed ^= std::hash<int>()(slice.step()) + 0x9e3779b9 + (seed << 6) +
                 (seed >> 2);
         return seed;
     }

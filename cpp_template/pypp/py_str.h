@@ -1,7 +1,7 @@
 #pragma once
 
 #include "py_list.h"
-#include "py_slice.h"
+#include "slice/py_slice.h"
 #include <format>
 #include <optional>
 #include <ostream>

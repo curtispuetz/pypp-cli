@@ -40,17 +40,5 @@ def handle_call(
         return f"{dict_arg}.dg{'_opt' if caller_str.endswith('t') else ''}({index_arg})"
     elif caller_str == "pypp_get_resources":
         add_inc(ret_imports, QInc("pypp_resources.h"), include_in_header)
-    elif caller_str.startswith("pypp_np") and caller_str.endswith(
-        ("zeros", "ones", "full", "array")
-    ):
-        fn_name = caller_str[8:]
-        add_inc(ret_imports, QInc("np_arr.h"), include_in_header)
-        cpp_dtype = handle_expr(node.args[-1], ret_imports)
-        first_arg_str = handle_expr(node.args[0], ret_imports)
-        args_str: list[str] = [first_arg_str]
-        if fn_name == "full":
-            fill_value = handle_expr(node.args[1], ret_imports)
-            args_str.append(fill_value)
-        return f"pypp_np::{fn_name}<{cpp_dtype}>({', '.join(args_str)})"
     args_str = handle_exprs(node.args, ret_imports, handle_expr, include_in_header)
     return f"{cpp_call_start}{args_str}{cpp_call_end}"

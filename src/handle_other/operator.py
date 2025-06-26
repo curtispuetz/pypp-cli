@@ -7,7 +7,7 @@ from src.util.ret_imports import RetImports, add_inc
 
 
 def handle_operator(
-    node: ast.operator, ret_imports: RetImports
+    node: ast.operator, ret_imports: RetImports | None
 ) -> tuple[str, str, str]:
     if isinstance(node, ast.Add):
         return "", "+", ""
@@ -25,4 +25,4 @@ def handle_operator(
 
 def handle_operator_for_aug_assign(node: ast.operator) -> str:
     assert not isinstance(node, ast.FloorDiv), "shouldn't happen"
-    return handle_operator(node, set())[1]
+    return handle_operator(node, None)[1]

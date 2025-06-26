@@ -1,5 +1,4 @@
-from test_dir.python.pypp.dict_get import pypp_dg_opt, pypp_dg
-from test_dir.python.pypp.optional import PyppOpt
+from test_dir.python.pypp.dict_get import pypp_dg
 
 
 def dict_fn():
@@ -7,18 +6,15 @@ def dict_fn():
     # declaration
     a: dict[int, str] = {0: "a", 1: "b", 2: "c"}
     print(a)
-    # access
+    # pypp_dg (better than access with [] because it throws)
+    g: dict[int, int] = {0: 1, 1: 2}
+    g0: int = pypp_dg(g, 1)
+    print(str(g0))
+    # access (not recommended unless you know the key exists)
     print(a[0])
-    # get
+    # get (only supported with default value)
     default_v: str = a.get(-1, "default value")
     print(default_v)
-    b: PyppOpt[str] = pypp_dg_opt(a, 1)
-    if b.has_value():
-        print(b.value())
-    c: PyppOpt[str] = pypp_dg_opt(a, -1)
-    if not c.has_value():
-        print("no value")
-    print(c.value_or("no value from value_or"))
     # setting
     a[3] = "d"
     print(a)
@@ -77,14 +73,6 @@ def dict_fn():
     print(f)
     f[1][77] = 76
     print(f)
-    f1: PyppOpt[dict[int, int]] = pypp_dg_opt(f, 1)
-    if f1.has_value():
-        f1.value()[9] = 8
-    print(f)
-    # test pypp_dg
-    g: dict[int, int] = {0: 1, 1: 2}
-    g0: int = pypp_dg(g, 1)
-    print(str(g0))
     # inline passing
     _inline_dict({0: 1, 1: 2})
 

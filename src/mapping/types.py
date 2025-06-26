@@ -20,11 +20,10 @@ TYPES_MAP: dict[str, TypeMapInfo] = {
     "tuple": TypeMapInfo("PyTup", [QInc("py_tuple.h")]),
     "set": TypeMapInfo("PySet", [QInc("py_set.h")]),
     "range": TypeMapInfo("PyRange", [QInc("py_range.h")]),
-    "slice": TypeMapInfo("PySlice", [QInc("py_slice.h")]),
+    "slice": TypeMapInfo("PySlice", [QInc("slice/py_slice.h")]),
     "enumerate": TypeMapInfo("PyEnumerate", [QInc("py_enumerate.h")]),
     "zip": TypeMapInfo("PyZip", [QInc("py_zip.h")]),
-    "reversed": TypeMapInfo("PyReversed", [QInc("py_reversed.h")]),
-    "PyppNpArr": TypeMapInfo("NpArr", [QInc("np_arr.h")]),
+    "reversed": TypeMapInfo("PyReversed", [QInc("py_reversed.h")])
 }
 
 

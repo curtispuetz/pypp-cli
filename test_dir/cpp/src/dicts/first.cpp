@@ -8,18 +8,12 @@ void dict_fn() {
     print(PyStr("DICT RESULTS:"));
     PyDict<int, PyStr> a({{0, PyStr("a")}, {1, PyStr("b")}, {2, PyStr("c")}});
     print(a);
+    PyDict<int, int> g({{0, 1}, {1, 2}});
+    int g0 = g.dg(1);
+    print(to_pystr(g0));
     print(a[0]);
     PyStr default_v = a.get(-1, PyStr("default value"));
     print(default_v);
-    PyppOpt<PyStr> b = a.dg_opt(1);
-    if (b.has_value()) {
-        print(b.value());
-    }
-    PyppOpt<PyStr> c = a.dg_opt(-1);
-    if (!c.has_value()) {
-        print(PyStr("no value"));
-    }
-    print(c.value_or(PyStr("no value from value_or")));
     a[3] = PyStr("d");
     print(a);
     PyStr val = a.setdefault(4, PyStr("e"));
@@ -60,14 +54,6 @@ void dict_fn() {
     print(f);
     f[1][77] = 76;
     print(f);
-    PyppOpt<PyDict<int, int>> f1 = f.dg_opt(1);
-    if (f1.has_value()) {
-        f1.value()[9] = 8;
-    }
-    print(f);
-    PyDict<int, int> g({{0, 1}, {1, 2}});
-    int g0 = g.dg(1);
-    print(to_pystr(g0));
     _inline_dict({{0, 1}, {1, 2}});
 }
 void _inline_dict(const PyDict<int, int> &d) { print(d); }

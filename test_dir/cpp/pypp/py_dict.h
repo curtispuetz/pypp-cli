@@ -3,7 +3,6 @@
 #include "exceptions/stdexcept.h"
 #include "py_list.h"
 #include "py_tuple.h"
-#include "pypp_optional.h"
 #include "pypp_util/print_py_value.h"
 #include <format>
 #include <initializer_list>
@@ -197,14 +196,6 @@ template <typename K, typename V> class PyDict {
         if (it == data.end())
             throw PyppKeyError("dict[x]: x not in dict");
         return it->second;
-    }
-
-    // get_opt(key)
-    PyppOpt<V> dg_opt(const K &key) {
-        auto it = data.find(key);
-        if (it != data.end())
-            return PyppOpt<V>(it->second);
-        return PyppOpt<V>();
     }
 
     V get(const K &key, const V &default_value) const {
