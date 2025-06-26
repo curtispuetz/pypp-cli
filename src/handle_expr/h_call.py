@@ -27,11 +27,11 @@ def handle_call(
         tuple_arg = handle_expr(node.args[0], ret_imports)
         index_arg = handle_expr(node.args[1], ret_imports)
         return f"{tuple_arg}.get<{index_arg}>()"
-    elif caller_str in {"pypp_dg_opt", "pypp_dg"}:
-        assert len(node.args) == 2, "incorrect number of args when calling pypp_dg_opt"
+    elif caller_str == "pypp_dg":
+        assert len(node.args) == 2, "incorrect number of args when calling pypp_dg"
         dict_arg = handle_expr(node.args[0], ret_imports)
         index_arg = handle_expr(node.args[1], ret_imports)
-        return f"{dict_arg}.dg{'_opt' if caller_str.endswith('t') else ''}({index_arg})"
+        return f"{dict_arg}.dg({index_arg})"
     elif caller_str == "pypp_get_resources":
         add_inc(ret_imports, QInc("pypp_resources.h"), include_in_header)
     args_str = handle_exprs(node.args, ret_imports, handle_expr, include_in_header)
