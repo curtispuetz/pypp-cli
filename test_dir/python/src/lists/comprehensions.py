@@ -3,6 +3,7 @@ def square(x: int) -> int:
 
 
 def list_comprehension_fn():
+    print("LIST COMPREHENSION RESULTS:")
     # List comprehension to create a list of squares
     squares: list[int] = [x * x for x in range(10)]
     print(f"Squares: {squares}")

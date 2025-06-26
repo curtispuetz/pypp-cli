@@ -23,6 +23,7 @@
 #include "src/printing/first.h"
 #include "src/ranges/first.h"
 #include "src/second.h"
+#include "src/sets/comprehensions.h"
 #include "src/sets/exceptions.h"
 #include "src/sets/first.h"
 #include "src/slices/first.h"
@@ -72,6 +73,7 @@ int main() {
         reversed_fn();
         file_io_fn();
         list_comprehension_fn();
+        set_comprehension_fn();
         return 0;
     } catch (...) {
         handle_fatal_exception();
