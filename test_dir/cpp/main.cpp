@@ -11,6 +11,7 @@
 #include "src/if_elif_else/if_elif_else.h"
 #include "src/inconsistent_behviour/editing_a_reference.h"
 #include "src/lists/as_arg.h"
+#include "src/lists/comprehensions.h"
 #include "src/lists/exceptions.h"
 #include "src/lists/lists.h"
 #include "src/loops/enumerate_.h"
@@ -70,6 +71,7 @@ int main() {
         zip_fn();
         reversed_fn();
         file_io_fn();
+        list_comprehension_fn();
         return 0;
     } catch (...) {
         handle_fatal_exception();

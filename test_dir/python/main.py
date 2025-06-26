@@ -28,6 +28,7 @@ from src.loops.enumerate_ import enumerate_fn
 from src.printing.first import printing_fn
 from src.loops.zip_ import zip_fn
 from src.loops.reversed_ import reversed_fn
+from src.lists.comprehensions import list_comprehension_fn
 
 if __name__ == "__main__":
     print(return_something(1, 9))
@@ -65,3 +66,4 @@ if __name__ == "__main__":
     zip_fn()
     reversed_fn()
     file_io_fn()
+    list_comprehension_fn()

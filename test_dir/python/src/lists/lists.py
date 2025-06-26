@@ -65,14 +65,14 @@ def list_fn():
     print(c)
     # slicing
     print(c[1:4])
-    print(c[1:len(c)-1:2])
+    print(c[1 : len(c) - 1 : 2])
     print(c[1::2])
     print(c[1:])
     print(c[:4])
     print(c[::2])
     print(c[:])
-    print(c[len(c)-2:5])
-    print(c[len(c)-4:len(c)-1])
+    print(c[len(c) - 2 : 5])
+    print(c[len(c) - 4 : len(c) - 1])
     print(c[5:1:-1])
     # slice setting. Note: This is not supported in the transpiled C++ right now, and
     #  no error is thrown either!
