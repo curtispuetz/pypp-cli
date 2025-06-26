@@ -30,6 +30,7 @@ from src.loops.zip_ import zip_fn
 from src.loops.reversed_ import reversed_fn
 from src.lists.comprehensions import list_comprehension_fn
 from src.sets.comprehensions import set_comprehension_fn
+from src.dicts.comprehensions import dict_comprehension_fn
 
 if __name__ == "__main__":
     print(return_something(1, 9))
@@ -69,3 +70,4 @@ if __name__ == "__main__":
     file_io_fn()
     list_comprehension_fn()
     set_comprehension_fn()
+    dict_comprehension_fn()

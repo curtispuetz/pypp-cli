@@ -51,7 +51,7 @@ def handle_expr(
         return handle_set(node, ret_imports, handle_expr, include_in_header)
     if isinstance(node, ast.JoinedStr):
         return handle_joined_string(node, ret_imports, handle_expr, include_in_header)
-    if isinstance(node, ast.ListComp) or isinstance(node, ast.SetComp):
+    if isinstance(node, (ast.ListComp, ast.SetComp, ast.DictComp)):
         raise Exception("Shouldn't happen. This should be called from ann_assign")
     if isinstance(node, ast.GeneratorExp):
         raise Exception("Generator expressions are not supported")

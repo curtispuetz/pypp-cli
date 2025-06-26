@@ -11,9 +11,4 @@ void set_comprehension_fn() {
         squares.add(x * x);
     }
     print(PyStr(std::format("Squares: {}", squares)));
-    PySet<int> squares_func;
-    for (int x = 0; x < 4; x += 1) {
-        squares_func.add(x * x);
-    }
-    print(PyStr(std::format("Squares using function: {}", squares_func)));
 }
