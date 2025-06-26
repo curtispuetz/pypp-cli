@@ -68,6 +68,6 @@ if __name__ == "__main__":
     zip_fn()
     reversed_fn()
     file_io_fn()
-    list_comprehension_fn()
     set_comprehension_fn()
     dict_comprehension_fn()
+    list_comprehension_fn()
