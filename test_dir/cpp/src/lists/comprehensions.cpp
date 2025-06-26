@@ -2,6 +2,7 @@
 #include "py_list.h"
 #include "py_range.h"
 #include "py_str.h"
+#include "py_zip.h"
 #include "pypp_util/print.h"
 
 int square(int x) { return x * x; }
@@ -17,4 +18,12 @@ void list_comprehension_fn() {
         squares_func.append(square(x));
     }
     print(PyStr(std::format("Squares using function: {}", squares_func)));
+    PyList<int> fibonacci;
+    for (const auto &pypp_hardcoded_it_tup :
+         PyZip(PyList({0, 1}), PyList({1, 2}))) {
+        auto &x = pypp_hardcoded_it_tup.get<0>();
+        auto &y = pypp_hardcoded_it_tup.get<1>();
+        fibonacci.append(x + y);
+    }
+    print(PyStr(std::format("Fibonacci: {}", fibonacci)));
 }
