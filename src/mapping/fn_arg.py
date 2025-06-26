@@ -4,7 +4,7 @@ FN_ARG_PASSED_BY_VALUE: set[str] = {
     # Is float even supported in pypp? Maybe it is through np.float32 values?
     "float",
     "double",
-    "PyRange"
+    "PyRange",
 }
 
 

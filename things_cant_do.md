@@ -57,3 +57,6 @@ injection)
 - Create a dictionary inline and use its methods immediately (i.e. {0: 1}.keys())
 - print a inline defined dictionary (i.e. print({0: 1}))
 - assign an enumerate, zip, or reversed type to a variable
+- You can't do any logic in class constructors; You can only assign variables to the constructor arguments.
+If you want logic in a class constructor, you can add a @classmethod returning an object of the type
+or a factory function returning an object of the type and put the logic in there.
