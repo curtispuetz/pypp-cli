@@ -19,10 +19,7 @@ void list_comprehension_fn() {
     }
     print(PyStr(std::format("Squares using function: {}", squares_func)));
     PyList<int> fibonacci;
-    for (const auto &pypp_hardcoded_it_tup :
-         PyZip(PyList({0, 1}), PyList({1, 2}))) {
-        auto &x = pypp_hardcoded_it_tup.get<0>();
-        auto &y = pypp_hardcoded_it_tup.get<1>();
+    for (const auto &[x, y] : PyZip(PyList({0, 1}), PyList({1, 2}))) {
         fibonacci.append(x + y);
     }
     print(PyStr(std::format("Fibonacci: {}", fibonacci)));

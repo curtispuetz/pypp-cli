@@ -178,4 +178,13 @@ template <typename... Args> struct formatter<PyTup<Args...>, char> {
     }
 };
 
+// Structured bindings support for PyTup
+template <typename... Args>
+struct tuple_size<PyTup<Args...>>
+    : std::integral_constant<std::size_t, sizeof...(Args)> {};
+
+template <std::size_t I, typename... Args>
+struct tuple_element<I, PyTup<Args...>> {
+    using type = std::tuple_element_t<I, std::tuple<Args...>>;
+};
 } // namespace std

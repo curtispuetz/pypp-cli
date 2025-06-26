@@ -17,10 +17,8 @@ void reversed_fn() {
         b.append(x);
     }
     print(b);
-    for (const auto &pypp_hardcoded_it_tup :
+    for (const auto &[x, z] :
          PyZip(PyReversed(PyList({1, 2, 3})), PyReversed(PyStr("abc")))) {
-        auto &x = pypp_hardcoded_it_tup.get<0>();
-        auto &z = pypp_hardcoded_it_tup.get<1>();
         print(PyStr(std::format("{}, {}", x, z)));
     }
 }

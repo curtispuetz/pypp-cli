@@ -1,8 +1,8 @@
 #pragma once
 
-#include "py_tuple.h" // Include your custom PyTup header
 #include <cstddef>
 #include <iterator>
+#include <tuple> // Use std::tuple instead of PyTup
 #include <utility>
 
 // Forward declaration of the iterator class
@@ -27,7 +27,7 @@ template <typename T> class PyEnumerate {
 // C++17 Deduction Guide for easier instantiation
 template <typename T> PyEnumerate(T &&) -> PyEnumerate<T>;
 
-// The iterator for PyEnumerate, now updated to yield PyTup
+// The iterator for PyEnumerate, now updated to yield std::tuple
 template <typename T> class py_enumerate_iterator {
   private:
     // Deduces the type of the underlying container's iterator
@@ -41,11 +41,12 @@ template <typename T> class py_enumerate_iterator {
   public:
     // --- C++ Standard Iterator Traits ---
     using iterator_category = std::input_iterator_tag;
-    // The value type is now a PyTup of the index and the container's value type
-    using value_type = PyTup<size_t, InnerValue>;
-    // The reference type (what operator* returns) is a PyTup of the index and a
-    // reference to the value
-    using reference = PyTup<size_t, InnerReference>;
+    // The value type is now a std::tuple of the index and the container's value
+    // type
+    using value_type = std::tuple<size_t, InnerValue>;
+    // The reference type (what operator* returns) is a std::tuple of the index
+    // and a reference to the value
+    using reference = std::tuple<size_t, InnerReference>;
     using difference_type = std::ptrdiff_t;
     using pointer = void;
     // --- End of Traits ---
@@ -55,11 +56,9 @@ template <typename T> class py_enumerate_iterator {
         : _it(it), _index(index) {}
 
     // Dereference operator (*it)
-    // This now returns a PyTup containing the index and a reference to the
+    // This now returns a std::tuple containing the index and a reference to the
     // element.
-    reference operator*() const {
-        return PyTup<size_t, InnerReference>{_index, *_it};
-    }
+    reference operator*() const { return reference{_index, *_it}; }
 
     // Pre-increment operator (++it)
     py_enumerate_iterator &operator++() {
