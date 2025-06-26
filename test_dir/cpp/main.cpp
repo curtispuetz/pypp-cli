@@ -60,7 +60,6 @@ int main() {
         set_exceptions_fn();
         string_exceptions_fn();
         tuple_exceptions_fn();
-        file_io_fn();
         string_esc_chars_fn();
         f_strings_fn();
         ranges_fn();
@@ -70,6 +69,7 @@ int main() {
         printing_fn();
         zip_fn();
         reversed_fn();
+        file_io_fn();
         return 0;
     } catch (...) {
         handle_fatal_exception();

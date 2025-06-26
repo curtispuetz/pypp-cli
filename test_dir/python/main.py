@@ -55,7 +55,6 @@ if __name__ == "__main__":
     set_exceptions_fn()
     string_exceptions_fn()
     tuple_exceptions_fn()
-    file_io_fn()
     string_esc_chars_fn()
     f_strings_fn()
     ranges_fn()
@@ -65,3 +64,4 @@ if __name__ == "__main__":
     printing_fn()
     zip_fn()
     reversed_fn()
+    file_io_fn()

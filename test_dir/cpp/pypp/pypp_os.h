@@ -39,12 +39,6 @@ inline bool rmdir(const PyStr &p) {
 }
 
 /**
- * @brief Recursively removes directories. All subdirectories and files will
- * also be removed.
- */
-inline void removedirs(const PyStr &p) { fs::remove_all(fs::path(p.str())); }
-
-/**
  * @brief Renames a file or directory.
  */
 inline void rename(const PyStr &old_p, const PyStr &new_p) {

@@ -18,6 +18,12 @@ def handle_call(
         skip_cpp_lookup=True,
         include_in_header=include_in_header,
     )
+    if caller_str.startswith("os."):
+        add_inc(ret_imports, QInc("pypp_os.h"), include_in_header)
+        caller_str = caller_str.replace(".", "::")
+    elif caller_str.startswith("shutil."):
+        add_inc(ret_imports, QInc("pypp_shutil.h"), include_in_header)
+        caller_str = caller_str.replace(".", "::")
     cpp_call_start, cpp_call_end = lookup_cpp_call(
         caller_str, ret_imports, include_in_header
     )
