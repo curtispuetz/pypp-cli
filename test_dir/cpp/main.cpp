@@ -5,6 +5,7 @@
 #include "src/dicts/comprehensions.h"
 #include "src/dicts/exceptions.h"
 #include "src/dicts/first.h"
+#include "src/excpetions/assert_.h"
 #include "src/excpetions/throw_.h"
 #include "src/file_io/first.h"
 #include "src/first.h"
@@ -76,6 +77,7 @@ int main() {
         set_comprehension_fn();
         dict_comprehension_fn();
         list_comprehension_fn();
+        assert_fn();
         return 0;
     } catch (...) {
         handle_fatal_exception();

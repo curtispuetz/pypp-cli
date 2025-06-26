@@ -19,9 +19,9 @@
 - While loops. AAGP
 - Try-Catch. AAGP
 - Match-Case. MDN
-- List, set, and dict comprehensions
+- List, set, and dict comprehensions. AAGP
 - Type Aliases
-- With statements
+- With statements. AAGP
 - Assert statement
 - Yield
 - Joined strings

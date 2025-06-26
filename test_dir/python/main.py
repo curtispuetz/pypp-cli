@@ -31,6 +31,7 @@ from src.loops.reversed_ import reversed_fn
 from src.lists.comprehensions import list_comprehension_fn
 from src.sets.comprehensions import set_comprehension_fn
 from src.dicts.comprehensions import dict_comprehension_fn
+from src.excpetions.assert_ import assert_fn
 
 if __name__ == "__main__":
     print(return_something(1, 9))
@@ -71,3 +72,4 @@ if __name__ == "__main__":
     set_comprehension_fn()
     dict_comprehension_fn()
     list_comprehension_fn()
+    assert_fn()
