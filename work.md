@@ -22,9 +22,9 @@
 - List, set, and dict comprehensions. AAGP
 - Type Aliases
 - With statements. AAGP
-- Assert statement
+- Assert statement. AAGP
 - Yield
-- Joined strings
+- Joined strings. AAGP
 - Starred arguments?
 - import math library
 - the time library
