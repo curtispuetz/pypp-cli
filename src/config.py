@@ -2,7 +2,7 @@ import os
 
 dirname: str = os.path.dirname(__file__)
 
-# TODO: add a auto type just like the C++ auto type where you can use
+# TODO later: add a auto type just like the C++ auto type where you can use
 #  it whenever you would be able to use it in C++. Like when
 #  you can calling something and assigning it to a variable, the function
 #  has a known type so you can always use auto.
