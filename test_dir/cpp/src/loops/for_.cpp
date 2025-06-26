@@ -39,17 +39,13 @@ void for_loop_fn() {
         a.append(v);
     }
     print(a);
-    for (const auto &pypp_hardcoded_it_tup : c.items()) {
-        auto &k = pypp_hardcoded_it_tup.get<0>();
-        auto &v = pypp_hardcoded_it_tup.get<1>();
+    for (const auto &[k, v] : c.items()) {
         a.append(k);
         a.append(v);
     }
     print(a);
     PyList<PyTup<int, int>> d = PyList({PyTup(1, 2), PyTup(3, 4)});
-    for (const auto &pypp_hardcoded_it_tup : d) {
-        auto &first = pypp_hardcoded_it_tup.get<0>();
-        auto &second = pypp_hardcoded_it_tup.get<1>();
+    for (const auto &[first, second] : d) {
         a.append(first);
         a.append(second);
     }
@@ -57,15 +53,9 @@ void for_loop_fn() {
     print(d);
     PyDict<int, PyDict<int, PyDict<int, int>>> e(
         {{0, {{0, {{0, 1}, {2, 3}}}}}});
-    for (const auto &pypp_hardcoded_it_tup : e.items()) {
-        auto &k1 = pypp_hardcoded_it_tup.get<0>();
-        auto &v1 = pypp_hardcoded_it_tup.get<1>();
-        for (const auto &pypp_hardcoded_it_tup : v1.items()) {
-            auto &k2 = pypp_hardcoded_it_tup.get<0>();
-            auto &v2 = pypp_hardcoded_it_tup.get<1>();
-            for (const auto &pypp_hardcoded_it_tup : v2.items()) {
-                auto &k3 = pypp_hardcoded_it_tup.get<0>();
-                auto &v3 = pypp_hardcoded_it_tup.get<1>();
+    for (const auto &[k1, v1] : e.items()) {
+        for (const auto &[k2, v2] : v1.items()) {
+            for (const auto &[k3, v3] : v2.items()) {
                 a.append(k3);
                 a.append(v3);
             }

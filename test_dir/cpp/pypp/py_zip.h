@@ -1,8 +1,7 @@
 #pragma once
 
-#include "py_tuple.h"
 #include <iterator>
-#include <tuple>
+#include <tuple> // Use std::tuple instead of PyTup
 #include <utility>
 
 // Forward declaration of the iterator class
@@ -54,11 +53,13 @@ template <typename... Iterators> class py_zip_iterator {
   public:
     // --- C++ Standard Iterator Traits ---
     using iterator_category = std::input_iterator_tag;
-    // The value_type is a PyTup of the value_types of the underlying iterators
+    // The value_type is a std::tuple of the value_types of the underlying
+    // iterators
     using value_type =
-        PyTup<typename std::iterator_traits<Iterators>::value_type...>;
-    // The reference type is a PyTup of references from the underlying iterators
-    using reference = PyTup<reference_t<Iterators>...>;
+        std::tuple<typename std::iterator_traits<Iterators>::value_type...>;
+    // The reference type is a std::tuple of references from the underlying
+    // iterators
+    using reference = std::tuple<reference_t<Iterators>...>;
     using difference_type = std::ptrdiff_t;
     using pointer = void;
     // --- End of Traits ---
@@ -67,7 +68,7 @@ template <typename... Iterators> class py_zip_iterator {
     py_zip_iterator(Iterators... its) : _its(its...) {}
 
     // Dereference operator (*it)
-    // Returns a PyTup containing references to the elements from each
+    // Returns a std::tuple containing references to the elements from each
     // container.
     reference operator*() const {
         // Use std::apply to unpack the tuple of iterators and pass them to a
@@ -75,7 +76,8 @@ template <typename... Iterators> class py_zip_iterator {
         return std::apply(
             // The lambda takes each iterator and dereferences it (*arg)
             [](auto &&...args) {
-                // This creates the PyTup on the fly: PyTup<int&, std::string&,
+                // This creates the std::tuple on the fly: std::tuple<int&,
+                // std::string&,
                 // ...>
                 return reference(*args...);
             },

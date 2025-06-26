@@ -37,12 +37,8 @@ def handle_for(
             + "}"
         )
     if target_str.startswith("PyTup(") and target_str.endswith(")"):
-        inner_args = calc_inside_rd(target_str).split(", ")
-        target_str = "pypp_hardcoded_it_tup"  # hardcoded value that should not be used
-        add_to_body_str: list[str] = []
-        for i, inner_arg in enumerate(inner_args):
-            add_to_body_str.append(f"auto &{inner_arg} = {target_str}.get<{i}>();")
-        body_str = "".join(add_to_body_str) + body_str
+        inner_args = calc_inside_rd(target_str)
+        target_str = "[" + inner_args + "]"
     return f"for (const auto &{target_str} : {iter_str})" + "{" + body_str + "}"
 
 
