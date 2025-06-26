@@ -10,7 +10,8 @@ def handle_slice(
     handle_expr,
     include_in_header: bool,
 ):
-    # TODO: see if you can leave some of them as None if they are None.
+    # NOTE: The C++ code handles Nones for start, but this code just wont use that.
+    # Which is maybe fine
     add_inc(ret_imports, QInc("slice/creators.h"), include_in_header)
     lower: str = (
         "0"
