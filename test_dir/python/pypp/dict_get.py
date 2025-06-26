@@ -1,7 +1,5 @@
 from typing import TypeVar, Any
 
-from test_dir.python.pypp.optional import PyppOpt
-
 T = TypeVar("T")
 
 
@@ -14,7 +12,3 @@ def pypp_dg(d: dict[Any, T], index: int) -> T:
     # tldr; dict[index] can be used if you know index is in the dict. If it isn't in the
     # dict, C++ will have undefined behavior.
     return d[index]
-
-
-def pypp_dg_opt(d: dict[Any, T], index: int) -> PyppOpt[T]:
-    return PyppOpt(d.get(index))

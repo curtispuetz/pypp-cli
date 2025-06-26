@@ -10,7 +10,8 @@ def handle_slice(
     handle_expr,
     include_in_header: bool,
 ):
-    add_inc(ret_imports, QInc("py_slice.h"), include_in_header)
+    # TODO: see if you can leave some of them as None if they are None.
+    add_inc(ret_imports, QInc("slice/creators.h"), include_in_header)
     lower: str = (
         "0"
         if node.lower is None
@@ -26,4 +27,4 @@ def handle_slice(
         if node.upper is None
         else handle_expr(node.upper, ret_imports, include_in_header)
     )
-    return f"PySlice({lower}, {upper}, {step})"
+    return f"py_slice({lower}, {upper}, {step})"

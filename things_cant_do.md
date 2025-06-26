@@ -60,3 +60,4 @@ injection)
 - You can't do any logic in class constructors; You can only assign variables to the constructor arguments.
 If you want logic in a class constructor, you can add a @classmethod returning an object of the type
 or a factory function returning an object of the type and put the logic in there.
+- Slices with anything but integers. Also a None step for slices.

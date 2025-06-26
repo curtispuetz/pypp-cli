@@ -3,8 +3,7 @@ SUBSCRIPT_VALUE_SQ_BRACKETS: set[str] = {
     "PyList",
     "PyDict",
     "PyTup",
-    "PySet",
-    "NpArr",
+    "PySet"
 }
 
 

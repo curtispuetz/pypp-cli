@@ -1,7 +1,7 @@
 #include "lists\lists.h"
-#include "py_slice.h"
 #include "pypp_util/print.h"
 #include "pypp_util/to_py_str.h"
+#include "slice/creators.h"
 
 void list_fn() {
     print(PyStr("LIST RESULTS:"));
@@ -48,16 +48,16 @@ void list_fn() {
     print(d);
     c *= 3;
     print(c);
-    print(c[PySlice(1, 4, 1)]);
-    print(c[PySlice(1, -1, 2)]);
-    print(c[PySlice(1, std::nullopt, 2)]);
-    print(c[PySlice(1, std::nullopt, 1)]);
-    print(c[PySlice(0, 4, 1)]);
-    print(c[PySlice(0, std::nullopt, 2)]);
-    print(c[PySlice(0, std::nullopt, 1)]);
-    print(c[PySlice(-2, 5, 1)]);
-    print(c[PySlice(-4, -1, 1)]);
-    print(c[PySlice(5, 1, -1)]);
+    print(c[py_slice(1, 4, 1)]);
+    print(c[py_slice(1, c.len() - 1, 2)]);
+    print(c[py_slice(1, std::nullopt, 2)]);
+    print(c[py_slice(1, std::nullopt, 1)]);
+    print(c[py_slice(0, 4, 1)]);
+    print(c[py_slice(0, std::nullopt, 2)]);
+    print(c[py_slice(0, std::nullopt, 1)]);
+    print(c[py_slice(c.len() - 2, 5, 1)]);
+    print(c[py_slice(c.len() - 4, c.len() - 1, 1)]);
+    print(c[py_slice(5, 1, -1)]);
     PyList<PyStr> e = PyList({PyStr("a"), PyStr("b")});
     print(e);
     PyList<int> f = PyList<int>({});

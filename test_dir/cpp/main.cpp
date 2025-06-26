@@ -19,8 +19,6 @@
 #include "src/loops/while_.h"
 #include "src/loops/zip_.h"
 #include "src/numbers/first.h"
-#include "src/numpy_arrays/exceptions.h"
-#include "src/numpy_arrays/first.h"
 #include "src/printing/first.h"
 #include "src/ranges/first.h"
 #include "src/second.h"
@@ -51,7 +49,6 @@ int main() {
         print(str_list);
         tuples_fn();
         string_ops();
-        numpy_arrays_fn();
         set_fn();
         for_loop_fn();
         while_loop_fn();
@@ -60,7 +57,6 @@ int main() {
         dict_fn();
         dict_exceptions_fn();
         list_exceptions_fn();
-        numpy_array_exceptions_fn();
         set_exceptions_fn();
         string_exceptions_fn();
         tuple_exceptions_fn();

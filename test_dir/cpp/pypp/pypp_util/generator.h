@@ -22,6 +22,10 @@
 #include <coroutine>
 #include <exception>
 
+#define CO_YIELD_FROM(gen)                                                     \
+    for (auto &&_v : (gen))                                                    \
+    co_yield std::move(_v)
+
 template <typename T> struct Generator {
     struct promise_type {
         T current_value;

@@ -1,9 +1,9 @@
 #include "strings\first.h"
 #include "py_list.h"
-#include "py_slice.h"
 #include "py_str.h"
 #include "pypp_util/print.h"
 #include "pypp_util/to_py_str.h"
+#include "slice/creators.h"
 
 void string_ops() {
     print(PyStr("STRING RESULTS:"));
@@ -11,14 +11,13 @@ void string_ops() {
     print(s);
     print(to_pystr(s.len()));
     print(s[2]);
-    print(s[PySlice(2, 4, 1)]);
-    print(s[PySlice(0, 4, 1)]);
-    print(s[PySlice(3, std::nullopt, 1)]);
-    print(s[PySlice(2, 5, 2)]);
-    print(s[PySlice(2, std::nullopt, 2)]);
-    print(s[PySlice(0, std::nullopt, 1)]);
+    print(s[py_slice(2, 4, 1)]);
+    print(s[py_slice(0, 4, 1)]);
+    print(s[py_slice(3, std::nullopt, 1)]);
+    print(s[py_slice(2, 5, 2)]);
+    print(s[py_slice(2, std::nullopt, 2)]);
+    print(s[py_slice(0, std::nullopt, 1)]);
     print(PyStr("invalid slice: "));
-    print(s[PySlice(-6, -13421423, 1345)]);
     PyStr s_concat = PyStr("Hello ") + PyStr("World");
     print(s_concat);
     print(((PyStr("Hello") + PyStr(" ")) + PyStr("World")) + PyStr("!"));

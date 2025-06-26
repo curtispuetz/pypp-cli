@@ -10,13 +10,11 @@ from src.lists.as_arg import list_as_arg, list_as_mutable_arg
 from src.dicts.first import dict_fn
 from src.tuples.first import tuples_fn
 from src.sets.first import set_fn
-from src.numpy_arrays.first import numpy_arrays_fn
 from src.loops.for_ import for_loop_fn
 from src.loops.while_ import while_loop_fn
 from src.excpetions.throw_ import throw_fn
 from src.dicts.exceptions import dict_exceptions_fn
 from src.lists.exceptions import list_exceptions_fn
-from src.numpy_arrays.exceptions import numpy_array_exceptions_fn
 from src.sets.exceptions import set_exceptions_fn
 from src.strings.exceptions import string_exceptions_fn
 from src.tuples.exceptions import tuple_exceptions_fn
@@ -46,7 +44,6 @@ if __name__ == "__main__":
     print(str_list)
     tuples_fn()
     string_ops()
-    numpy_arrays_fn()
     set_fn()
     for_loop_fn()
     while_loop_fn()
@@ -55,7 +52,6 @@ if __name__ == "__main__":
     dict_fn()
     dict_exceptions_fn()
     list_exceptions_fn()
-    numpy_array_exceptions_fn()
     set_exceptions_fn()
     string_exceptions_fn()
     tuple_exceptions_fn()
