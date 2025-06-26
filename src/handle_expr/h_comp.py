@@ -4,8 +4,8 @@ from src.handle_stmt.h_for import handle_for
 from src.util.ret_imports import RetImports
 
 
-def handle_list_comp(
-    node: ast.ListComp,
+def handle_comp(
+    node: ast.ListComp | ast.SetComp,
     ret_imports: RetImports,
     ret_h_file: list[str],
     handle_expr,
@@ -23,7 +23,7 @@ def handle_list_comp(
     append_call_node: ast.Call = ast.Call(
         func=ast.Attribute(
             value=ast.Name(id=target_str, ctx=ast.Load()),
-            attr="append",
+            attr="append" if isinstance(node, ast.ListComp) else "add",
             ctx=ast.Load(),
         ),
         args=[node.elt],

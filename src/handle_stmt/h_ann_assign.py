@@ -1,6 +1,6 @@
 import ast
 
-from src.handle_expr.h_list_comp import handle_list_comp
+from src.handle_expr.h_comp import handle_comp
 from src.util.inner_strings import calc_inside_ang
 from src.util.ret_imports import RetImports
 
@@ -16,8 +16,8 @@ def handle_ann_assign(
     target_str = handle_expr(node.target, ret_imports)
     if node.value is None:
         return f"{type_cpp} {target_str};"
-    if isinstance(node.value, ast.ListComp):
-        return f"{type_cpp} {target_str}; " + handle_list_comp(
+    if isinstance(node.value, ast.ListComp) or isinstance(node.value, ast.SetComp):
+        return f"{type_cpp} {target_str}; " + handle_comp(
             node.value, ret_imports, ret_h_file, handle_expr, handle_stmt, target_str
         )
     value_str = handle_expr(node.value, ret_imports)

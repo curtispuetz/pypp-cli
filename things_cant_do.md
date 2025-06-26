@@ -63,3 +63,4 @@ or a factory function returning an object of the type and put the logic in there
 - Slices with anything but integers. Also a None step for slices.
 - for list comprehensions: nested, if statements, and multiple for loops
 - Define functions within functions.
+- Generator Expressions (i.e. (x for x in range(10)))
