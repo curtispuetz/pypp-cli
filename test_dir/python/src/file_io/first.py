@@ -2,6 +2,7 @@ from test_dir.python.pypp.resources import pypp_get_resources
 import os
 import shutil
 
+
 def file_io_fn():
     # pypp_get_resources
     test_dir: str = pypp_get_resources("test_dir")
@@ -40,7 +41,7 @@ def file_io_fn():
     # read the text file completely
     with open(text_file, "r") as file:
         content: str = file.read()
-        print(f"Content of the file: {content.replace("\n", "\\n")}")
+        print(f"Content of the file: {content.replace('\n', '\\n')}")
     # read the text file line by line
     with open(text_file, "r") as file:
         line: str = file.readline()

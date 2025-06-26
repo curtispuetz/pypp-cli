@@ -51,4 +51,6 @@ def handle_expr(
         return handle_set(node, ret_imports, handle_expr, include_in_header)
     if isinstance(node, ast.JoinedStr):
         return handle_joined_string(node, ret_imports, handle_expr, include_in_header)
+    if isinstance(node, ast.ListComp):
+        raise Exception("Shouldn't happen. This should be called from ann_assign")
     raise Exception(f"code expr type {node} not handled")

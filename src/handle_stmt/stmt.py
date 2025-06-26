@@ -22,7 +22,9 @@ def handle_stmt(node: ast.stmt, ret_imports: RetImports, ret_h_file: list[str]) 
     if isinstance(node, ast.If):
         return handle_if(node, ret_imports, ret_h_file, handle_stmt, handle_expr)
     if isinstance(node, ast.AnnAssign):
-        return handle_ann_assign(node, ret_imports, handle_expr)
+        return handle_ann_assign(
+            node, ret_imports, ret_h_file, handle_expr, handle_stmt
+        )
     if isinstance(node, ast.Return):
         return handle_return(node, ret_imports, handle_expr)
     if isinstance(node, ast.Assign):
