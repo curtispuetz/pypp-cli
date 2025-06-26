@@ -4,21 +4,6 @@ from src.handle_stmt.h_for import handle_for
 from src.util.ret_imports import RetImports
 
 
-def handle_comprehension(
-    node: ast.comprehension,
-    ret_imports: RetImports,
-    ret_h_file: list[str],
-    handle_stmt,
-    handle_expr,
-    include_in_header: bool,
-) -> str:
-    assert len(node.ifs) == 0, "not supported for now"
-    assert not node.is_async, "async not supported"
-    iter_str = handle_expr(node.iter, ret_imports, include_in_header)
-    target_str = handle_expr(node.target, ret_imports, include_in_header)
-    return f"for {target_str} in {iter_str}"
-
-
 def handle_list_comp(
     node: ast.ListComp,
     ret_imports: RetImports,
@@ -29,10 +14,12 @@ def handle_list_comp(
 ) -> str:
     # It should be converted to a for loop.
     # The list comprehension must be assigned to something.
-    assert len(node.generators) == 1, "Not Supported"
+    assert len(node.generators) == 1, (
+        "multiple loops not supported in list comprehensions"
+    )
     gen_node = node.generators[0]
-    assert len(gen_node.ifs) == 0, "not supported for now"
-    assert not gen_node.is_async, "async not supported"
+    assert len(gen_node.ifs) == 0, "ifs not supported in list comprehensions"
+    assert not gen_node.is_async, "async not supported in list comprehensions"
     append_call_node: ast.Call = ast.Call(
         func=ast.Attribute(
             value=ast.Name(id=target_str, ctx=ast.Load()),

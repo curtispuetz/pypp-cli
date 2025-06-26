@@ -1,6 +1,7 @@
 def square(x: int) -> int:
     return x * x
 
+
 def list_comprehension_fn():
     # List comprehension to create a list of squares
     squares: list[int] = [x * x for x in range(10)]
