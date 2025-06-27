@@ -23,11 +23,13 @@ def handle_comp(
     if isinstance(node, ast.DictComp):
         # a[3] = "d"
         logic_exp_node: ast.Assign = ast.Assign(
-            targets=[ast.Subscript(
-                value=ast.Name(id=target_str, ctx=ast.Load()),
-                slice=node.key,
-                ctx=ast.Store(),
-            )],
+            targets=[
+                ast.Subscript(
+                    value=ast.Name(id=target_str, ctx=ast.Load()),
+                    slice=node.key,
+                    ctx=ast.Store(),
+                )
+            ],
             value=node.value,
             type_comment=None,
         )
