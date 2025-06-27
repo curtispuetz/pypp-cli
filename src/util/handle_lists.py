@@ -5,8 +5,10 @@ from src.util.ret_imports import RetImports, ImpMap
 
 
 def handle_import_stmts(stmts: list[ast.stmt]) -> tuple[ImpMap, int]:
+    assert len(stmts) > 0, "Empty files not supported"
     ret: ImpMap = {}
     for i, node in enumerate(stmts):
+        # ast.Import are ignored
         if isinstance(node, ast.ImportFrom):
             handle_import_from(node, ret)
         elif not isinstance(node, ast.Import):
