@@ -14,13 +14,13 @@
 - Dictionaries. AAGP
 - Comments. MDN
 - All the operators on the different types. AAGP
-- Numpy arrays. AAGP
+- Numpy arrays. MDN
 - For loops. AAGP
 - While loops. AAGP
 - Try-Catch. AAGP
 - Match-Case. MDN
 - List, set, and dict comprehensions. AAGP
-- Type Aliases
+- Type Aliases. AAGP
 - With statements. AAGP
 - Assert statement. AAGP
 - Yield
