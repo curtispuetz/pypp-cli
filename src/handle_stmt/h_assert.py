@@ -1,6 +1,6 @@
 import ast
 
-from src.d_types import AngInc, QInc
+from src.d_types import QInc
 from src.util.ret_imports import RetImports, add_inc
 
 

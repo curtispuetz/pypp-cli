@@ -12,6 +12,7 @@ from src.handle_stmt.h_if import handle_if
 from src.handle_stmt.h_raise import handle_raise
 from src.handle_stmt.h_return import handle_return
 from src.handle_stmt.h_try import handle_try
+from src.handle_stmt.h_type_alias import handle_type_alias
 from src.handle_stmt.h_while import handle_while
 from src.handle_stmt.h_width import handle_with
 from src.util.ret_imports import RetImports
@@ -50,6 +51,10 @@ def handle_stmt(node: ast.stmt, ret_imports: RetImports, ret_h_file: list[str]) 
         return handle_with(node, ret_imports, ret_h_file, handle_stmt, handle_expr)
     if isinstance(node, ast.Assert):
         return handle_assert(node, ret_imports, ret_h_file, handle_expr)
+    if isinstance(node, ast.TypeAlias):
+        return handle_type_alias(
+            node, ret_imports, ret_h_file, handle_stmt, handle_expr
+        )
     if isinstance(node, (ast.ImportFrom, ast.Import)):
         raise Exception("import statements after other code is not supported")
     raise Exception(f"code stmt type {node} not handled")

@@ -36,6 +36,7 @@
 #include "src/third.h"
 #include "src/tuples/exceptions.h"
 #include "src/tuples/first.h"
+#include "src/type_aliases.h"
 
 int main() {
     try {
@@ -78,6 +79,7 @@ int main() {
         dict_comprehension_fn();
         list_comprehension_fn();
         assert_fn();
+        type_aliases_fn();
         return 0;
     } catch (...) {
         handle_fatal_exception();
