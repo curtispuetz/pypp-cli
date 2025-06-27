@@ -2,6 +2,7 @@ import math
 
 
 def math_library_fn():
+    # TODO: test that you can assign each of these to variables.
     print("MATH LIBRARY RESULTS:")
     print(math.sqrt(9))
     print(math.hypot(3, 4))
