@@ -66,20 +66,14 @@ template <typename... Args> class PyTup {
     }
 
   public:
+    // Rvalue-only constructor for value types
+    PyTup(Args &&...args) : data(std::move(args)...) {}
+    // Allow construction from lvalues if all Args are references (for PyDict
+    // iterator, etc.)
     template <
-        typename... UArgs,
-        typename = std::enable_if_t<
-            !std::conjunction_v<std::is_same<std::decay_t<UArgs>, PyTup>...> &&
-            !std::conjunction_v<
-                std::is_same<std::decay_t<UArgs>, std::tuple<Args...>>...>>>
-    PyTup(UArgs &&...args) : data(std::forward<UArgs>(args)...) {}
-
-    // 2. Make your tuple copy constructor take a const reference.
-    // This is good practice and allows construction from const tuples.
-    PyTup(const std::tuple<Args...> &args) : data(args) {}
-
-    // 3. Your tuple move constructor is fine as is.
-    PyTup(std::tuple<Args...> &&args) : data(std::move(args)) {}
+        typename Dummy = void,
+        std::enable_if_t<(std::is_reference_v<Args> && ...), Dummy> * = nullptr>
+    PyTup(Args... args) : data(args...) {}
 
     // Count method
     template <typename T> int count(const T &value) const {
