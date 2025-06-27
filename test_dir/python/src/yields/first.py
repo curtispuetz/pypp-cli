@@ -6,12 +6,15 @@ def yield_123() -> Iterator[int]:
     yield 2
     yield 3
 
+
 def yield_over_list() -> Iterator[int]:
     for i in [1, 2, 3]:
         yield i
 
+
 def yield_from_example() -> Iterator[int]:
     yield from yield_over_list()
+
 
 def yield_fn():
     print("YIELD RESULTS:")

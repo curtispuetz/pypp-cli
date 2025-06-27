@@ -6,6 +6,7 @@ from test_dir.python.pypp.tuple_get import pypp_tg
 #  another is when you do a, b = my_tup you get references. Another I think is when you
 #  do a, b = my_fn_that_returns_tup() you get the actual values.
 
+
 def tuples_fn():
     print("TUPLE RESULTS:")
     a: tuple[int, float, str] = (1, 1.2, "a")
@@ -37,10 +38,22 @@ def tuples_fn():
     # unpacking elements from a function
     u, v = get_tup()
     print(u, v)
+    # argument unpacking
+    argument_unpacking(*get_tup())
+    # argument unpacking only works if it is the only argument to the call.
+    # arg_unpacking_fail(1, *get_tup())
 
 
 def _inline_tuple(tup: tuple[float, str]):
     print(tup)
 
+
 def get_tup() -> tuple[int, float]:
     return 1, 2.0
+
+
+def argument_unpacking(a: int, b: float):
+    print(a, b)
+
+def arg_unpacking_fail(a: int, b: int, c: int):
+    print(a, b, c)

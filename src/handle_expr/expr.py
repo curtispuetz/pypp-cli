@@ -57,6 +57,10 @@ def handle_expr(
         return handle_yield(node, ret_imports, handle_expr)
     if isinstance(node, ast.YieldFrom):
         return handle_yield_from(node, ret_imports, handle_expr)
+    if isinstance(node, ast.Starred):
+        raise Exception(
+            "Starred expressions are only supported if they are the only argument in a call"
+        )
     if isinstance(node, (ast.ListComp, ast.SetComp, ast.DictComp)):
         raise Exception("Shouldn't happen. This should be called from ann_assign")
     if isinstance(node, ast.GeneratorExp):
