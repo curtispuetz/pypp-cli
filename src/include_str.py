@@ -28,10 +28,6 @@ def _add_include(imp: CppInclude, ret: list[str]):
     if isinstance(imp, AngInc):
         ret.append(f"#include <{imp.val}>\n")
     else:
-        # TODO later: these specific strings should be different in the future
-        #  once I figure out how to deal with the custom Py++ Python code there
-        if imp.val.startswith("test_dir/python/pypp/"):
-            return
         ret.append(f'#include "{imp.val}"\n')
 
 
