@@ -1,4 +1,4 @@
-from typing import Annotated, TypeVar
+from typing import Annotated, TypeVar, Any
 
 T = TypeVar("T")
 
@@ -16,3 +16,6 @@ class Mutated:
 
 def PyppMut(typ: T) -> Annotated[T, Mutated()]:
     return Annotated[typ, Mutated()]
+
+
+auto = Any

@@ -39,9 +39,18 @@ def handle_call(
     elif caller_str.startswith("shutil."):
         add_inc(ret_imports, QInc("pypp_shutil.h"), include_in_header)
         caller_str = caller_str.replace(".", "::")
+    elif caller_str.startswith("pypp_time"):
+        add_inc(ret_imports, QInc("pypp_time.h"), include_in_header)
+        caller_str = replace_second_underscore(caller_str)
     cpp_call_start, cpp_call_end = lookup_cpp_call(
         caller_str, ret_imports, include_in_header
     )
     if caller_str == "pypp_get_resources":
         add_inc(ret_imports, QInc("pypp_resources.h"), include_in_header)
     return f"{cpp_call_start}{args_str}{cpp_call_end}"
+
+
+def replace_second_underscore(s):
+    parts = s.split("_", 2)  # Split into at most 3 parts
+    assert len(parts) >= 2, "Name cannot start with pypp_time"
+    return parts[0] + "_" + parts[1] + "::" + parts[2]

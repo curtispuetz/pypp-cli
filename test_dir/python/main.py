@@ -35,6 +35,7 @@ from src.excpetions.assert_ import assert_fn
 from src.type_aliases import type_aliases_fn
 from src.yields.first import yield_fn
 from src.math_library.first import math_library_fn
+from src.time_library.first import time_library_fn
 
 if __name__ == "__main__":
     print(return_something(1, 9))
@@ -79,3 +80,4 @@ if __name__ == "__main__":
     yield_fn()
     tuples_fn()
     math_library_fn()
+    time_library_fn()

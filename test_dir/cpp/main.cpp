@@ -35,6 +35,7 @@
 #include "src/strings/f_strings.h"
 #include "src/strings/first.h"
 #include "src/third.h"
+#include "src/time_library/first.h"
 #include "src/tuples/exceptions.h"
 #include "src/tuples/first.h"
 #include "src/type_aliases.h"
@@ -84,6 +85,7 @@ int main() {
         yield_fn();
         tuples_fn();
         math_library_fn();
+        time_library_fn();
         return 0;
     } catch (...) {
         handle_fatal_exception();

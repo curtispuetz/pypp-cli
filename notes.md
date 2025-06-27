@@ -9,3 +9,5 @@ multidimensional list is for performance. But, if you are using py++ then you ar
 you will get the performance from the executable generated from the C++ build. So, you might as well use lists instead 
 of numpy arrays, and the only sacrifice is that your code will run slower with the Python interpreter. I don't think this
 is that important since you are already getting the C++ build.
+- When you use the pypp_time_start() or pypp_time_per_counter_start() functions you need to specify the return type as auto
+(from pypp.custom_types import auto)
