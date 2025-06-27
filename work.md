@@ -27,8 +27,10 @@
 - Joined strings. AAGP
 - Starred arguments. AAGP
 - import math library. AAGP
-- the time library
-- multiprocessing library
-- file handling
+- the time library. AAGP
+- file handling. AAGP but needs work on saving raw data
 - json library
+- dataclasses
+- support for pass-by-value and moving for functions
 - Classes
+- multiprocessing library
