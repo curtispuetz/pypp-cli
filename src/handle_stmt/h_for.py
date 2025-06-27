@@ -2,8 +2,8 @@ import ast
 from dataclasses import dataclass
 
 from src.d_types import QInc
+from src.handle_expr.h_tuple import handle_tuple_inner_args
 from src.util.handle_lists import handle_stmts
-from src.util.inner_strings import calc_inside_rd
 from src.util.ret_imports import RetImports, add_inc
 
 
@@ -17,7 +17,12 @@ def handle_for(
     assert len(node.orelse) == 0, "For loop else not supported"
     assert node.type_comment is None, "For loop type comment not supported"
     body_str = handle_stmts(node.body, ret_imports, ret_h_file, handle_stmt)
-    target_str: str = handle_expr(node.target, ret_imports)
+    if isinstance(node.target, ast.Tuple):
+        target_str = (
+            "[" + handle_tuple_inner_args(node.target, ret_imports, handle_expr) + "]"
+        )
+    else:
+        target_str: str = handle_expr(node.target, ret_imports)
     iter_str = handle_expr(node.iter, ret_imports)
     if iter_str.startswith("PyEnumerate(") and iter_str.endswith(")"):
         add_inc(ret_imports, QInc("py_enumerate.h"))
@@ -36,9 +41,6 @@ def handle_for(
             + body_str
             + "}"
         )
-    if target_str.startswith("PyTup(") and target_str.endswith(")"):
-        inner_args = calc_inside_rd(target_str)
-        target_str = "[" + inner_args + "]"
     return f"for (const auto &{target_str} : {iter_str})" + "{" + body_str + "}"
 
 
