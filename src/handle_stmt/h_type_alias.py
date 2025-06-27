@@ -7,12 +7,16 @@ def handle_type_alias(
     node: ast.TypeAlias,
     ret_imports: RetImports,
     ret_h_file: list[str],
-    handle_stmt,
     handle_expr,
-):
-    # TODO: this should go in the h file typically. Actually, for simplicity for now
-    #  it will always go in the h file.
-    name = handle_expr(node.name, ret_imports)
-    value = handle_expr(node.value, ret_imports)
+) -> str:
+    name: str = handle_expr(node.name, ret_imports)
+    value: str = handle_expr(
+        node.value, ret_imports, include_in_header=not name.startswith("_")
+    )
     assert len(node.type_params) == 0, "type parameters for type alias not supported"
-    return f"using {name} = {value};"
+    res: str = f"using {name} = {value};"
+    if name.startswith("_"):
+        return res
+    # In the header file if name does not start with an underscore
+    ret_h_file.append(res)
+    return ""
