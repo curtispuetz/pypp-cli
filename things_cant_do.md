@@ -65,3 +65,4 @@ or a factory function returning an object of the type and put the logic in there
 - Define functions within functions.
 - Generator Expressions (i.e. (x for x in range(10)))
 - Define a type alias without the type keyword (i.e. my_type = list[int] instead of type my_type = list[int])
+- Mix regular arguments and starred arguments in a function call (i.e. my_func(a, *my_tup)). my_func(*my_tup) is fine.

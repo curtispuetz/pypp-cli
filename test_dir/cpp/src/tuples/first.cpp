@@ -24,6 +24,9 @@ void tuples_fn() {
     print(x, y, z);
     const auto &[u, v] = get_tup();
     print(u, v);
+    std::apply(argument_unpacking, get_tup().raw());
 }
 void _inline_tuple(const PyTup<double, PyStr> &tup) { print(tup); }
 PyTup<int, double> get_tup() { return PyTup(1, 2.0); }
+void argument_unpacking(int a, double b) { print(a, b); }
+void arg_unpacking_fail(int a, int b, int c) { print(a, b, c); }
