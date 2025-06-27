@@ -15,6 +15,7 @@ from src.handle_expr.h_tuple import handle_tuple
 from src.handle_expr.h_unary_op import handle_unary_op
 from src.handle_expr.h_slice import handle_slice
 from src.handle_expr.h_yield import handle_yield
+from src.handle_expr.h_yield_from import handle_yield_from
 from src.util.ret_imports import RetImports
 
 
@@ -54,6 +55,8 @@ def handle_expr(
         return handle_joined_string(node, ret_imports, handle_expr, include_in_header)
     if isinstance(node, ast.Yield):
         return handle_yield(node, ret_imports, handle_expr)
+    if isinstance(node, ast.YieldFrom):
+        return handle_yield_from(node, ret_imports, handle_expr)
     if isinstance(node, (ast.ListComp, ast.SetComp, ast.DictComp)):
         raise Exception("Shouldn't happen. This should be called from ann_assign")
     if isinstance(node, ast.GeneratorExp):

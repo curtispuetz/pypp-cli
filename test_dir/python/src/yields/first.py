@@ -10,6 +10,9 @@ def yield_over_list() -> Iterator[int]:
     for i in [1, 2, 3]:
         yield i
 
+def yield_from_example() -> Iterator[int]:
+    yield from yield_over_list()
+
 def yield_fn():
     print("YIELD RESULTS:")
     a: list[int] = []
@@ -17,5 +20,8 @@ def yield_fn():
         a.append(i)
     print(a)
     for i in yield_over_list():
+        a.append(i)
+    print(a)
+    for i in yield_from_example():
         a.append(i)
     print(a)
