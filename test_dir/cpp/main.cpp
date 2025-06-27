@@ -83,9 +83,9 @@ int main() {
         assert_fn();
         type_aliases_fn();
         yield_fn();
-        tuples_fn();
         math_library_fn();
         time_library_fn();
+        tuples_fn();
         return 0;
     } catch (...) {
         handle_fatal_exception();

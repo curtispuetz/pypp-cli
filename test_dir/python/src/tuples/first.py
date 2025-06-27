@@ -1,10 +1,5 @@
 from test_dir.python.pypp.tuple_get import pypp_tg
 
-# TODO: make sure that when you pass values to a tuple it automatically moves the values
-#  it should work by this by default and this should be the only way tuples are used.
-# TODO: in general specify the tuple design. The thing above is one part of it, and
-#  another is when you do a, b = my_tup you get references. Another I think is when you
-#  do a, b = my_fn_that_returns_tup() you get the actual values.
 
 # TODO: same thing for passing values to lists, sets, and dicts? Always move the values.
 
@@ -44,6 +39,13 @@ def tuples_fn():
     argument_unpacking(*get_tup())
     # argument unpacking only works if it is the only argument to the call.
     # arg_unpacking_fail(1, *get_tup())
+
+    # variables that are passed to tuples are moved
+    c: list[int] = [1, 2, 3]
+    d: tuple[int, list[int]] = (1, c)
+    print(d)
+    print("below will be [1, 2, 3] for Python, but [] for C++ because the list was moved:")
+    print(c)
 
 
 def _inline_tuple(tup: tuple[float, str]):
