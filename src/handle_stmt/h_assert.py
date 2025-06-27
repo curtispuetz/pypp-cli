@@ -10,9 +10,9 @@ def handle_assert(
     ret_h_file: list[str],
     handle_expr,
 ) -> str:
-    add_inc(ret_imports, QInc("exceptions/stdexcept.h"))
+    add_inc(ret_imports, QInc("pypp_assert.h"))
     test_str = handle_expr(node.test, ret_imports, ret_h_file)
     msg_str = 'PyStr("")'
     if node.msg is not None:
         msg_str = handle_expr(node.msg, ret_imports, ret_h_file)
-    return f"if (!({test_str}))" + "{" + f"throw PyppAssertionError({msg_str}.str());" + "}"
+    return f"assert({test_str}, {msg_str});"

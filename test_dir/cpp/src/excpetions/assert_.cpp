@@ -1,13 +1,9 @@
 #include "excpetions\assert_.h"
-#include "exceptions/stdexcept.h"
+#include "pypp_assert.h"
 #include "pypp_util/print.h"
 
 void assert_fn() {
     print(PyStr("ASSERT TESTS"));
-    if (!(1 == 1)) {
-        throw PyppAssertionError(PyStr("should not fail").str());
-    }
-    if (!(1 == 1)) {
-        throw PyppAssertionError(PyStr("").str());
-    }
+    assert(1 == 1, PyStr("should not fail"));
+    assert(1 == 1, PyStr(""));
 }
