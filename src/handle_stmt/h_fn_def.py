@@ -1,9 +1,16 @@
 import ast
 
+from src.d_types import QInc
 from src.mapping.fn_arg import lookup_cpp_fn_arg
 from src.util.handle_lists import handle_stmts
-from src.util.inner_strings import calc_inside_rd
-from src.util.ret_imports import RetImports
+from src.util.inner_strings import calc_inside_rd, calc_inside_sq
+from src.util.ret_imports import RetImports, add_inc
+
+
+# TODO: since type aliases can be in cpp files if the name starts with an underscore,
+#  that feature should be included for functions as well.
+# TODO: consider naming collisions in general in the C++ transpiled code. What
+#  easy strategies can I do to prevent them?
 
 
 def handle_fn_def(
@@ -27,6 +34,9 @@ def _calc_fn_signature(
         cpp_ret_type = "void"
     else:
         cpp_ret_type = handle_expr(node.returns, ret_imports, include_in_header=True)
+        if cpp_ret_type.startswith("Iterator[") and cpp_ret_type.endswith("]"):
+            add_inc(ret_imports, QInc("pypp_util/generator.h"), in_header=True)
+            cpp_ret_type = f"Generator<{calc_inside_sq(cpp_ret_type)}>"
     fn_name: str = node.name
     cpp_args: list[str] = []
     for py_arg in node.args.args:

@@ -12,10 +12,8 @@ from src.util.ret_imports import ImpMap
 def handle_import_from(node: ast.ImportFrom, imp_map: ImpMap):
     assert node.module is not None, "Not supported"
     assert node.level == 0, "Only absolute import supported"
-    # NOTE: do not name any other directories .src
-    if node.module.startswith("test_dir.python.pypp."):
-        # TODO later: these specific strings should be different in the future
-        #  once I figure out how to deal with the custom Py++ Python code there
+    # NOTE: this is actually only for src files.
+    if not node.module.startswith("src."):
         return
     module_str = node.module.replace(".", "/") + ".h"
     for alias in node.names:

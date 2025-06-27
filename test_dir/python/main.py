@@ -33,6 +33,7 @@ from src.sets.comprehensions import set_comprehension_fn
 from src.dicts.comprehensions import dict_comprehension_fn
 from src.excpetions.assert_ import assert_fn
 from src.type_aliases import type_aliases_fn
+from src.yields.first import yield_fn
 
 if __name__ == "__main__":
     print(return_something(1, 9))
@@ -75,3 +76,4 @@ if __name__ == "__main__":
     list_comprehension_fn()
     assert_fn()
     type_aliases_fn()
+    yield_fn()
