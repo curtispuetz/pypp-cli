@@ -48,7 +48,6 @@ if __name__ == "__main__":
     print(my_list)
     str_list: list[str] = ["ab", "cd"]
     print(str_list)
-    tuples_fn()
     string_ops()
     set_fn()
     for_loop_fn()
@@ -77,3 +76,4 @@ if __name__ == "__main__":
     assert_fn()
     type_aliases_fn()
     yield_fn()
+    tuples_fn()
