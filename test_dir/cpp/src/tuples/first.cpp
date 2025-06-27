@@ -1,4 +1,5 @@
 #include "tuples\first.h"
+#include "py_list.h"
 #include "pypp_util/print.h"
 #include "pypp_util/to_py_str.h"
 #include <any>
@@ -25,6 +26,12 @@ void tuples_fn() {
     const auto &[u, v] = get_tup();
     print(u, v);
     std::apply(argument_unpacking, get_tup().raw());
+    PyList<int> c = PyList({1, 2, 3});
+    PyTup<int, PyList<int>> d = PyTup(1, std::move(c));
+    print(d);
+    print(PyStr("will be [1, 2, 3] for Python, but [] for C++ because the list "
+                "was moved:"));
+    print(c);
 }
 void _inline_tuple(const PyTup<double, PyStr> &tup) { print(tup); }
 PyTup<int, double> get_tup() { return PyTup(1, 2.0); }
