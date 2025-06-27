@@ -25,12 +25,13 @@ int PySlice::start_index(int collection_size) const {
 }
 
 PyTup<int, int, int> PySlice::indices(int collection_size) const {
+    int step_i = _step;
     return PyTup(start_index(collection_size), stop_index(collection_size),
-                 _step);
+                 std::move(step_i));
 }
 
 int PySlice::calc_slice_length(int collection_size) const {
-    const PyTup i = indices(collection_size);
+    const auto i = indices(collection_size);
     int start = i.get<0>();
     int stop = i.get<1>();
     int step = i.get<2>();
