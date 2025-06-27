@@ -23,7 +23,7 @@
 - Type Aliases. AAGP
 - With statements. AAGP
 - Assert statement. AAGP
-- Yield
+- Yield. AAGP
 - Joined strings. AAGP
 - Starred arguments?
 - import math library

@@ -20,5 +20,10 @@ void tuples_fn() {
     print(PyTup(1, 2, PyStr("a")));
     print(to_pystr(PyTup(1, 2).len()));
     _inline_tuple(PyTup(1.2, PyStr("z")));
+    const auto &[x, y, z] = a;
+    print(x, y, z);
+    const auto &[u, v] = get_tup();
+    print(u, v);
 }
 void _inline_tuple(const PyTup<double, PyStr> &tup) { print(tup); }
+PyTup<int, double> get_tup() { return PyTup(1, 2.0); }

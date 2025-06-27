@@ -53,7 +53,6 @@ int main() {
         print(my_list);
         PyList<PyStr> str_list = PyList({PyStr("ab"), PyStr("cd")});
         print(str_list);
-        tuples_fn();
         string_ops();
         set_fn();
         for_loop_fn();
@@ -82,6 +81,7 @@ int main() {
         assert_fn();
         type_aliases_fn();
         yield_fn();
+        tuples_fn();
         return 0;
     } catch (...) {
         handle_fatal_exception();
