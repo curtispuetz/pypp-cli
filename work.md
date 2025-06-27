@@ -30,6 +30,8 @@
 - the time library. AAGP
 - file handling. AAGP but needs work on saving raw data
 - json library
+- default dict
+- deque
 - dataclasses
 - support for pass-by-value and moving for functions
 - Classes

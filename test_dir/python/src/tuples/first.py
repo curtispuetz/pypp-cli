@@ -6,6 +6,8 @@ from test_dir.python.pypp.tuple_get import pypp_tg
 #  another is when you do a, b = my_tup you get references. Another I think is when you
 #  do a, b = my_fn_that_returns_tup() you get the actual values.
 
+# TODO: same thing for passing values to lists, sets, and dicts? Always move the values.
+
 
 def tuples_fn():
     print("TUPLE RESULTS:")
