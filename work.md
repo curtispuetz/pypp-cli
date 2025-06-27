@@ -25,8 +25,8 @@
 - Assert statement. AAGP
 - Yield. AAGP
 - Joined strings. AAGP
-- Starred arguments?
-- import math library
+- Starred arguments. AAGP
+- import math library. AAGP
 - the time library
 - multiprocessing library
 - file handling

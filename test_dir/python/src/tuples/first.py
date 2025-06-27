@@ -55,5 +55,6 @@ def get_tup() -> tuple[int, float]:
 def argument_unpacking(a: int, b: float):
     print(a, b)
 
+
 def arg_unpacking_fail(a: int, b: int, c: int):
     print(a, b, c)

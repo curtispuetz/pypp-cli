@@ -21,6 +21,7 @@
 #include "src/loops/reversed_.h"
 #include "src/loops/while_.h"
 #include "src/loops/zip_.h"
+#include "src/math_library/first.h"
 #include "src/numbers/first.h"
 #include "src/printing/first.h"
 #include "src/ranges/first.h"
@@ -82,6 +83,7 @@ int main() {
         type_aliases_fn();
         yield_fn();
         tuples_fn();
+        math_library_fn();
         return 0;
     } catch (...) {
         handle_fatal_exception();
