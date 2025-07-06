@@ -62,7 +62,6 @@ int main() {
         for_loop_fn();
         while_loop_fn();
         throw_fn();
-        list_fn();
         dict_exceptions_fn();
         list_exceptions_fn();
         set_exceptions_fn();
@@ -88,8 +87,9 @@ int main() {
         time_library_fn();
         tuples_fn();
         set_of_tuples_fn();
-        dict_fn();
         ref_vars_fn();
+        dict_fn();
+        list_fn();
         return 0;
     } catch (...) {
         handle_fatal_exception();
