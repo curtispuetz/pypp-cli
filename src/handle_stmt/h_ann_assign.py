@@ -1,7 +1,7 @@
 import ast
 
 from src.handle_expr.h_comp import handle_comp
-from src.util.inner_strings import calc_inside_ang
+from src.util.inner_strings import calc_inside_ang, calc_inside_rd
 from src.util.ret_imports import RetImports
 
 
@@ -25,15 +25,20 @@ def handle_ann_assign(
         value_str = _empty_initialize("PyList", type_cpp)
     elif value_str == "set()":
         value_str = _empty_initialize("PySet", type_cpp)
-    if isinstance(node.value, ast.Subscript):
-        type_cpp += "&"
     if type_cpp.startswith("PyDict<"):
         # TODO later: consider that dicts are handle differently here than lists
         #  and sets. It might be nice if they are handled the same, but it seems hard.
         #  to make it so.
+        # TODO: does this even work if you are assignign a dict to a variable with
+        #  a function call? Try testing it.
         return f"{type_cpp} {target_str}({value_str});"
-    return f"{type_cpp} {target_str} = {value_str};"
+    ref, type_cpp = _calc_ref_str(type_cpp)
+    return f"{type_cpp}{ref} {target_str} = {value_str};"
 
+def _calc_ref_str(type_cpp: str) -> tuple[str, str]:
+    if type_cpp.startswith("Ref(") and type_cpp.endswith(")"):
+        return "&", calc_inside_rd(type_cpp)
+    return "", type_cpp
 
 def _empty_initialize(s: str, type_cpp: str):
     return f"{s}<{calc_inside_ang(type_cpp)}>" + "({})"

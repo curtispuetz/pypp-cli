@@ -25,6 +25,7 @@
 #include "src/numbers/first.h"
 #include "src/printing/first.h"
 #include "src/ranges/first.h"
+#include "src/ref_vars.h"
 #include "src/second.h"
 #include "src/sets/comprehensions.h"
 #include "src/sets/exceptions.h"
@@ -88,6 +89,7 @@ int main() {
         time_library_fn();
         tuples_fn();
         set_of_tuples_fn();
+        ref_vars_fn();
         return 0;
     } catch (...) {
         handle_fatal_exception();

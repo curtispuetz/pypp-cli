@@ -2,13 +2,6 @@ from test_dir.python.pypp.ownership import Valu
 from test_dir.python.pypp.tuple_get import tg
 
 
-# TODO: then I need a way to define a variable as a reference, so that when I access
-#  values in these collections you can avoid a copy. Or, should I just say if you access
-#  and assign to a variable then it makes a copy? So, users can do that if they want to
-#  or they can just use the collection directly so that they don't do any copies. I
-#  think the former is better. It could be like this a: Ref[MyType] = arr[0].
-
-
 def _inline_tuple(tup: Valu(tuple[float, str])):
     print(tup)
 
