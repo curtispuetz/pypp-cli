@@ -3,6 +3,7 @@ from typing import Annotated, TypeVar, Any
 T = TypeVar("T")
 
 
+# TODO: Delete these when everything is made not a const by default.
 class Mutated:
     """Marker metadata indicating in-place mutation."""
 
