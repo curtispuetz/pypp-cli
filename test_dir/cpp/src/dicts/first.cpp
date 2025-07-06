@@ -1,9 +1,11 @@
 #include "dicts\first.h"
+#include "py_dict.h"
 #include "py_list.h"
 #include "py_str.h"
 #include "pypp_util/print.h"
 #include "pypp_util/to_py_str.h"
 
+void _inline_dict(const PyDict<int, int> &d) { print(d); }
 void dict_fn() {
     print(PyStr("DICT RESULTS:"));
     PyDict<int, PyStr> a({{0, PyStr("a")}, {1, PyStr("b")}, {2, PyStr("c")}});
@@ -56,4 +58,3 @@ void dict_fn() {
     print(f);
     _inline_dict({{0, 1}, {1, 2}});
 }
-void _inline_dict(const PyDict<int, int> &d) { print(d); }

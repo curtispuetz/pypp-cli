@@ -1,3 +1,14 @@
+def _iter_and_print(arg1: range):
+    a1: list[int] = []
+    for i in arg1:
+        a1.append(i)
+    print(a1)
+
+
+def _range_as_return() -> range:
+    return range(9, 1, -2)
+
+
 def ranges_fn():
     print("RANGE RESULTS:")
     # single arg
@@ -18,14 +29,3 @@ def ranges_fn():
     # using as a key
     b: dict[range, int] = {a: 1, range(1, 4): 2}
     print(b)
-
-
-def _iter_and_print(arg1: range):
-    a1: list[int] = []
-    for i in arg1:
-        a1.append(i)
-    print(a1)
-
-
-def _range_as_return() -> range:
-    return range(9, 1, -2)

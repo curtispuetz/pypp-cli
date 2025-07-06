@@ -1,3 +1,7 @@
+def _test_fn(arg1: list[str]):
+    print(arg1)
+
+
 def list_fn():
     print("LIST RESULTS:")
     # Declaration
@@ -93,7 +97,3 @@ def list_fn():
     print(g)
     # test passing a list inline
     _test_fn(["1", "2"])
-
-
-def _test_fn(arg1: list[str]):
-    print(arg1)

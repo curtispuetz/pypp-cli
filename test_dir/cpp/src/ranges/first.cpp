@@ -1,9 +1,18 @@
 #include "ranges\first.h"
 #include "py_dict.h"
 #include "py_list.h"
+#include "py_range.h"
 #include "py_str.h"
 #include "pypp_util/print.h"
 
+void _iter_and_print(PyRange arg1) {
+    PyList<int> a1 = PyList<int>({});
+    for (const auto &i : arg1) {
+        a1.append(i);
+    }
+    print(a1);
+}
+PyRange _range_as_return() { return PyRange(9, 1, -2); }
 void ranges_fn() {
     print(PyStr("RANGE RESULTS:"));
     PyRange a = PyRange(10);
@@ -20,11 +29,3 @@ void ranges_fn() {
     PyDict<PyRange, int> b({{a, 1}, {PyRange(1, 4), 2}});
     print(b);
 }
-void _iter_and_print(PyRange arg1) {
-    PyList<int> a1 = PyList<int>({});
-    for (const auto &i : arg1) {
-        a1.append(i);
-    }
-    print(a1);
-}
-PyRange _range_as_return() { return PyRange(9, 1, -2); }

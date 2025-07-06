@@ -20,30 +20,48 @@ def handle_fn_def(
     handle_stmt,
     handle_expr,
 ) -> str:
-    fn_signature = _calc_fn_signature(node, ret_imports, handle_expr)
-    ret_h_file.append(fn_signature + ";")
+    fn_name = node.name
+    fn_name_doesnt_start_with_underscore: bool = not fn_name.startswith("_")
+    fn_signature = _calc_fn_signature(
+        node, ret_imports, handle_expr, fn_name, fn_name_doesnt_start_with_underscore
+    )
+    if fn_name_doesnt_start_with_underscore:
+        ret_h_file.append(fn_signature + ";")
     body_str: str = handle_stmts(node.body, ret_imports, ret_h_file, handle_stmt)
     return f"{fn_signature} {{{body_str}}}"
 
 
 def _calc_fn_signature(
-    node: ast.FunctionDef, ret_imports: RetImports, handle_expr
+    node: ast.FunctionDef,
+    ret_imports: RetImports,
+    handle_expr,
+    fn_name: str,
+    fn_name_doesnt_start_with_underscore: bool,
 ) -> str:
     cpp_ret_type: str
     if node.returns is None:
         cpp_ret_type = "void"
     else:
-        cpp_ret_type = handle_expr(node.returns, ret_imports, include_in_header=True)
+        cpp_ret_type = handle_expr(
+            node.returns,
+            ret_imports,
+            include_in_header=fn_name_doesnt_start_with_underscore,
+        )
         if cpp_ret_type.startswith("Iterator[") and cpp_ret_type.endswith("]"):
-            add_inc(ret_imports, QInc("pypp_util/generator.h"), in_header=True)
+            add_inc(
+                ret_imports,
+                QInc("pypp_util/generator.h"),
+                in_header=fn_name_doesnt_start_with_underscore,
+            )
             cpp_ret_type = f"Generator<{calc_inside_sq(cpp_ret_type)}>"
-    fn_name: str = node.name
     cpp_args: list[str] = []
     for py_arg in node.args.args:
         arg_name: str = py_arg.arg
         assert py_arg.annotation is not None, "function argument type must be specified"
         py_arg_type: str = handle_expr(
-            py_arg.annotation, ret_imports, include_in_header=True
+            py_arg.annotation,
+            ret_imports,
+            include_in_header=fn_name_doesnt_start_with_underscore,
         )
         is_const: bool = True
         if py_arg_type.startswith("PyppMut(") and py_arg_type.endswith(")"):
