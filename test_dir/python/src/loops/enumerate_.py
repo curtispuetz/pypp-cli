@@ -1,5 +1,5 @@
 from test_dir.python.pypp.ownership import mov
-from test_dir.python.pypp.tuple_get import pypp_tg
+from test_dir.python.pypp.tuple_get import tg
 
 
 def enumerate_fn():
@@ -32,6 +32,6 @@ def enumerate_fn():
         a.append(i)
         # Note: Of course I can't move this directly to the 'a' list without making a
         #  copy first because the data is owned by the dict.
-        y: int = pypp_tg(val, 0)
+        y: int = tg(val, 0)
         a.append(mov(y))
     print(a)

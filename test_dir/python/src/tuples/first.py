@@ -1,4 +1,4 @@
-from test_dir.python.pypp.tuple_get import pypp_tg
+from test_dir.python.pypp.tuple_get import tg
 
 
 # TODO: same thing for passing values to lists, sets, and dicts? Always move the values.
@@ -34,7 +34,7 @@ def tuples_fn():
     print(str(a.index(1.2)))
     # print(a.index(1.1))  # Throws error
     # access
-    b: int = pypp_tg(a, 0)
+    b: int = tg(a, 0)
     print(str(b))
     # comparisons
     print(str((1, 2) == (1, 2)))

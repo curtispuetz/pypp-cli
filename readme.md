@@ -42,7 +42,7 @@ Here are some of the bigger things you will need to do in your
 Python code (not a complete list; the complete list will come later):
 - Include type annotations for all variables, function/method parameters, and function/method return types.
 - Not use the Python None keyword, and instead use a PyppOptional which you can import.
-- Not use my_tup[0] to access tuple elements, and instead use pypp_tg(my_tup, 0) (where you import pypp_tg)
+- Not use my_tup[0] to access tuple elements, and instead use tg(my_tup, 0) (where you import tg)
 - You will need to be aware that in the transpiled C++ every object is passed as a reference or constant reference, so
 you will need to write your Python so that references are kept to these objects because otherwise there will be a bug
 in your transpiled C++ (this will be unintuitive to Python programmers and I think the biggest learning point or gotcha 
