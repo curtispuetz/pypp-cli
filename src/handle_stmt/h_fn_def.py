@@ -40,7 +40,6 @@ def _calc_fn_signature(
     if node.returns is None:
         cpp_ret_type = "void"
     else:
-        # TODO: handle Ref() return types by adding the &.
         cpp_ret_type = handle_expr(
             node.returns,
             ret_imports,
