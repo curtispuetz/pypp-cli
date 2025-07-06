@@ -6,7 +6,7 @@
 #include "pypp_util/to_py_str.h"
 #include <any>
 
-void _inline_tuple(const PyTup<double, PyStr> &tup) { print(tup); }
+void _inline_tuple(PyTup<double, PyStr> tup) { print(tup); }
 PyTup<int, double> _get_tup() { return PyTup(1, 2.0); }
 void _argument_unpacking(int a, double b) { print(a, b); }
 void _arg_unpacking_fail(int a, int b, int c) { print(a, b, c); }

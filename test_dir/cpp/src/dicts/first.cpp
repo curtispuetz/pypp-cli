@@ -6,7 +6,7 @@
 #include "pypp_util/to_py_str.h"
 #include <utility>
 
-void _inline_dict(const PyDict<int, int> &d) { print(d); }
+void _inline_dict(PyDict<int, int> d) { print(d); }
 void dict_fn() {
     print(PyStr("DICT RESULTS:"));
     PyDict<int, PyStr> a({{0, PyStr("a")}, {1, PyStr("b")}, {2, PyStr("c")}});

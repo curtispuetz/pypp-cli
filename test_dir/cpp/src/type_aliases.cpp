@@ -15,4 +15,4 @@ void type_aliases_fn() {
         PyTup(42, PyList({PyStr("example"), PyStr("data")}), 3.14);
     print(PyStr(std::format("Private data: {}", private_data)));
 }
-int process_matrix(const Matrix &m) { return m[0][0]; }
+int process_matrix(Matrix &m) { return m[0][0]; }

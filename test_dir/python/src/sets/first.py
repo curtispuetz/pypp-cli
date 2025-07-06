@@ -1,7 +1,7 @@
-from test_dir.python.pypp.ownership import mov
+from test_dir.python.pypp.ownership import mov, Valu
 
 
-def _inline_set(s: set[float]):
+def _inline_set(s: Valu(set[float])):
     print(s)
 
 

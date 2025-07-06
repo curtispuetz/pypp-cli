@@ -4,4 +4,4 @@
 
 using Matrix = PyList<PyList<int>>;
 void type_aliases_fn();
-int process_matrix(const Matrix &m);
+int process_matrix(Matrix &m);

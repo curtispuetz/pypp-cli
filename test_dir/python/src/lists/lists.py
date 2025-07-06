@@ -1,7 +1,7 @@
-from test_dir.python.pypp.ownership import mov
+from test_dir.python.pypp.ownership import mov, Valu
 
 
-def _test_fn(arg1: list[str]):
+def _test_fn(arg1: Valu(list[str])):
     print(arg1)
 
 

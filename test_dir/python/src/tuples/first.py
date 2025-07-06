@@ -1,3 +1,4 @@
+from test_dir.python.pypp.ownership import Valu
 from test_dir.python.pypp.tuple_get import tg
 
 
@@ -8,7 +9,7 @@ from test_dir.python.pypp.tuple_get import tg
 #  think the former is better. It could be like this a: Ref[MyType] = arr[0].
 
 
-def _inline_tuple(tup: tuple[float, str]):
+def _inline_tuple(tup: Valu(tuple[float, str])):
     print(tup)
 
 

@@ -6,7 +6,7 @@
 #include "slice/creators.h"
 #include <utility>
 
-void _test_fn(const PyList<PyStr> &arg1) { print(arg1); }
+void _test_fn(PyList<PyStr> arg1) { print(arg1); }
 void list_fn() {
     print(PyStr("LIST RESULTS:"));
     PyList<int> a = PyList({1, 2, 3, 4, 5});
