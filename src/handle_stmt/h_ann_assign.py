@@ -26,11 +26,9 @@ def handle_ann_assign(
     elif value_str == "set()":
         value_str = _empty_initialize("PySet", type_cpp)
     if type_cpp.startswith("PyDict<"):
-        # TODO later: consider that dicts are handle differently here than lists
-        #  and sets. It might be nice if they are handled the same, but it seems hard.
+        # TODO later: consider that dicts are handled differently here than lists
+        #  and sets. It might be nice if they are handled the same, but it seems hard
         #  to make it so.
-        # TODO: does this even work if you are assignign a dict to a variable with
-        #  a function call? Try testing it.
         return f"{type_cpp} {target_str}({value_str});"
     ref, type_cpp = _calc_ref_str(type_cpp)
     return f"{type_cpp}{ref} {target_str} = {value_str};"

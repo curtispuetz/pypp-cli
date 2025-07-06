@@ -58,7 +58,6 @@ if __name__ == "__main__":
     while_loop_fn()
     throw_fn()
     list_fn()
-    dict_fn()
     dict_exceptions_fn()
     list_exceptions_fn()
     set_exceptions_fn()
@@ -85,3 +84,4 @@ if __name__ == "__main__":
     tuples_fn()
     set_of_tuples_fn()
     ref_vars_fn()
+    dict_fn()

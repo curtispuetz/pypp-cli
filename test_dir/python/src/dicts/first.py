@@ -5,6 +5,9 @@ from test_dir.python.pypp.ownership import mov, Valu
 def _inline_dict(d: Valu(dict[int, int])):
     print(d)
 
+def _get_dict() -> dict[int, int]:
+    return {0: 1, 1: 2}
+
 
 def dict_fn():
     print("DICT RESULTS:")
@@ -92,3 +95,6 @@ def dict_fn():
     print(f)
     # inline passing
     _inline_dict({0: 1, 1: 2})
+    # getting a dict from a function
+    h: dict[int, int] = _get_dict()
+    print(h)
