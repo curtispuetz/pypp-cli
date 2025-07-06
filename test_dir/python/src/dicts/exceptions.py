@@ -1,4 +1,4 @@
-from test_dir.python.pypp.dict_get import pypp_dg
+from test_dir.python.pypp.dict_get import dg
 
 
 def dict_exceptions_fn():
@@ -9,6 +9,6 @@ def dict_exceptions_fn():
     except KeyError as e:
         print("key error: " + str(e))
     try:
-        pypp_dg(a, -1)
+        dg(a, -1)
     except KeyError as e:
         print("key error: " + str(e))

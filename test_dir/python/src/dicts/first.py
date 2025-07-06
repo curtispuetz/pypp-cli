@@ -1,4 +1,4 @@
-from test_dir.python.pypp.dict_get import pypp_dg
+from test_dir.python.pypp.dict_get import dg
 from test_dir.python.pypp.ownership import mov
 
 
@@ -11,9 +11,9 @@ def dict_fn():
     # declaration
     a: dict[int, str] = {0: "a", 1: "b", 2: "c"}
     print(a)
-    # pypp_dg (better than access with [] because it throws)
+    # dg (better than access with [] because it throws)
     g: dict[int, int] = {0: 1, 1: 2}
-    g0: int = pypp_dg(g, 1)
+    g0: int = dg(g, 1)
     print(g0)
     # access (not recommended unless you know the key exists)
     print(a[0])
