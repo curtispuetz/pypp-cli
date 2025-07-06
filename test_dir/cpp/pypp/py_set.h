@@ -18,7 +18,7 @@ template <typename T> class PySet {
     PySet(std::initializer_list<T> init) : data(init) {}
 
     // Add an element
-    void add(const T &value) { data.insert(value); }
+    void add(T &&value) { data.insert(value); }
 
     // Remove an element (raises if not found)
     void remove(const T &value) {
@@ -48,7 +48,7 @@ template <typename T> class PySet {
         PySet<T> result;
         for (const auto &item : data) {
             if (other.contains(item)) {
-                result.add(item);
+                result.data.insert(item);
             }
         }
         return result;
@@ -58,7 +58,7 @@ template <typename T> class PySet {
         PySet<T> result;
         for (const auto &item : data) {
             if (!other.contains(item)) {
-                result.add(item);
+                result.data.insert(item);
             }
         }
         return result;
@@ -68,12 +68,12 @@ template <typename T> class PySet {
         PySet<T> result;
         for (const auto &item : data) {
             if (!other.contains(item)) {
-                result.add(item);
+                result.data.insert(item);
             }
         }
         for (const auto &item : other.data) {
             if (!contains(item)) {
-                result.add(item);
+                result.data.insert(item);
             }
         }
         return result;

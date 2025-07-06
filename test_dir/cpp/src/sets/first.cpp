@@ -4,6 +4,7 @@
 #include "py_str.h"
 #include "pypp_util/print.h"
 #include "pypp_util/to_py_str.h"
+#include <utility>
 
 void _inline_set(const PySet<double> &s) { print(s); }
 void set_fn() {
@@ -12,6 +13,8 @@ void set_fn() {
     print(a);
     a.add(4);
     print(a);
+    int add_val = 4;
+    a.add(std::move(add_val));
     a.discard(4);
     print(a);
     a.remove(3);
