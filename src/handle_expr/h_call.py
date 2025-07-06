@@ -19,8 +19,8 @@ def handle_call(
         skip_cpp_lookup=True,
         include_in_header=include_in_header,
     )
-    if caller_str == "pypp_tg":
-        assert len(node.args) == 2, "incorrect number of args when calling pypp_tg"
+    if caller_str == "tg":
+        assert len(node.args) == 2, "incorrect number of args when calling tg"
         add_inc(ret_imports, AngInc("any"), include_in_header)
         tuple_arg = handle_expr(node.args[0], ret_imports)
         index_arg = handle_expr(node.args[1], ret_imports)

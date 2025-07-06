@@ -1,5 +1,5 @@
 from test_dir.python.pypp.ownership import mov
-from test_dir.python.pypp.tuple_get import pypp_tg
+from test_dir.python.pypp.tuple_get import tg
 
 
 def zip_fn():
@@ -15,4 +15,4 @@ def zip_fn():
     for x, z, y, w in zip([1, 2], {"a", "b"}, "ab", b.items()):
         # Note: The sets and dicts in C++ order is not guaranteed, so you could see
         # different strings
-        print(f"{x}, {z}, {y}, {pypp_tg(w, 0)}, {pypp_tg(w, 0)}")
+        print(f"{x}, {z}, {y}, {tg(w, 0)}, {tg(w, 0)}")
