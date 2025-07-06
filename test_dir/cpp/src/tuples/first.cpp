@@ -27,9 +27,9 @@ void tuples_fn() {
     print(PyTup(1, 2, PyStr("a")));
     print(to_pystr(PyTup(1, 2).len()));
     _inline_tuple(PyTup(1.2, PyStr("z")));
-    const auto &[x, y, z] = a;
+    auto [x, y, z] = a;
     print(x, y, z);
-    const auto &[u, v] = _get_tup();
+    auto [u, v] = _get_tup();
     print(u, v);
     std::apply(_argument_unpacking, _get_tup().raw());
     PyList<int> c = PyList({1, 2, 3});
