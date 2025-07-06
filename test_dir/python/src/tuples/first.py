@@ -1,7 +1,6 @@
 from test_dir.python.pypp.tuple_get import tg
 
 
-# TODO: same thing for passing values to lists, sets, and dicts? Always move the values.
 # TODO: then I need a way to define a variable as a reference, so that when I access
 #  values in these collections you can avoid a copy. Or, should I just say if you access
 #  and assign to a variable then it makes a copy? So, users can do that if they want to
