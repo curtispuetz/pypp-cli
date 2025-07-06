@@ -25,8 +25,8 @@ def handle_call(
         tuple_arg = handle_expr(node.args[0], ret_imports)
         index_arg = handle_expr(node.args[1], ret_imports)
         return f"{tuple_arg}.get<{index_arg}>()"
-    if caller_str == "pypp_dg":
-        assert len(node.args) == 2, "incorrect number of args when calling pypp_dg"
+    if caller_str == "dg":
+        assert len(node.args) == 2, "incorrect number of args when calling dg"
         dict_arg = handle_expr(node.args[0], ret_imports)
         index_arg = handle_expr(node.args[1], ret_imports)
         return f"{dict_arg}.dg({index_arg})"
