@@ -9,6 +9,22 @@ from test_dir.python.pypp.tuple_get import pypp_tg
 #  think the former is better. It could be like this a: Ref[MyType] = arr[0].
 
 
+def _inline_tuple(tup: tuple[float, str]):
+    print(tup)
+
+
+def _get_tup() -> tuple[int, float]:
+    return 1, 2.0
+
+
+def _argument_unpacking(a: int, b: float):
+    print(a, b)
+
+
+def _arg_unpacking_fail(a: int, b: int, c: int):
+    print(a, b, c)
+
+
 def tuples_fn():
     print("TUPLE RESULTS:")
     a: tuple[int, float, str] = (1, 1.2, "a")
@@ -38,10 +54,10 @@ def tuples_fn():
     x, y, z = a
     print(x, y, z)
     # unpacking elements from a function
-    u, v = get_tup()
+    u, v = _get_tup()
     print(u, v)
     # argument unpacking
-    argument_unpacking(*get_tup())
+    _argument_unpacking(*_get_tup())
     # argument unpacking only works if it is the only argument to the call.
     # arg_unpacking_fail(1, *get_tup())
 
@@ -53,19 +69,3 @@ def tuples_fn():
         "below will be [1, 2, 3] for Python, but [] for C++ because the list was moved:"
     )
     print(c)
-
-
-def _inline_tuple(tup: tuple[float, str]):
-    print(tup)
-
-
-def get_tup() -> tuple[int, float]:
-    return 1, 2.0
-
-
-def argument_unpacking(a: int, b: float):
-    print(a, b)
-
-
-def arg_unpacking_fail(a: int, b: int, c: int):
-    print(a, b, c)

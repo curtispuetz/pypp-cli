@@ -1,8 +1,11 @@
 #include "lists\lists.h"
+#include "py_list.h"
+#include "py_str.h"
 #include "pypp_util/print.h"
 #include "pypp_util/to_py_str.h"
 #include "slice/creators.h"
 
+void _test_fn(const PyList<PyStr> &arg1) { print(arg1); }
 void list_fn() {
     print(PyStr("LIST RESULTS:"));
     PyList<int> a = PyList({1, 2, 3, 4, 5});
@@ -70,4 +73,3 @@ void list_fn() {
     print(g);
     _test_fn(PyList({PyStr("1"), PyStr("2")}));
 }
-void _test_fn(const PyList<PyStr> &arg1) { print(arg1); }

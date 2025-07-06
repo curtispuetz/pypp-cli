@@ -1,9 +1,11 @@
 #include "sets\first.h"
 #include "py_list.h"
+#include "py_set.h"
 #include "py_str.h"
 #include "pypp_util/print.h"
 #include "pypp_util/to_py_str.h"
 
+void _inline_set(const PySet<double> &s) { print(s); }
 void set_fn() {
     print(PyStr("SET RESULTS:"));
     PySet<int> a = PySet({1, 2, 3});
@@ -47,4 +49,3 @@ void set_fn() {
     print(c);
     _inline_set(PySet({1.2, 4.4}));
 }
-void _inline_set(const PySet<double> &s) { print(s); }

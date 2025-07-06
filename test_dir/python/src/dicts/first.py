@@ -1,6 +1,10 @@
 from test_dir.python.pypp.dict_get import pypp_dg
 
 
+def _inline_dict(d: dict[int, int]):
+    print(d)
+
+
 def dict_fn():
     print("DICT RESULTS:")
     # declaration
@@ -75,7 +79,3 @@ def dict_fn():
     print(f)
     # inline passing
     _inline_dict({0: 1, 1: 2})
-
-
-def _inline_dict(d: dict[int, int]):
-    print(d)
