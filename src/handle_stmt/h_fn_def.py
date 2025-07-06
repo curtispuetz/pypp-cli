@@ -53,6 +53,8 @@ def _calc_fn_signature(
                 in_header=fn_name_doesnt_start_with_underscore,
             )
             cpp_ret_type = f"Generator<{calc_inside_sq(cpp_ret_type)}>"
+        elif cpp_ret_type.startswith("Ref(") and cpp_ret_type.endswith(")"):
+            cpp_ret_type = calc_inside_rd(cpp_ret_type) + "&"
     cpp_args: list[str] = []
     for py_arg in node.args.args:
         arg_name: str = py_arg.arg

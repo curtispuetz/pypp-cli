@@ -33,10 +33,12 @@ def handle_ann_assign(
     ref, type_cpp = _calc_ref_str(type_cpp)
     return f"{type_cpp}{ref} {target_str} = {value_str};"
 
+
 def _calc_ref_str(type_cpp: str) -> tuple[str, str]:
     if type_cpp.startswith("Ref(") and type_cpp.endswith(")"):
         return "&", calc_inside_rd(type_cpp)
     return "", type_cpp
+
 
 def _empty_initialize(s: str, type_cpp: str):
     return f"{s}<{calc_inside_ang(type_cpp)}>" + "({})"
