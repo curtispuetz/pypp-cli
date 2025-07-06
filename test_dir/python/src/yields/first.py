@@ -1,5 +1,7 @@
 from typing import Iterator
 
+from test_dir.python.pypp.ownership import mov
+
 
 def yield_123() -> Iterator[int]:
     yield 1
@@ -20,11 +22,14 @@ def yield_fn():
     print("YIELD RESULTS:")
     a: list[int] = []
     for i in yield_123():
-        a.append(i)
+        y: int = i
+        a.append(mov(y))
     print(a)
     for i in yield_over_list():
-        a.append(i)
+        y: int = i
+        a.append(mov(y))
     print(a)
     for i in yield_from_example():
-        a.append(i)
+        y: int = i
+        a.append(mov(y))
     print(a)

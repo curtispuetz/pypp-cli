@@ -4,6 +4,7 @@
 #include "pypp_util/print.h"
 #include "pypp_util/to_py_str.h"
 #include "slice/creators.h"
+#include <utility>
 
 void string_ops() {
     print(PyStr("STRING RESULTS:"));
@@ -62,7 +63,8 @@ void string_ops() {
     print(a);
     PyList<PyStr> list_of_chars = PyList<PyStr>({});
     for (const auto &c : PyStr("abcdefg")) {
-        list_of_chars.append(c);
+        PyStr ch = c;
+        list_of_chars.append(std::move(ch));
     }
     print(list_of_chars);
 }

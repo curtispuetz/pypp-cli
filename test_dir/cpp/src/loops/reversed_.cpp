@@ -4,17 +4,20 @@
 #include "py_str.h"
 #include "py_zip.h"
 #include "pypp_util/print.h"
+#include <utility>
 
 void reversed_fn() {
     print(PyStr("REVERSED RESULTS:"));
     PyList<int> a = PyList<int>({});
     for (const auto &x : PyReversed(PyList({1, 2, 3}))) {
-        a.append(x);
+        int y = x;
+        a.append(std::move(y));
     }
     print(a);
     PyList<PyStr> b = PyList<PyStr>({});
     for (const auto &x : PyReversed(PyStr("abcd"))) {
-        b.append(x);
+        PyStr y = x;
+        b.append(std::move(y));
     }
     print(b);
     for (const auto &[x, z] :

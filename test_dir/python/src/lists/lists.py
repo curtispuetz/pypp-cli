@@ -1,3 +1,6 @@
+from test_dir.python.pypp.ownership import mov
+
+
 def _test_fn(arg1: list[str]):
     print(arg1)
 
@@ -39,6 +42,10 @@ def list_fn():
     print(a)
     # insert
     a.insert(4, 2)
+    print(a)
+    # insert with mov
+    ins_val: int = 2
+    a.insert(4, mov(ins_val))
     print(a)
     # pop
     popped_val: int = a.pop()

@@ -1,7 +1,11 @@
+from test_dir.python.pypp.ownership import mov
+
+
 def _iter_and_print(arg1: range):
     a1: list[int] = []
     for i in arg1:
-        a1.append(i)
+        y: int = i
+        a1.append(mov(y))
     print(a1)
 
 

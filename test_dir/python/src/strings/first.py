@@ -1,3 +1,6 @@
+from test_dir.python.pypp.ownership import mov
+
+
 def string_ops():
     print("STRING RESULTS:")
     # TODO later: there are a number of little string methods that I don't have tested
@@ -80,5 +83,6 @@ def string_ops():
     # iterate over a string
     list_of_chars: list[str] = []
     for c in "abcdefg":
-        list_of_chars.append(c)
+        ch: str = c
+        list_of_chars.append(mov(ch))
     print(list_of_chars)

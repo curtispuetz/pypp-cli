@@ -4,11 +4,13 @@
 #include "py_range.h"
 #include "py_str.h"
 #include "pypp_util/print.h"
+#include <utility>
 
 void _iter_and_print(PyRange arg1) {
     PyList<int> a1 = PyList<int>({});
     for (const auto &i : arg1) {
-        a1.append(i);
+        int y = i;
+        a1.append(std::move(y));
     }
     print(a1);
 }
