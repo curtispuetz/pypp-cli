@@ -41,6 +41,8 @@ def handle_for(
             + body_str
             + "}"
         )
+    # Note: I use const here because in Py++ I am thinking targets of range-based for
+    #  loops should not be modified.
     return f"for (const auto &{target_str} : {iter_str})" + "{" + body_str + "}"
 
 
