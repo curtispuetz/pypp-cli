@@ -6,7 +6,7 @@ cml = "CMakeLists.txt"
 
 # Config
 parent_dir = os.path.join(src_dir, "app_random_tests")
-subproject_name_suffix = "time"  # starts with app
+subproject_name_suffix = "classes"  # starts with app
 use_subproject_name_suffix_as_executable_name_prefix = True
 executable_name_prefix = "dict_benchmarking"  # if above is True, this doesn't matter
 if use_subproject_name_suffix_as_executable_name_prefix:

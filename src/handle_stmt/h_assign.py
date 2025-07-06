@@ -1,7 +1,6 @@
 import ast
 
 from src.handle_expr.h_tuple import handle_tuple_inner_args
-from src.util.inner_strings import calc_inside_rd
 from src.util.ret_imports import RetImports
 
 
