@@ -88,8 +88,8 @@ int main() {
         time_library_fn();
         tuples_fn();
         set_of_tuples_fn();
-        ref_vars_fn();
         dict_fn();
+        ref_vars_fn();
         return 0;
     } catch (...) {
         handle_fatal_exception();

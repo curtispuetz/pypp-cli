@@ -1,4 +1,5 @@
 #include "ref_vars.h"
+#include "py_dict.h"
 #include "py_list.h"
 #include "py_str.h"
 #include "pypp_util/print.h"
@@ -16,4 +17,9 @@ void ref_vars_fn() {
     d.append(5);
     print(PyStr("Python and C++ should print the same results:"));
     print(c);
+    PyDict<int, PyList<int>> e({{0, PyList({1, 2})}, {1, PyList({3, 4})}});
+    PyList<int> &f = e[0];
+    f.append(5);
+    print(PyStr("Python and C++ should print the same results:"));
+    print(e);
 }

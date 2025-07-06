@@ -83,5 +83,5 @@ if __name__ == "__main__":
     time_library_fn()
     tuples_fn()
     set_of_tuples_fn()
-    ref_vars_fn()
     dict_fn()
+    ref_vars_fn()

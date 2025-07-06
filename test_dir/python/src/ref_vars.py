@@ -16,4 +16,9 @@ def ref_vars_fn():
     d.append(5)
     print("Python and C++ should print the same results:")
     print(c)
-    # TODO: keep testing more.
+    # with dicts
+    e: dict[int, list[int]] = {0: [1, 2], 1: [3, 4]}
+    f: Ref(list[int]) = e[0]
+    f.append(5)
+    print("Python and C++ should print the same results:")
+    print(e)
