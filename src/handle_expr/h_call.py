@@ -42,12 +42,11 @@ def handle_call(
     elif caller_str.startswith("pypp_time"):
         add_inc(ret_imports, QInc("pypp_time.h"), include_in_header)
         caller_str = replace_second_underscore(caller_str)
+    elif caller_str == "pypp_get_resources":
+        add_inc(ret_imports, QInc("pypp_resources.h"), include_in_header)
     cpp_call_start, cpp_call_end = lookup_cpp_call(
         caller_str, ret_imports, include_in_header
     )
-    # TODO: make this part of the previous if-elif block.
-    if caller_str == "pypp_get_resources":
-        add_inc(ret_imports, QInc("pypp_resources.h"), include_in_header)
     return f"{cpp_call_start}{args_str}{cpp_call_end}"
 
 
