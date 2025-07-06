@@ -14,3 +14,7 @@ of numpy arrays, and the only sacrifice is that your code will run slower with t
 this is that important since you are already getting the C++ build.
 - When you use the pypp_time_start() or pypp_time_per_counter_start() functions you need to specify the return type as 
 auto (from pypp.custom_types import auto)
+- built-in collections (lists, tuples, dict keys and value, sets) always own their data. This means that when you put 
+data into one of these the data is always moved into the collection and not a reference or a copy. It means that when
+you access an element of the collection that you either get a reference to the data or a copy of the data. To get a 
+reference you would do a: Ref[MyElementType] = my_list[0].
