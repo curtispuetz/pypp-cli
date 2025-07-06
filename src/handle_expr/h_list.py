@@ -4,6 +4,8 @@ from src.d_types import QInc
 from src.util.handle_lists import handle_exprs
 from src.util.ret_imports import RetImports, add_inc
 
+# TODO: I need like a 'list_reserve' function that can be used to reserve space in the
+#  underlying C++ std::vector. This lets Py++ users improve performance.
 
 def handle_list(
     node: ast.List,

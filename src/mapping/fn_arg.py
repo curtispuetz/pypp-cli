@@ -7,7 +7,7 @@ FN_ARG_PASSED_BY_VALUE: set[str] = {
     "PyRange",
 }
 
-
+# TODO: remove all usages of const. Py++ won't have const for now.
 def lookup_cpp_fn_arg(cpp_arg: str, is_const: bool) -> str:
     if cpp_arg in FN_ARG_PASSED_BY_VALUE:
         return cpp_arg
