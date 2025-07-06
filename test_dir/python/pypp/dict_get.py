@@ -2,6 +2,7 @@ from typing import TypeVar, Any
 
 T = TypeVar("T")
 
+# TODO: rename this to just 'dg' and also rename pypp_tg to 'tg'.
 
 def pypp_dg(d: dict[Any, T], index: int) -> T:
     # note: Use pypp_dg to access dictionary elements instead of dict[index].
