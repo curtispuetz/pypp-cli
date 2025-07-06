@@ -29,8 +29,8 @@ void tuples_fn() {
     PyList<int> c = PyList({1, 2, 3});
     PyTup<int, PyList<int>> d = PyTup(1, std::move(c));
     print(d);
-    print(PyStr("will be [1, 2, 3] for Python, but [] for C++ because the list "
-                "was moved:"));
+    print(PyStr("below will be [1, 2, 3] for Python, but [] for C++ because "
+                "the list was moved:"));
     print(c);
 }
 void _inline_tuple(const PyTup<double, PyStr> &tup) { print(tup); }
