@@ -29,6 +29,7 @@
 #include "src/sets/comprehensions.h"
 #include "src/sets/exceptions.h"
 #include "src/sets/first.h"
+#include "src/sets/of_tuples.h"
 #include "src/slices/first.h"
 #include "src/strings/escape_characters.h"
 #include "src/strings/exceptions.h"
@@ -86,6 +87,7 @@ int main() {
         math_library_fn();
         time_library_fn();
         tuples_fn();
+        set_of_tuples_fn();
         return 0;
     } catch (...) {
         handle_fatal_exception();

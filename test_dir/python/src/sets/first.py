@@ -1,3 +1,6 @@
+from test_dir.python.pypp.ownership import mov
+
+
 def _inline_set(s: set[float]):
     print(s)
 
@@ -10,6 +13,9 @@ def set_fn():
     # adding
     a.add(4)
     print(a)
+    # adding with mov
+    add_val: int = 4
+    a.add(mov(add_val))
     # discarding
     a.discard(4)
     print(a)

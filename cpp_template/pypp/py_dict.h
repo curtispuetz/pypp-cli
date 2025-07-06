@@ -184,7 +184,8 @@ template <typename K, typename V> class PyDict {
     // clear()
     void clear() { data.clear(); }
 
-    // Note: dict is not ordered. Reverse iterators are not meaningful.
+    // Note: PyDict is not ordered, and therefore reverse iterators are not
+    // meaningful.
     PyDictKeys<K, V> keys() const { return PyDictKeys<K, V>(data); }
     PyDictValues<K, V> values() const { return PyDictValues<K, V>(data); }
     PyDictItems<K, V> items() const { return PyDictItems<K, V>(data); }
