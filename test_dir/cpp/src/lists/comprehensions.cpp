@@ -4,6 +4,7 @@
 #include "py_str.h"
 #include "py_zip.h"
 #include "pypp_util/print.h"
+#include <utility>
 
 int square(int x) { return x * x; }
 void list_comprehension_fn() {
@@ -23,4 +24,9 @@ void list_comprehension_fn() {
         fibonacci.append(x + y);
     }
     print(PyStr(std::format("Fibonacci: {}", fibonacci)));
+    PyList<int> a;
+    for (int i = 0; i < 10; i += 1) {
+        a.append(std::move(i));
+    }
+    print(a);
 }

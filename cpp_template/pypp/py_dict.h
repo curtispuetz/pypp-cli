@@ -190,8 +190,7 @@ template <typename K, typename V> class PyDict {
     PyDictValues<K, V> values() const { return PyDictValues<K, V>(data); }
     PyDictItems<K, V> items() const { return PyDictItems<K, V>(data); }
 
-    // opeartor[] allows for read-only access, like Python's dict[x]
-    // dg == dict get. matches pypp's naming
+    // dg == dict get. matches pypp's naming.
     V &dg(const K &key) {
         auto it = data.find(key);
         if (it == data.end())
@@ -199,20 +198,12 @@ template <typename K, typename V> class PyDict {
         return it->second;
     }
 
-    V get(const K &key, const V &default_value) const {
-        auto it = data.find(key);
-        if (it != data.end())
-            return it->second;
-        return default_value;
-    }
-
     // update(other_dict)
-    void update(const PyDict<K, V> &other) {
-        for (const auto &[key, value] : other.data)
-            data[key] = value;
+    void update(PyDict<K, V> &&other) {
+        for (auto &[key, value] : other.data)
+            data[std::move(key)] = std::move(value);
     }
 
-    // pop(key, default)
     V pop(const K &key) {
         auto it = data.find(key);
         if (it != data.end()) {
@@ -234,8 +225,9 @@ template <typename K, typename V> class PyDict {
     }
 
     // setdefault(key, default)
-    V &setdefault(const K &key, const V &default_value) {
-        auto [it, inserted] = data.emplace(key, default_value);
+    V &setdefault(const K &&key, V &&default_value) {
+        auto [it, inserted] =
+            data.emplace(std::move(key), std::move(default_value));
         return it->second;
     }
 
@@ -243,7 +235,7 @@ template <typename K, typename V> class PyDict {
     bool contains(const K &key) const { return data.find(key) != data.end(); }
 
     // operator[] allows for assignment, like Pythons dict[x] = y
-    V &operator[](const K &key) { return data[key]; }
+    V &operator[](K &&key) { return data[std::move(key)]; }
 
     // Size
     int len() const { return data.size(); }
