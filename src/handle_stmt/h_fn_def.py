@@ -3,7 +3,7 @@ import ast
 from src.d_types import QInc
 from src.mapping.fn_arg import lookup_cpp_fn_arg
 from src.util.handle_lists import handle_stmts
-from src.util.inner_strings import calc_inside_rd, calc_inside_sq
+from src.util.inner_strings import calc_inside_sq, calc_inside_rd
 from src.util.ret_imports import RetImports, add_inc
 
 
@@ -61,11 +61,11 @@ def _calc_fn_signature(
             ret_imports,
             include_in_header=fn_name_doesnt_start_with_underscore,
         )
-        is_const: bool = True
-        if py_arg_type.startswith("PyppMut(") and py_arg_type.endswith(")"):
+        is_pass_by_value: bool = True
+        if py_arg_type.startswith("Valu(") and py_arg_type.endswith(")"):
             py_arg_type = calc_inside_rd(py_arg_type)
-            is_const = False
-        cpp_arg = lookup_cpp_fn_arg(py_arg_type, is_const)
+            is_pass_by_value = False
+        cpp_arg = lookup_cpp_fn_arg(py_arg_type, is_pass_by_value)
         cpp_args.append(f"{cpp_arg} {arg_name}")
     cpp_args_str = ", ".join(cpp_args)
     return f"{cpp_ret_type} {fn_name}({cpp_args_str})"

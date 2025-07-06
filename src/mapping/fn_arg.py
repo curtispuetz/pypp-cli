@@ -8,15 +8,12 @@ FN_ARG_PASSED_BY_VALUE: set[str] = {
 }
 
 
-# TODO: remove all usages of const. Py++ won't have const for now. Except I think it
-#  should be kept for range-based for loops just to enforce that in Py++ the targets of
-#  range-based for loops are not modified.
-def lookup_cpp_fn_arg(cpp_arg: str, is_const: bool) -> str:
+def lookup_cpp_fn_arg(cpp_arg: str, is_pass_by_value: bool) -> str:
     if cpp_arg in FN_ARG_PASSED_BY_VALUE:
         return cpp_arg
-    const_str = "const " if is_const else ""
+    pass_by_ref_str = "&" if is_pass_by_value else ""
     before_and_after = cpp_arg.split("<", 1)
     if len(before_and_after) == 1:
-        return f"{const_str}{before_and_after[0]}&"
+        return f"{before_and_after[0]}{pass_by_ref_str}"
     before, after = before_and_after
-    return f"{const_str}{before}<{after}&"
+    return f"{before}<{after}{pass_by_ref_str}"

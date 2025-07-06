@@ -1,6 +1,3 @@
-from test_dir.python.pypp.custom_types import PyppMut
-
-
 def editing_a_reference_fn():
     print("INCONSISTENT BEHAVIOR RESULTS:")
     # Here is inconsistent behavior between Python and C++. For, now the solution is to
@@ -27,6 +24,6 @@ def editing_a_reference_fn():
     print(f"inconsistent behavior: {c}")
 
 
-def update_and_return_new(l1: PyppMut(list[int])) -> list[int]:
+def update_and_return_new(l1: list[int]) -> list[int]:
     l1.append(4)
     return l1

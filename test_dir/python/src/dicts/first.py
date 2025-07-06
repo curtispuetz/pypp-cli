@@ -1,8 +1,8 @@
 from test_dir.python.pypp.dict_get import dg
-from test_dir.python.pypp.ownership import mov
+from test_dir.python.pypp.ownership import mov, Valu
 
 
-def _inline_dict(d: dict[int, int]):
+def _inline_dict(d: Valu(dict[int, int])):
     print(d)
 
 
