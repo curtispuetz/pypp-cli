@@ -4,6 +4,7 @@
 #include "py_str.h"
 #include "pypp_util/print.h"
 #include "pypp_util/to_py_str.h"
+#include <utility>
 
 void _inline_dict(const PyDict<int, int> &d) { print(d); }
 void dict_fn() {
@@ -12,10 +13,8 @@ void dict_fn() {
     print(a);
     PyDict<int, int> g({{0, 1}, {1, 2}});
     int g0 = g.dg(1);
-    print(to_pystr(g0));
+    print(g0);
     print(a[0]);
-    PyStr default_v = a.get(-1, PyStr("default value"));
-    print(default_v);
     a[3] = PyStr("d");
     print(a);
     PyStr val = a.setdefault(4, PyStr("e"));
@@ -24,6 +23,12 @@ void dict_fn() {
     val = a.setdefault(4, PyStr("f"));
     print(val);
     print(a);
+    int x_key = 99;
+    PyStr x_val = PyStr("z");
+    a[std::move(x_key)] = std::move(x_val);
+    print(a);
+    val = a.setdefault(std::move(x_key), std::move(x_val));
+    print(val);
     print(a.keys());
     print(a.values());
     print(a.items());
@@ -35,6 +40,10 @@ void dict_fn() {
     print(d);
     a.update({{4, PyStr("z")}, {5, PyStr("x")}});
     print(a);
+    PyDict<int, PyStr> b({{6, PyStr("y")}, {7, PyStr("w")}});
+    PyDict<int, PyStr> x_dict({{8, PyStr("v")}, {9, PyStr("u")}});
+    b.update(std::move(x_dict));
+    print(b);
     PyStr pop_val = a.pop(1);
     print(pop_val);
     print(a);

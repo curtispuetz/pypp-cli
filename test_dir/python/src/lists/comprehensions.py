@@ -1,3 +1,6 @@
+from test_dir.python.pypp.ownership import mov
+
+
 def square(x: int) -> int:
     return x * x
 
@@ -13,3 +16,6 @@ def list_comprehension_fn():
     # with a more complicated expression
     fibonacci: list[int] = [x + y for x, y in zip([0, 1], [1, 2])]
     print(f"Fibonacci: {fibonacci}")
+    # testing with simple value and mov
+    a: list[int] = [mov(i) for i in range(10)]
+    print(a)

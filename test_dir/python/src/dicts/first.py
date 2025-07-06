@@ -1,4 +1,5 @@
 from test_dir.python.pypp.dict_get import pypp_dg
+from test_dir.python.pypp.ownership import mov
 
 
 def _inline_dict(d: dict[int, int]):
@@ -13,12 +14,12 @@ def dict_fn():
     # pypp_dg (better than access with [] because it throws)
     g: dict[int, int] = {0: 1, 1: 2}
     g0: int = pypp_dg(g, 1)
-    print(str(g0))
+    print(g0)
     # access (not recommended unless you know the key exists)
     print(a[0])
-    # get (only supported with default value)
-    default_v: str = a.get(-1, "default value")
-    print(default_v)
+    # get with default value is not supported by Py++
+    # default_v: str = a.get(-1, "default value")
+    # print(default_v)
     # setting
     a[3] = "d"
     print(a)
@@ -28,6 +29,13 @@ def dict_fn():
     val = a.setdefault(4, "f")
     print(val)
     print(a)
+    # setting with mov
+    x_key: int = 99
+    x_val: str = "z"
+    a[mov(x_key)] = mov(x_val)
+    print(a)
+    val = a.setdefault(mov(x_key), mov(x_val))
+    print(val)
     # keys
     print(a.keys())
     # values
@@ -47,6 +55,11 @@ def dict_fn():
     # update
     a.update({4: "z", 5: "x"})
     print(a)
+    # update with mov
+    b: dict[int, str] = {6: "y", 7: "w"}
+    x_dict: dict[int, str] = {8: "v", 9: "u"}
+    b.update(mov(x_dict))
+    print(b)
     # pop
     pop_val: str = a.pop(1)
     print(pop_val)
