@@ -7,6 +7,7 @@
 #include <utility>
 
 void _inline_dict(PyDict<int, int> d) { print(d); }
+PyDict<int, int> _get_dict() { return {{0, 1}, {1, 2}}; }
 void dict_fn() {
     print(PyStr("DICT RESULTS:"));
     PyDict<int, PyStr> a({{0, PyStr("a")}, {1, PyStr("b")}, {2, PyStr("c")}});
@@ -66,4 +67,6 @@ void dict_fn() {
     f[1][77] = 76;
     print(f);
     _inline_dict({{0, 1}, {1, 2}});
+    PyDict<int, int> h(_get_dict());
+    print(h);
 }
