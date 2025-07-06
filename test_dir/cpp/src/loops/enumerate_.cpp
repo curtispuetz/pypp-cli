@@ -6,13 +6,14 @@
 #include "py_str.h"
 #include "pypp_util/print.h"
 #include <any>
+#include <utility>
 
 void enumerate_fn() {
     print(PyStr("ENUMERATE RESULTS:"));
     PyList<int> a = PyList<int>({});
     for (const auto &[i, val] : PyEnumerate(PyList({1, 2, 3}))) {
         a.append(i);
-        a.append(val);
+        a.append(std::move(val));
     }
     print(a);
     for (const auto &[i, val] : PyEnumerate(PySet({-1, -3}))) {
@@ -30,7 +31,8 @@ void enumerate_fn() {
     print(a);
     for (const auto &[i, val] : PyEnumerate(d.items())) {
         a.append(i);
-        a.append(val.get<0>());
+        int y = val.get<0>();
+        a.append(std::move(y));
     }
     print(a);
 }

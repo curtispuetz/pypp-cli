@@ -4,6 +4,7 @@
 #include "pypp_util/print.h"
 #include "pypp_util/to_py_str.h"
 #include "slice/creators.h"
+#include <utility>
 
 void _test_fn(const PyList<PyStr> &arg1) { print(arg1); }
 void list_fn() {
@@ -28,6 +29,9 @@ void list_fn() {
     a.remove(2);
     print(a);
     a.insert(4, 2);
+    print(a);
+    int ins_val = 2;
+    a.insert(4, std::move(ins_val));
     print(a);
     int popped_val = a.pop();
     print(to_pystr(popped_val));

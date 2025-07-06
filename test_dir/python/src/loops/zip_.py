@@ -1,3 +1,4 @@
+from test_dir.python.pypp.ownership import mov
 from test_dir.python.pypp.tuple_get import pypp_tg
 
 
@@ -6,8 +7,8 @@ def zip_fn():
     # over two lists
     a: list[int] = []
     for x, z in zip([1, 2], [3, 4]):
-        a.append(x)
-        a.append(z)
+        a.append(mov(x))
+        a.append(mov(z))
     print(a)
     # over multiple different types. list, set, string, and dict items
     b: dict[float, int] = {1.1: 4, 2.2: 5}

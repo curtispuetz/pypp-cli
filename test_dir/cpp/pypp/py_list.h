@@ -34,15 +34,11 @@ template <typename T> class PyList {
     using value_type = T;
     // Constructors
     PyList() = default;
-    PyList(const std::vector<T> &vec) : data(vec) {}
+    // This one is only used internally and not by users of Py++.
+    PyList(const std::vector<T> &&vec) : data(std::move(vec)) {}
     PyList(std::initializer_list<T> init) : data(init) {}
     PyList(const int size, const T &value) : data(size, value) {}
     PyList(const int size) : data(size) {}
-
-    // Append
-    void append(const T &value) {
-        data.push_back(value); // copy
-    }
 
     void append(T &&value) {
         data.push_back(std::move(value)); // move
@@ -54,7 +50,7 @@ template <typename T> class PyList {
             throw PyppIndexError("pop from empty list");
         }
         if (index == -1) {
-            T ret = data[data.size() - 1];
+            T ret = std::move(data[data.size() - 1]);
             data.pop_back();
             return ret;
         }
@@ -63,20 +59,20 @@ template <typename T> class PyList {
         if (index < 0 || index >= static_cast<int>(data.size())) {
             throw PyppIndexError("list.pop(x): x out of range");
         }
-        T value = data[index];
+        T value = std::move(data[index]);
         data.erase(data.begin() + index);
         return value;
     }
 
     // Insert
-    void insert(int index, const T &value) {
+    void insert(int index, T &&value) {
         if (index < 0)
             index += data.size();
         if (index < 0)
             index = 0;
         if (index > static_cast<int>(data.size()))
             index = data.size();
-        data.insert(data.begin() + index, value);
+        data.insert(data.begin() + index, std::move(value));
     }
 
     // Remove

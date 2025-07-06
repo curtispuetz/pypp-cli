@@ -6,13 +6,14 @@
 #include "py_zip.h"
 #include "pypp_util/print.h"
 #include <any>
+#include <utility>
 
 void zip_fn() {
     print(PyStr("ZIP RESULTS:"));
     PyList<int> a = PyList<int>({});
     for (const auto &[x, z] : PyZip(PyList({1, 2}), PyList({3, 4}))) {
-        a.append(x);
-        a.append(z);
+        a.append(std::move(x));
+        a.append(std::move(z));
     }
     print(a);
     PyDict<double, int> b({{1.1, 4}, {2.2, 5}});

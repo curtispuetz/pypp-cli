@@ -1,3 +1,4 @@
+from test_dir.python.pypp.ownership import mov
 from test_dir.python.pypp.tuple_get import pypp_tg
 
 
@@ -6,8 +7,9 @@ def enumerate_fn():
     # over a list
     a: list[int] = []
     for i, val in enumerate([1, 2, 3]):
+        # Note: you don't need to use mov with the enumerate counter.
         a.append(i)
-        a.append(val)
+        a.append(mov(val))
     print(a)
     # Note: a second argument to enumerate is not supported and will result in a C++
     # compilation error.
@@ -28,5 +30,8 @@ def enumerate_fn():
     # over a dicts items
     for i, val in enumerate(d.items()):
         a.append(i)
-        a.append(pypp_tg(val, 0))
+        # Note: Of course I can't move this directly to the 'a' list without making a
+        #  copy first because the data is owned by the dict.
+        y: int = pypp_tg(val, 0)
+        a.append(mov(y))
     print(a)

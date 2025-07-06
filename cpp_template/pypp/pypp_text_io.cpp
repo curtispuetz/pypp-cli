@@ -79,12 +79,12 @@ PyList<PyStr> PyTextIO::readlines() {
     file_stream.clear();
     file_stream.seekg(0);
 
-    std::vector<PyStr> lines;
+    PyList<PyStr> lines;
     std::string line;
     while (std::getline(file_stream, line)) {
-        lines.push_back(PyStr(line + "\n"));
+        lines.append(PyStr(line + "\n"));
     }
-    return PyList(lines);
+    return lines;
 }
 
 void PyTextIO::write(const PyStr &content) {

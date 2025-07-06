@@ -1,4 +1,4 @@
-from src.d_types import CppInclude, QInc
+from src.d_types import CppInclude, QInc, AngInc
 from src.util.ret_imports import RetImports, add_inc
 
 CALL_MAP: dict[str, tuple[str, str, list[CppInclude]]] = {
@@ -10,6 +10,7 @@ CALL_MAP: dict[str, tuple[str, str, list[CppInclude]]] = {
     "enumerate": ("PyEnumerate(", ")", [QInc("py_enumerate.h")]),
     "reversed": ("PyReversed(", ")", [QInc("py_reversed.h")]),
     "zip": ("PyZip(", ")", [QInc("py_zip.h")]),
+    "mov": ("std::move(", ")", [AngInc("utility")]),
 }
 
 

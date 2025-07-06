@@ -1,7 +1,9 @@
 import ast
 
+from src.d_types import QInc
+from src.util.calc_move_args import calc_move_args
 from src.util.handle_lists import handle_exprs
-from src.util.ret_imports import RetImports
+from src.util.ret_imports import RetImports, add_inc
 
 
 def handle_tuple_inner_args(
@@ -19,12 +21,8 @@ def handle_tuple(
     handle_expr,
     include_in_header: bool,
 ) -> str:
-    args: list[str] = []
-    for arg in node.elts:
-        x = handle_expr(arg, ret_imports, include_in_header)
-        if isinstance(arg, ast.Name):
-            # TODO later: Confirm that ast.Name is the only case where we need to move
-            x = "std::move(" + x + ")"
-        args.append(x)
-    args_str: str = ", ".join(args)
+    add_inc(ret_imports, QInc("py_tuple.h"), include_in_header)
+    args_str: str = calc_move_args(
+        node.elts, ret_imports, handle_expr, include_in_header
+    )
     return f"PyTup({args_str})"
