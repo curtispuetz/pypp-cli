@@ -1,5 +1,5 @@
 from test_dir.python.pypp.dict_get import dg
-from test_dir.python.pypp.ownership import mov, Valu
+from test_dir.python.pypp.ownership import mov, Valu, Ref
 
 
 def _inline_dict(d: Valu(dict[int, int])):
@@ -90,7 +90,7 @@ def dict_fn():
     print(f)
     # modifying references
     # TODO: fix this and others since its broken now not using the Ref type
-    f0: dict[int, int] = f[0]
+    f0: Ref(dict[int, int]) = f[0]
     f0[99] = 98
     print(f)
     f[1][77] = 76

@@ -1,4 +1,4 @@
-from test_dir.python.pypp.ownership import mov, Valu
+from test_dir.python.pypp.ownership import mov, Valu, Ref
 
 
 def _test_fn(arg1: Valu(list[str])):
@@ -97,7 +97,7 @@ def list_fn():
     print(f)
     # modifying references
     g: list[list[int]] = [[1, 2], [3, 4]]
-    g_0: list[int] = g[0]
+    g_0: Ref(list[int]) = g[0]
     g_0.append(99)
     print(g)
     g[1].append(98)
