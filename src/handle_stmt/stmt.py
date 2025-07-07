@@ -5,7 +5,7 @@ from src.handle_stmt.h_ann_assign import handle_ann_assign
 from src.handle_stmt.h_assert import handle_assert
 from src.handle_stmt.h_assign import handle_assign
 from src.handle_stmt.h_aug_assign import handle_aug_assign
-from src.handle_stmt.h_class_def import handle_class_def
+from src.handle_stmt.h_class_def.h_class_def import handle_class_def
 from src.handle_stmt.h_expr import handle_stmt_expr
 from src.handle_stmt.h_fn_def import handle_fn_def
 from src.handle_stmt.h_for import handle_for
