@@ -4,10 +4,10 @@ from src.handle_stmt.h_class_def.util import (
     ClassMethod,
     calc_method,
     ClassField,
-    calc_class_field, ARG_PREFIX,
+    calc_class_field,
+    ARG_PREFIX,
 )
 from src.util.calc_fn_signature import calc_fn_arg_types
-from src.util.handle_lists import handle_exprs
 from src.util.ret_imports import RetImports
 
 
@@ -104,7 +104,8 @@ def _calc_fields_and_base_constructor_calls(
             args_str_list: list[str] = []
             for arg in item.value.args[1:]:
                 args_str_list.append(
-                    ARG_PREFIX + handle_expr(
+                    ARG_PREFIX
+                    + handle_expr(
                         arg,
                         ret_imports,
                         include_in_header=name_doesnt_start_with_underscore,
