@@ -45,8 +45,9 @@ def pypp_transpile():
         full_path = os.path.join(C_CPP_SRC_DIR, cpp_file)
         full_dir = os.path.dirname(full_path)
         os.makedirs(full_dir, exist_ok=True)
-        with open(full_path, "x") as cpp_write_file:
-            cpp_write_file.write(cpp)
+        if cpp != "":
+            with open(full_path, "x") as cpp_write_file:
+                cpp_write_file.write(cpp)
         with open(os.path.join(C_CPP_SRC_DIR, h_file), "x") as h_write_file:
             h_write_file.write(h)
     print("Wrote C++ src files")
