@@ -5,9 +5,17 @@ from src.handle_stmt.h_class_def.util import (
     calc_method,
     ClassField,
     calc_class_field,
+    ARG_PREFIX,
 )
 from src.mapping.fn_arg import lookup_cpp_fn_arg
 from src.util.ret_imports import RetImports
+
+# TODO: move to a different file
+def calc_constructor_signature(fields: list[ClassField], class_name: str) -> str:
+    ret: list[str] = []
+    for field in fields:
+        ret.append(f"{field.type_cpp}{field.ref} {ARG_PREFIX}{field.target_str}")
+    return class_name + "(" + ", ".join(ret) + ")"
 
 
 def calc_fields_and_methods_for_dataclass(

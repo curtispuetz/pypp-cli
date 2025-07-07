@@ -21,3 +21,4 @@ reference you would do a: Ref[MyElementType] = my_list[0].
 - You can use 'list_reserve' to reserve space in a list. It does nothing for the Python interpreter, but for the C++
 provides a potential performance boost just the std::vector.reserve() function does.
 - Don't name anything in your class methods the same names as your class fields. Because it will break the C++.
+- For inheritance, but super().__init__() as the first like of the child class for consistent C++ behavior.

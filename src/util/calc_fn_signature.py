@@ -46,10 +46,10 @@ def _calc_cpp_args_str(
     skip_first_arg: bool = False,
 ) -> str:
     ret: list[str] = []
-    cpp_arg_types, cpp_arg_names = calc_fn_arg_types(
+    cpp_arg_types = calc_fn_arg_types(
         node, ret_imports, handle_expr, in_header, skip_first_arg
     )
-    for t, n in zip(cpp_arg_types, cpp_arg_names):
+    for n, t in cpp_arg_types.items():
         ret.append(f"{t} {n}")
     return ", ".join(ret)
 
@@ -60,9 +60,8 @@ def calc_fn_arg_types(
     handle_expr,
     in_header: bool,
     skip_first_arg: bool = False,
-) -> tuple[list[str], list[str]]:
-    cpp_arg_types: list[str] = []
-    cpp_arg_names: list[str] = []
+) -> dict[str, str]:
+    ret = {}
     for i in range(skip_first_arg, len(node.args.args)):
         py_arg = node.args.args[i]
         arg_name: str = py_arg.arg
@@ -75,9 +74,8 @@ def calc_fn_arg_types(
             include_in_header=in_header,
         )
         cpp_arg = lookup_cpp_fn_arg(cpp_arg_type)
-        cpp_arg_types.append(cpp_arg)
-        cpp_arg_names.append(arg_name)
-    return cpp_arg_types, cpp_arg_names
+        ret[arg_name] = cpp_arg
+    return ret
 
 
 def calc_fn_str_with_body(fn_signature: str, body_str: str) -> str:

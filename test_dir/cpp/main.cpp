@@ -3,6 +3,7 @@
 #include "pypp_util/main_error_handler.h"
 #include "pypp_util/print.h"
 #include "src/classes/first.h"
+#include "src/classes/inheritance.h"
 #include "src/dataclasses/first.h"
 #include "src/dataclasses/with_methods.h"
 #include "src/dicts/comprehensions.h"
@@ -96,6 +97,7 @@ int main() {
         dataclass_fn();
         dataclass_with_methods_fn();
         classes_fn();
+        class_inheritance_fn();
         return 0;
     } catch (...) {
         handle_fatal_exception();
