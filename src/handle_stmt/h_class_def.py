@@ -2,12 +2,8 @@ import ast
 from dataclasses import dataclass
 
 from src.d_types import AngInc
-from src.handle_expr.h_name import handle_name
 from src.util.ret_imports import RetImports, add_inc
 from src.util.util import calc_ref_str
-
-# TODO: check about supporting frozen dataclasses and maybe ignoring slots == True.
-#  note: this can be done by making the struct member variables const.
 
 
 @dataclass(frozen=True, slots=True)
@@ -35,17 +31,25 @@ def handle_class_def(
     assert len(node.bases) == 0, "base classes are not supported"
     assert len(node.keywords) == 0, "keywords for class definition are not supported"
     dataclass_decorator = node.decorator_list[0]
-    assert isinstance(dataclass_decorator, ast.Name), (
-        "args for dataclass decorator are not supported"
-    )
-    d = handle_name(dataclass_decorator, ret_imports, True, False)
-    assert d == "dataclass", "only dataclass decorator is supported"
+    is_frozen: bool = False
+    if isinstance(dataclass_decorator, ast.Call):
+        assert len(dataclass_decorator.args) == 0, (
+            "only keyword args for dataclass are supported"
+        )
+        is_frozen = _handle_dataclass_keywords(dataclass_decorator.keywords)
+    else:
+        assert isinstance(dataclass_decorator, ast.Name), (
+            "args for dataclass decorator are not supported"
+        )
+        assert dataclass_decorator.id == "dataclass", (
+            "only dataclass decorator is supported"
+        )
     class_name: str = node.name
     name_doesnt_start_with_underscore: bool = not class_name.startswith("_")
     fields: list[_DataClassField] = _calc_fields(
         node, ret_imports, handle_expr, name_doesnt_start_with_underscore
     )
-    field_defs = _calc_field_definitions(fields)
+    field_defs = _calc_field_definitions(fields, is_frozen)
     c_sig: str = _calc_constructor_signature(class_name, fields)
     c_il: str = _calc_constructor_initializer_list(
         fields, ret_imports, name_doesnt_start_with_underscore
@@ -86,10 +90,11 @@ def _calc_constructor_initializer_list(
     return ", ".join(ret)
 
 
-def _calc_field_definitions(fields: list[_DataClassField]) -> str:
+def _calc_field_definitions(fields: list[_DataClassField], is_frozen: bool) -> str:
     ret: list[str] = []
+    const_str = "const " if is_frozen else ""
     for field in fields:
-        ret.append(f"{field.type_cpp}{field.ref} {field.target_str};")
+        ret.append(f"{const_str}{field.type_cpp}{field.ref} {field.target_str};")
     return " ".join(ret)
 
 
@@ -110,6 +115,20 @@ def _calc_fields(
             )
         )
     return fields
+
+
+def _handle_dataclass_keywords(nodes: list[ast.keyword]) -> bool:
+    assert len(nodes) <= 2, "more than 2 args for dataclass decorator are not supported"
+    frozen: bool = False
+    for node in nodes:
+        if node.arg == "frozen":
+            assert isinstance(node.value, ast.Constant), "frozen must be a constant"
+            assert isinstance(node.value.value, bool), "frozen must be a boolean"
+            frozen = node.value.value
+        elif node.arg != "slots":
+            # slots is just ignored.
+            raise NotImplementedError(f"unsupported dataclass keyword: {node.arg}")
+    return frozen
 
 
 def _handle_ann_assign_for_dataclass(
