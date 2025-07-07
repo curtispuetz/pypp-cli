@@ -18,6 +18,7 @@ def handle_fn_def(
     handle_stmt,
     handle_expr,
 ) -> str:
+    assert len(node.decorator_list) == 0, "function decorators are not supported"
     fn_name = node.name
     fn_name_doesnt_start_with_underscore: bool = not fn_name.startswith("_")
     fn_signature = _calc_fn_signature(
