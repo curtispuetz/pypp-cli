@@ -80,7 +80,6 @@ def _calc_constructor_initializer_list(
         if field.ref:
             ret.append(f"{field.target_str}({ARG_PREFIX}{field.target_str})")
         else:
-            # TODO now: add the utility include for std::move
             add_inc(
                 ret_imports,
                 AngInc("utility"),
