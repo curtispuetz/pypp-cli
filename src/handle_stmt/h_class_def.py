@@ -8,7 +8,6 @@ from src.util.util import calc_ref_str
 
 # TODO: check about supporting frozen dataclasses and maybe ignoring slots == True.
 #  note: this can be done by making the struct member variables const.
-# TODO: test where dataclass holds references instead of owning the data.
 # TODO: test just simply using mov() when passing an argument to the dataclass
 #  constructor.
 # TODO: support dataclasses only in the CPP file and not the header if it starts with

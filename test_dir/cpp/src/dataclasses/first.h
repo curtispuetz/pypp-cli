@@ -9,4 +9,10 @@ struct FirstDataClass {
     FirstDataClass(PyStr a_field1, int a_field2)
         : field1(std::move(a_field1)), field2(std::move(a_field2)) {}
 };
+struct DataClassWithReference {
+    PyStr &field1;
+    int field2;
+    DataClassWithReference(PyStr &a_field1, int a_field2)
+        : field1(a_field1), field2(std::move(a_field2)) {}
+};
 void dataclass_fn();
