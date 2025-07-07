@@ -3,6 +3,7 @@ import ast
 # ast docs: unaryop = Invert | Not | UAdd | USub
 
 
+# TODO: handle more
 def handle_unaryop(_type: ast.unaryop) -> str:
     if isinstance(_type, ast.USub):
         return "-"
