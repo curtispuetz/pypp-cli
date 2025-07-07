@@ -13,7 +13,7 @@ class DataClassField:
     ref: str
 
 
-def calc_fields_and_methods(
+def calc_fields_and_methods_for_dataclass(
     node: ast.ClassDef,
     ret_imports: RetImports,
     handle_stmt,
