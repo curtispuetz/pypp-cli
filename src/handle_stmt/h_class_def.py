@@ -6,6 +6,13 @@ from src.handle_expr.h_name import handle_name
 from src.util.ret_imports import RetImports, add_inc
 from src.util.util import calc_ref_str
 
+# TODO: check about supporting frozen dataclasses and maybe ignoring slots == True.
+#  note: this can be done by making the struct member variables const.
+# TODO: test where dataclass holds references instead of owning the data.
+# TODO: test just simply using mov() when passing an argument to the dataclass
+#  constructor.
+# TODO: support dataclasses only in the CPP file and not the header if it starts with
+#  an underscore.
 
 @dataclass(frozen=True, slots=True)
 class _DataClassField:
@@ -46,8 +53,6 @@ def handle_class_def(
         f"struct {class_name}" + "{" + f"{field_defs} {c_sig} : {c_il}" + "{}" + "};"
     )
     # Nothing goes in the cpp file.
-    # TODO: if an empty string is returned, do not create the cpp file. Test this by
-    #  only having a dataclass in a file.
     return ""
 
 
