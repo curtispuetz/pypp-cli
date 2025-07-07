@@ -24,8 +24,11 @@ def calc_src_file_cpp_and_h_source(src_py: ast.Module, h_file: Path) -> tuple[st
         src_py.body[i:], ret_imports, ret_h_file, handle_stmt
     )
     h_includes, cpp_includes = calc_includes(ret_imports)
-    all_cpp_includes = f'#include "{h_file}"\n' + cpp_includes
-    ret_cpp_str = all_cpp_includes + cpp_source_minus_include
+    if cpp_source_minus_include == "":
+        ret_cpp_str = ""
+    else:
+        all_cpp_includes = f'#include "{h_file}"\n' + cpp_includes
+        ret_cpp_str = all_cpp_includes + cpp_source_minus_include
     ret_h_str: str = "#pragma once\n\n" + h_includes + " ".join(ret_h_file)
 
     return ret_cpp_str, ret_h_str
