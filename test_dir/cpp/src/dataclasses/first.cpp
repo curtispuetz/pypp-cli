@@ -8,4 +8,7 @@ void dataclass_fn() {
     PyStr b = PyStr("abc");
     DataClassWithReference c = DataClassWithReference(b, 1);
     print(PyStr(std::format("field1: {}, field2: {}", c.field1, c.field2)));
+    PyStr d = PyStr("xyz");
+    FirstDataClass e = FirstDataClass(std::move(d), 2);
+    print(PyStr(std::format("field1: {}, field2: {}", e.field1, e.field2)));
 }
