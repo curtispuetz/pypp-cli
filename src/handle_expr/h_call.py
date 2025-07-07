@@ -30,6 +30,11 @@ def handle_call(
         dict_arg = handle_expr(node.args[0], ret_imports)
         index_arg = handle_expr(node.args[1], ret_imports)
         return f"{dict_arg}.dg({index_arg})"
+    if caller_str == "list_reserve":
+        assert len(node.args) == 2, "incorrect number of args when calling list_reserve"
+        list_arg = handle_expr(node.args[0], ret_imports)
+        size_arg = handle_expr(node.args[1], ret_imports)
+        return f"{list_arg}.reserve({size_arg})"
     if len(node.args) == 1 and isinstance(node.args[0], ast.Starred):
         return handle_starred(node.args[0], ret_imports, handle_expr, caller_str)
     args_str = handle_exprs(node.args, ret_imports, handle_expr, include_in_header)
@@ -43,6 +48,7 @@ def handle_call(
         add_inc(ret_imports, QInc("pypp_time.h"), include_in_header)
         caller_str = replace_second_underscore(caller_str)
     elif caller_str == "pypp_get_resources":
+        # TODO: I think this one can just be moved to the lookup.
         add_inc(ret_imports, QInc("pypp_resources.h"), include_in_header)
     cpp_call_start, cpp_call_end = lookup_cpp_call(
         caller_str, ret_imports, include_in_header
