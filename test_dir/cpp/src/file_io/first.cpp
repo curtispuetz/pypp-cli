@@ -8,6 +8,7 @@
 #include "pypp_util/print.h"
 
 void file_io_fn() {
+    print(PyStr("FILE IO RESULTS:"));
     PyStr test_dir = pypp_get_resources(PyStr("test_dir"));
     print(test_dir);
     PyStr text_file = os::path::join(test_dir, PyStr("text.txt"));

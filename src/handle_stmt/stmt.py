@@ -5,6 +5,7 @@ from src.handle_stmt.h_ann_assign import handle_ann_assign
 from src.handle_stmt.h_assert import handle_assert
 from src.handle_stmt.h_assign import handle_assign
 from src.handle_stmt.h_aug_assign import handle_aug_assign
+from src.handle_stmt.h_class_def import handle_class_def
 from src.handle_stmt.h_expr import handle_stmt_expr
 from src.handle_stmt.h_fn_def import handle_fn_def
 from src.handle_stmt.h_for import handle_for
@@ -21,6 +22,8 @@ from src.util.ret_imports import RetImports
 def handle_stmt(node: ast.stmt, ret_imports: RetImports, ret_h_file: list[str]) -> str:
     if isinstance(node, ast.FunctionDef):
         return handle_fn_def(node, ret_imports, ret_h_file, handle_stmt, handle_expr)
+    if isinstance(node, ast.ClassDef):
+        return handle_class_def(node, ret_imports, ret_h_file, handle_stmt, handle_expr)
     if isinstance(node, ast.If):
         return handle_if(node, ret_imports, ret_h_file, handle_stmt, handle_expr)
     if isinstance(node, ast.AnnAssign):

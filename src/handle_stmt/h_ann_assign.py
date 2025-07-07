@@ -1,8 +1,9 @@
 import ast
 
 from src.handle_expr.h_comp import handle_comp
-from src.util.inner_strings import calc_inside_ang, calc_inside_rd
+from src.util.inner_strings import calc_inside_ang
 from src.util.ret_imports import RetImports
+from src.util.util import calc_ref_str
 
 
 def handle_ann_assign(
@@ -30,14 +31,8 @@ def handle_ann_assign(
         #  and sets. It might be nice if they are handled the same, but it seems hard
         #  to make it so.
         return f"{type_cpp} {target_str}({value_str});"
-    ref, type_cpp = _calc_ref_str(type_cpp)
+    ref, type_cpp = calc_ref_str(type_cpp)
     return f"{type_cpp}{ref} {target_str} = {value_str};"
-
-
-def _calc_ref_str(type_cpp: str) -> tuple[str, str]:
-    if type_cpp.startswith("Ref(") and type_cpp.endswith(")"):
-        return "&", calc_inside_rd(type_cpp)
-    return "", type_cpp
 
 
 def _empty_initialize(s: str, type_cpp: str):

@@ -1,0 +1,12 @@
+#pragma once
+
+#include "py_str.h"
+#include <utility>
+
+struct FirstDataClass {
+    PyStr field1;
+    int field2;
+    FirstDataClass(PyStr a_field1, int a_field2)
+        : field1(std::move(a_field1)), field2(std::move(a_field2)) {}
+};
+void dataclass_fn();

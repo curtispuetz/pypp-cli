@@ -2,6 +2,7 @@
 #include "py_str.h"
 #include "pypp_util/main_error_handler.h"
 #include "pypp_util/print.h"
+#include "src/dataclasses/first.h"
 #include "src/dicts/comprehensions.h"
 #include "src/dicts/exceptions.h"
 #include "src/dicts/first.h"
@@ -90,6 +91,7 @@ int main() {
         ref_vars_fn();
         dict_fn();
         list_fn();
+        dataclass_fn();
         return 0;
     } catch (...) {
         handle_fatal_exception();
