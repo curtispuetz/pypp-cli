@@ -69,6 +69,7 @@ void list_fn() {
     print(e);
     PyList<int> f = PyList<int>({});
     print(f);
+    e.reserve(10);
     PyList<PyList<int>> g = PyList({PyList({1, 2}), PyList({3, 4})});
     PyList<int> &g_0 = g[0];
     g_0.append(99);

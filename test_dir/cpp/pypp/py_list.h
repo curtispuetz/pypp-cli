@@ -84,6 +84,8 @@ template <typename T> class PyList {
         data.erase(it);
     }
 
+    void reserve(int size) { data.reserve(size); }
+
     // Clear
     void clear() { data.clear(); }
 

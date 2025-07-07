@@ -18,3 +18,5 @@ auto (from pypp.custom_types import auto)
 data into one of these the data is always moved into the collection and not a reference or a copy. It means that when
 you access an element of the collection that you either get a reference to the data or a copy of the data. To get a 
 reference you would do a: Ref[MyElementType] = my_list[0].
+- You can use 'list_reserve' to reserve space in a list. It does nothing for the Python interpreter, but for the C++
+provides a potential performance boost just the std::vector.reserve() function does.

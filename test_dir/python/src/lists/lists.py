@@ -1,3 +1,4 @@
+from test_dir.python.pypp.lists import list_reserve
 from test_dir.python.pypp.ownership import mov, Valu, Ref
 
 
@@ -95,6 +96,8 @@ def list_fn():
     # initialize empty
     f: list[int] = []
     print(f)
+    # reserve
+    list_reserve(e, 10)
     # modifying references
     g: list[list[int]] = [[1, 2], [3, 4]]
     g_0: Ref(list[int]) = g[0]
