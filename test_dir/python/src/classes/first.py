@@ -15,6 +15,7 @@ class ClassWithPassByValue:
         self.a = a
         self.b = b
 
+
 class _PrivateClass:
     def __init__(self, a: int):
         self.a = a
