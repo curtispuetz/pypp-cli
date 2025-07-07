@@ -1,8 +1,13 @@
 import ast
 
-from src.handle_stmt.h_class_def.util import ClassMethod, calc_method, ClassField
+from src.handle_stmt.h_class_def.util import (
+    ClassMethod,
+    calc_method,
+    ClassField,
+    calc_class_field,
+)
+from src.mapping.fn_arg import lookup_cpp_fn_arg
 from src.util.ret_imports import RetImports
-from src.util.util import calc_ref_str
 
 
 def calc_fields_and_methods_for_dataclass(
@@ -55,6 +60,5 @@ def _calc_field(
     target_str: str = handle_expr(
         node.target, ret_imports, include_in_header=name_doesnt_start_with_underscore
     )
-    ref, type_cpp = calc_ref_str(type_cpp)
-
-    return ClassField(type_cpp, target_str, ref)
+    type_str = lookup_cpp_fn_arg(type_cpp)
+    return calc_class_field(type_str, target_str)

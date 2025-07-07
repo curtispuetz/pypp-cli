@@ -40,3 +40,12 @@ def calc_method(
     )
     body_str: str = handle_stmts(node.body, ret_imports, [], handle_stmt)
     return ClassMethod(fn_signature, body_str)
+
+
+def calc_class_field(type_cpp: str, name: str):
+    if type_cpp.endswith("&"):
+        ref = "&"
+        type_cpp = type_cpp[:-1]
+    else:
+        ref = ""
+    return ClassField(type_cpp, name, ref)

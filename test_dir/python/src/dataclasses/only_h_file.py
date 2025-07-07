@@ -1,7 +1,9 @@
 from dataclasses import dataclass
 
+from test_dir.python.pypp.ownership import Valu
+
 
 @dataclass
 class OnlyHDataClass:
-    field1: list[float]
-    field2: dict[str, set[int]]
+    field1: Valu(list[float])
+    field2: Valu(dict[str, set[int]])

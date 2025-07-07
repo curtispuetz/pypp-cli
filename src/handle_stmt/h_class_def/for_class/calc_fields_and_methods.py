@@ -1,6 +1,11 @@
 import ast
 
-from src.handle_stmt.h_class_def.util import ClassMethod, calc_method, ClassField
+from src.handle_stmt.h_class_def.util import (
+    ClassMethod,
+    calc_method,
+    ClassField,
+    calc_class_field,
+)
 from src.util.calc_fn_signature import calc_fn_arg_types
 from src.util.ret_imports import RetImports
 
@@ -56,13 +61,7 @@ def _calc_fields(
         node, ret_imports, handle_expr, name_doesnt_start_with_underscore
     )
     for t, n in zip(field_types, field_names):
-        if t.endswith("&"):
-            ref = "&"
-            type_cpp = t[:-1]
-        else:
-            ref = ""
-            type_cpp = t
-        ret.append(ClassField(type_cpp=type_cpp, target_str=n, ref=ref))
+        ret.append(calc_class_field(t, n))
     return ret
 
 

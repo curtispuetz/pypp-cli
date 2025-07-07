@@ -7,12 +7,6 @@ from src.handle_stmt.h_class_def.for_dataclasses.calc_fields_and_methods import 
 from src.util.ret_imports import RetImports
 
 
-# TODO: I should maybe change this so that References are the default and if you want
-#  pass-by-value you have to use Valu(). This makes it consistent with functions. And
-#  also with regular classes. Even though pass by value might be more common in this
-#  case its better to have total consistency I think.
-
-
 def handle_class_def_for_dataclass(
     node: ast.ClassDef,
     ret_imports: RetImports,
