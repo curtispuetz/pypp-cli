@@ -32,24 +32,56 @@ def calc_fn_signature(
             cpp_ret_type = f"Generator<{calc_inside_sq(cpp_ret_type)}>"
         elif cpp_ret_type.startswith("Ref(") and cpp_ret_type.endswith(")"):
             cpp_ret_type = calc_inside_rd(cpp_ret_type) + "&"
-    cpp_args: list[str] = []
+    cpp_args_str = _calc_cpp_args_str(
+        node, ret_imports, handle_expr, in_header, skip_first_arg
+    )
+    return f"{cpp_ret_type} {fn_name}({cpp_args_str})"
+
+
+def _calc_cpp_args_str(
+    node: ast.FunctionDef,
+    ret_imports: RetImports,
+    handle_expr,
+    in_header: bool,
+    skip_first_arg: bool = False,
+) -> str:
+    ret: list[str] = []
+    cpp_arg_types, cpp_arg_names = calc_fn_arg_types(
+        node, ret_imports, handle_expr, in_header, skip_first_arg
+    )
+    for t, n in zip(cpp_arg_types, cpp_arg_names):
+        ret.append(f"{t} {n}")
+    return ", ".join(ret)
+
+
+def calc_fn_arg_types(
+    node: ast.FunctionDef,
+    ret_imports: RetImports,
+    handle_expr,
+    in_header: bool,
+    skip_first_arg: bool = False,
+) -> tuple[list[str], list[str]]:
+    cpp_arg_types: list[str] = []
+    cpp_arg_names: list[str] = []
     for i in range(skip_first_arg, len(node.args.args)):
         py_arg = node.args.args[i]
         arg_name: str = py_arg.arg
-        assert py_arg.annotation is not None, "function argument type must be specified"
+        assert py_arg.annotation is not None, (
+            f"function argument {arg_name} must have type annotation"
+        )
         py_arg_type: str = handle_expr(
             py_arg.annotation,
             ret_imports,
             include_in_header=in_header,
         )
-        is_pass_by_value: bool = True
+        is_pass_by_ref: bool = True
         if py_arg_type.startswith("Valu(") and py_arg_type.endswith(")"):
             py_arg_type = calc_inside_rd(py_arg_type)
-            is_pass_by_value = False
-        cpp_arg = lookup_cpp_fn_arg(py_arg_type, is_pass_by_value)
-        cpp_args.append(f"{cpp_arg} {arg_name}")
-    cpp_args_str = ", ".join(cpp_args)
-    return f"{cpp_ret_type} {fn_name}({cpp_args_str})"
+            is_pass_by_ref = False
+        cpp_arg = lookup_cpp_fn_arg(py_arg_type, is_pass_by_ref)
+        cpp_arg_types.append(cpp_arg)
+        cpp_arg_names.append(arg_name)
+    return cpp_arg_types, cpp_arg_names
 
 
 def calc_fn_str_with_body(fn_signature: str, body_str: str) -> str:

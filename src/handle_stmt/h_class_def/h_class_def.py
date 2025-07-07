@@ -1,5 +1,6 @@
 import ast
 
+from src.handle_stmt.h_class_def.for_class.for_class import handle_class_def_for_class
 from src.handle_stmt.h_class_def.for_dataclasses.for_dataclasses import (
     handle_class_def_for_dataclass,
 )
@@ -14,20 +15,25 @@ def handle_class_def(
     handle_expr,
 ) -> str:
     # This only handles a dataclass right now.
-    is_frozen: bool = _do_dataclass_assertions(node)
-    return handle_class_def_for_dataclass(
-        node, ret_imports, ret_h_file, handle_stmt, handle_expr, is_frozen
+    _do_common_assertions(node)
+    if len(node.decorator_list) == 1:
+        is_frozen: bool = _do_dataclass_assertions(node)
+        return handle_class_def_for_dataclass(
+            node, ret_imports, ret_h_file, handle_stmt, handle_expr, is_frozen
+        )
+    return handle_class_def_for_class(
+        node, ret_imports, ret_h_file, handle_stmt, handle_expr
     )
+
+
+def _do_common_assertions(node: ast.ClassDef) -> None:
+    assert len(node.type_params) == 0, "type parameters for classes are not supported"
+    assert len(node.bases) == 0, "base classes are not supported"
+    assert len(node.keywords) == 0, "keywords for classes are not supported"
 
 
 def _do_dataclass_assertions(node: ast.ClassDef) -> bool:
     # This only handles a dataclass right now.
-    assert len(node.decorator_list) == 1, (
-        "only dataclass decorator for classes are supported"
-    )
-    assert len(node.type_params) == 0, "type parameters for classes are not supported"
-    assert len(node.bases) == 0, "base classes are not supported"
-    assert len(node.keywords) == 0, "keywords for class definition are not supported"
     dataclass_decorator = node.decorator_list[0]
     is_frozen: bool = False
     if isinstance(dataclass_decorator, ast.Call):

@@ -8,10 +8,10 @@ FN_ARG_PASSED_BY_VALUE: set[str] = {
 }
 
 
-def lookup_cpp_fn_arg(cpp_arg: str, is_pass_by_value: bool) -> str:
+def lookup_cpp_fn_arg(cpp_arg: str, is_pass_by_ref: bool) -> str:
     if cpp_arg in FN_ARG_PASSED_BY_VALUE:
         return cpp_arg
-    pass_by_ref_str = "&" if is_pass_by_value else ""
+    pass_by_ref_str = "&" if is_pass_by_ref else ""
     before_and_after = cpp_arg.split("<", 1)
     if len(before_and_after) == 1:
         return f"{before_and_after[0]}{pass_by_ref_str}"

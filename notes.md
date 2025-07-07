@@ -20,4 +20,4 @@ you access an element of the collection that you either get a reference to the d
 reference you would do a: Ref[MyElementType] = my_list[0].
 - You can use 'list_reserve' to reserve space in a list. It does nothing for the Python interpreter, but for the C++
 provides a potential performance boost just the std::vector.reserve() function does.
-- Don't name anything in your dataclass methods the same names as your dataclass fields. Because it will break the C++.
+- Don't name anything in your class methods the same names as your class fields. Because it will break the C++.
