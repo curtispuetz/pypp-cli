@@ -1,6 +1,10 @@
 #include "dataclasses\first.h"
 #include "pypp_util/print.h"
 
+struct _PrivateDataClass {
+    int field1;
+    _PrivateDataClass(int a_field1) : field1(std::move(a_field1)) {}
+};
 void dataclass_fn() {
     FirstDataClass a =
         FirstDataClass(PyStr("the answer to the universe and everything"), 42);

@@ -8,8 +8,7 @@ from src.util.util import calc_ref_str
 
 # TODO: check about supporting frozen dataclasses and maybe ignoring slots == True.
 #  note: this can be done by making the struct member variables const.
-# TODO: support dataclasses only in the CPP file and not the header if it starts with
-#  an underscore.
+
 
 @dataclass(frozen=True, slots=True)
 class _DataClassField:
@@ -41,16 +40,25 @@ def handle_class_def(
     )
     d = handle_name(dataclass_decorator, ret_imports, True, False)
     assert d == "dataclass", "only dataclass decorator is supported"
-    fields: list[_DataClassField] = _calc_fields(node, ret_imports, handle_expr)
-    field_defs = _calc_field_definitions(fields)
     class_name: str = node.name
+    name_doesnt_start_with_underscore: bool = not class_name.startswith("_")
+    fields: list[_DataClassField] = _calc_fields(
+        node, ret_imports, handle_expr, name_doesnt_start_with_underscore
+    )
+    field_defs = _calc_field_definitions(fields)
     c_sig: str = _calc_constructor_signature(class_name, fields)
-    c_il: str = _calc_constructor_initializer_list(fields, ret_imports)
-    ret_h_file.append(
+    c_il: str = _calc_constructor_initializer_list(
+        fields, ret_imports, name_doesnt_start_with_underscore
+    )
+    result: str = (
         f"struct {class_name}" + "{" + f"{field_defs} {c_sig} : {c_il}" + "{}" + "};"
     )
-    # Nothing goes in the cpp file.
-    return ""
+    if name_doesnt_start_with_underscore:
+        ret_h_file.append(result)
+        # Nothing goes in the cpp file.
+        return ""
+    else:
+        return result
 
 
 def _calc_constructor_signature(class_name: str, fields: list[_DataClassField]) -> str:
@@ -61,7 +69,7 @@ def _calc_constructor_signature(class_name: str, fields: list[_DataClassField]) 
 
 
 def _calc_constructor_initializer_list(
-    fields: list[_DataClassField], ret_imports
+    fields: list[_DataClassField], ret_imports, name_doesnt_start_with_underscore: bool
 ) -> str:
     ret: list[str] = []
     for field in fields:
@@ -69,7 +77,11 @@ def _calc_constructor_initializer_list(
             ret.append(f"{field.target_str}({ARG_PREFIX}{field.target_str})")
         else:
             # TODO now: add the utility include for std::move
-            add_inc(ret_imports, AngInc("utility"), in_header=True)
+            add_inc(
+                ret_imports,
+                AngInc("utility"),
+                in_header=name_doesnt_start_with_underscore,
+            )
             ret.append(f"{field.target_str}(std::move({ARG_PREFIX}{field.target_str}))")
     return ", ".join(ret)
 
@@ -81,24 +93,42 @@ def _calc_field_definitions(fields: list[_DataClassField]) -> str:
     return " ".join(ret)
 
 
-def _calc_fields(node: ast.ClassDef, ret_imports: RetImports, handle_expr):
+def _calc_fields(
+    node: ast.ClassDef,
+    ret_imports: RetImports,
+    handle_expr,
+    name_doesnt_start_with_underscore: bool,
+) -> list[_DataClassField]:
     fields: list[_DataClassField] = []
     for item in node.body:
         assert isinstance(item, ast.AnnAssign), (
             "only AnnAssign in class body is supported"
         )
-        fields.append(_handle_ann_assign_for_dataclass(item, ret_imports, handle_expr))
+        fields.append(
+            _handle_ann_assign_for_dataclass(
+                item, ret_imports, handle_expr, name_doesnt_start_with_underscore
+            )
+        )
     return fields
 
 
 def _handle_ann_assign_for_dataclass(
-    node: ast.AnnAssign, ret_imports: RetImports, handle_expr
+    node: ast.AnnAssign,
+    ret_imports: RetImports,
+    handle_expr,
+    name_doesnt_start_with_underscore: bool,
 ) -> _DataClassField:
     assert node.value is None, (
         "default values for dataclass attributes are not supported"
     )
-    type_cpp: str = handle_expr(node.annotation, ret_imports, include_in_header=True)
-    target_str: str = handle_expr(node.target, ret_imports, include_in_header=True)
+    type_cpp: str = handle_expr(
+        node.annotation,
+        ret_imports,
+        include_in_header=name_doesnt_start_with_underscore,
+    )
+    target_str: str = handle_expr(
+        node.target, ret_imports, include_in_header=name_doesnt_start_with_underscore
+    )
     ref, type_cpp = calc_ref_str(type_cpp)
 
     return _DataClassField(type_cpp, target_str, ref)
