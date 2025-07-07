@@ -6,6 +6,9 @@ from src.util.handle_lists import handle_stmts
 from src.util.ret_imports import RetImports
 
 
+ARG_PREFIX = "a_"
+
+
 @dataclass(frozen=True, slots=True)
 class ClassField:
     type_cpp: str

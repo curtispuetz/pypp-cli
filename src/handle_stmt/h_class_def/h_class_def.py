@@ -28,7 +28,6 @@ def handle_class_def(
 
 def _do_common_assertions(node: ast.ClassDef) -> None:
     assert len(node.type_params) == 0, "type parameters for classes are not supported"
-    assert len(node.bases) == 0, "base classes are not supported"
     assert len(node.keywords) == 0, "keywords for classes are not supported"
 
 

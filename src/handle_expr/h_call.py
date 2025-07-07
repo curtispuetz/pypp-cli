@@ -37,7 +37,6 @@ def handle_call(
         return f"{list_arg}.reserve({size_arg})"
     if len(node.args) == 1 and isinstance(node.args[0], ast.Starred):
         return handle_starred(node.args[0], ret_imports, handle_expr, caller_str)
-    args_str = handle_exprs(node.args, ret_imports, handle_expr, include_in_header)
     if caller_str.startswith("os."):
         add_inc(ret_imports, QInc("pypp_os.h"), include_in_header)
         caller_str = caller_str.replace(".", "::")
@@ -47,6 +46,7 @@ def handle_call(
     elif caller_str.startswith("pypp_time"):
         add_inc(ret_imports, QInc("pypp_time.h"), include_in_header)
         caller_str = replace_second_underscore(caller_str)
+    args_str = handle_exprs(node.args, ret_imports, handle_expr, include_in_header)
     cpp_call_start, cpp_call_end = lookup_cpp_call(
         caller_str, ret_imports, include_in_header
     )
