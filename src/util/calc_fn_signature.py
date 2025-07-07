@@ -69,16 +69,12 @@ def calc_fn_arg_types(
         assert py_arg.annotation is not None, (
             f"function argument {arg_name} must have type annotation"
         )
-        py_arg_type: str = handle_expr(
+        cpp_arg_type: str = handle_expr(
             py_arg.annotation,
             ret_imports,
             include_in_header=in_header,
         )
-        is_pass_by_ref: bool = True
-        if py_arg_type.startswith("Valu(") and py_arg_type.endswith(")"):
-            py_arg_type = calc_inside_rd(py_arg_type)
-            is_pass_by_ref = False
-        cpp_arg = lookup_cpp_fn_arg(py_arg_type, is_pass_by_ref)
+        cpp_arg = lookup_cpp_fn_arg(cpp_arg_type)
         cpp_arg_types.append(cpp_arg)
         cpp_arg_names.append(arg_name)
     return cpp_arg_types, cpp_arg_names

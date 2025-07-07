@@ -1,17 +1,17 @@
 from dataclasses import dataclass
 
-from test_dir.python.pypp.ownership import Ref, mov
+from test_dir.python.pypp.ownership import mov, Valu
 
 
 @dataclass
 class FirstDataClass:
-    field1: str
+    field1: Valu(str)
     field2: int
 
 
 @dataclass
 class DataClassWithReference:
-    field1: Ref(str)
+    field1: str  # pass-by-reference is the default
     field2: int
 
 
@@ -22,13 +22,13 @@ class _PrivateDataClass:
 
 @dataclass(frozen=True)
 class FrozenDataClass:
-    field1: str
+    field1: Valu(str)
     field2: int
 
 
 @dataclass(frozen=True, slots=True)
 class FrozenDataClassWithReference:
-    field1: Ref(str)
+    field1: str
     field2: int
 
 
