@@ -1,5 +1,8 @@
 import ast
 
+from src.handle_stmt.h_class_def.for_class.calc_constructor_sig import (
+    calc_constructor_signature_for_class,
+)
 from src.handle_stmt.h_class_def.util import (
     ClassMethod,
     calc_method,
@@ -40,7 +43,9 @@ def calc_methods_fields_and_base_constructor_calls_for_class(
                         name_doesnt_start_with_underscore,
                     )
                 )
-                constructor_sig = _calc_constructor_signature(node.name, field_types)
+                constructor_sig = calc_constructor_signature_for_class(
+                    node.name, field_types
+                )
                 continue
             methods.append(
                 calc_method(
@@ -56,14 +61,6 @@ def calc_methods_fields_and_base_constructor_calls_for_class(
     if len(fields_and_base_constructor_calls) == 0:
         raise ValueError("class must have an __init__ method constructor")
     return fields_and_base_constructor_calls, methods, constructor_sig
-
-
-# TODO: move to a different file
-def _calc_constructor_signature(class_name: str, field_types: dict[str, str]) -> str:
-    ret: list[str] = []
-    for n, t in field_types.items():
-        ret.append(f"{t} {ARG_PREFIX}{n}")
-    return class_name + "(" + ", ".join(ret) + ")"
 
 
 def _calc_fields_and_base_constructor_calls(

@@ -3,7 +3,9 @@ import ast
 from src.handle_stmt.h_class_def.create_final_str import create_final_str_for_class_def
 from src.handle_stmt.h_class_def.for_dataclasses.calc_fields_and_methods import (
     calc_fields_and_methods_for_dataclass,
-    calc_constructor_signature,
+)
+from src.handle_stmt.h_class_def.for_dataclasses.calc_constructor_sig import (
+    calc_constructor_signature_for_dataclass,
 )
 from src.util.ret_imports import RetImports
 
@@ -21,7 +23,7 @@ def handle_class_def_for_dataclass(
     fields, methods = calc_fields_and_methods_for_dataclass(
         node, ret_imports, handle_stmt, handle_expr, name_doesnt_start_with_underscore
     )
-    constructor_sig = calc_constructor_signature(fields, node.name)
+    constructor_sig = calc_constructor_signature_for_dataclass(fields, node.name)
     return create_final_str_for_class_def(
         node,
         ret_imports,
