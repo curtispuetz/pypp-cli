@@ -8,10 +8,17 @@ class FirstDataClass:
     field1: str
     field2: int
 
+
 @dataclass
 class DataClassWithReference:
     field1: Ref(str)
     field2: int
+
+
+@dataclass
+class _PrivateDataClass:
+    field1: int
+
 
 def dataclass_fn():
     # basic
