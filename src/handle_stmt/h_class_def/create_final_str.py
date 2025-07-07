@@ -1,8 +1,5 @@
 from src.d_types import AngInc
-from src.handle_stmt.h_class_def.for_dataclasses.calc_fields_and_methods import (
-    DataClassField,
-)
-from src.handle_stmt.h_class_def.util import ClassMethod
+from src.handle_stmt.h_class_def.util import ClassMethod, ClassField
 from src.util.calc_fn_signature import calc_fn_str_with_body
 from src.util.ret_imports import RetImports, add_inc
 
@@ -12,7 +9,7 @@ ARG_PREFIX = "a_"
 def create_final_str_for_class_def(
     ret_imports: RetImports,
     ret_h_file: list[str],
-    fields: list[DataClassField],
+    fields: list[ClassField],
     methods: list[ClassMethod],
     class_name: str,
     name_starts_with_underscore: bool,
@@ -87,7 +84,7 @@ def _add_namespace(fn_signature: str, name: str) -> str:
     )
 
 
-def _calc_constructor_signature(fields: list[DataClassField], class_name: str) -> str:
+def _calc_constructor_signature(fields: list[ClassField], class_name: str) -> str:
     ret: list[str] = []
     for field in fields:
         ret.append(f"{field.type_cpp}{field.ref} {ARG_PREFIX}{field.target_str}")
@@ -95,7 +92,7 @@ def _calc_constructor_signature(fields: list[DataClassField], class_name: str) -
 
 
 def _calc_constructor_initializer_list(
-    fields: list[DataClassField], ret_imports, name_doesnt_start_with_underscore: bool
+    fields: list[ClassField], ret_imports, name_doesnt_start_with_underscore: bool
 ) -> str:
     ret: list[str] = []
     for field in fields:
@@ -111,7 +108,7 @@ def _calc_constructor_initializer_list(
     return ", ".join(ret)
 
 
-def _calc_field_definitions(fields: list[DataClassField], is_frozen: bool) -> str:
+def _calc_field_definitions(fields: list[ClassField], is_frozen: bool) -> str:
     ret: list[str] = []
     const_str = "const " if is_frozen else ""
     for field in fields:

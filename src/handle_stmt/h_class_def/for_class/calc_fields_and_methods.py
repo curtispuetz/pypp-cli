@@ -1,9 +1,6 @@
 import ast
 
-from src.handle_stmt.h_class_def.for_dataclasses.calc_fields_and_methods import (
-    DataClassField,
-)
-from src.handle_stmt.h_class_def.util import ClassMethod, calc_method
+from src.handle_stmt.h_class_def.util import ClassMethod, calc_method, ClassField
 from src.util.calc_fn_signature import calc_fn_arg_types
 from src.util.ret_imports import RetImports
 
@@ -14,9 +11,9 @@ def calc_methods_and_fields_for_class(
     handle_stmt,
     handle_expr,
     name_doesnt_start_with_underscore: bool,
-) -> tuple[list[DataClassField], list[ClassMethod]]:
+) -> tuple[list[ClassField], list[ClassMethod]]:
     methods: list[ClassMethod] = []
-    fields: list[DataClassField] = []
+    fields: list[ClassField] = []
     for item in node.body:
         if isinstance(item, ast.FunctionDef):
             if item.name == "__init__":
@@ -45,8 +42,8 @@ def _calc_fields(
     ret_imports: RetImports,
     handle_expr,
     name_doesnt_start_with_underscore: bool,
-) -> list[DataClassField]:
-    ret: list[DataClassField] = []
+) -> list[ClassField]:
+    ret: list[ClassField] = []
     field_types, _ = calc_fn_arg_types(
         node,
         ret_imports,
@@ -65,7 +62,7 @@ def _calc_fields(
         else:
             ref = ""
             type_cpp = t
-        ret.append(DataClassField(type_cpp=type_cpp, target_str=n, ref=ref))
+        ret.append(ClassField(type_cpp=type_cpp, target_str=n, ref=ref))
     return ret
 
 

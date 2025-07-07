@@ -1,16 +1,8 @@
 import ast
-from dataclasses import dataclass
 
-from src.handle_stmt.h_class_def.util import ClassMethod, calc_method
+from src.handle_stmt.h_class_def.util import ClassMethod, calc_method, ClassField
 from src.util.ret_imports import RetImports
 from src.util.util import calc_ref_str
-
-
-@dataclass(frozen=True, slots=True)
-class DataClassField:
-    type_cpp: str
-    target_str: str
-    ref: str
 
 
 def calc_fields_and_methods_for_dataclass(
@@ -19,8 +11,8 @@ def calc_fields_and_methods_for_dataclass(
     handle_stmt,
     handle_expr,
     name_doesnt_start_with_underscore: bool,
-) -> tuple[list[DataClassField], list[ClassMethod]]:
-    fields: list[DataClassField] = []
+) -> tuple[list[ClassField], list[ClassMethod]]:
+    fields: list[ClassField] = []
     methods: list[ClassMethod] = []
     for item in node.body:
         if isinstance(item, ast.AnnAssign):
@@ -51,7 +43,7 @@ def _calc_field(
     ret_imports: RetImports,
     handle_expr,
     name_doesnt_start_with_underscore: bool,
-) -> DataClassField:
+) -> ClassField:
     assert node.value is None, (
         "default values for dataclass attributes are not supported"
     )
@@ -65,4 +57,4 @@ def _calc_field(
     )
     ref, type_cpp = calc_ref_str(type_cpp)
 
-    return DataClassField(type_cpp, target_str, ref)
+    return ClassField(type_cpp, target_str, ref)
