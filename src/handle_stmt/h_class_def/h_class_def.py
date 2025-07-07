@@ -1,6 +1,8 @@
 import ast
 
-from src.handle_stmt.h_class_def.for_dataclasses import handle_class_def_for_dataclass
+from src.handle_stmt.h_class_def.for_dataclasses.for_dataclasses import (
+    handle_class_def_for_dataclass,
+)
 from src.util.ret_imports import RetImports
 
 
