@@ -7,12 +7,20 @@ struct _PrivateDataClass {
 };
 void dataclass_fn() {
     FirstDataClass a =
-        FirstDataClass(PyStr("the answer to the universe and everything"), 42);
-    print(PyStr(std::format("field1: {}, field2: {}", a.field1, a.field2)));
+        FirstDataClass(PyStr("the answer to the universe and everything:"), 42);
+    print(a.field1, a.field2);
     PyStr b = PyStr("abc");
     DataClassWithReference c = DataClassWithReference(b, 1);
-    print(PyStr(std::format("field1: {}, field2: {}", c.field1, c.field2)));
+    print(c.field1, c.field2);
     PyStr d = PyStr("xyz");
     FirstDataClass e = FirstDataClass(std::move(d), 2);
-    print(PyStr(std::format("field1: {}, field2: {}", e.field1, e.field2)));
+    print(e.field1, e.field2);
+    FrozenDataClass f = FrozenDataClass(PyStr("a"), 3);
+    print(f.field1, f.field2);
+    PyStr g = PyStr("abc");
+    FrozenDataClassWithReference h = FrozenDataClassWithReference(g, 4);
+    print(h.field1, h.field2);
+    PyStr i = PyStr("xyz");
+    FrozenDataClass j = FrozenDataClass(std::move(i), 5);
+    print(j.field1, j.field2);
 }
