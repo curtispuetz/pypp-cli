@@ -27,7 +27,7 @@ def handle_fn_def(
     if fn_name_doesnt_start_with_underscore:
         ret_h_file.append(fn_signature + ";")
     body_str: str = handle_stmts(node.body, ret_imports, ret_h_file, handle_stmt)
-    return f"{fn_signature} {{{body_str}}}"
+    return f"{fn_signature} " + "{" + body_str + "}"
 
 
 def _calc_fn_signature(

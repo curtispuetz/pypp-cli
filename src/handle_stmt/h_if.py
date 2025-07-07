@@ -25,7 +25,7 @@ def handle_if(
         )
     else:
         or_else_str = handle_stmts(node.orelse, ret_imports, ret_h_file, handle_stmt)
-        return f"{_if_else_body(test_str, body_str)}{{{or_else_str}}}"
+        return _if_else_body(test_str, body_str) + "{" + or_else_str + "}"
 
 
 def _if_else_body(test_str: str, body_str: str) -> str:

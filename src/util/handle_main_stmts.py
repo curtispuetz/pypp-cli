@@ -24,7 +24,6 @@ def handle_main_stmts(stmts: list[ast.stmt], ret_imports: RetImports) -> str:
         + inside_main
         + "} catch (...) { handle_fatal_exception(); return EXIT_FAILURE;} }"
     )
-    # return f"{before_main} int main() {{{inside_main}}}"
 
 
 def _is_proper_main(node: ast.stmt) -> bool:
