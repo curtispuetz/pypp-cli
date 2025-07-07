@@ -7,6 +7,13 @@ from src.util.ret_imports import RetImports
 
 
 @dataclass(frozen=True, slots=True)
+class ClassField:
+    type_cpp: str
+    target_str: str
+    ref: str
+
+
+@dataclass(frozen=True, slots=True)
 class ClassMethod:
     fn_signature: str
     body_str: str
