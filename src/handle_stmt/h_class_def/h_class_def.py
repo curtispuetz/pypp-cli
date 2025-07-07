@@ -16,7 +16,7 @@ def handle_class_def(
     # This only handles a dataclass right now.
     is_frozen: bool = _do_dataclass_assertions(node)
     return handle_class_def_for_dataclass(
-        node, ret_imports, ret_h_file, handle_expr, is_frozen
+        node, ret_imports, ret_h_file, handle_stmt, handle_expr, is_frozen
     )
 
 
