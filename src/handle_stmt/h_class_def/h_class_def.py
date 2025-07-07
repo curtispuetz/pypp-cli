@@ -14,7 +14,6 @@ def handle_class_def(
     handle_stmt,
     handle_expr,
 ) -> str:
-    # This only handles a dataclass right now.
     _do_common_assertions(node)
     if len(node.decorator_list) == 1:
         is_frozen: bool = _do_dataclass_assertions(node)
@@ -32,7 +31,7 @@ def _do_common_assertions(node: ast.ClassDef) -> None:
 
 
 def _do_dataclass_assertions(node: ast.ClassDef) -> bool:
-    # This only handles a dataclass right now.
+    assert len(node.bases) == 0, "inheritance for dataclasses is not supported"
     dataclass_decorator = node.decorator_list[0]
     is_frozen: bool = False
     if isinstance(dataclass_decorator, ast.Call):
