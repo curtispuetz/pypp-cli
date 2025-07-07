@@ -4,6 +4,7 @@ import shutil
 
 
 def file_io_fn():
+    print("FILE IO RESULTS:")
     # pypp_get_resources
     test_dir: str = pypp_get_resources("test_dir")
     print(test_dir)
