@@ -33,6 +33,7 @@ class FrozenDataClassWithReference:
 
 
 def dataclass_fn():
+    print("DATACLASS RESULTS:")
     # basic
     a: FirstDataClass = FirstDataClass("the answer to the universe and everything:", 42)
     print(a.field1, a.field2)

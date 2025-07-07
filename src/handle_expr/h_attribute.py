@@ -15,6 +15,8 @@ def handle_attribute(
     if attr_str == "union":
         attr_str += "_"
     value_str = handle_expr(node.value, ret_imports, include_in_header)
+    if value_str == "self":
+        return attr_str
     if value_str == "math":
         if attr_str == "pi":
             add_inc(ret_imports, AngInc("numbers"), include_in_header)

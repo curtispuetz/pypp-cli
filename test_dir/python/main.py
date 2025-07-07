@@ -39,6 +39,7 @@ from src.time_library.first import time_library_fn
 from src.sets.of_tuples import set_of_tuples_fn
 from src.ref_vars import ref_vars_fn
 from src.dataclasses.first import dataclass_fn
+from src.dataclasses.with_methods import dataclass_with_methods_fn
 
 if __name__ == "__main__":
     print(return_something(1, 9))
@@ -87,3 +88,4 @@ if __name__ == "__main__":
     dict_fn()
     list_fn()
     dataclass_fn()
+    dataclass_with_methods_fn()

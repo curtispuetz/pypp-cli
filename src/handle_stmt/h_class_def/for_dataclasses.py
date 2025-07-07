@@ -2,10 +2,10 @@ import ast
 from dataclasses import dataclass
 
 from src.d_types import AngInc
+from src.util.calc_fn_signature import calc_fn_signature, calc_fn_str_with_body
+from src.util.handle_lists import handle_stmts
 from src.util.ret_imports import RetImports, add_inc
 from src.util.util import calc_ref_str
-
-# TODO: support simple methods in dataclasses
 
 
 @dataclass(frozen=True, slots=True)
@@ -15,6 +15,12 @@ class _DataClassField:
     ref: str
 
 
+@dataclass(frozen=True, slots=True)
+class _DataClassMethod:
+    fn_signature: str
+    body_str: str
+
+
 ARG_PREFIX = "a_"
 
 
@@ -22,28 +28,71 @@ def handle_class_def_for_dataclass(
     node: ast.ClassDef,
     ret_imports: RetImports,
     ret_h_file: list[str],
+    handle_stmt,
     handle_expr,
     is_frozen: bool,
 ) -> str:
     class_name: str = node.name
-    name_doesnt_start_with_underscore: bool = not class_name.startswith("_")
-    fields: list[_DataClassField] = _calc_fields(
-        node, ret_imports, handle_expr, name_doesnt_start_with_underscore
+    name_starts_with_underscore: bool = class_name.startswith("_")
+    name_doesnt_start_with_underscore: bool = not name_starts_with_underscore
+    fields, methods = _calc_fields_and_methods(
+        node, ret_imports, handle_stmt, handle_expr, name_doesnt_start_with_underscore
     )
     field_defs = _calc_field_definitions(fields, is_frozen)
     c_sig: str = _calc_constructor_signature(fields, class_name)
     c_il: str = _calc_constructor_initializer_list(
         fields, ret_imports, name_doesnt_start_with_underscore
     )
-    result: str = (
-        f"struct {class_name}" + "{" + f"{field_defs} {c_sig} : {c_il}" + "{}" + "};"
-    )
-    if name_doesnt_start_with_underscore:
-        ret_h_file.append(result)
-        # Nothing goes in the cpp file.
+    fields_and_constructor: str = f"{field_defs} {c_sig} : {c_il}" + "{}"
+    if name_starts_with_underscore:
+        full_methods: str = _calc_full_methods(methods)
+        return _calc_final_struct(class_name, fields_and_constructor + full_methods)
+    if len(methods) == 0:
+        ret_h_file.append(_calc_final_struct(class_name, fields_and_constructor))
+        # Nothing goes in the cpp file in this case.
         return ""
-    else:
-        return result
+    method_signatures: str = _calc_method_signatures(methods)
+    method_impls: str = _calc_method_implementations(methods, class_name)
+    ret_h_file.append(
+        _calc_final_struct(class_name, fields_and_constructor + method_signatures)
+    )
+    return method_impls
+
+
+def _calc_final_struct(class_name: str, body_str: str) -> str:
+    return f"struct {class_name}" + "{" + body_str + "};"
+
+
+def _calc_method_signatures(methods: list[_DataClassMethod]) -> str:
+    ret: list[str] = []
+    for method in methods:
+        ret.append(method.fn_signature + ";")
+    return " ".join(ret)
+
+
+def _calc_full_methods(methods: list[_DataClassMethod]) -> str:
+    ret: list[str] = []
+    for method in methods:
+        ret.append(calc_fn_str_with_body(method.fn_signature, method.body_str))
+    return " ".join(ret)
+
+
+def _calc_method_implementations(
+    methods: list[_DataClassMethod], class_name: str
+) -> str:
+    ret: list[str] = []
+    for method in methods:
+        sig_with_namespace = _add_namespace(method.fn_signature, class_name)
+        ret.append(calc_fn_str_with_body(sig_with_namespace, method.body_str))
+    return " ".join(ret)
+
+
+def _add_namespace(fn_signature: str, name: str) -> str:
+    first_space = fn_signature.find(" ")
+    assert first_space != -1, "shouldn't happen"
+    return (
+        fn_signature[: first_space + 1] + name + "::" + fn_signature[first_space + 1 :]
+    )
 
 
 def _calc_constructor_signature(fields: list[_DataClassField], class_name: str) -> str:
@@ -78,23 +127,44 @@ def _calc_field_definitions(fields: list[_DataClassField], is_frozen: bool) -> s
     return " ".join(ret)
 
 
-def _calc_fields(
+# TODO: move these last two functions to another file.
+def _calc_fields_and_methods(
     node: ast.ClassDef,
     ret_imports: RetImports,
+    handle_stmt,
     handle_expr,
     name_doesnt_start_with_underscore: bool,
-) -> list[_DataClassField]:
+) -> tuple[list[_DataClassField], list[_DataClassMethod]]:
     fields: list[_DataClassField] = []
+    methods: list[_DataClassMethod] = []
     for item in node.body:
-        assert isinstance(item, ast.AnnAssign), (
-            "only AnnAssign in class body is supported"
-        )
-        fields.append(
-            _calc_field(
-                item, ret_imports, handle_expr, name_doesnt_start_with_underscore
+        if isinstance(item, ast.AnnAssign):
+            fields.append(
+                _calc_field(
+                    item, ret_imports, handle_expr, name_doesnt_start_with_underscore
+                )
             )
-        )
-    return fields
+        elif isinstance(item, ast.FunctionDef):
+            # TODO: check for magic methods that I don't support or other things
+            #  that python dataclass users can do. If it isn't just a typical method,
+            #  its not supported.
+            fn_name = item.name
+            assert item.args.args[0].arg == "self", "first arg must be self"
+            fn_signature = calc_fn_signature(
+                item,
+                ret_imports,
+                handle_expr,
+                fn_name,
+                name_doesnt_start_with_underscore,
+                skip_first_arg=True,  # because it is self
+            )
+            body_str: str = handle_stmts(item.body, ret_imports, [], handle_stmt)
+            methods.append(_DataClassMethod(fn_signature, body_str))
+        else:
+            raise ValueError(
+                "only field definitions and methods are supported in a dataclass"
+            )
+    return fields, methods
 
 
 def _calc_field(
