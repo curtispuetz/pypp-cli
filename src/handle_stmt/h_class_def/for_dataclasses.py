@@ -145,10 +145,10 @@ def _calc_fields_and_methods(
                 )
             )
         elif isinstance(item, ast.FunctionDef):
-            # TODO: check for magic methods that I don't support or other things
-            #  that python dataclass users can do. If it isn't just a typical method,
-            #  its not supported.
             fn_name = item.name
+            assert not (fn_name.startswith("__") and fn_name.endswith("__")), (
+                "magic methods for a dataclass are not supported"
+            )
             assert item.args.args[0].arg == "self", "first arg must be self"
             fn_signature = calc_fn_signature(
                 item,
