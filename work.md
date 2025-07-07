@@ -29,10 +29,10 @@
 - import math library. AAGP
 - the time library. AAGP
 - file handling. AAGP but needs work on saving raw data
+- support for pass-by-value and moving for arguments. AAGP
+- dataclasses. AAGP
+- Classes
 - default dict
 - deque
-- dataclasses
-- Classes
-- support for pass-by-value and moving for arguments. AAGP
 - json library
 - multiprocessing library
