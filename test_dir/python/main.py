@@ -40,6 +40,7 @@ from src.sets.of_tuples import set_of_tuples_fn
 from src.ref_vars import ref_vars_fn
 from src.dataclasses.first import dataclass_fn
 from src.dataclasses.with_methods import dataclass_with_methods_fn
+from src.classes.first import classes_fn
 
 if __name__ == "__main__":
     print(return_something(1, 9))
@@ -89,3 +90,4 @@ if __name__ == "__main__":
     list_fn()
     dataclass_fn()
     dataclass_with_methods_fn()
+    classes_fn()

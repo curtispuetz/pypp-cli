@@ -1,8 +1,7 @@
 import ast
 from dataclasses import dataclass
 
-from src.util.calc_fn_signature import calc_fn_signature
-from src.util.handle_lists import handle_stmts
+from src.handle_stmt.h_class_def.util import ClassMethod, calc_method
 from src.util.ret_imports import RetImports
 from src.util.util import calc_ref_str
 
@@ -14,21 +13,15 @@ class DataClassField:
     ref: str
 
 
-@dataclass(frozen=True, slots=True)
-class DataClassMethod:
-    fn_signature: str
-    body_str: str
-
-
 def calc_fields_and_methods(
     node: ast.ClassDef,
     ret_imports: RetImports,
     handle_stmt,
     handle_expr,
     name_doesnt_start_with_underscore: bool,
-) -> tuple[list[DataClassField], list[DataClassMethod]]:
+) -> tuple[list[DataClassField], list[ClassMethod]]:
     fields: list[DataClassField] = []
-    methods: list[DataClassMethod] = []
+    methods: list[ClassMethod] = []
     for item in node.body:
         if isinstance(item, ast.AnnAssign):
             fields.append(
@@ -38,7 +31,7 @@ def calc_fields_and_methods(
             )
         elif isinstance(item, ast.FunctionDef):
             methods.append(
-                _calc_method(
+                calc_method(
                     item,
                     ret_imports,
                     handle_stmt,
@@ -73,27 +66,3 @@ def _calc_field(
     ref, type_cpp = calc_ref_str(type_cpp)
 
     return DataClassField(type_cpp, target_str, ref)
-
-
-def _calc_method(
-    node: ast.FunctionDef,
-    ret_imports: RetImports,
-    handle_stmt,
-    handle_expr,
-    name_doesnt_start_with_underscore: bool,
-) -> DataClassMethod:
-    fn_name = node.name
-    assert not (fn_name.startswith("__") and fn_name.endswith("__")), (
-        "magic methods for a dataclass are not supported"
-    )
-    assert node.args.args[0].arg == "self", "first arg must be self"
-    fn_signature = calc_fn_signature(
-        node,
-        ret_imports,
-        handle_expr,
-        fn_name,
-        name_doesnt_start_with_underscore,
-        skip_first_arg=True,  # because it is self
-    )
-    body_str: str = handle_stmts(node.body, ret_imports, [], handle_stmt)
-    return DataClassMethod(fn_signature, body_str)
