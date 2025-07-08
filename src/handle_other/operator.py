@@ -6,7 +6,6 @@ from src.d_types import QInc, AngInc
 from src.util.ret_imports import RetImports, add_inc
 
 
-# TODO: handle more. Especially Pow and Mod.
 def handle_operator(
     node: ast.operator, ret_imports: RetImports | None
 ) -> tuple[str, str, str]:
