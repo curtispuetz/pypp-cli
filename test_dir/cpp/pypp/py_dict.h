@@ -278,6 +278,9 @@ template <typename K, typename V> class PyDict {
 };
 
 template <typename K, typename V>
+PyDict(std::initializer_list<std::pair<const K, V>>) -> PyDict<K, V>;
+
+template <typename K, typename V>
 std::ostream &operator<<(std::ostream &os, const PyDict<K, V> &dict) {
     dict.print(os);
     return os;

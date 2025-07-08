@@ -40,7 +40,7 @@ def handle_ann_assign(
         #  and sets. It might be nice if they are handled the same, but it seems hard
         #  to make it so.
         return f"{type_cpp} {target_str}({value_str});"
-    if type_cpp.startswith("PyDefaultDict<"):
+    if type_cpp.startswith("PyDefaultDict<") or type_cpp.startswith("Uni<"):
         return f"{type_cpp} {target_str}({calc_inside_rd(value_str)});"
     ref, type_cpp = calc_ref_str(type_cpp)
     return f"{type_cpp}{ref} {target_str} = {value_str};"
