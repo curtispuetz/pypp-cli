@@ -61,4 +61,4 @@ def _calc_field(
         node.target, ret_imports, include_in_header=name_doesnt_start_with_underscore
     )
     type_str = lookup_cpp_fn_arg(type_cpp)
-    return calc_class_field(type_str, target_str)
+    return calc_class_field(type_str, target_str, target_str)

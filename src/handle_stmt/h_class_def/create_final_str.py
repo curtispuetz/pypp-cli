@@ -148,14 +148,16 @@ def _calc_constructor_initializer_list(
             ret.append(field)
             continue
         if field.ref:
-            ret.append(f"{field.target_str}({ARG_PREFIX}{field.target_str})")
+            ret.append(f"{field.target_str}({ARG_PREFIX}{field.target_other_name})")
         else:
             add_inc(
                 ret_imports,
                 AngInc("utility"),
                 in_header=name_doesnt_start_with_underscore,
             )
-            ret.append(f"{field.target_str}(std::move({ARG_PREFIX}{field.target_str}))")
+            ret.append(
+                f"{field.target_str}(std::move({ARG_PREFIX}{field.target_other_name}))"
+            )
     return ", ".join(ret)
 
 

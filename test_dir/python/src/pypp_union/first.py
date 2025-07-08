@@ -15,6 +15,7 @@ class ClassWithUnion:
             return ug(self.value, int) * 2
         return 0
 
+
 class ClassWithUnionByValue:
     def __init__(self, value: Valu(Uni[int, float])):
         self.value = value
