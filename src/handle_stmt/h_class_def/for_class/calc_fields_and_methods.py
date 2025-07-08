@@ -58,8 +58,6 @@ def calc_methods_fields_and_base_constructor_calls_for_class(
             )
         else:
             raise ValueError("only methods are supported in a class definition")
-    if len(fields_and_base_constructor_calls) == 0:
-        raise ValueError("class must have an __init__ method constructor")
     return fields_and_base_constructor_calls, methods, constructor_sig
 
 

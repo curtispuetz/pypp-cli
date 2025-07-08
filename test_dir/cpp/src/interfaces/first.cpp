@@ -22,10 +22,10 @@ void _fn_that_accepts_interface(InterfaceClass &i) {
 
 void interfaces_fn() {
     print(PyStr("INTERFACES RESULTS:"));
-    Impl1 a = Impl1(-1);
+    Impl1 a = Impl1();
     a.speak(42);
     print(a.talk());
-    Impl2 b = Impl2(-1);
+    Impl2 b = Impl2();
     b.speak(43);
     _fn_that_accepts_interface(a);
     _fn_that_accepts_interface(b);
