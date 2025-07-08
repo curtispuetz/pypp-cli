@@ -13,6 +13,7 @@
 #include "src/excpetions/throw_.h"
 #include "src/file_io/first.h"
 #include "src/first.h"
+#include "src/fn_as_vars/first.h"
 #include "src/fourth.h"
 #include "src/if_elif_else/if_elif_else.h"
 #include "src/inconsistent_behviour/editing_a_reference.h"
@@ -102,6 +103,7 @@ int main() {
         class_inheritance_fn();
         interfaces_fn();
         operations_fn();
+        fn_as_vars_fn();
         return 0;
     } catch (...) {
         handle_fatal_exception();
