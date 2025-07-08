@@ -6,14 +6,30 @@ from src.util.ret_imports import RetImports, add_inc
 
 
 def is_callable_type(node: ast.expr) -> bool:
+    if isinstance(node, ast.Call) and isinstance(node.func, ast.Name) and node.func.id == "Valu":
+        return _is_callable_type(node.args[0])
+    return _is_callable_type(node)
+
+
+def _is_callable_type(node: ast.expr) -> bool:
     return (
         isinstance(node, ast.Subscript)
         and isinstance(node.value, ast.Name)
         and node.value.id == "Callable"
     )
 
-
 def calc_callable_type(
+    node: ast.Subscript | ast.Call,
+    ret_imports: RetImports,
+    handle_expr,
+    in_header: bool = False,
+) -> str:
+    if isinstance(node, ast.Call):
+        return "Valu(" + _calc_callable_type(node.args[0], ret_imports, handle_expr, in_header) + ")"
+    return _calc_callable_type(node, ret_imports, handle_expr, in_header)
+
+
+def _calc_callable_type(
     node: ast.Subscript,
     ret_imports: RetImports,
     handle_expr,

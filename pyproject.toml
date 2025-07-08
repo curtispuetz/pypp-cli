@@ -1,0 +1,2 @@
+[tool.ruff]
+lint.ignore = ["E731"]  # assigning a lambda expression to a var

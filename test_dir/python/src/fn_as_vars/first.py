@@ -1,6 +1,8 @@
 from dataclasses import dataclass
 from typing import Callable
 
+from test_dir.python.pypp.ownership import Valu
+
 
 def _test_fn(a: int, b: int) -> str:
     return f"{a} {b}"
@@ -21,16 +23,22 @@ def _test_fn4(a: int):
 def _test_fn5():
     print("test fn5 called")
 
+def _test_fn6(fn: Valu(Callable[[int, int], str])):
+    print(fn(1, 2))
+
 
 class TestClass:
     def t(self, fn: Callable[[], None]):
         fn()
 
+
 @dataclass
 class TestDataClass:
     a: int
+
     def t(self, fn: Callable[[], None]):
         fn()
+
 
 def fn_as_vars_fn():
     print("FN_AS_VARS RESULTS:")
@@ -52,3 +60,9 @@ def fn_as_vars_fn():
     # passing a function as dataclass method argument
     e: TestDataClass = TestDataClass(1)
     e.t(c)
+    # creating a lambda function
+    f: Callable[[int, int], str] = lambda x, y: f"Lambda {x, y}"
+    print(f(3, 4))
+    # passing a lambda as argument
+    _test_fn6(lambda x, y: f"Lambda {x, y}")
+
