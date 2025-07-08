@@ -7,6 +7,7 @@
 #include <utility>
 
 void _inline_set(PySet<double> s) { print(s); }
+
 void set_fn() {
     print(PyStr("SET RESULTS:"));
     PySet<int> a = PySet({1, 2, 3});

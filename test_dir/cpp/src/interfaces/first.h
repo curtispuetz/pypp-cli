@@ -9,6 +9,7 @@ class InterfaceClass {
     virtual PyStr talk() = 0;
     virtual ~InterfaceClass() {}
 };
+
 class Impl1 : public InterfaceClass {
   public:
     int dummy;
@@ -16,6 +17,7 @@ class Impl1 : public InterfaceClass {
     void speak(int a);
     PyStr talk();
 };
+
 class Impl2 : public InterfaceClass {
   public:
     int dummy;
@@ -23,4 +25,5 @@ class Impl2 : public InterfaceClass {
     void speak(int a);
     PyStr talk();
 };
+
 void interfaces_fn();

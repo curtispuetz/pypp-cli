@@ -11,6 +11,7 @@ PyStr if_elif_else_fn(int a, int b) {
     }
     return ret;
 }
+
 PyStr if_elif_elif_else_fn(int a, int b) {
     PyStr ret;
     if (a < b) {

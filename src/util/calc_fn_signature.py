@@ -79,4 +79,4 @@ def calc_fn_arg_types(
 
 
 def calc_fn_str_with_body(fn_signature: str, body_str: str) -> str:
-    return f"{fn_signature} " + "{" + body_str + "}"
+    return f"{fn_signature} " + "{" + body_str + "}\n\n"

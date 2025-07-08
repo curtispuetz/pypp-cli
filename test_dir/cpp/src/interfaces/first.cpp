@@ -6,14 +6,20 @@ class _PrivateInterface {
     virtual void a() = 0;
     virtual ~_PrivateInterface() {}
 };
+
 void Impl1::speak(int a) { print(PyStr("number given:"), a); }
+
 PyStr Impl1::talk() { return PyStr("hello"); }
+
 void Impl2::speak(int a) { print(PyStr("number given times 2:"), 2 * a); }
+
 PyStr Impl2::talk() { return PyStr("hello there"); }
+
 void _fn_that_accepts_interface(InterfaceClass &i) {
     i.speak(2);
     print(i.talk());
 }
+
 void interfaces_fn() {
     print(PyStr("INTERFACES RESULTS:"));
     Impl1 a = Impl1(-1);

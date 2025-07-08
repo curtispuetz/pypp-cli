@@ -69,7 +69,7 @@ def _calc_final_str(
     else:
         s = "class"
         public = "public:"
-    return f"{s} {class_name} {base_classes_str}" + "{" + public + body_str + "};"
+    return f"{s} {class_name} {base_classes_str}" + "{" + public + body_str + "};\n\n"
 
 
 def _calc_base_classes(
@@ -115,7 +115,7 @@ def _calc_full_methods(methods: list[ClassMethod]) -> str:
     ret: list[str] = []
     for method in methods:
         ret.append(calc_fn_str_with_body(method.fn_signature, method.body_str))
-    return " ".join(ret)
+    return "\n\n".join(ret)
 
 
 def _calc_method_implementations(methods: list[ClassMethod], class_name: str) -> str:
@@ -123,7 +123,7 @@ def _calc_method_implementations(methods: list[ClassMethod], class_name: str) ->
     for method in methods:
         sig_with_namespace = _add_namespace(method.fn_signature, class_name)
         ret.append(calc_fn_str_with_body(sig_with_namespace, method.body_str))
-    return " ".join(ret)
+    return "\n\n".join(ret)
 
 
 def _add_namespace(fn_signature: str, name: str) -> str:

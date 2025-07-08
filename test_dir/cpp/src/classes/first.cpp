@@ -2,11 +2,13 @@
 #include "pypp_util/print.h"
 
 int ClassA::add(int c) { return a + c; }
+
 class _PrivateClass {
   public:
     int a;
     _PrivateClass(int a_a) : a(std::move(a_a)) {}
 };
+
 void classes_fn() {
     print(PyStr("CLASSES RESULTS:"));
     PyStr a = PyStr("hello");
