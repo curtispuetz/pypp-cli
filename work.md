@@ -45,3 +45,4 @@
 - template parameters
 - json library
 - multiprocessing library
+- magic methods
