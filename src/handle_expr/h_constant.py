@@ -30,4 +30,6 @@ def handle_constant(
         return first_letter + bool_str[1:]
     if isinstance(node.value, int) or isinstance(node.value, float):
         return str(node.value)
+    if node.value is None:
+        return "None"
     raise Exception(f"constant type {node.value} not handled")

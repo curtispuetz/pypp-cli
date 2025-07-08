@@ -5,8 +5,34 @@ def _test_fn(a: int, b: int) -> str:
     return f"{a} {b}"
 
 
+def _test_fn2(fn: Callable[[], float]):
+    print(fn())
+
+
+def _test_fn3() -> float:
+    return 2.71
+
+
+def _test_fn4(a: int):
+    print(a)
+
+
+def _test_fn5():
+    print("test fn5 called")
+
+
 def fn_as_vars_fn():
     print("FN_AS_VARS RESULTS:")
     # assign function to variable
     fn_var: Callable[[int, int], str] = _test_fn
     print(fn_var(1, 2))
+    # passing function as argument
+    a: Callable[[], float] = _test_fn3
+    _test_fn2(a)
+    # function that doesn't return anything
+    b: Callable[[int], None] = _test_fn4
+    b(5)
+    # function that doesn't return anything or take arguments
+    c: Callable[[], None] = _test_fn5
+    c()
+    # TODO: test passing a function to a method

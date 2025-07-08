@@ -1,10 +1,9 @@
 import ast
 
-from src.d_types import AngInc
 from src.handle_expr.h_comp import handle_comp
-from src.util.handle_lists import handle_exprs
+from src.util.calc_callable_type import is_callable_type, calc_callable_type
 from src.util.inner_strings import calc_inside_ang
-from src.util.ret_imports import RetImports, add_inc
+from src.util.ret_imports import RetImports
 from src.util.util import calc_ref_str
 
 
@@ -15,8 +14,8 @@ def handle_ann_assign(
     handle_expr,
     handle_stmt,
 ) -> str:
-    if _is_callable_type(node.annotation):
-        type_cpp: str = _calc_callable_type(node.annotation, ret_imports, handle_expr)
+    if is_callable_type(node.annotation):
+        type_cpp: str = calc_callable_type(node.annotation, ret_imports, handle_expr)
     else:
         type_cpp: str = handle_expr(node.annotation, ret_imports)
     target_str = handle_expr(node.target, ret_imports)
@@ -38,30 +37,6 @@ def handle_ann_assign(
         return f"{type_cpp} {target_str}({value_str});"
     ref, type_cpp = calc_ref_str(type_cpp)
     return f"{type_cpp}{ref} {target_str} = {value_str};"
-
-
-def _is_callable_type(node: ast.expr) -> bool:
-    return (
-        isinstance(node, ast.Subscript)
-        and isinstance(node.value, ast.Name)
-        and node.value.id == "Callable"
-    )
-
-
-def _calc_callable_type(
-    node: ast.Subscript,
-    ret_imports: RetImports,
-    handle_expr,
-) -> str:
-    add_inc(ret_imports, AngInc("functional"))
-    assert isinstance(node.slice, ast.Tuple), "2 arguments required for Callable"
-    assert len(node.slice.elts) == 2, "2 arguments required for Callable"
-    arg_types = node.slice.elts[0]
-    assert isinstance(arg_types, ast.List), "First argument for Callable must be a List"
-    arg_types_cpp = handle_exprs(arg_types.elts, ret_imports, handle_expr)
-    ret_type = node.slice.elts[1]
-    ret_type_cpp = handle_expr(ret_type, ret_imports)
-    return f"std::function<{ret_type_cpp}({arg_types_cpp})> "
 
 
 def _empty_initialize(s: str, type_cpp: str):
