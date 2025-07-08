@@ -85,7 +85,9 @@ def _calc_fields_and_base_constructor_calls(
                 ret_imports,
                 include_in_header=name_doesnt_start_with_underscore,
             )
-            ret.append(calc_class_field(field_types[assign_name], field_name))
+            ret.append(
+                calc_class_field(field_types[assign_name], field_name, assign_name)
+            )
         elif isinstance(item, ast.Expr):
             assert isinstance(item.value, ast.Call), (
                 "only field assignments without type annotation are supported in __init__"
