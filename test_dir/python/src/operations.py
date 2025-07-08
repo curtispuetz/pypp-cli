@@ -1,4 +1,5 @@
 from test_dir.python.pypp.math import int_pow
+from test_dir.python.pypp.ownership import Ref
 
 
 def operations_fn():
@@ -41,10 +42,12 @@ def operations_fn():
     l1: int = ~5
     print(f"invert: {l1}")
     # is
-    m: bool = 5 is 5
+    t1: list[int] = [1, 2]
+    t2: Ref(list[int]) = t1
+    m: bool = t1 is t2
     print(f"is: {m}")
     # is not
-    n: bool = 5 is not 6
+    n: bool = t1 is not t2
     print(f"is not: {n}")
     # in list
     o: bool = 5 in [1, 5]
