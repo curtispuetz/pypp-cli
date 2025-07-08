@@ -28,6 +28,7 @@
 #include "src/loops/zip_.h"
 #include "src/math_library/first.h"
 #include "src/numbers/first.h"
+#include "src/operations.h"
 #include "src/printing/first.h"
 #include "src/ranges/first.h"
 #include "src/ref_vars.h"
@@ -100,6 +101,7 @@ int main() {
         classes_fn();
         class_inheritance_fn();
         interfaces_fn();
+        operations_fn();
         return 0;
     } catch (...) {
         handle_fatal_exception();
