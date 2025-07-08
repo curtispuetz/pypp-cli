@@ -17,6 +17,7 @@ TYPES_MAP: dict[str, TypeMapInfo] = {
     "float": TypeMapInfo("double", []),
     "list": TypeMapInfo("PyList", [QInc("py_list.h")]),
     "dict": TypeMapInfo("PyDict", [QInc("py_dict.h")]),
+    "defaultdict": TypeMapInfo("PyDefaultDict", [QInc("py_dict_default.h")]),
     "tuple": TypeMapInfo("PyTup", [QInc("py_tuple.h")]),
     "set": TypeMapInfo("PySet", [QInc("py_set.h")]),
     "range": TypeMapInfo("PyRange", [QInc("py_range.h")]),

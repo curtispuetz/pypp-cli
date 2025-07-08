@@ -71,3 +71,6 @@ or a factory function returning an object of the type and put the logic in there
 - Inheritance with dataclasses.
 - Im not sure if override methods work with inheritance because I haven't tested it.
 - Use the mod operator with a non-integer (i.e. 1.0 % 2)
+- provide initial values for a default dict (instead you can use the .update() method right after creation)
+- defaultdict(tuple)
+- pass a default dict inline (you can only assign it to a variable)

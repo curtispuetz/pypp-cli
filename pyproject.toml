@@ -1,2 +1,5 @@
 [tool.ruff]
-lint.ignore = ["E731"]  # assigning a lambda expression to a var
+lint.ignore = [
+    "E731", # assigning a lambda expression to a var
+    "E741", # ambiguous variable names (i.e. 'l', 'O', 'I')
+]

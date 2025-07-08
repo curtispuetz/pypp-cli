@@ -40,4 +40,6 @@ void fn_as_vars_fn() {
         return PyStr(
             std::format("Lambda {}", PyTup(std::move(x), std::move(y))));
     });
+    std::function<PyStr()> g = []() { return PyStr("Lambda without args"); };
+    print(g());
 }
