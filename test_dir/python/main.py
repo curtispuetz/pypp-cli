@@ -45,6 +45,7 @@ from src.classes.inheritance import class_inheritance_fn
 from src.interfaces.first import interfaces_fn
 from src.operations import operations_fn
 from src.fn_as_vars.first import fn_as_vars_fn
+from src.default_dict.first import default_dict_fn
 
 if __name__ == "__main__":
     print(return_something(1, 9))
@@ -99,3 +100,4 @@ if __name__ == "__main__":
     interfaces_fn()
     operations_fn()
     fn_as_vars_fn()
+    default_dict_fn()

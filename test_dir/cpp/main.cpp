@@ -6,6 +6,7 @@
 #include "src/classes/inheritance.h"
 #include "src/dataclasses/first.h"
 #include "src/dataclasses/with_methods.h"
+#include "src/default_dict/first.h"
 #include "src/dicts/comprehensions.h"
 #include "src/dicts/exceptions.h"
 #include "src/dicts/first.h"
@@ -104,6 +105,7 @@ int main() {
         interfaces_fn();
         operations_fn();
         fn_as_vars_fn();
+        default_dict_fn();
         return 0;
     } catch (...) {
         handle_fatal_exception();

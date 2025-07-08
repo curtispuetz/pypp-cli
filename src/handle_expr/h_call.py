@@ -20,18 +20,18 @@ def handle_call(
         include_in_header=include_in_header,
     )
     if caller_str == "tg":
-        assert len(node.args) == 2, "incorrect number of args when calling tg"
+        assert len(node.args) == 2, "tg should have 2 arguments"
         add_inc(ret_imports, AngInc("any"), include_in_header)
         tuple_arg = handle_expr(node.args[0], ret_imports)
         index_arg = handle_expr(node.args[1], ret_imports)
         return f"{tuple_arg}.get<{index_arg}>()"
     if caller_str == "dg":
-        assert len(node.args) == 2, "incorrect number of args when calling dg"
+        assert len(node.args) == 2, "dg should have 2 arguments"
         dict_arg = handle_expr(node.args[0], ret_imports)
         index_arg = handle_expr(node.args[1], ret_imports)
         return f"{dict_arg}.dg({index_arg})"
     if caller_str == "list_reserve":
-        assert len(node.args) == 2, "incorrect number of args when calling list_reserve"
+        assert len(node.args) == 2, "list_reserve should have 2 arguments"
         list_arg = handle_expr(node.args[0], ret_imports)
         size_arg = handle_expr(node.args[1], ret_imports)
         return f"{list_arg}.reserve({size_arg})"
@@ -45,7 +45,7 @@ def handle_call(
         caller_str = caller_str.replace(".", "::")
     elif caller_str.startswith("pypp_time"):
         add_inc(ret_imports, QInc("pypp_time.h"), include_in_header)
-        caller_str = replace_second_underscore(caller_str)
+        caller_str = _replace_second_underscore(caller_str)
     args_str = handle_exprs(node.args, ret_imports, handle_expr, include_in_header)
     cpp_call_start, cpp_call_end = lookup_cpp_call(
         caller_str, ret_imports, include_in_header
@@ -53,7 +53,7 @@ def handle_call(
     return f"{cpp_call_start}{args_str}{cpp_call_end}"
 
 
-def replace_second_underscore(s):
+def _replace_second_underscore(s):
     parts = s.split("_", 2)  # Split into at most 3 parts
     assert len(parts) >= 2, "Name cannot start with pypp_time"
     return parts[0] + "_" + parts[1] + "::" + parts[2]

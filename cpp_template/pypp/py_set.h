@@ -13,6 +13,7 @@ template <typename T> class PySet {
     std::unordered_set<T> data;
 
   public:
+    using value_type = T;
     // Constructors
     PySet() = default;
     PySet(std::initializer_list<T> init) : data(init) {}

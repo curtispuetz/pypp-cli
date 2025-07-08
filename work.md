@@ -36,11 +36,12 @@
   - inheritance. AAGP
   - ABC and @abstractmethod. AAGP
 - support for all operators. C
-- default dict
+- default dict. AAGP
 - deque
 - heapq
 - lambda functions
 - passing functions as arguments
 - union types or union with a None type (aka optional)
+- template parameters
 - json library
 - multiprocessing library

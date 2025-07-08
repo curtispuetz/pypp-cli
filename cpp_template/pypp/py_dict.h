@@ -174,6 +174,8 @@ template <typename K, typename V> class PyDictItems {
 
 template <typename K, typename V> class PyDict {
   public:
+    using key_type = K;
+    using value_type = V;
     // Underlying map
     std::unordered_map<K, V> data;
 
