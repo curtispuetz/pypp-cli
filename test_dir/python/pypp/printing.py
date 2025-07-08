@@ -4,4 +4,4 @@ T = TypeVar("T")
 
 
 def print_address(_type: T):
-    print(_type)
+    print(hex(id(_type)))
