@@ -12,6 +12,7 @@ CALL_MAP: dict[str, tuple[str, str, list[CppInclude]]] = {
     "zip": ("PyZip(", ")", [QInc("py_zip.h")]),
     "mov": ("std::move(", ")", [AngInc("utility")]),
     "pypp_get_resources": ("pypp_get_resources(", ")", [QInc("pypp_resources.h")]),
+    "int_pow": ("int_pow(", ")", [QInc("pypp_util/math.h")]),
 }
 
 
