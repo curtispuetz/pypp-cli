@@ -1,5 +1,7 @@
 #pragma once
 
+#include "py_str.h"
+#include "py_tuple.h"
 #include <functional>
 #include <utility>
 
