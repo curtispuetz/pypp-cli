@@ -25,6 +25,7 @@ TYPES_MAP: dict[str, TypeMapInfo] = {
     "enumerate": TypeMapInfo("PyEnumerate", [QInc("py_enumerate.h")]),
     "zip": TypeMapInfo("PyZip", [QInc("py_zip.h")]),
     "reversed": TypeMapInfo("PyReversed", [QInc("py_reversed.h")]),
+    "Uni": TypeMapInfo("Uni", [QInc("pypp_union.h")]),
 }
 
 

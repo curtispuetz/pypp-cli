@@ -46,6 +46,7 @@ from src.interfaces.first import interfaces_fn
 from src.operations import operations_fn
 from src.fn_as_vars.first import fn_as_vars_fn
 from src.default_dict.first import default_dict_fn
+from src.pypp_union.first import pypp_union_fn
 
 if __name__ == "__main__":
     print(return_something(1, 9))
@@ -101,3 +102,4 @@ if __name__ == "__main__":
     operations_fn()
     fn_as_vars_fn()
     default_dict_fn()
+    pypp_union_fn()

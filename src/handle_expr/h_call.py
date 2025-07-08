@@ -30,6 +30,16 @@ def handle_call(
         dict_arg = handle_expr(node.args[0], ret_imports)
         index_arg = handle_expr(node.args[1], ret_imports)
         return f"{dict_arg}.dg({index_arg})"
+    if caller_str == "vg":
+        assert len(node.args) == 2, "vg should have 2 arguments"
+        union_arg = handle_expr(node.args[0], ret_imports)
+        type_arg = handle_expr(node.args[1], ret_imports)
+        return f"{union_arg}.vg<{type_arg}>()"
+    if caller_str == "isinst":
+        assert len(node.args) == 2, "isinst should have 2 arguments"
+        obj_arg = handle_expr(node.args[0], ret_imports)
+        type_arg = handle_expr(node.args[1], ret_imports)
+        return f"{obj_arg}.isinst<{type_arg}>()"
     if caller_str == "list_reserve":
         assert len(node.args) == 2, "list_reserve should have 2 arguments"
         list_arg = handle_expr(node.args[0], ret_imports)

@@ -32,6 +32,7 @@
 #include "src/numbers/first.h"
 #include "src/operations.h"
 #include "src/printing/first.h"
+#include "src/pypp_union/first.h"
 #include "src/ranges/first.h"
 #include "src/ref_vars.h"
 #include "src/second.h"
@@ -106,6 +107,7 @@ int main() {
         operations_fn();
         fn_as_vars_fn();
         default_dict_fn();
+        pypp_union_fn();
         return 0;
     } catch (...) {
         handle_fatal_exception();

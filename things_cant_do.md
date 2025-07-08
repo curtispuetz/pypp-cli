@@ -74,3 +74,4 @@ or a factory function returning an object of the type and put the logic in there
 - provide initial values for a default dict (instead you can use the .update() method right after creation)
 - defaultdict(tuple)
 - pass a default dict inline (you can only assign it to a variable)
+- name a method 'isinstance'
