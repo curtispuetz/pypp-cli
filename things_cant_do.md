@@ -70,3 +70,4 @@ or a factory function returning an object of the type and put the logic in there
 - use super(). Instead, use 'BaseClass.__init__(self, a)'
 - Inheritance with dataclasses.
 - Im not sure if override methods work with inheritance because I haven't tested it.
+- Use the mod operator with a non-integer (i.e. 1.0 % 2)
