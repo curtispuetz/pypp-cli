@@ -19,5 +19,7 @@ def handle_compare(
     op = node.ops[0]
     if isinstance(op, ast.In):
         return f"{right_str}.contains({left_str})"
+    if isinstance(op, ast.NotIn):
+        return f"!{right_str}.contains({left_str})"
     op_str = handle_cmpop(op)
     return f"{left_str} {op_str} {right_str}"

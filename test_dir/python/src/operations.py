@@ -46,3 +46,36 @@ def operations_fn():
     # is not
     n: bool = 5 is not 6
     print(f"is not: {n}")
+    # in list
+    o: bool = 5 in [1, 5]
+    print(f"in: {o}")
+    # in set
+    p: bool = 5 in {1, 5}
+    print(f"in set: {p}")
+    # in dict
+    # Note: I create a test_dict because you can't inline the dicts like the others in
+    # Py++
+    test_dict: dict[int, str] = {1: "a", 5: "b"}
+    q: bool = 5 in test_dict
+    print(f"in dict: {q}")
+    # in tuple
+    r: bool = 5 in (1, 5)
+    print(f"in tuple: {r}")
+    # in string
+    s: bool = "abc" in "zzabczz"
+    print(f"in string: {s}")
+    # not in list
+    t: bool = 5 not in [1, 2]
+    print(f"not in: {t}")
+    # not in set
+    u: bool = 5 not in {1, 2}
+    print(f"not in set: {u}")
+    # not in dict
+    v: bool = 5 not in test_dict
+    print(f"not in dict: {v}")
+    # not in tuple
+    w: bool = 5 not in (1, 2)
+    print(f"not in tuple: {w}")
+    # not in string
+    x: bool = "abc" not in "zzxyz"
+    print(f"not in string: {x}")

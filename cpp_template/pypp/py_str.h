@@ -127,6 +127,7 @@ class PyStr {
     PyList<PyStr> split(const PyStr &sep = PyStr(" ")) const;
     PyStr join(const PyList<PyStr> &parts);
     int len() const;
+    bool contains(const PyStr &substr) const;
 
     PyStr operator+(const PyStr &other) const;
     PyStr operator*(const int rep) const;

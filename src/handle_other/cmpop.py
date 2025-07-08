@@ -21,4 +21,5 @@ def handle_cmpop(_type: ast.cmpop) -> str:
         return "=="
     if isinstance(_type, ast.IsNot):
         return "!="
-    raise Exception(f"cmpop type {_type} is not handled")
+    # all types are handled. In and NotIn are handled before the function call
+    raise Exception(f"Shouldn't happen")
