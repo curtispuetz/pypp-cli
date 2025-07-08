@@ -2,7 +2,7 @@
 #                  | RShift | BitOr | BitXor | BitAnd | FloorDiv
 import ast
 
-from src.d_types import QInc
+from src.d_types import QInc, AngInc
 from src.util.ret_imports import RetImports, add_inc
 
 
@@ -18,6 +18,9 @@ def handle_operator(
         return "", "*", ""
     if isinstance(node, ast.Div):
         return "", "/", ""
+    if isinstance(node, ast.Pow):
+        add_inc(ret_imports, AngInc("cmath"))
+        return "std::pow(", ", ", ")"
     if isinstance(node, ast.FloorDiv):
         add_inc(ret_imports, QInc("pypp_util/floor_div.h"))
         return "py_floor_div(", ", ", ")"
