@@ -1,7 +1,9 @@
 from collections import defaultdict
 from dataclasses import dataclass
 
-# TODO: see about fixing the issue where you cannot inline a dictionary
+from test_dir.python.pypp.printing import print_address
+
+
 def _dict_factory() -> dict[int, int]:
     return {1: 2, 3: 4}
 
@@ -78,5 +80,4 @@ def default_dict_fn():
     ac: defaultdict[int, _CustomType] = defaultdict(lambda: _CustomType(42))
     ad: _CustomType = ac[0]
     print(ad.val)
-    # TODO: support printing for dataclasses and classes
-    # print(ac)
+    print_address(ad)
