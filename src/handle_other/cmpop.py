@@ -7,14 +7,14 @@ import ast
 def handle_cmpop(_type: ast.cmpop) -> str:
     if isinstance(_type, ast.Eq):
         return "=="
-    if isinstance(_type, ast.Gt):
-        return ">"
-    if isinstance(_type, ast.GtE):
-        return ">="
+    if isinstance(_type, ast.NotEq):
+        return "!="
     if isinstance(_type, ast.Lt):
         return "<"
     if isinstance(_type, ast.LtE):
         return "<="
-    if isinstance(_type, ast.NotEq):
-        return "!="
+    if isinstance(_type, ast.Gt):
+        return ">"
+    if isinstance(_type, ast.GtE):
+        return ">="
     raise Exception(f"cmpop type {_type} is not handled")
