@@ -16,6 +16,7 @@
 #include "src/fourth.h"
 #include "src/if_elif_else/if_elif_else.h"
 #include "src/inconsistent_behviour/editing_a_reference.h"
+#include "src/interfaces/first.h"
 #include "src/lists/as_arg.h"
 #include "src/lists/comprehensions.h"
 #include "src/lists/exceptions.h"
@@ -98,6 +99,7 @@ int main() {
         dataclass_with_methods_fn();
         classes_fn();
         class_inheritance_fn();
+        interfaces_fn();
         return 0;
     } catch (...) {
         handle_fatal_exception();

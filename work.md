@@ -31,9 +31,9 @@
 - file handling. AAGP but needs work on saving raw data
 - support for pass-by-value and moving for arguments. AAGP
 - dataclasses. AAGP
-- Classes. AAGP except for below
-  - inheritance
-  - ABC and @abstractmethod
+- Classes. AAGP
+  - inheritance. AAGP
+  - ABC and @abstractmethod. AAGP
 - default dict
 - deque
 - json library
