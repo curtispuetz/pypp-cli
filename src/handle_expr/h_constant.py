@@ -31,5 +31,5 @@ def handle_constant(
     if isinstance(node.value, int) or isinstance(node.value, float):
         return str(node.value)
     if node.value is None:
-        return "None"
+        return "std::monostate"
     raise Exception(f"constant type {node.value} not handled")

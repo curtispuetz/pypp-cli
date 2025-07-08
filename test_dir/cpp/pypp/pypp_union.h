@@ -22,8 +22,12 @@ template <typename... Types> class Uni {
         return std::holds_alternative<T>(data_);
     }
 
+    bool is_none() const {
+        return std::holds_alternative<std::monostate>(data_);
+    }
+
     // Get value as T (throws if wrong type)
-    template <typename T> T &vg() { return std::get<T>(data_); }
+    template <typename T> T &ug() { return std::get<T>(data_); }
 
   private:
     VariantType data_;

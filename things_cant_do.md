@@ -75,3 +75,4 @@ or a factory function returning an object of the type and put the logic in there
 - defaultdict(tuple)
 - pass a default dict inline (you can only assign it to a variable)
 - name a method 'isinstance'
+- use the Uni type inline (i.e. Uni can only be assigned to a variable)

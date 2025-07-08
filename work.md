@@ -39,9 +39,9 @@
 - default dict. AAGP
 - lambda functions. AAGP
 - passing functions as arguments. AAGP
+- union types or union with a None type (aka optional). AAGP
 - deque
 - heapq
-- union types or union with a None type (aka optional)
 - template parameters
 - json library
 - multiprocessing library
