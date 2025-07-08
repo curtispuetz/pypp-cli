@@ -95,6 +95,9 @@ def _calc_fields_and_constructor(
     name_doesnt_start_with_underscore: bool,
     is_frozen: bool,
 ):
+    if constructor_sig == "":
+        # There can't be any fields if there is no constructor.
+        return ""
     field_defs = _calc_field_definitions(fields_and_base_constructor_calls, is_frozen)
     c_il: str = _calc_constructor_initializer_list(
         fields_and_base_constructor_calls,
