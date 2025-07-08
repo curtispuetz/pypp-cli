@@ -74,4 +74,5 @@ void default_dict_fn() {
     PyDefaultDict<int, _CustomType> ac([]() { return _CustomType(42); });
     _CustomType ad = ac[0];
     print(ad.val);
+    print(&ad);
 }
