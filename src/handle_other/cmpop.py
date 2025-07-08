@@ -3,7 +3,6 @@ import ast
 # ast docs: cmpop = Eq | NotEq | Lt | LtE | Gt | GtE | Is | IsNot | In | NotIn
 
 
-# TODO: handle more
 def handle_cmpop(_type: ast.cmpop) -> str:
     if isinstance(_type, ast.Eq):
         return "=="
@@ -22,4 +21,4 @@ def handle_cmpop(_type: ast.cmpop) -> str:
     if isinstance(_type, ast.IsNot):
         return "!="
     # all types are handled. In and NotIn are handled before the function call
-    raise Exception(f"Shouldn't happen")
+    raise Exception("Shouldn't happen")
