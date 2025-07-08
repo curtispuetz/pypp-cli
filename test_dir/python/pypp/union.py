@@ -15,5 +15,9 @@ def isinst(obj: Uni[*Ts], _type: type[T]) -> bool:
     return isinstance(obj._value, _type)
 
 
-def vg(obj: Uni[*Ts], _type: type[T]) -> Any:
+def is_none(obj: Uni[*Ts]) -> bool:
+    return obj._value is None
+
+
+def ug(obj: Uni[*Ts], _type: type[T]) -> Any:
     return obj._value

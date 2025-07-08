@@ -54,6 +54,6 @@ def _calc_callable_type(
     )
     ret_type = node.slice.elts[1]
     ret_type_cpp = handle_expr(ret_type, ret_imports, in_header)
-    if ret_type_cpp == "None":
+    if ret_type_cpp == "std::monostate":
         ret_type_cpp = "void"
     return f"std::function<{ret_type_cpp}({arg_types_cpp})> "

@@ -41,7 +41,10 @@ def handle_ann_assign(
         #  to make it so.
         return f"{type_cpp} {target_str}({value_str});"
     if type_cpp.startswith("PyDefaultDict<") or type_cpp.startswith("Uni<"):
-        return f"{type_cpp} {target_str}({calc_inside_rd(value_str)});"
+        v: str = calc_inside_rd(value_str)
+        if v == "std::monostate":
+            v += "{}"
+        return f"{type_cpp} {target_str}({v});"
     ref, type_cpp = calc_ref_str(type_cpp)
     return f"{type_cpp}{ref} {target_str} = {value_str};"
 
