@@ -4,6 +4,9 @@ from src.handle_stmt.h_class_def.for_class.for_class import handle_class_def_for
 from src.handle_stmt.h_class_def.for_dataclasses.for_dataclasses import (
     handle_class_def_for_dataclass,
 )
+from src.handle_stmt.h_class_def.for_interface.for_interface import (
+    handle_class_def_for_interface,
+)
 from src.util.ret_imports import RetImports
 
 
@@ -20,8 +23,23 @@ def handle_class_def(
         return handle_class_def_for_dataclass(
             node, ret_imports, ret_h_file, handle_stmt, handle_expr, is_frozen
         )
+    if _is_interface_def(node):
+        _do_interface_assertions(node)
+        # This is a struct, which is a special case of a class.
+        # Note: structs are not supported yet.
+        return handle_class_def_for_interface(
+            node, ret_imports, ret_h_file, handle_expr
+        )
     return handle_class_def_for_class(
         node, ret_imports, ret_h_file, handle_stmt, handle_expr
+    )
+
+
+def _is_interface_def(node: ast.ClassDef) -> bool:
+    return (
+        len(node.bases) == 1
+        and isinstance(node.bases[0], ast.Name)
+        and node.bases[0].id == "ABC"
     )
 
 
@@ -61,3 +79,19 @@ def _check_dataclass_keywords(nodes: list[ast.keyword]) -> bool:
             # slots is just ignored.
             raise NotImplementedError(f"unsupported dataclass keyword: {node.arg}")
     return frozen
+
+
+def _do_interface_assertions(node: ast.ClassDef) -> None:
+    # assert that only methods/functions are defined in node.body and that each of them
+    # has an 'abstractmethod' decorator
+    for item in node.body:
+        assert isinstance(item, ast.FunctionDef), (
+            f"only methods are supported in interface definitions, got {type(item).__name__}"
+        )
+        assert (
+            len(item.decorator_list) == 1
+            and isinstance(item.decorator_list[0], ast.Name)
+            and item.decorator_list[0].id == "abstractmethod"
+        ), (
+            f"method {item.name} in interface {node.name} must be decorated only with @abstractmethod"
+        )

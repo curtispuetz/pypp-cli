@@ -42,6 +42,7 @@ from src.dataclasses.first import dataclass_fn
 from src.dataclasses.with_methods import dataclass_with_methods_fn
 from src.classes.first import classes_fn
 from src.classes.inheritance import class_inheritance_fn
+from src.interfaces.first import interfaces_fn
 
 if __name__ == "__main__":
     print(return_something(1, 9))
@@ -93,3 +94,4 @@ if __name__ == "__main__":
     dataclass_with_methods_fn()
     classes_fn()
     class_inheritance_fn()
+    interfaces_fn()
