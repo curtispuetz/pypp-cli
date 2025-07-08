@@ -17,4 +17,8 @@ def handle_cmpop(_type: ast.cmpop) -> str:
         return ">"
     if isinstance(_type, ast.GtE):
         return ">="
+    if isinstance(_type, ast.Is):
+        return "=="
+    if isinstance(_type, ast.IsNot):
+        return "!="
     raise Exception(f"cmpop type {_type} is not handled")
