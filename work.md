@@ -1,6 +1,7 @@
 #### Legend
 - AAGP = at a good point
 - MDN = maybe don't need
+- C = complete
 
 #### Work
 - Lists. AAGP
@@ -34,10 +35,12 @@
 - Classes. AAGP
   - inheritance. AAGP
   - ABC and @abstractmethod. AAGP
-- support for all operators
+- support for all operators. C
 - default dict
 - deque
 - heapq
+- lambda functions
+- passing functions as arguments
 - union types or union with a None type (aka optional)
 - json library
 - multiprocessing library
