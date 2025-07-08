@@ -125,6 +125,10 @@ std::string PyStr::repeat_string(const std::string &input, int rep) {
     return result;
 }
 
+bool PyStr::contains(const PyStr &substr) const {
+    return s.find(substr.str()) != std::string::npos;
+}
+
 PyStr PyStr::operator+(const PyStr &other) const {
     return PyStr(s + other.str());
 }

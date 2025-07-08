@@ -85,6 +85,11 @@ template <typename... Args> class PyTup {
         return index_impl<T>(data, value);
     }
 
+    // Check if value is present in the tuple
+    template <typename T> bool contains(const T &value) const {
+        return count_impl<T>(data, value) > 0;
+    }
+
     // Compile-time access: Idiomatic, efficient, and fully typed
     template <std::size_t I> auto &get() {
         // NOTE: I think this is actually unnessary because if it is true it

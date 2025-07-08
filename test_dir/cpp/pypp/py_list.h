@@ -184,6 +184,11 @@ template <typename T> class PyList {
         return *this;
     }
 
+    // Check membership
+    bool contains(const T &value) const {
+        return std::find(data.begin(), data.end(), value) != data.end();
+    }
+
     // Iterator support
     auto begin() { return data.begin(); }
     auto end() { return data.end(); }
