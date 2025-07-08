@@ -10,3 +10,6 @@ def operations_fn():
     #  C++ does not have safe integer exponentiation.
     b: int = int_pow(2, 3)
     print(f"int power: {b}")
+    # mod
+    c: int = 10 % 3
+    print(f"mod: {c}")

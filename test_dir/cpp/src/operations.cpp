@@ -10,4 +10,6 @@ void operations_fn() {
     print(PyStr(std::format("float power: {}", a)));
     int b = int_pow(2, 3);
     print(PyStr(std::format("int power: {}", b)));
+    int c = 10 % 3;
+    print(PyStr(std::format("mod: {}", c)));
 }

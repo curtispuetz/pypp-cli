@@ -18,12 +18,16 @@ def handle_operator(
         return "", "*", ""
     if isinstance(node, ast.Div):
         return "", "/", ""
+    if isinstance(node, ast.Mod):
+        return "", "%", ""
     if isinstance(node, ast.Pow):
         add_inc(ret_imports, AngInc("cmath"))
         return "std::pow(", ", ", ")"
     if isinstance(node, ast.FloorDiv):
         add_inc(ret_imports, QInc("pypp_util/floor_div.h"))
         return "py_floor_div(", ", ", ")"
+    # Note:
+    # - MatMult is not supported because its mostly just used for numpy arrays.
     raise Exception(f"operator type {node} is not handled")
 
 
