@@ -34,7 +34,10 @@
 - Classes. AAGP
   - inheritance. AAGP
   - ABC and @abstractmethod. AAGP
+- support for all operators
 - default dict
 - deque
+- heapq
+- union types or union with a None type (aka optional)
 - json library
 - multiprocessing library
