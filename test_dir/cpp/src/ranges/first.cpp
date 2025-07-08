@@ -14,7 +14,9 @@ void _iter_and_print(PyRange arg1) {
     }
     print(a1);
 }
+
 PyRange _range_as_return() { return PyRange(9, 1, -2); }
+
 void ranges_fn() {
     print(PyStr("RANGE RESULTS:"));
     PyRange a = PyRange(10);

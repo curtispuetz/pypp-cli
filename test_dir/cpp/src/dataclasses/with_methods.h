@@ -8,4 +8,5 @@ struct DataClassWithMethods {
     int add(int x);
     int subtract(int x);
 };
+
 void dataclass_with_methods_fn();

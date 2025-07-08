@@ -5,6 +5,7 @@ struct _PrivateDataClass {
     int field1;
     _PrivateDataClass(int a_field1) : field1(std::move(a_field1)) {}
 };
+
 void dataclass_fn() {
     print(PyStr("DATACLASS RESULTS:"));
     FirstDataClass a =

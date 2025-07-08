@@ -7,6 +7,7 @@
 #include <utility>
 
 int square(int x) { return x * x; }
+
 void list_comprehension_fn() {
     print(PyStr("LIST COMPREHENSION RESULTS:"));
     PyList<int> squares;

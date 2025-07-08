@@ -13,6 +13,7 @@ void editing_a_reference_fn() {
     d[-1] = 99;
     print(PyStr(std::format("inconsistent behavior: {}", c)));
 }
+
 PyList<int> update_and_return_new(PyList<int> &l1) {
     l1.append(4);
     return l1;

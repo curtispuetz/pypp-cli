@@ -5,6 +5,7 @@
 #include "pypp_util/print.h"
 
 PyList<int> &_get_list(PyList<int> &input_list) { return input_list; }
+
 void ref_vars_fn() {
     print(PyStr("REF VARS RESULTS:"));
     PyList<PyList<int>> a = PyList({PyList({1, 2}), PyList({3, 4})});

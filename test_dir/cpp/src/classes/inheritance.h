@@ -9,12 +9,14 @@ class BaseClass {
     int add(int val);
     int add2(int val);
 };
+
 class BaseClass2 {
   public:
     int z;
     BaseClass2(int a_z) : z(std::move(a_z)) {}
     int mult2(int val);
 };
+
 class ChildClass : public BaseClass {
   public:
     int b;
@@ -22,6 +24,7 @@ class ChildClass : public BaseClass {
     int add(int val);
     int multiply(int val);
 };
+
 class ChildClass2 : public ChildClass {
   public:
     int c;
@@ -29,6 +32,7 @@ class ChildClass2 : public ChildClass {
         : ChildClass(a_a, a_b), c(std::move(a_c)) {}
     int add(int val);
 };
+
 class ChildMultiple : public BaseClass, public BaseClass2 {
   public:
     int c;
@@ -36,4 +40,5 @@ class ChildMultiple : public BaseClass, public BaseClass2 {
         : BaseClass(a_a), BaseClass2(a_b), c(std::move(a_c)) {}
     int add(int val);
 };
+
 void class_inheritance_fn();

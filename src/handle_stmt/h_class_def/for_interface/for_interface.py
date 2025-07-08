@@ -21,7 +21,7 @@ def handle_class_def_for_interface(
     )
     body_list.append(_calc_destructor(class_name))
     body_str: str = " ".join(body_list)
-    result = f"class {class_name} " + "{" + f"public: {body_str}" + "};"
+    result = f"class {class_name} " + "{" + f"public: {body_str}" + "};\n\n"
     if name_doesnt_start_with_underscore:
         ret_h_file.append(result)
         return ""
