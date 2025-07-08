@@ -13,3 +13,19 @@ def operations_fn():
     # mod
     c: int = 10 % 3
     print(f"mod: {c}")
+    # left shift
+    d: int = 1 << 2
+    print(f"left shift: {d}")
+    # right shift
+    e: int = 4 >> 1
+    print(f"right shift: {e}")
+    # bitwise or
+    f: int = 1 | 2
+    print(f"bitwise or: {f}")
+    # bitwise xor
+    g: int = 1 ^ 2
+    print(f"bitwise xor: {g}")
+    # bitwise and
+    h: int = 1 & 2
+    print(f"bitwise and: {h}")
+

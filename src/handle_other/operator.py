@@ -20,6 +20,16 @@ def handle_operator(
         return "", "/", ""
     if isinstance(node, ast.Mod):
         return "", "%", ""
+    if isinstance(node, ast.LShift):
+        return "", "<<", ""
+    if isinstance(node, ast.RShift):
+        return "", ">>", ""
+    if isinstance(node, ast.BitOr):
+        return "", "|", ""
+    if isinstance(node, ast.BitXor):
+        return "", "^", ""
+    if isinstance(node, ast.BitAnd):
+        return "", "&", ""
     if isinstance(node, ast.Pow):
         add_inc(ret_imports, AngInc("cmath"))
         return "std::pow(", ", ", ")"
