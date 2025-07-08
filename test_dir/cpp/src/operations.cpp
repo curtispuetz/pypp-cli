@@ -22,4 +22,12 @@ void operations_fn() {
     print(PyStr(std::format("bitwise xor: {}", g)));
     int h = 1 & 2;
     print(PyStr(std::format("bitwise and: {}", h)));
+    bool i = !true;
+    print(PyStr(std::format("not: {}", i)));
+    int j = -5;
+    print(PyStr(std::format("usub: {}", j)));
+    int k = +5;
+    print(PyStr(std::format("uadd: {}", k)));
+    int l = ~5;
+    print(PyStr(std::format("invert: {}", l)));
 }

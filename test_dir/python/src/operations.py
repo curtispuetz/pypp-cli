@@ -28,4 +28,15 @@ def operations_fn():
     # bitwise and
     h: int = 1 & 2
     print(f"bitwise and: {h}")
-
+    # not
+    i: bool = not True
+    print(f"not: {i}")
+    # usub
+    j: int = -5
+    print(f"usub: {j}")
+    # uadd
+    k: int = +5
+    print(f"uadd: {k}")
+    # invert
+    l: int = ~5
+    print(f"invert: {l}")
