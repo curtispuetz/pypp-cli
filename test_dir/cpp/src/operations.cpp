@@ -30,4 +30,8 @@ void operations_fn() {
     print(PyStr(std::format("uadd: {}", k)));
     int l1 = ~5;
     print(PyStr(std::format("invert: {}", l1)));
+    bool m = 5 == 5;
+    print(PyStr(std::format("is: {}", m)));
+    bool n = 5 != 6;
+    print(PyStr(std::format("is not: {}", n)));
 }

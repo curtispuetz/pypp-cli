@@ -40,3 +40,9 @@ def operations_fn():
     # invert
     l1: int = ~5
     print(f"invert: {l1}")
+    # is
+    m: bool = 5 is 5
+    print(f"is: {m}")
+    # is not
+    n: bool = 5 is not 6
+    print(f"is not: {n}")
