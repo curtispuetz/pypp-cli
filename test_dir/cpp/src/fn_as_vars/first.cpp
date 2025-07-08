@@ -1,7 +1,6 @@
 #include "fn_as_vars\first.h"
 #include "py_str.h"
 #include "pypp_util/print.h"
-#include <functional>
 
 PyStr _test_fn(int a, int b) { return PyStr(std::format("{} {}", a, b)); }
 
@@ -13,6 +12,10 @@ void _test_fn4(int a) { print(a); }
 
 void _test_fn5() { print(PyStr("test fn5 called")); }
 
+void TestClass::t(std::function<void()> &fn) { fn(); }
+
+void TestDataClass::t(std::function<void()> &fn) { fn(); }
+
 void fn_as_vars_fn() {
     print(PyStr("FN_AS_VARS RESULTS:"));
     std::function<PyStr(int, int)> fn_var = _test_fn;
@@ -23,4 +26,8 @@ void fn_as_vars_fn() {
     b(5);
     std::function<void()> c = _test_fn5;
     c();
+    TestClass d = TestClass();
+    d.t(c);
+    TestDataClass e = TestDataClass(1);
+    e.t(c);
 }
