@@ -1,3 +1,4 @@
+from dataclasses import dataclass
 from typing import Callable
 
 
@@ -21,6 +22,16 @@ def _test_fn5():
     print("test fn5 called")
 
 
+class TestClass:
+    def t(self, fn: Callable[[], None]):
+        fn()
+
+@dataclass
+class TestDataClass:
+    a: int
+    def t(self, fn: Callable[[], None]):
+        fn()
+
 def fn_as_vars_fn():
     print("FN_AS_VARS RESULTS:")
     # assign function to variable
@@ -35,4 +46,9 @@ def fn_as_vars_fn():
     # function that doesn't return anything or take arguments
     c: Callable[[], None] = _test_fn5
     c()
-    # TODO: test passing a function to a method
+    # passing a function as a method argument
+    d: TestClass = TestClass()
+    d.t(c)
+    # passing a function as dataclass method argument
+    e: TestDataClass = TestDataClass(1)
+    e.t(c)
