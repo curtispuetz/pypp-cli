@@ -28,6 +28,6 @@ void operations_fn() {
     print(PyStr(std::format("usub: {}", j)));
     int k = +5;
     print(PyStr(std::format("uadd: {}", k)));
-    int l = ~5;
-    print(PyStr(std::format("invert: {}", l)));
+    int l1 = ~5;
+    print(PyStr(std::format("invert: {}", l1)));
 }

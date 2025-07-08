@@ -38,5 +38,5 @@ def operations_fn():
     k: int = +5
     print(f"uadd: {k}")
     # invert
-    l: int = ~5
-    print(f"invert: {l}")
+    l1: int = ~5
+    print(f"invert: {l1}")
