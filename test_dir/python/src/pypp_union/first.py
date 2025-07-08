@@ -2,9 +2,6 @@ from test_dir.python.pypp.ownership import Valu, mov
 from test_dir.python.pypp.printing import print_address
 from test_dir.python.pypp.union import Uni, ug, isinst, is_none
 
-# TODO: there is a bug if you name the class member different than the arg name
-#  Fix this.
-
 
 class ClassWithUnion:
     def __init__(self, value: Uni[int, float]):
