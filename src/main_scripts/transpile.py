@@ -19,7 +19,7 @@ from src.util.get_py import get_main_py_ast_tree, get_src_py_ast_tree
 from src.util.main_source import calc_main_cpp_source, calc_src_file_cpp_and_h_source
 
 
-def pypp_transpile():
+def pypp_transpile() -> list[str]:
     # Step 1: Initialize the C++ project if it isn't already
     if os.path.isdir(C_CPP_DIR) and not os.path.isdir(C_CPP_BUILD_DIR):
         shutil.rmtree(C_CPP_DIR)
@@ -54,6 +54,7 @@ def pypp_transpile():
     py_files_transpiled: int = 0
     header_files_written: int = 0
     cpp_files_written: int = 0
+    files_added_or_modified: list[str] = []
     for changed_or_new_file in py_file_changes.changed_or_new_files:
         py_files_transpiled += 1
         if changed_or_new_file == MAIN_FILE_SECRET_NAME:
@@ -64,6 +65,7 @@ def pypp_transpile():
                 cpp_main_file.write(main_cpp_source)
             print("Wrote main.cpp")
             cpp_files_written += 1
+            files_added_or_modified.append(C_CPP_MAIN_FILE)
         else:
             # transpile src file
             py_src_file = os.path.join(C_PYTHON_SRC_DIR, changed_or_new_file)
@@ -72,16 +74,19 @@ def pypp_transpile():
             cpp_file = file_without_ext + ".cpp"  # Remove the .py extension
             h_file = file_without_ext + ".h"
             cpp, h = calc_src_file_cpp_and_h_source(src_file_py_ast_tree, h_file)
-            full_path = os.path.join(C_CPP_SRC_DIR, cpp_file)
-            full_dir = os.path.dirname(full_path)
+            cpp_full_path = os.path.join(C_CPP_SRC_DIR, cpp_file)
+            full_dir = os.path.dirname(cpp_full_path)
             os.makedirs(full_dir, exist_ok=True)
             if cpp != "":
-                with open(full_path, "w") as cpp_write_file:
+                with open(cpp_full_path, "w") as cpp_write_file:
                     cpp_write_file.write(cpp)
-                    cpp_files_written += 1
-            with open(os.path.join(C_CPP_SRC_DIR, h_file), "w") as h_write_file:
+                cpp_files_written += 1
+                files_added_or_modified.append(cpp_full_path)
+            h_full_path = os.path.join(C_CPP_SRC_DIR, h_file)
+            with open(h_full_path, "w") as h_write_file:
                 h_write_file.write(h)
-                header_files_written += 1
+            header_files_written += 1
+            files_added_or_modified.append(h_full_path)
     print(
         f"py++ transpile finished. "
         f"files deleted: {files_deleted}, "
@@ -89,6 +94,7 @@ def pypp_transpile():
         f"header files written: {header_files_written}, "
         f"cpp files written: {cpp_files_written}"
     )
+    return files_added_or_modified
 
 
 if __name__ == "__main__":
