@@ -1,9 +1,9 @@
+import os
 import subprocess
 from multiprocessing import Pool
 from pathlib import Path
 
 from src.config import C_CPP_DIR
-from src.util.calc_src_files import calc_cpp_and_h_files_to_format
 
 
 def _format_file(file: Path):
@@ -13,12 +13,14 @@ def _format_file(file: Path):
     )
 
 
-def pypp_format():
-    files = calc_cpp_and_h_files_to_format()
-    with Pool(4) as p:  # Adjust number of workers
-        p.map(_format_file, files)
-    print("py++ format finished")
+def pypp_format(files_added_or_modified: list[str]):
+    num_cores = os.cpu_count() or 1  # Fallback to 1 if None
+    with Pool(num_cores) as p:  # Adjust number of workers
+        p.map(_format_file, files_added_or_modified)
+    print(f"py++ format finished. "
+          f"files formatted: {len(files_added_or_modified)}, "
+          f"cores used: {num_cores}")
 
 
 if __name__ == "__main__":
-    pypp_format()
+    pypp_format([])
