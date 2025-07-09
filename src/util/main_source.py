@@ -1,5 +1,4 @@
 import ast
-from pathlib import Path
 
 from src.handle_stmt.stmt import handle_stmt
 from src.include_str import calc_includes_for_main_file, calc_includes
@@ -16,7 +15,7 @@ def calc_main_cpp_source(main_py: ast.Module) -> str:
     return cpp_includes + cpp_source_minus_includes
 
 
-def calc_src_file_cpp_and_h_source(src_py: ast.Module, h_file: Path) -> tuple[str, str]:
+def calc_src_file_cpp_and_h_source(src_py: ast.Module, h_file: str) -> tuple[str, str]:
     imp_map, i = handle_import_stmts(src_py.body)
     ret_imports = RetImports(set(), set(), imp_map)
     ret_h_file: list[str] = []

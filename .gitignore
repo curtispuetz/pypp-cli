@@ -3,3 +3,4 @@
 /test_dir/cpp/build
 **/__pycache__/**
 /test_dir2
+/test_dir/file_timestamps.json
