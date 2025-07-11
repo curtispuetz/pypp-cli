@@ -33,8 +33,9 @@ def save_timestamps(timestamps):
 
 @dataclass(frozen=True, slots=True)
 class PyFileChanges:
-    changed_or_new_files: list[str]
-    deleted_files: set[str]
+    changed_files: list[str]
+    new_files: list[str]
+    deleted_files: list[str]
 
 
 def _check_file_change(
@@ -56,7 +57,7 @@ def _check_file_change(
         new_files.append(rel_path)
 
 
-def calc_py_file_changes() -> PyFileChanges:
+def calc_py_file_changes() -> tuple[PyFileChanges, dict]:
     prev_timestamps = load_previous_timestamps()
     curr_timestamps = {}
     changed_files = []
@@ -93,8 +94,7 @@ def calc_py_file_changes() -> PyFileChanges:
             f"deleted files: {len(deleted_files)}"
         )
 
-    save_timestamps(curr_timestamps)
-    return PyFileChanges(changed_files + new_files, deleted_files)
+    return PyFileChanges(changed_files, new_files, list(deleted_files)), curr_timestamps
 
 
 if __name__ == "__main__":
