@@ -40,6 +40,7 @@
 - lambda functions. AAGP
 - passing functions as arguments. AAGP
 - union types or union with a None type (aka optional). AAGP
+- config classes
 - deque
 - heapq
 - multiple executables
