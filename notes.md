@@ -22,3 +22,9 @@ reference you would do a: Ref[MyElementType] = my_list[0].
 provides a potential performance boost just the std::vector.reserve() function does.
 - Don't name anything in your class methods the same names as your class fields. Because it will break the C++.
 - For inheritance, but super().__init__() as the first like of the child class for consistent C++ behavior.
+- The behavior of constants and type aliases is a tiny bit nuanced if you are defining them not at the module level 
+(i.e. inside
+a function, class or other logic). I don't care about this because I only define these at the module level
+anyway. But if you define these not at the module level, it will function as expected if you name it starting 
+with an underscore. But if you don't name it starting with an underscore the constant or type alias is always extracted 
+to the header file in the transpiled C++ (this is the little nuance).

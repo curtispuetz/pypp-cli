@@ -17,9 +17,11 @@ def pypp_format(files_added_or_modified: list[str]):
     num_cores = os.cpu_count() or 1  # Fallback to 1 if None
     with Pool(num_cores) as p:  # Adjust number of workers
         p.map(_format_file, files_added_or_modified)
-    print(f"py++ format finished. "
-          f"files formatted: {len(files_added_or_modified)}, "
-          f"cores used: {num_cores}")
+    print(
+        f"py++ format finished. "
+        f"files formatted: {len(files_added_or_modified)}, "
+        f"cores used: {num_cores}"
+    )
 
 
 if __name__ == "__main__":
