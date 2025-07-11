@@ -14,39 +14,57 @@ def handle_ann_assign(
     handle_expr,
     handle_stmt,
 ) -> str:
+    target_str: str = handle_expr(node.target, ret_imports)
+    is_const: bool = target_str.isupper()
+    const_str: str = "const " if is_const else ""
+    is_private: bool = target_str.startswith("_")
+    is_header_only: bool = is_const and not is_private
     if is_callable_type(node.annotation):
-        type_cpp: str = calc_callable_type(node.annotation, ret_imports, handle_expr)
+        type_cpp: str = calc_callable_type(
+            node.annotation, ret_imports, handle_expr, is_header_only
+        )
     else:
-        type_cpp: str = handle_expr(node.annotation, ret_imports)
-    target_str = handle_expr(node.target, ret_imports)
+        type_cpp: str = handle_expr(
+            node.annotation, ret_imports, include_in_header=is_header_only
+        )
     if node.value is None:
         return f"{type_cpp} {target_str};"
     if isinstance(node.value, (ast.ListComp, ast.SetComp, ast.DictComp)):
         return f"{type_cpp} {target_str}; " + handle_comp(
             node.value, ret_imports, ret_h_file, handle_expr, handle_stmt, target_str
         )
-    value_str = handle_expr(node.value, ret_imports)
+    value_str = handle_expr(node.value, ret_imports, include_in_header=is_header_only)
     if value_str == "PyList({})":
         value_str = _empty_initialize("PyList", type_cpp)
     elif value_str == "set()":
         value_str = _empty_initialize("PySet", type_cpp)
+    result: str = _calc_final_str(node, value_str, const_str, type_cpp, target_str)
+    if is_header_only:
+        ret_h_file.append(result)
+        return ""
+    return result
+
+
+def _calc_final_str(
+    node: ast.AnnAssign, value_str: str, const_str: str, type_cpp: str, target_str: str
+):
     if value_str.startswith("defaultdict("):
         py_value_type = _calc_py_value_type(node.value)
         if py_value_type != "":
             new_value_str = _calc_default_dict_value_str(type_cpp, py_value_type)
-            return f"auto {target_str} = {new_value_str};"
+            return f"{const_str}auto {target_str} = {new_value_str};"
     if type_cpp.startswith("PyDict<"):
         # TODO later: consider that dicts are handled differently here than lists
         #  and sets. It might be nice if they are handled the same, but it seems hard
         #  to make it so.
-        return f"{type_cpp} {target_str}({value_str});"
+        return f"{const_str}{type_cpp} {target_str}({value_str});"
     if type_cpp.startswith("PyDefaultDict<") or type_cpp.startswith("Uni<"):
         v: str = calc_inside_rd(value_str)
         if v == "std::monostate":
             v += "{}"
-        return f"{type_cpp} {target_str}({v});"
+        return f"{const_str}{type_cpp} {target_str}({v});"
     ref, type_cpp = calc_ref_str(type_cpp)
-    return f"{type_cpp}{ref} {target_str} = {value_str};"
+    return f"{const_str}{type_cpp}{ref} {target_str} = {value_str};"
 
 
 def _calc_py_value_type(node: ast.expr) -> str:

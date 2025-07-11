@@ -34,6 +34,9 @@ def pypp_transpile() -> list[str]:
     # Step 3: iterate over the deleted Py files and delete the corresponding C++ files
     files_deleted: int = 0
     for deleted_file in py_file_changes.deleted_files:
+        # TODO: I should also delete the .cpp file for modified file, because the
+        #  .cpp file could be empty after modification. And just delete both header
+        #  and cpp to make it simpler.
         if deleted_file == MAIN_FILE_SECRET_NAME:
             raise Exception("main.py file was deleted; cannot delete the main.py file")
         deleted_file_without_ext = deleted_file[:-3]  # Remove the .py extension

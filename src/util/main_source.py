@@ -23,7 +23,7 @@ def calc_src_file_cpp_and_h_source(src_py: ast.Module, h_file: str) -> tuple[str
         src_py.body[i:], ret_imports, ret_h_file, handle_stmt
     )
     h_includes, cpp_includes = calc_includes(ret_imports)
-    if cpp_source_minus_include == "":
+    if cpp_source_minus_include.strip() == "":
         ret_cpp_str = ""
     else:
         all_cpp_includes = f'#include "{h_file}"\n' + cpp_includes

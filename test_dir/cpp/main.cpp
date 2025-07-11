@@ -4,6 +4,7 @@
 #include "pypp_util/print.h"
 #include "src/classes/first.h"
 #include "src/classes/inheritance.h"
+#include "src/constants.h"
 #include "src/dataclasses/first.h"
 #include "src/dataclasses/with_methods.h"
 #include "src/default_dict/first.h"
@@ -108,6 +109,7 @@ int main() {
         fn_as_vars_fn();
         default_dict_fn();
         pypp_union_fn();
+        constant_fn();
         return 0;
     } catch (...) {
         handle_fatal_exception();

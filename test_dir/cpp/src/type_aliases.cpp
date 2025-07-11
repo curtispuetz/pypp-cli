@@ -14,6 +14,8 @@ void type_aliases_fn() {
     _PrivateType private_data =
         PyTup(42, PyList({PyStr("example"), PyStr("data")}), 3.14);
     print(PyStr(std::format("Private data: {}", private_data)));
+    L a = PyList({1, 2, 3});
+    print(a);
 }
 
 int process_matrix(Matrix &m) { return m[0][0]; }
