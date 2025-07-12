@@ -12,8 +12,13 @@ from src.util.ret_imports import ImpMap
 def handle_import_from(node: ast.ImportFrom, imp_map: ImpMap):
     assert node.module is not None, "Not supported"
     assert node.level == 0, "Only absolute import supported"
-    # NOTE: this is actually only for src files.
-    if not node.module.startswith("src."):
+    # NOTE: a hack for now.
+    if node.module in {
+        "typing",
+        "dataclasses",
+        "collections",
+        "abc",
+    } or node.module.startswith("test_dir"):
         return
     module_str = node.module.replace(".", "/") + ".h"
     for alias in node.names:
