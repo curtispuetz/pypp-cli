@@ -1,5 +1,7 @@
 from typing import Callable
 
+from test_dir.python.pypp.configclass import configclass
+
 A: int = 1
 B: str = "B"
 C: list[int] = [1, 2, 3]
@@ -11,6 +13,24 @@ _A: int = 2
 
 # A function
 G: Callable[[int], int] = lambda x: x + 1
+
+
+@configclass
+class MyConfig:
+    a: int = 1
+    b: str = "2"
+
+
+@configclass(dtype=str)
+class MyConfig2:
+    a = "a"
+    b = "b"
+
+
+@configclass(dtype=int)
+class _PrivateConfig:
+    a = 1
+    b = 2
 
 
 # inside function
@@ -25,3 +45,7 @@ def constant_fn():
     print(F)
     print(_F)
     print(G(1))  # should print 2
+    # config classes
+    print(MyConfig.a, MyConfig.b)
+    print(MyConfig2.a, MyConfig2.b)
+    print(_PrivateConfig.a, _PrivateConfig.b)

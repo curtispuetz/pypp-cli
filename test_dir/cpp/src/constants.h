@@ -12,5 +12,15 @@ const PyList<int> C = PyList({1, 2, 3});
 const PyDict<int, int> D({{0, 1}});
 const PySet<int> E = PySet({1, 2, 3});
 const std::function<int(int)> G = [](auto x) { return x + 1; };
+struct _PseudoPyppNameMyConfig {
+    int a = 1;
+    PyStr b = PyStr("2");
+};
+inline _PseudoPyppNameMyConfig MyConfig;
+struct _PseudoPyppNameMyConfig2 {
+    PyStr a = PyStr("a");
+    PyStr b = PyStr("b");
+};
+inline _PseudoPyppNameMyConfig2 MyConfig2;
 void constant_fn();
 const int F = 3;
