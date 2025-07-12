@@ -19,13 +19,39 @@ def handle_ann_assign(
     const_str: str = "const " if is_const else ""
     is_private: bool = target_str.startswith("_")
     is_header_only: bool = is_const and not is_private
+    result: str = handle_general_ann_assign(
+        node,
+        ret_imports,
+        ret_h_file,
+        handle_expr,
+        handle_stmt,
+        target_str,
+        is_header_only,
+        const_str,
+    )
+    if is_header_only:
+        ret_h_file.append(result)
+        return ""
+    return result
+
+
+def handle_general_ann_assign(
+    node: ast.AnnAssign,
+    ret_imports: RetImports,
+    ret_h_file: list[str],
+    handle_expr,
+    handle_stmt,
+    target_str: str,
+    include_in_header: bool,
+    const_str: str = "",
+) -> str:
     if is_callable_type(node.annotation):
         type_cpp: str = calc_callable_type(
-            node.annotation, ret_imports, handle_expr, is_header_only
+            node.annotation, ret_imports, handle_expr, include_in_header
         )
     else:
         type_cpp: str = handle_expr(
-            node.annotation, ret_imports, include_in_header=is_header_only
+            node.annotation, ret_imports, include_in_header=include_in_header
         )
     if node.value is None:
         return f"{type_cpp} {target_str};"
@@ -33,16 +59,14 @@ def handle_ann_assign(
         return f"{type_cpp} {target_str}; " + handle_comp(
             node.value, ret_imports, ret_h_file, handle_expr, handle_stmt, target_str
         )
-    value_str = handle_expr(node.value, ret_imports, include_in_header=is_header_only)
+    value_str = handle_expr(
+        node.value, ret_imports, include_in_header=include_in_header
+    )
     if value_str == "PyList({})":
         value_str = _empty_initialize("PyList", type_cpp)
     elif value_str == "set()":
         value_str = _empty_initialize("PySet", type_cpp)
-    result: str = _calc_final_str(node, value_str, const_str, type_cpp, target_str)
-    if is_header_only:
-        ret_h_file.append(result)
-        return ""
-    return result
+    return _calc_final_str(node, value_str, const_str, type_cpp, target_str)
 
 
 def _calc_final_str(

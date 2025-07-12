@@ -36,7 +36,7 @@ def _calc_methods(
 ) -> list[str]:
     ret: list[str] = []
     for item in node.body:
-        # Note: assertions have already bee done.
+        # Note: assertions have already been done.
         fn_signature = calc_fn_signature(
             item,
             ret_imports,
