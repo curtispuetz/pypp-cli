@@ -6,12 +6,12 @@
 #include "py_str.h"
 #include <functional>
 
-const int A = 1;
-const PyStr B = PyStr("B");
-const PyList<int> C = PyList({1, 2, 3});
-const PyDict<int, int> D({{0, 1}});
-const PySet<int> E = PySet({1, 2, 3});
-const std::function<int(int)> G = [](auto x) { return x + 1; };
+inline const int A = 1;
+inline const PyStr B = PyStr("B");
+inline const PyList<int> C = PyList({1, 2, 3});
+inline const PyDict<int, int> D({{0, 1}});
+inline const PySet<int> E = PySet({1, 2, 3});
+inline const std::function<int(int)> G = [](auto x) { return x + 1; };
 struct _PseudoPyppNameMyConfig {
     int a = 1;
     PyStr b = PyStr("2");
@@ -23,4 +23,4 @@ struct _PseudoPyppNameMyConfig2 {
 };
 inline _PseudoPyppNameMyConfig2 MyConfig2;
 void constant_fn();
-const int F = 3;
+inline const int F = 3;

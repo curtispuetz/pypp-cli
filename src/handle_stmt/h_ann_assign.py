@@ -19,6 +19,8 @@ def handle_ann_assign(
     const_str: str = "const " if is_const else ""
     is_private: bool = target_str.startswith("_")
     is_header_only: bool = is_const and not is_private
+    if is_header_only and is_const:
+        const_str = "inline const "
     result: str = handle_general_ann_assign(
         node,
         ret_imports,
