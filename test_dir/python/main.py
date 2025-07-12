@@ -1,4 +1,6 @@
 from first import return_something
+from imports_test.first import imports_test_fn
+from imports_test.second import imports_test_fn2
 from second import return_friend
 from third import using_inline_string
 from fourth import string_as_argument
@@ -105,3 +107,5 @@ if __name__ == "__main__":
     default_dict_fn()
     pypp_union_fn()
     constant_fn()
+    imports_test_fn()
+    imports_test_fn2()

@@ -14,6 +14,8 @@
 #include "fn_as_vars/first.h"
 #include "fourth.h"
 #include "if_elif_else/if_elif_else.h"
+#include "imports_test/first.h"
+#include "imports_test/second.h"
 #include "inconsistent_behviour/editing_a_reference.h"
 #include "interfaces/first.h"
 #include "lists/as_arg.h"
@@ -110,6 +112,8 @@ int main() {
         default_dict_fn();
         pypp_union_fn();
         constant_fn();
+        imports_test_fn();
+        imports_test_fn2();
         return 0;
     } catch (...) {
         handle_fatal_exception();
