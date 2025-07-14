@@ -50,6 +50,7 @@ from fn_as_vars.first import fn_as_vars_fn
 from default_dict.first import default_dict_fn
 from pypp_union.first import pypp_union_fn
 from constants import constant_fn
+from number_types import number_types_fn
 
 if __name__ == "__main__":
     print(return_something(1, 9))
@@ -109,3 +110,4 @@ if __name__ == "__main__":
     constant_fn()
     imports_test_fn()
     imports_test_fn2()
+    number_types_fn()

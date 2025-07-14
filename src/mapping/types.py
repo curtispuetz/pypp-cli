@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from src.d_types import CppInclude, QInc
+from src.d_types import CppInclude, QInc, AngInc
 from src.util.ret_imports import RetImports, add_inc
 
 
@@ -15,6 +15,15 @@ TYPES_MAP: dict[str, TypeMapInfo] = {
     # NOTE: technically I don't think this is necessary since int and int are the same
     "int": TypeMapInfo("int", []),
     "float": TypeMapInfo("double", []),
+    "float32": TypeMapInfo("float", []),
+    "int8_t": TypeMapInfo("int8_t", [AngInc("cstdint")]),
+    "int16_t": TypeMapInfo("int16_t", [AngInc("cstdint")]),
+    "int32_t": TypeMapInfo("int32_t", [AngInc("cstdint")]),
+    "int64_t": TypeMapInfo("int64_t", [AngInc("cstdint")]),
+    "uint8_t": TypeMapInfo("uint8_t", [AngInc("cstdint")]),
+    "uint16_t": TypeMapInfo("uint16_t", [AngInc("cstdint")]),
+    "uint32_t": TypeMapInfo("uint32_t", [AngInc("cstdint")]),
+    "uint64_t": TypeMapInfo("uint64_t", [AngInc("cstdint")]),
     "list": TypeMapInfo("PyList", [QInc("py_list.h")]),
     "dict": TypeMapInfo("PyDict", [QInc("py_dict.h")]),
     "defaultdict": TypeMapInfo("PyDefaultDict", [QInc("py_dict_default.h")]),
