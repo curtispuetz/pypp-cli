@@ -40,12 +40,13 @@
 - lambda functions. AAGP
 - passing functions as arguments. AAGP
 - union types or union with a None type (aka optional). AAGP
-- config classes
-- deque
-- heapq
-- multiple executables
+- config classes. AAGP
+- multiple executables. AAGP
 - all data types of integers and floats (i.e. uint8, int8, float32, etc.)
 - template parameters
 - json library
+- unit tests
 - multiprocessing library
+- deque
+- heapq
 - magic methods
