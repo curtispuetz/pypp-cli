@@ -6,7 +6,8 @@ from test_dir.python.pypp.custom_types import (
     uint8_t,
     uint16_t,
     uint32_t,
-    uint64_t, float32,
+    uint64_t,
+    float32,
 )
 
 
