@@ -5,7 +5,7 @@ from src.config import C_CPP_BUILD_RELEASE_DIR
 
 
 def pypp_run():
-    exe_path = Path(C_CPP_BUILD_RELEASE_DIR) / "pyppDefaultExeName.exe"
+    exe_path = Path(C_CPP_BUILD_RELEASE_DIR) / "main.exe"
     print("py++ running executable...")
     subprocess.run([str(exe_path)], check=True)
     # TODO later: uncomment this print later maybe

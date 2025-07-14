@@ -4,12 +4,11 @@ import shutil
 
 from src.config import (
     C_PYTHON_SRC_DIR,
-    C_CPP_MAIN_FILE,
     C_CPP_DIR,
     C_CPP_BUILD_DIR,
     C_CPP_SRC_DIR,
 )
-from src.constants import MAIN_FILE_SECRET_NAME
+from src.constants import SECRET_MAIN_FILE_DIR_PREFIX
 from src.util.file_change_tracker import (
     calc_py_file_changes,
     save_timestamps,
@@ -17,6 +16,7 @@ from src.util.file_change_tracker import (
 from src.util.initalize_cpp import initialize_cpp_project
 from src.util.get_py import get_main_py_ast_tree, get_src_py_ast_tree
 from src.util.main_source import calc_main_cpp_source, calc_src_file_cpp_and_h_source
+from src.util.write_cmake_lists import write_cmake_lists_file
 
 
 def _delete_cpp_and_h_file(filepath: str) -> int:
@@ -36,24 +36,26 @@ def _delete_cpp_and_h_file(filepath: str) -> int:
 
 
 def _transpile_cpp_and_h_files(
-    filepath: str, files_added_or_modified: list[str]
+    rel_path: str, files_added_or_modified: list[str]
 ) -> tuple[int, int]:
     header_files_written = 0
     cpp_files_written = 0
-    if filepath == MAIN_FILE_SECRET_NAME:
-        # Transpile the main.py file
-        main_py_ast_tree: ast.Module = get_main_py_ast_tree()
+    if rel_path.startswith(SECRET_MAIN_FILE_DIR_PREFIX):
+        # transpile a main file
+        real_rel_path = rel_path[len(SECRET_MAIN_FILE_DIR_PREFIX) :]
+        main_py_ast_tree: ast.Module = get_main_py_ast_tree(real_rel_path)
         main_cpp_source = calc_main_cpp_source(main_py_ast_tree)
-        with open(C_CPP_MAIN_FILE, "w") as cpp_main_file:
+        new_file: str = os.path.join(C_CPP_DIR, real_rel_path)[:-3] + ".cpp"
+        with open(new_file, "w") as cpp_main_file:
             cpp_main_file.write(main_cpp_source)
-        print("Wrote main.cpp")
         cpp_files_written += 1
-        files_added_or_modified.append(C_CPP_MAIN_FILE)
+        files_added_or_modified.append(new_file)
     else:
         # transpile src file
-        py_src_file = os.path.join(C_PYTHON_SRC_DIR, filepath)
+        # TODO: why do I do this join in here and in the get_src_py_ast_tree function?
+        py_src_file = os.path.join(C_PYTHON_SRC_DIR, rel_path)
         src_file_py_ast_tree = get_src_py_ast_tree(py_src_file)
-        file_without_ext = filepath[:-3]  # Remove the .py extension
+        file_without_ext = rel_path[:-3]  # Remove the .py extension
         cpp_file = file_without_ext + ".cpp"  # Remove the .py extension
         h_file = file_without_ext + ".h"
         cpp, h = calc_src_file_cpp_and_h_source(src_file_py_ast_tree, h_file)
@@ -81,6 +83,8 @@ def pypp_transpile() -> list[str]:
     was_initialized = initialize_cpp_project()
     if not was_initialized:
         print("C++ project directory already exists. Skipping initialization.")
+    # Step 1.1 write the CmakeLists.txt file
+    write_cmake_lists_file()
 
     # Step 2: calculate the files that have changed since the last transpile
     py_file_changes, file_timestamps = calc_py_file_changes()

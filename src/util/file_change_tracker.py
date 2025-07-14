@@ -2,8 +2,8 @@ import os
 import json
 from dataclasses import dataclass
 
-from src.config import C_PYTHON_SRC_DIR, C_TARGET_DIR, C_PYTHON_MAIN_FILE
-from src.constants import MAIN_FILE_SECRET_NAME
+from src.config import C_PYTHON_SRC_DIR, C_TARGET_DIR, C_PYTHON_DIR
+from src.constants import SECRET_MAIN_FILE_DIR_PREFIX
 
 TIMESTAMPS_FILE = os.path.join(C_TARGET_DIR, "file_timestamps.json")
 
@@ -17,6 +17,14 @@ def get_all_files(root) -> list[str]:
                 full_path = os.path.join(dirpath, filename)
                 ret.append(os.path.relpath(full_path, root))
     return ret
+
+
+def get_all_main_files() -> list[str]:
+    return [f for f in os.listdir(C_PYTHON_DIR) if f.endswith(".py")]
+
+
+def get_all_main_files_with_special_name() -> list[tuple[str, str]]:
+    return [(f, SECRET_MAIN_FILE_DIR_PREFIX + f) for f in get_all_main_files()]
 
 
 def load_previous_timestamps():
@@ -65,9 +73,8 @@ def calc_py_file_changes() -> tuple[PyFileChanges, dict]:
     deleted_files = set(prev_timestamps.keys())
 
     for rel_path in get_all_files(C_PYTHON_SRC_DIR):
-        filepath = os.path.join(C_PYTHON_SRC_DIR, rel_path)
         _check_file_change(
-            filepath,
+            os.path.join(C_PYTHON_SRC_DIR, rel_path),
             rel_path,
             curr_timestamps,
             prev_timestamps,
@@ -75,15 +82,16 @@ def calc_py_file_changes() -> tuple[PyFileChanges, dict]:
             new_files,
             deleted_files,
         )
-    _check_file_change(
-        C_PYTHON_MAIN_FILE,
-        MAIN_FILE_SECRET_NAME,
-        curr_timestamps,
-        prev_timestamps,
-        changed_files,
-        new_files,
-        deleted_files,
-    )
+    for rel_path, secret_name in get_all_main_files_with_special_name():
+        _check_file_change(
+            os.path.join(C_PYTHON_DIR, rel_path),
+            secret_name,
+            curr_timestamps,
+            prev_timestamps,
+            changed_files,
+            new_files,
+            deleted_files,
+        )
 
     if not (changed_files or new_files or deleted_files):
         print("No changes detected.")

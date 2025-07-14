@@ -1,12 +1,13 @@
 import ast
 import os
 
-from src.config import C_PYTHON_MAIN_FILE, C_PYTHON_SRC_DIR
+from src.config import C_PYTHON_SRC_DIR, C_PYTHON_DIR
 
 
-def get_main_py_ast_tree() -> ast.Module:
-    assert os.path.exists(C_PYTHON_MAIN_FILE), "main.py must be defined; file not found"
-    return _get_tree(C_PYTHON_MAIN_FILE)
+def get_main_py_ast_tree(rel_path: str) -> ast.Module:
+    file = os.path.join(C_PYTHON_DIR, rel_path)
+    assert os.path.exists(file), "Shouldn't happen"
+    return _get_tree(file)
 
 
 def get_src_py_ast_tree(py_src_file: str) -> ast.Module:
