@@ -30,5 +30,5 @@ PyStr escape_specials(const PyStr &input) {
             result += c;
         }
     }
-    return PyStr(result);
+    return PyStr(std::move(result));
 }

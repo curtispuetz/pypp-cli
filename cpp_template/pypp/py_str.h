@@ -109,7 +109,7 @@ class PyStr {
     }
     inline reverse_iterator rend() const { return reverse_iterator(s.crend()); }
 
-    PyStr(const std::string &str = "");
+    PyStr(std::string &&str = "");
 
     PyStr replace(const PyStr &old, const PyStr &replacement,
                   int count = -1) const;

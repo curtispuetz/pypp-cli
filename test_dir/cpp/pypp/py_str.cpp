@@ -5,7 +5,7 @@
 #include <iostream>
 #include <sstream>
 
-PyStr::PyStr(const std::string &str) : s(str) {}
+PyStr::PyStr(std::string &&str) : s(std::move(str)) {}
 
 PyStr PyStr::replace(const PyStr &old, const PyStr &replacement,
                      int count) const {
@@ -19,7 +19,7 @@ PyStr PyStr::replace(const PyStr &old, const PyStr &replacement,
         pos += replacement.len();
         ++replaced;
     }
-    return PyStr(result);
+    return PyStr(std::move(result));
 }
 
 int PyStr::find(const PyStr &sub) const {
@@ -64,13 +64,13 @@ bool PyStr::endswith(const PyStr &suffix) const {
 PyStr PyStr::lower() const {
     std::string result = s;
     std::transform(result.begin(), result.end(), result.begin(), ::tolower);
-    return PyStr(result);
+    return PyStr(std::move(result));
 }
 
 PyStr PyStr::upper() const {
     std::string result = s;
     std::transform(result.begin(), result.end(), result.begin(), ::toupper);
-    return PyStr(result);
+    return PyStr(std::move(result));
 }
 
 PyStr PyStr::strip() const {
@@ -103,13 +103,23 @@ PyList<PyStr> PyStr::split(const PyStr &sep) const {
 }
 
 PyStr PyStr::join(const PyList<PyStr> &parts) {
-    std::ostringstream oss;
+    if (parts.len() == 0)
+        return PyStr("");
+    // Estimate total size for reserve
+    size_t total = 0;
+    for (size_t i = 0; i < parts.len(); ++i)
+        total += parts[i].str().size();
+    total += s.size() * (parts.len() - 1);
+
+    std::string result;
+    result.reserve(total);
+
     for (size_t i = 0; i < parts.len(); ++i) {
-        oss << parts[i].str();
+        result += parts[i].str();
         if (i != parts.len() - 1)
-            oss << s;
+            result += s;
     }
-    return PyStr(oss.str());
+    return PyStr(std::move(result));
 }
 
 int PyStr::len() const { return s.length(); }
@@ -168,7 +178,7 @@ PyStr PyStr::operator[](const PySlice &sl) const {
             result += s[i];
         }
     }
-    return PyStr(result);
+    return PyStr(std::move(result));
 }
 
 const std::string &PyStr::str() const { return s; }
