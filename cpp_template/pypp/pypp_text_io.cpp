@@ -58,18 +58,24 @@ PyTextIO::~PyTextIO() {
 PyStr PyTextIO::read() {
     check_file_open();
     file_stream.clear();
-    file_stream.seekg(0);
+    file_stream.seekg(0, std::ios::end);
+    std::streamsize size = file_stream.tellg();
+    file_stream.seekg(0, std::ios::beg);
 
-    std::stringstream buffer;
-    buffer << file_stream.rdbuf();
-    return PyStr(buffer.str());
+    std::string buffer;
+    buffer.resize(static_cast<size_t>(size));
+    if (size > 0) {
+        file_stream.read(&buffer[0], size);
+    }
+    return PyStr(std::move(buffer));
 }
 
 PyStr PyTextIO::readline() {
     check_file_open();
     std::string line;
     if (std::getline(file_stream, line)) {
-        return PyStr(line + "\n");
+        line.push_back('\n');
+        return PyStr(std::move(line));
     }
     return PyStr("");
 }
@@ -82,7 +88,9 @@ PyList<PyStr> PyTextIO::readlines() {
     PyList<PyStr> lines;
     std::string line;
     while (std::getline(file_stream, line)) {
-        lines.append(PyStr(line + "\n"));
+        line.push_back('\n');
+        lines.append(PyStr(std::move(line)));
+        line.clear();
     }
     return lines;
 }
