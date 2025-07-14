@@ -28,6 +28,7 @@
 #include "loops/while_.h"
 #include "loops/zip_.h"
 #include "math_library/first.h"
+#include "number_types.h"
 #include "numbers_test/first.h"
 #include "operations.h"
 #include "printing/first.h"
@@ -114,6 +115,7 @@ int main() {
         constant_fn();
         imports_test_fn();
         imports_test_fn2();
+        number_types_fn();
         return 0;
     } catch (...) {
         handle_fatal_exception();
