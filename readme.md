@@ -83,20 +83,40 @@ no longer valid Python code. I think it would be useful to have two options to r
 I think it will be useful to see the literal translation of your Python code to C++ code. On a personal
 note, I am interested in how that mapping can work.
 
-## What works today?
-What works currently is:
-- functions
-- if-else statements
-- numbers/math
-- strings, lists, sets, dicts, and tuples
-- numpy arrays
-- exception handling and raising exceptions
-- for and while loops
-- for loops with enuemrate, zip, or reversed
-- range and slice keywords
-- printing with 'print()' (a few types might not print; pending testing)
-- file-io (needs a little more testing, but almost done)
+## What works currently?
+- Most basic feature of the Python language, aside from some things that are more fancy and non-essential 
+(e.g. nested list comprehensions).
+  - functions
+  - if-else statements
+  - numbers/math
+  - strings, lists, sets, dicts, defaultdict, and tuples
+  - exception handling and raising exceptions
+  - for and while loops
+  - for loops with enuemrate, zip, or reversed
+  - range and slice keywords
+  - printing with the print() function
+  - classes
+  - @dataclass
+  - @configclass (a custom pypp decorator for constant variables in a class)
+  - interfaces with ABC and @abstractmethod decorators
+  - type variables
+  - lambda functions
+  - the yield and yield from keywords
+  - isinstance() is effectively supported by using the pypp Uni type where you specify all the possible types
+and can then call an isinst() method.
+- file-io (with the standard Python open() function)
+- certain functions from the math and time libraries
 
 For a complete picture of what works currently and how it works, take a look at 
 the test_dir where there is a python directory and a cpp directory containing the C++ code 
 transpiled from the python directory.
+
+## What doesn't work currently?
+- Match-case statements (just use if-else statements instead)
+- Nested functions (i.e. functions inside functions)
+- It would be hard to spell out everything here. In general, a lot of the things are rough around the edges 
+(i.e. not all features are inlcuded or some features are accessed in a different way than usual Python), but the basic 
+features of Python are.
+
+For more details on what you can and cannot do look at things_cant_do.md. Note that this file is a WIP at the moment, 
+and it could have wrong information in a few cases and it is very unorganized, but most of the information is there.
