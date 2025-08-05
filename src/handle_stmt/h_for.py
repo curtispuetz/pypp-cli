@@ -1,10 +1,9 @@
 import ast
 from dataclasses import dataclass
 
-from src.d_types import QInc
 from src.handle_expr.h_tuple import handle_tuple_inner_args
 from src.util.handle_lists import handle_stmts
-from src.util.ret_imports import RetImports, add_inc
+from src.util.ret_imports import RetImports
 
 
 def handle_for(
@@ -24,13 +23,7 @@ def handle_for(
     else:
         target_str: str = handle_expr(node.target, ret_imports)
     iter_str = handle_expr(node.iter, ret_imports)
-    if iter_str.startswith("PyEnumerate(") and iter_str.endswith(")"):
-        add_inc(ret_imports, QInc("py_enumerate.h"))
-    elif iter_str.startswith("PyZip(") and iter_str.endswith(")"):
-        add_inc(ret_imports, QInc("py_zip.h"))
-    elif iter_str.startswith("PyReversed(") and iter_str.endswith(")"):
-        add_inc(ret_imports, QInc("py_reversed.h"))
-    elif iter_str.startswith("PyRange(") and iter_str.endswith(")"):
+    if iter_str.startswith("PyRange(") and iter_str.endswith(")"):
         # This is not necessary because PyRange can be iterated over directly, but if
         # it is used explicitly in the loop, I might as well convert it to the
         # traditional C++ for loop syntax, since it is slightly more performant.
