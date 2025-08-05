@@ -1,7 +1,7 @@
 import ast
 
 from src.handle_stmt.stmt import handle_stmt
-from src.include_str import calc_includes_for_main_file, calc_includes
+from src.util.calc_includes import calc_includes_for_main_file, calc_includes
 from src.util.handle_lists import handle_stmts, handle_import_stmts
 from src.util.handle_main_stmts import handle_main_stmts
 from src.util.ret_imports import RetImports

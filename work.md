@@ -50,3 +50,7 @@
 - deque. MDN
 - heapq. MDN
 - magic methods. MDN
+
+#### TODO list
+- make special names smarter so that they are only recognized when the proper import of that name is included.
+- strategy for library development

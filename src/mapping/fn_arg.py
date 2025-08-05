@@ -3,7 +3,6 @@ from src.util.inner_strings import calc_inside_rd
 FN_ARG_PASSED_BY_VALUE: set[str] = {
     "int",
     "bool",
-    # Is float even supported in pypp? Maybe it is through np.float32 values?
     "float",
     "double",
     "PyRange",

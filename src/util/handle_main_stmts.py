@@ -10,7 +10,8 @@ def handle_main_stmts(stmts: list[ast.stmt], ret_imports: RetImports) -> str:
     main_stmt = stmts[-1]
     if not _is_proper_main(main_stmt):
         raise Exception(
-            "Correctly defined main guard as the last stmt in main.py is required"
+            "A correctly defined main guard as the last stmt in a root python file is "
+            "required"
         )
     before_main = handle_stmts(stmts[:-1], ret_imports, [], handle_stmt)
     assert isinstance(main_stmt, ast.If), "shouldn't happen"
