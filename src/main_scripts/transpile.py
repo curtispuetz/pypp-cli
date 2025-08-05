@@ -7,6 +7,7 @@ from src.config import (
     C_CPP_DIR,
     C_CPP_BUILD_DIR,
     C_CPP_SRC_DIR,
+    C_PYTHON_DIR,
 )
 from src.constants import SECRET_MAIN_FILE_DIR_PREFIX
 from src.util.file_change_tracker import (
@@ -14,7 +15,9 @@ from src.util.file_change_tracker import (
     save_timestamps,
 )
 from src.util.initalize_cpp import initialize_cpp_project
-from src.util.get_py import get_main_py_ast_tree, get_src_py_ast_tree
+from src.util.calc_ast_tree import (
+    calc_ast_tree,
+)
 from src.util.main_source import calc_main_cpp_source, calc_src_file_cpp_and_h_source
 from src.util.write_cmake_lists import write_cmake_lists_file
 
@@ -43,7 +46,8 @@ def _transpile_cpp_and_h_files(
     if rel_path.startswith(SECRET_MAIN_FILE_DIR_PREFIX):
         # transpile a main file
         real_rel_path = rel_path[len(SECRET_MAIN_FILE_DIR_PREFIX) :]
-        main_py_ast_tree: ast.Module = get_main_py_ast_tree(real_rel_path)
+        py_main_file = os.path.join(C_PYTHON_DIR, real_rel_path)
+        main_py_ast_tree: ast.Module = calc_ast_tree(py_main_file)
         main_cpp_source = calc_main_cpp_source(main_py_ast_tree)
         new_file: str = os.path.join(C_CPP_DIR, real_rel_path)[:-3] + ".cpp"
         with open(new_file, "w") as cpp_main_file:
@@ -52,9 +56,8 @@ def _transpile_cpp_and_h_files(
         files_added_or_modified.append(new_file)
     else:
         # transpile src file
-        # TODO: why do I do this join in here and in the get_src_py_ast_tree function?
         py_src_file = os.path.join(C_PYTHON_SRC_DIR, rel_path)
-        src_file_py_ast_tree = get_src_py_ast_tree(py_src_file)
+        src_file_py_ast_tree = calc_ast_tree(py_src_file)
         file_without_ext = rel_path[:-3]  # Remove the .py extension
         cpp_file = file_without_ext + ".cpp"  # Remove the .py extension
         h_file = file_without_ext + ".h"
