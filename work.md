@@ -44,9 +44,9 @@
 - multiple executables. AAGP
 - all data types of integers and floats (i.e. uint8, int8, float32, etc.). C
 - template parameters
-- json library
+- json library. MDN
 - unit tests
 - multiprocessing library
-- deque
-- heapq
-- magic methods
+- deque. MDN
+- heapq. MDN
+- magic methods. MDN
