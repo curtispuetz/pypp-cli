@@ -1,6 +1,8 @@
 import ast
 
 from src.d_types import QInc
+from src.deps import Deps
+from src.handle_expr.expr import handle_expr
 from src.handle_stmt.stmt import handle_stmt
 from src.util.handle_lists import handle_stmts
 from src.util.ret_imports import RetImports, add_inc
@@ -13,10 +15,13 @@ def handle_main_stmts(stmts: list[ast.stmt], ret_imports: RetImports) -> str:
             "A correctly defined main guard as the last stmt in a root python file is "
             "required"
         )
-    before_main = handle_stmts(stmts[:-1], ret_imports, [], handle_stmt)
+    before_main = handle_stmts(
+        stmts[:-1], Deps(ret_imports, [], handle_expr, handle_stmt)
+    )
     assert isinstance(main_stmt, ast.If), "shouldn't happen"
     inside_main = handle_stmts(
-        main_stmt.body + [ast.Return(ast.Constant(0))], ret_imports, [], handle_stmt
+        main_stmt.body + [ast.Return(ast.Constant(0))],
+        Deps(ret_imports, [], handle_expr, handle_stmt),
     )
     add_inc(ret_imports, QInc("pypp_util/main_error_handler.h"))
     return (

@@ -1,8 +1,8 @@
 import ast
 
-from src.util.ret_imports import RetImports
+from src.deps import Deps
 
 
-def handle_return(node: ast.Return, ret_imports: RetImports, handle_expr) -> str:
-    return_expr = handle_expr(node.value, ret_imports)
+def handle_return(node: ast.Return, d: Deps) -> str:
+    return_expr = d.handle_expr(node.value)
     return f"return {return_expr};"

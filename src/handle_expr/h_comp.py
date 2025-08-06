@@ -1,15 +1,12 @@
 import ast
 
+from src.deps import Deps
 from src.handle_stmt.h_for import handle_for
-from src.util.ret_imports import RetImports
 
 
 def handle_comp(
     node: ast.ListComp | ast.SetComp | ast.DictComp,
-    ret_imports: RetImports,
-    ret_h_file: list[str],
-    handle_expr,
-    handle_stmt,
+    d: Deps,
     target_str: str,
 ) -> str:
     # It should be converted to a for loop.
@@ -51,4 +48,4 @@ def handle_comp(
         orelse=[],
         type_comment=None,
     )
-    return handle_for(for_node, ret_imports, ret_h_file, handle_stmt, handle_expr)
+    return handle_for(for_node, d)

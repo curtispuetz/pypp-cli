@@ -1,8 +1,9 @@
 import ast
 
 from src.d_types import AngInc
+from src.deps import Deps
 from src.util.handle_lists import handle_exprs
-from src.util.ret_imports import RetImports, add_inc
+from src.util.ret_imports import add_inc
 
 
 def is_callable_type(node: ast.expr) -> bool:
@@ -25,35 +26,27 @@ def _is_callable_type(node: ast.expr) -> bool:
 
 def calc_callable_type(
     node: ast.Subscript | ast.Call,
-    ret_imports: RetImports,
-    handle_expr,
+    d: Deps,
     in_header: bool = False,
 ) -> str:
     if isinstance(node, ast.Call):
-        return (
-            "Valu("
-            + _calc_callable_type(node.args[0], ret_imports, handle_expr, in_header)
-            + ")"
-        )
-    return _calc_callable_type(node, ret_imports, handle_expr, in_header)
+        return "Valu(" + _calc_callable_type(node.args[0], d, in_header) + ")"
+    return _calc_callable_type(node, d, in_header)
 
 
 def _calc_callable_type(
     node: ast.Subscript,
-    ret_imports: RetImports,
-    handle_expr,
+    d: Deps,
     in_header: bool = False,
 ) -> str:
-    add_inc(ret_imports, AngInc("functional"), in_header=in_header)
+    add_inc(d.ret_imports, AngInc("functional"), in_header=in_header)
     assert isinstance(node.slice, ast.Tuple), "2 arguments required for Callable"
     assert len(node.slice.elts) == 2, "2 arguments required for Callable"
     arg_types = node.slice.elts[0]
     assert isinstance(arg_types, ast.List), "First argument for Callable must be a List"
-    arg_types_cpp = handle_exprs(
-        arg_types.elts, ret_imports, handle_expr, include_in_header=in_header
-    )
+    arg_types_cpp = handle_exprs(arg_types.elts, d, include_in_header=in_header)
     ret_type = node.slice.elts[1]
-    ret_type_cpp = handle_expr(ret_type, ret_imports, in_header)
+    ret_type_cpp = d.handle_expr(ret_type, in_header)
     if ret_type_cpp == "std::monostate":
         ret_type_cpp = "void"
     return f"std::function<{ret_type_cpp}({arg_types_cpp})> "
