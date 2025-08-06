@@ -1,6 +1,6 @@
 from typing import Callable
 
-from test_dir.python.pypp.configclass import configclass
+from pypp_python.configclass import configclass
 
 A: int = 1
 B: str = "B"

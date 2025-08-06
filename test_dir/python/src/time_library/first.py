@@ -1,5 +1,5 @@
-from test_dir.python.pypp.custom_types import auto
-import test_dir.python.pypp.stl.pypp_time as pypp_time
+from pypp_python.custom_types import auto
+import pypp_python.stl.pypp_time as pypp_time
 
 
 def time_library_fn():

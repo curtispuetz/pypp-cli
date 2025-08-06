@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from test_dir.python.pypp.ownership import Valu
+from pypp_python.ownership import Valu
 
 
 @dataclass

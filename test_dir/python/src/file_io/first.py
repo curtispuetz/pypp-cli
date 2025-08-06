@@ -1,4 +1,4 @@
-from test_dir.python.pypp.resources import pypp_get_resources
+from pypp_python.resources import pypp_get_resources
 import os
 import shutil
 

@@ -1,4 +1,4 @@
-from test_dir.python.pypp.custom_types import (
+from pypp_python.custom_types import (
     int8_t,
     int32_t,
     int64_t,

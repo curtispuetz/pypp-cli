@@ -1,4 +1,4 @@
-from test_dir.python.pypp.dict_get import dg
+from pypp_python.dict_get import dg
 
 
 def dict_exceptions_fn():

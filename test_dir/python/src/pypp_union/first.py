@@ -1,6 +1,6 @@
-from test_dir.python.pypp.ownership import Valu, mov
-from test_dir.python.pypp.printing import print_address
-from test_dir.python.pypp.union import Uni, ug, isinst, is_none
+from pypp_python.ownership import Valu, mov
+from pypp_python.printing import print_address
+from pypp_python.union import Uni, ug, isinst, is_none
 
 
 class ClassWithUnion:

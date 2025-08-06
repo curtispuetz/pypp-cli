@@ -1,4 +1,4 @@
-from test_dir.python.pypp.ownership import Valu, mov
+from pypp_python.ownership import Valu, mov
 
 
 class ClassA:

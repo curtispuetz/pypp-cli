@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import Callable
 
-from test_dir.python.pypp.ownership import Valu
+from pypp_python.ownership import Valu
 
 
 def _test_fn(a: int, b: int) -> str:
