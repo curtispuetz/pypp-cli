@@ -8,7 +8,7 @@ from src.constants import SECRET_MAIN_FILE_DIR_PREFIX
 TIMESTAMPS_FILE = os.path.join(C_TARGET_DIR, "file_timestamps.json")
 
 
-def get_all_files(root) -> list[str]:
+def get_all_files(root: str) -> list[str]:
     # Tested. Results: works.
     ret: list[str] = []
     for dirpath, _, filenames in os.walk(root):

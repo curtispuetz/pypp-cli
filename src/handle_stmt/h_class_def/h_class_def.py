@@ -33,11 +33,10 @@ def handle_class_def(node: ast.ClassDef, d: Deps) -> str:
 
 
 def _is_interface_def(node: ast.ClassDef) -> bool:
-    return (
-        len(node.bases) == 1
-        and isinstance(node.bases[0], ast.Name)
-        and node.bases[0].id == "ABC"
-    )
+    if len(node.bases) != 1:
+        return False
+    base = node.bases[0]
+    return isinstance(base, ast.Name) and base.id == "ABC"
 
 
 def _do_common_assertions(node: ast.ClassDef) -> None:
@@ -114,10 +113,10 @@ def _do_interface_assertions(node: ast.ClassDef) -> None:
         assert isinstance(item, ast.FunctionDef), (
             f"only methods are supported in interface definitions, got {type(item).__name__}"
         )
-        assert (
-            len(item.decorator_list) == 1
-            and isinstance(item.decorator_list[0], ast.Name)
-            and item.decorator_list[0].id == "abstractmethod"
-        ), (
-            f"method {item.name} in interface {node.name} must be decorated only with @abstractmethod"
-        )
+        if len(item.decorator_list) == 1:
+            decorator = item.decorator_list[0]
+            assert (
+                isinstance(decorator, ast.Name) and decorator.id == "abstractmethod"
+            ), (
+                f"method {item.name} in interface {node.name} must be decorated only with @abstractmethod"
+            )
