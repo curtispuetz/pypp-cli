@@ -1,6 +1,6 @@
 from typing import Iterator
 
-from test_dir.python.pypp.ownership import mov
+from pypp_python.ownership import mov
 
 
 def yield_123() -> Iterator[int]:

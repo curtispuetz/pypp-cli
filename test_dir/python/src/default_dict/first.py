@@ -1,7 +1,7 @@
 from collections import defaultdict
 from dataclasses import dataclass
 
-from test_dir.python.pypp.printing import print_address
+from pypp_python.printing import print_address
 
 
 def _dict_factory() -> dict[int, int]:

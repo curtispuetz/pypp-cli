@@ -1,5 +1,5 @@
-from test_dir.python.pypp.ownership import mov
-from test_dir.python.pypp.tuple_get import tg
+from pypp_python.ownership import mov
+from pypp_python.tuple_get import tg
 
 
 def zip_fn():

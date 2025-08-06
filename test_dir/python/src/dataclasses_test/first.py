@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from test_dir.python.pypp.ownership import mov, Valu
+from pypp_python.ownership import mov, Valu
 
 
 @dataclass
