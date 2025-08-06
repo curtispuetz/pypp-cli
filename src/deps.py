@@ -10,9 +10,8 @@ from src.util.ret_imports import RetImports, add_inc
 class Deps:
     ret_imports: RetImports
     ret_h_file: list[str]
-    # TODO: use Protocol to define the input args maybe. Or it works now.
-    handle_expr_fn: Callable[..., str]
-    handle_stmt: Callable[..., str]
+    handle_expr_fn: Callable[[ast.expr, "Deps", bool, bool], str]
+    handle_stmt: Callable[[ast.stmt, "Deps"], str]
 
     def handle_expr(
         self,
