@@ -19,6 +19,8 @@ def handle_call(
         skip_cpp_lookup=True,
         include_in_header=include_in_header,
     )
+    # TODO: for library creation, you let users define a function to run if a condition
+    #  is met.
     if caller_str == "tg":
         assert len(node.args) == 2, "tg should have 2 arguments"
         add_inc(ret_imports, AngInc("any"), include_in_header)
@@ -57,17 +59,11 @@ def handle_call(
     elif caller_str.startswith("shutil."):
         add_inc(ret_imports, QInc("pypp_shutil.h"), include_in_header)
         caller_str = caller_str.replace(".", "::")
-    elif caller_str.startswith("pypp_time"):
+    elif caller_str.startswith("pypp_time."):
         add_inc(ret_imports, QInc("pypp_time.h"), include_in_header)
-        caller_str = _replace_second_underscore(caller_str)
+        caller_str = caller_str.replace(".", "::")
     args_str = handle_exprs(node.args, ret_imports, handle_expr, include_in_header)
     cpp_call_start, cpp_call_end = lookup_cpp_call(
         caller_str, ret_imports, include_in_header
     )
     return f"{cpp_call_start}{args_str}{cpp_call_end}"
-
-
-def _replace_second_underscore(s):
-    parts = s.split("_", 2)  # Split into at most 3 parts
-    assert len(parts) >= 2, "Name cannot start with pypp_time"
-    return parts[0] + "_" + parts[1] + "::" + parts[2]

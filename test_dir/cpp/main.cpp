@@ -97,7 +97,6 @@ int main() {
         type_aliases_fn();
         yield_fn();
         math_library_fn();
-        time_library_fn();
         tuples_fn();
         set_of_tuples_fn();
         ref_vars_fn();
@@ -116,6 +115,7 @@ int main() {
         imports_test_fn();
         imports_test_fn2();
         number_types_fn();
+        time_library_fn();
         return 0;
     } catch (...) {
         handle_fatal_exception();
