@@ -5,7 +5,6 @@ from src.deps import Deps
 from src.handle_expr.h_starred import handle_starred
 from src.mapping.calls import lookup_cpp_call
 from src.util.handle_lists import handle_exprs
-from src.util.ret_imports import add_inc
 
 
 def handle_call(
@@ -22,7 +21,7 @@ def handle_call(
     #  is met.
     if caller_str == "tg":
         assert len(node.args) == 2, "tg should have 2 arguments"
-        add_inc(d.ret_imports, AngInc("any"), include_in_header)
+        d.add_inc(AngInc("any"), include_in_header)
         tuple_arg = d.handle_expr(node.args[0])
         index_arg = d.handle_expr(node.args[1])
         return f"{tuple_arg}.get<{index_arg}>()"
@@ -53,16 +52,14 @@ def handle_call(
     if len(node.args) == 1 and isinstance(node.args[0], ast.Starred):
         return handle_starred(node.args[0], d, caller_str)
     if caller_str.startswith("os."):
-        add_inc(d.ret_imports, QInc("pypp_os.h"), include_in_header)
+        d.add_inc(QInc("pypp_os.h"), include_in_header)
         caller_str = caller_str.replace(".", "::")
     elif caller_str.startswith("shutil."):
-        add_inc(d.ret_imports, QInc("pypp_shutil.h"), include_in_header)
+        d.add_inc(QInc("pypp_shutil.h"), include_in_header)
         caller_str = caller_str.replace(".", "::")
     elif caller_str.startswith("pypp_time."):
-        add_inc(d.ret_imports, QInc("pypp_time.h"), include_in_header)
+        d.add_inc(QInc("pypp_time.h"), include_in_header)
         caller_str = caller_str.replace(".", "::")
     args_str = handle_exprs(node.args, d, include_in_header)
-    cpp_call_start, cpp_call_end = lookup_cpp_call(
-        caller_str, d.ret_imports, include_in_header
-    )
+    cpp_call_start, cpp_call_end = lookup_cpp_call(caller_str, d, include_in_header)
     return f"{cpp_call_start}{args_str}{cpp_call_end}"

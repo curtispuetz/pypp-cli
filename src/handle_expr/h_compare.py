@@ -12,7 +12,6 @@ def handle_compare(
     left = node.left
     assert len(node.comparators) == 1, "Not supported"
     right = node.comparators[0]
-    # TODO: remove the second argument by adding a method to the Deps class.
     left_str = d.handle_expr(left, include_in_header)
     right_str = d.handle_expr(right, include_in_header)
     assert len(node.ops) == 1, "Not supported"

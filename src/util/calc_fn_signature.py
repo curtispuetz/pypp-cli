@@ -5,7 +5,6 @@ from src.deps import Deps
 from src.mapping.fn_arg import lookup_cpp_fn_arg
 from src.util.calc_callable_type import is_callable_type, calc_callable_type
 from src.util.inner_strings import calc_inside_sq, calc_inside_rd
-from src.util.ret_imports import add_inc
 
 
 def calc_fn_signature(
@@ -24,8 +23,7 @@ def calc_fn_signature(
             include_in_header=in_header,
         )
         if cpp_ret_type.startswith("Iterator[") and cpp_ret_type.endswith("]"):
-            add_inc(
-                d.ret_imports,
+            d.add_inc(
                 QInc("pypp_util/generator.h"),
                 in_header=in_header,
             )

@@ -4,7 +4,6 @@ from src.d_types import AngInc
 from src.deps import Deps
 from src.handle_stmt.h_class_def.util import ClassMethod, ClassField, ARG_PREFIX
 from src.util.calc_fn_signature import calc_fn_str_with_body
-from src.util.ret_imports import RetImports, add_inc
 
 
 def create_final_str_for_class_def(
@@ -22,7 +21,7 @@ def create_final_str_for_class_def(
     fields_and_constructor: str = _calc_fields_and_constructor(
         fields_and_base_constructor_calls,
         constructor_sig,
-        d.ret_imports,
+        d,
         name_doesnt_start_with_underscore,
         is_frozen,
     )
@@ -87,7 +86,7 @@ def _calc_base_classes(
 def _calc_fields_and_constructor(
     fields_and_base_constructor_calls: list[ClassField | str],
     constructor_sig: str,
-    ret_imports: RetImports,
+    d: Deps,
     name_doesnt_start_with_underscore: bool,
     is_frozen: bool,
 ):
@@ -97,7 +96,7 @@ def _calc_fields_and_constructor(
     field_defs = _calc_field_definitions(fields_and_base_constructor_calls, is_frozen)
     c_il: str = _calc_constructor_initializer_list(
         fields_and_base_constructor_calls,
-        ret_imports,
+        d,
         name_doesnt_start_with_underscore,
     )
     return f"{field_defs} {constructor_sig} : {c_il}" + "{}"
@@ -135,7 +134,7 @@ def _add_namespace(fn_signature: str, name: str) -> str:
 
 def _calc_constructor_initializer_list(
     fields_and_base_constructor_calls: list[ClassField | str],
-    ret_imports,
+    d: Deps,
     name_doesnt_start_with_underscore: bool,
 ) -> str:
     ret: list[str] = []
@@ -146,8 +145,7 @@ def _calc_constructor_initializer_list(
         if field.ref:
             ret.append(f"{field.target_str}({ARG_PREFIX}{field.target_other_name})")
         else:
-            add_inc(
-                ret_imports,
+            d.add_inc(
                 AngInc("utility"),
                 in_header=name_doesnt_start_with_underscore,
             )

@@ -2,7 +2,6 @@ import ast
 
 from src.d_types import QInc
 from src.deps import Deps
-from src.util.ret_imports import add_inc
 
 
 def handle_slice(
@@ -12,7 +11,7 @@ def handle_slice(
 ):
     # NOTE: The C++ code handles Nones for start, but this code just wont use that.
     # Which is maybe fine
-    add_inc(d.ret_imports, QInc("slice/creators.h"), include_in_header)
+    d.add_inc(QInc("slice/creators.h"), include_in_header)
     lower: str = (
         "0" if node.lower is None else d.handle_expr(node.lower, include_in_header)
     )

@@ -3,7 +3,6 @@ import ast
 from src.d_types import AngInc
 from src.deps import Deps
 from src.util.handle_lists import handle_exprs
-from src.util.ret_imports import add_inc
 
 
 def is_callable_type(node: ast.expr) -> bool:
@@ -39,7 +38,7 @@ def _calc_callable_type(
     d: Deps,
     in_header: bool = False,
 ) -> str:
-    add_inc(d.ret_imports, AngInc("functional"), in_header=in_header)
+    d.add_inc(AngInc("functional"), in_header=in_header)
     assert isinstance(node.slice, ast.Tuple), "2 arguments required for Callable"
     assert len(node.slice.elts) == 2, "2 arguments required for Callable"
     arg_types = node.slice.elts[0]

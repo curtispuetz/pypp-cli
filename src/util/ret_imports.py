@@ -12,7 +12,7 @@ class RetImports:
     import_map: ImpMap
 
 
-def add_inc(ret_imports: RetImports, inc: CppInclude, in_header: bool = False):
+def add_inc(ret_imports: RetImports, inc: CppInclude, in_header: bool):
     if in_header:
         ret_imports.header.add(inc)
     else:

@@ -3,12 +3,10 @@
 import ast
 
 from src.d_types import QInc, AngInc
-from src.util.ret_imports import RetImports, add_inc
+from src.deps import Deps
 
 
-def handle_operator(
-    node: ast.operator, ret_imports: RetImports | None
-) -> tuple[str, str, str]:
+def handle_operator(node: ast.operator, d: Deps | None) -> tuple[str, str, str]:
     if isinstance(node, ast.Add):
         return "", "+", ""
     if isinstance(node, ast.Sub):
@@ -30,10 +28,10 @@ def handle_operator(
     if isinstance(node, ast.BitAnd):
         return "", "&", ""
     if isinstance(node, ast.Pow):
-        add_inc(ret_imports, AngInc("cmath"))
+        d.add_inc(AngInc("cmath"))
         return "std::pow(", ", ", ")"
     if isinstance(node, ast.FloorDiv):
-        add_inc(ret_imports, QInc("pypp_util/floor_div.h"))
+        d.add_inc(QInc("pypp_util/floor_div.h"))
         return "py_floor_div(", ", ", ")"
     # Note:
     # - MatMult is not supported because its mostly just used for numpy arrays.

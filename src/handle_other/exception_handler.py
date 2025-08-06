@@ -4,7 +4,6 @@ from src.d_types import AngInc
 from src.deps import Deps
 from src.mapping.exceptions import lookup_cpp_exception_type
 from src.util.handle_lists import handle_stmts
-from src.util.ret_imports import add_inc
 
 
 def handle_exception_handlers(nodes: list[ast.ExceptHandler], d: Deps) -> str:
@@ -17,11 +16,11 @@ def _handle_exception_handler(node: ast.ExceptHandler, d: Deps) -> str:
     if node.type is not None:
         assert isinstance(node.type, ast.Name), "Shouldn't happen"
         assert isinstance(node.type.id, str), "Shouldn't happen"
-        exe_str = f"const {lookup_cpp_exception_type(node.type.id, d.ret_imports)}&"
+        exe_str = f"const {lookup_cpp_exception_type(node.type.id, d)}&"
         if node.name is not None:
             assert isinstance(node.name, str), "Shouldn't happen"
             exe_str += f" pypp_{node.name}"
-            add_inc(d.ret_imports, AngInc("string"))
+            d.add_inc(AngInc("string"))
             body_str = f"std::string {node.name} = pypp_{node.name}.what(); " + body_str
     else:
         exe_str = "..."

@@ -11,9 +11,9 @@ from src.util.ret_imports import RetImports
 
 def calc_main_cpp_source(main_py: ast.Module) -> str:
     imp_map, i = handle_import_stmts(main_py.body)
-    ret_imports = RetImports(set(), set(), imp_map)
-    cpp_source_minus_includes: str = handle_main_stmts(main_py.body[i:], ret_imports)
-    cpp_includes: str = calc_includes_for_main_file(ret_imports)
+    d: Deps = Deps(RetImports(set(), set(), imp_map), [], handle_expr, handle_stmt)
+    cpp_source_minus_includes: str = handle_main_stmts(main_py.body[i:], d)
+    cpp_includes: str = calc_includes_for_main_file(d.ret_imports)
     return cpp_includes + cpp_source_minus_includes
 
 
