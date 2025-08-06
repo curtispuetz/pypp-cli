@@ -1,4 +1,5 @@
 import ast
+from typing import cast
 
 from src.deps import Deps
 from src.handle_stmt.h_for import handle_for
@@ -40,11 +41,11 @@ def handle_comp(
             args=[node.elt],
             keywords=[],
         )
-        logic_exp_node: ast.Expr = ast.Expr(value=append_or_add_node)
+        logic_exp_node: ast.Expr = ast.Expr(value=cast(ast.expr, append_or_add_node))
     for_node: ast.For = ast.For(
         target=gen_node.target,
         iter=gen_node.iter,
-        body=[logic_exp_node],
+        body=[cast(ast.stmt, logic_exp_node)],
         orelse=[],
         type_comment=None,
     )

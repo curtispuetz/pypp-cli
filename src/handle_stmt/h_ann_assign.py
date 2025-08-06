@@ -2,7 +2,7 @@ import ast
 
 from src.deps import Deps
 from src.handle_expr.h_comp import handle_comp
-from src.util.calc_callable_type import is_callable_type, calc_callable_type
+from src.util.calc_callable_type import calc_callable_type
 from src.util.inner_strings import calc_inside_ang, calc_inside_rd
 from src.util.util import calc_ref_str
 
@@ -35,12 +35,9 @@ def handle_general_ann_assign(
     include_in_header: bool,
     const_str: str = "",
 ) -> str:
-    if is_callable_type(node.annotation):
-        type_cpp: str = calc_callable_type(node.annotation, d, include_in_header)
-    else:
-        type_cpp: str = d.handle_expr(
-            node.annotation, include_in_header=include_in_header
-        )
+    type_cpp: str | None = calc_callable_type(node.annotation, d, include_in_header)
+    if type_cpp is None:
+        type_cpp = d.handle_expr(node.annotation, include_in_header=include_in_header)
     if node.value is None:
         return f"{type_cpp} {target_str};"
     if isinstance(node.value, (ast.ListComp, ast.SetComp, ast.DictComp)):
@@ -82,13 +79,14 @@ def _calc_py_value_type(node: ast.expr) -> str:
         and node.func.id == "defaultdict"
     ):
         assert len(node.args) == 1, "defaultdict should have 1 argument"
-        if isinstance(node.args[0], ast.Name):
-            value_type = node.args[0].id
+        arg1 = node.args[0]
+        if isinstance(arg1, ast.Name):
+            value_type = arg1.id
             if value_type in ("int", "float", "str", "bool"):
                 return value_type
-        elif isinstance(node.args[0], ast.Subscript):
-            if isinstance(node.args[0].value, ast.Name):
-                value_type = node.args[0].value.id
+        elif isinstance(arg1, ast.Subscript):
+            if isinstance(arg1.value, ast.Name):
+                value_type = arg1.value.id
                 if value_type in ("list", "dict", "set"):
                     return value_type
     return ""

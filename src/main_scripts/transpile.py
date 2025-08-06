@@ -1,6 +1,7 @@
 import ast
 import os
 import shutil
+from pathlib import Path
 
 from src.config import (
     C_PYTHON_SRC_DIR,
@@ -39,7 +40,7 @@ def _delete_cpp_and_h_file(filepath: str) -> int:
 
 
 def _transpile_cpp_and_h_files(
-    rel_path: str, files_added_or_modified: list[str]
+    rel_path: str, files_added_or_modified: list[Path]
 ) -> tuple[int, int]:
     header_files_written = 0
     cpp_files_written = 0
@@ -53,7 +54,7 @@ def _transpile_cpp_and_h_files(
         with open(new_file, "w") as cpp_main_file:
             cpp_main_file.write(main_cpp_source)
         cpp_files_written += 1
-        files_added_or_modified.append(new_file)
+        files_added_or_modified.append(Path(new_file))
     else:
         # transpile src file
         py_src_file = os.path.join(C_PYTHON_SRC_DIR, rel_path)
@@ -69,16 +70,16 @@ def _transpile_cpp_and_h_files(
             with open(cpp_full_path, "w") as cpp_write_file:
                 cpp_write_file.write(cpp)
             cpp_files_written += 1
-            files_added_or_modified.append(cpp_full_path)
+            files_added_or_modified.append(Path(cpp_full_path))
         h_full_path = os.path.join(C_CPP_SRC_DIR, h_file)
         with open(h_full_path, "w") as h_write_file:
             h_write_file.write(h)
         header_files_written += 1
-        files_added_or_modified.append(h_full_path)
+        files_added_or_modified.append(Path(h_full_path))
     return header_files_written, cpp_files_written
 
 
-def pypp_transpile() -> list[str]:
+def pypp_transpile() -> list[Path]:
     # Step 1: Initialize the C++ project if it isn't already
     if os.path.isdir(C_CPP_DIR) and not os.path.isdir(C_CPP_BUILD_DIR):
         shutil.rmtree(C_CPP_DIR)
@@ -103,7 +104,7 @@ def pypp_transpile() -> list[str]:
     py_files_transpiled: int = 0
     header_files_written: int = 0
     cpp_files_written: int = 0
-    files_added_or_modified: list[str] = []
+    files_added_or_modified: list[Path] = []
     for changed_or_new_file in (
         py_file_changes.new_files + py_file_changes.changed_files
     ):

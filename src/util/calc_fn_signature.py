@@ -3,7 +3,7 @@ import ast
 from src.d_types import QInc
 from src.deps import Deps
 from src.mapping.fn_arg import lookup_cpp_fn_arg
-from src.util.calc_callable_type import is_callable_type, calc_callable_type
+from src.util.calc_callable_type import calc_callable_type
 from src.util.inner_strings import calc_inside_sq, calc_inside_rd
 
 
@@ -60,10 +60,9 @@ def calc_fn_arg_types(
         assert py_arg.annotation is not None, (
             f"function argument {arg_name} must have type annotation"
         )
-        if is_callable_type(py_arg.annotation):
-            cpp_arg_type: str = calc_callable_type(py_arg.annotation, d, in_header)
-        else:
-            cpp_arg_type: str = d.handle_expr(
+        cpp_arg_type: str | None = calc_callable_type(py_arg.annotation, d, in_header)
+        if cpp_arg_type is None:
+            cpp_arg_type = d.handle_expr(
                 py_arg.annotation,
                 include_in_header=in_header,
             )
