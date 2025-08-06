@@ -5,32 +5,24 @@ from src.deps import Deps
 from src.util.handle_lists import handle_exprs
 
 
-def is_callable_type(node: ast.expr) -> bool:
+def _is_callable_type(node: ast.Subscript) -> bool:
+    return isinstance(node.value, ast.Name) and node.value.id == "Callable"
+
+
+def calc_callable_type(node: ast.expr, d: Deps, in_header: bool = False) -> str | None:
     if (
         isinstance(node, ast.Call)
         and isinstance(node.func, ast.Name)
         and node.func.id == "Valu"
     ):
-        return _is_callable_type(node.args[0])
-    return _is_callable_type(node)
-
-
-def _is_callable_type(node: ast.expr) -> bool:
-    return (
-        isinstance(node, ast.Subscript)
-        and isinstance(node.value, ast.Name)
-        and node.value.id == "Callable"
-    )
-
-
-def calc_callable_type(
-    node: ast.Subscript | ast.Call,
-    d: Deps,
-    in_header: bool = False,
-) -> str:
-    if isinstance(node, ast.Call):
-        return "Valu(" + _calc_callable_type(node.args[0], d, in_header) + ")"
-    return _calc_callable_type(node, d, in_header)
+        arg1 = node.args[0]
+        if isinstance(arg1, ast.Subscript):
+            if _is_callable_type(arg1):
+                return "Valu(" + _calc_callable_type(arg1, d, in_header) + ")"
+    if isinstance(node, ast.Subscript):
+        if _is_callable_type(node):
+            return _calc_callable_type(node, d, in_header)
+    return None
 
 
 def _calc_callable_type(

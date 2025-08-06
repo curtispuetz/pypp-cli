@@ -13,10 +13,9 @@ def _format_file(file: Path):
     )
 
 
-def pypp_format(files_added_or_modified: list[str]):
+def pypp_format(files_added_or_modified: list[Path]):
     num_cores = os.cpu_count() or 1  # Fallback to 1 if None
     with Pool(num_cores) as p:  # Adjust number of workers
-        # TODO: make the type list[Path] instead
         p.map(_format_file, files_added_or_modified)
     print(
         f"py++ format finished. "
