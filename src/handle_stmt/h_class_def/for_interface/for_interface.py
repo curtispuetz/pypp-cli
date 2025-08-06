@@ -29,7 +29,8 @@ def _calc_methods(
 ) -> list[str]:
     ret: list[str] = []
     for item in node.body:
-        # Note: assertions have already been done.
+        # Shouldn't happen because Because this was already checked
+        assert isinstance(item, ast.FunctionDef), "Shouldn't happen"
         fn_signature = calc_fn_signature(
             item,
             d,

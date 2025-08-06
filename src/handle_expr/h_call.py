@@ -49,8 +49,10 @@ def handle_call(
         list_arg = d.handle_expr(node.args[0])
         size_arg = d.handle_expr(node.args[1])
         return f"{list_arg}.reserve({size_arg})"
-    if len(node.args) == 1 and isinstance(node.args[0], ast.Starred):
-        return handle_starred(node.args[0], d, caller_str)
+    if len(node.args) == 1:
+        first_arg = node.args[0]
+        if isinstance(first_arg, ast.Starred):
+            return handle_starred(first_arg, d, caller_str)
     if caller_str.startswith("os."):
         d.add_inc(QInc("pypp_os.h"), include_in_header)
         caller_str = caller_str.replace(".", "::")
