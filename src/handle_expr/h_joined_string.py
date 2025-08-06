@@ -2,7 +2,6 @@ import ast
 
 from src.d_types import QInc
 from src.deps import Deps
-from src.util.ret_imports import add_inc
 
 
 def handle_joined_string(
@@ -10,7 +9,7 @@ def handle_joined_string(
     d: Deps,
     include_in_header: bool,
 ) -> str:
-    add_inc(d.ret_imports, QInc("py_str.h"), include_in_header)
+    d.add_inc(QInc("py_str.h"), include_in_header)
     std_format_args: list[str] = []
     std_format_first_arg: list[str] = []
     for n in node.values:

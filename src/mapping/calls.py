@@ -1,5 +1,5 @@
 from src.d_types import CppInclude, QInc, AngInc
-from src.util.ret_imports import RetImports, add_inc
+from src.deps import Deps
 
 CALL_MAP: dict[str, tuple[str, str, list[CppInclude]]] = {
     "print": ("print(", ")", [QInc("pypp_util/print.h")]),
@@ -19,12 +19,12 @@ CALL_MAP: dict[str, tuple[str, str, list[CppInclude]]] = {
 
 def lookup_cpp_call(
     python_call: str,
-    ret_imports: RetImports,
+    d: Deps,
     include_in_header: bool,
 ) -> tuple[str, str]:
     if python_call not in CALL_MAP:
         return python_call + "(", ")"
     val = CALL_MAP[python_call]
     for include in val[2]:
-        add_inc(ret_imports, include, include_in_header)
+        d.add_inc(include, include_in_header)
     return val[0], val[1]

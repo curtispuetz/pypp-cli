@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 
 from src.d_types import CppInclude, QInc, AngInc
-from src.util.ret_imports import RetImports, add_inc
+from src.deps import Deps
 
 
 @dataclass(frozen=True, slots=True)
@@ -40,7 +40,7 @@ TYPES_MAP: dict[str, TypeMapInfo] = {
 
 def lookup_cpp_type(
     python_type: str,
-    ret_imports: RetImports,
+    d: Deps,
     include_in_header: bool = False,
 ) -> str:
     # The way it works is that whenever you looked up the type, it automatically
@@ -49,5 +49,5 @@ def lookup_cpp_type(
         return python_type
     val = TYPES_MAP[python_type]
     for include in val.includes:
-        add_inc(ret_imports, include, include_in_header)
+        d.add_inc(include, include_in_header)
     return val.val

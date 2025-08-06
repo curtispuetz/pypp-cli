@@ -3,7 +3,6 @@ import ast
 from src.d_types import QInc
 from src.deps import Deps
 from src.util.handle_lists import handle_exprs
-from src.util.ret_imports import add_inc
 
 
 def handle_with_item(nodes: list[ast.withitem], d: Deps) -> str:
@@ -13,7 +12,7 @@ def handle_with_item(nodes: list[ast.withitem], d: Deps) -> str:
     node, args = _assert_with_item_is_open(nodes, error_str)
     args_str = handle_exprs(args, d)
     variable_name = _assert_variable_name(node, error_str)
-    add_inc(d.ret_imports, QInc("pypp_text_io.h"))
+    d.add_inc(QInc("pypp_text_io.h"))
     return f"PyTextIO {variable_name}({args_str});"
 
 

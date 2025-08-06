@@ -1,5 +1,5 @@
 from src.d_types import QInc
-from src.util.ret_imports import RetImports, add_inc
+from src.deps import Deps
 
 PY_TO_CPP_INCLUDE_MAP: dict[str, QInc] = {
     "Exception": QInc("exceptions/exception.h"),
@@ -23,8 +23,8 @@ PY_TO_CPP_INCLUDE_MAP: dict[str, QInc] = {
 }
 
 
-def lookup_cpp_exception_type(python_type: str, ret_imports: RetImports) -> str:
+def lookup_cpp_exception_type(python_type: str, d: Deps) -> str:
     if python_type not in PY_TO_CPP_INCLUDE_MAP:
         raise Exception(f"unsupported exception type: {python_type}")
-    add_inc(ret_imports, PY_TO_CPP_INCLUDE_MAP[python_type])
+    d.add_inc(PY_TO_CPP_INCLUDE_MAP[python_type])
     return "Pypp" + python_type
