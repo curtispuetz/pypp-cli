@@ -14,7 +14,7 @@ from tuples.first import tuples_fn
 from sets.first import set_fn
 from loops.for_ import for_loop_fn
 from loops.while_ import while_loop_fn
-from excpetions.throw_ import throw_fn
+from exceptions.throw_ import throw_fn
 from dicts.exceptions import dict_exceptions_fn
 from lists.exceptions import list_exceptions_fn
 from sets.exceptions import set_exceptions_fn
@@ -33,7 +33,7 @@ from loops.reversed_ import reversed_fn
 from lists.comprehensions import list_comprehension_fn
 from sets.comprehensions import set_comprehension_fn
 from dicts.comprehensions import dict_comprehension_fn
-from excpetions.assert_ import assert_fn
+from exceptions.assert_ import assert_fn
 from type_aliases import type_aliases_fn
 from yields.first import yield_fn
 from math_library.first import math_library_fn
