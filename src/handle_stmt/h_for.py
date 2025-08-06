@@ -1,28 +1,20 @@
 import ast
 from dataclasses import dataclass
 
+from src.deps import Deps
 from src.handle_expr.h_tuple import handle_tuple_inner_args
 from src.util.handle_lists import handle_stmts
-from src.util.ret_imports import RetImports
 
 
-def handle_for(
-    node: ast.For,
-    ret_imports: RetImports,
-    ret_h_file: list[str],
-    handle_stmt,
-    handle_expr,
-) -> str:
+def handle_for(node: ast.For, d: Deps) -> str:
     assert len(node.orelse) == 0, "For loop else not supported"
     assert node.type_comment is None, "For loop type comment not supported"
-    body_str = handle_stmts(node.body, ret_imports, ret_h_file, handle_stmt)
+    body_str = handle_stmts(node.body, d)
     if isinstance(node.target, ast.Tuple):
-        target_str = (
-            "[" + handle_tuple_inner_args(node.target, ret_imports, handle_expr) + "]"
-        )
+        target_str = "[" + handle_tuple_inner_args(node.target, d) + "]"
     else:
-        target_str: str = handle_expr(node.target, ret_imports)
-    iter_str = handle_expr(node.iter, ret_imports)
+        target_str: str = d.handle_expr(node.target)
+    iter_str = d.handle_expr(node.iter)
     if iter_str.startswith("PyRange(") and iter_str.endswith(")"):
         # This is not necessary because PyRange can be iterated over directly, but if
         # it is used explicitly in the loop, I might as well convert it to the

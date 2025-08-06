@@ -1,16 +1,13 @@
 import ast
 
+from src.deps import Deps
 from src.handle_stmt.h_ann_assign import handle_general_ann_assign
 from src.handle_stmt.h_assign import handle_assign
-from src.util.ret_imports import RetImports
 
 
 def handle_class_def_for_configclass(
     node: ast.ClassDef,
-    ret_imports: RetImports,
-    ret_h_file: list[str],
-    handle_expr,
-    handle_stmt,
+    d: Deps,
     dtype: ast.expr | None,
 ):
     instance_name: str = node.name
@@ -19,16 +16,11 @@ def handle_class_def_for_configclass(
     if dtype is None:
         body_str = _calc_ann_assigns(
             node,
-            ret_imports,
-            ret_h_file,
-            handle_expr,
-            handle_stmt,
+            d,
             name_doesnt_start_with_underscore,
         )
     else:
-        body_str = _calc_assigns(
-            node, ret_imports, handle_expr, name_doesnt_start_with_underscore, dtype
-        )
+        body_str = _calc_assigns(node, d, name_doesnt_start_with_underscore, dtype)
     # This is a secret name that won't be used other than to create the instance.
     class_name = f"_PseudoPyppName{instance_name}"
     result: str = (
@@ -39,17 +31,14 @@ def handle_class_def_for_configclass(
         + f"inline {class_name} {instance_name};"
     )
     if name_doesnt_start_with_underscore:
-        ret_h_file.append(result)
+        d.ret_h_file.append(result)
         return ""
     return result
 
 
 def _calc_ann_assigns(
     node: ast.ClassDef,
-    ret_imports: RetImports,
-    ret_h_file: list[str],
-    handle_expr,
-    handle_stmt,
+    d: Deps,
     include_in_header: bool,
 ) -> str:
     ret: list[str] = []
@@ -60,11 +49,8 @@ def _calc_ann_assigns(
         ret.append(
             handle_general_ann_assign(
                 ann_assign,
-                ret_imports,
-                ret_h_file,
-                handle_expr,
-                handle_stmt,
-                handle_expr(ann_assign.target, ret_imports),
+                d,
+                d.handle_expr(ann_assign.target),
                 include_in_header,
             )
         )
@@ -73,19 +59,15 @@ def _calc_ann_assigns(
 
 def _calc_assigns(
     node: ast.ClassDef,
-    ret_imports: RetImports,
-    handle_expr,
+    d: Deps,
     include_in_header: bool,
     dtype: ast.expr,
 ) -> str:
-    dtype_str: str = handle_expr(dtype, ret_imports, include_in_header)
+    dtype_str: str = d.handle_expr(dtype, include_in_header)
     ret: list[str] = []
     for assign in node.body:
         assert isinstance(assign, ast.Assign), (
             "configclass dtype arg should only have assignments without annotations in body"
         )
-        ret.append(
-            f"{dtype_str} "
-            + handle_assign(assign, ret_imports, handle_expr, include_in_header)
-        )
+        ret.append(f"{dtype_str} " + handle_assign(assign, d, include_in_header))
     return " ".join(ret)

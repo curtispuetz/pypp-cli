@@ -1,5 +1,6 @@
 import ast
 
+from src.deps import Deps
 from src.handle_stmt.h_class_def.for_class.for_class import handle_class_def_for_class
 from src.handle_stmt.h_class_def.for_configclass.for_configclass import (
     handle_class_def_for_configclass,
@@ -10,40 +11,25 @@ from src.handle_stmt.h_class_def.for_dataclasses.for_dataclasses import (
 from src.handle_stmt.h_class_def.for_interface.for_interface import (
     handle_class_def_for_interface,
 )
-from src.util.ret_imports import RetImports
 
 
-def handle_class_def(
-    node: ast.ClassDef,
-    ret_imports: RetImports,
-    ret_h_file: list[str],
-    handle_stmt,
-    handle_expr,
-) -> str:
+def handle_class_def(node: ast.ClassDef, d: Deps) -> str:
     _do_common_assertions(node)
     if len(node.decorator_list) == 1:
         decorator_name = _get_decorator_name(node)
         if decorator_name == "dataclass":
             is_frozen: bool = _do_dataclass_assertions(node)
-            return handle_class_def_for_dataclass(
-                node, ret_imports, ret_h_file, handle_stmt, handle_expr, is_frozen
-            )
+            return handle_class_def_for_dataclass(node, d, is_frozen)
         else:  # configclass
             dtype: ast.expr = _do_configclass_assertions(node)
-            return handle_class_def_for_configclass(
-                node, ret_imports, ret_h_file, handle_expr, handle_stmt, dtype
-            )
+            return handle_class_def_for_configclass(node, d, dtype)
 
     if _is_interface_def(node):
         _do_interface_assertions(node)
         # This is a struct, which is a special case of a class.
         # Note: structs are not supported yet.
-        return handle_class_def_for_interface(
-            node, ret_imports, ret_h_file, handle_expr
-        )
-    return handle_class_def_for_class(
-        node, ret_imports, ret_h_file, handle_stmt, handle_expr
-    )
+        return handle_class_def_for_interface(node, d)
+    return handle_class_def_for_class(node, d)
 
 
 def _is_interface_def(node: ast.ClassDef) -> bool:

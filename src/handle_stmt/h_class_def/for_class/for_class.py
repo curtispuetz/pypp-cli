@@ -3,36 +3,26 @@
 #  is made (if desired).
 import ast
 
+from src.deps import Deps
 from src.handle_stmt.h_class_def.create_final_str import create_final_str_for_class_def
 from src.handle_stmt.h_class_def.for_class.calc_fields_and_methods import (
     calc_methods_fields_and_base_constructor_calls_for_class,
 )
-from src.util.ret_imports import RetImports
 
 
-def handle_class_def_for_class(
-    node: ast.ClassDef,
-    ret_imports: RetImports,
-    ret_h_file: list[str],
-    handle_stmt,
-    handle_expr,
-) -> str:
+def handle_class_def_for_class(node: ast.ClassDef, d: Deps) -> str:
     name_starts_with_underscore: bool = node.name.startswith("_")
     name_doesnt_start_with_underscore: bool = not name_starts_with_underscore
     fields_and_base_constructor_calls, methods, constructor_sig = (
         calc_methods_fields_and_base_constructor_calls_for_class(
             node,
-            ret_imports,
-            handle_stmt,
-            handle_expr,
+            d,
             name_doesnt_start_with_underscore,
         )
     )
     return create_final_str_for_class_def(
         node,
-        ret_imports,
-        ret_h_file,
-        handle_expr,
+        d,
         fields_and_base_constructor_calls,
         methods,
         constructor_sig,

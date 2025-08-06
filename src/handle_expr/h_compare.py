@@ -1,20 +1,20 @@
 import ast
 
+from src.deps import Deps
 from src.handle_other.cmpop import handle_cmpop
-from src.util.ret_imports import RetImports
 
 
 def handle_compare(
     node: ast.Compare,
-    ret_imports: RetImports,
-    handle_expr,
+    d: Deps,
     include_in_header: bool,
 ) -> str:
     left = node.left
     assert len(node.comparators) == 1, "Not supported"
     right = node.comparators[0]
-    left_str = handle_expr(left, ret_imports, include_in_header)
-    right_str = handle_expr(right, ret_imports, include_in_header)
+    # TODO: remove the second argument by adding a method to the Deps class.
+    left_str = d.handle_expr(left, include_in_header)
+    right_str = d.handle_expr(right, include_in_header)
     assert len(node.ops) == 1, "Not supported"
     op = node.ops[0]
     if isinstance(op, ast.In):

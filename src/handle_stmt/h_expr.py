@@ -1,8 +1,8 @@
 import ast
 
-from src.util.ret_imports import RetImports
+from src.deps import Deps
 
 
-def handle_stmt_expr(node: ast.Expr, ret_imports: RetImports, handle_expr) -> str:
-    expr = handle_expr(node.value, ret_imports)
+def handle_stmt_expr(node: ast.Expr, d: Deps) -> str:
+    expr = d.handle_expr(node.value)
     return expr + ";"

@@ -1,22 +1,19 @@
 import ast
 
 from src.d_types import QInc
+from src.deps import Deps
 from src.util.handle_lists import handle_exprs
-from src.util.ret_imports import RetImports, add_inc
+from src.util.ret_imports import add_inc
 
 
-def handle_with_item(
-    nodes: list[ast.withitem],
-    ret_imports: RetImports,
-    handle_expr,
-) -> str:
+def handle_with_item(nodes: list[ast.withitem], d: Deps) -> str:
     error_str: str = (
         "With statement can only be used as 'with open(arg1, ?optional_arg2) as name1'"
     )
     node, args = _assert_with_item_is_open(nodes, error_str)
-    args_str = handle_exprs(args, ret_imports, handle_expr)
+    args_str = handle_exprs(args, d)
     variable_name = _assert_variable_name(node, error_str)
-    add_inc(ret_imports, QInc("pypp_text_io.h"))
+    add_inc(d.ret_imports, QInc("pypp_text_io.h"))
     return f"PyTextIO {variable_name}({args_str});"
 
 

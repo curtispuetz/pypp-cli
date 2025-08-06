@@ -1,9 +1,9 @@
 import ast
 from dataclasses import dataclass
 
+from src.deps import Deps
 from src.util.calc_fn_signature import calc_fn_signature
 from src.util.handle_lists import handle_stmts
-from src.util.ret_imports import RetImports
 
 
 ARG_PREFIX = "a_"
@@ -25,9 +25,7 @@ class ClassMethod:
 
 def calc_method(
     node: ast.FunctionDef,
-    ret_imports: RetImports,
-    handle_stmt,
-    handle_expr,
+    d: Deps,
     name_doesnt_start_with_underscore: bool,
 ) -> ClassMethod:
     assert not (node.name.startswith("__") and node.name.endswith("__")), (
@@ -36,13 +34,14 @@ def calc_method(
     assert node.args.args[0].arg == "self", "first arg must be self"
     fn_signature = calc_fn_signature(
         node,
-        ret_imports,
-        handle_expr,
+        d,
         node.name,
         name_doesnt_start_with_underscore,
         skip_first_arg=True,  # because it is self
     )
-    body_str: str = handle_stmts(node.body, ret_imports, [], handle_stmt)
+    body_str: str = handle_stmts(
+        node.body, Deps(d.ret_imports, [], d.handle_expr_fn, d.handle_stmt)
+    )
     return ClassMethod(fn_signature, body_str)
 
 

@@ -1,5 +1,6 @@
 import ast
 
+from src.deps import Deps
 from src.handle_stmt.h_class_def.for_class.calc_constructor_sig import (
     calc_constructor_signature_for_class,
 )
@@ -11,14 +12,11 @@ from src.handle_stmt.h_class_def.util import (
     ARG_PREFIX,
 )
 from src.util.calc_fn_signature import calc_fn_arg_types
-from src.util.ret_imports import RetImports
 
 
 def calc_methods_fields_and_base_constructor_calls_for_class(
     node: ast.ClassDef,
-    ret_imports: RetImports,
-    handle_stmt,
-    handle_expr,
+    d: Deps,
     name_doesnt_start_with_underscore: bool,
 ) -> tuple[list[ClassField], list[ClassMethod | str], str]:
     methods: list[ClassMethod] = []
@@ -29,17 +27,15 @@ def calc_methods_fields_and_base_constructor_calls_for_class(
             if item.name == "__init__":
                 field_types = calc_fn_arg_types(
                     item,
-                    ret_imports,
-                    handle_expr,
+                    d,
                     in_header=name_doesnt_start_with_underscore,
                     skip_first_arg=True,
                 )
                 fields_and_base_constructor_calls = (
                     _calc_fields_and_base_constructor_calls(
                         item,
-                        ret_imports,
+                        d,
                         field_types,
-                        handle_expr,
                         name_doesnt_start_with_underscore,
                     )
                 )
@@ -50,9 +46,7 @@ def calc_methods_fields_and_base_constructor_calls_for_class(
             methods.append(
                 calc_method(
                     item,
-                    ret_imports,
-                    handle_stmt,
-                    handle_expr,
+                    d,
                     name_doesnt_start_with_underscore,
                 )
             )
@@ -63,9 +57,8 @@ def calc_methods_fields_and_base_constructor_calls_for_class(
 
 def _calc_fields_and_base_constructor_calls(
     node: ast.FunctionDef,
-    ret_imports: RetImports,
+    d: Deps,
     field_types: dict[str, str],
-    handle_expr,
     name_doesnt_start_with_underscore: bool,
 ) -> list[ClassField | str]:
     ret: list[ClassField | str] = []
@@ -75,14 +68,12 @@ def _calc_fields_and_base_constructor_calls(
             assert len(item.targets) == 1, (
                 "only one target is supported for field names in __init__"
             )
-            field_name = handle_expr(
+            field_name = d.handle_expr(
                 item.targets[0],
-                ret_imports,
                 include_in_header=name_doesnt_start_with_underscore,
             )
-            assign_name = handle_expr(
+            assign_name = d.handle_expr(
                 item.value,
-                ret_imports,
                 include_in_header=name_doesnt_start_with_underscore,
             )
             ret.append(
@@ -102,16 +93,14 @@ def _calc_fields_and_base_constructor_calls(
             for arg in item.value.args[1:]:
                 args_str_list.append(
                     ARG_PREFIX
-                    + handle_expr(
+                    + d.handle_expr(
                         arg,
-                        ret_imports,
                         include_in_header=name_doesnt_start_with_underscore,
                     )
                 )
             args_str = ", ".join(args_str_list)
-            base_class_name = handle_expr(
+            base_class_name = d.handle_expr(
                 item.value.func.value,
-                ret_imports,
                 include_in_header=name_doesnt_start_with_underscore,
             )
             ret.append(f"{base_class_name}({args_str})")

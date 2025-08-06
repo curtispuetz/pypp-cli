@@ -1,20 +1,14 @@
 import ast
 
+from src.deps import Deps
 from src.handle_expr.h_comp import handle_comp
 from src.util.calc_callable_type import is_callable_type, calc_callable_type
 from src.util.inner_strings import calc_inside_ang, calc_inside_rd
-from src.util.ret_imports import RetImports
 from src.util.util import calc_ref_str
 
 
-def handle_ann_assign(
-    node: ast.AnnAssign,
-    ret_imports: RetImports,
-    ret_h_file: list[str],
-    handle_expr,
-    handle_stmt,
-) -> str:
-    target_str: str = handle_expr(node.target, ret_imports)
+def handle_ann_assign(node: ast.AnnAssign, d: Deps) -> str:
+    target_str: str = d.handle_expr(node.target)
     is_const: bool = target_str.isupper()
     const_str: str = "const " if is_const else ""
     is_private: bool = target_str.startswith("_")
@@ -23,47 +17,35 @@ def handle_ann_assign(
         const_str = "inline const "
     result: str = handle_general_ann_assign(
         node,
-        ret_imports,
-        ret_h_file,
-        handle_expr,
-        handle_stmt,
+        d,
         target_str,
         is_header_only,
         const_str,
     )
     if is_header_only:
-        ret_h_file.append(result)
+        d.ret_h_file.append(result)
         return ""
     return result
 
 
 def handle_general_ann_assign(
     node: ast.AnnAssign,
-    ret_imports: RetImports,
-    ret_h_file: list[str],
-    handle_expr,
-    handle_stmt,
+    d: Deps,
     target_str: str,
     include_in_header: bool,
     const_str: str = "",
 ) -> str:
     if is_callable_type(node.annotation):
-        type_cpp: str = calc_callable_type(
-            node.annotation, ret_imports, handle_expr, include_in_header
-        )
+        type_cpp: str = calc_callable_type(node.annotation, d, include_in_header)
     else:
-        type_cpp: str = handle_expr(
-            node.annotation, ret_imports, include_in_header=include_in_header
+        type_cpp: str = d.handle_expr(
+            node.annotation, include_in_header=include_in_header
         )
     if node.value is None:
         return f"{type_cpp} {target_str};"
     if isinstance(node.value, (ast.ListComp, ast.SetComp, ast.DictComp)):
-        return f"{type_cpp} {target_str}; " + handle_comp(
-            node.value, ret_imports, ret_h_file, handle_expr, handle_stmt, target_str
-        )
-    value_str = handle_expr(
-        node.value, ret_imports, include_in_header=include_in_header
-    )
+        return f"{type_cpp} {target_str}; " + handle_comp(node.value, d, target_str)
+    value_str = d.handle_expr(node.value, include_in_header=include_in_header)
     if value_str == "PyList({})":
         value_str = _empty_initialize("PyList", type_cpp)
     elif value_str == "set()":

@@ -1,6 +1,7 @@
 import ast
 
 from src.d_types import AngInc
+from src.deps import Deps
 from src.handle_stmt.h_class_def.util import ClassMethod, ClassField, ARG_PREFIX
 from src.util.calc_fn_signature import calc_fn_str_with_body
 from src.util.ret_imports import RetImports, add_inc
@@ -8,9 +9,7 @@ from src.util.ret_imports import RetImports, add_inc
 
 def create_final_str_for_class_def(
     node: ast.ClassDef,
-    ret_imports: RetImports,
-    ret_h_file: list[str],
-    handle_expr,
+    d: Deps,
     fields_and_base_constructor_calls: list[ClassField | str],
     methods: list[ClassMethod],
     constructor_sig: str,
@@ -23,12 +22,12 @@ def create_final_str_for_class_def(
     fields_and_constructor: str = _calc_fields_and_constructor(
         fields_and_base_constructor_calls,
         constructor_sig,
-        ret_imports,
+        d.ret_imports,
         name_doesnt_start_with_underscore,
         is_frozen,
     )
     base_classes: list[str] = _calc_base_classes(
-        node, ret_imports, handle_expr, name_doesnt_start_with_underscore
+        node, d, name_doesnt_start_with_underscore
     )
     if name_starts_with_underscore:
         full_methods: str = _calc_full_methods(methods)
@@ -36,14 +35,14 @@ def create_final_str_for_class_def(
             class_name, fields_and_constructor + full_methods, is_struct, base_classes
         )
     if len(methods) == 0:
-        ret_h_file.append(
+        d.ret_h_file.append(
             _calc_final_str(class_name, fields_and_constructor, is_struct, base_classes)
         )
         # Nothing goes in the cpp file in this case.
         return ""
     method_signatures: str = _calc_method_signatures(methods)
     method_impls: str = _calc_method_implementations(methods, class_name)
-    ret_h_file.append(
+    d.ret_h_file.append(
         _calc_final_str(
             class_name,
             fields_and_constructor + method_signatures,
@@ -74,16 +73,13 @@ def _calc_final_str(
 
 def _calc_base_classes(
     node: ast.ClassDef,
-    ret_imports: RetImports,
-    handle_expr,
+    d: Deps,
     name_doesnt_start_with_underscore: bool,
 ) -> list[str]:
     ret: list[str] = []
     for base in node.bases:
         ret.append(
-            handle_expr(
-                base, ret_imports, include_in_header=name_doesnt_start_with_underscore
-            )
+            d.handle_expr(base, include_in_header=name_doesnt_start_with_underscore)
         )
     return ret
 
