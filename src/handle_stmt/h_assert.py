@@ -9,6 +9,5 @@ def handle_assert(node: ast.Assert, d: Deps) -> str:
     test_str = d.handle_expr(node.test)
     msg_str = 'PyStr("")'
     if node.msg is not None:
-        # TODO: there is a problem here because I shouldn't be passing d.ret_h_file.
-        msg_str = d.handle_expr(node.msg, d.ret_h_file)
+        msg_str = d.handle_expr(node.msg)
     return f"assert({test_str}, {msg_str});"
