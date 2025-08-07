@@ -19,6 +19,7 @@ def pypp_do(tasks: list[str], dirs: PyppDirs) -> None:
         assert task in task_methods, "Shouldn't happen"
         task_methods[task]()
 
+
 class _DoHelper:
     def __init__(self, dirs: PyppDirs):
         self._dirs = dirs

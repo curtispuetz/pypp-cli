@@ -15,11 +15,13 @@ def main():
         dest="mode", required=False, help="install or remove_timestamps"
     )
     subparsers.add_parser("install", help="Install pypp libraries")
-    subparsers.add_parser("init", help="Initialize a new Py++ project in the given directory")
+    subparsers.add_parser(
+        "init", help="Initialize a new Py++ project in the given directory"
+    )
     subparsers.add_parser(
         "remove_timestamps",
-        help="Remove the file_timestamps.json file so that Python transpiling is done "
-        "for all files regardless of whether they were modified.",
+        help="Remove the file_timestamps.json file so that transpiling is done "
+        "for all python files regardless of whether they were modified.",
     )
     parser_main = subparsers.add_parser(
         "do", help="transpile, format, build, and/or run"
