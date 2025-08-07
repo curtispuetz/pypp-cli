@@ -2,13 +2,11 @@ import os
 import json
 from dataclasses import dataclass
 
-from pypp_core.src.config import C_PYTHON_SRC_DIR, C_TARGET_DIR, C_PYTHON_DIR
+from pypp_core.src.config import PyppDirs, create_test_dir_pypp_dirs
 from pypp_core.src.constants import SECRET_MAIN_FILE_DIR_PREFIX
 
-TIMESTAMPS_FILE = os.path.join(C_TARGET_DIR, "file_timestamps.json")
 
-
-def get_all_files(root: str) -> list[str]:
+def _get_all_files(root: str) -> list[str]:
     # Tested. Results: works.
     ret: list[str] = []
     for dirpath, _, filenames in os.walk(root):
@@ -19,28 +17,30 @@ def get_all_files(root: str) -> list[str]:
     return ret
 
 
-def get_all_main_files() -> list[str]:
-    return [f for f in os.listdir(C_PYTHON_DIR) if f.endswith(".py")]
+def get_all_main_files(python_dir: str) -> list[str]:
+    return [f for f in os.listdir(python_dir) if f.endswith(".py")]
 
 
-def get_all_main_files_with_special_name() -> list[tuple[str, str]]:
-    return [(f, SECRET_MAIN_FILE_DIR_PREFIX + f) for f in get_all_main_files()]
+def _get_all_main_files_with_special_name(python_dir: str) -> list[tuple[str, str]]:
+    return [
+        (f, SECRET_MAIN_FILE_DIR_PREFIX + f) for f in get_all_main_files(python_dir)
+    ]
 
 
-def load_previous_timestamps():
-    if os.path.exists(TIMESTAMPS_FILE):
-        with open(TIMESTAMPS_FILE, "r") as f:
+def _load_previous_timestamps(timestamps_file: str):
+    if os.path.exists(timestamps_file):
+        with open(timestamps_file, "r") as f:
             return json.load(f)
     return {}
 
 
-def save_timestamps(timestamps):
-    with open(TIMESTAMPS_FILE, "w") as f:
+def save_timestamps(timestamps, timestamps_file: str):
+    with open(timestamps_file, "w") as f:
         json.dump(timestamps, f, indent=2)
 
 
 @dataclass(frozen=True, slots=True)
-class PyFileChanges:
+class _PyFileChanges:
     changed_files: list[str]
     new_files: list[str]
     deleted_files: list[str]
@@ -65,16 +65,16 @@ def _check_file_change(
         new_files.append(rel_path)
 
 
-def calc_py_file_changes() -> tuple[PyFileChanges, dict]:
-    prev_timestamps = load_previous_timestamps()
+def calc_py_file_changes(dirs: PyppDirs) -> tuple[_PyFileChanges, dict]:
+    prev_timestamps = _load_previous_timestamps(dirs.timestamps_file)
     curr_timestamps = {}
     changed_files = []
     new_files = []
     deleted_files = set(prev_timestamps.keys())
 
-    for rel_path in get_all_files(C_PYTHON_SRC_DIR):
+    for rel_path in _get_all_files(dirs.python_src_dir):
         _check_file_change(
-            os.path.join(C_PYTHON_SRC_DIR, rel_path),
+            os.path.join(dirs.python_src_dir, rel_path),
             rel_path,
             curr_timestamps,
             prev_timestamps,
@@ -82,9 +82,9 @@ def calc_py_file_changes() -> tuple[PyFileChanges, dict]:
             new_files,
             deleted_files,
         )
-    for rel_path, secret_name in get_all_main_files_with_special_name():
+    for rel_path, secret_name in _get_all_main_files_with_special_name(dirs.python_dir):
         _check_file_change(
-            os.path.join(C_PYTHON_DIR, rel_path),
+            os.path.join(dirs.python_dir, rel_path),
             secret_name,
             curr_timestamps,
             prev_timestamps,
@@ -102,8 +102,10 @@ def calc_py_file_changes() -> tuple[PyFileChanges, dict]:
             f"deleted files: {len(deleted_files)}"
         )
 
-    return PyFileChanges(changed_files, new_files, list(deleted_files)), curr_timestamps
+    return _PyFileChanges(
+        changed_files, new_files, list(deleted_files)
+    ), curr_timestamps
 
 
 if __name__ == "__main__":
-    calc_py_file_changes()
+    calc_py_file_changes(create_test_dir_pypp_dirs())
