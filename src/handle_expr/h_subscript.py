@@ -11,6 +11,13 @@ def handle_subscript(
     include_in_header: bool,
 ) -> str:
     value_cpp_str = d.handle_expr(node.value, include_in_header)
+    if value_cpp_str == "PyDefaultDict":
+        assert isinstance(node.slice, ast.Tuple), (
+            "defaultdict must be called as defaultdict[KeyType, ValueType]"
+        )
+        assert len(node.slice.elts) == 2, "2 types expected when calling defaultdict"
+        default_dict_types = handle_tuple_inner_args(node.slice, d, include_in_header)
+        return f"PyDefaultDict<{default_dict_types}>"
     if isinstance(node.slice, ast.Tuple):
         slice_cpp_str = handle_tuple_inner_args(node.slice, d, include_in_header)
     else:

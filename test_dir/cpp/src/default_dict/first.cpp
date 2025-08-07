@@ -6,6 +6,8 @@
 
 PyDict<int, int> _dict_factory() { return {{1, 2}, {3, 4}}; }
 
+void _default_dict_as_arg(PyDefaultDict<int, int> a) { print(a[0]); }
+
 struct _CustomType {
     int val;
     _CustomType(int a_val) : val(std::move(a_val)) {}
@@ -41,38 +43,40 @@ void default_dict_fn() {
     PySet<int> n = m[0];
     print(n);
     print(m);
-    PyDefaultDict<int, int> o([]() { return 42; });
+    auto o = PyDefaultDict<int, int>([]() { return 42; });
     int p = o[0];
     print(p);
     print(o);
-    PyDefaultDict<int, double> q([]() { return 3.14; });
+    auto q = PyDefaultDict<int, double>([]() { return 3.14; });
     double r = q[0];
     print(r);
     print(q);
-    PyDefaultDict<int, bool> s([]() { return true; });
+    auto s = PyDefaultDict<int, bool>([]() { return true; });
     bool t = s[0];
     print(t);
     print(s);
-    PyDefaultDict<int, PyStr> u([]() { return PyStr("default"); });
+    auto u = PyDefaultDict<int, PyStr>([]() { return PyStr("default"); });
     PyStr v = u[0];
     print(v);
     print(u);
-    PyDefaultDict<int, PyList<int>> w([]() { return PyList({1, 2, 3}); });
+    auto w =
+        PyDefaultDict<int, PyList<int>>([]() { return PyList({1, 2, 3}); });
     PyList<int> x = w[0];
     print(x);
     print(w);
-    PyDefaultDict<int, PyDict<int, int>> y(_dict_factory);
+    auto y = PyDefaultDict<int, PyDict<int, int>>(_dict_factory);
     PyDict<int, int> z(y[0]);
     print(z);
     print(y);
-    PyDefaultDict<int, PySet<int>> aa([]() { return PySet({1, 2, 3}); });
+    auto aa = PyDefaultDict<int, PySet<int>>([]() { return PySet({1, 2, 3}); });
     PySet<int> ab = aa[0];
     print(ab);
     print(aa);
     w[9].append(99);
     print(w);
-    PyDefaultDict<int, _CustomType> ac([]() { return _CustomType(42); });
+    auto ac = PyDefaultDict<int, _CustomType>([]() { return _CustomType(42); });
     _CustomType ad = ac[0];
     print(ad.val);
     print(&ad);
+    _default_dict_as_arg(PyDefaultDict<int, int>::int_factory());
 }

@@ -109,13 +109,13 @@ int main() {
         interfaces_fn();
         operations_fn();
         fn_as_vars_fn();
-        default_dict_fn();
         pypp_union_fn();
         constant_fn();
         imports_test_fn();
         imports_test_fn2();
         number_types_fn();
         time_library_fn();
+        default_dict_fn();
         return 0;
     } catch (...) {
         handle_fatal_exception();

@@ -1,40 +1,82 @@
 from dataclasses import dataclass
 
-from src.d_types import CppInclude, QInc, AngInc
+from src.d_types import CppInclude, QInc, AngInc, PySpecificImport, PySpecificImpFrom
 from src.deps import Deps
 
 
 @dataclass(frozen=True, slots=True)
-class TypeMapInfo:
+class _TypeMapInfo:
     val: str
     includes: list[CppInclude]
+    required_import: PySpecificImport | None = None
 
 
-TYPES_MAP: dict[str, TypeMapInfo] = {
-    "str": TypeMapInfo("PyStr", [QInc("py_str.h")]),
+# TODO: for bridge library creation, users can define their types for here
+TYPES_MAP: dict[str, _TypeMapInfo] = {
+    "str": _TypeMapInfo("PyStr", [QInc("py_str.h")]),
     # NOTE: technically I don't think this is necessary since int and int are the same
-    "int": TypeMapInfo("int", []),
-    "float": TypeMapInfo("double", []),
-    "float32": TypeMapInfo("float", []),
-    "int8_t": TypeMapInfo("int8_t", [AngInc("cstdint")]),
-    "int16_t": TypeMapInfo("int16_t", [AngInc("cstdint")]),
-    "int32_t": TypeMapInfo("int32_t", [AngInc("cstdint")]),
-    "int64_t": TypeMapInfo("int64_t", [AngInc("cstdint")]),
-    "uint8_t": TypeMapInfo("uint8_t", [AngInc("cstdint")]),
-    "uint16_t": TypeMapInfo("uint16_t", [AngInc("cstdint")]),
-    "uint32_t": TypeMapInfo("uint32_t", [AngInc("cstdint")]),
-    "uint64_t": TypeMapInfo("uint64_t", [AngInc("cstdint")]),
-    "list": TypeMapInfo("PyList", [QInc("py_list.h")]),
-    "dict": TypeMapInfo("PyDict", [QInc("py_dict.h")]),
-    "defaultdict": TypeMapInfo("PyDefaultDict", [QInc("py_dict_default.h")]),
-    "tuple": TypeMapInfo("PyTup", [QInc("py_tuple.h")]),
-    "set": TypeMapInfo("PySet", [QInc("py_set.h")]),
-    "range": TypeMapInfo("PyRange", [QInc("py_range.h")]),
-    "slice": TypeMapInfo("PySlice", [QInc("slice/py_slice.h")]),
-    "enumerate": TypeMapInfo("PyEnumerate", [QInc("py_enumerate.h")]),
-    "zip": TypeMapInfo("PyZip", [QInc("py_zip.h")]),
-    "reversed": TypeMapInfo("PyReversed", [QInc("py_reversed.h")]),
-    "Uni": TypeMapInfo("Uni", [QInc("pypp_union.h")]),
+    "int": _TypeMapInfo("int", []),
+    "float": _TypeMapInfo("double", []),
+    "float32": _TypeMapInfo(
+        "float", [], PySpecificImpFrom("pypp_python.custom_types", "float32")
+    ),
+    "int8_t": _TypeMapInfo(
+        "int8_t",
+        [AngInc("cstdint")],
+        PySpecificImpFrom("pypp_python.custom_types", "int8_t"),
+    ),
+    "int16_t": _TypeMapInfo(
+        "int16_t",
+        [AngInc("cstdint")],
+        PySpecificImpFrom("pypp_python.custom_types", "int16_t"),
+    ),
+    "int32_t": _TypeMapInfo(
+        "int32_t",
+        [AngInc("cstdint")],
+        PySpecificImpFrom("pypp_python.custom_types", "int32_t"),
+    ),
+    "int64_t": _TypeMapInfo(
+        "int64_t",
+        [AngInc("cstdint")],
+        PySpecificImpFrom("pypp_python.custom_types", "int64_t"),
+    ),
+    "uint8_t": _TypeMapInfo(
+        "uint8_t",
+        [AngInc("cstdint")],
+        PySpecificImpFrom("pypp_python.custom_types", "uint8_t"),
+    ),
+    "uint16_t": _TypeMapInfo(
+        "uint16_t",
+        [AngInc("cstdint")],
+        PySpecificImpFrom("pypp_python.custom_types", "uint16_t"),
+    ),
+    "uint32_t": _TypeMapInfo(
+        "uint32_t",
+        [AngInc("cstdint")],
+        PySpecificImpFrom("pypp_python.custom_types", "uint32_t"),
+    ),
+    "uint64_t": _TypeMapInfo(
+        "uint64_t",
+        [AngInc("cstdint")],
+        PySpecificImpFrom("pypp_python.custom_types", "uint64_t"),
+    ),
+    "list": _TypeMapInfo("PyList", [QInc("py_list.h")]),
+    "dict": _TypeMapInfo("PyDict", [QInc("py_dict.h")]),
+    "defaultdict": _TypeMapInfo(
+        "PyDefaultDict",
+        [QInc("py_dict_default.h")],
+        PySpecificImpFrom("collections", "defaultdict"),
+    ),
+    "tuple": _TypeMapInfo("PyTup", [QInc("py_tuple.h")]),
+    "set": _TypeMapInfo("PySet", [QInc("py_set.h")]),
+    "range": _TypeMapInfo("PyRange", [QInc("py_range.h")]),
+    "slice": _TypeMapInfo("PySlice", [QInc("slice/py_slice.h")]),
+    "enumerate": _TypeMapInfo("PyEnumerate", [QInc("py_enumerate.h")]),
+    "zip": _TypeMapInfo("PyZip", [QInc("py_zip.h")]),
+    "reversed": _TypeMapInfo("PyReversed", [QInc("py_reversed.h")]),
+    "Uni": _TypeMapInfo(
+        "Uni", [QInc("pypp_union.h")], PySpecificImpFrom("pypp_python.union", "Uni")
+    ),
 }
 
 
@@ -48,6 +90,8 @@ def lookup_cpp_type(
     if python_type not in TYPES_MAP:
         return python_type
     val = TYPES_MAP[python_type]
+    if val.required_import is not None and not d.is_imported(val.required_import):
+        return python_type
     for include in val.includes:
         d.add_inc(include, include_in_header)
     return val.val

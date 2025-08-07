@@ -2,7 +2,7 @@ import ast
 from dataclasses import dataclass
 from typing import Callable
 
-from src.d_types import CppInclude
+from src.d_types import CppInclude, PyImports, PySpecificImport, is_imported
 from src.util.ret_imports import RetImports, add_inc
 
 
@@ -10,6 +10,7 @@ from src.util.ret_imports import RetImports, add_inc
 class Deps:
     ret_imports: RetImports
     ret_h_file: list[str]
+    py_imports: PyImports
     handle_expr_fn: Callable[[ast.expr, "Deps", bool, bool], str]
     handle_stmt: Callable[[ast.stmt, "Deps"], str]
 
@@ -23,3 +24,6 @@ class Deps:
 
     def add_inc(self, inc: CppInclude, in_header: bool = False):
         add_inc(self.ret_imports, inc, in_header)
+
+    def is_imported(self, imp: PySpecificImport) -> bool:
+        return is_imported(self.py_imports, imp)

@@ -10,16 +10,20 @@ from src.util.ret_imports import RetImports
 
 
 def calc_main_cpp_source(main_py: ast.Module) -> str:
-    imp_map, i = handle_import_stmts(main_py.body)
-    d: Deps = Deps(RetImports(set(), set(), imp_map), [], handle_expr, handle_stmt)
+    imp_map, i, py_imports = handle_import_stmts(main_py.body)
+    d: Deps = Deps(
+        RetImports(set(), set(), imp_map), [], py_imports, handle_expr, handle_stmt
+    )
     cpp_source_minus_includes: str = handle_main_stmts(main_py.body[i:], d)
     cpp_includes: str = calc_includes_for_main_file(d.ret_imports)
     return cpp_includes + cpp_source_minus_includes
 
 
 def calc_src_file_cpp_and_h_source(src_py: ast.Module, h_file: str) -> tuple[str, str]:
-    imp_map, i = handle_import_stmts(src_py.body)
-    d: Deps = Deps(RetImports(set(), set(), imp_map), [], handle_expr, handle_stmt)
+    imp_map, i, py_imports = handle_import_stmts(src_py.body)
+    d: Deps = Deps(
+        RetImports(set(), set(), imp_map), [], py_imports, handle_expr, handle_stmt
+    )
     cpp_source_minus_include: str = handle_stmts(src_py.body[i:], d)
     h_includes, cpp_includes = calc_includes(d.ret_imports)
     if cpp_source_minus_include.strip() == "":
