@@ -1,6 +1,8 @@
 /.venv
 /.idea
-/test_dir/cpp/build
+/pypp_core/test_dir/cpp/build
 **/__pycache__/**
-/test_dir2
-/test_dir/file_timestamps.json
+/pypp_core/test_dir2
+/pypp_core/test_dir/file_timestamps.json
+dist/
+pypp_core.egg-info/

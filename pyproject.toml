@@ -1,3 +1,20 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pypp_core"
+version = "0.0"
+description = "A CLI tool called pypp"
+authors = [
+    { name="Curtis Puetz", email="TODO@email.com" }
+]
+readme = "readme.md"
+license = { text = "MIT" }
+
+[project.scripts]
+pypp = "pypp_core.cli:main"
+
 [tool.ruff]
 lint.ignore = [
     "E731", # assigning a lambda expression to a var
