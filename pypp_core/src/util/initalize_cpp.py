@@ -1,18 +1,19 @@
 import os
 import shutil
-from pypp_core.src.config import C_CPP_TEMPLATE_DIR, C_CPP_DIR
+
+from pypp_core.src.config import PyppDirs
 
 
-def initialize_cpp_project() -> bool:
+def initialize_cpp_project(dirs: PyppDirs) -> bool:
     # Create the target directory if it doesn't exist
-    if not os.path.exists(C_CPP_DIR):
-        print(f"Creating C++ project directory at: {C_CPP_DIR}")
-        os.makedirs(C_CPP_DIR)
+    if not os.path.exists(dirs.cpp_dir):
+        print(f"Creating C++ project directory at: {dirs.cpp_dir}")
+        os.makedirs(dirs.cpp_dir)
 
         # Copy files and directories from the template
-        for item in os.listdir(C_CPP_TEMPLATE_DIR):
-            src_path = os.path.join(C_CPP_TEMPLATE_DIR, item)
-            dst_path = os.path.join(C_CPP_DIR, item)
+        for item in os.listdir(dirs.cpp_template_dir):
+            src_path = os.path.join(dirs.cpp_template_dir, item)
+            dst_path = os.path.join(dirs.cpp_dir, item)
             if os.path.isdir(src_path):
                 shutil.copytree(src_path, dst_path)
             else:

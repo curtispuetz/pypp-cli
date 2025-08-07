@@ -1,22 +1,23 @@
 import os
 import subprocess
+from functools import partial
 from multiprocessing import Pool
 from pathlib import Path
 
-from pypp_core.src.config import C_CPP_DIR
+from pypp_core.src.config import PyppDirs, create_test_dir_pypp_dirs
 
 
-def _format_file(file: Path):
+def _format_file(file: Path, dirs: PyppDirs):
     # clang-format -i --style=file main.cpp
     subprocess.run(
-        ["clang-format", "-i", "--style=file", str(file)], cwd=C_CPP_DIR, check=True
+        ["clang-format", "-i", "--style=file", str(file)], cwd=dirs.cpp_dir, check=True
     )
 
 
-def pypp_format(files_added_or_modified: list[Path]):
+def pypp_format(files_added_or_modified: list[Path], dirs: PyppDirs):
     num_cores = os.cpu_count() or 1  # Fallback to 1 if None
     with Pool(num_cores) as p:  # Adjust number of workers
-        p.map(_format_file, files_added_or_modified)
+        p.map(partial(_format_file, dirs=dirs), files_added_or_modified)
     print(
         f"py++ format finished. "
         f"files formatted: {len(files_added_or_modified)}, "
@@ -25,4 +26,4 @@ def pypp_format(files_added_or_modified: list[Path]):
 
 
 if __name__ == "__main__":
-    pypp_format([])
+    pypp_format([], create_test_dir_pypp_dirs())

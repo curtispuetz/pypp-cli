@@ -1,14 +1,14 @@
 import os
 
-from pypp_core.src.config import C_PYTHON_DIR, C_CPP_DIR
+from pypp_core.src.config import PyppDirs
 from pypp_core.src.util.file_change_tracker import get_all_main_files
 
 
-def write_cmake_lists_file():
+def write_cmake_lists_file(dirs: PyppDirs):
     # Find all .py files in the directory
-    main_py_files = get_all_main_files()
+    main_py_files = get_all_main_files(dirs.python_dir)
     if not main_py_files:
-        raise Exception(f"No Python files (*.py) found in '{C_PYTHON_DIR}'.")
+        raise Exception(f"No Python files (*.py) found in '{dirs.python_dir}'.")
 
     cmake_lines = [
         "cmake_minimum_required(VERSION 4.0)",
@@ -34,7 +34,7 @@ def write_cmake_lists_file():
 
     cmake_content = "\n".join(cmake_lines)
 
-    cmake_path = os.path.join(C_CPP_DIR, "CMakeLists.txt")
+    cmake_path = os.path.join(dirs.cpp_dir, "CMakeLists.txt")
     with open(cmake_path, "w", encoding="utf-8") as f:
         f.write(cmake_content)
 

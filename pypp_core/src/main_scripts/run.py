@@ -1,11 +1,11 @@
 import subprocess
 from pathlib import Path
 
-from pypp_core.src.config import C_CPP_BUILD_RELEASE_DIR
+from pypp_core.src.config import PyppDirs, create_test_dir_pypp_dirs
 
 
-def pypp_run():
-    exe_path = Path(C_CPP_BUILD_RELEASE_DIR) / "main.exe"
+def pypp_run(dirs: PyppDirs):
+    exe_path = Path(dirs.cpp_build_release_dir) / "main.exe"
     print("py++ running executable...")
     subprocess.run([str(exe_path)], check=True)
     # TODO later: uncomment this print later maybe
@@ -13,4 +13,4 @@ def pypp_run():
 
 
 if __name__ == "__main__":
-    pypp_run()
+    pypp_run(create_test_dir_pypp_dirs())
