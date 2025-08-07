@@ -1,6 +1,6 @@
 import ast
 
-from src.d_types import AngInc
+from src.d_types import AngInc, PyImport
 from src.deps import Deps
 
 
@@ -16,7 +16,7 @@ def handle_attribute(
     value_str = d.handle_expr(node.value, include_in_header)
     if value_str == "self":
         return attr_str
-    if value_str == "math":
+    if d.is_imported(PyImport("math")) and value_str == "math":
         if attr_str == "pi":
             d.add_inc(AngInc("numbers"), include_in_header)
             return "std::numbers::pi"

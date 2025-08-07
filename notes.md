@@ -28,3 +28,4 @@ a function, class or other logic). I don't care about this because I only define
 anyway. But if you define these not at the module level, it will function as expected if you name it starting 
 with an underscore. But if you don't name it starting with an underscore the constant or type alias is always extracted 
 to the header file in the transpiled C++ (this is the little nuance).
+- When setting a default dict variable you must specify it as auto.
