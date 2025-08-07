@@ -39,10 +39,9 @@ def calc_method(
         name_doesnt_start_with_underscore,
         skip_first_arg=True,  # because it is self
     )
-    # TODO: can I just pass d rather than creating a new Deps instance?
     body_str: str = handle_stmts(
         node.body,
-        Deps(d.ret_imports, [], d.py_imports, d.handle_expr_fn, d.handle_stmt),
+        d,
     )
     return ClassMethod(fn_signature, body_str)
 
