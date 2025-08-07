@@ -109,6 +109,8 @@ def pypp_transpile() -> list[Path]:
         py_file_changes.new_files + py_file_changes.changed_files
     ):
         py_files_transpiled += 1
+        # TODO: calculate the full types map. This involves iterating over all
+        #  installed libraries looking for data/bridge_jsons/type_map.json?
         header_files_written, cpp_files_written = _transpile_cpp_and_h_files(
             changed_or_new_file, files_added_or_modified
         )
