@@ -1,0 +1,2 @@
+recursive-include pypp_core/data *
+recursive-include pypp_core/data .*

@@ -37,10 +37,12 @@ def _delete_cpp_and_h_file(filepath: str, dirs: PyppDirs) -> int:
 
 
 def _transpile_cpp_and_h_files(
-    rel_path: str, files_added_or_modified: list[Path], dirs: PyppDirs
+    rel_path: str,
+    files_added_or_modified: list[Path],
+    dirs: PyppDirs,
+    header_files_written: int,
+    cpp_files_written: int,
 ) -> tuple[int, int]:
-    header_files_written = 0
-    cpp_files_written = 0
     if rel_path.startswith(SECRET_MAIN_FILE_DIR_PREFIX):
         # transpile a main file
         real_rel_path = rel_path[len(SECRET_MAIN_FILE_DIR_PREFIX) :]
@@ -111,7 +113,11 @@ def pypp_transpile(dirs: PyppDirs) -> list[Path]:
         # TODO: calculate the full types map. This involves iterating over all
         #  installed libraries looking for data/bridge_jsons/type_map.json?
         header_files_written, cpp_files_written = _transpile_cpp_and_h_files(
-            changed_or_new_file, files_added_or_modified, dirs
+            changed_or_new_file,
+            files_added_or_modified,
+            dirs,
+            header_files_written,
+            cpp_files_written,
         )
     print(
         f"py++ transpile finished. "

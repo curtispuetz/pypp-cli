@@ -15,6 +15,9 @@ license = { text = "MIT" }
 [project.scripts]
 pypp = "pypp_core.cli:main"
 
+[tool.setuptools.package-data]
+"pypp_core" = ["data/**/*"]
+
 [tool.ruff]
 lint.ignore = [
     "E731", # assigning a lambda expression to a var
