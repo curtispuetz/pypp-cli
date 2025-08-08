@@ -11,14 +11,11 @@ from pypp_core.src.main_scripts.remove_timestamps import pypp_remove_timestamps
 
 def main():
     parser = argparse.ArgumentParser(description="pypp CLI tool")
-    parser.add_argument("project_dir", help="Path to the Py++ project dir")
-    subparsers = parser.add_subparsers(
-        dest="mode", required=False, help="install or remove_timestamps"
-    )
-    subparsers.add_parser("install", help="Install pypp libraries")
+    subparsers = parser.add_subparsers(dest="mode", required=False)
     subparsers.add_parser(
         "init", help="Initialize a new Py++ project in the given directory"
     )
+    subparsers.add_parser("install", help="Install pypp libraries")
     subparsers.add_parser(
         "remove_timestamps",
         help="Remove the file_timestamps.json file so that transpiling is done "
@@ -39,19 +36,20 @@ def main():
     )
 
     args = parser.parse_args()
-    if not os.path.isdir(args.project_dir):
-        parser.error(f"The path {args.project_dir} is not a valid directory.")
-    absolute_dir = os.path.abspath(args.project_dir)
-    print("Using directory:", absolute_dir)
-
+    absolute_dir = os.getcwd()
     pypp_dirs = PyppDirs(absolute_dir)
+    if args.mode == "init":
+        pypp_init(pypp_dirs)
+    elif not os.path.exists(pypp_dirs.proj_info_file):
+        parser.error(
+            "pypp_data/proj_info.json file not found. "
+            "Ensure your Py++ project is properly initialized."
+        )
 
     if args.mode == "do":
         pypp_do(args.tasks, pypp_dirs)
     elif args.mode == "install":
         pypp_install()
-    elif args.mode == "init":
-        pypp_init(pypp_dirs)
     elif args.mode == "remove_timestamps":
         pypp_remove_timestamps(pypp_dirs)
 
