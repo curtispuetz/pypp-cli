@@ -1,6 +1,6 @@
 import ast
+import json
 import os
-import shutil
 from pathlib import Path
 
 from pypp_core.src.config import PyppDirs, create_test_dir_pypp_dirs
@@ -9,7 +9,9 @@ from pypp_core.src.util.file_change_tracker import (
     calc_py_file_changes,
     save_timestamps,
 )
-from pypp_core.src.util.initalize_cpp import initialize_cpp_project
+from pypp_core.src.util.initalize_cpp import (
+    initialize_cpp_project,
+)
 from pypp_core.src.util.calc_ast_tree import (
     calc_ast_tree,
 )
@@ -79,13 +81,13 @@ def _transpile_cpp_and_h_files(
 
 
 def pypp_transpile(dirs: PyppDirs) -> list[Path]:
-    # Step 1: Initialize the C++ project if it isn't already
-    if os.path.isdir(dirs.cpp_dir) and not os.path.isdir(dirs.cpp_build_dir):
-        shutil.rmtree(dirs.cpp_dir)
-        print("deleted partially initialized C++ dir")
-    was_initialized = initialize_cpp_project(dirs)
-    if not was_initialized:
-        print("C++ project directory already exists. Skipping initialization.")
+    # Step 1: Copy the C++ template to the cpp project directory if marked as dirty
+    with open(dirs.proj_info_file) as file:
+        proj_info = json.load(file)
+    if proj_info["cpp_dir_is_dirty"]:
+        initialize_cpp_project(dirs, proj_info)
+    else:
+        print("C++ template already copied to the cpp project directory")
     # Step 1.1 write the CmakeLists.txt file
     write_cmake_lists_file(dirs)
 

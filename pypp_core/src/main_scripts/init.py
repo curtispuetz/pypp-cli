@@ -1,3 +1,5 @@
+import json
+
 from pypp_core.src.config import PyppDirs
 import os
 import venv
@@ -18,12 +20,21 @@ def _create_python_virtual_environment(dirs: PyppDirs):
 
 
 def _create_project_structure(dirs: PyppDirs):
-    # Create main folders
+    _create_main_folders(dirs)
+    _create_python_main_file(dirs)
+    _create_python_src_file(dirs)
+    _create_proj_json_file(dirs)
+
+
+def _create_main_folders(dirs: PyppDirs):
     os.makedirs(dirs.cpp_dir, exist_ok=True)
     os.makedirs(dirs.python_dir, exist_ok=True)
+    os.makedirs(dirs.python_src_dir, exist_ok=True)
     os.makedirs(dirs.resources_dir, exist_ok=True)
+    os.makedirs(dirs.pypp_data_dir, exist_ok=True)
 
-    # Create python/main.py
+
+def _create_python_main_file(dirs: PyppDirs):
     main_py_path = os.path.join(dirs.python_dir, "main.py")
     with open(main_py_path, "w") as f:
         f.writelines(
@@ -35,8 +46,14 @@ def _create_project_structure(dirs: PyppDirs):
             ]
         )
 
-    # Create python/src directory and hello_world.py
-    os.makedirs(dirs.python_src_dir, exist_ok=True)
+
+def _create_python_src_file(dirs: PyppDirs):
     src_py_path = os.path.join(dirs.python_src_dir, "hello_world.py")
     with open(src_py_path, "w") as f:
         f.writelines(["def first_fn():\n", "    print('Hello, World!')\n"])
+
+
+def _create_proj_json_file(dirs: PyppDirs):
+    data: dict = {"cpp_dir_is_dirty": True}
+    with open(dirs.proj_info_file, "w") as file:
+        json.dump(data, file, indent=4)
