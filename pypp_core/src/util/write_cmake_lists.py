@@ -38,4 +38,4 @@ def write_cmake_lists_file(dirs: PyppDirs):
     with open(cmake_path, "w", encoding="utf-8") as f:
         f.write(cmake_content)
 
-    print(f"CMakeLists.txt generated successfully at {cmake_path}")
+    print("CMakeLists.txt generated to cpp project directory")

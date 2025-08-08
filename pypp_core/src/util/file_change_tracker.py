@@ -94,7 +94,7 @@ def calc_py_file_changes(dirs: PyppDirs) -> tuple[_PyFileChanges, dict]:
         )
 
     if not (changed_files or new_files or deleted_files):
-        print("No changes detected.")
+        print("No file changes detected.")
     else:
         print(
             f"changed files: {len(changed_files)}, "

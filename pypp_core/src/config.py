@@ -13,7 +13,11 @@ class PyppDirs:
         self.cpp_src_dir: str = os.path.join(self.cpp_dir, "src")
         self.python_dir: str = os.path.join(target_dir, "python")
         self.python_src_dir: str = os.path.join(self.python_dir, "src")
-        self.timestamps_file: str = os.path.join(target_dir, "file_timestamps.json")
+        self.pypp_data_dir: str = os.path.join(target_dir, "pypp_data")
+        self.timestamps_file: str = os.path.join(
+            self.pypp_data_dir, "file_timestamps.json"
+        )
+        self.proj_info_file: str = os.path.join(self.pypp_data_dir, "proj_info.json")
 
 
 def create_test_dir_pypp_dirs() -> PyppDirs:
