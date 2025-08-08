@@ -1,6 +1,7 @@
 #include "classes/first.h"
 #include "classes/inheritance.h"
 #include "constants.h"
+#include "cstdlib"
 #include "dataclasses_test/first.h"
 #include "dataclasses_test/with_methods.h"
 #include "default_dict/first.h"
