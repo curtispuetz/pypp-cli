@@ -10,19 +10,20 @@ from pypp_core.src.main_scripts.remove_timestamps import pypp_remove_timestamps
 
 
 def main():
-    parser = argparse.ArgumentParser(description="pypp CLI tool")
+    parser = argparse.ArgumentParser(description="pypp CLI tool.")
     subparsers = parser.add_subparsers(dest="mode", required=False)
     subparsers.add_parser(
-        "init", help="Initialize a new Py++ project in the given directory"
+        "init", help="Initialize a new Py++ project in the given directory."
     )
-    subparsers.add_parser("install", help="Install pypp libraries")
+    parser_install = subparsers.add_parser("install", help="Install pypp libraries")
+    parser_install.add_argument("library", help="Specify the library to install.")
     subparsers.add_parser(
         "remove_timestamps",
         help="Remove the file_timestamps.json file so that transpiling is done "
         "for all python files regardless of whether they were modified.",
     )
     parser_main = subparsers.add_parser(
-        "do", help="transpile, format, build, and/or run"
+        "do", help="transpile, format, build, and/or run."
     )
     parser_main.add_argument(
         "tasks",
@@ -49,7 +50,7 @@ def main():
     if args.mode == "do":
         pypp_do(args.tasks, pypp_dirs)
     elif args.mode == "install":
-        pypp_install()
+        pypp_install(args.library, pypp_dirs)
     elif args.mode == "remove_timestamps":
         pypp_remove_timestamps(pypp_dirs)
 
