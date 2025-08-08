@@ -1,5 +1,6 @@
 import ast
 
+from pypp_core.src.d_types import QInc
 from pypp_core.src.deps import Deps
 from pypp_core.src.handle_expr.expr import handle_expr
 from pypp_core.src.handle_stmt.stmt import handle_stmt
@@ -14,6 +15,7 @@ def calc_main_cpp_source(main_py: ast.Module) -> str:
     d: Deps = Deps(
         RetImports(set(), set(), imp_map), [], py_imports, handle_expr, handle_stmt
     )
+    d.add_inc(QInc("cstdlib"))
     cpp_source_minus_includes: str = handle_main_stmts(main_py.body[i:], d)
     cpp_includes: str = calc_includes_for_main_file(d.ret_imports)
     return cpp_includes + cpp_source_minus_includes

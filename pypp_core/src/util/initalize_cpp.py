@@ -1,5 +1,6 @@
 import os
 import shutil
+from importlib.resources import files, as_file
 
 from pypp_core.src.config import PyppDirs
 
@@ -11,12 +12,13 @@ def initialize_cpp_project(dirs: PyppDirs) -> bool:
         os.makedirs(dirs.cpp_dir)
 
         # Copy files and directories from the template
-        for item in os.listdir(dirs.cpp_template_dir):
-            src_path = os.path.join(dirs.cpp_template_dir, item)
-            dst_path = os.path.join(dirs.cpp_dir, item)
-            if os.path.isdir(src_path):
-                shutil.copytree(src_path, dst_path)
-            else:
-                shutil.copy2(src_path, dst_path)
+        template_root = files("pypp_core.data.cpp_template")
+        for item in template_root.iterdir():
+            with as_file(item) as src_path:
+                dst_path = os.path.join(dirs.cpp_dir, item.name)
+                if src_path.is_dir():
+                    shutil.copytree(src_path, dst_path)
+                else:
+                    shutil.copy2(src_path, dst_path)
         return True
     return False
