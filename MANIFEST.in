@@ -1,2 +1,5 @@
 recursive-include pypp_core/data *
 recursive-include pypp_core/data .*
+recursive-exclude pypp_core/test_dir *
+recursive-exclude pypp_core/test_dir2 *
+recursive-exclude pypp_core/util_scripts *
