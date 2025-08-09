@@ -1,4 +1,5 @@
 import json
+import subprocess
 
 from pypp_core.src.config import PyppDirs
 import os
@@ -10,13 +11,23 @@ def pypp_init(dirs: PyppDirs):
     print("py++ project structure creation finished")
     print("creating python virtual environment...")
     _create_python_virtual_environment(dirs)
+    subprocess.check_call(
+        [
+            dirs.calc_py_executable(),
+            "-m",
+            "pip",
+            "install",
+            # TODO later: install from PyPI when available
+            r"C:\Users\puetz\PycharmProjects\pypp-python\dist\pypp_python-0.0.0-py3-none-any.whl",
+        ]
+    )
     print("py++ project init finished")
 
 
 def _create_python_virtual_environment(dirs: PyppDirs):
     venv_dir = os.path.join(dirs.python_dir, ".venv")
     venv.create(venv_dir, with_pip=True)
-    print("Python virtual environment created at:", dirs.python_dir)
+    print("Python virtual environment created in python project directory")
 
 
 def _create_project_structure(dirs: PyppDirs):
