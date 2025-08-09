@@ -92,7 +92,9 @@ def pypp_transpile(dirs: PyppDirs) -> list[Path]:
     write_cmake_lists_file(dirs)
 
     # Step 2: calculate the files that have changed since the last transpile
-    py_file_changes, file_timestamps = calc_py_file_changes(dirs)
+    py_file_changes, file_timestamps = calc_py_file_changes(
+        dirs, proj_info["ignore_src_files"]
+    )
 
     # Step 3: iterate over the deleted Py files and delete the corresponding C++ files
     files_deleted: int = 0
