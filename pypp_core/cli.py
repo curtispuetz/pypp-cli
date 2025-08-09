@@ -7,10 +7,11 @@ from pypp_core.src.main_scripts.do import pypp_do
 from pypp_core.src.main_scripts.init import pypp_init
 from pypp_core.src.main_scripts.install import pypp_install
 from pypp_core.src.main_scripts.remove_timestamps import pypp_remove_timestamps
+from pypp_core.src.main_scripts.run_python import pypp_run_python
 from pypp_core.src.main_scripts.uninstall import pypp_uninstall
 
 
-def main():
+def main_cli(absolute_dir: str | None = None) -> None:
     parser = argparse.ArgumentParser(description="pypp CLI tool.")
     subparsers = parser.add_subparsers(dest="mode", required=False)
     subparsers.add_parser(
@@ -27,6 +28,14 @@ def main():
         help="Remove the file_timestamps.json file so that transpiling is done "
         "for all python files regardless of whether they were modified.",
     )
+    parser_run_python = subparsers.add_parser(
+        "run_python",
+        help="run your code with the python interpreter. Behaviour should be the same "
+        "as the C++ executable, but could be different if there is a bug.",
+    )
+    parser_run_python.add_argument(
+        "file", help="The Python file to run. This should be a file with main block."
+    )
     parser_main = subparsers.add_parser(
         "do", help="transpile, format, build, and/or run."
     )
@@ -42,7 +51,8 @@ def main():
     )
 
     args = parser.parse_args()
-    absolute_dir = os.getcwd()
+    if absolute_dir is None:
+        absolute_dir = os.getcwd()
     pypp_dirs = PyppDirs(absolute_dir)
     if args.mode == "init":
         pypp_init(pypp_dirs)
@@ -60,7 +70,9 @@ def main():
         pypp_uninstall(args.library, pypp_dirs)
     elif args.mode == "remove_timestamps":
         pypp_remove_timestamps(pypp_dirs)
+    elif args.mode == "run_python":
+        pypp_run_python(args.file, pypp_dirs)
 
 
 if __name__ == "__main__":
-    main()
+    main_cli()

@@ -19,6 +19,9 @@ class PyppDirs:
         )
         self.proj_info_file: str = os.path.join(self.pypp_data_dir, "proj_info.json")
 
+    def calc_py_executable(self) -> str:
+        return os.path.join(self.python_dir, ".venv", "Scripts", "python.exe")
+
 
 def create_test_dir_pypp_dirs() -> PyppDirs:
     return PyppDirs(os.path.join(os.path.dirname(__file__), "..", "test_dir"))
