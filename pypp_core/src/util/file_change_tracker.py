@@ -1,6 +1,8 @@
 import os
 import json
 from dataclasses import dataclass
+import fnmatch
+from pathlib import Path
 
 from pypp_core.src.config import PyppDirs, create_test_dir_pypp_dirs
 from pypp_core.src.constants import SECRET_MAIN_FILE_DIR_PREFIX
@@ -65,23 +67,38 @@ def _check_file_change(
         new_files.append(rel_path)
 
 
-def calc_py_file_changes(dirs: PyppDirs) -> tuple[_PyFileChanges, dict]:
+def _should_ignore_file(src_file_rel_path: str, ignore_src_files: list[str]) -> bool:
+    s: str = Path(src_file_rel_path).as_posix()
+    for pattern in ignore_src_files:
+        if fnmatch.fnmatch(s, pattern):
+            return True
+    return False
+
+
+def calc_py_file_changes(
+    dirs: PyppDirs, ignore_src_files: list[str]
+) -> tuple[_PyFileChanges, dict]:
     prev_timestamps = _load_previous_timestamps(dirs.timestamps_file)
     curr_timestamps = {}
     changed_files = []
     new_files = []
     deleted_files = set(prev_timestamps.keys())
+    ignored_src_files = 0
 
     for rel_path in _get_all_files(dirs.python_src_dir):
-        _check_file_change(
-            os.path.join(dirs.python_src_dir, rel_path),
-            rel_path,
-            curr_timestamps,
-            prev_timestamps,
-            changed_files,
-            new_files,
-            deleted_files,
-        )
+        abs_path = os.path.join(dirs.python_src_dir, rel_path)
+        if not _should_ignore_file(rel_path, ignore_src_files):
+            _check_file_change(
+                abs_path,
+                rel_path,
+                curr_timestamps,
+                prev_timestamps,
+                changed_files,
+                new_files,
+                deleted_files,
+            )
+        else:
+            ignored_src_files += 1
     for rel_path, secret_name in _get_all_main_files_with_special_name(dirs.python_dir):
         _check_file_change(
             os.path.join(dirs.python_dir, rel_path),
@@ -99,7 +116,8 @@ def calc_py_file_changes(dirs: PyppDirs) -> tuple[_PyFileChanges, dict]:
         print(
             f"changed files: {len(changed_files)}, "
             f"new files: {len(new_files)}, "
-            f"deleted files: {len(deleted_files)}"
+            f"deleted files: {len(deleted_files)},"
+            f" ignored src files: {ignored_src_files}"
         )
 
     return _PyFileChanges(

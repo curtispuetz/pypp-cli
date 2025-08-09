@@ -1,3 +1,6 @@
 {
-    "cpp_dir_is_dirty": false
+    "cpp_dir_is_dirty": false,
+    "ignore_src_files": [
+        "benchmarking/**"
+    ]
 }
