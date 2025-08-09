@@ -2,6 +2,7 @@
 /.idea
 /pypp_core/test_dir/cpp/build
 **/__pycache__/**
+/pypp_core/test_dir/python/.venv
 /pypp_core/test_dir2
 /pypp_core/test_dir3
 /pypp_core/test_dir/pypp_data/file_timestamps.json
