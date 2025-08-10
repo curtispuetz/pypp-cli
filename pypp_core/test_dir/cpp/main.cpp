@@ -38,6 +38,7 @@
 #include "pypp_union/first.h"
 #include "pypp_util/main_error_handler.h"
 #include "pypp_util/print.h"
+#include "random_library/first.h"
 #include "ranges/first.h"
 #include "ref_vars.h"
 #include "second.h"
@@ -117,6 +118,7 @@ int main() {
         number_types_fn();
         time_library_fn();
         default_dict_fn();
+        random_fn();
         return 0;
     } catch (...) {
         handle_fatal_exception();

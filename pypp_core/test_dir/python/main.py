@@ -1,6 +1,7 @@
 from first import return_something
 from imports_test.first import imports_test_fn
 from imports_test.second import imports_test_fn2
+from random_library.first import random_fn
 from second import return_friend
 from third import using_inline_string
 from fourth import string_as_argument
@@ -111,3 +112,4 @@ if __name__ == "__main__":
     number_types_fn()
     time_library_fn()
     default_dict_fn()
+    random_fn()

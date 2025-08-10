@@ -82,6 +82,9 @@ def handle_call(
     elif d.is_imported(PyImport("shutil")) and caller_str.startswith("shutil."):
         d.add_inc(QInc("pypp_shutil.h"), include_in_header)
         caller_str = caller_str.replace(".", "::")
+    elif d.is_imported(PyImport("random")) and caller_str.startswith("random."):
+        d.add_inc(QInc("pypp_random.h"), include_in_header)
+        caller_str = caller_str.replace(".", "::")
     elif d.is_imported(
         PyImport("pypp_python.stl.pypp_time", "pypp_time")
     ) and caller_str.startswith("pypp_time."):

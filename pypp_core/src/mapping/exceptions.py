@@ -23,8 +23,8 @@ PY_TO_CPP_INCLUDE_MAP: dict[str, QInc] = {
 }
 
 
-def lookup_cpp_exception_type(python_type: str, d: Deps) -> str:
-    if python_type not in PY_TO_CPP_INCLUDE_MAP:
-        raise Exception(f"unsupported exception type: {python_type}")
-    d.add_inc(PY_TO_CPP_INCLUDE_MAP[python_type])
-    return "Pypp" + python_type
+def lookup_cpp_exception_type(exception: str, d: Deps) -> str:
+    if exception not in PY_TO_CPP_INCLUDE_MAP:
+        raise Exception(f"unsupported exception type: {exception}")
+    d.add_inc(PY_TO_CPP_INCLUDE_MAP[exception])
+    return "Pypp" + exception

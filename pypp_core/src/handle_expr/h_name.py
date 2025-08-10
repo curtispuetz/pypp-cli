@@ -1,7 +1,7 @@
 import ast
 
 from pypp_core.src.deps import Deps
-from pypp_core.src.mapping.types import lookup_cpp_type
+from pypp_core.src.mapping.names import lookup_cpp_name
 
 
 def handle_name(
@@ -14,4 +14,4 @@ def handle_name(
         d.add_inc(d.ret_imports.import_map[node.id], include_in_header)
     if skip_cpp_lookup:
         return node.id
-    return lookup_cpp_type(node.id, d, include_in_header)
+    return lookup_cpp_name(node.id, d, include_in_header)

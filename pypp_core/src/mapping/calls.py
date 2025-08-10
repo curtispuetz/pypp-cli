@@ -55,15 +55,15 @@ CALL_MAP: dict[str, _CallMapInfo] = {
 
 
 def lookup_cpp_call(
-    python_call: str,
+    call: str,
     d: Deps,
     include_in_header: bool,
 ) -> tuple[str, str]:
-    if python_call not in CALL_MAP:
-        return python_call + "(", ")"
-    val = CALL_MAP[python_call]
+    if call not in CALL_MAP:
+        return call + "(", ")"
+    val = CALL_MAP[call]
     if val.required_import is not None and not d.is_imported(val.required_import):
-        return python_call + "(", ")"
+        return call + "(", ")"
     for include in val.includes:
         d.add_inc(include, include_in_header)
     return val.left, val.right

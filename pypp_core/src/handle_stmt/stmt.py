@@ -15,7 +15,7 @@ from pypp_core.src.handle_stmt.h_return import handle_return
 from pypp_core.src.handle_stmt.h_try import handle_try
 from pypp_core.src.handle_stmt.h_type_alias import handle_type_alias
 from pypp_core.src.handle_stmt.h_while import handle_while
-from pypp_core.src.handle_stmt.h_width import handle_with
+from pypp_core.src.handle_stmt.h_with import handle_with
 
 
 def handle_stmt(node: ast.stmt, d: Deps) -> str:
