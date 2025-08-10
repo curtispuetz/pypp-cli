@@ -1,23 +1,24 @@
 import json
-import subprocess
 
 from pypp_core.src.config import PyppDirs
+from pypp_core.src.main_scripts.util.pip_helper import (
+    pip_install_or_uninstall,
+)
 
 
 def pypp_install(library: str, dirs: PyppDirs):
-    print(f"running 'pip install {library}'...")
-    subprocess.check_call([dirs.calc_py_executable(), "-m", "pip", "install", library])
-    _add_installed_library_to_proj_info_json(library, dirs)
+    library_name = pip_install_or_uninstall(library, dirs, install=True)
+    _add_installed_library_to_proj_info_json(library_name, dirs)
 
 
-def _add_installed_library_to_proj_info_json(library: str, dirs: PyppDirs):
+def _add_installed_library_to_proj_info_json(library_name: str, dirs: PyppDirs):
     with open(dirs.proj_info_file, "r") as f:
         proj_info: dict = json.load(f)
     # TODO: library versions.
     if "installed_libraries" not in proj_info:
-        proj_info["installed_libraries"] = [library]
+        proj_info["installed_libraries"] = [library_name]
     else:
-        if library not in proj_info["installed_libraries"]:
-            proj_info["installed_libraries"].append(library)
+        if library_name not in proj_info["installed_libraries"]:
+            proj_info["installed_libraries"].append(library_name)
     with open(dirs.proj_info_file, "w") as f:
         json.dump(proj_info, f, indent=4)

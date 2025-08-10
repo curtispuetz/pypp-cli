@@ -1,15 +1,14 @@
 import json
-import os
-import subprocess
 
 from pypp_core.src.config import PyppDirs
+from pypp_core.src.main_scripts.util.pip_helper import (
+    pip_install_or_uninstall,
+)
 
 
 def pypp_uninstall(library: str, dirs: PyppDirs):
-    print(f"running 'pip uninstall {library}'...")
-    python_executable = os.path.join(dirs.python_dir, ".venv", "Scripts", "python.exe")
-    subprocess.check_call([python_executable, "-m", "pip", "uninstall", library])
-    _remove_installed_library_to_proj_info_json(library, dirs)
+    library_name = pip_install_or_uninstall(library, dirs, install=False)
+    _remove_installed_library_to_proj_info_json(library_name, dirs)
 
 
 def _remove_installed_library_to_proj_info_json(library: str, dirs: PyppDirs):
