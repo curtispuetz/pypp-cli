@@ -1,14 +1,14 @@
-import os.path
-import json
-
 from pypp_core.src.config import PyppDirs
 from pypp_core.src.d_types import (
     PySpecificImpFrom,
     AngInc,
     QInc,
 )
-from pypp_core.src.mapping.maps.util import calc_required_py_import, calc_cpp_includes, \
-    load_bridge_json
+from pypp_core.src.mapping.maps.util import (
+    calc_required_py_import,
+    calc_cpp_includes,
+    load_bridge_json,
+)
 from pypp_core.src.mapping.util import MapInfo
 
 
@@ -86,8 +86,10 @@ def calc_names_map(proj_info: dict, dirs: PyppDirs) -> dict[str, MapInfo]:
     ret = NAMES_MAP
     for _type, obj in load_bridge_json(proj_info, dirs, "names_map").items():
         if _type in ret:
-            # TODO: better warning message
-            print(f"warning: overriding {_type}")
+            print(
+                f"warning: Py++ transpiler already maps the name '{_type}'. "
+                f"A library is overriding this mapping."
+            )
         ret[_type] = _calc_map_info(obj)
     return ret
 
