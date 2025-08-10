@@ -7,7 +7,8 @@ from pypp_core.src.d_types import (
     AngInc,
     QInc,
 )
-from pypp_core.src.mapping.maps.util import calc_required_py_import, calc_cpp_includes
+from pypp_core.src.mapping.maps.util import calc_required_py_import, calc_cpp_includes, \
+    load_bridge_json
 from pypp_core.src.mapping.util import MapInfo
 
 
@@ -83,16 +84,11 @@ NAMES_MAP: dict[str, MapInfo] = {
 
 def calc_names_map(proj_info: dict, dirs: PyppDirs) -> dict[str, MapInfo]:
     ret = NAMES_MAP
-    for installed_library in proj_info["installed_libraries"]:
-        names_json = dirs.calc_bridge_json(installed_library, "names_map")
-        if os.path.isfile(names_json):
-            with open(names_json, "r") as f:
-                names_map: dict = json.load(f)
-            for _type, obj in names_map.items():
-                if _type in ret:
-                    # TODO: better warning message
-                    print(f"warning: overriding {_type}")
-                ret[_type] = _calc_map_info(obj)
+    for _type, obj in load_bridge_json(proj_info, dirs, "names_map").items():
+        if _type in ret:
+            # TODO: better warning message
+            print(f"warning: overriding {_type}")
+        ret[_type] = _calc_map_info(obj)
     return ret
 
 

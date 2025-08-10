@@ -1,9 +1,11 @@
-import json
-import os
 
 from pypp_core.src.config import PyppDirs
 from pypp_core.src.d_types import PySpecificImpFrom, QInc, AngInc
-from pypp_core.src.mapping.maps.util import calc_cpp_includes, calc_required_py_import
+from pypp_core.src.mapping.maps.util import (
+    calc_cpp_includes,
+    calc_required_py_import,
+    load_bridge_json,
+)
 from pypp_core.src.mapping.util import CallMapInfo
 
 CALL_MAP: dict[str, CallMapInfo] = {
@@ -44,16 +46,11 @@ CALL_MAP: dict[str, CallMapInfo] = {
 
 def calc_calls_map(proj_info: dict, dirs: PyppDirs) -> dict[str, CallMapInfo]:
     ret = CALL_MAP
-    for installed_library in proj_info["installed_libraries"]:
-        calls_json = dirs.calc_bridge_json(installed_library, "calls_map")
-        if os.path.isfile(calls_json):
-            with open(calls_json, "r") as f:
-                calls_map: dict = json.load(f)
-            for _type, obj in calls_map.items():
-                if _type in ret:
-                    # TODO: better warning message
-                    print(f"warning: overriding {_type}")
-                ret[_type] = _calc_map_info(obj)
+    for _type, obj in load_bridge_json(proj_info, dirs, "calls_map").items():
+        if _type in ret:
+            # TODO: better warning message
+            print(f"warning: overriding {_type}")
+        ret[_type] = _calc_map_info(obj)
     return ret
 
 
