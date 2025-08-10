@@ -1,4 +1,7 @@
 {
     "cpp_dir_is_dirty": false,
-    "ignore_src_files": []
+    "ignore_src_files": [],
+    "installed_libraries": [
+        "C:\\Users\\puetz\\PycharmProjects\\pypp-bridge-library-test-0\\dist\\pypp_bridge_library_test_0-0.0.0-py3-none-any.whl"
+    ]
 }
