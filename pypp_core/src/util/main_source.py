@@ -4,16 +4,22 @@ from pypp_core.src.d_types import QInc
 from pypp_core.src.deps import Deps
 from pypp_core.src.handle_expr.expr import handle_expr
 from pypp_core.src.handle_stmt.stmt import handle_stmt
+from pypp_core.src.mapping.maps.maps import Maps
 from pypp_core.src.util.calc_includes import calc_includes_for_main_file, calc_includes
 from pypp_core.src.util.handle_lists import handle_stmts, handle_import_stmts
 from pypp_core.src.util.handle_main_stmts import handle_main_stmts
 from pypp_core.src.util.ret_imports import RetImports
 
 
-def calc_main_cpp_source(main_py: ast.Module) -> str:
+def calc_main_cpp_source(main_py: ast.Module, maps: Maps) -> str:
     imp_map, i, py_imports = handle_import_stmts(main_py.body)
     d: Deps = Deps(
-        RetImports(set(), set(), imp_map), [], py_imports, handle_expr, handle_stmt
+        RetImports(set(), set(), imp_map),
+        [],
+        py_imports,
+        maps,
+        handle_expr,
+        handle_stmt,
     )
     d.add_inc(QInc("cstdlib"))
     cpp_source_minus_includes: str = handle_main_stmts(main_py.body[i:], d)
@@ -21,10 +27,17 @@ def calc_main_cpp_source(main_py: ast.Module) -> str:
     return cpp_includes + cpp_source_minus_includes
 
 
-def calc_src_file_cpp_and_h_source(src_py: ast.Module, h_file: str) -> tuple[str, str]:
+def calc_src_file_cpp_and_h_source(
+    src_py: ast.Module, h_file: str, maps: Maps
+) -> tuple[str, str]:
     imp_map, i, py_imports = handle_import_stmts(src_py.body)
     d: Deps = Deps(
-        RetImports(set(), set(), imp_map), [], py_imports, handle_expr, handle_stmt
+        RetImports(set(), set(), imp_map),
+        [],
+        py_imports,
+        maps,
+        handle_expr,
+        handle_stmt,
     )
     cpp_source_minus_include: str = handle_stmts(src_py.body[i:], d)
     h_includes, cpp_includes = calc_includes(d.ret_imports)

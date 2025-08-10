@@ -22,6 +22,9 @@ class PyppDirs:
     def calc_py_executable(self) -> str:
         return os.path.join(self.python_dir, ".venv", "Scripts", "python.exe")
 
+    def calc_site_packages_dir(self) -> str:
+        return os.path.join(self.python_dir, ".venv", "Lib", "site-packages")
+
 
 def create_test_dir_pypp_dirs() -> PyppDirs:
     return PyppDirs(os.path.join(os.path.dirname(__file__), "..", "test_dir"))

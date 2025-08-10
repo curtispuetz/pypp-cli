@@ -3,6 +3,7 @@ from dataclasses import dataclass
 from typing import Callable
 
 from pypp_core.src.d_types import CppInclude, PyImports, PySpecificImport, is_imported
+from pypp_core.src.mapping.maps.maps import Maps
 from pypp_core.src.util.ret_imports import RetImports, add_inc
 
 
@@ -11,6 +12,7 @@ class Deps:
     ret_imports: RetImports
     ret_h_file: list[str]
     py_imports: PyImports
+    maps: Maps
     handle_expr_fn: Callable[[ast.expr, "Deps", bool, bool], str]
     handle_stmt: Callable[[ast.stmt, "Deps"], str]
 
