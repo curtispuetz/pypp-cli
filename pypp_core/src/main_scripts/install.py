@@ -8,6 +8,7 @@ from pypp_core.src.main_scripts.util.pip_helper import (
 
 def pypp_install(library: str, dirs: PyppDirs):
     library_name = pip_install_or_uninstall(library, dirs, install=True)
+    # TODO: add some validation that the data in like names_map.json is correct.
     _add_installed_library_to_proj_info_json(library_name, dirs)
 
 
