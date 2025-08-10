@@ -45,6 +45,7 @@ def _transpile_cpp_and_h_files(
     dirs: PyppDirs,
     header_files_written: int,
     cpp_files_written: int,
+    proj_info: dict,
     maps: Maps,
 ) -> tuple[int, int]:
     if rel_path.startswith(SECRET_MAIN_FILE_DIR_PREFIX):
@@ -52,7 +53,7 @@ def _transpile_cpp_and_h_files(
         real_rel_path = rel_path[len(SECRET_MAIN_FILE_DIR_PREFIX) :]
         py_main_file = os.path.join(dirs.python_dir, real_rel_path)
         main_py_ast_tree: ast.Module = calc_ast_tree(py_main_file)
-        main_cpp_source = calc_main_cpp_source(main_py_ast_tree, maps)
+        main_cpp_source = calc_main_cpp_source(main_py_ast_tree, proj_info, maps)
         new_file: str = os.path.join(dirs.cpp_dir, real_rel_path)[:-3] + ".cpp"
         with open(new_file, "w") as cpp_main_file:
             cpp_main_file.write(main_cpp_source)
@@ -65,7 +66,9 @@ def _transpile_cpp_and_h_files(
         file_without_ext = rel_path[:-3]  # Remove the .py extension
         cpp_file = file_without_ext + ".cpp"  # Remove the .py extension
         h_file = file_without_ext + ".h"
-        cpp, h = calc_src_file_cpp_and_h_source(src_file_py_ast_tree, h_file, maps)
+        cpp, h = calc_src_file_cpp_and_h_source(
+            src_file_py_ast_tree, h_file, proj_info, maps
+        )
         cpp_full_path = os.path.join(dirs.cpp_src_dir, cpp_file)
         full_dir = os.path.dirname(cpp_full_path)
         os.makedirs(full_dir, exist_ok=True)
@@ -124,6 +127,7 @@ def pypp_transpile(dirs: PyppDirs) -> list[Path]:
             dirs,
             header_files_written,
             cpp_files_written,
+            proj_info,
             maps,
         )
     print(

@@ -25,6 +25,21 @@ class PyppDirs:
     def calc_site_packages_dir(self) -> str:
         return os.path.join(self.python_dir, ".venv", "Lib", "site-packages")
 
+    def calc_library_cpp_data_dir(self, library_name: str) -> str:
+        return os.path.join(self.calc_site_packages_dir(), library_name, "data", "cpp")
+
+    def calc_cpp_libs_dir(self, library_name: str) -> str:
+        return os.path.join(self.cpp_dir, "libs", library_name)
+
+    def calc_bridge_json(self, library_name: str, name: str) -> str:
+        return os.path.join(
+            self.calc_site_packages_dir(),
+            library_name,
+            "data",
+            "bridge_jsons",
+            name + ".json",
+        )
+
 
 def create_test_dir_pypp_dirs() -> PyppDirs:
     return PyppDirs(os.path.join(os.path.dirname(__file__), "..", "test_dir"))

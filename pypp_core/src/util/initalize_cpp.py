@@ -4,14 +4,14 @@ import shutil
 from importlib.resources import files, as_file
 
 from pypp_core.src.config import PyppDirs
+from pypp_core.src.util.util import rm_dirs_and_files
 
 
 def initialize_cpp_project(dirs: PyppDirs, proj_info: dict):
-    shutil.rmtree(dirs.cpp_dir)
-    os.makedirs(dirs.cpp_dir)
+    rm_dirs_and_files(dirs.cpp_dir, {"libs"})
     _copy_cpp_template_to_cpp_dir(dirs)
     # Need to remove the timestamps file because all the C++ files need to be
-    #  generated again.
+    # generated again.
     if os.path.exists(dirs.timestamps_file):
         os.remove(dirs.timestamps_file)
     _set_cpp_dir_not_dirty_in_json(dirs, proj_info)

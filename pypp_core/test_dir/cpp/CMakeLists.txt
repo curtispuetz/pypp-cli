@@ -6,9 +6,10 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 file(GLOB_RECURSE SRC_FILES src/*.cpp)
 file(GLOB_RECURSE PYPP_FILES pypp/*.cpp)
+file(GLOB_RECURSE LIB_FILES libs/*.cpp)
 
-add_library(pypp_common STATIC ${SRC_FILES} ${PYPP_FILES})
-target_include_directories(pypp_common PUBLIC ${CMAKE_SOURCE_DIR}/src ${CMAKE_SOURCE_DIR}/pypp)
+add_library(pypp_common STATIC ${SRC_FILES} ${PYPP_FILES} ${LIB_FILES})
+target_include_directories(pypp_common PUBLIC ${CMAKE_SOURCE_DIR}/src ${CMAKE_SOURCE_DIR}/pypp ${CMAKE_SOURCE_DIR}/libs)
 
 add_executable(main main.cpp)
 target_link_libraries(main PRIVATE pypp_common)

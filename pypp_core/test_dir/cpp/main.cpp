@@ -3,6 +3,7 @@
 #include "classes/inheritance.h"
 #include "constants.h"
 #include "cstdlib"
+#include "custom_libs/bridge_lib_test_0/first.h"
 #include "dataclasses_test/first.h"
 #include "dataclasses_test/with_methods.h"
 #include "default_dict/first.h"
@@ -121,6 +122,7 @@ int main() {
         default_dict_fn();
         random_fn();
         perlin_noise_fn();
+        bridge_lib_test_0_fn();
         return 0;
     } catch (...) {
         handle_fatal_exception();

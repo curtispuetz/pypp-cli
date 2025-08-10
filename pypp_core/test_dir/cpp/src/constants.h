@@ -17,10 +17,12 @@ struct _PseudoPyppNameMyConfig {
     PyStr b = PyStr("2");
 };
 inline _PseudoPyppNameMyConfig MyConfig;
+
 struct _PseudoPyppNameMyConfig2 {
     PyStr a = PyStr("a");
     PyStr b = PyStr("b");
 };
 inline _PseudoPyppNameMyConfig2 MyConfig2;
+
 void constant_fn();
 inline const int F = 3;
