@@ -6,14 +6,16 @@ from pypp_core.src.handle_stmt.h_import_from import handle_import_from
 from pypp_core.src.util.ret_imports import ImpMap
 
 
-def handle_import_stmts(stmts: list[ast.stmt]) -> tuple[ImpMap, int, PyImports]:
+def handle_import_stmts(
+    stmts: list[ast.stmt], proj_info: dict
+) -> tuple[ImpMap, int, PyImports]:
     i = 0
     ret: ImpMap = {}
     py_imports = PyImports({}, set())
     for i, node in enumerate(stmts):
         # ast.Import are ignored
         if isinstance(node, ast.ImportFrom):
-            handle_import_from(node, ret)
+            handle_import_from(node, proj_info, ret)
             if node.module in py_imports.imp_from:
                 raise Exception("Duplicate import from module not supported")
             # Note: the str call is unnecessary, but the type checker is having an issue

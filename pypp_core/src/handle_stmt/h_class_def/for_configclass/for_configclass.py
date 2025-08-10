@@ -28,7 +28,7 @@ def handle_class_def_for_configclass(
         + "{"
         + body_str
         + "}; "
-        + f"inline {class_name} {instance_name};"
+        + f"inline {class_name} {instance_name};\n\n"
     )
     if name_doesnt_start_with_underscore:
         d.ret_h_file.append(result)

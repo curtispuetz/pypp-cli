@@ -1,4 +1,6 @@
 import json
+import os.path
+import shutil
 
 from pypp_core.src.config import PyppDirs
 from pypp_core.src.main_scripts.util.pip_helper import (
@@ -9,7 +11,20 @@ from pypp_core.src.main_scripts.util.pip_helper import (
 def pypp_install(library: str, dirs: PyppDirs):
     library_name = pip_install_or_uninstall(library, dirs, install=True)
     # TODO: add some validation that the data in like names_map.json is correct.
+    # Remove timestamps file because a new library might change how things are
+    # transpiled.
+    if os.path.exists(dirs.timestamps_file):
+        os.remove(dirs.timestamps_file)
+    _copy_cpp_library_files(library_name, dirs)
     _add_installed_library_to_proj_info_json(library_name, dirs)
+
+
+def _copy_cpp_library_files(library_name: str, dirs: PyppDirs):
+    src_dir = dirs.calc_library_cpp_data_dir(library_name)
+    dest_dir = dirs.calc_cpp_libs_dir(library_name)
+    if os.path.exists(dest_dir):
+        shutil.rmtree(dest_dir)
+    shutil.copytree(src_dir, dest_dir)
 
 
 def _add_installed_library_to_proj_info_json(library_name: str, dirs: PyppDirs):

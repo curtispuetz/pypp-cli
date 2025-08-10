@@ -1,4 +1,5 @@
 from benchmarking.perlin_noise.caller import perlin_noise_fn
+from custom_libs.bridge_lib_test_0.first import bridge_lib_test_0_fn
 from first import return_something
 from imports_test.first import imports_test_fn
 from imports_test.second import imports_test_fn2
@@ -115,3 +116,4 @@ if __name__ == "__main__":
     default_dict_fn()
     random_fn()
     perlin_noise_fn()
+    bridge_lib_test_0_fn()

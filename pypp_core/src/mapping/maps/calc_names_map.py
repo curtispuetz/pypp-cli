@@ -2,7 +2,12 @@ import os.path
 import json
 
 from pypp_core.src.config import PyppDirs
-from pypp_core.src.d_types import PySpecificImpFrom, AngInc, QInc
+from pypp_core.src.d_types import (
+    PySpecificImpFrom,
+    AngInc,
+    QInc,
+)
+from pypp_core.src.mapping.maps.util import calc_required_py_import, calc_cpp_includes
 from pypp_core.src.mapping.util import MapInfo
 
 
@@ -79,13 +84,7 @@ NAMES_MAP: dict[str, MapInfo] = {
 def calc_names_map(proj_info: dict, dirs: PyppDirs) -> dict[str, MapInfo]:
     ret = NAMES_MAP
     for installed_library in proj_info["installed_libraries"]:
-        names_json = os.path.join(
-            dirs.calc_site_packages_dir(),
-            installed_library,
-            "data",
-            "bridge_jsons",
-            "names_map.json",
-        )
+        names_json = dirs.calc_bridge_json(installed_library, "names_map")
         if os.path.isfile(names_json):
             with open(names_json, "r") as f:
                 names_map: dict = json.load(f)
@@ -99,4 +98,6 @@ def calc_names_map(proj_info: dict, dirs: PyppDirs) -> dict[str, MapInfo]:
 
 def _calc_map_info(obj: dict) -> MapInfo:
     assert "cpp_type" in obj, "names_map.json must specify a cpp_type for each element"
-    return MapInfo(obj["cpp_type"], [])
+    cpp_includes = calc_cpp_includes(obj)
+    required_import = calc_required_py_import(obj)
+    return MapInfo(obj["cpp_type"], cpp_includes, required_import)

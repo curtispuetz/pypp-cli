@@ -19,9 +19,11 @@ def write_cmake_lists_file(dirs: PyppDirs):
         "",
         "file(GLOB_RECURSE SRC_FILES src/*.cpp)",
         "file(GLOB_RECURSE PYPP_FILES pypp/*.cpp)",
+        "file(GLOB_RECURSE LIB_FILES libs/*.cpp)",
         "",
-        "add_library(pypp_common STATIC ${SRC_FILES} ${PYPP_FILES})",
-        "target_include_directories(pypp_common PUBLIC ${CMAKE_SOURCE_DIR}/src ${CMAKE_SOURCE_DIR}/pypp)",
+        "add_library(pypp_common STATIC ${SRC_FILES} ${PYPP_FILES} ${LIB_FILES})",
+        "target_include_directories(pypp_common PUBLIC "
+        "${CMAKE_SOURCE_DIR}/src ${CMAKE_SOURCE_DIR}/pypp ${CMAKE_SOURCE_DIR}/libs)",
         "",
     ]
 

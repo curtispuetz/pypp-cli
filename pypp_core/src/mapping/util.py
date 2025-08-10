@@ -8,3 +8,11 @@ class MapInfo:
     val: str
     includes: list[CppInclude]
     required_import: PySpecificImport | None = None
+
+
+@dataclass(frozen=True, slots=True)
+class CallMapInfo:
+    left: str
+    right: str
+    includes: list[CppInclude]
+    required_import: PySpecificImport | None = None

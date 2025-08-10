@@ -7,6 +7,7 @@ struct _PseudoPyppName_PrivateConfig {
     int b = 2;
 };
 inline _PseudoPyppName_PrivateConfig _PrivateConfig;
+
 void constant_fn() {
     print(PyStr("CONSTANT RESULTS:"));
     const int _F = 4;
