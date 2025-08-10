@@ -33,19 +33,19 @@ def handle_for(node: ast.For, d: Deps) -> str:
 
 @dataclass(frozen=True, slots=True)
 class _IterArgs:
-    start: int
-    stop: int
-    step: int
+    start: int | str
+    stop: int | str
+    step: int | str
 
 
 def _calc_iter_args(s: str) -> _IterArgs:
     arr: list[str] = s.split("(", 1)[1][:-1].split(",")
     if len(arr) == 3:
-        return _IterArgs(*(int(a) for a in arr))
+        return _IterArgs(*(a for a in arr))
     if len(arr) == 2:
         # start and stop were supplied
-        return _IterArgs(int(arr[0]), int(arr[1]), 1)
+        return _IterArgs(arr[0], arr[1], 1)
     if len(arr) == 1:
         # stop was supplied
-        return _IterArgs(0, int(arr[0]), 1)
+        return _IterArgs(0, arr[0], 1)
     raise AssertionError("Shouldn't happen")

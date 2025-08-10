@@ -1,3 +1,4 @@
+#include "benchmarking/perlin_noise/caller.h"
 #include "classes/first.h"
 #include "classes/inheritance.h"
 #include "constants.h"
@@ -119,6 +120,7 @@ int main() {
         time_library_fn();
         default_dict_fn();
         random_fn();
+        perlin_noise_fn();
         return 0;
     } catch (...) {
         handle_fatal_exception();

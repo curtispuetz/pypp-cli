@@ -123,17 +123,15 @@ def _calc_full_methods(methods: list[ClassMethod]) -> str:
 def _calc_method_implementations(methods: list[ClassMethod], class_name: str) -> str:
     ret: list[str] = []
     for method in methods:
-        sig_with_namespace = _add_namespace(method.fn_signature, class_name)
+        sig_with_namespace = _add_namespace(method, class_name)
         ret.append(calc_fn_str_with_body(sig_with_namespace, method.body_str))
     return "\n\n".join(ret)
 
 
-def _add_namespace(fn_signature: str, name: str) -> str:
-    first_space = fn_signature.find(" ")
-    assert first_space != -1, "shouldn't happen"
-    return (
-        fn_signature[: first_space + 1] + name + "::" + fn_signature[first_space + 1 :]
-    )
+def _add_namespace(method: ClassMethod, class_name: str) -> str:
+    m = method.fn_signature.find(method.name)
+    assert m != -1, "shouldn't happen"
+    return method.fn_signature[:m] + class_name + "::" + method.fn_signature[m:]
 
 
 def _calc_constructor_initializer_list(
