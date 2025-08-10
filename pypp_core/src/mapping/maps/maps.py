@@ -4,7 +4,7 @@ from pypp_core.src.config import PyppDirs
 from pypp_core.src.mapping.maps.calc_attrs_map import calc_attrs_map
 from pypp_core.src.mapping.maps.calc_calls_map import calc_calls_map
 from pypp_core.src.mapping.maps.calc_names_map import calc_names_map
-from pypp_core.src.mapping.util import MapInfo, CallMapInfo
+from pypp_core.src.mapping.info_types import MapInfo, CallMapInfo
 
 
 @dataclass(frozen=True, slots=True)

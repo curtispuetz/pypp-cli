@@ -12,7 +12,7 @@ from pypp_core.src.d_types import (
     PyImport,
     CppInclude,
 )
-from pypp_core.src.mapping.util import MapInfo
+from pypp_core.src.mapping.info_types import MapInfo
 
 
 def calc_cpp_includes(obj: dict) -> list[CppInclude]:

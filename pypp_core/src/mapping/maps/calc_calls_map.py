@@ -5,7 +5,7 @@ from pypp_core.src.mapping.maps.util import (
     calc_required_py_import,
     load_map,
 )
-from pypp_core.src.mapping.util import CallMapInfo
+from pypp_core.src.mapping.info_types import CallMapInfo
 
 CALL_MAP: dict[str, CallMapInfo] = {
     "print": CallMapInfo("print(", ")", [QInc("pypp_util/print.h")]),

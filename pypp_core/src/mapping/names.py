@@ -1,4 +1,5 @@
 from pypp_core.src.deps import Deps
+from pypp_core.src.mapping.lookup_helper import lookup_helper
 
 
 def lookup_cpp_name(
@@ -6,13 +7,7 @@ def lookup_cpp_name(
     d: Deps,
     include_in_header: bool = False,
 ) -> str:
-    # The way it works is that whenever you looked up the type, it automatically
-    # is added to the ret_imports
-    if name not in d.maps.names:
+    val = lookup_helper(name, d, d.maps.names, include_in_header)
+    if val is None:
         return name
-    val = d.maps.names[name]
-    if val.required_import is not None and not d.is_imported(val.required_import):
-        return name
-    for include in val.includes:
-        d.add_inc(include, include_in_header)
     return val.val

@@ -1,7 +1,7 @@
 from pypp_core.src.config import PyppDirs
 from pypp_core.src.d_types import QInc, PyImport
 from pypp_core.src.mapping.maps.util import calc_map_info, load_map
-from pypp_core.src.mapping.util import MapInfo
+from pypp_core.src.mapping.info_types import MapInfo
 
 ATTR_MAP: dict[str, MapInfo] = {
     "random.Random": MapInfo(

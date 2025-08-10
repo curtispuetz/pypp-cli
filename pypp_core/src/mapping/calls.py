@@ -1,4 +1,5 @@
 from pypp_core.src.deps import Deps
+from pypp_core.src.mapping.lookup_helper import lookup_helper
 
 
 def lookup_cpp_call(
@@ -6,11 +7,7 @@ def lookup_cpp_call(
     d: Deps,
     include_in_header: bool,
 ) -> tuple[str, str]:
-    if call not in d.maps.calls:
+    val = lookup_helper(call, d, d.maps.calls, include_in_header)
+    if val is None:
         return call + "(", ")"
-    val = d.maps.calls[call]
-    if val.required_import is not None and not d.is_imported(val.required_import):
-        return call + "(", ")"
-    for include in val.includes:
-        d.add_inc(include, include_in_header)
     return val.left, val.right
