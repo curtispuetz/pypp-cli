@@ -1,3 +1,7 @@
+import json
+import os
+
+from pypp_core.src.config import PyppDirs
 from pypp_core.src.d_types import (
     PySpecificImport,
     AngInc,
@@ -33,3 +37,14 @@ def calc_required_py_import(obj: dict) -> PySpecificImport | None:
             return PyImport(req["name"], req["as_name"])
         return PyImport(req["name"])
     return None
+
+
+def load_bridge_json(proj_info: dict, dirs: PyppDirs, name: str) -> dict:
+    ret = {}
+    for installed_library in proj_info["installed_libraries"]:
+        json_path = dirs.calc_bridge_json(installed_library, name)
+        if os.path.isfile(json_path):
+            with open(json_path, "r") as f:
+                m: dict = json.load(f)
+            ret.update(m)
+    return ret
