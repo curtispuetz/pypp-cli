@@ -2,6 +2,7 @@ from dataclasses import dataclass
 
 from pypp_bridge_library_test_0.pseudo_custom_type import PseudoCustomType
 from pypp_python.configclass import configclass
+from pypp_bridge_library_test_0 import test_namespace
 
 
 def _as_arg(arg: PseudoCustomType):
@@ -43,3 +44,5 @@ def bridge_lib_test_0_fn():
     e: _DataClassA = _DataClassA(a)
     print(e.pseudo_custom_type.get_a())
     print(_ConfigClassA.pseudo_custom_type.get_a())
+    f: test_namespace.PseudoA = test_namespace.PseudoA(7)
+    print(f.get_a())

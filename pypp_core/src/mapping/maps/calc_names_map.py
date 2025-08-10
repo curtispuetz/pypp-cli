@@ -5,9 +5,8 @@ from pypp_core.src.d_types import (
     QInc,
 )
 from pypp_core.src.mapping.maps.util import (
-    calc_required_py_import,
-    calc_cpp_includes,
-    load_bridge_json,
+    calc_map_info,
+    load_map,
 )
 from pypp_core.src.mapping.util import MapInfo
 
@@ -83,19 +82,4 @@ NAMES_MAP: dict[str, MapInfo] = {
 
 
 def calc_names_map(proj_info: dict, dirs: PyppDirs) -> dict[str, MapInfo]:
-    ret = NAMES_MAP
-    for _type, obj in load_bridge_json(proj_info, dirs, "names_map").items():
-        if _type in ret:
-            print(
-                f"warning: Py++ transpiler already maps the name '{_type}'. "
-                f"A library is overriding this mapping."
-            )
-        ret[_type] = _calc_map_info(obj)
-    return ret
-
-
-def _calc_map_info(obj: dict) -> MapInfo:
-    assert "cpp_type" in obj, "names_map.json must specify a cpp_type for each element"
-    cpp_includes = calc_cpp_includes(obj)
-    required_import = calc_required_py_import(obj)
-    return MapInfo(obj["cpp_type"], cpp_includes, required_import)
+    return load_map(NAMES_MAP, proj_info, dirs, "name", calc_map_info)

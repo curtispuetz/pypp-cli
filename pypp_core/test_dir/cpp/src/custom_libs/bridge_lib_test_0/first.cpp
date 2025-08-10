@@ -1,5 +1,6 @@
 #include "custom_libs\bridge_lib_test_0\first.h"
 #include "py_str.h"
+#include "pypp_bridge_library_test_0/pseudo_a.h"
 #include "pypp_bridge_library_test_0/pseudo_custom_type.h"
 #include "pypp_util/print.h"
 
@@ -39,4 +40,6 @@ void bridge_lib_test_0_fn() {
     _DataClassA e = _DataClassA(a);
     print(e.pseudo_custom_type.get_a());
     print(_ConfigClassA.pseudo_custom_type.get_a());
+    test_namespace::PseudoACpp f = test_namespace::PseudoACpp(7);
+    print(f.get_a());
 }
