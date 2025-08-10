@@ -3,7 +3,7 @@ from pypp_core.src.d_types import PySpecificImpFrom, QInc, AngInc
 from pypp_core.src.mapping.maps.util import (
     calc_cpp_includes,
     calc_required_py_import,
-    load_bridge_json,
+    load_map,
 )
 from pypp_core.src.mapping.util import CallMapInfo
 
@@ -44,20 +44,12 @@ CALL_MAP: dict[str, CallMapInfo] = {
 
 
 def calc_calls_map(proj_info: dict, dirs: PyppDirs) -> dict[str, CallMapInfo]:
-    ret = CALL_MAP
-    for _type, obj in load_bridge_json(proj_info, dirs, "calls_map").items():
-        if _type in ret:
-            print(
-                f"warning: Py++ transpiler already maps the call '{_type}'. "
-                f"A library is overriding this mapping."
-            )
-        ret[_type] = _calc_map_info(obj)
-    return ret
+    return load_map(CALL_MAP, proj_info, dirs, "call", _calc_call_map_info)
 
 
-def _calc_map_info(obj: dict) -> CallMapInfo:
-    assert "left" in obj, "calls_map.json must specify a 'left' for each element"
-    assert "right" in obj, "calls_map.json must specify a 'right' for each element"
+def _calc_call_map_info(obj: dict, name: str) -> CallMapInfo:
+    assert "left" in obj, f"{name}s_map.json must specify a 'left' for each element"
+    assert "right" in obj, f"{name}s_map.json must specify a 'right' for each element"
     cpp_includes = calc_cpp_includes(obj)
     required_import = calc_required_py_import(obj)
     return CallMapInfo(obj["left"], obj["right"], cpp_includes, required_import)
