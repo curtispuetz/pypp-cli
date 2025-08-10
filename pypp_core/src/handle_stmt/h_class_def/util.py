@@ -21,6 +21,7 @@ class ClassField:
 class ClassMethod:
     fn_signature: str
     body_str: str
+    name: str
 
 
 def calc_method(
@@ -43,7 +44,7 @@ def calc_method(
         node.body,
         d,
     )
-    return ClassMethod(fn_signature, body_str)
+    return ClassMethod(fn_signature, body_str, node.name)
 
 
 def calc_class_field(type_cpp: str, name: str, other_name: str):

@@ -1,3 +1,4 @@
+from benchmarking.perlin_noise.caller import perlin_noise_fn
 from first import return_something
 from imports_test.first import imports_test_fn
 from imports_test.second import imports_test_fn2
@@ -113,3 +114,4 @@ if __name__ == "__main__":
     time_library_fn()
     default_dict_fn()
     random_fn()
+    perlin_noise_fn()
