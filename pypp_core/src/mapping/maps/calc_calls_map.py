@@ -1,4 +1,3 @@
-
 from pypp_core.src.config import PyppDirs
 from pypp_core.src.d_types import PySpecificImpFrom, QInc, AngInc
 from pypp_core.src.mapping.maps.util import (
@@ -48,8 +47,10 @@ def calc_calls_map(proj_info: dict, dirs: PyppDirs) -> dict[str, CallMapInfo]:
     ret = CALL_MAP
     for _type, obj in load_bridge_json(proj_info, dirs, "calls_map").items():
         if _type in ret:
-            # TODO: better warning message
-            print(f"warning: overriding {_type}")
+            print(
+                f"warning: Py++ transpiler already maps the call '{_type}'. "
+                f"A library is overriding this mapping."
+            )
         ret[_type] = _calc_map_info(obj)
     return ret
 
