@@ -1,12 +1,9 @@
 from pypp_core.src.deps import Deps
+from pypp_core.src.mapping.lookup_helper import lookup_helper
 
-# TODO: DRY
+
 def lookup_cpp_attribute(attr: str, d: Deps, include_in_header: bool = False):
-    if attr not in d.maps.attrs:
+    val = lookup_helper(attr, d, d.maps.attrs, include_in_header)
+    if val is None:
         return attr
-    val = d.maps.attrs[attr]
-    if val.required_import is not None and not d.is_imported(val.required_import):
-        return attr
-    for include in val.includes:
-        d.add_inc(include, include_in_header)
     return val.val

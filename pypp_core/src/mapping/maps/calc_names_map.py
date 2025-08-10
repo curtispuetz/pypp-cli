@@ -8,7 +8,7 @@ from pypp_core.src.mapping.maps.util import (
     calc_map_info,
     load_map,
 )
-from pypp_core.src.mapping.util import MapInfo
+from pypp_core.src.mapping.info_types import MapInfo
 
 
 # TODO: for bridge library creation, users can define their names for here
