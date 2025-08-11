@@ -17,8 +17,7 @@ def _handle_exception_handler(node: ast.ExceptHandler, d: Deps) -> str:
         assert isinstance(node.type, ast.Name), "Shouldn't happen"
         assert isinstance(node.type.id, str), "Shouldn't happen"
         exc_str = f"const {lookup_cpp_exception_type(node.type.id, d)}&"
-        if (
-            node.name is not None):
+        if node.name is not None:
             assert isinstance(node.name, str), "Shouldn't happen"
             exc_str += f" pypp_{node.name}"
             d.add_inc(AngInc("string"))

@@ -57,4 +57,6 @@ def handle_stmt(node: ast.stmt, d: Deps) -> str:
         raise Exception(
             "import statements are only supported at the top of the file before any other code."
         )
+    if isinstance(node, ast.Pass):
+        raise Exception("pass keyword is not generally supported")
     raise Exception(f"code stmt type {node} not handled")

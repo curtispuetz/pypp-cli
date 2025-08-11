@@ -10,6 +10,9 @@ from pypp_core.src.handle_stmt.h_class_def.for_configclass.for_configclass impor
 from pypp_core.src.handle_stmt.h_class_def.for_dataclasses.for_dataclasses import (
     handle_class_def_for_dataclass,
 )
+from pypp_core.src.handle_stmt.h_class_def.for_exception import (
+    handle_class_def_for_exception,
+)
 from pypp_core.src.handle_stmt.h_class_def.for_interface.for_interface import (
     handle_class_def_for_interface,
 )
@@ -22,9 +25,12 @@ def handle_class_def(node: ast.ClassDef, d: Deps) -> str:
         if decorator_name == "dataclass":
             is_frozen: bool = _do_dataclass_assertions(node)
             return handle_class_def_for_dataclass(node, d, is_frozen)
-        else:  # configclass
+        elif decorator_name == "configclass":  # configclass
             dtype: ast.expr = _do_configclass_assertions(node)
             return handle_class_def_for_configclass(node, d, dtype)
+        elif decorator_name == "exception":
+            return handle_class_def_for_exception(node, d)
+        raise ValueError("unsupported class decorator: " + decorator_name)
 
     if _is_interface_def(node):
         _do_interface_assertions(node)
@@ -62,10 +68,6 @@ def _get_decorator_name(node: ast.ClassDef) -> str:
         return decorator.func.id
     else:
         assert isinstance(decorator, ast.Name), "something wrong with class decorator"
-        if decorator.id not in {"dataclass", "configclass"}:
-            raise Exception(
-                "only @dataclass and @configclass decorators supported for classes"
-            )
         return decorator.id
 
 
