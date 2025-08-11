@@ -22,5 +22,5 @@ def handle_subscript(
         slice_cpp_str = handle_tuple_inner_args(node.slice, d, include_in_header)
     else:
         slice_cpp_str: str = d.handle_expr(node.slice, include_in_header)
-    v1, v2 = lookup_cpp_subscript_value_type(value_cpp_str)
+    v1, v2 = lookup_cpp_subscript_value_type(value_cpp_str, d)
     return v1 + slice_cpp_str + v2

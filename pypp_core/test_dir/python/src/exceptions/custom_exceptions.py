@@ -5,6 +5,7 @@ from pypp_python.exceptionclass import exception
 class CustomException(Exception):
     pass
 
+
 @exception
 class ChildException(CustomException):
     pass
