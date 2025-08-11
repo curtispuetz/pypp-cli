@@ -9,8 +9,6 @@ FN_ARG_PASSED_BY_VALUE: set[str] = {
 }
 
 
-# TODO: for bridge library creation, you let users define types that should be passed
-#  by value. This should not be very common though?
 def lookup_cpp_fn_arg(cpp_arg_type: str) -> str:
     is_pass_by_ref, cpp_arg_type = _is_pass_by_ref(cpp_arg_type)
     if cpp_arg_type in FN_ARG_PASSED_BY_VALUE:
