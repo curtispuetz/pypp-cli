@@ -11,6 +11,7 @@
 #include "dicts/exceptions.h"
 #include "dicts/first.h"
 #include "exceptions/assert_.h"
+#include "exceptions/custom_exceptions.h"
 #include "exceptions/throw_.h"
 #include "file_io/first.h"
 #include "first.h"
@@ -123,6 +124,7 @@ int main() {
         random_fn();
         perlin_noise_fn();
         bridge_lib_test_0_fn();
+        custom_exception_fn();
         return 0;
     } catch (...) {
         handle_fatal_exception();
