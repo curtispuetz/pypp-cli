@@ -1,9 +1,12 @@
+from functools import partial
+
 from pypp_core.src.config import PyppDirs
 from pypp_core.src.d_types import PySpecificImpFrom, QInc, AngInc
 from pypp_core.src.mapping.maps.util import (
     calc_cpp_includes,
     calc_required_py_import,
     load_map,
+    calc_common_warning_msg,
 )
 from pypp_core.src.mapping.info_types import CallMapInfo
 
@@ -43,13 +46,24 @@ CALL_MAP: dict[str, CallMapInfo] = {
 }
 
 
-def calc_calls_map(proj_info: dict, dirs: PyppDirs) -> dict[str, CallMapInfo]:
-    return load_map(CALL_MAP, proj_info, dirs, "call", _calc_call_map_info)
-
-
-def _calc_call_map_info(obj: dict, name: str) -> CallMapInfo:
-    assert "left" in obj, f"{name}s_map.json must specify a 'left' for each element"
-    assert "right" in obj, f"{name}s_map.json must specify a 'right' for each element"
+def _calc_call_map_info(obj: dict, json_file_name: str) -> CallMapInfo:
+    assert "left" in obj, (
+        f"{json_file_name}.json must specify a 'left' for each element"
+    )
+    assert "right" in obj, (
+        f"{json_file_name}.json must specify a 'right' for each element"
+    )
     cpp_includes = calc_cpp_includes(obj)
     required_import = calc_required_py_import(obj)
     return CallMapInfo(obj["left"], obj["right"], cpp_includes, required_import)
+
+
+def calc_calls_map(proj_info: dict, dirs: PyppDirs) -> dict[str, CallMapInfo]:
+    return load_map(
+        CALL_MAP,
+        proj_info,
+        dirs,
+        "calls_map",
+        _calc_call_map_info,
+        partial(calc_common_warning_msg, name="call"),
+    )

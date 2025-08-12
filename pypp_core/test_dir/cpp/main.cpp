@@ -1,4 +1,4 @@
-#include "benchmarking/perlin_noise/caller.h"
+#include "args_test.h"
 #include "classes/first.h"
 #include "classes/inheritance.h"
 #include "constants.h"
@@ -122,9 +122,9 @@ int main() {
         time_library_fn();
         default_dict_fn();
         random_fn();
-        perlin_noise_fn();
         bridge_lib_test_0_fn();
         custom_exception_fn();
+        args_test_fn();
         return 0;
     } catch (...) {
         handle_fatal_exception();

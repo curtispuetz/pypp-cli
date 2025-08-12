@@ -1,4 +1,4 @@
-from benchmarking.perlin_noise.caller import perlin_noise_fn
+from args_test import args_test_fn
 from custom_libs.bridge_lib_test_0.first import bridge_lib_test_0_fn
 from exceptions.custom_exceptions import custom_exception_fn
 from first import return_something
@@ -116,6 +116,7 @@ if __name__ == "__main__":
     time_library_fn()
     default_dict_fn()
     random_fn()
-    perlin_noise_fn()
+    # perlin_noise_fn()
     bridge_lib_test_0_fn()
     custom_exception_fn()
+    args_test_fn()

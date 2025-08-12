@@ -66,7 +66,7 @@ def calc_fn_arg_types(
                 py_arg.annotation,
                 include_in_header=in_header,
             )
-        cpp_arg = lookup_cpp_fn_arg(cpp_arg_type)
+        cpp_arg = lookup_cpp_fn_arg(cpp_arg_type, d)
         ret[arg_name] = cpp_arg
     return ret
 

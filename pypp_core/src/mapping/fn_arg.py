@@ -1,25 +1,13 @@
+from pypp_core.src.deps import Deps
 from pypp_core.src.util.inner_strings import calc_inside_rd
 
-FN_ARG_PASSED_BY_VALUE: set[str] = {
-    "int",
-    "double",  # python float
-    "bool",
-    "float",  # python float32
-    "int8_t",
-    "int16_t",
-    "int32_t",
-    "int64_t",
-    "uint8_t",
-    "uint16_t",
-    "uint32_t",
-    "uint64_t",
-}
 
-
-def lookup_cpp_fn_arg(cpp_arg_type: str) -> str:
+def lookup_cpp_fn_arg(cpp_arg_type: str, d: Deps) -> str:
     is_pass_by_ref, cpp_arg_type = _is_pass_by_ref(cpp_arg_type)
-    if cpp_arg_type in FN_ARG_PASSED_BY_VALUE:
-        return cpp_arg_type
+    if cpp_arg_type in d.maps.fn_args_passed_by_value:
+        r = d.maps.fn_args_passed_by_value[cpp_arg_type]
+        if r is None or d.is_imported(r):
+            return cpp_arg_type
     pass_by_ref_str = "&" if is_pass_by_ref else ""
     before_and_after = cpp_arg_type.split("<", 1)
     if len(before_and_after) == 1:

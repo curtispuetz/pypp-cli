@@ -31,13 +31,13 @@ class PyppDirs:
     def calc_cpp_libs_dir(self, library_name: str) -> str:
         return os.path.join(self.cpp_dir, "libs", library_name)
 
-    def calc_bridge_json(self, library_name: str, name: str) -> str:
+    def calc_bridge_json(self, library_name: str, json_file_name: str) -> str:
         return os.path.join(
             self.calc_site_packages_dir(),
             library_name,
             "data",
             "bridge_jsons",
-            name + ".json",
+            json_file_name + ".json",
         )
 
 
