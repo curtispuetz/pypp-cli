@@ -42,13 +42,20 @@ def calc_required_py_import(obj: dict) -> PySpecificImport | None:
     return None
 
 
-def calc_map_info(obj: dict, name: str) -> MapInfo:
+def calc_map_info(obj: dict, json_file_name: str) -> MapInfo:
     assert "cpp_type" in obj, (
-        f"{name}s_map.json must specify a cpp_type for each element"
+        f"{json_file_name}.json must specify a cpp_type for each element"
     )
     cpp_includes = calc_cpp_includes(obj)
     required_import = calc_required_py_import(obj)
     return MapInfo(obj["cpp_type"], cpp_includes, required_import)
+
+
+def calc_common_warning_msg(installed_library: str, _type: str, name: str) -> str:
+    return (
+        f"Py++ transpiler already maps the {name} '{_type}'. "
+        f"Library {installed_library} is overriding this mapping."
+    )
 
 
 T = TypeVar("T")
@@ -58,20 +65,18 @@ def load_map(
     default_map: dict[str, T],
     proj_info: dict,
     dirs: PyppDirs,
-    name: str,
+    json_file_name: str,
     value_calc_fn: Callable[[dict, str], T],
+    warning_fn: Callable[[str, str], str],
 ) -> dict[str, T]:
     ret = default_map.copy()
     for installed_library in proj_info["installed_libraries"]:
-        json_path = dirs.calc_bridge_json(installed_library, name + "s_map")
+        json_path = dirs.calc_bridge_json(installed_library, json_file_name)
         if os.path.isfile(json_path):
             with open(json_path, "r") as f:
                 m: dict = json.load(f)
             for _type, obj in m.items():
                 if _type in ret:
-                    print(
-                        f"warning: Py++ transpiler already maps the {name} '{_type}'. "
-                        f"Library {installed_library} is overriding this mapping."
-                    )
-                ret[_type] = value_calc_fn(obj, name)
+                    print(f"warning: {warning_fn(installed_library, _type)}")
+                ret[_type] = value_calc_fn(obj, json_file_name)
     return ret

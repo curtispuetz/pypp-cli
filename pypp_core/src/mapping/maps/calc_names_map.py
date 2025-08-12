@@ -1,3 +1,5 @@
+from functools import partial
+
 from pypp_core.src.config import PyppDirs
 from pypp_core.src.d_types import (
     PySpecificImpFrom,
@@ -7,6 +9,7 @@ from pypp_core.src.d_types import (
 from pypp_core.src.mapping.maps.util import (
     calc_map_info,
     load_map,
+    calc_common_warning_msg,
 )
 from pypp_core.src.mapping.info_types import MapInfo
 
@@ -82,4 +85,11 @@ NAMES_MAP: dict[str, MapInfo] = {
 
 
 def calc_names_map(proj_info: dict, dirs: PyppDirs) -> dict[str, MapInfo]:
-    return load_map(NAMES_MAP, proj_info, dirs, "name", calc_map_info)
+    return load_map(
+        NAMES_MAP,
+        proj_info,
+        dirs,
+        "names_map",
+        calc_map_info,
+        partial(calc_common_warning_msg, name="name"),
+    )

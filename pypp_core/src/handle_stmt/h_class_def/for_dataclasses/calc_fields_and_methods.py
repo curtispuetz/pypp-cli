@@ -50,5 +50,5 @@ def _calc_field(
     target_str: str = d.handle_expr(
         node.target, include_in_header=name_doesnt_start_with_underscore
     )
-    type_str = lookup_cpp_fn_arg(type_cpp)
+    type_str = lookup_cpp_fn_arg(type_cpp, d)
     return calc_class_field(type_str, target_str, target_str)
