@@ -2,10 +2,17 @@ from pypp_core.src.util.inner_strings import calc_inside_rd
 
 FN_ARG_PASSED_BY_VALUE: set[str] = {
     "int",
+    "double",  # python float
     "bool",
-    "float",
-    "double",
-    "PyRange",
+    "float",  # python float32
+    "int8_t",
+    "int16_t",
+    "int32_t",
+    "int64_t",
+    "uint8_t",
+    "uint16_t",
+    "uint32_t",
+    "uint64_t",
 }
 
 
