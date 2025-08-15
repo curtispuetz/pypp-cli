@@ -6,7 +6,7 @@ from pypp_core.src.d_types import QInc, AngInc
 from pypp_core.src.deps import Deps
 
 
-def handle_operator(node: ast.operator, d: Deps | None) -> tuple[str, str, str]:
+def _handle_operator(node: ast.operator) -> tuple[str, str, str] | None:
     if isinstance(node, ast.Add):
         return "", "+", ""
     if isinstance(node, ast.Sub):
@@ -27,17 +27,28 @@ def handle_operator(node: ast.operator, d: Deps | None) -> tuple[str, str, str]:
         return "", "^", ""
     if isinstance(node, ast.BitAnd):
         return "", "&", ""
+    if isinstance(node, ast.MatMult):
+        # MatMult is not supported because its mostly just used for numpy arrays.
+        raise ValueError("Matrix mult operator (i.e. @) not supported")
+    return None
+
+
+def handle_operator(node: ast.operator, d: Deps) -> tuple[str, str, str]:
+    res = _handle_operator(node)
+    if res is not None:
+        return res
     if isinstance(node, ast.Pow):
         d.add_inc(AngInc("cmath"))
         return "std::pow(", ", ", ")"
     if isinstance(node, ast.FloorDiv):
         d.add_inc(QInc("pypp_util/floor_div.h"))
         return "py_floor_div(", ", ", ")"
-    # Note:
-    # - MatMult is not supported because its mostly just used for numpy arrays.
     raise Exception(f"operator type {node} is not handled")
 
 
 def handle_operator_for_aug_assign(node: ast.operator) -> str:
-    assert not isinstance(node, ast.FloorDiv), "shouldn't happen"
-    return handle_operator(node, None)[1]
+    assert not isinstance(node, ast.FloorDiv), "//= not supported"
+    assert not isinstance(node, ast.Pow), "**= not supported"
+    res = _handle_operator(node)
+    assert res is not None, "shouldn't happen"
+    return res[1]

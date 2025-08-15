@@ -6,7 +6,7 @@ from pypp_core.src.config import PyppDirs
 from pypp_core.src.main_scripts.do import pypp_do
 from pypp_core.src.main_scripts.init import pypp_init
 from pypp_core.src.main_scripts.install import pypp_install
-from pypp_core.src.main_scripts.remove_timestamps import pypp_remove_timestamps
+from pypp_core.src.main_scripts.delete_timestamps import pypp_delete_timestamps
 from pypp_core.src.main_scripts.run_python import pypp_run_python
 from pypp_core.src.main_scripts.uninstall import pypp_uninstall
 
@@ -24,7 +24,7 @@ def main_cli(absolute_dir: str | None = None) -> None:
     )
     parser_uninstall.add_argument("library", help="Specify the library to uninstall.")
     subparsers.add_parser(
-        "remove_timestamps",
+        "delete_timestamps",
         help="Remove the file_timestamps.json file so that transpiling is done "
         "for all python files regardless of whether they were modified.",
     )
@@ -68,8 +68,8 @@ def main_cli(absolute_dir: str | None = None) -> None:
         pypp_install(args.library, pypp_dirs)
     elif args.mode == "uninstall":
         pypp_uninstall(args.library, pypp_dirs)
-    elif args.mode == "remove_timestamps":
-        pypp_remove_timestamps(pypp_dirs)
+    elif args.mode == "delete_timestamps":
+        pypp_delete_timestamps(pypp_dirs)
     elif args.mode == "run_python":
         pypp_run_python(args.file, pypp_dirs)
 

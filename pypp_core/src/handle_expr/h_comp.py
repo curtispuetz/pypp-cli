@@ -18,9 +18,10 @@ def handle_comp(
     gen_node = node.generators[0]
     assert len(gen_node.ifs) == 0, "ifs not supported in list comprehensions"
     assert not gen_node.is_async, "async not supported in list comprehensions"
+    logic_exp_node: ast.stmt
     if isinstance(node, ast.DictComp):
         # a[3] = "d"
-        logic_exp_node: ast.Assign = ast.Assign(
+        logic_exp_node = ast.Assign(
             targets=[
                 ast.Subscript(
                     value=ast.Name(id=target_str, ctx=ast.Load()),
@@ -41,11 +42,11 @@ def handle_comp(
             args=[node.elt],
             keywords=[],
         )
-        logic_exp_node: ast.Expr = ast.Expr(value=cast(ast.expr, append_or_add_node))
+        logic_exp_node = ast.Expr(value=cast(ast.expr, append_or_add_node))
     for_node: ast.For = ast.For(
         target=gen_node.target,
         iter=gen_node.iter,
-        body=[cast(ast.stmt, logic_exp_node)],
+        body=[logic_exp_node],
         orelse=[],
         type_comment=None,
     )
