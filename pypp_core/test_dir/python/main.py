@@ -6,6 +6,7 @@ from imports_test.first import imports_test_fn
 from imports_test.second import imports_test_fn2
 from random_library.first import random_fn
 from second import return_friend
+from subscriptable_types import subscriptable_types_fn
 from third import using_inline_string
 from fourth import string_as_argument
 from if_elif_else.if_elif_else import if_elif_else_fn
@@ -120,3 +121,4 @@ if __name__ == "__main__":
     bridge_lib_test_0_fn()
     custom_exception_fn()
     args_test_fn()
+    subscriptable_types_fn()

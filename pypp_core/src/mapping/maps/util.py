@@ -42,6 +42,14 @@ def calc_required_py_import(obj: dict) -> PySpecificImport | None:
     return None
 
 
+def calc_specific_imports(
+    obj: dict | None, json_file_name: str
+) -> PySpecificImport | None:
+    if obj is None:
+        return None
+    return calc_required_py_import(obj)
+
+
 def calc_map_info(obj: dict, json_file_name: str) -> MapInfo:
     assert "cpp_type" in obj, (
         f"{json_file_name}.json must specify a cpp_type for each element"

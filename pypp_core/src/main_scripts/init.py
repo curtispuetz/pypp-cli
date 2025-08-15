@@ -65,6 +65,6 @@ def _create_python_src_file(dirs: PyppDirs):
 
 
 def _create_proj_json_file(dirs: PyppDirs):
-    data: dict = {"cpp_dir_is_dirty": True}
+    data = {"cpp_dir_is_dirty": True}
     with open(dirs.proj_info_file, "w") as file:
         json.dump(data, file, indent=4)
