@@ -117,9 +117,9 @@ def pypp_transpile(dirs: PyppDirs) -> list[Path]:
     files_added_or_modified: list[Path] = []
     changed_and_new_files = py_file_changes.new_files + py_file_changes.changed_files
     maps: Maps | None = None
-    if len(changed_and_new_files) != 0:
-        maps = calc_maps(proj_info, dirs)
     for changed_or_new_file in changed_and_new_files:
+        if maps is None:
+            maps = calc_maps(proj_info, dirs)
         py_files_transpiled += 1
         header_files_written, cpp_files_written = _transpile_cpp_and_h_files(
             changed_or_new_file,

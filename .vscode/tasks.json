@@ -95,6 +95,19 @@
             }
         },
         {
+            "label": "del timestamps",
+            "type": "shell",
+            "command": "${workspaceFolder}/.venv/Scripts/python.exe -m pypp_core.util_scripts.calling_cli.delete_timestamps",
+            "problemMatcher": [],
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "dedicated",
+                "showReuseMessage": false
+            }
+        },
+        {
             "label": "Build library",
             "type": "shell",
             "command": "${workspaceFolder}/.venv/Scripts/python.exe -m build",
