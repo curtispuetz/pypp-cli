@@ -13,6 +13,7 @@ def pypp_install(library: str, dirs: PyppDirs):
     # TODO: add some validation that the data in like names_map.json is correct.
     # Remove timestamps file because a new library might change how things are
     # transpiled.
+    # TODO: removing timestamps file should be done when an uninstall happens, too.
     if os.path.exists(dirs.timestamps_file):
         os.remove(dirs.timestamps_file)
     _copy_cpp_library_files(library_name, dirs)

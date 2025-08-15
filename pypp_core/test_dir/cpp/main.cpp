@@ -54,6 +54,7 @@
 #include "strings/exceptions.h"
 #include "strings/f_strings.h"
 #include "strings/first.h"
+#include "subscriptable_types.h"
 #include "third.h"
 #include "time_library/first.h"
 #include "tuples/exceptions.h"
@@ -125,6 +126,7 @@ int main() {
         bridge_lib_test_0_fn();
         custom_exception_fn();
         args_test_fn();
+        subscriptable_types_fn();
         return 0;
     } catch (...) {
         handle_fatal_exception();

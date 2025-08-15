@@ -1,0 +1,98 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Transpile and Format",
+            "type": "shell",
+            "command": "${workspaceFolder}/.venv/Scripts/python.exe -m pypp_core.util_scripts.calling_cli.transpile_and_format",
+            "problemMatcher": [],
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "dedicated",
+                "showReuseMessage": false,
+            }
+        },
+        {
+            "label": "Build and Run",
+            "type": "shell",
+            "command": "${workspaceFolder}/.venv/Scripts/python.exe -m pypp_core.util_scripts.calling_cli.build_and_run",
+            "problemMatcher": [],
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "dedicated",
+                "showReuseMessage": false,
+            }
+        },
+        {
+            "label": "Transpile, Format, Build and Run",
+            "type": "shell",
+            "command": "${workspaceFolder}/.venv/Scripts/python.exe -m pypp_core.util_scripts.calling_cli.transpile_format_build_and_run",
+            "problemMatcher": [],
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "dedicated",
+                "showReuseMessage": false,
+            }
+        },
+        {
+            "label": "Run Python",
+            "type": "shell",
+            "command": "${workspaceFolder}/.venv/Scripts/python.exe -m pypp_core.util_scripts.calling_cli.run_python",
+            "problemMatcher": [],
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "dedicated",
+                "showReuseMessage": false,
+            }
+        },
+        {
+            "label": "Run",
+            "type": "shell",
+            "command": "${workspaceFolder}/.venv/Scripts/python.exe -m pypp_core.util_scripts.calling_cli.run",
+            "problemMatcher": [],
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "dedicated",
+                "showReuseMessage": false,
+            }
+        },
+        {
+            "label": "Install",
+            "type": "shell",
+            "command": "${workspaceFolder}/.venv/Scripts/python.exe -m pypp_core.util_scripts.calling_cli.install",
+            "problemMatcher": [],
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "dedicated",
+                "showReuseMessage": false,
+            }
+        },
+        {
+            "label": "Uninstall",
+            "type": "shell",
+            "command": "${workspaceFolder}/.venv/Scripts/python.exe -m pypp_core.util_scripts.calling_cli.uninstall",
+            "problemMatcher": [],
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "dedicated",
+                "showReuseMessage": false,
+            }
+        }
+    ]
+}

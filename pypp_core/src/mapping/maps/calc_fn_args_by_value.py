@@ -1,6 +1,9 @@
 from pypp_core.src.config import PyppDirs
 from pypp_core.src.d_types import PySpecificImport, PySpecificImpFrom
-from pypp_core.src.mapping.maps.util import load_map, calc_required_py_import
+from pypp_core.src.mapping.maps.util import (
+    load_map,
+    calc_specific_imports,
+)
 
 FN_ARG_PASSED_BY_VALUE: dict[str, PySpecificImport | None] = {
     "int": None,
@@ -26,14 +29,6 @@ def _warning_msg(installed_library: str, _type: str) -> str:
     )
 
 
-def _calc_specific_imports(
-    obj: dict | None, json_file_name: str
-) -> PySpecificImport | None:
-    if obj is None:
-        return None
-    return calc_required_py_import(obj)
-
-
 def calc_fn_args_passed_by_value(
     proj_info: dict, dirs: PyppDirs
 ) -> dict[str, PySpecificImport | None]:
@@ -42,6 +37,6 @@ def calc_fn_args_passed_by_value(
         proj_info,
         dirs,
         "always_pass_by_value",
-        _calc_specific_imports,
+        calc_specific_imports,
         _warning_msg,
     )
