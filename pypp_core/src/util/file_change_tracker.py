@@ -126,4 +126,4 @@ def calc_py_file_changes(
 
 
 if __name__ == "__main__":
-    calc_py_file_changes(create_test_dir_pypp_dirs())
+    calc_py_file_changes(create_test_dir_pypp_dirs(), [])

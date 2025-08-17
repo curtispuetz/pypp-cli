@@ -1,16 +1,16 @@
-from typing import TypeVar
-
 from pypp_core.src.deps import Deps
-
-T = TypeVar("T")
+from pypp_core.src.mapping.info_types import (
+    NamesCallsOrAttrsMap,
+    NamesCallsOrAttrsMapInfo,
+)
 
 
 def lookup_helper(
     key: str,
     d: Deps,
-    map: dict[str, T],
+    map: NamesCallsOrAttrsMap,
     include_in_header: bool = False,
-) -> T | None:
+) -> NamesCallsOrAttrsMapInfo | None:
     if key not in map:
         return None
     val = map[key]

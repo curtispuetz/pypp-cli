@@ -18,6 +18,8 @@ def handle_import_stmts(
             handle_import_from(node, proj_info, ret)
             if node.module in py_imports.imp_from:
                 raise Exception("Duplicate import from module not supported")
+            if node.module is None:
+                raise Exception("Relative imports not supported")
             # Note: the str call is unnecessary, but the type checker is having an issue
             #  without it.
             py_imports.imp_from[node.module] = [str(n.name) for n in node.names]

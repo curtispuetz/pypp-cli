@@ -14,8 +14,8 @@ def calc_fields_and_methods_for_dataclass(
     node: ast.ClassDef,
     d: Deps,
     name_doesnt_start_with_underscore: bool,
-) -> tuple[list[ClassField], list[ClassMethod]]:
-    fields: list[ClassField] = []
+) -> tuple[list[ClassField | str], list[ClassMethod]]:
+    fields: list[ClassField | str] = []
     methods: list[ClassMethod] = []
     for item in node.body:
         if isinstance(item, ast.AnnAssign):

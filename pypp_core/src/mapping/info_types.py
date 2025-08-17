@@ -16,3 +16,13 @@ class CallMapInfo:
     right: str
     includes: list[CppInclude]
     required_import: PySpecificImport | None = None
+
+
+type NamesMap = dict[str, MapInfo]
+type CallsMap = dict[str, CallMapInfo]
+type AttrsMap = dict[str, MapInfo]
+type FnArgsByValueMap = dict[str, PySpecificImport | None]
+type SubscriptableTypesMap = dict[str, PySpecificImport | None]
+
+type NamesCallsOrAttrsMap = NamesMap | CallsMap | AttrsMap
+type NamesCallsOrAttrsMapInfo = MapInfo | CallMapInfo

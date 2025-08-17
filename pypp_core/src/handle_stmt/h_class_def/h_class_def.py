@@ -26,7 +26,7 @@ def handle_class_def(node: ast.ClassDef, d: Deps) -> str:
             is_frozen: bool = _do_dataclass_assertions(node)
             return handle_class_def_for_dataclass(node, d, is_frozen)
         elif decorator_name == "configclass":  # configclass
-            dtype: ast.expr = _do_configclass_assertions(node)
+            dtype = _do_configclass_assertions(node)
             return handle_class_def_for_configclass(node, d, dtype)
         elif decorator_name == "exception":
             return handle_class_def_for_exception(node, d)
