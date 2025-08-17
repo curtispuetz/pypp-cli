@@ -18,9 +18,9 @@ def calc_methods_fields_and_base_constructor_calls_for_class(
     node: ast.ClassDef,
     d: Deps,
     name_doesnt_start_with_underscore: bool,
-) -> tuple[list[ClassField], list[ClassMethod | str], str]:
+) -> tuple[list[ClassField | str], list[ClassMethod], str]:
     methods: list[ClassMethod] = []
-    fields_and_base_constructor_calls: list[ClassField] = []
+    fields_and_base_constructor_calls: list[ClassField | str] = []
     constructor_sig = ""
     for item in node.body:
         if isinstance(item, ast.FunctionDef):
