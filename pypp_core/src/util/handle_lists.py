@@ -10,12 +10,12 @@ def handle_import_stmts(
     stmts: list[ast.stmt], proj_info: dict
 ) -> tuple[ImpMap, int, PyImports]:
     i = 0
-    ret: ImpMap = {}
+    cpp_imp_map: ImpMap = {}
     py_imports = PyImports({}, set())
     for i, node in enumerate(stmts):
         # ast.Import are ignored
         if isinstance(node, ast.ImportFrom):
-            handle_import_from(node, proj_info, ret)
+            handle_import_from(node, proj_info, cpp_imp_map)
             if node.module in py_imports.imp_from:
                 raise Exception("Duplicate import from module not supported")
             if node.module is None:
@@ -28,7 +28,7 @@ def handle_import_stmts(
                 py_imports.imp.add(PyImport(name.name, name.asname))
         else:
             break
-    return ret, i, py_imports
+    return cpp_imp_map, i, py_imports
 
 
 def handle_stmts(stmts: list[ast.stmt], d: Deps) -> str:

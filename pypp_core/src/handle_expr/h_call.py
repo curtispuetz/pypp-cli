@@ -23,7 +23,10 @@ def handle_call(
         d.is_imported(PySpecificImpFrom("collections", "defaultdict"))
         and caller_str == "defaultdict"
     ):
-        raise Exception("defaultdict must be called as defaultdict[KeyType, ValueType]")
+        raise Exception(
+            "defaultdict must be called with type info "
+            "(i.e. defaultdict[KeyType, ValueType])"
+        )
     if (
         d.is_imported(PySpecificImpFrom("pypp_python.tuple_get", "tg"))
         and caller_str == "tg"

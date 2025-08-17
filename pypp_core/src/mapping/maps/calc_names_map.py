@@ -14,8 +14,6 @@ from pypp_core.src.mapping.maps.util import (
 from pypp_core.src.mapping.info_types import MapInfo
 
 
-# TODO: for bridge library creation, users can define their names for here
-
 NAMES_MAP: dict[str, MapInfo] = {
     "str": MapInfo("PyStr", [QInc("py_str.h")]),
     # NOTE: technically I don't think this is necessary since int and int are the same
