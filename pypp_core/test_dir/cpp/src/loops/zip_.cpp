@@ -5,7 +5,6 @@
 #include "py_str.h"
 #include "py_zip.h"
 #include "pypp_util/print.h"
-#include <any>
 #include <utility>
 
 void zip_fn() {

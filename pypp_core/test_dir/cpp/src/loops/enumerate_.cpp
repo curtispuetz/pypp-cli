@@ -5,7 +5,6 @@
 #include "py_set.h"
 #include "py_str.h"
 #include "pypp_util/print.h"
-#include <any>
 #include <utility>
 
 void enumerate_fn() {

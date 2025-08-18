@@ -8,6 +8,9 @@ from pypp_core.src.util.util import calc_ref_str
 
 
 def handle_ann_assign(node: ast.AnnAssign, d: Deps) -> str:
+    # TODO: try to change 'include in header' to be a instance variable on Deps
+    #  and then you just set and unset it. This will be so much nicer than passing
+    #  it around everywhere.
     target_str: str = d.handle_expr(node.target)
     is_const: bool = target_str.isupper()
     const_str: str = "const " if is_const else ""
