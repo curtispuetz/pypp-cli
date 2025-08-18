@@ -12,6 +12,7 @@ def handle_call(
     d: Deps,
     include_in_header: bool,
 ):
+    assert len(node.keywords) == 0, "keywords for a call are not supported."
     caller_str: str = d.handle_expr(
         node.func,
         skip_cpp_lookup=True,
