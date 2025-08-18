@@ -23,39 +23,38 @@ from pypp_core.src.handle_expr.h_yield_from import handle_yield_from
 def handle_expr(
     node: ast.expr,
     d: Deps,
-    include_in_header: bool,
     skip_cpp_lookup: bool,
 ) -> str:
     if isinstance(node, ast.Compare):
-        return handle_compare(node, d, include_in_header)
+        return handle_compare(node, d)
     if isinstance(node, ast.Name):
-        return handle_name(node, d, skip_cpp_lookup, include_in_header)
+        return handle_name(node, d, skip_cpp_lookup)
     if isinstance(node, ast.Constant):
-        return handle_constant(node, d, include_in_header)
+        return handle_constant(node, d)
     if isinstance(node, ast.Call):
-        return handle_call(node, d, include_in_header)
+        return handle_call(node, d)
     if isinstance(node, ast.Subscript):
-        return handle_subscript(node, d, include_in_header)
+        return handle_subscript(node, d)
     if isinstance(node, ast.List):
-        return handle_list(node, d, include_in_header)
+        return handle_list(node, d)
     if isinstance(node, ast.Attribute):
-        return handle_attribute(node, d, include_in_header)
+        return handle_attribute(node, d)
     if isinstance(node, ast.UnaryOp):
-        return handle_unary_op(node, d, include_in_header)
+        return handle_unary_op(node, d)
     if isinstance(node, ast.Slice):
-        return handle_slice(node, d, include_in_header)
+        return handle_slice(node, d)
     if isinstance(node, ast.BinOp):
-        return handle_bin_op(node, d, include_in_header)
+        return handle_bin_op(node, d)
     if isinstance(node, ast.Tuple):
-        return handle_tuple(node, d, include_in_header)
+        return handle_tuple(node, d)
     if isinstance(node, ast.Dict):
-        return handle_dict(node, d, include_in_header)
+        return handle_dict(node, d)
     if isinstance(node, ast.Set):
-        return handle_set(node, d, include_in_header)
+        return handle_set(node, d)
     if isinstance(node, ast.JoinedStr):
-        return handle_joined_string(node, d, include_in_header)
+        return handle_joined_string(node, d)
     if isinstance(node, ast.Lambda):
-        return handle_lambda(node, d, include_in_header)
+        return handle_lambda(node, d)
     if isinstance(node, ast.Yield):
         return handle_yield(node, d)
     if isinstance(node, ast.YieldFrom):

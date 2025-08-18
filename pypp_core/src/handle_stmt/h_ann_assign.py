@@ -16,15 +16,16 @@ def handle_ann_assign(node: ast.AnnAssign, d: Deps) -> str:
     const_str: str = "const " if is_const else ""
     is_private: bool = target_str.startswith("_")
     is_header_only: bool = is_const and not is_private
+    d.set_inc_in_h(is_header_only)
     if is_header_only and is_const:
         const_str = "inline const "
     result: str = handle_general_ann_assign(
         node,
         d,
         target_str,
-        is_header_only,
         const_str,
     )
+    d.set_inc_in_h(False)
     if is_header_only:
         d.ret_h_file.append(result)
         return ""
@@ -35,17 +36,16 @@ def handle_general_ann_assign(
     node: ast.AnnAssign,
     d: Deps,
     target_str: str,
-    include_in_header: bool,
     const_str: str = "",
 ) -> str:
-    type_cpp: str | None = calc_callable_type(node.annotation, d, include_in_header)
+    type_cpp: str | None = calc_callable_type(node.annotation, d)
     if type_cpp is None:
-        type_cpp = d.handle_expr(node.annotation, include_in_header=include_in_header)
+        type_cpp = d.handle_expr(node.annotation)
     if node.value is None:
         return f"{type_cpp} {target_str};"
     if isinstance(node.value, (ast.ListComp, ast.SetComp, ast.DictComp)):
         return f"{type_cpp} {target_str}; " + handle_comp(node.value, d, target_str)
-    value_str = d.handle_expr(node.value, include_in_header=include_in_header)
+    value_str = d.handle_expr(node.value)
     if value_str == "PyList({})":
         value_str = _empty_initialize("PyList", type_cpp)
     elif value_str == "set()":

@@ -28,16 +28,10 @@ def calc_methods_fields_and_base_constructor_calls_for_class(
                 field_types = calc_fn_arg_types(
                     item,
                     d,
-                    in_header=name_doesnt_start_with_underscore,
                     skip_first_arg=True,
                 )
                 fields_and_base_constructor_calls = (
-                    _calc_fields_and_base_constructor_calls(
-                        item,
-                        d,
-                        field_types,
-                        name_doesnt_start_with_underscore,
-                    )
+                    _calc_fields_and_base_constructor_calls(item, d, field_types)
                 )
                 constructor_sig = calc_constructor_signature_for_class(
                     node.name, field_types
@@ -56,10 +50,7 @@ def calc_methods_fields_and_base_constructor_calls_for_class(
 
 
 def _calc_fields_and_base_constructor_calls(
-    node: ast.FunctionDef,
-    d: Deps,
-    field_types: dict[str, str],
-    name_doesnt_start_with_underscore: bool,
+    node: ast.FunctionDef, d: Deps, field_types: dict[str, str]
 ) -> list[ClassField | str]:
     ret: list[ClassField | str] = []
     assert len(field_types) > 0, "at least one field is required in __init__"
@@ -68,14 +59,8 @@ def _calc_fields_and_base_constructor_calls(
             assert len(item.targets) == 1, (
                 "only one target is supported for field names in __init__"
             )
-            field_name = d.handle_expr(
-                item.targets[0],
-                include_in_header=name_doesnt_start_with_underscore,
-            )
-            assign_name = d.handle_expr(
-                item.value,
-                include_in_header=name_doesnt_start_with_underscore,
-            )
+            field_name = d.handle_expr(item.targets[0])
+            assign_name = d.handle_expr(item.value)
             ret.append(
                 calc_class_field(field_types[assign_name], field_name, assign_name)
             )
@@ -91,18 +76,9 @@ def _calc_fields_and_base_constructor_calls(
             )
             args_str_list: list[str] = []
             for arg in item.value.args[1:]:
-                args_str_list.append(
-                    ARG_PREFIX
-                    + d.handle_expr(
-                        arg,
-                        include_in_header=name_doesnt_start_with_underscore,
-                    )
-                )
+                args_str_list.append(ARG_PREFIX + d.handle_expr(arg))
             args_str = ", ".join(args_str_list)
-            base_class_name = d.handle_expr(
-                item.value.func.value,
-                include_in_header=name_doesnt_start_with_underscore,
-            )
+            base_class_name = d.handle_expr(item.value.func.value)
             ret.append(f"{base_class_name}({args_str})")
         else:
             raise ValueError(

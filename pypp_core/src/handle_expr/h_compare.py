@@ -4,16 +4,12 @@ from pypp_core.src.deps import Deps
 from pypp_core.src.handle_other.cmpop import handle_cmpop
 
 
-def handle_compare(
-    node: ast.Compare,
-    d: Deps,
-    include_in_header: bool,
-) -> str:
+def handle_compare(node: ast.Compare, d: Deps) -> str:
     left = node.left
     assert len(node.comparators) == 1, "Not supported"
     right = node.comparators[0]
-    left_str = d.handle_expr(left, include_in_header)
-    right_str = d.handle_expr(right, include_in_header)
+    left_str = d.handle_expr(left)
+    right_str = d.handle_expr(right)
     assert len(node.ops) == 1, "Not supported"
     op = node.ops[0]
     if isinstance(op, ast.In):

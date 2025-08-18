@@ -4,16 +4,12 @@
 #include "pypp_util/to_py_str.h"
 #include <string>
 
-class CustomException : public PyppException {
+class _PrivateCustomException : public PyppException {
   public:
-    explicit CustomException(const std::string &msg)
-        : PyppException("CustomException: " + msg) {}
+    explicit _PrivateCustomException(const std::string &msg)
+        : PyppException("_PrivateCustomException: " + msg) {}
 };
-class ChildException : public CustomException {
-  public:
-    explicit ChildException(const std::string &msg)
-        : CustomException("ChildException: " + msg) {}
-};
+
 void custom_exception_fn() {
     print(PyStr("PYPP CUSTOM EXCEPTION RESULTS:"));
     try {

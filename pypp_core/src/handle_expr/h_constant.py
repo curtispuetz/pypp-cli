@@ -16,13 +16,9 @@ SPECIAL_CHAR_MAP: dict[int, str] = str.maketrans(
 )
 
 
-def handle_constant(
-    node: ast.Constant,
-    d: Deps,
-    include_in_header: bool,
-) -> str:
+def handle_constant(node: ast.Constant, d: Deps) -> str:
     if isinstance(node.value, str):
-        d.add_inc(QInc("py_str.h"), include_in_header)
+        d.add_inc(QInc("py_str.h"))
         return f'PyStr("{node.value.translate(SPECIAL_CHAR_MAP)}")'
     if isinstance(node.value, bool):
         bool_str = str(node.value)
