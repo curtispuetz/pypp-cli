@@ -1,6 +1,9 @@
 #include "default_dict\first.h"
 #include "py_dict.h"
 #include "py_dict_default.h"
+#include "py_list.h"
+#include "py_set.h"
+#include "py_str.h"
 #include "pypp_util/print.h"
 #include <utility>
 

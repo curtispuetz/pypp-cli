@@ -55,7 +55,7 @@ def handle_expr(
     if isinstance(node, ast.JoinedStr):
         return handle_joined_string(node, d, include_in_header)
     if isinstance(node, ast.Lambda):
-        return handle_lambda(node, d)
+        return handle_lambda(node, d, include_in_header)
     if isinstance(node, ast.Yield):
         return handle_yield(node, d)
     if isinstance(node, ast.YieldFrom):

@@ -9,7 +9,7 @@ def handle_bin_op(
     d: Deps,
     include_in_header: bool,
 ):
-    left_op, middle_op, right_op = handle_operator(node.op, d)
+    left_op, middle_op, right_op = handle_operator(node.op, d, include_in_header)
     _left = d.handle_expr(node.left, include_in_header)
     left = f"({_left})" if isinstance(node.left, ast.BinOp) else _left
     _right = d.handle_expr(node.right, include_in_header)

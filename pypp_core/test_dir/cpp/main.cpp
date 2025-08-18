@@ -22,6 +22,7 @@
 #include "imports_test/second.h"
 #include "inconsistent_behviour/editing_a_reference.h"
 #include "interfaces/first.h"
+#include "lambdas.h"
 #include "lists/as_arg.h"
 #include "lists/comprehensions.h"
 #include "lists/exceptions.h"
@@ -127,6 +128,7 @@ int main() {
         custom_exception_fn();
         args_test_fn();
         subscriptable_types_fn();
+        lambdas_fn();
         return 0;
     } catch (...) {
         handle_fatal_exception();

@@ -4,6 +4,7 @@ from exceptions.custom_exceptions import custom_exception_fn
 from first import return_something
 from imports_test.first import imports_test_fn
 from imports_test.second import imports_test_fn2
+from lambdas import lambdas_fn
 from random_library.first import random_fn
 from second import return_friend
 from subscriptable_types import subscriptable_types_fn
@@ -122,3 +123,4 @@ if __name__ == "__main__":
     custom_exception_fn()
     args_test_fn()
     subscriptable_types_fn()
+    lambdas_fn()
