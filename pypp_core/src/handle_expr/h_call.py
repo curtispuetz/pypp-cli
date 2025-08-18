@@ -18,8 +18,8 @@ def handle_call(
         skip_cpp_lookup=True,
         include_in_header=include_in_header,
     )
-    # TODO: for bridge library creation, you let users define a function to run if a condition
-    #  is met.
+    # TODO: for bridge library creation, you let users define a function to run if a
+    # condition is met.
     if (
         d.is_imported(PySpecificImpFrom("collections", "defaultdict"))
         and caller_str == "defaultdict"
@@ -94,7 +94,9 @@ def handle_call(
     ) and caller_str.startswith("pypp_time."):
         d.add_inc(QInc("pypp_time.h"), include_in_header)
         caller_str = caller_str.replace(".", "::")
-    elif caller_str.startswith("PyDefaultDict<"):
+    elif d.is_imported(
+        PySpecificImpFrom("collections", "defaultdict")
+    ) and caller_str.startswith("PyDefaultDict<"):
         assert len(node.args) == 1, "defaultdict should have 1 argument"
         value_type = _calc_type_for_special_default_dict(node.args[0])
         if value_type is not None:
