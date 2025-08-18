@@ -36,10 +36,11 @@ def calc_method(
         node,
         d,
         node.name,
-        name_doesnt_start_with_underscore,
         skip_first_arg=True,  # because it is self
     )
+    d.set_inc_in_h(False)
     body_str: str = d.handle_stmts(node.body)
+    d.set_inc_in_h(name_doesnt_start_with_underscore)
     return ClassMethod(fn_signature, body_str, node.name)
 
 

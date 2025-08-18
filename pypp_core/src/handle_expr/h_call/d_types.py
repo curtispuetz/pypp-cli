@@ -11,10 +11,8 @@ from typing import Callable
 class CallsTranspile:
     imp: PySpecificImport
     caller_str: str
-    fn: Callable[[ast.Call, Deps, bool], str] | None = field(default=None)
-    fn_starts_with: Callable[[ast.Call, Deps, bool, str], str] | None = field(
-        default=None
-    )
+    fn: Callable[[ast.Call, Deps], str] | None = field(default=None)
+    fn_starts_with: Callable[[ast.Call, Deps, str], str] | None = field(default=None)
     replace_dot_with_double_colon_include: CppInclude | None = field(default=None)
 
     def __post_init__(self):

@@ -6,10 +6,7 @@ from pypp_core.src.mapping.info_types import (
 
 
 def lookup_helper(
-    key: str,
-    d: Deps,
-    map: NamesCallsOrAttrsMap,
-    include_in_header: bool = False,
+    key: str, d: Deps, map: NamesCallsOrAttrsMap
 ) -> NamesCallsOrAttrsMapInfo | None:
     if key not in map:
         return None
@@ -17,5 +14,5 @@ def lookup_helper(
     if val.required_import is not None and not d.is_imported(val.required_import):
         return None
     for include in val.includes:
-        d.add_inc(include, include_in_header)
+        d.add_inc(include)
     return val

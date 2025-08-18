@@ -19,7 +19,7 @@ def calc_fields_and_methods_for_dataclass(
     methods: list[ClassMethod] = []
     for item in node.body:
         if isinstance(item, ast.AnnAssign):
-            fields.append(_calc_field(item, d, name_doesnt_start_with_underscore))
+            fields.append(_calc_field(item, d))
         elif isinstance(item, ast.FunctionDef):
             methods.append(
                 calc_method(
@@ -35,20 +35,11 @@ def calc_fields_and_methods_for_dataclass(
     return fields, methods
 
 
-def _calc_field(
-    node: ast.AnnAssign,
-    d: Deps,
-    name_doesnt_start_with_underscore: bool,
-) -> ClassField:
+def _calc_field(node: ast.AnnAssign, d: Deps) -> ClassField:
     assert node.value is None, (
         "default values for dataclass attributes are not supported"
     )
-    type_cpp: str = d.handle_expr(
-        node.annotation,
-        include_in_header=name_doesnt_start_with_underscore,
-    )
-    target_str: str = d.handle_expr(
-        node.target, include_in_header=name_doesnt_start_with_underscore
-    )
+    type_cpp: str = d.handle_expr(node.annotation)
+    target_str: str = d.handle_expr(node.target)
     type_str = lookup_cpp_fn_arg(type_cpp, d)
     return calc_class_field(type_str, target_str, target_str)

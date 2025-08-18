@@ -8,11 +8,13 @@ def handle_class_def_for_interface(node: ast.ClassDef, d: Deps) -> str:
     # Note: interfaces are not supported yet.
     class_name: str = node.name
     name_doesnt_start_with_underscore: bool = not class_name.startswith("_")
+    d.set_inc_in_h(name_doesnt_start_with_underscore)
     body_list = _calc_methods(
         node,
         d,
         name_doesnt_start_with_underscore,
     )
+    d.set_inc_in_h(False)
     body_list.append(_calc_destructor(class_name))
     body_str: str = " ".join(body_list)
     result = f"class {class_name} " + "{" + f"public: {body_str}" + "};\n\n"
@@ -35,7 +37,6 @@ def _calc_methods(
             item,
             d,
             item.name,
-            name_doesnt_start_with_underscore,
             skip_first_arg=True,  # because it is self
         )
         ret.append("virtual " + fn_signature + " = 0;")

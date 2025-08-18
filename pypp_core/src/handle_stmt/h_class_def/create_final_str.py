@@ -17,7 +17,6 @@ def create_final_str_for_class_def(
     methods: list[ClassMethod],
     constructor_sig: str,
     name_starts_with_underscore: bool,
-    name_doesnt_start_with_underscore: bool,
     is_struct: bool,
     is_frozen: bool = False,
 ):
@@ -26,12 +25,9 @@ def create_final_str_for_class_def(
         fields_and_base_constructor_calls,
         constructor_sig,
         d,
-        name_doesnt_start_with_underscore,
         is_frozen,
     )
-    base_classes: list[str] = _calc_base_classes(
-        node, d, name_doesnt_start_with_underscore
-    )
+    base_classes: list[str] = _calc_base_classes(node, d)
     if name_starts_with_underscore:
         full_methods: str = _calc_full_methods(methods)
         return _calc_final_str(
@@ -74,16 +70,10 @@ def _calc_final_str(
     return f"{s} {class_name} {base_classes_str}" + "{" + public + body_str + "};\n\n"
 
 
-def _calc_base_classes(
-    node: ast.ClassDef,
-    d: Deps,
-    name_doesnt_start_with_underscore: bool,
-) -> list[str]:
+def _calc_base_classes(node: ast.ClassDef, d: Deps) -> list[str]:
     ret: list[str] = []
     for base in node.bases:
-        ret.append(
-            d.handle_expr(base, include_in_header=name_doesnt_start_with_underscore)
-        )
+        ret.append(d.handle_expr(base))
     return ret
 
 
@@ -91,18 +81,13 @@ def _calc_fields_and_constructor(
     fields_and_base_constructor_calls: list[ClassField | str],
     constructor_sig: str,
     d: Deps,
-    name_doesnt_start_with_underscore: bool,
     is_frozen: bool,
 ):
     if constructor_sig == "":
         # There can't be any fields if there is no constructor.
         return ""
     field_defs = _calc_field_definitions(fields_and_base_constructor_calls, is_frozen)
-    c_il: str = _calc_constructor_initializer_list(
-        fields_and_base_constructor_calls,
-        d,
-        name_doesnt_start_with_underscore,
-    )
+    c_il: str = _calc_constructor_initializer_list(fields_and_base_constructor_calls, d)
     return f"{field_defs} {constructor_sig} : {c_il}" + "{}"
 
 
@@ -135,9 +120,7 @@ def _add_namespace(method: ClassMethod, class_name: str) -> str:
 
 
 def _calc_constructor_initializer_list(
-    fields_and_base_constructor_calls: list[ClassField | str],
-    d: Deps,
-    name_doesnt_start_with_underscore: bool,
+    fields_and_base_constructor_calls: list[ClassField | str], d: Deps
 ) -> str:
     ret: list[str] = []
     for field in fields_and_base_constructor_calls:
@@ -147,10 +130,7 @@ def _calc_constructor_initializer_list(
         if field.ref:
             ret.append(f"{field.target_str}({ARG_PREFIX}{field.target_other_name})")
         else:
-            d.add_inc(
-                AngInc("utility"),
-                in_header=name_doesnt_start_with_underscore,
-            )
+            d.add_inc(AngInc("utility"))
             ret.append(
                 f"{field.target_str}(std::move({ARG_PREFIX}{field.target_other_name}))"
             )

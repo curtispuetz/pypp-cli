@@ -16,12 +16,10 @@ def _calc_type_for_special_default_dict(arg1: ast.expr) -> str | None:
     return None
 
 
-def good_default_dict(
-    node: ast.Call, d: Deps, include_in_header: bool, caller_str: str
-) -> str:
+def good_default_dict(node: ast.Call, d: Deps, caller_str: str) -> str:
     assert len(node.args) == 1, "defaultdict should have 1 argument"
     value_type = _calc_type_for_special_default_dict(node.args[0])
     if value_type is not None:
         return f"{caller_str}::{value_type}_factory()"
-    args_str = d.handle_exprs(node.args, include_in_header)
+    args_str = d.handle_exprs(node.args)
     return f"{caller_str}({args_str})"

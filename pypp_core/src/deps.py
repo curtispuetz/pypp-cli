@@ -8,30 +8,39 @@ from pypp_core.src.util.ret_imports import RetImports, add_inc
 
 
 @dataclass(frozen=True, slots=True)
-class Deps:
+class DepsDeps:
     ret_imports: RetImports
     ret_h_file: list[str]
     py_imports: PyImports
     maps: Maps
-    handle_expr_fn: Callable[[ast.expr, "Deps", bool, bool], str]
+    handle_expr_fn: Callable[[ast.expr, "Deps", bool], str]
     handle_stmt: Callable[[ast.stmt, "Deps"], str]
+
+
+class Deps:
+    def __init__(self, d: DepsDeps) -> None:
+        self.ret_imports = d.ret_imports
+        self.ret_h_file = d.ret_h_file
+        self.py_imports = d.py_imports
+        self.maps = d.maps
+        self.handle_expr_fn = d.handle_expr_fn
+        self.handle_stmt = d.handle_stmt
+        self._include_in_header: bool = False
+
+    def set_inc_in_h(self, include: bool):
+        self._include_in_header = include
 
     def handle_expr(
         self,
         node: ast.expr,
-        include_in_header: bool = False,
         skip_cpp_lookup: bool = False,
     ) -> str:
-        return self.handle_expr_fn(node, self, include_in_header, skip_cpp_lookup)
+        return self.handle_expr_fn(node, self, skip_cpp_lookup)
 
-    def handle_exprs(
-        self,
-        exprs: list[ast.expr],
-        include_in_header: bool = False,
-    ):
+    def handle_exprs(self, exprs: list[ast.expr]):
         ret: list[str] = []
         for node in exprs:
-            ret.append(self.handle_expr(node, include_in_header))
+            ret.append(self.handle_expr(node))
         return ", ".join(ret)  # Note: is it always going to join like this?
 
     def handle_stmts(self, stmts: list[ast.stmt]) -> str:
@@ -40,8 +49,8 @@ class Deps:
             ret.append(self.handle_stmt(node, self))
         return " ".join(ret)
 
-    def add_inc(self, inc: CppInclude, in_header: bool = False):
-        add_inc(self.ret_imports, inc, in_header)
+    def add_inc(self, inc: CppInclude):
+        add_inc(self.ret_imports, inc, self._include_in_header)
 
     def is_imported(self, imp: PySpecificImport) -> bool:
         return is_imported(self.py_imports, imp)

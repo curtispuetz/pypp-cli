@@ -11,6 +11,11 @@ class ChildException(CustomException):
     pass
 
 
+@exception
+class _PrivateCustomException(Exception):
+    pass
+
+
 def custom_exception_fn():
     print("PYPP CUSTOM EXCEPTION RESULTS:")
     try:

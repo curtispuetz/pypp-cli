@@ -10,11 +10,7 @@ from pypp_core.src.util.calc_move_args import calc_move_args
 
 # Note: inline list creation is a little inefficient just because initializer lists in
 # C++ are a little inefficient. For small data though, they are fine.
-def handle_list(
-    node: ast.List,
-    d: Deps,
-    include_in_header: bool,
-) -> str:
-    d.add_inc(QInc("py_list.h"), include_in_header)
-    args_str: str = calc_move_args(node.elts, d, include_in_header)
+def handle_list(node: ast.List, d: Deps) -> str:
+    d.add_inc(QInc("py_list.h"))
+    args_str: str = calc_move_args(node.elts, d)
     return "PyList({" + args_str + "})"

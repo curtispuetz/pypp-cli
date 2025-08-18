@@ -33,17 +33,15 @@ def _handle_operator(node: ast.operator) -> tuple[str, str, str] | None:
     return None
 
 
-def handle_operator(
-    node: ast.operator, d: Deps, include_in_header: bool
-) -> tuple[str, str, str]:
+def handle_operator(node: ast.operator, d: Deps) -> tuple[str, str, str]:
     res = _handle_operator(node)
     if res is not None:
         return res
     if isinstance(node, ast.Pow):
-        d.add_inc(AngInc("cmath"), include_in_header)
+        d.add_inc(AngInc("cmath"))
         return "std::pow(", ", ", ")"
     if isinstance(node, ast.FloorDiv):
-        d.add_inc(QInc("pypp_util/floor_div.h"), include_in_header)
+        d.add_inc(QInc("pypp_util/floor_div.h"))
         return "py_floor_div(", ", ", ")"
     raise Exception(f"operator type {node} is not handled")
 

@@ -6,9 +6,9 @@ from pypp_core.src.deps import Deps
 def handle_type_alias(node: ast.TypeAlias, d: Deps) -> str:
     name: str = d.handle_expr(node.name)
     name_starts_with_underscore: bool = name.startswith("_")
-    value: str = d.handle_expr(
-        node.value, include_in_header=not name_starts_with_underscore
-    )
+    d.set_inc_in_h(not name_starts_with_underscore)
+    value: str = d.handle_expr(node.value)
+    d.set_inc_in_h(False)
     assert len(node.type_params) == 0, "type parameters for type alias not supported"
     res: str = f"using {name} = {value};"
     if name_starts_with_underscore:
