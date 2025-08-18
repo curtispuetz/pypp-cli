@@ -13,16 +13,17 @@ def pypp_install(library: str, dirs: PyppDirs):
     # TODO: add some validation that the data in like names_map.json is correct.
     # Remove timestamps file because a new library might change how things are
     # transpiled.
-    _copy_cpp_library_files(library_name, dirs)
+    _copy_cpp_library_files_if_any(library_name, dirs)
     _add_installed_library_to_proj_info_json(library_name, dirs)
 
 
-def _copy_cpp_library_files(library_name: str, dirs: PyppDirs):
+def _copy_cpp_library_files_if_any(library_name: str, dirs: PyppDirs):
     src_dir = dirs.calc_library_cpp_data_dir(library_name)
     dest_dir = dirs.calc_cpp_libs_dir(library_name)
     if os.path.exists(dest_dir):
         shutil.rmtree(dest_dir)
-    shutil.copytree(src_dir, dest_dir)
+    if os.path.exists(src_dir):
+        shutil.copytree(src_dir, dest_dir)
 
 
 def _add_installed_library_to_proj_info_json(library_name: str, dirs: PyppDirs):
