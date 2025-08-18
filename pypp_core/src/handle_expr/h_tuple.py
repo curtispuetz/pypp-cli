@@ -3,7 +3,6 @@ import ast
 from pypp_core.src.d_types import QInc
 from pypp_core.src.deps import Deps
 from pypp_core.src.util.calc_move_args import calc_move_args
-from pypp_core.src.util.handle_lists import handle_exprs
 
 
 def handle_tuple_inner_args(
@@ -11,7 +10,7 @@ def handle_tuple_inner_args(
     d: Deps,
     include_in_header: bool = False,
 ):
-    return handle_exprs(node.elts, d, include_in_header)
+    return d.handle_exprs(node.elts, include_in_header)
 
 
 def handle_tuple(

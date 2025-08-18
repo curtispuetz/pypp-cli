@@ -3,7 +3,6 @@ from dataclasses import dataclass
 
 from pypp_core.src.deps import Deps
 from pypp_core.src.util.calc_fn_signature import calc_fn_signature
-from pypp_core.src.util.handle_lists import handle_stmts
 
 
 ARG_PREFIX = "a_"
@@ -40,10 +39,7 @@ def calc_method(
         name_doesnt_start_with_underscore,
         skip_first_arg=True,  # because it is self
     )
-    body_str: str = handle_stmts(
-        node.body,
-        d,
-    )
+    body_str: str = d.handle_stmts(node.body)
     return ClassMethod(fn_signature, body_str, node.name)
 
 

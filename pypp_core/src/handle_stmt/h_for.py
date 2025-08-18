@@ -3,13 +3,12 @@ from dataclasses import dataclass
 
 from pypp_core.src.deps import Deps
 from pypp_core.src.handle_expr.h_tuple import handle_tuple_inner_args
-from pypp_core.src.util.handle_lists import handle_stmts
 
 
 def handle_for(node: ast.For, d: Deps) -> str:
     assert len(node.orelse) == 0, "For loop else not supported"
     assert node.type_comment is None, "For loop type comment not supported"
-    body_str = handle_stmts(node.body, d)
+    body_str = d.handle_stmts(node.body)
     if isinstance(node.target, ast.Tuple):
         target_str = "[" + handle_tuple_inner_args(node.target, d) + "]"
     else:

@@ -5,7 +5,6 @@ from pypp_core.src.util.calc_fn_signature import (
     calc_fn_signature,
     calc_fn_str_with_body,
 )
-from pypp_core.src.util.handle_lists import handle_stmts
 
 
 # TODO later: consider naming collisions in general in the C++ transpiled code. What
@@ -24,5 +23,5 @@ def handle_fn_def(node: ast.FunctionDef, d: Deps) -> str:
     )
     if fn_name_doesnt_start_with_underscore:
         d.ret_h_file.append(fn_signature + ";")
-    body_str: str = handle_stmts(node.body, d)
+    body_str: str = d.handle_stmts(node.body)
     return calc_fn_str_with_body(fn_signature, body_str)
