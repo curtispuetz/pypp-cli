@@ -3,7 +3,7 @@ import ast
 from pypp_core.src.deps import Deps
 from pypp_core.src.handle_expr.h_attribute import handle_attribute
 from pypp_core.src.handle_expr.h_bin_op import handle_bin_op
-from pypp_core.src.handle_expr.h_call import handle_call
+from pypp_core.src.handle_expr.h_call.h_call import handle_call
 from pypp_core.src.handle_expr.h_compare import handle_compare
 from pypp_core.src.handle_expr.h_constant import handle_constant
 from pypp_core.src.handle_expr.h_dict import handle_dict

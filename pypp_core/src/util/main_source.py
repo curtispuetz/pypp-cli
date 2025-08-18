@@ -6,7 +6,7 @@ from pypp_core.src.handle_expr.expr import handle_expr
 from pypp_core.src.handle_stmt.stmt import handle_stmt
 from pypp_core.src.mapping.maps.maps import Maps
 from pypp_core.src.util.calc_includes import calc_includes_for_main_file, calc_includes
-from pypp_core.src.util.handle_lists import handle_stmts, handle_import_stmts
+from pypp_core.src.util.handle_lists import handle_import_stmts
 from pypp_core.src.util.handle_main_stmts import handle_main_stmts
 from pypp_core.src.util.ret_imports import RetImports
 
@@ -39,7 +39,7 @@ def calc_src_file_cpp_and_h_source(
         handle_expr,
         handle_stmt,
     )
-    cpp_source_minus_include: str = handle_stmts(src_py.body[i:], d)
+    cpp_source_minus_include: str = d.handle_stmts(src_py.body[i:])
     h_includes, cpp_includes = calc_includes(d.ret_imports)
     if cpp_source_minus_include.strip() == "":
         ret_cpp_str = ""

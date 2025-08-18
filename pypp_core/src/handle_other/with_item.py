@@ -2,7 +2,6 @@ import ast
 
 from pypp_core.src.d_types import QInc
 from pypp_core.src.deps import Deps
-from pypp_core.src.util.handle_lists import handle_exprs
 
 
 def handle_with_item(nodes: list[ast.withitem], d: Deps) -> str:
@@ -10,7 +9,7 @@ def handle_with_item(nodes: list[ast.withitem], d: Deps) -> str:
         "With statement can only be used as 'with open(arg1, ?optional_arg2) as name1'"
     )
     node, args = _assert_with_item_is_open(nodes, error_str)
-    args_str = handle_exprs(args, d)
+    args_str = d.handle_exprs(args)
     variable_name = _assert_variable_name(node, error_str)
     d.add_inc(QInc("pypp_text_io.h"))
     return f"PyTextIO {variable_name}({args_str});"

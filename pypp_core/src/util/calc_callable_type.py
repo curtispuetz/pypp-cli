@@ -2,7 +2,6 @@ import ast
 
 from pypp_core.src.d_types import AngInc
 from pypp_core.src.deps import Deps
-from pypp_core.src.util.handle_lists import handle_exprs
 
 
 def _is_callable_type(node: ast.Subscript) -> bool:
@@ -35,7 +34,7 @@ def _calc_callable_type(
     assert len(node.slice.elts) == 2, "2 arguments required for Callable"
     arg_types = node.slice.elts[0]
     assert isinstance(arg_types, ast.List), "First argument for Callable must be a List"
-    arg_types_cpp = handle_exprs(arg_types.elts, d, include_in_header=in_header)
+    arg_types_cpp = d.handle_exprs(arg_types.elts, include_in_header=in_header)
     ret_type = node.slice.elts[1]
     ret_type_cpp = d.handle_expr(ret_type, in_header)
     if ret_type_cpp == "std::monostate":

@@ -1,7 +1,6 @@
 import ast
 
 from pypp_core.src.d_types import PyImports, PyImport
-from pypp_core.src.deps import Deps
 from pypp_core.src.handle_stmt.h_import_from import handle_import_from
 from pypp_core.src.util.ret_imports import ImpMap
 
@@ -29,21 +28,3 @@ def handle_import_stmts(
         else:
             break
     return cpp_imp_map, i, py_imports
-
-
-def handle_stmts(stmts: list[ast.stmt], d: Deps) -> str:
-    ret: list[str] = []
-    for node in stmts:
-        ret.append(d.handle_stmt(node, d))
-    return " ".join(ret)
-
-
-def handle_exprs(
-    exprs: list[ast.expr],
-    d: Deps,
-    include_in_header: bool = False,
-) -> str:
-    ret: list[str] = []
-    for node in exprs:
-        ret.append(d.handle_expr(node, include_in_header))
-    return ", ".join(ret)  # Note: is it always going to join like this?

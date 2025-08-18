@@ -24,6 +24,22 @@ class Deps:
     ) -> str:
         return self.handle_expr_fn(node, self, include_in_header, skip_cpp_lookup)
 
+    def handle_exprs(
+        self,
+        exprs: list[ast.expr],
+        include_in_header: bool = False,
+    ):
+        ret: list[str] = []
+        for node in exprs:
+            ret.append(self.handle_expr(node, include_in_header))
+        return ", ".join(ret)  # Note: is it always going to join like this?
+
+    def handle_stmts(self, stmts: list[ast.stmt]) -> str:
+        ret: list[str] = []
+        for node in stmts:
+            ret.append(self.handle_stmt(node, self))
+        return " ".join(ret)
+
     def add_inc(self, inc: CppInclude, in_header: bool = False):
         add_inc(self.ret_imports, inc, in_header)
 

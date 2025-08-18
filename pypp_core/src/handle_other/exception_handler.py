@@ -3,7 +3,6 @@ import ast
 from pypp_core.src.d_types import AngInc
 from pypp_core.src.deps import Deps
 from pypp_core.src.mapping.exceptions import lookup_cpp_exception_type
-from pypp_core.src.util.handle_lists import handle_stmts
 
 
 def handle_exception_handlers(nodes: list[ast.ExceptHandler], d: Deps) -> str:
@@ -11,7 +10,7 @@ def handle_exception_handlers(nodes: list[ast.ExceptHandler], d: Deps) -> str:
 
 
 def _handle_exception_handler(node: ast.ExceptHandler, d: Deps) -> str:
-    body_str = handle_stmts(node.body, d)
+    body_str = d.handle_stmts(node.body)
     exc_str: str
     if node.type is not None:
         assert isinstance(node.type, ast.Name), "Shouldn't happen"
