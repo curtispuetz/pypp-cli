@@ -1,6 +1,6 @@
 import ast
 
-from pypp_core.src.d_types import AngInc, PyImport, PySpecificImpFrom, QInc
+from pypp_core.src.d_types import PyImport, PySpecificImpFrom, QInc
 from pypp_core.src.deps import Deps
 from pypp_core.src.handle_expr.h_call.d_types import CallsTranspile
 from pypp_core.src.handle_expr.h_call.default_dict import good_default_dict
@@ -15,43 +15,42 @@ def _default_dict(node: ast.Call, d: Deps, include_in_header: bool) -> str:
 
 def _tuple_get(node: ast.Call, d: Deps, include_in_header: bool) -> str:
     assert len(node.args) == 2, "tg should have 2 arguments"
-    d.add_inc(AngInc("any"), include_in_header)
-    tuple_arg = d.handle_expr(node.args[0])
-    index_arg = d.handle_expr(node.args[1])
+    tuple_arg = d.handle_expr(node.args[0], include_in_header)
+    index_arg = d.handle_expr(node.args[1], include_in_header)
     return f"{tuple_arg}.get<{index_arg}>()"
 
 
 def _dict_get(node: ast.Call, d: Deps, include_in_header: bool) -> str:
     assert len(node.args) == 2, "dg should have 2 arguments"
-    dict_arg = d.handle_expr(node.args[0])
-    index_arg = d.handle_expr(node.args[1])
+    dict_arg = d.handle_expr(node.args[0], include_in_header)
+    index_arg = d.handle_expr(node.args[1], include_in_header)
     return f"{dict_arg}.dg({index_arg})"
 
 
 def _union_get(node: ast.Call, d: Deps, include_in_header: bool) -> str:
     assert len(node.args) == 2, "ug should have 2 arguments"
-    union_arg = d.handle_expr(node.args[0])
-    type_arg = d.handle_expr(node.args[1])
+    union_arg = d.handle_expr(node.args[0], include_in_header)
+    type_arg = d.handle_expr(node.args[1], include_in_header)
     return f"{union_arg}.ug<{type_arg}>()"
 
 
 def _union_isinst(node: ast.Call, d: Deps, include_in_header: bool) -> str:
     assert len(node.args) == 2, "isinst should have 2 arguments"
-    obj_arg = d.handle_expr(node.args[0])
-    type_arg = d.handle_expr(node.args[1])
+    obj_arg = d.handle_expr(node.args[0], include_in_header)
+    type_arg = d.handle_expr(node.args[1], include_in_header)
     return f"{obj_arg}.isinst<{type_arg}>()"
 
 
 def _union_is_none(node: ast.Call, d: Deps, include_in_header: bool) -> str:
     assert len(node.args) == 1, "is_none should have 1 argument"
-    obj_arg = d.handle_expr(node.args[0])
+    obj_arg = d.handle_expr(node.args[0], include_in_header)
     return f"{obj_arg}.is_none()"
 
 
 def _list_reserve(node: ast.Call, d: Deps, include_in_header: bool) -> str:
     assert len(node.args) == 2, "list_reserve should have 2 arguments"
-    list_arg = d.handle_expr(node.args[0])
-    size_arg = d.handle_expr(node.args[1])
+    list_arg = d.handle_expr(node.args[0], include_in_header)
+    size_arg = d.handle_expr(node.args[1], include_in_header)
     return f"{list_arg}.reserve({size_arg})"
 
 

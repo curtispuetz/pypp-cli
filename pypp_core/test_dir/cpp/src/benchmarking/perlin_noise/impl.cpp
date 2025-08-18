@@ -1,6 +1,5 @@
 #include "benchmarking\perlin_noise\impl.h"
 #include "py_range.h"
-#include <any>
 #include <cmath>
 
 double _fade(double t) { return ((t * t) * t) * ((t * ((t * 6) - 15)) + 10); }
