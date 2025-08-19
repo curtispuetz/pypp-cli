@@ -28,9 +28,6 @@ def handle_expr(
     if isinstance(node, ast.Compare):
         return handle_compare(node, d)
     if isinstance(node, ast.Name):
-        # TODO: maybe it is not nessesary to skip the C++ lookup for name?
-        # I think I just need to remember that the name could be changed from the names
-        # map.
         return handle_name(node, d, skip_cpp_lookup)
     if isinstance(node, ast.Constant):
         return handle_constant(node, d)
