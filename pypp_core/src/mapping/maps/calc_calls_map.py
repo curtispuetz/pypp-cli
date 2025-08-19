@@ -15,6 +15,7 @@ from pypp_core.src.mapping.info_types import (
     CallMapInfoLeftAndRight,
     CallMapInfoNone,
     CallMapInfoReplaceDotWithDoubleColon,
+    CallsMap,
 )
 
 # TODO: a system for the bridge jsons where you can specify certain py imports that
@@ -77,7 +78,7 @@ def _calc_replace_dot_with_double_colon_info(
     )
 
 
-def calc_calls_map(proj_info: dict, dirs: PyppDirs) -> dict[str, CallMapInfo]:
+def calc_calls_map(proj_info: dict, dirs: PyppDirs) -> CallsMap:
     ret = CALLS_MAP.copy()
     for installed_library in proj_info["installed_libraries"]:
         json_path = dirs.calc_bridge_json(installed_library, "calls_map")

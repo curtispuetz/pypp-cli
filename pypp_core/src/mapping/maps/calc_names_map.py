@@ -11,10 +11,10 @@ from pypp_core.src.mapping.maps.util import (
     load_map,
     calc_common_warning_msg,
 )
-from pypp_core.src.mapping.info_types import MapInfo
+from pypp_core.src.mapping.info_types import MapInfo, NamesMap
 
 
-NAMES_MAP: dict[str, MapInfo] = {
+NAMES_MAP: NamesMap = {
     "str": MapInfo("PyStr", [QInc("py_str.h")]),
     # NOTE: technically I don't think this is necessary since int and int are the same
     "int": MapInfo("int", []),
@@ -82,9 +82,9 @@ NAMES_MAP: dict[str, MapInfo] = {
 }
 
 
-# TODO: add the PySpecificImport to the maps key. Because otherwise libraries cant have
-#  things with the same names.
-def calc_names_map(proj_info: dict, dirs: PyppDirs) -> dict[str, MapInfo]:
+# TODO now: actually, the value needs to be another map with key as the required py
+#  import
+def calc_names_map(proj_info: dict, dirs: PyppDirs) -> NamesMap:
     return load_map(
         NAMES_MAP,
         proj_info,

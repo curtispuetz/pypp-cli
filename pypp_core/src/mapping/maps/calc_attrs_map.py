@@ -7,9 +7,9 @@ from pypp_core.src.mapping.maps.util import (
     load_map,
     calc_common_warning_msg,
 )
-from pypp_core.src.mapping.info_types import MapInfo
+from pypp_core.src.mapping.info_types import AttrsMap, MapInfo
 
-ATTR_MAP: dict[str, MapInfo] = {
+ATTR_MAP: AttrsMap = {
     "random.Random": MapInfo(
         "random::Random",
         [QInc("pypp_random.h")],
@@ -18,7 +18,7 @@ ATTR_MAP: dict[str, MapInfo] = {
 }
 
 
-def calc_attrs_map(proj_info: dict, dirs: PyppDirs) -> dict[str, MapInfo]:
+def calc_attrs_map(proj_info: dict, dirs: PyppDirs) -> AttrsMap:
     return load_map(
         ATTR_MAP,
         proj_info,

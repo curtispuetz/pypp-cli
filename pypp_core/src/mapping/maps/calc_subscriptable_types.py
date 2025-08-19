@@ -1,8 +1,9 @@
 from pypp_core.src.config import PyppDirs
 from pypp_core.src.d_types import PySpecificImport, PySpecificImpFrom
+from pypp_core.src.mapping.info_types import SubscriptableTypesMap
 from pypp_core.src.mapping.maps.util import load_map, calc_specific_imports
 
-SUBSCRIPTABLE_TYPES: dict[str, PySpecificImport | None] = {
+SUBSCRIPTABLE_TYPES: SubscriptableTypesMap = {
     "PyList": None,
     "PyDict": None,
     "PyTup": None,
@@ -19,9 +20,7 @@ def _warning_msg(installed_library: str, _type: str) -> str:
     )
 
 
-def calc_subscriptable_types(
-    proj_info: dict, dirs: PyppDirs
-) -> dict[str, PySpecificImport | None]:
+def calc_subscriptable_types(proj_info: dict, dirs: PyppDirs) -> SubscriptableTypesMap:
     return load_map(
         SUBSCRIPTABLE_TYPES,
         proj_info,
