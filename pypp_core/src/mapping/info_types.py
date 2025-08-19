@@ -55,7 +55,7 @@ class CallMapInfoCustomMappingStartsWith:
 
 @dataclass(frozen=True, slots=True)
 class CallMapInfoCustomMappingStartsWithFromLibrary:
-    mapping_fn: str
+    mapping_fn_str: str
     includes: list[CppInclude]
     required_import: PySpecificImport | None = None
 
