@@ -12,7 +12,7 @@ public:
 
     static PseudoGeneric<PyStr> string_factory()
     {
-        return PseudoGeneric<std::string>("default string");
+        return PseudoGeneric<PyStr>(PyStr("default string"));
     }
 
     void print_value() const

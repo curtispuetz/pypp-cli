@@ -124,11 +124,11 @@ int main() {
         time_library_fn();
         default_dict_fn();
         random_fn();
-        bridge_lib_test_0_fn();
         custom_exception_fn();
         args_test_fn();
         subscriptable_types_fn();
         lambdas_fn();
+        bridge_lib_test_0_fn();
         return 0;
     } catch (...) {
         handle_fatal_exception();
