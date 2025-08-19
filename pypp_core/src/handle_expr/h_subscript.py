@@ -12,8 +12,6 @@ def handle_subscript(node: ast.Subscript, d: Deps) -> str:
             "defaultdict must be called as defaultdict[KeyType, ValueType]"
         )
         assert len(node.slice.elts) == 2, "2 types expected when calling defaultdict"
-        default_dict_types = handle_tuple_inner_args(node.slice, d)
-        return f"PyDefaultDict<{default_dict_types}>"
     if isinstance(node.slice, ast.Tuple):
         slice_cpp_str = handle_tuple_inner_args(node.slice, d)
     else:
