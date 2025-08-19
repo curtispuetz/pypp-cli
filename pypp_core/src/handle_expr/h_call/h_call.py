@@ -27,7 +27,7 @@ def handle_call(node: ast.Call, d: Deps) -> str:
         elif isinstance(info, CallMapInfoCppType):
             if caller_str == _type and _is_required_import(d, info):
                 d.add_incs(info.includes)
-                return f"{info.cpp_type}({d.handle_exprs(node.args)})"
+                return f"{info.cpp_call}({d.handle_exprs(node.args)})"
         elif isinstance(info, CallMapInfoLeftAndRight):
             if caller_str == _type and _is_required_import(d, info):
                 d.add_incs(info.includes)
