@@ -1,11 +1,12 @@
 from pypp_core.src.config import PyppDirs
 from pypp_core.src.d_types import PySpecificImport, PySpecificImpFrom
+from pypp_core.src.mapping.info_types import FnArgsByValueMap
 from pypp_core.src.mapping.maps.util import (
     load_map,
     calc_specific_imports,
 )
 
-FN_ARG_PASSED_BY_VALUE: dict[str, PySpecificImport | None] = {
+FN_ARG_PASSED_BY_VALUE: FnArgsByValueMap = {
     "int": None,
     "double": None,  # python float
     "bool": None,
@@ -29,9 +30,7 @@ def _warning_msg(installed_library: str, _type: str) -> str:
     )
 
 
-def calc_fn_args_passed_by_value(
-    proj_info: dict, dirs: PyppDirs
-) -> dict[str, PySpecificImport | None]:
+def calc_fn_args_passed_by_value(proj_info: dict, dirs: PyppDirs) -> FnArgsByValueMap:
     return load_map(
         FN_ARG_PASSED_BY_VALUE,
         proj_info,
