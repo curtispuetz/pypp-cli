@@ -34,7 +34,6 @@ void tuples_fn() {
     print(x, y, z);
     auto [u, v] = _get_tup();
     print(u, v);
-    std::apply(_argument_unpacking, _get_tup().raw());
     PyList<int> c = PyList({1, 2, 3});
     PyTup<int, PyList<int>> d = PyTup(1, std::move(c));
     print(d);

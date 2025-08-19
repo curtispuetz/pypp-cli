@@ -1,3 +1,4 @@
+from collections.abc import Callable
 from dataclasses import dataclass
 
 from pypp_core.src.d_types import PySpecificImport, CppInclude
@@ -11,12 +12,70 @@ class MapInfo:
 
 
 @dataclass(frozen=True, slots=True)
-class CallMapInfo:
+class CallMapInfoLeftAndRight:
     left: str
     right: str
     includes: list[CppInclude]
     required_import: PySpecificImport | None = None
 
+
+@dataclass(frozen=True, slots=True)
+class CallMapInfoCppType:
+    cpp_type: str
+    includes: list[CppInclude]
+    required_import: PySpecificImport | None = None
+
+
+@dataclass(frozen=True, slots=True)
+class CallMapInfoNone:
+    includes: list[CppInclude]
+    required_import: PySpecificImport | None = None
+
+
+@dataclass(frozen=True, slots=True)
+class CallMapInfoCustomMapping:
+    mapping_fn: Callable
+    includes: list[CppInclude]
+    required_import: PySpecificImport | None = None
+
+
+@dataclass(frozen=True, slots=True)
+class CallMapInfoCustomMappingFromLibrary:
+    mapping_fn_str: str
+    includes: list[CppInclude]
+    required_import: PySpecificImport | None = None
+
+
+@dataclass(frozen=True, slots=True)
+class CallMapInfoCustomMappingStartsWith:
+    mapping_fn: Callable
+    includes: list[CppInclude]
+    required_import: PySpecificImport | None = None
+
+
+@dataclass(frozen=True, slots=True)
+class CallMapInfoCustomMappingStartsWithFromLibrary:
+    mapping_fn: str
+    includes: list[CppInclude]
+    required_import: PySpecificImport | None = None
+
+
+@dataclass(frozen=True, slots=True)
+class CallMapInfoReplaceDotWithDoubleColon:
+    includes: list[CppInclude]
+    required_import: PySpecificImport | None = None
+
+
+type CallMapInfo = (
+    CallMapInfoLeftAndRight
+    | CallMapInfoCppType
+    | CallMapInfoNone
+    | CallMapInfoCustomMapping
+    | CallMapInfoCustomMappingFromLibrary
+    | CallMapInfoCustomMappingStartsWith
+    | CallMapInfoCustomMappingStartsWithFromLibrary
+    | CallMapInfoReplaceDotWithDoubleColon
+)
 
 type NamesMap = dict[str, MapInfo]
 type CallsMap = dict[str, CallMapInfo]

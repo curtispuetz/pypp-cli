@@ -82,6 +82,8 @@ NAMES_MAP: dict[str, MapInfo] = {
 }
 
 
+# TODO: add the PySpecificImport to the maps key. Because otherwise libraries cant have
+#  things with the same names.
 def calc_names_map(proj_info: dict, dirs: PyppDirs) -> dict[str, MapInfo]:
     return load_map(
         NAMES_MAP,

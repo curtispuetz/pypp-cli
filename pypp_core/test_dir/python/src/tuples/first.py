@@ -49,8 +49,8 @@ def tuples_fn():
     # unpacking elements from a function
     u, v = _get_tup()
     print(u, v)
-    # argument unpacking
-    _argument_unpacking(*_get_tup())
+    # argument unpacking (removed feature for now)
+    # _argument_unpacking(*_get_tup())
     # argument unpacking only works if it is the only argument to the call.
     # arg_unpacking_fail(1, *get_tup())
 

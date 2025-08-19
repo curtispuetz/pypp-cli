@@ -52,5 +52,9 @@ class Deps:
     def add_inc(self, inc: CppInclude):
         add_inc(self.ret_imports, inc, self._include_in_header)
 
+    def add_incs(self, incs: list[CppInclude]):
+        for inc in incs:
+            self.add_inc(inc)
+
     def is_imported(self, imp: PySpecificImport) -> bool:
         return is_imported(self.py_imports, imp)
