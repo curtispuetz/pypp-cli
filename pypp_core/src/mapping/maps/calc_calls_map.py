@@ -1,69 +1,116 @@
-from functools import partial
+import json
+import os
 
 from pypp_core.src.config import PyppDirs
-from pypp_core.src.d_types import PySpecificImpFrom, QInc, AngInc
+from pypp_core.src.handle_expr.h_call.default_map import CALLS_MAP
 from pypp_core.src.mapping.maps.util import (
     calc_cpp_includes,
     calc_required_py_import,
-    load_map,
-    calc_common_warning_msg,
 )
-from pypp_core.src.mapping.info_types import CallMapInfo
+from pypp_core.src.mapping.info_types import (
+    CallMapInfo,
+    CallMapInfoCppType,
+    CallMapInfoCustomMappingFromLibrary,
+    CallMapInfoCustomMappingStartsWithFromLibrary,
+    CallMapInfoLeftAndRight,
+    CallMapInfoNone,
+    CallMapInfoReplaceDotWithDoubleColon,
+)
 
-CALL_MAP: dict[str, CallMapInfo] = {
-    "print": CallMapInfo("print(", ")", [QInc("pypp_util/print.h")]),
-    "print_address": CallMapInfo(
-        "print(&",
-        ")",
-        [QInc("pypp_util/print.h")],
-        PySpecificImpFrom("pypp_python.printing", "print_address"),
-    ),
-    "len": CallMapInfo("", ".len()", []),
-    "str": CallMapInfo("to_pystr(", ")", [QInc("pypp_util/to_py_str.h")]),
-    "range": CallMapInfo("PyRange(", ")", [QInc("py_range.h")]),
-    "slice": CallMapInfo("py_slice(", ")", [QInc("slice/creators.h")]),
-    "enumerate": CallMapInfo("PyEnumerate(", ")", [QInc("py_enumerate.h")]),
-    "reversed": CallMapInfo("PyReversed(", ")", [QInc("py_reversed.h")]),
-    "zip": CallMapInfo("PyZip(", ")", [QInc("py_zip.h")]),
-    "mov": CallMapInfo(
-        "std::move(",
-        ")",
-        [AngInc("utility")],
-        PySpecificImpFrom("pypp_python.ownership", "mov"),
-    ),
-    "pypp_get_resources": CallMapInfo(
-        "pypp_get_resources(",
-        ")",
-        [QInc("pypp_resources.h")],
-        PySpecificImpFrom("pypp_python.resources", "pypp_get_resources"),
-    ),
-    "int_pow": CallMapInfo(
-        "int_pow(",
-        ")",
-        [QInc("pypp_util/math.h")],
-        PySpecificImpFrom("pypp_python.math", "int_pow"),
-    ),
-}
+# TODO: rename 'cpp_type' in the calls_map.json to 'cpp_call'
+# TODO: a system for the bridge jsons where you can specify certain py imports that
+#  should be translated directly to the coorsponding cpp include (i.e. my_lib.a should
+#  go to quote includes my_lib/a.h). This will make it so that you do not have to
+#  specify cpp_includes and required_py_import everywhere in a bunch of jsons.
+# TODO: similar to above, also have an option that all my_lib includes translate to
+#  the coorsponding cpp_include.
+# TODO: there will also be an option to ignore certain py imports (as menitoned in a
+#  TODO elsewhere). So, remember that in there you could put certain exceptions for
+#  py my_lib imports to ignore if you use the 'all' option mentioned above.
+# TODO: consider naming caller_str to cpp_caller_str to avoid confusion. And maybe the
+#  same for names and attrs if a similar thing exists there.
+
+# TODO: the Py required import should be part of the key! Then you can have two things
+#  with the same names but from different places. This might be true for other maps as
+#  well.
 
 
-def _calc_call_map_info(obj: dict, json_file_name: str) -> CallMapInfo:
-    assert "left" in obj, (
-        f"{json_file_name}.json must specify a 'left' for each element"
+def _calc_left_and_right_call_map_info(obj: dict) -> CallMapInfoLeftAndRight:
+    return CallMapInfoLeftAndRight(
+        obj["left"], obj["right"], calc_cpp_includes(obj), calc_required_py_import(obj)
     )
-    assert "right" in obj, (
-        f"{json_file_name}.json must specify a 'right' for each element"
+
+
+def _calc_none_call_map_info(obj: dict) -> CallMapInfoNone:
+    return CallMapInfoNone(calc_cpp_includes(obj), calc_required_py_import(obj))
+
+
+def _calc_cpp_type_call_map_info(obj: dict) -> CallMapInfoCppType:
+    return CallMapInfoCppType(
+        obj["cpp_type"], calc_cpp_includes(obj), calc_required_py_import(obj)
     )
-    cpp_includes = calc_cpp_includes(obj)
-    required_import = calc_required_py_import(obj)
-    return CallMapInfo(obj["left"], obj["right"], cpp_includes, required_import)
+
+
+def _calc_custom_mapping_info(obj: dict) -> CallMapInfoCustomMappingFromLibrary:
+    return CallMapInfoCustomMappingFromLibrary(
+        "\n".join(obj["mapping_function"]),
+        calc_cpp_includes(obj),
+        calc_required_py_import(obj),
+    )
+
+
+def _calc_custom_mapping_starts_with_info(
+    obj: dict,
+) -> CallMapInfoCustomMappingStartsWithFromLibrary:
+    return CallMapInfoCustomMappingStartsWithFromLibrary(
+        "\n".join(obj["mapping_function"]),
+        calc_cpp_includes(obj),
+        calc_required_py_import(obj),
+    )
+
+
+def _calc_replace_dot_with_double_colon_info(
+    obj: dict,
+) -> CallMapInfoReplaceDotWithDoubleColon:
+    return CallMapInfoReplaceDotWithDoubleColon(
+        calc_cpp_includes(obj),
+        calc_required_py_import(obj),
+    )
 
 
 def calc_calls_map(proj_info: dict, dirs: PyppDirs) -> dict[str, CallMapInfo]:
-    return load_map(
-        CALL_MAP,
-        proj_info,
-        dirs,
-        "calls_map",
-        _calc_call_map_info,
-        partial(calc_common_warning_msg, name="call"),
-    )
+    ret = CALLS_MAP.copy()
+    for installed_library in proj_info["installed_libraries"]:
+        json_path = dirs.calc_bridge_json(installed_library, "calls_map")
+        if os.path.isfile(json_path):
+            with open(json_path, "r") as f:
+                m: dict = json.load(f)
+            # Note: No assertions required here because the structure is (or will be)
+            # validated when the library is installed.
+            for mapping_type, mapping_vals in m.items():
+                if mapping_type == "left_and_right":
+                    for k, v in mapping_vals.items():
+                        ret[k] = _calc_left_and_right_call_map_info(v)
+                elif mapping_type == "none":
+                    for k, v in mapping_vals.items():
+                        ret[k] = _calc_none_call_map_info(v)
+                elif mapping_type == "cpp_type":
+                    for k, v in mapping_vals.items():
+                        ret[k] = _calc_cpp_type_call_map_info(v)
+                elif mapping_type == "custom_mapping":
+                    for k, v in mapping_vals.items():
+                        ret[k] = _calc_custom_mapping_info(v)
+                elif mapping_type == "custom_mapping_starts_with":
+                    for k, v in mapping_vals.items():
+                        ret[k] = _calc_custom_mapping_starts_with_info(v)
+                elif mapping_type == "replace_dot_with_double_colon":
+                    for k, v in mapping_vals.items():
+                        ret[k] = _calc_replace_dot_with_double_colon_info(v)
+                else:
+                    raise ValueError(
+                        f"invalid type '{mapping_type}' in calls_map.json for "
+                        f"'{installed_library}' library. "
+                        f"This shouldn't happen because the json should be "
+                        f"validated when the library is installed"
+                    )
+    return ret

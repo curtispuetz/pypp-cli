@@ -13,6 +13,5 @@ def lookup_helper(
     val = map[key]
     if val.required_import is not None and not d.is_imported(val.required_import):
         return None
-    for include in val.includes:
-        d.add_inc(include)
+    d.add_incs(val.includes)
     return val
