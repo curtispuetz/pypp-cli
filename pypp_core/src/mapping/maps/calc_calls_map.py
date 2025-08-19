@@ -17,7 +17,6 @@ from pypp_core.src.mapping.info_types import (
     CallMapInfoReplaceDotWithDoubleColon,
 )
 
-# TODO: rename 'cpp_type' in the calls_map.json to 'cpp_call'
 # TODO: a system for the bridge jsons where you can specify certain py imports that
 #  should be translated directly to the coorsponding cpp include (i.e. my_lib.a should
 #  go to quote includes my_lib/a.h). This will make it so that you do not have to
@@ -45,9 +44,9 @@ def _calc_none_call_map_info(obj: dict) -> CallMapInfoNone:
     return CallMapInfoNone(calc_cpp_includes(obj), calc_required_py_import(obj))
 
 
-def _calc_cpp_type_call_map_info(obj: dict) -> CallMapInfoCppType:
+def _calc_cpp_call_call_map_info(obj: dict) -> CallMapInfoCppType:
     return CallMapInfoCppType(
-        obj["cpp_type"], calc_cpp_includes(obj), calc_required_py_import(obj)
+        obj["cpp_call"], calc_cpp_includes(obj), calc_required_py_import(obj)
     )
 
 
@@ -94,9 +93,9 @@ def calc_calls_map(proj_info: dict, dirs: PyppDirs) -> dict[str, CallMapInfo]:
                 elif mapping_type == "none":
                     for k, v in mapping_vals.items():
                         ret[k] = _calc_none_call_map_info(v)
-                elif mapping_type == "cpp_type":
+                elif mapping_type == "cpp_call":
                     for k, v in mapping_vals.items():
-                        ret[k] = _calc_cpp_type_call_map_info(v)
+                        ret[k] = _calc_cpp_call_call_map_info(v)
                 elif mapping_type == "custom_mapping":
                     for k, v in mapping_vals.items():
                         ret[k] = _calc_custom_mapping_info(v)

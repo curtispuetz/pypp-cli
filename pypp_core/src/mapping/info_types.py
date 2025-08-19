@@ -21,7 +21,7 @@ class CallMapInfoLeftAndRight:
 
 @dataclass(frozen=True, slots=True)
 class CallMapInfoCppType:
-    cpp_type: str
+    cpp_call: str
     includes: list[CppInclude]
     required_import: PySpecificImport | None = None
 
