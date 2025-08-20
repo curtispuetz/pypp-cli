@@ -20,8 +20,6 @@ from pypp_core.src.mapping.info_types import (
     CallsMap,
 )
 
-# TODO: similar to above, also have an option that all my_lib includes translate to
-#  the coorsponding cpp_include.
 # TODO: there will also be an option to ignore certain py imports (as menitoned in a
 #  TODO elsewhere). So, remember that in there you could put certain exceptions for
 #  py my_lib imports to ignore if you use the 'all' option mentioned above.

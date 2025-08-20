@@ -1,7 +1,10 @@
 import ast
 
 from pypp_core.src.d_types import PyImports, PyImport, QInc
-from pypp_core.src.handle_stmt.h_import_from import handle_import_from
+from pypp_core.src.handle_stmt.h_import_from import (
+    calc_module_beginning,
+    handle_import_from,
+)
 from pypp_core.src.mapping.maps.maps import Maps
 from pypp_core.src.util.ret_imports import IncMap
 
@@ -23,7 +26,11 @@ def handle_import_stmts(
             py_imports.imp_from[node.module] = [n.name for n in node.names]
         elif isinstance(node, ast.Import):
             for name in node.names:
-                if name.name in maps.modules_to_cpp_include:
+                if (
+                    name.name in maps.modules_to_cpp_include.modules
+                    or calc_module_beginning(name.name)
+                    in maps.modules_to_cpp_include.libraries
+                ):
                     assert name.asname is not None, (
                         f"import 'as' required for {name.name}"
                     )
