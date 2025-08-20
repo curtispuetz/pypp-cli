@@ -2,14 +2,14 @@ from dataclasses import dataclass
 
 from pypp_core.src.d_types import CppInclude
 
-ImpMap = dict[str, CppInclude]
+IncMap = dict[str, CppInclude]
 
 
 @dataclass(frozen=True, slots=True)
 class RetImports:
     header: set[CppInclude]
     cpp: set[CppInclude]
-    import_map: ImpMap
+    include_map: IncMap
 
 
 def add_inc(ret_imports: RetImports, inc: CppInclude, in_header: bool):

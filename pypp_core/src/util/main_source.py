@@ -12,10 +12,10 @@ from pypp_core.src.util.ret_imports import RetImports
 
 
 def calc_main_cpp_source(main_py: ast.Module, proj_info: dict, maps: Maps) -> str:
-    imp_map, i, py_imports = handle_import_stmts(main_py.body, proj_info)
+    cpp_inc_map, i, py_imports = handle_import_stmts(main_py.body, proj_info)
     d: Deps = Deps(
         DepsDeps(
-            RetImports(set(), set(), imp_map),
+            RetImports(set(), set(), cpp_inc_map),
             [],
             py_imports,
             maps,
@@ -32,10 +32,10 @@ def calc_main_cpp_source(main_py: ast.Module, proj_info: dict, maps: Maps) -> st
 def calc_src_file_cpp_and_h_source(
     src_py: ast.Module, h_file: str, proj_info: dict, maps: Maps
 ) -> tuple[str, str]:
-    imp_map, i, py_imports = handle_import_stmts(src_py.body, proj_info)
+    cpp_inc_map, i, py_imports = handle_import_stmts(src_py.body, proj_info)
     d: Deps = Deps(
         DepsDeps(
-            RetImports(set(), set(), imp_map),
+            RetImports(set(), set(), cpp_inc_map),
             [],
             py_imports,
             maps,

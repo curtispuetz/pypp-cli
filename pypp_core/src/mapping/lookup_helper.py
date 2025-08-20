@@ -1,4 +1,3 @@
-from pypp_core.src.d_types import PySpecificImport
 from pypp_core.src.deps import Deps
 from pypp_core.src.mapping.info_types import (
     MapInfo,
