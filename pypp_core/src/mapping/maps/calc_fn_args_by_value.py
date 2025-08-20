@@ -1,31 +1,30 @@
 from pypp_core.src.config import PyppDirs
-from pypp_core.src.d_types import PySpecificImport, PySpecificImpFrom
+from pypp_core.src.d_types import PySpecificImpFrom
 from pypp_core.src.mapping.info_types import FnArgsByValueMap
-from pypp_core.src.mapping.maps.util import (
-    load_map,
-    calc_specific_imports,
-)
+from pypp_core.src.mapping.maps.util import load_map
 
 FN_ARG_PASSED_BY_VALUE: FnArgsByValueMap = {
-    "int": None,
-    "double": None,  # python float
-    "bool": None,
-    "float": PySpecificImpFrom("pypp_python.custom_types", "float32"),  # python float32
-    "int8_t": PySpecificImpFrom("pypp_python.custom_types", "int8_t"),
-    "int16_t": PySpecificImpFrom("pypp_python.custom_types", "int16_t"),
-    "int32_t": PySpecificImpFrom("pypp_python.custom_types", "int32_t"),
-    "int64_t": PySpecificImpFrom("pypp_python.custom_types", "int64_t"),
-    "uint8_t": PySpecificImpFrom("pypp_python.custom_types", "uint8_t"),
-    "uint16_t": PySpecificImpFrom("pypp_python.custom_types", "uint16_t"),
-    "uint32_t": PySpecificImpFrom("pypp_python.custom_types", "uint32_t"),
-    "uint64_t": PySpecificImpFrom("pypp_python.custom_types", "uint64_t"),
-    "PyRange": None,
+    "int": {None: None},
+    "double": {None: None},  # python float
+    "bool": {None: None},
+    "float": {
+        PySpecificImpFrom("pypp_python.custom_types", "float32"): None
+    },  # python float32
+    "int8_t": {PySpecificImpFrom("pypp_python.custom_types", "int8_t"): None},
+    "int16_t": {PySpecificImpFrom("pypp_python.custom_types", "int16_t"): None},
+    "int32_t": {PySpecificImpFrom("pypp_python.custom_types", "int32_t"): None},
+    "int64_t": {PySpecificImpFrom("pypp_python.custom_types", "int64_t"): None},
+    "uint8_t": {PySpecificImpFrom("pypp_python.custom_types", "uint8_t"): None},
+    "uint16_t": {PySpecificImpFrom("pypp_python.custom_types", "uint16_t"): None},
+    "uint32_t": {PySpecificImpFrom("pypp_python.custom_types", "uint32_t"): None},
+    "uint64_t": {PySpecificImpFrom("pypp_python.custom_types", "uint64_t"): None},
+    "PyRange": {None: None},
 }
 
 
-def _warning_msg(installed_library: str, _type: str) -> str:
+def _warning_msg(installed_library: str, full_type_str: str) -> str:
     return (
-        f"Py++ transpiler already passes the type {_type} by value always. "
+        f"Py++ transpiler already passes the type {full_type_str} by value always. "
         f"Library {installed_library} is potentially changing this behavior."
     )
 
@@ -36,6 +35,6 @@ def calc_fn_args_passed_by_value(proj_info: dict, dirs: PyppDirs) -> FnArgsByVal
         proj_info,
         dirs,
         "always_pass_by_value",
-        calc_specific_imports,
+        lambda a, b: None,
         _warning_msg,
     )

@@ -1,10 +1,12 @@
 import json
 import os
+from typing import Callable
 
 from pypp_core.src.config import PyppDirs
 from pypp_core.src.handle_expr.h_call.default_map import CALLS_MAP
 from pypp_core.src.mapping.maps.util import (
     calc_cpp_includes,
+    calc_imp_str,
     calc_required_py_import,
 )
 from pypp_core.src.mapping.info_types import (
@@ -30,32 +32,22 @@ from pypp_core.src.mapping.info_types import (
 # TODO: consider naming caller_str to cpp_caller_str to avoid confusion. And maybe the
 #  same for names and attrs if a similar thing exists there.
 
-# TODO: the Py required import should be part of the key! Then you can have two things
-#  with the same names but from different places. This might be true for other maps as
-#  well.
-
 
 def _calc_left_and_right_call_map_info(obj: dict) -> CallMapInfoLeftAndRight:
-    return CallMapInfoLeftAndRight(
-        obj["left"], obj["right"], calc_cpp_includes(obj), calc_required_py_import(obj)
-    )
+    return CallMapInfoLeftAndRight(obj["left"], obj["right"], calc_cpp_includes(obj))
 
 
 def _calc_none_call_map_info(obj: dict) -> CallMapInfoNone:
-    return CallMapInfoNone(calc_cpp_includes(obj), calc_required_py_import(obj))
+    return CallMapInfoNone(calc_cpp_includes(obj))
 
 
 def _calc_cpp_call_call_map_info(obj: dict) -> CallMapInfoCppType:
-    return CallMapInfoCppType(
-        obj["cpp_call"], calc_cpp_includes(obj), calc_required_py_import(obj)
-    )
+    return CallMapInfoCppType(obj["cpp_call"], calc_cpp_includes(obj))
 
 
 def _calc_custom_mapping_info(obj: dict) -> CallMapInfoCustomMappingFromLibrary:
     return CallMapInfoCustomMappingFromLibrary(
-        "\n".join(obj["mapping_function"]),
-        calc_cpp_includes(obj),
-        calc_required_py_import(obj),
+        "\n".join(obj["mapping_function"]), calc_cpp_includes(obj)
     )
 
 
@@ -63,19 +55,24 @@ def _calc_custom_mapping_starts_with_info(
     obj: dict,
 ) -> CallMapInfoCustomMappingStartsWithFromLibrary:
     return CallMapInfoCustomMappingStartsWithFromLibrary(
-        "\n".join(obj["mapping_function"]),
-        calc_cpp_includes(obj),
-        calc_required_py_import(obj),
+        "\n".join(obj["mapping_function"]), calc_cpp_includes(obj)
     )
 
 
 def _calc_replace_dot_with_double_colon_info(
     obj: dict,
 ) -> CallMapInfoReplaceDotWithDoubleColon:
-    return CallMapInfoReplaceDotWithDoubleColon(
-        calc_cpp_includes(obj),
-        calc_required_py_import(obj),
-    )
+    return CallMapInfoReplaceDotWithDoubleColon(calc_cpp_includes(obj))
+
+
+mapping_funcs: dict[str, Callable[[dict], CallMapInfo]] = {
+    "left_and_right": _calc_left_and_right_call_map_info,
+    "none": _calc_none_call_map_info,
+    "cpp_call": _calc_cpp_call_call_map_info,
+    "custom_mapping": _calc_custom_mapping_info,
+    "custom_mapping_starts_with": _calc_custom_mapping_starts_with_info,
+    "replace_dot_with_double_colon": _calc_replace_dot_with_double_colon_info,
+}
 
 
 def calc_calls_map(proj_info: dict, dirs: PyppDirs) -> CallsMap:
@@ -88,24 +85,19 @@ def calc_calls_map(proj_info: dict, dirs: PyppDirs) -> CallsMap:
             # Note: No assertions required here because the structure is (or will be)
             # validated when the library is installed.
             for mapping_type, mapping_vals in m.items():
-                if mapping_type == "left_and_right":
+                if mapping_type in mapping_funcs:
                     for k, v in mapping_vals.items():
-                        ret[k] = _calc_left_and_right_call_map_info(v)
-                elif mapping_type == "none":
-                    for k, v in mapping_vals.items():
-                        ret[k] = _calc_none_call_map_info(v)
-                elif mapping_type == "cpp_call":
-                    for k, v in mapping_vals.items():
-                        ret[k] = _calc_cpp_call_call_map_info(v)
-                elif mapping_type == "custom_mapping":
-                    for k, v in mapping_vals.items():
-                        ret[k] = _calc_custom_mapping_info(v)
-                elif mapping_type == "custom_mapping_starts_with":
-                    for k, v in mapping_vals.items():
-                        ret[k] = _calc_custom_mapping_starts_with_info(v)
-                elif mapping_type == "replace_dot_with_double_colon":
-                    for k, v in mapping_vals.items():
-                        ret[k] = _calc_replace_dot_with_double_colon_info(v)
+                        required_import = calc_required_py_import(v)
+                        if k in ret:
+                            if required_import in ret[k]:
+                                print(
+                                    f"warning: Py++ transpiler already maps the call "
+                                    f"'{k}{calc_imp_str(required_import)}'. Library "
+                                    f"{installed_library} is overriding this mapping."
+                                )
+                            ret[k][required_import] = mapping_funcs[mapping_type](v)
+                        else:
+                            ret[k] = {required_import: mapping_funcs[mapping_type](v)}
                 else:
                     raise ValueError(
                         f"invalid type '{mapping_type}' in calls_map.json for "

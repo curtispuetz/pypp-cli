@@ -1,17 +1,17 @@
+from pypp_core.src.d_types import PySpecificImport
 from pypp_core.src.deps import Deps
 from pypp_core.src.mapping.info_types import (
-    NamesCallsOrAttrsMap,
-    NamesCallsOrAttrsMapInfo,
+    MapInfo,
+    NamesOrAttrsMap,
 )
+from pypp_core.src.mapping.util import find_map_info
 
 
-def lookup_helper(
-    key: str, d: Deps, map: NamesCallsOrAttrsMap
-) -> NamesCallsOrAttrsMapInfo | None:
+def lookup_helper(key: str, d: Deps, map: NamesOrAttrsMap) -> MapInfo | None:
     if key not in map:
         return None
-    val = map[key]
-    if val.required_import is not None and not d.is_imported(val.required_import):
+    map_info = find_map_info(map[key], d)
+    if map_info is None:
         return None
-    d.add_incs(val.includes)
-    return val
+    d.add_incs(map_info.includes)
+    return map_info
