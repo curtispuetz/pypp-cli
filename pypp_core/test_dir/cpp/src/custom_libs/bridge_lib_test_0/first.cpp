@@ -5,7 +5,7 @@
 #include "pypp_bridge_library_test_0/include_only_call.h"
 #include "pypp_bridge_library_test_0/name_only_call.h"
 #include "pypp_bridge_library_test_0/pseudo_a.h"
-#include "pypp_bridge_library_test_0/pseudo_custom_type.h"
+#include "pypp_bridge_library_test_0/pseudo_custom_type_cpp.h"
 #include "pypp_bridge_library_test_0/replace_with_double_colon_call.h"
 #include "pypp_util/print.h"
 
