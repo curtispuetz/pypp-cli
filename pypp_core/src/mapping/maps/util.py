@@ -29,8 +29,8 @@ def calc_cpp_includes(obj: dict) -> list[CppInclude]:
     return ret
 
 
-def calc_required_py_import(obj: dict) -> PySpecificImport | None:
-    if "required_py_import" in obj:
+def calc_required_py_import(obj: dict | None) -> PySpecificImport | None:
+    if obj is not None and "required_py_import" in obj:
         req = obj["required_py_import"]
         assert isinstance(req, dict), "required_py_import must be an object"
         assert "name" in req, "required_py_import must specify a name"
@@ -42,26 +42,23 @@ def calc_required_py_import(obj: dict) -> PySpecificImport | None:
     return None
 
 
-def calc_specific_imports(
-    obj: dict | None, json_file_name: str
-) -> PySpecificImport | None:
-    if obj is None:
-        return None
-    return calc_required_py_import(obj)
-
-
 def calc_map_info(obj: dict, json_file_name: str) -> MapInfo:
     assert "cpp_type" in obj, (
         f"{json_file_name}.json must specify a cpp_type for each element"
     )
     cpp_includes = calc_cpp_includes(obj)
-    required_import = calc_required_py_import(obj)
-    return MapInfo(obj["cpp_type"], cpp_includes, required_import)
+    return MapInfo(obj["cpp_type"], cpp_includes)
 
 
-def calc_common_warning_msg(installed_library: str, _type: str, name: str) -> str:
+def calc_imp_str(imp: PySpecificImport | None) -> str:
+    return "" if imp is None else f" ({imp})"
+
+
+def calc_common_warning_msg(
+    installed_library: str, full_type_str: str, name: str
+) -> str:
     return (
-        f"Py++ transpiler already maps the {name} '{_type}'. "
+        f"Py++ transpiler already maps the {name} '{full_type_str}'. "
         f"Library {installed_library} is overriding this mapping."
     )
 
@@ -70,13 +67,13 @@ T = TypeVar("T")
 
 
 def load_map(
-    default_map: dict[str, T],
+    default_map: dict[str, dict[PySpecificImport | None, T]],
     proj_info: dict,
     dirs: PyppDirs,
     json_file_name: str,
     value_calc_fn: Callable[[dict, str], T],
     warning_fn: Callable[[str, str], str],
-) -> dict[str, T]:
+) -> dict[str, dict[PySpecificImport | None, T]]:
     ret = default_map.copy()
     for installed_library in proj_info["installed_libraries"]:
         json_path = dirs.calc_bridge_json(installed_library, json_file_name)
@@ -84,7 +81,18 @@ def load_map(
             with open(json_path, "r") as f:
                 m: dict = json.load(f)
             for _type, obj in m.items():
+                required_import = calc_required_py_import(obj)
                 if _type in ret:
-                    print(f"warning: {warning_fn(installed_library, _type)}")
-                ret[_type] = value_calc_fn(obj, json_file_name)
+                    if required_import in ret[_type]:
+                        print(
+                            f"warning: {
+                                warning_fn(
+                                    installed_library,
+                                    f'{_type}{calc_imp_str(required_import)}',
+                                )
+                            }"
+                        )
+                    ret[_type][required_import] = value_calc_fn(obj, json_file_name)
+                else:
+                    ret[_type] = {required_import: value_calc_fn(obj, json_file_name)}
     return ret

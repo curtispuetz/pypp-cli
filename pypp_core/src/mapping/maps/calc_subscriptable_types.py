@@ -1,21 +1,21 @@
 from pypp_core.src.config import PyppDirs
-from pypp_core.src.d_types import PySpecificImport, PySpecificImpFrom
+from pypp_core.src.d_types import PySpecificImpFrom
 from pypp_core.src.mapping.info_types import SubscriptableTypesMap
-from pypp_core.src.mapping.maps.util import load_map, calc_specific_imports
+from pypp_core.src.mapping.maps.util import load_map
 
 SUBSCRIPTABLE_TYPES: SubscriptableTypesMap = {
-    "PyList": None,
-    "PyDict": None,
-    "PyTup": None,
-    "PySet": None,
-    "PyDefaultDict": PySpecificImpFrom("collections", "defaultdict"),
-    "Uni": PySpecificImpFrom("pypp_python.union", "Uni"),
+    "PyList": {None: None},
+    "PyDict": {None: None},
+    "PyTup": {None: None},
+    "PySet": {None: None},
+    "PyDefaultDict": {PySpecificImpFrom("collections", "defaultdict"): None},
+    "Uni": {PySpecificImpFrom("pypp_python.union", "Uni"): None},
 }
 
 
-def _warning_msg(installed_library: str, _type: str) -> str:
+def _warning_msg(installed_library: str, full_type_str: str) -> str:
     return (
-        f"Py++ transpiler already considers {_type} a subscriptable type. "
+        f"Py++ transpiler already considers {full_type_str} a subscriptable type. "
         f"Library {installed_library} is potentially changing this behavior."
     )
 
@@ -26,6 +26,6 @@ def calc_subscriptable_types(proj_info: dict, dirs: PyppDirs) -> SubscriptableTy
         proj_info,
         dirs,
         "subscriptable_types",
-        calc_specific_imports,
+        lambda a, b: None,
         _warning_msg,
     )

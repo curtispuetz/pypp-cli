@@ -10,11 +10,12 @@ from pypp_core.src.mapping.maps.util import (
 from pypp_core.src.mapping.info_types import AttrsMap, MapInfo
 
 ATTR_MAP: AttrsMap = {
-    "random.Random": MapInfo(
-        "random::Random",
-        [QInc("pypp_random.h")],
-        PyImport("random"),
-    )
+    "random.Random": {
+        PyImport("random"): MapInfo(
+            "random::Random",
+            [QInc("pypp_random.h")],
+        )
+    }
 }
 
 
