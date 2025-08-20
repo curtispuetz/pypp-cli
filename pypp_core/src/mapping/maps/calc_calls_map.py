@@ -20,12 +20,6 @@ from pypp_core.src.mapping.info_types import (
     CallsMap,
 )
 
-# TODO: a system for the bridge jsons where you can specify certain py imports that
-#  should be translated directly to the coorsponding cpp include (i.e. my_lib.a should
-#  go to quote includes my_lib/a.h). This will make it so that you do not have to
-#  specify cpp_includes and required_py_import everywhere in a bunch of jsons. Actually,
-#  you should still put required_py_import everywhere so that it specifies the case
-#  that it should be mapped.
 # TODO: similar to above, also have an option that all my_lib includes translate to
 #  the coorsponding cpp_include.
 # TODO: there will also be an option to ignore certain py imports (as menitoned in a
