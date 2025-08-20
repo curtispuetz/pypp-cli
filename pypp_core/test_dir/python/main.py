@@ -1,5 +1,6 @@
 from args_test import args_test_fn
 from custom_libs.bridge_lib_test_0.first import bridge_lib_test_0_fn
+from custom_libs.bridge_lib_test_1.first import bridge_lib_test_1_fn
 from exceptions.custom_exceptions import custom_exception_fn
 from first import return_something
 from imports_test.first import imports_test_fn
@@ -124,3 +125,4 @@ if __name__ == "__main__":
     subscriptable_types_fn()
     lambdas_fn()
     bridge_lib_test_0_fn()
+    bridge_lib_test_1_fn()

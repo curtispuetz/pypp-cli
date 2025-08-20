@@ -1,0 +1,15 @@
+#include "custom_libs\bridge_lib_test_1\first.h"
+#include "py_str.h"
+#include "pypp_bridge_library_test_1/first.h"
+#include "pypp_bridge_library_test_1/first_folder/third.h"
+#include "pypp_bridge_library_test_1/fourth.h"
+#include "pypp_bridge_library_test_1/second.h"
+#include "pypp_util/print.h"
+
+void bridge_lib_test_1_fn() {
+    print(PyStr("PYPP BRIDGE LIB TEST 1 RESULTS:"));
+    print(pseudo_fn());
+    print(pseudo_fn_a());
+    print(pseudo_fn_b());
+    print(pseudo_namespace::pseudo_fn_c());
+}

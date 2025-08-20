@@ -4,6 +4,7 @@
 #include "constants.h"
 #include "cstdlib"
 #include "custom_libs/bridge_lib_test_0/first.h"
+#include "custom_libs/bridge_lib_test_1/first.h"
 #include "dataclasses_test/first.h"
 #include "dataclasses_test/with_methods.h"
 #include "default_dict/first.h"
@@ -129,6 +130,7 @@ int main() {
         subscriptable_types_fn();
         lambdas_fn();
         bridge_lib_test_0_fn();
+        bridge_lib_test_1_fn();
         return 0;
     } catch (...) {
         handle_fatal_exception();
