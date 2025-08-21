@@ -6,8 +6,6 @@ from pathlib import Path
 from pypp_core.src.config import PyppDirs, create_test_dir_pypp_dirs
 from pypp_core.src.constants import SECRET_MAIN_FILE_DIR_PREFIX
 
-# TODO: add type hints
-
 
 def get_all_py_files(root: Path) -> list[Path]:
     ret: list[Path] = []
@@ -31,7 +29,7 @@ def _load_previous_timestamps(timestamps_file: Path) -> dict[str, float]:
     return {}
 
 
-def save_timestamps(timestamps: dict, timestamps_file: Path):
+def save_timestamps(timestamps: dict[str, float], timestamps_file: Path):
     with open(timestamps_file, "w") as f:
         json.dump(timestamps, f, indent=2)
 
@@ -75,7 +73,7 @@ def calc_py_file_changes(
     ignore_src_files: list[str],
     main_py_files: list[Path],
     src_py_files: list[Path],
-) -> tuple[_PyFileChanges, dict]:
+) -> tuple[_PyFileChanges, dict[str, float]]:
     prev_timestamps: dict[str, float] = _load_previous_timestamps(dirs.timestamps_file)
     curr_timestamps: dict[str, float] = {}
     changed_files: list[Path] = []
