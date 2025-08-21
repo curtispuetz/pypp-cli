@@ -1,3 +1,5 @@
+#pragma once
+
 namespace dc_test
 {
     namespace sub_namespace
