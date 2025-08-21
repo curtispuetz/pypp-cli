@@ -8,6 +8,7 @@ from pypp_core.src.mapping.maps.maps import Maps, calc_maps
 from pypp_core.src.util.file_change_tracker import (
     calc_py_file_changes,
     get_all_main_py_files,
+    get_all_py_files,
     save_timestamps,
 )
 from pypp_core.src.util.initalize_cpp import (
@@ -46,6 +47,7 @@ def _transpile_cpp_and_h_files(
     cpp_files_written: int,
     proj_info: dict,
     maps: Maps,
+    src_py_files: list[Path],
 ) -> tuple[int, int]:
     if rel_path.name.startswith(SECRET_MAIN_FILE_DIR_PREFIX):
         # transpile a main file
@@ -54,7 +56,9 @@ def _transpile_cpp_and_h_files(
         )
         py_main_file: Path = dirs.python_dir / real_rel_path
         main_py_ast_tree: ast.Module = calc_ast_tree(py_main_file)
-        main_cpp_source: str = calc_main_cpp_source(main_py_ast_tree, proj_info, maps)
+        main_cpp_source: str = calc_main_cpp_source(
+            main_py_ast_tree, maps, src_py_files
+        )
         new_file_rel: Path = real_rel_path.with_suffix(".cpp")
         new_file: Path = dirs.cpp_dir / new_file_rel
         new_file.write_text(main_cpp_source)
@@ -67,7 +71,7 @@ def _transpile_cpp_and_h_files(
         cpp_file: Path = rel_path.with_suffix(".cpp")
         h_file: Path = rel_path.with_suffix(".h")
         cpp, h = calc_src_file_cpp_and_h_source(
-            src_file_py_ast_tree, h_file, proj_info, maps
+            src_file_py_ast_tree, h_file, maps, src_py_files
         )
         cpp_full_path: Path = dirs.cpp_src_dir / cpp_file
         full_dir: Path = cpp_full_path.parent
@@ -98,8 +102,9 @@ def pypp_transpile(dirs: PyppDirs) -> list[Path]:
     write_cmake_lists_file(dirs, main_py_files)
 
     # Step 2: calculate the files that have changed since the last transpile
+    src_py_files = get_all_py_files(dirs.python_src_dir)
     py_file_changes, file_timestamps = calc_py_file_changes(
-        dirs, proj_info["ignore_src_files"], main_py_files
+        dirs, proj_info["ignore_src_files"], main_py_files, src_py_files
     )
 
     # Step 3: iterate over the deleted Py files and delete the corresponding C++ files
@@ -131,6 +136,7 @@ def pypp_transpile(dirs: PyppDirs) -> list[Path]:
             cpp_files_written,
             proj_info,
             maps,
+            src_py_files,
         )
     print(
         f"py++ transpile finished. "

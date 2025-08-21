@@ -7,13 +7,15 @@ from pypp_core.src.handle_expr.expr import handle_expr
 from pypp_core.src.handle_stmt.stmt import handle_stmt
 from pypp_core.src.mapping.maps.maps import Maps
 from pypp_core.src.util.calc_includes import calc_includes_for_main_file, calc_includes
-from pypp_core.src.util.handle_lists import handle_import_stmts
+from pypp_core.src.util.handle_import_stmts import handle_import_stmts
 from pypp_core.src.util.handle_main_stmts import handle_main_stmts
 from pypp_core.src.util.ret_imports import RetImports
 
 
-def calc_main_cpp_source(main_py: ast.Module, proj_info: dict, maps: Maps) -> str:
-    cpp_inc_map, i, py_imports = handle_import_stmts(main_py.body, proj_info, maps)
+def calc_main_cpp_source(
+    main_py: ast.Module, maps: Maps, src_py_files: list[Path]
+) -> str:
+    cpp_inc_map, i, py_imports = handle_import_stmts(main_py.body, maps, src_py_files)
     d: Deps = Deps(
         DepsDeps(
             RetImports(set(), set(), cpp_inc_map),
@@ -31,9 +33,9 @@ def calc_main_cpp_source(main_py: ast.Module, proj_info: dict, maps: Maps) -> st
 
 
 def calc_src_file_cpp_and_h_source(
-    src_py: ast.Module, h_file: Path, proj_info: dict, maps: Maps
+    src_py: ast.Module, h_file: Path, maps: Maps, src_py_files: list[Path]
 ) -> tuple[str, str]:
-    cpp_inc_map, i, py_imports = handle_import_stmts(src_py.body, proj_info, maps)
+    cpp_inc_map, i, py_imports = handle_import_stmts(src_py.body, maps, src_py_files)
     d: Deps = Deps(
         DepsDeps(
             RetImports(set(), set(), cpp_inc_map),
