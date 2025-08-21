@@ -7,7 +7,7 @@ from pypp_core.src.constants import SECRET_MAIN_FILE_DIR_PREFIX
 from pypp_core.src.mapping.maps.maps import Maps, calc_maps
 from pypp_core.src.util.file_change_tracker import (
     calc_py_file_changes,
-    get_all_main_files,
+    get_all_main_py_files,
     save_timestamps,
 )
 from pypp_core.src.util.initalize_cpp import (
@@ -92,7 +92,7 @@ def pypp_transpile(dirs: PyppDirs) -> list[Path]:
     else:
         print("C++ template already copied to the cpp project directory")
     # Step 1.1 write the CmakeLists.txt file
-    main_py_files: list[Path] = get_all_main_files(dirs.python_dir)
+    main_py_files: list[Path] = get_all_main_py_files(dirs.python_dir)
     if not main_py_files:
         raise Exception(f"No Python files (*.py) found in '{dirs.python_dir}'.")
     write_cmake_lists_file(dirs, main_py_files)
