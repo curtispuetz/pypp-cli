@@ -4,7 +4,22 @@ import fnmatch
 from pathlib import Path
 
 from pypp_core.src.pypp_dirs import PyppDirs, create_test_dir_pypp_dirs
-from pypp_core.src.constants import SECRET_MAIN_FILE_DIR_PREFIX
+
+
+@dataclass(frozen=True, slots=True)
+class PyChangedFile:
+    rel_path: Path
+    is_main_file: bool
+
+
+@dataclass(frozen=True, slots=True)
+class PyFileChanges:
+    changed_files: list[PyChangedFile]
+    new_files: list[PyChangedFile]
+    deleted_files: list[Path]
+
+
+type TimeStampsFile = dict[str, dict[str, float]]
 
 
 def get_all_py_files(root: Path) -> list[Path]:
@@ -15,50 +30,48 @@ def get_all_py_files(root: Path) -> list[Path]:
 
 
 def get_all_main_py_files(python_dir: Path) -> list[Path]:
-    return [f for f in python_dir.glob("*.py") if f.is_file()]
+    ret: list[Path] = []
+    for path in python_dir.glob("*.py"):
+        if path.is_file():
+            ret.append(path.relative_to(python_dir))
+    return ret
 
 
-def _get_main_files_special_names(main_py_files: list[Path]) -> list[Path]:
-    return [Path(SECRET_MAIN_FILE_DIR_PREFIX + f.name) for f in main_py_files]
-
-
-def _load_previous_timestamps(timestamps_file: Path) -> dict[str, float]:
+def _load_previous_timestamps(timestamps_file: Path) -> TimeStampsFile:
     if timestamps_file.exists():
         with open(timestamps_file, "r") as f:
             return json.load(f)
-    return {}
+    return {
+        "main_files": {},
+        "src_files": {},
+    }
 
 
-def save_timestamps(timestamps: dict[str, float], timestamps_file: Path):
+def save_timestamps(timestamps: TimeStampsFile, timestamps_file: Path):
     with open(timestamps_file, "w") as f:
         json.dump(timestamps, f, indent=2)
 
 
-@dataclass(frozen=True, slots=True)
-class _PyFileChanges:
-    changed_files: list[Path]
-    new_files: list[Path]
-    deleted_files: list[Path]
-
-
 def _check_file_change(
+    is_main_file: bool,
     filepath: Path,
     rel_path: Path,
     rel_path_posix: str,
-    curr_timestamps: dict[str, float],
-    prev_timestamps: dict[str, float],
-    changed_files: list[Path],
-    new_files: list[Path],
+    curr_timestamps: TimeStampsFile,
+    prev_timestamps: TimeStampsFile,
+    changed_files: list[PyChangedFile],
+    new_files: list[PyChangedFile],
     deleted_files: set[Path],
 ):
+    file_type = "main_files" if is_main_file else "src_files"
     mtime = filepath.stat().st_mtime
-    curr_timestamps[rel_path_posix] = mtime
-    if rel_path_posix in prev_timestamps:
+    curr_timestamps[file_type][rel_path_posix] = mtime
+    if rel_path_posix in prev_timestamps[file_type]:
         deleted_files.discard(rel_path)
-        if prev_timestamps[rel_path_posix] != mtime:
-            changed_files.append(rel_path)
+        if prev_timestamps[file_type][rel_path_posix] != mtime:
+            changed_files.append(PyChangedFile(rel_path, is_main_file))
     else:
-        new_files.append(rel_path)
+        new_files.append(PyChangedFile(rel_path, is_main_file))
 
 
 def _should_ignore_file(rel_path_posix: str, ignore_src_files: list[str]) -> bool:
@@ -68,17 +81,30 @@ def _should_ignore_file(rel_path_posix: str, ignore_src_files: list[str]) -> boo
     return False
 
 
+def _find_deleted_files(prev_timestamps: TimeStampsFile) -> set[Path]:
+    if len(prev_timestamps) == 0:
+        return set()
+    return {
+        Path(k)
+        for k in list(prev_timestamps["main_files"].keys())
+        + list(prev_timestamps["src_files"].keys())
+    }
+
+
 def calc_py_file_changes(
     dirs: PyppDirs,
     ignore_src_files: list[str],
     main_py_files: list[Path],
     src_py_files: list[Path],
-) -> tuple[_PyFileChanges, dict[str, float]]:
-    prev_timestamps: dict[str, float] = _load_previous_timestamps(dirs.timestamps_file)
-    curr_timestamps: dict[str, float] = {}
-    changed_files: list[Path] = []
-    new_files: list[Path] = []
-    deleted_files: set[Path] = {Path(k) for k in prev_timestamps.keys()}
+) -> tuple[PyFileChanges, TimeStampsFile]:
+    prev_timestamps: TimeStampsFile = _load_previous_timestamps(dirs.timestamps_file)
+    curr_timestamps: TimeStampsFile = {
+        "main_files": {},
+        "src_files": {},
+    }
+    changed_files: list[PyChangedFile] = []
+    new_files: list[PyChangedFile] = []
+    deleted_files: set[Path] = _find_deleted_files(prev_timestamps)
     ignored_src_files = 0
 
     for rel_path in src_py_files:
@@ -86,6 +112,7 @@ def calc_py_file_changes(
         rel_path_posix: str = rel_path.as_posix()
         if not _should_ignore_file(rel_path_posix, ignore_src_files):
             _check_file_change(
+                False,
                 abs_path,
                 rel_path,
                 rel_path_posix,
@@ -97,9 +124,11 @@ def calc_py_file_changes(
             )
         else:
             ignored_src_files += 1
-    secret_names = _get_main_files_special_names(main_py_files)
-    for abs_path, rel_path in zip(main_py_files, secret_names):
+    for rel_path in main_py_files:
+        abs_path: Path = dirs.python_dir / rel_path
+        print("main file, ", rel_path)
         _check_file_change(
+            True,
             abs_path,
             rel_path,
             rel_path.as_posix(),
@@ -120,9 +149,7 @@ def calc_py_file_changes(
             f" ignored src files: {ignored_src_files}"
         )
 
-    return _PyFileChanges(
-        changed_files, new_files, list(deleted_files)
-    ), curr_timestamps
+    return PyFileChanges(changed_files, new_files, list(deleted_files)), curr_timestamps
 
 
 if __name__ == "__main__":
