@@ -3,7 +3,7 @@
     "ignore_src_files": [],
     "installed_libraries": [
         "pypp_python",
-        "pypp_bridge_library_test_0",
-        "pypp_bridge_library_test_1"
+        "pypp_bridge_library_test_1",
+        "pypp_bridge_library_test_0"
     ]
 }

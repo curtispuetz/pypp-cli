@@ -11,11 +11,10 @@ from pypp_core.src.mapping.maps.util import (
 )
 from pypp_core.src.mapping.info_types import (
     CallMapInfo,
-    CallMapInfoCppType,
+    CallMapInfoCppCall,
     CallMapInfoCustomMappingFromLibrary,
     CallMapInfoCustomMappingStartsWithFromLibrary,
     CallMapInfoLeftAndRight,
-    CallMapInfoNone,
     CallMapInfoReplaceDotWithDoubleColon,
     CallsMap,
 )
@@ -28,12 +27,8 @@ def _calc_left_and_right_call_map_info(obj: dict) -> CallMapInfoLeftAndRight:
     return CallMapInfoLeftAndRight(obj["left"], obj["right"], calc_cpp_includes(obj))
 
 
-def _calc_none_call_map_info(obj: dict) -> CallMapInfoNone:
-    return CallMapInfoNone(calc_cpp_includes(obj))
-
-
-def _calc_cpp_call_call_map_info(obj: dict) -> CallMapInfoCppType:
-    return CallMapInfoCppType(obj["cpp_call"], calc_cpp_includes(obj))
+def _calc_cpp_call_call_map_info(obj: dict) -> CallMapInfoCppCall:
+    return CallMapInfoCppCall(obj["cpp_call"], calc_cpp_includes(obj))
 
 
 def _calc_custom_mapping_info(obj: dict) -> CallMapInfoCustomMappingFromLibrary:
@@ -58,7 +53,6 @@ def _calc_replace_dot_with_double_colon_info(
 
 mapping_funcs: dict[str, Callable[[dict], CallMapInfo]] = {
     "left_and_right": _calc_left_and_right_call_map_info,
-    "none": _calc_none_call_map_info,
     "cpp_call": _calc_cpp_call_call_map_info,
     "custom_mapping": _calc_custom_mapping_info,
     "custom_mapping_starts_with": _calc_custom_mapping_starts_with_info,

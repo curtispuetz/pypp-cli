@@ -3,11 +3,10 @@ import ast
 from pypp_core.src.d_types import AngInc, PyImport, PySpecificImpFrom, QInc
 from pypp_core.src.handle_expr.h_call.default_dict_map_fn import good_default_dict
 from pypp_core.src.mapping.info_types import (
-    CallMapInfoCppType,
+    CallMapInfoCppCall,
     CallMapInfoCustomMapping,
     CallMapInfoCustomMappingStartsWith,
     CallMapInfoLeftAndRight,
-    CallMapInfoNone,
     CallMapInfoReplaceDotWithDoubleColon,
     CallsMap,
 )
@@ -62,9 +61,7 @@ def _list_reserve(node: ast.Call, d) -> str:
 
 
 CALLS_MAP: CallsMap = {
-    "print": {
-        None: CallMapInfoNone([QInc("pypp_util/print.h")]),
-    },
+    "print": {None: CallMapInfoCppCall("print", [QInc("pypp_util/print.h")])},
     "print_address": {
         PySpecificImpFrom(
             "pypp_python.printing", "print_address"
@@ -75,28 +72,24 @@ CALLS_MAP: CallsMap = {
         )
     },
     "len": {None: CallMapInfoLeftAndRight("", ".len()", [])},
-    "str": {None: CallMapInfoCppType("to_pystr", [QInc("pypp_util/to_py_str.h")])},
-    "range": {None: CallMapInfoCppType("PyRange", [QInc("py_range.h")])},
-    "slice": {None: CallMapInfoCppType("py_slice", [QInc("slice/creators.h")])},
-    "enumerate": {None: CallMapInfoCppType("PyEnumerate", [QInc("py_enumerate.h")])},
-    "reversed": {None: CallMapInfoCppType("PyReversed", [QInc("py_reversed.h")])},
-    "zip": {None: CallMapInfoCppType("PyZip", [QInc("py_zip.h")])},
+    "PyStr": {None: CallMapInfoCppCall("to_pystr", [QInc("pypp_util/to_py_str.h")])},
+    "PySlice": {None: CallMapInfoCppCall("py_slice", [QInc("slice/creators.h")])},
     "mov": {
-        PySpecificImpFrom("pypp_python.ownership", "mov"): CallMapInfoCppType(
+        PySpecificImpFrom("pypp_python.ownership", "mov"): CallMapInfoCppCall(
             "std::move", [AngInc("utility")]
         )
     },
     "pypp_get_resources": {
         PySpecificImpFrom(
             "pypp_python.resources", "pypp_get_resources"
-        ): CallMapInfoNone([QInc("pypp_resources.h")])
+        ): CallMapInfoCppCall("pypp_get_resources", [QInc("pypp_resources.h")])
     },
     "int_pow": {
-        PySpecificImpFrom("pypp_python.math", "int_pow"): CallMapInfoNone(
-            [QInc("pypp_util/math.h")]
+        PySpecificImpFrom("pypp_python.math", "int_pow"): CallMapInfoCppCall(
+            "int_pow", [QInc("pypp_util/math.h")]
         )
     },
-    "defaultdict": {
+    "PyDefaultDict": {
         PySpecificImpFrom("collections", "defaultdict"): CallMapInfoCustomMapping(
             _default_dict, []
         )
@@ -140,11 +133,6 @@ CALLS_MAP: CallsMap = {
     "shutil.": {
         PyImport("shutil"): CallMapInfoReplaceDotWithDoubleColon(
             [QInc("pypp_shutil.h")]
-        )
-    },
-    "random.": {
-        PyImport("random"): CallMapInfoReplaceDotWithDoubleColon(
-            [QInc("pypp_random.h")]
         )
     },
     "pypp_time.": {

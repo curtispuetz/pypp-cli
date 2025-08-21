@@ -7,6 +7,7 @@
 #include "py_tuple.h"
 #include "pypp_util/print.h"
 #include "slice/creators.h"
+#include "slice/py_slice.h"
 
 void f_strings_fn() {
     print(PyStr("F STRING RESULTS:"));
