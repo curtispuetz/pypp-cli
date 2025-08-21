@@ -14,15 +14,22 @@ def _calc_module_beginning(module: str) -> str:
 @dataclass(frozen=True, slots=True)
 class ImportsMap:
     modules: set[str]
-    libraries: set[str]
+    # The value is the ignored set
+    libraries: dict[str, set[str]]
 
     def contains(self, name: str) -> bool:
-        return name in self.modules or _calc_module_beginning(name) in self.libraries
+        if name in self.modules:
+            return True
+        key = _calc_module_beginning(name)
+        if key in self.libraries:
+            if name not in self.libraries[key]:
+                return True
+        return False
 
 
 def calc_imports_map(proj_info: dict, dirs: PyppDirs) -> ImportsMap:
     modules: set[str] = set()
-    libraries: set[str] = set()
+    libraries: dict[str, set[str]] = {}
     for installed_library in proj_info["installed_libraries"]:
         json_path: Path = dirs.calc_bridge_json(installed_library, "imports_map")
         if json_path.is_file():
@@ -38,7 +45,7 @@ def calc_imports_map(proj_info: dict, dirs: PyppDirs) -> ImportsMap:
                         f"verified on install"
                     )
                     if len(r["ignore"]) == 0:
-                        libraries.add(installed_library)
+                        libraries[installed_library] = set()
                     else:
-                        raise NotImplementedError("ignore values in imports_map.json")
+                        libraries[installed_library] = set(r["ignore"])
     return ImportsMap(modules, libraries)

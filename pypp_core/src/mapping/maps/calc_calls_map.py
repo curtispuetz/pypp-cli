@@ -20,9 +20,6 @@ from pypp_core.src.mapping.info_types import (
     CallsMap,
 )
 
-# TODO: there will also be an option to ignore certain py imports (as menitoned in a
-#  TODO elsewhere). So, remember that in there you could put certain exceptions for
-#  py my_lib imports to ignore if you use the 'all' option mentioned above.
 # TODO: consider naming caller_str to cpp_caller_str to avoid confusion. And maybe the
 #  same for names and attrs if a similar thing exists there.
 
