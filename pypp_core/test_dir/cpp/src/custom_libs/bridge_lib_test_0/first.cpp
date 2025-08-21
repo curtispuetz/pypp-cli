@@ -10,6 +10,7 @@
 #include "pypp_bridge_library_test_0/pseudo_custom_type_cpp.h"
 #include "pypp_bridge_library_test_0/replace_with_double_colon_call.h"
 #include "pypp_util/print.h"
+#include <iostream>
 
 void _as_arg(PseudoCustomTypeCpp &arg) { print(arg.get_a()); }
 
@@ -61,4 +62,5 @@ void bridge_lib_test_0_fn() {
     print(j);
     print(pseudo_fn_a());
     print(m2::pseudo_fn_b());
+    std::cout << "[Custom Print]: " << PyStr("aloha") << std::endl;
 }
