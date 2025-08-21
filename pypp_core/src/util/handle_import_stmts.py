@@ -6,7 +6,6 @@ from pypp_core.src.mapping.maps.maps import Maps
 from pypp_core.src.util.ret_imports import IncMap
 
 
-# TODO now: delete proj_info dependency
 def handle_import_stmts(
     stmts: list[ast.stmt], maps: Maps, src_py_files: list[Path]
 ) -> tuple[IncMap, int, PyImports]:
@@ -35,7 +34,7 @@ def handle_import_stmts(
                 if name.name in modules_in_project:
                     raise ValueError(
                         "Import is not supported for project imports "
-                        "(only ImportFrom is)"
+                        "(only ImportFrom is supported)"
                     )
                 if maps.modules_to_cpp_include.contains(name.name):
                     assert name.asname is not None, (

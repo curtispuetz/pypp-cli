@@ -30,8 +30,6 @@ def write_cmake_lists_file(dirs: PyppDirs, main_py_files: list[Path]):
     cmake_content = "\n".join(cmake_lines)
 
     cmake_path: Path = dirs.cpp_dir / "CMakeLists.txt"
-    # TODO now: Do I need to encoding or can I just write the file without simply?
-    with open(cmake_path, "w", encoding="utf-8") as f:
-        f.write(cmake_content)
+    cmake_path.write_text(cmake_content)
 
     print("CMakeLists.txt generated to cpp project directory")
