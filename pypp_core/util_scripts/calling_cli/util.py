@@ -1,12 +1,12 @@
-import os
+from pathlib import Path
 import sys
 
 from pypp_core.cli import main_cli
 
-dirname: str = os.path.dirname(__file__)
+dirname = Path(__file__).parent
 
 
 def run_cli(args):
     sys.argv = ["prog"] + args  # "prog" simulates the script name
-    test_dir = os.path.join(dirname, "../../test_dir")
+    test_dir = dirname.parent.parent / "test_dir"
     main_cli(test_dir)

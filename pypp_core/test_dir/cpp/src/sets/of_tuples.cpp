@@ -1,4 +1,4 @@
-#include "sets\of_tuples.h"
+#include "sets/of_tuples.h"
 #include "py_set.h"
 #include "py_str.h"
 #include "py_tuple.h"

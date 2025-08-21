@@ -1,5 +1,4 @@
-import os
-
+from pathlib import Path
 import argparse
 
 from pypp_core.src.config import PyppDirs
@@ -11,7 +10,7 @@ from pypp_core.src.main_scripts.run_python import pypp_run_python
 from pypp_core.src.main_scripts.uninstall import pypp_uninstall
 
 
-def main_cli(absolute_dir: str | None = None) -> None:
+def main_cli(absolute_dir: Path | None = None) -> None:
     parser = argparse.ArgumentParser(description="pypp CLI tool.")
     subparsers = parser.add_subparsers(dest="mode", required=False)
     subparsers.add_parser(
@@ -52,11 +51,11 @@ def main_cli(absolute_dir: str | None = None) -> None:
 
     args = parser.parse_args()
     if absolute_dir is None:
-        absolute_dir = os.getcwd()
+        absolute_dir = Path.cwd()
     pypp_dirs = PyppDirs(absolute_dir)
     if args.mode == "init":
         pypp_init(pypp_dirs)
-    elif not os.path.exists(pypp_dirs.proj_info_file):
+    elif not pypp_dirs.proj_info_file.exists():
         parser.error(
             "pypp_data/proj_info.json file not found. "
             "Ensure your Py++ project is properly initialized."

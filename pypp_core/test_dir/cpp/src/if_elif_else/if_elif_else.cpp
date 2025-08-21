@@ -1,4 +1,4 @@
-#include "if_elif_else\if_elif_else.h"
+#include "if_elif_else/if_elif_else.h"
 
 PyStr if_elif_else_fn(int a, int b) {
     PyStr ret;

@@ -1,5 +1,4 @@
 import json
-import os.path
 import shutil
 
 from pypp_core.src.config import PyppDirs
@@ -20,9 +19,9 @@ def pypp_install(library: str, dirs: PyppDirs):
 def _copy_cpp_library_files_if_any(library_name: str, dirs: PyppDirs):
     src_dir = dirs.calc_library_cpp_data_dir(library_name)
     dest_dir = dirs.calc_cpp_libs_dir(library_name)
-    if os.path.exists(dest_dir):
+    if dest_dir.exists():
         shutil.rmtree(dest_dir)
-    if os.path.exists(src_dir):
+    if src_dir.exists():
         shutil.copytree(src_dir, dest_dir)
 
 

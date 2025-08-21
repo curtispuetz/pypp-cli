@@ -1,5 +1,5 @@
 import json
-import os
+from pathlib import Path
 from typing import Callable
 
 from pypp_core.src.config import PyppDirs
@@ -72,8 +72,8 @@ mapping_funcs: dict[str, Callable[[dict], CallMapInfo]] = {
 def calc_calls_map(proj_info: dict, dirs: PyppDirs) -> CallsMap:
     ret = CALLS_MAP.copy()
     for installed_library in proj_info["installed_libraries"]:
-        json_path = dirs.calc_bridge_json(installed_library, "calls_map")
-        if os.path.isfile(json_path):
+        json_path: Path = dirs.calc_bridge_json(installed_library, "calls_map")
+        if json_path.is_file():
             with open(json_path, "r") as f:
                 m: dict = json.load(f)
             # Note: No assertions required here because the structure is (or will be)

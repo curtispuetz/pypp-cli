@@ -1,15 +1,8 @@
-import os
-
+from pathlib import Path
 from pypp_core.src.config import PyppDirs
-from pypp_core.src.util.file_change_tracker import get_all_main_files
 
 
-def write_cmake_lists_file(dirs: PyppDirs):
-    # Find all .py files in the directory
-    main_py_files = get_all_main_files(dirs.python_dir)
-    if not main_py_files:
-        raise Exception(f"No Python files (*.py) found in '{dirs.python_dir}'.")
-
+def write_cmake_lists_file(dirs: PyppDirs, main_py_files: list[Path]):
     cmake_lines = [
         "cmake_minimum_required(VERSION 4.0)",
         "project(pypp LANGUAGES CXX)",
@@ -28,7 +21,7 @@ def write_cmake_lists_file(dirs: PyppDirs):
     ]
 
     for py_file in main_py_files:
-        exe_name = os.path.splitext(py_file)[0]
+        exe_name = py_file.stem
         main_cpp = f"{exe_name}.cpp"
         cmake_lines.append(f"add_executable({exe_name} {main_cpp})")
         cmake_lines.append(f"target_link_libraries({exe_name} PRIVATE pypp_common)")
@@ -36,7 +29,8 @@ def write_cmake_lists_file(dirs: PyppDirs):
 
     cmake_content = "\n".join(cmake_lines)
 
-    cmake_path = os.path.join(dirs.cpp_dir, "CMakeLists.txt")
+    cmake_path: Path = dirs.cpp_dir / "CMakeLists.txt"
+    # TODO now: Do I need to encoding or can I just write the file without simply?
     with open(cmake_path, "w", encoding="utf-8") as f:
         f.write(cmake_content)
 

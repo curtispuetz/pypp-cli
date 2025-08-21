@@ -3,8 +3,13 @@ import ast
 from pypp_core.src.d_types import QInc
 from pypp_core.src.mapping.maps.maps import Maps
 from pypp_core.src.util.ret_imports import IncMap
+# Note: should I rethink this? Maybe I should just only add to the cpp_inc_map
+# if the module is for the project that is being developed. And then secondly if
+# the module is in the allowed modules for libraries. Then I don't need a disallowed
+# set because everything is disallowed except for those things.
+# Users need to specify 'cpp_includes' in the map json files instead.
 
-
+# TODO now: move the content here to the handle_lists.py file and rename that file
 _DISALLOWED_SET: set[str] = {
     "typing",
     "dataclasses",

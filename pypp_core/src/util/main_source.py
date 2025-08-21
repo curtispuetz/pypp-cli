@@ -1,4 +1,5 @@
 import ast
+from pathlib import Path
 
 from pypp_core.src.d_types import QInc
 from pypp_core.src.deps import Deps, DepsDeps
@@ -30,7 +31,7 @@ def calc_main_cpp_source(main_py: ast.Module, proj_info: dict, maps: Maps) -> st
 
 
 def calc_src_file_cpp_and_h_source(
-    src_py: ast.Module, h_file: str, proj_info: dict, maps: Maps
+    src_py: ast.Module, h_file: Path, proj_info: dict, maps: Maps
 ) -> tuple[str, str]:
     cpp_inc_map, i, py_imports = handle_import_stmts(src_py.body, proj_info, maps)
     d: Deps = Deps(
@@ -48,7 +49,7 @@ def calc_src_file_cpp_and_h_source(
     if cpp_source_minus_include.strip() == "":
         ret_cpp_str = ""
     else:
-        all_cpp_includes = f'#include "{h_file}"\n' + cpp_includes
+        all_cpp_includes = f'#include "{h_file.as_posix()}"\n' + cpp_includes
         ret_cpp_str = all_cpp_includes + cpp_source_minus_include
     ret_h_str: str = "#pragma once\n\n" + h_includes + " ".join(d.ret_h_file)
 

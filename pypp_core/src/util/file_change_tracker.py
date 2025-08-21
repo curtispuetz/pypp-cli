@@ -1,4 +1,3 @@
-import os
 import json
 from dataclasses import dataclass
 import fnmatch
@@ -7,90 +6,88 @@ from pathlib import Path
 from pypp_core.src.config import PyppDirs, create_test_dir_pypp_dirs
 from pypp_core.src.constants import SECRET_MAIN_FILE_DIR_PREFIX
 
+# TODO: add type hints
 
-def _get_all_files(root: str) -> list[str]:
-    # Tested. Results: works.
-    ret: list[str] = []
-    for dirpath, _, filenames in os.walk(root):
-        for filename in filenames:
-            if filename.endswith(".py"):
-                full_path = os.path.join(dirpath, filename)
-                ret.append(os.path.relpath(full_path, root))
+
+def _get_all_files(root: Path) -> list[Path]:
+    ret: list[Path] = []
+    for path in root.rglob("*.py"):
+        ret.append(path.relative_to(root))
     return ret
 
 
-def get_all_main_files(python_dir: str) -> list[str]:
-    return [f for f in os.listdir(python_dir) if f.endswith(".py")]
+def get_all_main_files(python_dir: Path) -> list[Path]:
+    return [f for f in python_dir.glob("*.py") if f.is_file()]
 
 
-def _get_all_main_files_with_special_name(python_dir: str) -> list[tuple[str, str]]:
-    return [
-        (f, SECRET_MAIN_FILE_DIR_PREFIX + f) for f in get_all_main_files(python_dir)
-    ]
+def _get_main_files_special_names(main_py_files: list[Path]) -> list[Path]:
+    return [Path(SECRET_MAIN_FILE_DIR_PREFIX + f.name) for f in main_py_files]
 
 
-def _load_previous_timestamps(timestamps_file: str):
-    if os.path.exists(timestamps_file):
+def _load_previous_timestamps(timestamps_file: Path) -> dict[str, float]:
+    if timestamps_file.exists():
         with open(timestamps_file, "r") as f:
             return json.load(f)
     return {}
 
 
-def save_timestamps(timestamps, timestamps_file: str):
+def save_timestamps(timestamps: dict, timestamps_file: Path):
     with open(timestamps_file, "w") as f:
         json.dump(timestamps, f, indent=2)
 
 
 @dataclass(frozen=True, slots=True)
 class _PyFileChanges:
-    changed_files: list[str]
-    new_files: list[str]
-    deleted_files: list[str]
+    changed_files: list[Path]
+    new_files: list[Path]
+    deleted_files: list[Path]
 
 
 def _check_file_change(
-    filepath,
-    rel_path,
-    curr_timestamps,
-    prev_timestamps,
-    changed_files,
-    new_files,
-    deleted_files,
+    filepath: Path,
+    rel_path: Path,
+    rel_path_posix: str,
+    curr_timestamps: dict[str, float],
+    prev_timestamps: dict[str, float],
+    changed_files: list[Path],
+    new_files: list[Path],
+    deleted_files: set[Path],
 ):
-    mtime = os.path.getmtime(filepath)
-    curr_timestamps[rel_path] = mtime
-    if rel_path in prev_timestamps:
+    mtime = filepath.stat().st_mtime
+    curr_timestamps[rel_path_posix] = mtime
+    if rel_path_posix in prev_timestamps:
         deleted_files.discard(rel_path)
-        if prev_timestamps[rel_path] != mtime:
+        if prev_timestamps[rel_path_posix] != mtime:
             changed_files.append(rel_path)
     else:
         new_files.append(rel_path)
 
 
-def _should_ignore_file(src_file_rel_path: str, ignore_src_files: list[str]) -> bool:
-    s: str = Path(src_file_rel_path).as_posix()
+def _should_ignore_file(rel_path_posix: str, ignore_src_files: list[str]) -> bool:
     for pattern in ignore_src_files:
-        if fnmatch.fnmatch(s, pattern):
+        if fnmatch.fnmatch(rel_path_posix, pattern):
             return True
     return False
 
 
 def calc_py_file_changes(
-    dirs: PyppDirs, ignore_src_files: list[str]
+    dirs: PyppDirs, ignore_src_files: list[str], main_py_files: list[Path]
 ) -> tuple[_PyFileChanges, dict]:
-    prev_timestamps = _load_previous_timestamps(dirs.timestamps_file)
-    curr_timestamps = {}
-    changed_files = []
-    new_files = []
-    deleted_files = set(prev_timestamps.keys())
+    prev_timestamps: dict[str, float] = _load_previous_timestamps(dirs.timestamps_file)
+    curr_timestamps: dict[str, float] = {}
+    changed_files: list[Path] = []
+    new_files: list[Path] = []
+    deleted_files: set[Path] = {Path(k) for k in prev_timestamps.keys()}
     ignored_src_files = 0
 
     for rel_path in _get_all_files(dirs.python_src_dir):
-        abs_path = os.path.join(dirs.python_src_dir, rel_path)
-        if not _should_ignore_file(rel_path, ignore_src_files):
+        abs_path: Path = dirs.python_src_dir / rel_path
+        rel_path_posix: str = rel_path.as_posix()
+        if not _should_ignore_file(rel_path_posix, ignore_src_files):
             _check_file_change(
                 abs_path,
                 rel_path,
+                rel_path_posix,
                 curr_timestamps,
                 prev_timestamps,
                 changed_files,
@@ -99,10 +96,12 @@ def calc_py_file_changes(
             )
         else:
             ignored_src_files += 1
-    for rel_path, secret_name in _get_all_main_files_with_special_name(dirs.python_dir):
+    secret_names = _get_main_files_special_names(main_py_files)
+    for abs_path, rel_path in zip(main_py_files, secret_names):
         _check_file_change(
-            os.path.join(dirs.python_dir, rel_path),
-            secret_name,
+            abs_path,
+            rel_path,
+            rel_path.as_posix(),
             curr_timestamps,
             prev_timestamps,
             changed_files,
@@ -126,4 +125,5 @@ def calc_py_file_changes(
 
 
 if __name__ == "__main__":
-    calc_py_file_changes(create_test_dir_pypp_dirs(), [])
+    pypp_dirs = create_test_dir_pypp_dirs()
+    calc_py_file_changes(pypp_dirs, [], get_all_main_files(pypp_dirs.python_dir))
