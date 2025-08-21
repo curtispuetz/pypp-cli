@@ -4,7 +4,7 @@ from functools import partial
 from multiprocessing import Pool
 from pathlib import Path
 
-from pypp_core.src.config import PyppDirs, create_test_dir_pypp_dirs
+from pypp_core.src.config import PyppDirs
 
 
 def _format_file(file: Path, dirs: PyppDirs):
@@ -23,7 +23,3 @@ def pypp_format(files_added_or_modified: list[Path], dirs: PyppDirs):
         f"files formatted: {len(files_added_or_modified)}, "
         f"cores used: {num_cores}"
     )
-
-
-if __name__ == "__main__":
-    pypp_format([], create_test_dir_pypp_dirs())

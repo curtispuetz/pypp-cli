@@ -2,7 +2,7 @@ import ast
 import json
 from pathlib import Path
 
-from pypp_core.src.config import PyppDirs, create_test_dir_pypp_dirs
+from pypp_core.src.config import PyppDirs
 from pypp_core.src.constants import SECRET_MAIN_FILE_DIR_PREFIX
 from pypp_core.src.mapping.maps.maps import Maps, calc_maps
 from pypp_core.src.util.file_change_tracker import (
@@ -147,7 +147,3 @@ def pypp_transpile(dirs: PyppDirs) -> list[Path]:
     save_timestamps(file_timestamps, dirs.timestamps_file)
 
     return files_added_or_modified
-
-
-if __name__ == "__main__":
-    pypp_transpile(create_test_dir_pypp_dirs())

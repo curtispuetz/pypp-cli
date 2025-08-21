@@ -1,6 +1,6 @@
 import subprocess
 
-from pypp_core.src.config import PyppDirs, create_test_dir_pypp_dirs
+from pypp_core.src.config import PyppDirs
 
 
 def pypp_build(dirs: PyppDirs):
@@ -16,7 +16,3 @@ def pypp_build(dirs: PyppDirs):
         check=True,
     )
     print("cmake build finished")
-
-
-if __name__ == "__main__":
-    pypp_build(create_test_dir_pypp_dirs())
