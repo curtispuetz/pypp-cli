@@ -11,6 +11,8 @@ def pip_install_or_uninstall(library: str, dirs: PyppDirs, install: bool) -> str
     p = Path(library)
     wheel_file: Path = _find_wheel_file(p)
     subprocess.check_call([dirs.calc_py_executable(), "-m", "pip", s, str(wheel_file)])
+    # Remove timestamps file because changing a library might change how things are
+    # transpiled
     if dirs.timestamps_file.exists():
         dirs.timestamps_file.unlink()
     return p.name
