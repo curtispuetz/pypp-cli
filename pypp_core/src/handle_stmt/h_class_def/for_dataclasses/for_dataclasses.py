@@ -4,7 +4,7 @@ from pypp_core.src.deps import Deps
 from pypp_core.src.handle_stmt.h_class_def.create_final_str import (
     create_final_str_for_class_def,
 )
-from pypp_core.src.handle_stmt.h_class_def.for_dataclasses.calc_fields_and_methods import (
+from pypp_core.src.handle_stmt.h_class_def.for_dataclasses.calc_fields_and_methods import (  # noqa: E501
     calc_fields_and_methods_for_dataclass,
 )
 from pypp_core.src.handle_stmt.h_class_def.for_dataclasses.calc_constructor_sig import (

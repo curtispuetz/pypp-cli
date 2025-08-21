@@ -13,7 +13,7 @@ from pypp_core.src.mapping.info_types import (
 )
 
 
-def _default_dict(node: ast.Call, d) -> str:
+def _default_dict(_node: ast.Call, _d) -> str:
     raise Exception(
         "defaultdict must be called with type info "
         "(i.e. defaultdict[KeyType, ValueType])"

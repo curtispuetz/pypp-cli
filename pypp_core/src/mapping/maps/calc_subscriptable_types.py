@@ -26,6 +26,6 @@ def calc_subscriptable_types(proj_info: dict, dirs: PyppDirs) -> SubscriptableTy
         proj_info,
         dirs,
         "subscriptable_types",
-        lambda a, b: None,
+        lambda _a, _b: None,
         _warning_msg,
     )

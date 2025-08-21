@@ -23,3 +23,5 @@ lint.ignore = [
     "E731", # assigning a lambda expression to a var
     "E741", # ambiguous variable names (i.e. 'l', 'O', 'I')
 ]
+lint.select = ["E", "F", "ARG"]
+line-length = 88

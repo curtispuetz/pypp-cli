@@ -17,7 +17,7 @@ from pypp_core.src.util.initalize_cpp import (
 from pypp_core.src.util.calc_ast_tree import (
     calc_ast_tree,
 )
-from pypp_core.src.util.main_source import (
+from pypp_core.src.util.source_calculator import (
     calc_main_cpp_source,
     calc_src_file_cpp_and_h_source,
 )
@@ -45,7 +45,6 @@ def _transpile_cpp_and_h_files(
     dirs: PyppDirs,
     header_files_written: int,
     cpp_files_written: int,
-    proj_info: dict,
     maps: Maps,
     src_py_files: list[Path],
 ) -> tuple[int, int]:
@@ -133,7 +132,6 @@ def pypp_transpile(dirs: PyppDirs) -> list[Path]:
             dirs,
             header_files_written,
             cpp_files_written,
-            proj_info,
             maps,
             src_py_files,
         )
