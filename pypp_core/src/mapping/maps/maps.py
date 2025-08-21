@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from pypp_core.src.config import PyppDirs
+from pypp_core.src.pypp_dirs import PyppDirs
 from pypp_core.src.mapping.maps.calc_attrs_map import calc_attrs_map
 from pypp_core.src.mapping.maps.calc_calls_map import calc_calls_map
 from pypp_core.src.mapping.maps.calc_fn_args_by_value import (

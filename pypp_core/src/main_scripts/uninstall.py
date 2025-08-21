@@ -1,7 +1,7 @@
 import json
 import shutil
 
-from pypp_core.src.config import PyppDirs
+from pypp_core.src.pypp_dirs import PyppDirs
 from pypp_core.src.main_scripts.util.pip_helper import (
     pip_install_or_uninstall,
 )

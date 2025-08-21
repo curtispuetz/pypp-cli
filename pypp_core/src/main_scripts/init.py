@@ -2,7 +2,7 @@ import json
 from pathlib import Path
 import subprocess
 
-from pypp_core.src.config import PyppDirs
+from pypp_core.src.pypp_dirs import PyppDirs
 import venv
 
 

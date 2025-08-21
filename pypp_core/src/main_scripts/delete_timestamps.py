@@ -1,4 +1,4 @@
-from pypp_core.src.config import PyppDirs
+from pypp_core.src.pypp_dirs import PyppDirs
 
 
 def pypp_delete_timestamps(dirs: PyppDirs):

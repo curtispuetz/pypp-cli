@@ -2,7 +2,7 @@ import ast
 import json
 from pathlib import Path
 
-from pypp_core.src.config import PyppDirs
+from pypp_core.src.pypp_dirs import PyppDirs
 from pypp_core.src.constants import SECRET_MAIN_FILE_DIR_PREFIX
 from pypp_core.src.mapping.maps.maps import Maps, calc_maps
 from pypp_core.src.util.file_change_tracker import (

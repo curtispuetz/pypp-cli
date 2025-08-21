@@ -3,7 +3,7 @@ from pathlib import Path
 import shutil
 from importlib.resources import files, as_file
 
-from pypp_core.src.config import PyppDirs
+from pypp_core.src.pypp_dirs import PyppDirs
 from pypp_core.src.util.util import rm_dirs_and_files
 
 

@@ -2,7 +2,7 @@ import json
 from pathlib import Path
 from typing import Callable
 
-from pypp_core.src.config import PyppDirs
+from pypp_core.src.pypp_dirs import PyppDirs
 from pypp_core.src.handle_expr.h_call.default_map import CALLS_MAP
 from pypp_core.src.mapping.maps.util import (
     calc_cpp_includes,

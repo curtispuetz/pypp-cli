@@ -1,4 +1,4 @@
-from pypp_core.src.config import PyppDirs
+from pypp_core.src.pypp_dirs import PyppDirs
 from pypp_core.src.d_types import PySpecificImpFrom
 from pypp_core.src.mapping.info_types import SubscriptableTypesMap
 from pypp_core.src.mapping.maps.util import load_map
