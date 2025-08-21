@@ -4,10 +4,20 @@ from pathlib import Path
 from pypp_core.src.config import PyppDirs
 
 
+def _calc_module_beginning(module: str) -> str:
+    f = module.find(".")
+    if f == -1:
+        return module
+    return module[:f]
+
+
 @dataclass(frozen=True, slots=True)
 class ModulesToCppInclude:
     modules: set[str]
     libraries: set[str]
+
+    def contains(self, name: str) -> bool:
+        return name in self.modules or _calc_module_beginning(name) in self.libraries
 
 
 def calc_modules_to_cpp_include(proj_info: dict, dirs: PyppDirs) -> ModulesToCppInclude:
