@@ -9,14 +9,14 @@ from pypp_core.src.constants import SECRET_MAIN_FILE_DIR_PREFIX
 # TODO: add type hints
 
 
-def _get_all_files(root: Path) -> list[Path]:
+def _get_all_py_files(root: Path) -> list[Path]:
     ret: list[Path] = []
     for path in root.rglob("*.py"):
         ret.append(path.relative_to(root))
     return ret
 
 
-def get_all_main_files(python_dir: Path) -> list[Path]:
+def get_all_main_py_files(python_dir: Path) -> list[Path]:
     return [f for f in python_dir.glob("*.py") if f.is_file()]
 
 
@@ -80,7 +80,7 @@ def calc_py_file_changes(
     deleted_files: set[Path] = {Path(k) for k in prev_timestamps.keys()}
     ignored_src_files = 0
 
-    for rel_path in _get_all_files(dirs.python_src_dir):
+    for rel_path in _get_all_py_files(dirs.python_src_dir):
         abs_path: Path = dirs.python_src_dir / rel_path
         rel_path_posix: str = rel_path.as_posix()
         if not _should_ignore_file(rel_path_posix, ignore_src_files):
@@ -126,4 +126,4 @@ def calc_py_file_changes(
 
 if __name__ == "__main__":
     pypp_dirs = create_test_dir_pypp_dirs()
-    calc_py_file_changes(pypp_dirs, [], get_all_main_files(pypp_dirs.python_dir))
+    calc_py_file_changes(pypp_dirs, [], get_all_main_py_files(pypp_dirs.python_dir))
