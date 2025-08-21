@@ -45,7 +45,7 @@ def handle_general_ann_assign(
     value_str = d.handle_expr(node.value)
     if value_str == "PyList({})":
         value_str = _empty_initialize("PyList", type_cpp)
-    elif value_str == "set()":
+    elif value_str == "PySet()":
         value_str = _empty_initialize("PySet", type_cpp)
     return _calc_final_str(value_str, const_str, type_cpp, target_str)
 

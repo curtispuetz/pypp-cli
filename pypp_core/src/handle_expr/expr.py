@@ -20,15 +20,11 @@ from pypp_core.src.handle_expr.h_yield import handle_yield
 from pypp_core.src.handle_expr.h_yield_from import handle_yield_from
 
 
-def handle_expr(
-    node: ast.expr,
-    d: Deps,
-    skip_cpp_lookup: bool,
-) -> str:
+def handle_expr(node: ast.expr, d: Deps) -> str:
     if isinstance(node, ast.Compare):
         return handle_compare(node, d)
     if isinstance(node, ast.Name):
-        return handle_name(node, d, skip_cpp_lookup)
+        return handle_name(node, d)
     if isinstance(node, ast.Constant):
         return handle_constant(node, d)
     if isinstance(node, ast.Call):

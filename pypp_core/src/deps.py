@@ -13,7 +13,7 @@ class DepsDeps:
     ret_h_file: list[str]
     py_imports: PyImports
     maps: Maps
-    handle_expr_fn: Callable[[ast.expr, "Deps", bool], str]
+    handle_expr_fn: Callable[[ast.expr, "Deps"], str]
     handle_stmt: Callable[[ast.stmt, "Deps"], str]
 
 
@@ -30,12 +30,8 @@ class Deps:
     def set_inc_in_h(self, include: bool):
         self._include_in_header = include
 
-    def handle_expr(
-        self,
-        node: ast.expr,
-        skip_cpp_lookup: bool = False,
-    ) -> str:
-        return self.handle_expr_fn(node, self, skip_cpp_lookup)
+    def handle_expr(self, node: ast.expr) -> str:
+        return self.handle_expr_fn(node, self)
 
     def handle_exprs(self, exprs: list[ast.expr]):
         ret: list[str] = []
