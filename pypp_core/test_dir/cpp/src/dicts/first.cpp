@@ -1,4 +1,4 @@
-#include "dicts\first.h"
+#include "dicts/first.h"
 #include "py_dict.h"
 #include "py_list.h"
 #include "py_str.h"

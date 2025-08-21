@@ -1,11 +1,9 @@
-import os
-
 from pypp_core.src.config import PyppDirs
 
 
 def pypp_delete_timestamps(dirs: PyppDirs):
-    if not os.path.exists(dirs.timestamps_file):
+    if not dirs.timestamps_file.exists():
         print("file_timestamps.json does not exist, nothing to remove")
     else:
-        os.remove(dirs.timestamps_file)
+        dirs.timestamps_file.unlink()
         print("file_timestamps.json removed")

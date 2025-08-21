@@ -1,6 +1,6 @@
 import json
-import os
 from collections.abc import Callable
+from pathlib import Path
 from typing import TypeVar
 
 from pypp_core.src.config import PyppDirs
@@ -76,8 +76,8 @@ def load_map(
 ) -> dict[str, dict[PySpecificImport | None, T]]:
     ret = default_map.copy()
     for installed_library in proj_info["installed_libraries"]:
-        json_path = dirs.calc_bridge_json(installed_library, json_file_name)
-        if os.path.isfile(json_path):
+        json_path: Path = dirs.calc_bridge_json(installed_library, json_file_name)
+        if json_path.is_file():
             with open(json_path, "r") as f:
                 m: dict = json.load(f)
             for _type, obj in m.items():

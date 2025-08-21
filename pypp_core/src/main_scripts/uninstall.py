@@ -1,5 +1,4 @@
 import json
-import os.path
 import shutil
 
 from pypp_core.src.config import PyppDirs
@@ -16,7 +15,7 @@ def pypp_uninstall(library: str, dirs: PyppDirs):
 
 def _delete_cpp_library_files(library_name: str, dirs: PyppDirs):
     dest_dir = dirs.calc_cpp_libs_dir(library_name)
-    if os.path.exists(dest_dir):
+    if dest_dir.exists():
         shutil.rmtree(dest_dir)
 
 

@@ -1,4 +1,4 @@
-#include "random_library\first.h"
+#include "random_library/first.h"
 #include "py_str.h"
 #include "pypp_random.h"
 #include "pypp_util/print.h"

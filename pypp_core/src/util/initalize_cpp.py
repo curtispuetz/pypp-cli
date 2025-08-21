@@ -1,5 +1,5 @@
 import json
-import os
+from pathlib import Path
 import shutil
 from importlib.resources import files, as_file
 
@@ -12,8 +12,8 @@ def initialize_cpp_project(dirs: PyppDirs, proj_info: dict):
     _copy_cpp_template_to_cpp_dir(dirs)
     # Need to remove the timestamps file because all the C++ files need to be
     # generated again.
-    if os.path.exists(dirs.timestamps_file):
-        os.remove(dirs.timestamps_file)
+    if dir.timestamps_file.exists():
+        dir.timestamps_file.unlink()
     _set_cpp_dir_not_dirty_in_json(dirs, proj_info)
 
 
@@ -23,7 +23,7 @@ def _copy_cpp_template_to_cpp_dir(dirs: PyppDirs):
     template_root = files("pypp_core.data.cpp_template")
     for item in template_root.iterdir():
         with as_file(item) as src_path:
-            dst_path = os.path.join(dirs.cpp_dir, item.name)
+            dst_path: Path = dir.cpp_dir / item.name
             if src_path.is_dir():
                 shutil.copytree(src_path, dst_path)
             else:

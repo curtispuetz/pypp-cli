@@ -1,4 +1,4 @@
-#include "imports_test\second.h"
+#include "imports_test/second.h"
 #include "constants.h"
 #include "py_str.h"
 #include "pypp_util/print.h"

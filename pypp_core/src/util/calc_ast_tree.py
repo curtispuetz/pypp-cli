@@ -1,11 +1,10 @@
 import ast
-import os
+from pathlib import Path
 
 
-def calc_ast_tree(file: str) -> ast.Module:
-    assert os.path.exists(file), "Shouldn't happen"
-    with open(file) as py_file:
-        py_source_code = py_file.read()
+def calc_ast_tree(file: Path) -> ast.Module:
+    assert file.exists(), "Shouldn't happen"
+    py_source_code: str = file.read_text()
     ast_tree = ast.parse(py_source_code)
     assert isinstance(ast_tree, ast.Module), "Shouldn't happen"
     return ast_tree

@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 import json
-import os
+from pathlib import Path
 from pypp_core.src.config import PyppDirs
 
 
@@ -14,10 +14,10 @@ def calc_modules_to_cpp_include(proj_info: dict, dirs: PyppDirs) -> ModulesToCpp
     modules: set[str] = set()
     libraries: set[str] = set()
     for installed_library in proj_info["installed_libraries"]:
-        json_path = dirs.calc_bridge_json(
+        json_path: Path = dirs.calc_bridge_json(
             installed_library, "modules_to_cpp_include_map"
         )
-        if os.path.isfile(json_path):
+        if json_path.is_file():
             with open(json_path, "r") as f:
                 # Note: Json should already be verified valid on library install.
                 r: list[str] = json.load(f)
