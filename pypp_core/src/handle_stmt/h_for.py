@@ -20,7 +20,8 @@ def handle_for(node: ast.For, d: Deps) -> str:
         # traditional C++ for loop syntax, since it is slightly more performant.
         iter_args: _IterArgs = _calc_iter_args(iter_str)
         return (
-            f"for (int {target_str} = {iter_args.start}; {target_str} < {iter_args.stop}; {target_str} += {iter_args.step}) "
+            f"for (int {target_str} = {iter_args.start}; "
+            f"{target_str} < {iter_args.stop}; {target_str} += {iter_args.step}) "
             + "{"
             + body_str
             + "}"

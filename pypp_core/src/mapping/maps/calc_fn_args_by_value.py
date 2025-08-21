@@ -35,6 +35,6 @@ def calc_fn_args_passed_by_value(proj_info: dict, dirs: PyppDirs) -> FnArgsByVal
         proj_info,
         dirs,
         "always_pass_by_value",
-        lambda a, b: None,
+        lambda _a, _b: None,
         _warning_msg,
     )

@@ -115,12 +115,14 @@ def _do_interface_assertions(node: ast.ClassDef) -> None:
     # has an 'abstractmethod' decorator
     for item in node.body:
         assert isinstance(item, ast.FunctionDef), (
-            f"only methods are supported in interface definitions, got {type(item).__name__}"
+            f"only methods are supported in interface definitions, got "
+            f"{type(item).__name__}"
         )
         if len(item.decorator_list) == 1:
             decorator = item.decorator_list[0]
             assert (
                 isinstance(decorator, ast.Name) and decorator.id == "abstractmethod"
             ), (
-                f"method {item.name} in interface {node.name} must be decorated only with @abstractmethod"
+                f"method {item.name} in interface {node.name} must be decorated only "
+                f"with @abstractmethod"
             )

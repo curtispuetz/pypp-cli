@@ -26,7 +26,8 @@ if __name__ == "__main__":
         file.writelines(
             [
                 f"add_executable({executable_name_prefix}_test main.cpp)\n",
-                f"target_link_libraries({executable_name_prefix}_test PRIVATE pypp_common)",
+                f"target_link_libraries({executable_name_prefix}_test PRIVATE "
+                f"pypp_common)",
             ]
         )
     # add subproject to parent cmakefile

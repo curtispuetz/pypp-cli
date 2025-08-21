@@ -9,11 +9,7 @@ def handle_class_def_for_interface(node: ast.ClassDef, d: Deps) -> str:
     class_name: str = node.name
     name_doesnt_start_with_underscore: bool = not class_name.startswith("_")
     d.set_inc_in_h(name_doesnt_start_with_underscore)
-    body_list = _calc_methods(
-        node,
-        d,
-        name_doesnt_start_with_underscore,
-    )
+    body_list = _calc_methods(node, d)
     d.set_inc_in_h(False)
     body_list.append(_calc_destructor(class_name))
     body_str: str = " ".join(body_list)
@@ -24,11 +20,7 @@ def handle_class_def_for_interface(node: ast.ClassDef, d: Deps) -> str:
     return result
 
 
-def _calc_methods(
-    node: ast.ClassDef,
-    d: Deps,
-    name_doesnt_start_with_underscore: bool,
-) -> list[str]:
+def _calc_methods(node: ast.ClassDef, d: Deps) -> list[str]:
     ret: list[str] = []
     for item in node.body:
         # Shouldn't happen because Because this was already checked

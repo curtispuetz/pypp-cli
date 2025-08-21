@@ -55,7 +55,8 @@ def handle_stmt(node: ast.stmt, d: Deps) -> str:
         return handle_type_alias(node, d)
     if isinstance(node, (ast.ImportFrom, ast.Import)):
         raise Exception(
-            "import statements are only supported at the top of the file before any other code."
+            "import statements are only supported at the top of the file before any "
+            "other code."
         )
     if isinstance(node, ast.Pass):
         raise Exception("pass keyword is not generally supported")
