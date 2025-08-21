@@ -1,7 +1,7 @@
 import subprocess
 from pathlib import Path
 
-from pypp_core.src.config import PyppDirs
+from pypp_core.src.pypp_dirs import PyppDirs
 
 
 def pypp_run(dirs: PyppDirs):

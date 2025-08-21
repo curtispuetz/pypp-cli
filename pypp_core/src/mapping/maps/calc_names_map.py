@@ -1,6 +1,6 @@
 from functools import partial
 
-from pypp_core.src.config import PyppDirs
+from pypp_core.src.pypp_dirs import PyppDirs
 from pypp_core.src.d_types import (
     PySpecificImpFrom,
     AngInc,

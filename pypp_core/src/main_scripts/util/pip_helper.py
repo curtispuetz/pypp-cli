@@ -1,7 +1,7 @@
 import subprocess
 from pathlib import Path
 
-from pypp_core.src.config import PyppDirs
+from pypp_core.src.pypp_dirs import PyppDirs
 from pypp_core.src.util.util import find_file_with_extension
 
 

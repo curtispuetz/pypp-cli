@@ -1,7 +1,7 @@
 from pathlib import Path
 import argparse
 
-from pypp_core.src.config import PyppDirs
+from pypp_core.src.pypp_dirs import PyppDirs
 from pypp_core.src.main_scripts.do import pypp_do
 from pypp_core.src.main_scripts.init import pypp_init
 from pypp_core.src.main_scripts.install import pypp_install

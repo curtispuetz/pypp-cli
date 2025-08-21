@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from pypp_core.src.config import PyppDirs
+from pypp_core.src.pypp_dirs import PyppDirs
 from pypp_core.src.main_scripts.build import pypp_build
 from pypp_core.src.main_scripts.format import pypp_format
 from pypp_core.src.main_scripts.run import pypp_run

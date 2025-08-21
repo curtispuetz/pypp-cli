@@ -1,5 +1,5 @@
 from pathlib import Path
-from pypp_core.src.config import PyppDirs
+from pypp_core.src.pypp_dirs import PyppDirs
 
 
 def write_cmake_lists_file(dirs: PyppDirs, main_py_files: list[Path]):

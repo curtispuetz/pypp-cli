@@ -3,7 +3,7 @@ from collections.abc import Callable
 from pathlib import Path
 from typing import TypeVar
 
-from pypp_core.src.config import PyppDirs
+from pypp_core.src.pypp_dirs import PyppDirs
 from pypp_core.src.d_types import (
     PySpecificImport,
     AngInc,
