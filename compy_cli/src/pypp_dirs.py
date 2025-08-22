@@ -11,9 +11,9 @@ class PyppDirs:
         self.cpp_src_dir: Path = self.cpp_dir / "src"
         self.python_dir: Path = target_dir / "python"
         self.python_src_dir: Path = self.python_dir / "src"
-        self.pypp_data_dir: Path = target_dir / "pypp_data"
-        self.timestamps_file: Path = self.pypp_data_dir / "file_timestamps.json"
-        self.proj_info_file: Path = self.pypp_data_dir / "proj_info.json"
+        self.compy_data_dir: Path = target_dir / "compy_data"
+        self.timestamps_file: Path = self.compy_data_dir / "file_timestamps.json"
+        self.proj_info_file: Path = self.compy_data_dir / "proj_info.json"
 
     def calc_py_executable(self) -> Path:
         return self.python_dir / ".venv" / "Scripts" / "python.exe"
