@@ -24,7 +24,7 @@ def calc_attr_map(proj_info: dict, dirs: PyppDirs) -> AttrMap:
         ATTR_MAP,
         proj_info,
         dirs,
-        "attrs_map",
+        "attr_map",
         calc_map_info,
         partial(calc_common_warning_msg, name="attribute"),
     )

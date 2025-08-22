@@ -20,9 +20,7 @@ def handle_import_stmts(
                 raise Exception("Duplicate import from module not supported")
             if node.module is None:
                 raise Exception("Relative imports not supported")
-            if node.module in modules_in_project or maps.imports_map.contains(
-                node.module
-            ):
+            if node.module in modules_in_project or maps.import_.contains(node.module):
                 inc: QInc = _calc_q_inc(node.module)
                 for alias in node.names:
                     assert alias.asname is None, "'as' is not supported in import from"
@@ -35,7 +33,7 @@ def handle_import_stmts(
                         "Import is not supported for project imports "
                         "(only ImportFrom is supported)"
                     )
-                if maps.imports_map.contains(name.name):
+                if maps.import_.contains(name.name):
                     assert name.asname is not None, (
                         f"import 'as' required for {name.name}"
                     )

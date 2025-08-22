@@ -60,7 +60,7 @@ mapping_funcs: dict[str, Callable[[dict], CallMapInfo]] = {
 def calc_call_map(proj_info: dict, dirs: PyppDirs) -> CallMap:
     ret = CALL_MAP.copy()
     for installed_library in proj_info["installed_libraries"]:
-        json_path: Path = dirs.calc_bridge_json(installed_library, "calls_map")
+        json_path: Path = dirs.calc_bridge_json(installed_library, "call_map")
         if json_path.is_file():
             with open(json_path, "r") as f:
                 m: dict = json.load(f)
@@ -82,7 +82,7 @@ def calc_call_map(proj_info: dict, dirs: PyppDirs) -> CallMap:
                             ret[k] = {required_import: mapping_funcs[mapping_type](v)}
                 else:
                     raise ValueError(
-                        f"invalid type '{mapping_type}' in calls_map.json for "
+                        f"invalid type '{mapping_type}' in call_map.json for "
                         f"'{installed_library}' library. "
                         f"This shouldn't happen because the json should be "
                         f"validated when the library is installed"

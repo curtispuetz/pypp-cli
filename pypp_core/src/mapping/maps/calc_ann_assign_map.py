@@ -54,7 +54,7 @@ mapping_funcs: dict[str, Callable[[dict], AnnAssignMapInfo]] = {
 def calc_ann_assign_map(proj_info: dict, dirs: PyppDirs) -> AnnAssignsMap:
     ret = ANN_ASSIGN_MAP.copy()
     for installed_library in proj_info["installed_libraries"]:
-        json_path: Path = dirs.calc_bridge_json(installed_library, "ann_assigns_map")
+        json_path: Path = dirs.calc_bridge_json(installed_library, "ann_assign_map")
         if json_path.is_file():
             with open(json_path, "r") as f:
                 m: dict = json.load(f)
@@ -77,7 +77,7 @@ def calc_ann_assign_map(proj_info: dict, dirs: PyppDirs) -> AnnAssignsMap:
                             ret[k] = {required_import: mapping_funcs[mapping_type](v)}
                 else:
                     raise ValueError(
-                        f"invalid type '{mapping_type}' in ann_assigns_map.json for "
+                        f"invalid type '{mapping_type}' in ann_assign_map.json for "
                         f"'{installed_library}' library. "
                         f"This shouldn't happen because the json should be "
                         f"validated when the library is installed"
