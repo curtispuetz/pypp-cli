@@ -83,18 +83,18 @@ type AnnAssignMapInfo = (
 )
 
 
-type NamesMapValue = dict[PySpecificImport | None, MapInfo]
-type CallsMapValue = dict[PySpecificImport | None, CallMapInfo]
-type AttrsMapValue = dict[PySpecificImport | None, MapInfo]
-type AnnAssignsMapValue = dict[PySpecificImport | None, AnnAssignMapInfo]
-type FnArgsByValueMapValue = dict[PySpecificImport | None, None]
-type SubscriptableTypesMapValue = dict[PySpecificImport | None, None]
-type NamesMap = dict[str, NamesMapValue]
-type CallsMap = dict[str, CallsMapValue]
-type AttrsMap = dict[str, AttrsMapValue]
-type FnArgsByValueMap = dict[str, FnArgsByValueMapValue]
-type SubscriptableTypesMap = dict[str, SubscriptableTypesMapValue]
-type AnnAssignsMap = dict[str, AnnAssignsMapValue]
+type NameMapValue = dict[PySpecificImport | None, MapInfo]
+type CallMapValue = dict[PySpecificImport | None, CallMapInfo]
+type AttrMapValue = dict[PySpecificImport | None, MapInfo]
+type AnnAssignMapValue = dict[PySpecificImport | None, AnnAssignMapInfo]
+type FnArgByValueMapValue = dict[PySpecificImport | None, None]
+type SubscriptableTypeMapValue = dict[PySpecificImport | None, None]
+type NameMap = dict[str, NameMapValue]
+type CallMap = dict[str, CallMapValue]
+type AttrMap = dict[str, AttrMapValue]
+type FnArgByValueMap = dict[str, FnArgByValueMapValue]
+type SubscriptableTypeMap = dict[str, SubscriptableTypeMapValue]
+type AnnAssignsMap = dict[str, AnnAssignMapValue]
 
-type NamesOrAttrsMap = NamesMap | AttrsMap
-type NamesCallsOrAttrsMapValue = NamesMapValue | AttrsMapValue | CallsMapValue
+type NameOrAttrMap = NameMap | AttrMap
+type NameCallOrAttrMapValue = NameMapValue | AttrMapValue | CallMapValue

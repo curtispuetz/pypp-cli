@@ -1,9 +1,9 @@
 from pypp_core.src.pypp_dirs import PyppDirs
 from pypp_core.src.d_types import PySpecificImpFrom
-from pypp_core.src.mapping.info_types import SubscriptableTypesMap
+from pypp_core.src.mapping.info_types import SubscriptableTypeMap
 from pypp_core.src.mapping.maps.util import load_map
 
-SUBSCRIPTABLE_TYPES: SubscriptableTypesMap = {
+SUBSCRIPTABLE_TYPE_MAP: SubscriptableTypeMap = {
     "PyList": {None: None},
     "PyDict": {None: None},
     "PyTup": {None: None},
@@ -20,9 +20,11 @@ def _warning_msg(installed_library: str, full_type_str: str) -> str:
     )
 
 
-def calc_subscriptable_types(proj_info: dict, dirs: PyppDirs) -> SubscriptableTypesMap:
+def calc_subscriptable_type_map(
+    proj_info: dict, dirs: PyppDirs
+) -> SubscriptableTypeMap:
     return load_map(
-        SUBSCRIPTABLE_TYPES,
+        SUBSCRIPTABLE_TYPE_MAP,
         proj_info,
         dirs,
         "subscriptable_types",

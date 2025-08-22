@@ -1,12 +1,12 @@
 from pypp_core.src.deps import Deps
 from pypp_core.src.mapping.info_types import (
     MapInfo,
-    NamesOrAttrsMap,
+    NameOrAttrMap,
 )
 from pypp_core.src.mapping.util import find_map_info
 
 
-def lookup_helper(key: str, d: Deps, map: NamesOrAttrsMap) -> MapInfo | None:
+def lookup_helper(key: str, d: Deps, map: NameOrAttrMap) -> MapInfo | None:
     if key not in map:
         return None
     map_info = find_map_info(map[key], d)

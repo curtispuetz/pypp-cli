@@ -1,5 +1,5 @@
 from pypp_core.src.deps import Deps
-from pypp_core.src.mapping.info_types import FnArgsByValueMapValue
+from pypp_core.src.mapping.info_types import FnArgByValueMapValue
 from pypp_core.src.mapping.util import is_one
 from pypp_core.src.util.inner_strings import calc_inside_rd
 
@@ -7,7 +7,7 @@ from pypp_core.src.util.inner_strings import calc_inside_rd
 def lookup_cpp_fn_arg(cpp_arg_type: str, d: Deps) -> str:
     is_pass_by_ref, cpp_arg_type = _is_pass_by_ref(cpp_arg_type)
     if cpp_arg_type in d.maps.fn_args_passed_by_value:
-        r: FnArgsByValueMapValue = d.maps.fn_args_passed_by_value[cpp_arg_type]
+        r: FnArgByValueMapValue = d.maps.fn_args_passed_by_value[cpp_arg_type]
         if is_one(r, d):
             return cpp_arg_type
     pass_by_ref_str = "&" if is_pass_by_ref else ""

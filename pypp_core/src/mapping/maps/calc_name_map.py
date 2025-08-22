@@ -11,10 +11,10 @@ from pypp_core.src.mapping.maps.util import (
     load_map,
     calc_common_warning_msg,
 )
-from pypp_core.src.mapping.info_types import MapInfo, NamesMap
+from pypp_core.src.mapping.info_types import MapInfo, NameMap
 
 
-NAMES_MAP: NamesMap = {
+NAME_MAP: NameMap = {
     "str": {None: MapInfo("PyStr", [QInc("py_str.h")])},
     # NOTE: technically I don't think this is necessary since int and int are the same
     "int": {None: MapInfo("int", [])},
@@ -88,10 +88,9 @@ NAMES_MAP: NamesMap = {
 }
 
 
-# TODO: remove the plural on all maps (i.e. names_map.json should be name_map.json)
-def calc_names_map(proj_info: dict, dirs: PyppDirs) -> NamesMap:
+def calc_name_map(proj_info: dict, dirs: PyppDirs) -> NameMap:
     return load_map(
-        NAMES_MAP,
+        NAME_MAP,
         proj_info,
         dirs,
         "names_map",
