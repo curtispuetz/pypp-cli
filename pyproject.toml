@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "compy_cli"
 version = "0.0"
-description = "A CLI tool called pypp"
+description = "A CLI tool called compy"
 authors = [
     { name="Curtis Puetz", email="TODO@email.com" }
 ]
@@ -13,7 +13,7 @@ readme = "readme.md"
 license = { text = "MIT" }
 
 [project.scripts]
-pypp = "compy_cli.cli:main"
+compy = "compy_cli.cli:main"
 
 [tool.setuptools.package-data]
 "compy_cli" = ["data/**/*"]

@@ -8,7 +8,7 @@ from compy_cli.src.main_scripts.util.pip_helper import (
 from compy_cli.src.compy_dirs import CompyDirs
 
 
-def pypp_install(library: str, dirs: CompyDirs):
+def compy_install(library: str, dirs: CompyDirs):
     library_name, version = _get_library_name_and_version(library)
     pip_install(library, dirs)
     # TODO: add some validation that the data in like name_map.json is correct.

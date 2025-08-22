@@ -3,7 +3,7 @@ import subprocess
 from compy_cli.src.compy_dirs import CompyDirs
 
 
-def pypp_build(dirs: CompyDirs):
+def compy_build(dirs: CompyDirs):
     print("running cmake build...")
     # NOTE: you only need to do the first 'cmake -S . -B build' part if there was file
     #  changes to the code base. However, for simplicity, I will just do it each time.

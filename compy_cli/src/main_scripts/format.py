@@ -14,7 +14,7 @@ def _format_file(file: Path, dirs: CompyDirs):
     )
 
 
-def pypp_format(files_added_or_modified: list[Path], dirs: CompyDirs):
+def compy_format(files_added_or_modified: list[Path], dirs: CompyDirs):
     num_cores = os.cpu_count() or 1  # Fallback to 1 if None
     with Pool(num_cores) as p:  # Adjust number of workers
         p.map(partial(_format_file, dirs=dirs), files_added_or_modified)

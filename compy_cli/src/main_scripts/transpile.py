@@ -30,7 +30,7 @@ def _delete_cpp_and_h_file(filepath: Path, dirs: CompyDirs) -> int:
     return files_deleted
 
 
-def pypp_transpile(dirs: CompyDirs) -> list[Path]:
+def compy_transpile(dirs: CompyDirs) -> list[Path]:
     # Step 1: Copy the C++ template to the cpp project directory if marked as dirty
     with open(dirs.proj_info_file) as file:
         proj_info = json.load(file)

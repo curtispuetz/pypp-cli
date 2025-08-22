@@ -2,26 +2,26 @@ from pathlib import Path
 import argparse
 
 from compy_cli.src.compy_dirs import CompyDirs
-from compy_cli.src.main_scripts.do import pypp_do
-from compy_cli.src.main_scripts.init import pypp_init
-from compy_cli.src.main_scripts.install import pypp_install
-from compy_cli.src.main_scripts.delete_timestamps import pypp_delete_timestamps
-from compy_cli.src.main_scripts.run_python import pypp_run_python
-from compy_cli.src.main_scripts.uninstall import pypp_uninstall
+from compy_cli.src.main_scripts.do import compy_do
+from compy_cli.src.main_scripts.init import compy_init
+from compy_cli.src.main_scripts.install import compy_install
+from compy_cli.src.main_scripts.delete_timestamps import compy_delete_timestamps
+from compy_cli.src.main_scripts.run_python import compy_run_python
+from compy_cli.src.main_scripts.uninstall import compy_uninstall
 
 
 def main_cli(absolute_dir: Path | None = None) -> None:
-    parser = argparse.ArgumentParser(description="pypp CLI tool.")
+    parser = argparse.ArgumentParser(description="compy CLI tool.")
     subparsers = parser.add_subparsers(dest="mode", required=False)
     subparsers.add_parser(
-        "init", help="Initialize a new Py++ project in the given directory."
+        "init", help="Initialize a new Compy project in the given directory."
     )
-    parser_install = subparsers.add_parser("install", help="Install pypp libraries")
+    parser_install = subparsers.add_parser("install", help="Install compy libraries")
     parser_install.add_argument(
         "libraries", help="Specify one or more libraries to install.", nargs="+"
     )
     parser_uninstall = subparsers.add_parser(
-        "uninstall", help="Uninstall pypp libraries"
+        "uninstall", help="Uninstall compy libraries"
     )
     parser_uninstall.add_argument(
         "libraries", help="Specify one or more libraries to uninstall.", nargs="+"
@@ -56,27 +56,27 @@ def main_cli(absolute_dir: Path | None = None) -> None:
     args = parser.parse_args()
     if absolute_dir is None:
         absolute_dir = Path.cwd()
-    pypp_dirs = CompyDirs(absolute_dir)
+    compy_dirs = CompyDirs(absolute_dir)
     if args.mode == "init":
-        pypp_init(pypp_dirs)
-    elif not pypp_dirs.proj_info_file.exists():
+        compy_init(compy_dirs)
+    elif not compy_dirs.proj_info_file.exists():
         parser.error(
             "compy_data/proj_info.json file not found. "
             "Ensure your Py++ project is properly initialized."
         )
 
     if args.mode == "do":
-        pypp_do(args.tasks, pypp_dirs)
+        compy_do(args.tasks, compy_dirs)
     elif args.mode == "install":
         for lib in args.libraries:
-            pypp_install(lib, pypp_dirs)
+            compy_install(lib, compy_dirs)
     elif args.mode == "uninstall":
         for lib in args.libraries:
-            pypp_uninstall(lib, pypp_dirs)
+            compy_uninstall(lib, compy_dirs)
     elif args.mode == "delete_timestamps":
-        pypp_delete_timestamps(pypp_dirs)
+        compy_delete_timestamps(compy_dirs)
     elif args.mode == "run_python":
-        pypp_run_python(args.file, pypp_dirs)
+        compy_run_python(args.file, compy_dirs)
 
 
 if __name__ == "__main__":
