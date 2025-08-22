@@ -34,7 +34,7 @@ template <typename T> class PyList {
     using value_type = T;
     // Constructors
     PyList() = default;
-    // This one is only used internally and not by users of Py++.
+    // This one is only used internally and not by users of Compy.
     PyList(const std::vector<T> &&vec) : data(std::move(vec)) {}
     PyList(std::initializer_list<T> init) : data(init) {}
     PyList(const int size, const T &value) : data(size, value) {}
