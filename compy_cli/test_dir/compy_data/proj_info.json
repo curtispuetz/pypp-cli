@@ -2,7 +2,7 @@
     "cpp_dir_is_dirty": false,
     "ignore_src_files": [],
     "installed_libraries": {
-        "pypp_bridge_library_test_0": "0.0.0",
-        "pypp_bridge_library_test_1": "0.0.0"
+        "compy_bridge_library_test_0": "0.0.0",
+        "compy_bridge_library_test_1": "0.0.0"
     }
 }
