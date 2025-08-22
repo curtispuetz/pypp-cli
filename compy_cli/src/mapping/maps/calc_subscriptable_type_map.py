@@ -15,7 +15,7 @@ SUBSCRIPTABLE_TYPE_MAP: SubscriptableTypeMap = {
 
 def _warning_msg(installed_library: str, full_type_str: str) -> str:
     return (
-        f"Py++ transpiler already considers {full_type_str} a subscriptable type. "
+        f"Compy transpiler already considers {full_type_str} a subscriptable type. "
         f"Library {installed_library} is potentially changing this behavior."
     )
 

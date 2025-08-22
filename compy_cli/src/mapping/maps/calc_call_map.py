@@ -73,7 +73,7 @@ def calc_call_map(proj_info: dict, dirs: CompyDirs) -> CallMap:
                         if k in ret:
                             if required_import in ret[k]:
                                 print(
-                                    f"warning: Py++ transpiler already maps the call "
+                                    f"warning: Compy transpiler already maps the call "
                                     f"'{k}{calc_imp_str(required_import)}'. Library "
                                     f"{installed_library} is overriding this mapping."
                                 )

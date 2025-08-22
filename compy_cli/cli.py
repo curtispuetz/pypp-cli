@@ -62,7 +62,7 @@ def main_cli(absolute_dir: Path | None = None) -> None:
     elif not compy_dirs.proj_info_file.exists():
         parser.error(
             "compy_data/proj_info.json file not found. "
-            "Ensure your Py++ project is properly initialized."
+            "Ensure your Compy project is properly initialized."
         )
 
     if args.mode == "do":

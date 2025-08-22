@@ -19,7 +19,7 @@ def compy_format(files_added_or_modified: list[Path], dirs: CompyDirs):
     with Pool(num_cores) as p:  # Adjust number of workers
         p.map(partial(_format_file, dirs=dirs), files_added_or_modified)
     print(
-        f"py++ format finished. "
+        f"Compy format finished. "
         f"files formatted: {len(files_added_or_modified)}, "
         f"cores used: {num_cores}"
     )

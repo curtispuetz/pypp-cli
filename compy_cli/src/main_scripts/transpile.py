@@ -64,7 +64,7 @@ def compy_transpile(dirs: CompyDirs) -> list[Path]:
     transpiler.transpile_all_changed_files(py_file_changes)
 
     print(
-        f"py++ transpile finished. "
+        f"Compy transpile finished. "
         f"files deleted: {files_deleted}, "
         f"py files transpiled: {transpiler.py_files_transpiled}, "
         f"header files written: {transpiler.header_files_written}, "

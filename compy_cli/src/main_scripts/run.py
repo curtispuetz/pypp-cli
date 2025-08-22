@@ -9,4 +9,4 @@ def compy_run(dirs: CompyDirs):
     print("running generated executable...")
     subprocess.run([str(exe_path)], check=True)
     # TODO later: uncomment this print later maybe
-    # print("py++ run finished")
+    # print("Compy run finished")

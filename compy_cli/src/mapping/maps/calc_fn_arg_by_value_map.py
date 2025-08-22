@@ -24,7 +24,7 @@ FN_ARG_PASSED_BY_VALUE_MAP: FnArgByValueMap = {
 
 def _warning_msg(installed_library: str, full_type_str: str) -> str:
     return (
-        f"Py++ transpiler already passes the type {full_type_str} by value always. "
+        f"Compy transpiler already passes the type {full_type_str} by value always. "
         f"Library {installed_library} is potentially changing this behavior."
     )
 

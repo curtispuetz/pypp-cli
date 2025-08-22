@@ -26,7 +26,7 @@ def handle_for(node: ast.For, d: Deps) -> str:
             + body_str
             + "}"
         )
-    # Note: I use const here because in Py++ I am thinking targets of range-based for
+    # Note: I use const here because in Compy I am thinking targets of range-based for
     #  loops should not be modified.
     return f"for (const auto &{target_str} : {iter_str})" + "{" + body_str + "}"
 
