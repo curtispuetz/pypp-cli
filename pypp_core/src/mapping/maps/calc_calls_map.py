@@ -19,9 +19,6 @@ from pypp_core.src.mapping.info_types import (
     CallsMap,
 )
 
-# TODO: consider naming caller_str to cpp_caller_str to avoid confusion. And maybe the
-#  same for names and attrs if a similar thing exists there.
-
 
 def _calc_left_and_right_call_map_info(obj: dict) -> CallMapInfoLeftAndRight:
     return CallMapInfoLeftAndRight(obj["left"], obj["right"], calc_cpp_includes(obj))
