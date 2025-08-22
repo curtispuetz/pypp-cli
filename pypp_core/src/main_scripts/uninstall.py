@@ -1,14 +1,25 @@
 import json
 import shutil
 
-from pypp_core.src.main_scripts.util.pip_helper import pip_uninstall
+from pypp_core.src.main_scripts.util.pip_helper import (
+    get_lib_name_and_version_for_whl_file,
+    pip_uninstall,
+)
 from pypp_core.src.pypp_dirs import PyppDirs
 
 
 def pypp_uninstall(library: str, dirs: PyppDirs):
-    library_name = pip_uninstall(library, dirs)
+    library_name = _get_library_name(library)
+    pip_uninstall(library, dirs)
     _delete_cpp_library_files(library_name, dirs)
     _remove_installed_library_to_proj_info_json(library_name, dirs)
+
+
+def _get_library_name(library: str) -> str:
+    if library.endswith(".whl"):
+        return get_lib_name_and_version_for_whl_file(library)[0]
+    else:
+        return library
 
 
 def _delete_cpp_library_files(library_name: str, dirs: PyppDirs):
@@ -24,6 +35,6 @@ def _remove_installed_library_to_proj_info_json(library: str, dirs: PyppDirs):
         "installed_libraries" in proj_info
         and library in proj_info["installed_libraries"]
     ):
-        proj_info["installed_libraries"].remove(library)
+        del proj_info["installed_libraries"][library]
     with open(dirs.proj_info_file, "w") as f:
         json.dump(proj_info, f, indent=4)
