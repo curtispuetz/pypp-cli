@@ -37,5 +37,5 @@ class CompyDirs:
         )
 
 
-def create_test_dir_pypp_dirs() -> CompyDirs:
+def create_test_dir_compy_dirs() -> CompyDirs:
     return CompyDirs(Path(__file__).parent.parent / "test_dir")

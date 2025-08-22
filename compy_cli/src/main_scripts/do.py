@@ -1,13 +1,13 @@
 from pathlib import Path
 
 from compy_cli.src.compy_dirs import CompyDirs
-from compy_cli.src.main_scripts.build import pypp_build
-from compy_cli.src.main_scripts.format import pypp_format
-from compy_cli.src.main_scripts.run import pypp_run
-from compy_cli.src.main_scripts.transpile import pypp_transpile
+from compy_cli.src.main_scripts.build import compy_build
+from compy_cli.src.main_scripts.format import compy_format
+from compy_cli.src.main_scripts.run import compy_run
+from compy_cli.src.main_scripts.transpile import compy_transpile
 
 
-def pypp_do(tasks: list[str], dirs: CompyDirs) -> None:
+def compy_do(tasks: list[str], dirs: CompyDirs) -> None:
     do_helper = _DoHelper(dirs)
     task_methods = {
         "transpile": do_helper.transpile,
@@ -26,15 +26,15 @@ class _DoHelper:
         self._files_added_or_modified: list[Path] | None = None
 
     def transpile(self):
-        self._files_added_or_modified = pypp_transpile(self._dirs)
+        self._files_added_or_modified = compy_transpile(self._dirs)
 
     def format(self):
         if self._files_added_or_modified is None:
             raise ValueError("'format' can only be specified after 'transpile'")
-        pypp_format(self._files_added_or_modified, self._dirs)
+        compy_format(self._files_added_or_modified, self._dirs)
 
     def build(self):
-        pypp_build(self._dirs)
+        compy_build(self._dirs)
 
     def run(self):
-        pypp_run(self._dirs)
+        compy_run(self._dirs)

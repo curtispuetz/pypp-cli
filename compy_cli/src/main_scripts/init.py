@@ -8,7 +8,7 @@ import venv
 # TODO: rename project to compy
 
 
-def pypp_init(dirs: CompyDirs):
+def compy_init(dirs: CompyDirs):
     _create_project_structure(dirs)
     print("py++ project structure creation finished")
     print("creating python virtual environment...")

@@ -8,7 +8,7 @@ from compy_cli.src.main_scripts.util.pip_helper import (
 from compy_cli.src.compy_dirs import CompyDirs
 
 
-def pypp_uninstall(library: str, dirs: CompyDirs):
+def compy_uninstall(library: str, dirs: CompyDirs):
     library_name = _get_library_name(library)
     pip_uninstall(library, dirs)
     _delete_cpp_library_files(library_name, dirs)

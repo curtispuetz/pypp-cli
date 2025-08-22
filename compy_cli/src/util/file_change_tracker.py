@@ -3,7 +3,7 @@ from dataclasses import dataclass
 import fnmatch
 from pathlib import Path
 
-from compy_cli.src.compy_dirs import CompyDirs, create_test_dir_pypp_dirs
+from compy_cli.src.compy_dirs import CompyDirs, create_test_dir_compy_dirs
 
 
 @dataclass(frozen=True, slots=True)
@@ -153,10 +153,10 @@ def calc_py_file_changes(
 
 
 if __name__ == "__main__":
-    pypp_dirs = create_test_dir_pypp_dirs()
+    compy_dirs = create_test_dir_compy_dirs()
     calc_py_file_changes(
-        pypp_dirs,
+        compy_dirs,
         [],
-        get_all_main_py_files(pypp_dirs.python_dir),
-        get_all_py_files(pypp_dirs.python_src_dir),
+        get_all_main_py_files(compy_dirs.python_dir),
+        get_all_py_files(compy_dirs.python_src_dir),
     )
