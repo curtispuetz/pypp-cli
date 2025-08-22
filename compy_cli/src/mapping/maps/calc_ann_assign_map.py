@@ -69,7 +69,7 @@ def calc_ann_assign_map(proj_info: dict, dirs: CompyDirs) -> AnnAssignsMap:
                         if k in ret:
                             if required_import in ret[k]:
                                 print(
-                                    f"warning: Py++ transpiler already maps the ann "
+                                    f"warning: Compy transpiler already maps the ann "
                                     f"assign "
                                     f"'{k}{calc_imp_str(required_import)}'. Library "
                                     f"{installed_library} is overriding this mapping."

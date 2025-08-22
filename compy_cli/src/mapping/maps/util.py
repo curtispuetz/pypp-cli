@@ -67,7 +67,7 @@ def calc_common_warning_msg(
     installed_library: str, full_type_str: str, name: str
 ) -> str:
     return (
-        f"Py++ transpiler already maps the {name} '{full_type_str}'. "
+        f"Compy transpiler already maps the {name} '{full_type_str}'. "
         f"Library {installed_library} is overriding this mapping."
     )
 

@@ -10,7 +10,7 @@ import venv
 
 def compy_init(dirs: CompyDirs):
     _create_project_structure(dirs)
-    print("py++ project structure creation finished")
+    print("Compy project structure creation finished")
     print("creating python virtual environment...")
     _create_python_virtual_environment(dirs)
     subprocess.check_call(
@@ -24,7 +24,7 @@ def compy_init(dirs: CompyDirs):
             r"C:\Users\puetz\PycharmProjects\compy-python\dist\compy_python-0.0.0-py3-none-any.whl",
         ]
     )
-    print("py++ project init finished")
+    print("Compy project init finished")
 
 
 def _create_python_virtual_environment(dirs: CompyDirs):
