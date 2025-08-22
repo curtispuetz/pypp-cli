@@ -5,9 +5,8 @@ if __name__ == "__main__":
         [
             "uninstall",
             r"C:\Users\puetz\PycharmProjects\pypp-bridge-library-test-0"
-            r"\pypp_bridge_library_test_0",
+            r"\dist\pypp_bridge_library_test_0-0.0.0-py3-none-any.whl",
             r"C:\Users\puetz\PycharmProjects\pypp-bridge-library-test-1"
-            r"\pypp_bridge_library_test_1",
-            # r"C:\Users\puetz\PycharmProjects\pypp-python\pypp_python",
+            r"\dist\pypp_bridge_library_test_1-0.0.0-py3-none-any.whl",
         ]
     )
