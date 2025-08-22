@@ -1,7 +1,7 @@
 import ast
 
-from pypp_core.src.deps import Deps
-from pypp_core.src.handle_other.exception_handler import handle_exception_handlers
+from compy_cli.src.deps import Deps
+from compy_cli.src.handle_other.exception_handler import handle_exception_handlers
 
 
 def handle_try(node: ast.Try, d: Deps):

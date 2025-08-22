@@ -3,11 +3,11 @@
 #  is made (if desired).
 import ast
 
-from pypp_core.src.deps import Deps
-from pypp_core.src.handle_stmt.h_class_def.create_final_str import (
+from compy_cli.src.deps import Deps
+from compy_cli.src.handle_stmt.h_class_def.create_final_str import (
     create_final_str_for_class_def,
 )
-from pypp_core.src.handle_stmt.h_class_def.for_class.calc_fields_and_methods import (
+from compy_cli.src.handle_stmt.h_class_def.for_class.calc_fields_and_methods import (
     calc_methods_fields_and_base_constructor_calls_for_class,
 )
 

@@ -1,8 +1,8 @@
 import ast
 from typing import cast
 
-from pypp_core.src.deps import Deps
-from pypp_core.src.handle_stmt.h_for import handle_for
+from compy_cli.src.deps import Deps
+from compy_cli.src.handle_stmt.h_for import handle_for
 
 
 def handle_comp(

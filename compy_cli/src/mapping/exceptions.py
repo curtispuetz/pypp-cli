@@ -1,5 +1,5 @@
-from pypp_core.src.d_types import QInc
-from pypp_core.src.deps import Deps
+from compy_cli.src.d_types import QInc
+from compy_cli.src.deps import Deps
 
 PY_TO_CPP_INCLUDE_MAP: dict[str, QInc] = {
     "Exception": QInc("exceptions/exception.h"),

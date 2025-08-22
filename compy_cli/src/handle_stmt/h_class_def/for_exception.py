@@ -1,7 +1,7 @@
 import ast
 
-from pypp_core.src.deps import Deps
-from pypp_core.src.mapping.exceptions import lookup_cpp_exception_type
+from compy_cli.src.deps import Deps
+from compy_cli.src.mapping.exceptions import lookup_cpp_exception_type
 
 
 def handle_class_def_for_exception(

@@ -1,8 +1,8 @@
 import ast
 
-from pypp_core.src.d_types import AngInc, PyImport, PySpecificImpFrom, QInc
-from pypp_core.src.handle_expr.h_call.default_dict_map_fn import good_default_dict
-from pypp_core.src.mapping.info_types import (
+from compy_cli.src.d_types import AngInc, PyImport, PySpecificImpFrom, QInc
+from compy_cli.src.handle_expr.h_call.default_dict_map_fn import good_default_dict
+from compy_cli.src.mapping.info_types import (
     CallMapInfoCppCall,
     CallMapInfoCustomMapping,
     CallMapInfoCustomMappingStartsWith,

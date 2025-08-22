@@ -3,8 +3,8 @@ from collections.abc import Callable
 from pathlib import Path
 from typing import TypeVar
 
-from pypp_core.src.pypp_dirs import PyppDirs
-from pypp_core.src.d_types import (
+from compy_cli.src.pypp_dirs import PyppDirs
+from compy_cli.src.d_types import (
     PySpecificImport,
     AngInc,
     QInc,
@@ -12,7 +12,7 @@ from pypp_core.src.d_types import (
     PyImport,
     CppInclude,
 )
-from pypp_core.src.mapping.info_types import MapInfo
+from compy_cli.src.mapping.info_types import MapInfo
 
 _ERROR_STR = (
     "This shouldn't happen because the json schema should have been validated "

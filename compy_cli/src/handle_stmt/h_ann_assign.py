@@ -1,15 +1,15 @@
 import ast
 
-from pypp_core.src.deps import Deps
-from pypp_core.src.handle_expr.h_comp import handle_comp
-from pypp_core.src.mapping.info_types import (
+from compy_cli.src.deps import Deps
+from compy_cli.src.handle_expr.h_comp import handle_comp
+from compy_cli.src.mapping.info_types import (
     AnnAssignMapInfoCustomMappingStartsWith,
     AnnAssignMapInfoCustomMappingStartsWithFromLibrary,
 )
-from pypp_core.src.mapping.util import calc_string_fn, find_map_info
-from pypp_core.src.util.calc_callable_type import calc_callable_type
-from pypp_core.src.util.inner_strings import calc_inside_ang, calc_inside_rd
-from pypp_core.src.util.util import calc_ref_str
+from compy_cli.src.mapping.util import calc_string_fn, find_map_info
+from compy_cli.src.util.calc_callable_type import calc_callable_type
+from compy_cli.src.util.inner_strings import calc_inside_ang, calc_inside_rd
+from compy_cli.src.util.util import calc_ref_str
 
 
 def handle_ann_assign(node: ast.AnnAssign, d: Deps) -> str:

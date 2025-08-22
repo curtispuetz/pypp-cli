@@ -1,11 +1,11 @@
 import json
 import shutil
 
-from pypp_core.src.main_scripts.util.pip_helper import (
+from compy_cli.src.main_scripts.util.pip_helper import (
     get_lib_name_and_version_for_whl_file,
     pip_install,
 )
-from pypp_core.src.pypp_dirs import PyppDirs
+from compy_cli.src.pypp_dirs import PyppDirs
 
 
 def pypp_install(library: str, dirs: PyppDirs):

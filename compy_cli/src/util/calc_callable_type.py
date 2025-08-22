@@ -1,7 +1,7 @@
 import ast
 
-from pypp_core.src.d_types import AngInc
-from pypp_core.src.deps import Deps
+from compy_cli.src.d_types import AngInc
+from compy_cli.src.deps import Deps
 
 
 def _is_callable_type(node: ast.Subscript) -> bool:

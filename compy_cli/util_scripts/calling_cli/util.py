@@ -1,7 +1,7 @@
 from pathlib import Path
 import sys
 
-from pypp_core.cli import main_cli
+from compy_cli.cli import main_cli
 
 dirname = Path(__file__).parent
 

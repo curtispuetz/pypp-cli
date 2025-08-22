@@ -1,7 +1,7 @@
 import ast
 
-from pypp_core.src.deps import Deps
-from pypp_core.src.handle_expr.h_tuple import handle_tuple_inner_args
+from compy_cli.src.deps import Deps
+from compy_cli.src.handle_expr.h_tuple import handle_tuple_inner_args
 
 
 def handle_assign(node: ast.Assign, d: Deps):

@@ -1,7 +1,7 @@
 from pathlib import Path
 import subprocess
 
-from pypp_core.src.pypp_dirs import PyppDirs
+from compy_cli.src.pypp_dirs import PyppDirs
 
 
 def get_lib_name_and_version_for_whl_file(whl_file: str) -> tuple[str, str]:

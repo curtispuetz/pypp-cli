@@ -1,7 +1,7 @@
 import ast
 
-from pypp_core.src.deps import Deps
-from pypp_core.src.handle_other.operator import handle_operator
+from compy_cli.src.deps import Deps
+from compy_cli.src.handle_other.operator import handle_operator
 
 
 def handle_bin_op(node: ast.BinOp, d: Deps):

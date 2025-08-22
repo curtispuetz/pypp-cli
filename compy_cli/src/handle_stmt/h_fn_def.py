@@ -1,7 +1,7 @@
 import ast
 
-from pypp_core.src.deps import Deps
-from pypp_core.src.util.calc_fn_signature import (
+from compy_cli.src.deps import Deps
+from compy_cli.src.util.calc_fn_signature import (
     calc_fn_signature,
     calc_fn_str_with_body,
 )

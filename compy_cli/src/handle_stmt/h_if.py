@@ -1,6 +1,6 @@
 import ast
 
-from pypp_core.src.deps import Deps
+from compy_cli.src.deps import Deps
 
 
 def handle_if(node: ast.If, d: Deps) -> str:

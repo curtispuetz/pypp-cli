@@ -1,8 +1,8 @@
 import ast
 import types
-from pypp_core.src.d_types import PySpecificImport
-from pypp_core.src.deps import Deps
-from pypp_core.src.mapping.info_types import MappingFnStr
+from compy_cli.src.d_types import PySpecificImport
+from compy_cli.src.deps import Deps
+from compy_cli.src.mapping.info_types import MappingFnStr
 
 
 def is_one(r: dict[PySpecificImport | None, None], d: Deps) -> bool:

@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from pypp_core.src.d_types import CppInclude
+from compy_cli.src.d_types import CppInclude
 
 IncMap = dict[str, CppInclude]
 

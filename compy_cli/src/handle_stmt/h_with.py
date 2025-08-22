@@ -1,7 +1,7 @@
 import ast
 
-from pypp_core.src.deps import Deps
-from pypp_core.src.handle_other.with_item import handle_with_item
+from compy_cli.src.deps import Deps
+from compy_cli.src.handle_other.with_item import handle_with_item
 
 
 def handle_with(node: ast.With, d: Deps):

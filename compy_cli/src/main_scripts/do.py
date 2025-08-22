@@ -1,10 +1,10 @@
 from pathlib import Path
 
-from pypp_core.src.pypp_dirs import PyppDirs
-from pypp_core.src.main_scripts.build import pypp_build
-from pypp_core.src.main_scripts.format import pypp_format
-from pypp_core.src.main_scripts.run import pypp_run
-from pypp_core.src.main_scripts.transpile import pypp_transpile
+from compy_cli.src.pypp_dirs import PyppDirs
+from compy_cli.src.main_scripts.build import pypp_build
+from compy_cli.src.main_scripts.format import pypp_format
+from compy_cli.src.main_scripts.run import pypp_run
+from compy_cli.src.main_scripts.transpile import pypp_transpile
 
 
 def pypp_do(tasks: list[str], dirs: PyppDirs) -> None:

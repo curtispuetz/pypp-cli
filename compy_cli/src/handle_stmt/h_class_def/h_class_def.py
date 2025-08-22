@@ -1,19 +1,19 @@
 import ast
 
-from pypp_core.src.deps import Deps
-from pypp_core.src.handle_stmt.h_class_def.for_class.for_class import (
+from compy_cli.src.deps import Deps
+from compy_cli.src.handle_stmt.h_class_def.for_class.for_class import (
     handle_class_def_for_class,
 )
-from pypp_core.src.handle_stmt.h_class_def.for_configclass.for_configclass import (
+from compy_cli.src.handle_stmt.h_class_def.for_configclass.for_configclass import (
     handle_class_def_for_configclass,
 )
-from pypp_core.src.handle_stmt.h_class_def.for_dataclasses.for_dataclasses import (
+from compy_cli.src.handle_stmt.h_class_def.for_dataclasses.for_dataclasses import (
     handle_class_def_for_dataclass,
 )
-from pypp_core.src.handle_stmt.h_class_def.for_exception import (
+from compy_cli.src.handle_stmt.h_class_def.for_exception import (
     handle_class_def_for_exception,
 )
-from pypp_core.src.handle_stmt.h_class_def.for_interface.for_interface import (
+from compy_cli.src.handle_stmt.h_class_def.for_interface.for_interface import (
     handle_class_def_for_interface,
 )
 

@@ -1,7 +1,7 @@
 import ast
 
-from pypp_core.src.deps import Deps
-from pypp_core.src.util.calc_fn_signature import calc_fn_signature
+from compy_cli.src.deps import Deps
+from compy_cli.src.util.calc_fn_signature import calc_fn_signature
 
 
 def handle_class_def_for_interface(node: ast.ClassDef, d: Deps) -> str:

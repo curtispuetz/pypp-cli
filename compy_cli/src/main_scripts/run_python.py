@@ -1,7 +1,7 @@
 import subprocess
 import os
 
-from pypp_core.src.pypp_dirs import PyppDirs
+from compy_cli.src.pypp_dirs import PyppDirs
 
 
 def pypp_run_python(file: str, dirs: PyppDirs):

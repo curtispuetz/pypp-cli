@@ -1,6 +1,6 @@
-from pypp_core.src.deps import Deps
-from pypp_core.src.mapping.info_types import MapInfo
-from pypp_core.src.mapping.lookup_helper import lookup_helper
+from compy_cli.src.deps import Deps
+from compy_cli.src.mapping.info_types import MapInfo
+from compy_cli.src.mapping.lookup_helper import lookup_helper
 
 
 def lookup_cpp_attribute(attr: str, d: Deps):

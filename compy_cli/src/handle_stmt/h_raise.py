@@ -1,8 +1,8 @@
 import ast
 
-from pypp_core.src.deps import Deps
-from pypp_core.src.mapping.exceptions import lookup_cpp_exception_type
-from pypp_core.src.util.inner_strings import calc_inside_rd
+from compy_cli.src.deps import Deps
+from compy_cli.src.mapping.exceptions import lookup_cpp_exception_type
+from compy_cli.src.util.inner_strings import calc_inside_rd
 
 
 def handle_raise(node: ast.Raise, d: Deps) -> str:

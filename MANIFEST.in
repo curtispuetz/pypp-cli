@@ -1,5 +1,5 @@
-recursive-include pypp_core/data *
-recursive-include pypp_core/data .*
-recursive-exclude pypp_core/test_dir *
-recursive-exclude pypp_core/test_dir2 *
-recursive-exclude pypp_core/util_scripts *
+recursive-include compy_cli/data *
+recursive-include compy_cli/data .*
+recursive-exclude compy_cli/test_dir *
+recursive-exclude compy_cli/test_dir2 *
+recursive-exclude compy_cli/util_scripts *

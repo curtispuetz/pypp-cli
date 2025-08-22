@@ -1,7 +1,7 @@
-from pypp_core.src.deps import Deps
-from pypp_core.src.mapping.info_types import FnArgByValueMapValue
-from pypp_core.src.mapping.util import is_one
-from pypp_core.src.util.inner_strings import calc_inside_rd
+from compy_cli.src.deps import Deps
+from compy_cli.src.mapping.info_types import FnArgByValueMapValue
+from compy_cli.src.mapping.util import is_one
+from compy_cli.src.util.inner_strings import calc_inside_rd
 
 
 def lookup_cpp_fn_arg(cpp_arg_type: str, d: Deps) -> str:

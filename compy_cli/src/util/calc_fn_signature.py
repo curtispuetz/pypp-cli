@@ -1,10 +1,10 @@
 import ast
 
-from pypp_core.src.d_types import QInc
-from pypp_core.src.deps import Deps
-from pypp_core.src.mapping.fn_arg import lookup_cpp_fn_arg
-from pypp_core.src.util.calc_callable_type import calc_callable_type
-from pypp_core.src.util.inner_strings import calc_inside_sq, calc_inside_rd
+from compy_cli.src.d_types import QInc
+from compy_cli.src.deps import Deps
+from compy_cli.src.mapping.fn_arg import lookup_cpp_fn_arg
+from compy_cli.src.util.calc_callable_type import calc_callable_type
+from compy_cli.src.util.inner_strings import calc_inside_sq, calc_inside_rd
 
 
 def calc_fn_signature(

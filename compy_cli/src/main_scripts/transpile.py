@@ -1,18 +1,18 @@
 import json
 from pathlib import Path
 
-from pypp_core.src.main_scripts.transpiler import Transpiler
-from pypp_core.src.pypp_dirs import PyppDirs
-from pypp_core.src.util.file_change_tracker import (
+from compy_cli.src.main_scripts.transpiler import Transpiler
+from compy_cli.src.pypp_dirs import PyppDirs
+from compy_cli.src.util.file_change_tracker import (
     calc_py_file_changes,
     get_all_main_py_files,
     get_all_py_files,
     save_timestamps,
 )
-from pypp_core.src.util.initalize_cpp import (
+from compy_cli.src.util.initalize_cpp import (
     initialize_cpp_project,
 )
-from pypp_core.src.util.write_cmake_lists import write_cmake_lists_file
+from compy_cli.src.util.write_cmake_lists import write_cmake_lists_file
 
 
 def _delete_cpp_and_h_file(filepath: Path, dirs: PyppDirs) -> int:
