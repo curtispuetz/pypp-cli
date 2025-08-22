@@ -1,12 +1,12 @@
-from compy_python.resources import pypp_get_resources
+from compy_python.resources import compy_get_resources
 import os
 import shutil
 
 
 def file_io_fn():
     print("FILE IO RESULTS:")
-    # pypp_get_resources
-    test_dir: str = pypp_get_resources("test_dir")
+    # compy_get_resources
+    test_dir: str = compy_get_resources("test_dir")
     print(test_dir)
     # os.path.join
     text_file: str = os.path.join(test_dir, "text.txt")

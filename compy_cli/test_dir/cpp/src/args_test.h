@@ -1,7 +1,7 @@
 #pragma once
 
+#include "compy_bridge_library_test_0/pass_by_value_test.h"
 #include "py_str.h"
-#include "pypp_bridge_library_test_0/pass_by_value_test.h"
 #include <cstdint>
 
 void int_arg(int a);

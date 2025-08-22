@@ -1,11 +1,11 @@
 #include "subscriptable_types.h"
+#include "compy_bridge_library_test_0/subscriptable_type.h"
 #include "py_list.h"
 #include "py_str.h"
-#include "pypp_bridge_library_test_0/subscriptable_type.h"
 #include "pypp_util/print.h"
 
 void subscriptable_types_fn() {
-    print(PyStr("PYPP SUBSCRIPTABLE TYPES RESULTS:"));
+    print(PyStr("compy SUBSCRIPTABLE TYPES RESULTS:"));
     PseudoSubscriptableTypeCpp<int> a = PseudoSubscriptableTypeCpp<int>(9);
     a.print();
     PseudoSubscriptableTypeCpp<PyStr> b = PseudoSubscriptableTypeCpp<PyStr>(10);

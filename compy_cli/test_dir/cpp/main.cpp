@@ -1,6 +1,7 @@
 #include "args_test.h"
 #include "classes/first.h"
 #include "classes/inheritance.h"
+#include "compy_union/first.h"
 #include "constants.h"
 #include "cstdlib"
 #include "custom_libs/bridge_lib_test_0/first.h"
@@ -41,7 +42,6 @@
 #include "printing/first.h"
 #include "py_list.h"
 #include "py_str.h"
-#include "pypp_union/first.h"
 #include "pypp_util/main_error_handler.h"
 #include "pypp_util/print.h"
 #include "random_library/first.h"
@@ -117,7 +117,7 @@ int main() {
         interfaces_fn();
         operations_fn();
         fn_as_vars_fn();
-        pypp_union_fn();
+        compy_union_fn();
         constant_fn();
         imports_test_fn();
         imports_test_fn2();

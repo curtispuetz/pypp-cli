@@ -1,17 +1,17 @@
 from dataclasses import dataclass
 
-from pypp_bridge_library_test_0.pseudo_custom_type import PseudoCustomType
+from compy_bridge_library_test_0.pseudo_custom_type import PseudoCustomType
 from compy_python.configclass import configclass
-from pypp_bridge_library_test_0 import test_namespace
-from pypp_bridge_library_test_0.name_only_call import name_only_call_fn
-from pypp_bridge_library_test_0.include_only_call import include_only_call_fn
-from pypp_bridge_library_test_0.custom_mapping_call import tg_plus_one
-from pypp_bridge_library_test_0.custom_mapping_starts_with_call import PseudoGeneric
-from pypp_bridge_library_test_0.modules_to_cpp_inc import pseudo_fn_a
-import pypp_bridge_library_test_0.modules_to_cpp_inc_2 as m2
-import pypp_bridge_library_test_0.replace_with_double_colon_call as dc_test
-from pypp_bridge_library_test_0.custom_print import custom_print
-from pypp_bridge_library_test_0.custom_list import PseudoCustomList
+from compy_bridge_library_test_0 import test_namespace
+from compy_bridge_library_test_0.name_only_call import name_only_call_fn
+from compy_bridge_library_test_0.include_only_call import include_only_call_fn
+from compy_bridge_library_test_0.custom_mapping_call import tg_plus_one
+from compy_bridge_library_test_0.custom_mapping_starts_with_call import PseudoGeneric
+from compy_bridge_library_test_0.modules_to_cpp_inc import pseudo_fn_a
+import compy_bridge_library_test_0.modules_to_cpp_inc_2 as m2
+import compy_bridge_library_test_0.replace_with_double_colon_call as dc_test
+from compy_bridge_library_test_0.custom_print import custom_print
+from compy_bridge_library_test_0.custom_list import PseudoCustomList
 from compy_python.printing import print_address
 
 
@@ -42,7 +42,7 @@ class _ConfigClassA:
 
 
 def bridge_lib_test_0_fn():
-    print("PYPP BRIDGE LIB TEST 0 RESULTS:")
+    print("compy BRIDGE LIB TEST 0 RESULTS:")
     a: PseudoCustomType = PseudoCustomType(42)
     b: int = a.get_a()
     print(b)
