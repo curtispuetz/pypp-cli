@@ -78,4 +78,9 @@ void list_fn() {
     g[1].append(98);
     print(g);
     _test_fn(PyList({PyStr("1"), PyStr("2")}));
+    e.extend(PyList({PyStr("c"), PyStr("d")}));
+    print(e);
+    PyList<PyStr> h = PyList({PyStr("e"), PyStr("f")});
+    e.extend(std::move(h));
+    print(e);
 }

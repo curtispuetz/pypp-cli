@@ -72,7 +72,14 @@ template <typename T> class PyList {
             index = data.size();
         data.insert(data.begin() + index, std::move(value));
     }
-    // TODO: implement extend
+
+    // Extend: add all elements from another PyList
+    void extend(PyList<T> &&other) {
+        data.insert(data.end(), std::make_move_iterator(other.data.begin()),
+                    std::make_move_iterator(other.data.end()));
+        other.data.clear();
+    }
+
     // Remove
     void remove(const T &value) {
         auto it = std::find(data.begin(), data.end(), value);

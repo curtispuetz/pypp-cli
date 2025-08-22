@@ -104,7 +104,6 @@ if __name__ == "__main__":
     set_of_tuples_fn()
     ref_vars_fn()
     dict_fn()
-    list_fn()
     dataclass_fn()
     dataclass_with_methods_fn()
     classes_fn()
@@ -128,3 +127,4 @@ if __name__ == "__main__":
     bridge_lib_test_0_fn()
     bridge_lib_test_1_fn()
     list_ownership_tests_fn()
+    list_fn()
