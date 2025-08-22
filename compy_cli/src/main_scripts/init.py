@@ -44,7 +44,7 @@ def _create_main_folders(dirs: PyppDirs):
     dirs.python_dir.mkdir(parents=True, exist_ok=True)
     dirs.python_src_dir.mkdir(parents=True, exist_ok=True)
     dirs.resources_dir.mkdir(parents=True, exist_ok=True)
-    dirs.pypp_data_dir.mkdir(parents=True, exist_ok=True)
+    dirs.compy_data_dir.mkdir(parents=True, exist_ok=True)
 
 
 def _create_python_main_file(dirs: PyppDirs):

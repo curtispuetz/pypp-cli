@@ -61,7 +61,7 @@ def main_cli(absolute_dir: Path | None = None) -> None:
         pypp_init(pypp_dirs)
     elif not pypp_dirs.proj_info_file.exists():
         parser.error(
-            "pypp_data/proj_info.json file not found. "
+            "compy_data/proj_info.json file not found. "
             "Ensure your Py++ project is properly initialized."
         )
 
