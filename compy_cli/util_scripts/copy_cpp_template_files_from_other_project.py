@@ -15,7 +15,7 @@ if __name__ == "__main__":
         os.path.join(target_dir, ".clang-format"),
     )
     shutil.copytree(
-        os.path.join(src_dir, "pypp"),
-        os.path.join(target_dir, "pypp"),
+        os.path.join(src_dir, "compy"),
+        os.path.join(target_dir, "compy"),
         dirs_exist_ok=True,
     )

@@ -1,5 +1,5 @@
 #include "args_test.h"
-#include "pypp_util/print.h"
+#include "compy_util/print.h"
 
 void int_arg(int a) { print(a); }
 

@@ -1,7 +1,7 @@
 #include "imports_test/first.h"
+#include "compy_util/print.h"
 #include "constants.h"
 #include "py_str.h"
-#include "pypp_util/print.h"
 
 void imports_test_fn() {
     print(PyStr("IMPORTS TEST RESULTS:"));

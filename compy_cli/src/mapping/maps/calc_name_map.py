@@ -82,7 +82,7 @@ NAME_MAP: NameMap = {
     "reversed": {None: MapInfo("PyReversed", [QInc("py_reversed.h")])},
     "Uni": {
         PySpecificImpFrom("compy_python.union", "Uni"): MapInfo(
-            "Uni", [QInc("pypp_union.h")]
+            "Uni", [QInc("compy_union.h")]
         )
     },
 }

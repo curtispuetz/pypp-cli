@@ -1,7 +1,7 @@
 #include "exceptions/assert_.h"
+#include "compy_assert.h"
+#include "compy_util/print.h"
 #include "py_str.h"
-#include "pypp_assert.h"
-#include "pypp_util/print.h"
 
 void assert_fn() {
     print(PyStr("ASSERT TESTS"));

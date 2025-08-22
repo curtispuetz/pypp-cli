@@ -1,7 +1,7 @@
 #include "random_library/first.h"
+#include "compy_random.h"
+#include "compy_util/print.h"
 #include "py_str.h"
-#include "pypp_random.h"
-#include "pypp_util/print.h"
 
 double _random_as_arg(random::Random &a) { return a.random(); }
 

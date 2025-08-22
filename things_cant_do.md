@@ -11,7 +11,7 @@
 - Use those class override method things
 - Name a file in the root of the src dir:
   - py_str.py
-  - pypp_util
+  - compy_util
 - print something other than a string (for now)
 - print with multiple args (i.e. print(a, b))
 - You cannot do integer math and expect a float returned

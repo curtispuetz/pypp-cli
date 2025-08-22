@@ -1,6 +1,6 @@
 #include "dataclasses_test/with_methods.h"
+#include "compy_util/print.h"
 #include "py_str.h"
-#include "pypp_util/print.h"
 
 int DataClassWithMethods::add(int x) { return field1 + x; }
 

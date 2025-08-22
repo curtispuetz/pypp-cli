@@ -1,6 +1,6 @@
 #include "classes/inheritance.h"
+#include "compy_util/print.h"
 #include "py_str.h"
-#include "pypp_util/print.h"
 
 int BaseClass::add(int val) { return a + val; }
 

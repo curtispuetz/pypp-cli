@@ -1,7 +1,7 @@
 #include "numbers_test/first.h"
+#include "compy_util/floor_div.h"
+#include "compy_util/print.h"
 #include "py_str.h"
-#include "pypp_util/floor_div.h"
-#include "pypp_util/print.h"
 
 void number_ops() {
     print(PyStr("NUMBER RESULTS:"));

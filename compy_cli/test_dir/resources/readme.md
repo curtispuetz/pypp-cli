@@ -1,1 +1,1 @@
-Resources for the pypp project go here
+Resources for the compy project go here

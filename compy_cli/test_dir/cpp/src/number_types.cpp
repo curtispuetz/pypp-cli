@@ -1,6 +1,6 @@
 #include "number_types.h"
+#include "compy_util/print.h"
 #include "py_str.h"
-#include "pypp_util/print.h"
 #include <cstdint>
 
 void number_types_fn() {

@@ -19,7 +19,7 @@ def calc_fn_signature(
     else:
         cpp_ret_type = d.handle_expr(node.returns)
         if cpp_ret_type.startswith("Iterator[") and cpp_ret_type.endswith("]"):
-            d.add_inc(QInc("pypp_util/generator.h"))
+            d.add_inc(QInc("compy_util/generator.h"))
             cpp_ret_type = f"Generator<{calc_inside_sq(cpp_ret_type)}>"
         elif cpp_ret_type.startswith("Ref(") and cpp_ret_type.endswith(")"):
             cpp_ret_type = calc_inside_rd(cpp_ret_type) + "&"
