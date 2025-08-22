@@ -1,9 +1,9 @@
 from pypp_core.src.pypp_dirs import PyppDirs
 from pypp_core.src.d_types import PySpecificImpFrom
-from pypp_core.src.mapping.info_types import FnArgsByValueMap
+from pypp_core.src.mapping.info_types import FnArgByValueMap
 from pypp_core.src.mapping.maps.util import load_map
 
-FN_ARG_PASSED_BY_VALUE: FnArgsByValueMap = {
+FN_ARG_PASSED_BY_VALUE_MAP: FnArgByValueMap = {
     "int": {None: None},
     "double": {None: None},  # python float
     "bool": {None: None},
@@ -29,9 +29,9 @@ def _warning_msg(installed_library: str, full_type_str: str) -> str:
     )
 
 
-def calc_fn_args_passed_by_value(proj_info: dict, dirs: PyppDirs) -> FnArgsByValueMap:
+def calc_fn_arg_passed_by_value_map(proj_info: dict, dirs: PyppDirs) -> FnArgByValueMap:
     return load_map(
-        FN_ARG_PASSED_BY_VALUE,
+        FN_ARG_PASSED_BY_VALUE_MAP,
         proj_info,
         dirs,
         "always_pass_by_value",

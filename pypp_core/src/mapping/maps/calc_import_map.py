@@ -12,7 +12,7 @@ def _calc_module_beginning(module: str) -> str:
 
 
 @dataclass(frozen=True, slots=True)
-class ImportsMap:
+class ImportMap:
     modules: set[str]
     # The value is the ignored set
     libraries: dict[str, set[str]]
@@ -27,7 +27,7 @@ class ImportsMap:
         return False
 
 
-def calc_imports_map(proj_info: dict, dirs: PyppDirs) -> ImportsMap:
+def calc_import_map(proj_info: dict, dirs: PyppDirs) -> ImportMap:
     modules: set[str] = set()
     libraries: dict[str, set[str]] = {}
     for installed_library in proj_info["installed_libraries"]:
@@ -48,4 +48,4 @@ def calc_imports_map(proj_info: dict, dirs: PyppDirs) -> ImportsMap:
                         libraries[installed_library] = set()
                     else:
                         libraries[installed_library] = set(r["ignore"])
-    return ImportsMap(modules, libraries)
+    return ImportMap(modules, libraries)

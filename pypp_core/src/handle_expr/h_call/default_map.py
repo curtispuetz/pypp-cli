@@ -8,7 +8,7 @@ from pypp_core.src.mapping.info_types import (
     CallMapInfoCustomMappingStartsWith,
     CallMapInfoLeftAndRight,
     CallMapInfoReplaceDotWithDoubleColon,
-    CallsMap,
+    CallMap,
 )
 
 
@@ -60,7 +60,7 @@ def _list_reserve(node: ast.Call, d) -> str:
     return f"{list_arg}.reserve({size_arg})"
 
 
-CALLS_MAP: CallsMap = {
+CALL_MAP: CallMap = {
     "print": {None: CallMapInfoCppCall("print", [QInc("pypp_util/print.h")])},
     "print_address": {
         PySpecificImpFrom(

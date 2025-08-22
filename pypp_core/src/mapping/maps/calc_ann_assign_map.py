@@ -28,7 +28,7 @@ def _uni(type_cpp: str, value_str: str, target_str: str) -> str:
     return f"{type_cpp} {target_str}({v})"
 
 
-ANN_ASSIGNS_MAP: AnnAssignsMap = {
+ANN_ASSIGN_MAP: AnnAssignsMap = {
     "PyDict<": {None: AnnAssignMapInfoCustomMappingStartsWith(_py_dict, [])},
     "Uni<": {
         PySpecificImpFrom(
@@ -51,8 +51,8 @@ mapping_funcs: dict[str, Callable[[dict], AnnAssignMapInfo]] = {
 }
 
 
-def calc_ann_assigns_map(proj_info: dict, dirs: PyppDirs) -> AnnAssignsMap:
-    ret = ANN_ASSIGNS_MAP.copy()
+def calc_ann_assign_map(proj_info: dict, dirs: PyppDirs) -> AnnAssignsMap:
+    ret = ANN_ASSIGN_MAP.copy()
     for installed_library in proj_info["installed_libraries"]:
         json_path: Path = dirs.calc_bridge_json(installed_library, "ann_assigns_map")
         if json_path.is_file():
