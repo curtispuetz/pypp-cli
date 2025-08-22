@@ -11,7 +11,7 @@ class _PrivateCustomException : public PyppException {
 };
 
 void custom_exception_fn() {
-    print(PyStr("PYPP CUSTOM EXCEPTION RESULTS:"));
+    print(PyStr("compy CUSTOM EXCEPTION RESULTS:"));
     try {
         throw CustomException(
             PyStr("This is a custom exception message.").str());

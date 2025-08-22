@@ -18,8 +18,8 @@ class ClassWithUnionByValue:
         self.value = value
 
 
-def pypp_union_fn():
-    print("PYPP UNION RESULTS:")
+def compy_union_fn():
+    print("compy UNION RESULTS:")
     a: Uni[int, float] = Uni(3.14)
     if isinst(a, float):
         print(ug(a, float))

@@ -13,7 +13,7 @@ class _RandomWrapper {
 };
 
 void random_fn() {
-    print(PyStr("PYPP RANDOM RESULTS:"));
+    print(PyStr("compy RANDOM RESULTS:"));
     random::Random a = random::Random(42);
     double b = a.random();
     print(b);

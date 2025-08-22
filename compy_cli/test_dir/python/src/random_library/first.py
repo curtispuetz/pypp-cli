@@ -14,7 +14,7 @@ class _RandomWrapper:
 
 
 def random_fn():
-    print("PYPP RANDOM RESULTS:")
+    print("compy RANDOM RESULTS:")
     a: random.Random = random.Random(42)
     b: float = a.random()
     print(b)

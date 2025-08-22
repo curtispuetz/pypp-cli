@@ -1,16 +1,16 @@
 #include "custom_libs/bridge_lib_test_0/first.h"
+#include "compy_bridge_library_test_0/custom_list.h"
+#include "compy_bridge_library_test_0/custom_mapping_starts_with_call.h"
+#include "compy_bridge_library_test_0/include_only_call.h"
+#include "compy_bridge_library_test_0/modules_to_cpp_inc.h"
+#include "compy_bridge_library_test_0/modules_to_cpp_inc_2.h"
+#include "compy_bridge_library_test_0/name_only_call.h"
+#include "compy_bridge_library_test_0/pseudo_a.h"
+#include "compy_bridge_library_test_0/pseudo_custom_type_cpp.h"
+#include "compy_bridge_library_test_0/replace_with_double_colon_call.h"
 #include "py_list.h"
 #include "py_str.h"
 #include "py_tuple.h"
-#include "pypp_bridge_library_test_0/custom_list.h"
-#include "pypp_bridge_library_test_0/custom_mapping_starts_with_call.h"
-#include "pypp_bridge_library_test_0/include_only_call.h"
-#include "pypp_bridge_library_test_0/modules_to_cpp_inc.h"
-#include "pypp_bridge_library_test_0/modules_to_cpp_inc_2.h"
-#include "pypp_bridge_library_test_0/name_only_call.h"
-#include "pypp_bridge_library_test_0/pseudo_a.h"
-#include "pypp_bridge_library_test_0/pseudo_custom_type_cpp.h"
-#include "pypp_bridge_library_test_0/replace_with_double_colon_call.h"
 #include "pypp_util/print.h"
 #include <iostream>
 
@@ -38,7 +38,7 @@ struct _PseudoPyppName_ConfigClassA {
 inline _PseudoPyppName_ConfigClassA _ConfigClassA;
 
 void bridge_lib_test_0_fn() {
-    print(PyStr("PYPP BRIDGE LIB TEST 0 RESULTS:"));
+    print(PyStr("compy BRIDGE LIB TEST 0 RESULTS:"));
     PseudoCustomTypeCpp a = PseudoCustomTypeCpp(42);
     int b = a.get_a();
     print(b);

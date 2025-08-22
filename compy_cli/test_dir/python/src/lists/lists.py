@@ -20,7 +20,7 @@ def list_fn():
     # Accessing - indices
     print(str(a[-1]))
     # Showing reassigning a reference behaviour
-    # BIG NOTE: you shouldn't do this in pypp. This results in inconsistent behavior
+    # BIG NOTE: you shouldn't do this in compy. This results in inconsistent behavior
     #  between the Python and C++ executions. In python when you reassign the original
     #  stays the same without modification, and in C++ when you reassign the original
     #  changes as well.

@@ -1,11 +1,11 @@
-from pypp_bridge_library_test_0.subscriptable_type import (
+from compy_bridge_library_test_0.subscriptable_type import (
     PseudoSubscriptableType,
     PseudoSubscriptableType2,
 )
 
 
 def subscriptable_types_fn():
-    print("PYPP SUBSCRIPTABLE TYPES RESULTS:")
+    print("compy SUBSCRIPTABLE TYPES RESULTS:")
     a: PseudoSubscriptableType[int] = PseudoSubscriptableType[int](9)
     a.print()
     b: PseudoSubscriptableType[str] = PseudoSubscriptableType[str](10)

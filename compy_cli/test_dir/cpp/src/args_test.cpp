@@ -32,7 +32,7 @@ void pseudo_int8_t_arg(pseudo_int8_t_cpp a) { print(a); }
 void pseudo_int16_t_arg(pseudo_int16_t_cpp a) { print(a); }
 
 void args_test_fn() {
-    print(PyStr("PYPP ARGS TEST RESULTS:"));
+    print(PyStr("compy ARGS TEST RESULTS:"));
     int a = 42;
     int_arg(a);
     double b = 3.14;

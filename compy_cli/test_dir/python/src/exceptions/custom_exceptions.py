@@ -17,7 +17,7 @@ class _PrivateCustomException(Exception):
 
 
 def custom_exception_fn():
-    print("PYPP CUSTOM EXCEPTION RESULTS:")
+    print("compy CUSTOM EXCEPTION RESULTS:")
     try:
         raise CustomException("This is a custom exception message.")
     except CustomException as e:

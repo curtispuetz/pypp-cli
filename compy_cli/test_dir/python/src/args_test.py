@@ -10,7 +10,7 @@ from compy_python.custom_types import (
     uint64_t,
 )
 
-from pypp_bridge_library_test_0.pass_by_value_test import pseudo_int8_t, pseudo_int16_t
+from compy_bridge_library_test_0.pass_by_value_test import pseudo_int8_t, pseudo_int16_t
 
 
 def int_arg(a: int):
@@ -77,7 +77,7 @@ def pseudo_int16_t_arg(a: pseudo_int16_t):
 
 
 def args_test_fn():
-    print("PYPP ARGS TEST RESULTS:")
+    print("compy ARGS TEST RESULTS:")
     a: int = 42
     int_arg(a)
     b: float = 3.14

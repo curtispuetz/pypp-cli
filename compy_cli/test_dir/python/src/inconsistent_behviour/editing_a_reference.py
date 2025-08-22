@@ -14,7 +14,7 @@ def editing_a_reference_fn():
     # However, imagine if we didn't pass c in here and instead we called like a method
     # and we wanted that one to append to some list and return the list? In this case,
     # would we want to return the reference? We could, but its not going to be supported
-    # in pypp. Instead, that object that we want to reference should be injected here
+    # in compy. Instead, that object that we want to reference should be injected here
     # everywhere that we need it. So, we would editing the list by calling that function
     # and we wouldn't need to return the list because we should already have that
     # objects reference here.
