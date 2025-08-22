@@ -88,6 +88,7 @@ NAMES_MAP: NamesMap = {
 }
 
 
+# TODO: remove the plural on all maps (i.e. names_map.json should be name_map.json)
 def calc_names_map(proj_info: dict, dirs: PyppDirs) -> NamesMap:
     return load_map(
         NAMES_MAP,

@@ -30,8 +30,12 @@ class CallMapInfoCustomMapping:
 
 
 @dataclass(frozen=True, slots=True)
-class CallMapInfoCustomMappingFromLibrary:
+class MappingFnStr:
     mapping_fn_str: str
+
+
+@dataclass(frozen=True, slots=True)
+class CallMapInfoCustomMappingFromLibrary(MappingFnStr):
     includes: list[CppInclude]
 
 
@@ -42,8 +46,7 @@ class CallMapInfoCustomMappingStartsWith:
 
 
 @dataclass(frozen=True, slots=True)
-class CallMapInfoCustomMappingStartsWithFromLibrary:
-    mapping_fn_str: str
+class CallMapInfoCustomMappingStartsWithFromLibrary(MappingFnStr):
     includes: list[CppInclude]
 
 
@@ -62,9 +65,28 @@ type CallMapInfo = (
     | CallMapInfoReplaceDotWithDoubleColon
 )
 
+
+@dataclass(frozen=True, slots=True)
+class AnnAssignMapInfoCustomMappingStartsWith:
+    mapping_fn: Callable
+    includes: list[CppInclude]
+
+
+@dataclass(frozen=True, slots=True)
+class AnnAssignMapInfoCustomMappingStartsWithFromLibrary(MappingFnStr):
+    includes: list[CppInclude]
+
+
+type AnnAssignMapInfo = (
+    AnnAssignMapInfoCustomMappingStartsWith
+    | AnnAssignMapInfoCustomMappingStartsWithFromLibrary
+)
+
+
 type NamesMapValue = dict[PySpecificImport | None, MapInfo]
 type CallsMapValue = dict[PySpecificImport | None, CallMapInfo]
 type AttrsMapValue = dict[PySpecificImport | None, MapInfo]
+type AnnAssignsMapValue = dict[PySpecificImport | None, AnnAssignMapInfo]
 type FnArgsByValueMapValue = dict[PySpecificImport | None, None]
 type SubscriptableTypesMapValue = dict[PySpecificImport | None, None]
 type NamesMap = dict[str, NamesMapValue]
@@ -72,6 +94,7 @@ type CallsMap = dict[str, CallsMapValue]
 type AttrsMap = dict[str, AttrsMapValue]
 type FnArgsByValueMap = dict[str, FnArgsByValueMapValue]
 type SubscriptableTypesMap = dict[str, SubscriptableTypesMapValue]
+type AnnAssignsMap = dict[str, AnnAssignsMapValue]
 
 type NamesOrAttrsMap = NamesMap | AttrsMap
 type NamesCallsOrAttrsMapValue = NamesMapValue | AttrsMapValue | CallsMapValue

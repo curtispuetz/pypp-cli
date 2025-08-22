@@ -1,5 +1,8 @@
+import ast
+import types
 from pypp_core.src.d_types import PySpecificImport
 from pypp_core.src.deps import Deps
+from pypp_core.src.mapping.info_types import MappingFnStr
 
 
 def is_one(r: dict[PySpecificImport | None, None], d: Deps) -> bool:
@@ -18,3 +21,21 @@ def find_map_info[T](r: dict[PySpecificImport | None, T], d: Deps) -> T | None:
     if None in r:
         return r[None]
     return None
+
+
+def calc_string_fn(
+    info: MappingFnStr,
+    json_file_name: str,
+) -> types.FunctionType:
+    namespace = {"ast": ast, "Deps": Deps}
+    exec(info.mapping_fn_str, namespace)
+    funcs = [obj for obj in namespace.values() if isinstance(obj, types.FunctionType)]
+    assert len(funcs) == 1, (
+        "Expected exactly one function in mapping_function string from "
+        f"{json_file_name}.json in an installed bridge-library. "
+        "You shouldn't be seeing this error "
+        "because the mapping_function should have been "
+        "validated when the library was "
+        "installed."
+    )
+    return funcs[0]
