@@ -1,5 +1,4 @@
 import ast
-import types
 
 from pypp_core.src.deps import Deps
 from pypp_core.src.handle_expr.h_starred import handle_call_with_starred_arg
@@ -12,12 +11,13 @@ from pypp_core.src.mapping.info_types import (
     CallMapInfoLeftAndRight,
     CallMapInfoReplaceDotWithDoubleColon,
 )
-from pypp_core.src.mapping.util import find_map_info
+from pypp_core.src.mapping.util import calc_string_fn, find_map_info
 
 
 def handle_call(node: ast.Call, d: Deps) -> str:
     assert len(node.keywords) == 0, "keywords for a call are not supported."
     caller_str: str = d.handle_expr(node.func)
+    # TODO: rename _type to something like caller
     for _type, r in d.maps.calls.items():
         info = find_map_info(r, d)
         if info is None:
@@ -37,7 +37,7 @@ def handle_call(node: ast.Call, d: Deps) -> str:
         elif isinstance(info, CallMapInfoCustomMappingFromLibrary):
             if caller_str == _type:
                 d.add_incs(info.includes)
-                return _calc_string_fn(info)(node, d)
+                return calc_string_fn(info, "calls_map")(node, d)
         elif isinstance(info, CallMapInfoCustomMappingStartsWith):
             if caller_str.startswith(_type):
                 d.add_incs(info.includes)
@@ -45,31 +45,13 @@ def handle_call(node: ast.Call, d: Deps) -> str:
         elif isinstance(info, CallMapInfoCustomMappingStartsWithFromLibrary):
             if caller_str.startswith(_type):
                 d.add_incs(info.includes)
-                return _calc_string_fn(info)(node, d, caller_str)
+                return calc_string_fn(info, "calls_map")(node, d, caller_str)
         elif isinstance(info, CallMapInfoReplaceDotWithDoubleColon):
             if caller_str.startswith(_type):
                 d.add_incs(info.includes)
                 caller_str = caller_str.replace(".", "::")
                 return f"{caller_str}({d.handle_exprs(node.args)})"
     return f"{caller_str}({d.handle_exprs(node.args)})"
-
-
-def _calc_string_fn(
-    info: CallMapInfoCustomMappingFromLibrary
-    | CallMapInfoCustomMappingStartsWithFromLibrary,
-) -> types.FunctionType:
-    namespace = {"ast": ast, "Deps": Deps}
-    exec(info.mapping_fn_str, namespace)
-    funcs = [obj for obj in namespace.values() if isinstance(obj, types.FunctionType)]
-    assert len(funcs) == 1, (
-        "Expected exactly one function in mapping_function string from "
-        "calls_map.json in an installed bridge-library. "
-        "You shouldn't be seeing this error "
-        "because the mapping_function should have been "
-        "validated when the library was "
-        "installed."
-    )
-    return funcs[0]
 
 
 # TODO later: support starred arguments

@@ -14,11 +14,18 @@ from pypp_core.src.d_types import (
 )
 from pypp_core.src.mapping.info_types import MapInfo
 
+_ERROR_STR = (
+    "This shouldn't happen because the json schema should have been validated "
+    "on library install"
+)
+
 
 def calc_cpp_includes(obj: dict) -> list[CppInclude]:
     ret: list[CppInclude] = []
     if "cpp_includes" in obj:
-        assert isinstance(obj["cpp_includes"], dict), "cpp_includes must be an object"
+        assert isinstance(obj["cpp_includes"], dict), (
+            f"cpp_includes must be an object. {_ERROR_STR}"
+        )
         for inc_type, inc_str in obj["cpp_includes"].items():
             if inc_type == "quote_include":
                 ret.append(QInc(inc_str))
@@ -32,8 +39,10 @@ def calc_cpp_includes(obj: dict) -> list[CppInclude]:
 def calc_required_py_import(obj: dict | None) -> PySpecificImport | None:
     if obj is not None and "required_py_import" in obj:
         req = obj["required_py_import"]
-        assert isinstance(req, dict), "required_py_import must be an object"
-        assert "name" in req, "required_py_import must specify a name"
+        assert isinstance(req, dict), (
+            f"required_py_import must be an object. {_ERROR_STR}"
+        )
+        assert "name" in req, f"required_py_import must specify a name. {_ERROR_STR}"
         if "module" in req:
             return PySpecificImpFrom(req["module"], req["name"])
         if "as_name" in req:
@@ -44,7 +53,7 @@ def calc_required_py_import(obj: dict | None) -> PySpecificImport | None:
 
 def calc_map_info(obj: dict, json_file_name: str) -> MapInfo:
     assert "cpp_type" in obj, (
-        f"{json_file_name}.json must specify a cpp_type for each element"
+        f"{json_file_name}.json must specify a cpp_type for each element. {_ERROR_STR}"
     )
     cpp_includes = calc_cpp_includes(obj)
     return MapInfo(obj["cpp_type"], cpp_includes)

@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 
+from pypp_core.src.mapping.maps.calc_ann_assigns_map import calc_ann_assigns_map
 from pypp_core.src.pypp_dirs import PyppDirs
 from pypp_core.src.mapping.maps.calc_attrs_map import calc_attrs_map
 from pypp_core.src.mapping.maps.calc_calls_map import calc_calls_map
@@ -12,6 +13,7 @@ from pypp_core.src.mapping.maps.calc_imports_map import (
 )
 from pypp_core.src.mapping.maps.calc_names_map import calc_names_map
 from pypp_core.src.mapping.info_types import (
+    AnnAssignsMap,
     AttrsMap,
     CallsMap,
     FnArgsByValueMap,
@@ -28,7 +30,9 @@ class Maps:
     attrs: AttrsMap
     fn_args_passed_by_value: FnArgsByValueMap
     subscriptable_types: SubscriptableTypesMap
+    # TODO: rename to imports
     imports_map: ImportsMap
+    ann_assigns: AnnAssignsMap
 
 
 def calc_maps(proj_info: dict, dirs: PyppDirs) -> Maps:
@@ -39,4 +43,5 @@ def calc_maps(proj_info: dict, dirs: PyppDirs) -> Maps:
         calc_fn_args_passed_by_value(proj_info, dirs),
         calc_subscriptable_types(proj_info, dirs),
         calc_imports_map(proj_info, dirs),
+        calc_ann_assigns_map(proj_info, dirs),
     )
