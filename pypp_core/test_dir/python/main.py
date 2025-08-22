@@ -6,6 +6,7 @@ from first import return_something
 from imports_test.first import imports_test_fn
 from imports_test.second import imports_test_fn2
 from lambdas import lambdas_fn
+from lists.ownership import list_ownership_tests_fn
 from random_library.first import random_fn
 from second import return_friend
 from subscriptable_types import subscriptable_types_fn
@@ -126,3 +127,4 @@ if __name__ == "__main__":
     lambdas_fn()
     bridge_lib_test_0_fn()
     bridge_lib_test_1_fn()
+    list_ownership_tests_fn()

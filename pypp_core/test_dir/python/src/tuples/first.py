@@ -54,7 +54,7 @@ def tuples_fn():
     # argument unpacking only works if it is the only argument to the call.
     # arg_unpacking_fail(1, *get_tup())
 
-    # variables that are passed to tuples are moved
+    # variables that are passed to tuples are not moved (anymore)
     c: list[int] = [1, 2, 3]
     d: tuple[int, list[int]] = (1, c)
     print(d)

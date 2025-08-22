@@ -28,6 +28,7 @@
 #include "lists/comprehensions.h"
 #include "lists/exceptions.h"
 #include "lists/lists.h"
+#include "lists/ownership.h"
 #include "loops/enumerate_.h"
 #include "loops/for_.h"
 #include "loops/reversed_.h"
@@ -131,6 +132,7 @@ int main() {
         lambdas_fn();
         bridge_lib_test_0_fn();
         bridge_lib_test_1_fn();
+        list_ownership_tests_fn();
         return 0;
     } catch (...) {
         handle_fatal_exception();
