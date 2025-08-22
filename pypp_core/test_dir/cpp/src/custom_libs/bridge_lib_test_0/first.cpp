@@ -1,6 +1,8 @@
 #include "custom_libs/bridge_lib_test_0/first.h"
+#include "py_list.h"
 #include "py_str.h"
 #include "py_tuple.h"
+#include "pypp_bridge_library_test_0/custom_list.h"
 #include "pypp_bridge_library_test_0/custom_mapping_starts_with_call.h"
 #include "pypp_bridge_library_test_0/include_only_call.h"
 #include "pypp_bridge_library_test_0/modules_to_cpp_inc.h"
@@ -63,4 +65,6 @@ void bridge_lib_test_0_fn() {
     print(pseudo_fn_a());
     print(m2::pseudo_fn_b());
     std::cout << "[Custom Print]: " << PyStr("aloha") << std::endl;
+    PseudoCustomList<int> k(PyList({1, 2, 3}));
+    print(&k);
 }

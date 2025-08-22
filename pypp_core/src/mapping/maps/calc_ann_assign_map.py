@@ -14,18 +14,20 @@ from pypp_core.src.mapping.maps.util import (
     calc_imp_str,
     calc_required_py_import,
 )
-from pypp_core.src.util.inner_strings import calc_inside_rd
 
 
-def _py_dict(type_cpp: str, value_str: str, target_str: str) -> str:
+def _py_dict(
+    type_cpp: str, target_str: str, value_str: str, _value_str_stripped: str
+) -> str:
     return f"{type_cpp} {target_str}({value_str})"
 
 
-def _uni(type_cpp: str, value_str: str, target_str: str) -> str:
-    v: str = calc_inside_rd(value_str)
-    if v == "std::monostate":
-        v += "{}"
-    return f"{type_cpp} {target_str}({v})"
+def _uni(
+    type_cpp: str, target_str: str, _value_str: str, value_str_stripped: str
+) -> str:
+    if value_str_stripped == "std::monostate":
+        value_str_stripped += "{}"
+    return f"{type_cpp} {target_str}({value_str_stripped})"
 
 
 ANN_ASSIGN_MAP: AnnAssignsMap = {
