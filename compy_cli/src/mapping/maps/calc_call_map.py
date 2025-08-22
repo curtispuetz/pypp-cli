@@ -2,7 +2,7 @@ import json
 from pathlib import Path
 from typing import Callable
 
-from compy_cli.src.pypp_dirs import PyppDirs
+from compy_cli.src.compy_dirs import CompyDirs
 from compy_cli.src.handle_expr.h_call.default_map import CALL_MAP
 from compy_cli.src.mapping.maps.util import (
     calc_cpp_includes,
@@ -57,7 +57,7 @@ mapping_funcs: dict[str, Callable[[dict], CallMapInfo]] = {
 }
 
 
-def calc_call_map(proj_info: dict, dirs: PyppDirs) -> CallMap:
+def calc_call_map(proj_info: dict, dirs: CompyDirs) -> CallMap:
     ret = CALL_MAP.copy()
     for installed_library in proj_info["installed_libraries"]:
         json_path: Path = dirs.calc_bridge_json(installed_library, "call_map")

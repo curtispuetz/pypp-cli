@@ -2,13 +2,13 @@ import json
 from pathlib import Path
 import subprocess
 
-from compy_cli.src.pypp_dirs import PyppDirs
+from compy_cli.src.compy_dirs import CompyDirs
 import venv
 
 # TODO: rename project to compy
 
 
-def pypp_init(dirs: PyppDirs):
+def pypp_init(dirs: CompyDirs):
     _create_project_structure(dirs)
     print("py++ project structure creation finished")
     print("creating python virtual environment...")
@@ -27,20 +27,20 @@ def pypp_init(dirs: PyppDirs):
     print("py++ project init finished")
 
 
-def _create_python_virtual_environment(dirs: PyppDirs):
+def _create_python_virtual_environment(dirs: CompyDirs):
     venv_dir: Path = dirs.python_dir / ".venv"
     venv.create(venv_dir, with_pip=True)
     print("Python virtual environment created in python project directory")
 
 
-def _create_project_structure(dirs: PyppDirs):
+def _create_project_structure(dirs: CompyDirs):
     _create_main_folders(dirs)
     _create_python_main_file(dirs)
     _create_python_src_file(dirs)
     _create_proj_json_file(dirs)
 
 
-def _create_main_folders(dirs: PyppDirs):
+def _create_main_folders(dirs: CompyDirs):
     dirs.cpp_dir.mkdir(parents=True, exist_ok=True)
     dirs.python_dir.mkdir(parents=True, exist_ok=True)
     dirs.python_src_dir.mkdir(parents=True, exist_ok=True)
@@ -48,7 +48,7 @@ def _create_main_folders(dirs: PyppDirs):
     dirs.compy_data_dir.mkdir(parents=True, exist_ok=True)
 
 
-def _create_python_main_file(dirs: PyppDirs):
+def _create_python_main_file(dirs: CompyDirs):
     main_py_path = dirs.python_dir / "main.py"
     main_py_path.write_text(
         "\n".join(
@@ -62,7 +62,7 @@ def _create_python_main_file(dirs: PyppDirs):
     )
 
 
-def _create_python_src_file(dirs: PyppDirs):
+def _create_python_src_file(dirs: CompyDirs):
     src_py_path = dirs.python_src_dir / "hello_world.py"
     src_py_path.write_text(
         "\n".join(
@@ -74,7 +74,7 @@ def _create_python_src_file(dirs: PyppDirs):
     )
 
 
-def _create_proj_json_file(dirs: PyppDirs):
+def _create_proj_json_file(dirs: CompyDirs):
     data = {"cpp_dir_is_dirty": True}
     with open(dirs.proj_info_file, "w") as file:
         json.dump(data, file, indent=4)

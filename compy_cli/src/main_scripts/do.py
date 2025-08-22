@@ -1,13 +1,13 @@
 from pathlib import Path
 
-from compy_cli.src.pypp_dirs import PyppDirs
+from compy_cli.src.compy_dirs import CompyDirs
 from compy_cli.src.main_scripts.build import pypp_build
 from compy_cli.src.main_scripts.format import pypp_format
 from compy_cli.src.main_scripts.run import pypp_run
 from compy_cli.src.main_scripts.transpile import pypp_transpile
 
 
-def pypp_do(tasks: list[str], dirs: PyppDirs) -> None:
+def pypp_do(tasks: list[str], dirs: CompyDirs) -> None:
     do_helper = _DoHelper(dirs)
     task_methods = {
         "transpile": do_helper.transpile,
@@ -21,7 +21,7 @@ def pypp_do(tasks: list[str], dirs: PyppDirs) -> None:
 
 
 class _DoHelper:
-    def __init__(self, dirs: PyppDirs):
+    def __init__(self, dirs: CompyDirs):
         self._dirs = dirs
         self._files_added_or_modified: list[Path] | None = None
 

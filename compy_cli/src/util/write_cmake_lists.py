@@ -1,8 +1,8 @@
 from pathlib import Path
-from compy_cli.src.pypp_dirs import PyppDirs
+from compy_cli.src.compy_dirs import CompyDirs
 
 
-def write_cmake_lists_file(dirs: PyppDirs, main_py_files: list[Path]):
+def write_cmake_lists_file(dirs: CompyDirs, main_py_files: list[Path]):
     cmake_lines = [
         "cmake_minimum_required(VERSION 4.0)",
         "project(compy LANGUAGES CXX)",

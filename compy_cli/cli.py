@@ -1,7 +1,7 @@
 from pathlib import Path
 import argparse
 
-from compy_cli.src.pypp_dirs import PyppDirs
+from compy_cli.src.compy_dirs import CompyDirs
 from compy_cli.src.main_scripts.do import pypp_do
 from compy_cli.src.main_scripts.init import pypp_init
 from compy_cli.src.main_scripts.install import pypp_install
@@ -56,7 +56,7 @@ def main_cli(absolute_dir: Path | None = None) -> None:
     args = parser.parse_args()
     if absolute_dir is None:
         absolute_dir = Path.cwd()
-    pypp_dirs = PyppDirs(absolute_dir)
+    pypp_dirs = CompyDirs(absolute_dir)
     if args.mode == "init":
         pypp_init(pypp_dirs)
     elif not pypp_dirs.proj_info_file.exists():

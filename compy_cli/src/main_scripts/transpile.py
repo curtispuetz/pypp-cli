@@ -2,7 +2,7 @@ import json
 from pathlib import Path
 
 from compy_cli.src.main_scripts.transpiler import Transpiler
-from compy_cli.src.pypp_dirs import PyppDirs
+from compy_cli.src.compy_dirs import CompyDirs
 from compy_cli.src.util.file_change_tracker import (
     calc_py_file_changes,
     get_all_main_py_files,
@@ -15,7 +15,7 @@ from compy_cli.src.util.initalize_cpp import (
 from compy_cli.src.util.write_cmake_lists import write_cmake_lists_file
 
 
-def _delete_cpp_and_h_file(filepath: Path, dirs: PyppDirs) -> int:
+def _delete_cpp_and_h_file(filepath: Path, dirs: CompyDirs) -> int:
     files_deleted: int = 0
     cpp_file: Path = filepath.with_suffix(".cpp")
     h_file: Path = filepath.with_suffix(".h")
@@ -30,7 +30,7 @@ def _delete_cpp_and_h_file(filepath: Path, dirs: PyppDirs) -> int:
     return files_deleted
 
 
-def pypp_transpile(dirs: PyppDirs) -> list[Path]:
+def pypp_transpile(dirs: CompyDirs) -> list[Path]:
     # Step 1: Copy the C++ template to the cpp project directory if marked as dirty
     with open(dirs.proj_info_file) as file:
         proj_info = json.load(file)

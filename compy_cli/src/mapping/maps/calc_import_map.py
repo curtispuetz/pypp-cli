@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 import json
 from pathlib import Path
-from compy_cli.src.pypp_dirs import PyppDirs
+from compy_cli.src.compy_dirs import CompyDirs
 
 
 def _calc_module_beginning(module: str) -> str:
@@ -27,7 +27,7 @@ class ImportMap:
         return False
 
 
-def calc_import_map(proj_info: dict, dirs: PyppDirs) -> ImportMap:
+def calc_import_map(proj_info: dict, dirs: CompyDirs) -> ImportMap:
     modules: set[str] = set()
     libraries: dict[str, set[str]] = {}
     for installed_library in proj_info["installed_libraries"]:
