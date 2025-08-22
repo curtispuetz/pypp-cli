@@ -1,4 +1,4 @@
-from pypp_python.ownership import mov
+from compy_python.ownership import mov
 
 
 def while_loop_fn():

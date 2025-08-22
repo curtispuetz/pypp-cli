@@ -1,5 +1,5 @@
-from pypp_python.ownership import Valu
-from pypp_python.tuple_get import tg
+from compy_python.ownership import Valu
+from compy_python.tuple_get import tg
 
 
 def _inline_tuple(tup: Valu(tuple[float, str])):

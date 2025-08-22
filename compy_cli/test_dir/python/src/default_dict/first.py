@@ -1,9 +1,9 @@
 from collections import defaultdict
 from dataclasses import dataclass
 
-from pypp_python.custom_types import auto
-from pypp_python.ownership import Valu
-from pypp_python.printing import print_address
+from compy_python.custom_types import auto
+from compy_python.ownership import Valu
+from compy_python.printing import print_address
 
 
 def _dict_factory() -> dict[int, int]:

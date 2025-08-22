@@ -20,49 +20,49 @@ NAME_MAP: NameMap = {
     "int": {None: MapInfo("int", [])},
     "float": {None: MapInfo("double", [])},
     "float32": {
-        PySpecificImpFrom("pypp_python.custom_types", "float32"): MapInfo("float", [])
+        PySpecificImpFrom("compy_python.custom_types", "float32"): MapInfo("float", [])
     },
     "int8_t": {
-        PySpecificImpFrom("pypp_python.custom_types", "int8_t"): MapInfo(
+        PySpecificImpFrom("compy_python.custom_types", "int8_t"): MapInfo(
             "int8_t",
             [AngInc("cstdint")],
         )
     },
     "int16_t": {
-        PySpecificImpFrom("pypp_python.custom_types", "int16_t"): MapInfo(
+        PySpecificImpFrom("compy_python.custom_types", "int16_t"): MapInfo(
             "int16_t",
             [AngInc("cstdint")],
         )
     },
     "int32_t": {
-        PySpecificImpFrom("pypp_python.custom_types", "int32_t"): MapInfo(
+        PySpecificImpFrom("compy_python.custom_types", "int32_t"): MapInfo(
             "int32_t",
             [AngInc("cstdint")],
         )
     },
     "int64_t": {
-        PySpecificImpFrom("pypp_python.custom_types", "int64_t"): MapInfo(
+        PySpecificImpFrom("compy_python.custom_types", "int64_t"): MapInfo(
             "int64_t",
             [AngInc("cstdint")],
         )
     },
     "uint8_t": {
-        PySpecificImpFrom("pypp_python.custom_types", "uint8_t"): MapInfo(
+        PySpecificImpFrom("compy_python.custom_types", "uint8_t"): MapInfo(
             "uint8_t", [AngInc("cstdint")]
         )
     },
     "uint16_t": {
-        PySpecificImpFrom("pypp_python.custom_types", "uint16_t"): MapInfo(
+        PySpecificImpFrom("compy_python.custom_types", "uint16_t"): MapInfo(
             "uint16_t", [AngInc("cstdint")]
         )
     },
     "uint32_t": {
-        PySpecificImpFrom("pypp_python.custom_types", "uint32_t"): MapInfo(
+        PySpecificImpFrom("compy_python.custom_types", "uint32_t"): MapInfo(
             "uint32_t", [AngInc("cstdint")]
         )
     },
     "uint64_t": {
-        PySpecificImpFrom("pypp_python.custom_types", "uint64_t"): MapInfo(
+        PySpecificImpFrom("compy_python.custom_types", "uint64_t"): MapInfo(
             "uint64_t", [AngInc("cstdint")]
         )
     },
@@ -81,7 +81,7 @@ NAME_MAP: NameMap = {
     "zip": {None: MapInfo("PyZip", [QInc("py_zip.h")])},
     "reversed": {None: MapInfo("PyReversed", [QInc("py_reversed.h")])},
     "Uni": {
-        PySpecificImpFrom("pypp_python.union", "Uni"): MapInfo(
+        PySpecificImpFrom("compy_python.union", "Uni"): MapInfo(
             "Uni", [QInc("pypp_union.h")]
         )
     },

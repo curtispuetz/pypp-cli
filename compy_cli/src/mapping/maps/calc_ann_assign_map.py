@@ -34,7 +34,7 @@ ANN_ASSIGN_MAP: AnnAssignsMap = {
     "PyDict<": {None: AnnAssignMapInfoCustomMappingStartsWith(_py_dict, [])},
     "Uni<": {
         PySpecificImpFrom(
-            "pypp_python.union", "Uni"
+            "compy_python.union", "Uni"
         ): AnnAssignMapInfoCustomMappingStartsWith(_uni, [])
     },
 }

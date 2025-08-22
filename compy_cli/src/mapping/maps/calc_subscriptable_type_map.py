@@ -9,7 +9,7 @@ SUBSCRIPTABLE_TYPE_MAP: SubscriptableTypeMap = {
     "PyTup": {None: None},
     "PySet": {None: None},
     "PyDefaultDict": {PySpecificImpFrom("collections", "defaultdict"): None},
-    "Uni": {PySpecificImpFrom("pypp_python.union", "Uni"): None},
+    "Uni": {PySpecificImpFrom("compy_python.union", "Uni"): None},
 }
 
 

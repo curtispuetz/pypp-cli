@@ -20,7 +20,8 @@ def pypp_init(dirs: PyppDirs):
             "pip",
             "install",
             # TODO later: install from PyPI when available
-            r"C:\Users\puetz\PycharmProjects\pypp-python\dist\pypp_python-0.0.0-py3-none-any.whl",
+            # TODO now: update path
+            r"C:\Users\puetz\PycharmProjects\compy-python\dist\compy_python-0.0.0-py3-none-any.whl",
         ]
     )
     print("py++ project init finished")

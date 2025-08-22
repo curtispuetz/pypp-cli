@@ -1,4 +1,4 @@
-from pypp_python.resources import pypp_get_resources
+from compy_python.resources import pypp_get_resources
 import os
 import shutil
 

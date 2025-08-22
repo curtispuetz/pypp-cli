@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from pypp_python.ownership import mov, Valu
+from compy_python.ownership import mov, Valu
 
 
 @dataclass

@@ -1,4 +1,4 @@
-from pypp_python.ownership import Ref
+from compy_python.ownership import Ref
 
 
 def _get_list(input_list: list[int]) -> Ref(list[int]):

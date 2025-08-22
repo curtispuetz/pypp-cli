@@ -1,5 +1,5 @@
-from pypp_python.ownership import mov
-from pypp_python.printing import print_address
+from compy_python.ownership import mov
+from compy_python.printing import print_address
 
 
 class _PrivateClass:

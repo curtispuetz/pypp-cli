@@ -1,5 +1,5 @@
-from pypp_python.lists import list_reserve
-from pypp_python.ownership import mov, Valu, Ref
+from compy_python.lists import list_reserve
+from compy_python.ownership import mov, Valu, Ref
 
 
 def _test_fn(arg1: Valu(list[str])):

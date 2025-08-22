@@ -1,5 +1,5 @@
-from pypp_python.math import int_pow
-from pypp_python.ownership import Ref
+from compy_python.math import int_pow
+from compy_python.ownership import Ref
 
 
 def operations_fn():
