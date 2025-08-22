@@ -1,4 +1,4 @@
-# Pypp (a Python to C++ transpiler)
+# Compy (a Python to C++ transpiler)
 This project is a work-in-progress. Below you will find sections: The goal, The idea, How is this possible?, 
 The inspiration, Why not cython, pypy, or Nuitka?, and What works today?
 
@@ -10,11 +10,11 @@ and executed much faster, as C/C++ is the fastest high-level language of today.
 
 You will be able to run your code either with the Python interpreter, or by transpiling it to C++ and then 
 building it with cmake. The steps will be something like this:
-1. install pypp
-2. setup your project with cmd: `pypp init`
-3. install any dependencies you want with cmd: `pypp install [name]` (e.g. pypp install numpy)
+1. install compy
+2. setup your project with cmd: `compy init`
+3. install any dependencies you want with cmd: `compy install [name]` (e.g. compy install numpy)
 4. run your code with the python interpreter with cmd: `python my_file.py`
-5. transpile your code to C++ with cmd: `pypp transpile` 
+5. transpile your code to C++ with cmd: `compy transpile` 
 6. build the C++ code with cmake commands
 
 Furthermore, the transpiling will work in a way such that you will easily be able to recognize your 
@@ -33,20 +33,20 @@ code you write will go, and one named cpp where the transpiled C++ code will go.
 You are probably thinking: how is this possible, since Python code does not always have a direct C++
 equivalent?
 
-The key to making it possible is that not all Python code will be compatible with pypp. This means that
-in order to use pypp you will need to write your Python code in a certain way (but it will still all 
+The key to making it possible is that not all Python code will be compatible with compy. This means that
+in order to use compy you will need to write your Python code in a certain way (but it will still all 
 be valid Python code that can be run with the Python interpreter, which is unlike Cython where you 
 can write code which is no longer valid Python).
 
 Here are some of the bigger things you will need to do in your 
 Python code (not a complete list; the complete list will come later):
 - Include type annotations for all variables, function/method parameters, and function/method return types.
-- Not use the Python None keyword, and instead use a PyppOptional which you can import.
+- Not use the Python None keyword, and instead use a compyOptional which you can import.
 - Not use my_tup[0] to access tuple elements, and instead use tg(my_tup, 0) (where you import tg)
 - You will need to be aware that in the transpiled C++ every object is passed as a reference or constant reference, so
 you will need to write your Python so that references are kept to these objects because otherwise there will be a bug
 in your transpiled C++ (this will be unintuitive to Python programmers and I think the biggest learning point or gotcha 
-of pypp. I hope most other adjustments will be simple and i'll try to make it so.)
+of compy. I hope most other adjustments will be simple and i'll try to make it so.)
 
 Another trick I have employed so far, that is probably worthy of note here, is in order to translate something
 like a python string or list to C++ I have implemented PyStr and PyList classes in C++ with identical 
@@ -69,11 +69,11 @@ in university, it would have been very helpful to be able to transpile to C++ fo
 calculations that took multiple days running in Python.
 
 ## Why not cython, pypy, or Nuitka?
-Why build pypp when you can use something similar like cython, pypy, or Nuitka, etc. that speeds up your
+Why build compy when you can use something similar like cython, pypy, or Nuitka, etc. that speeds up your
 python code? 
 
 Because from research I have found that these programs, while they do improve speed, do not typically reach 
-the C++ level of speed. pypp should reach C++ level of speed because the executable built is literally from 
+the C++ level of speed. compy should reach C++ level of speed because the executable built is literally from 
 C++ code.
 
 For cython, I mentioned briefly earlier, I don't like that some of the code you would write for it is 
@@ -97,12 +97,12 @@ note, I am interested in how that mapping can work.
   - printing with the print() function
   - classes
   - @dataclass
-  - @configclass (a custom pypp decorator for constant variables in a class)
+  - @configclass (a custom compy decorator for constant variables in a class)
   - interfaces with ABC and @abstractmethod decorators
   - type variables
   - lambda functions
   - the yield and yield from keywords
-  - isinstance() is effectively supported by using the pypp Uni type where you specify all the possible types
+  - isinstance() is effectively supported by using the compy Uni type where you specify all the possible types
 and can then call an isinst() method.
 - file-io (with the standard Python open() function)
 - certain functions from the math and time libraries

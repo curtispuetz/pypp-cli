@@ -57,7 +57,7 @@ def operations_fn():
     print(f"in set: {p}")
     # in dict
     # Note: I create a test_dict because you can't inline the dicts like the others in
-    # Py++
+    # Compy. Is this still true or is that possible now?
     test_dict: dict[int, str] = {1: "a", 5: "b"}
     q: bool = 5 in test_dict
     print(f"in dict: {q}")
