@@ -1,36 +1,36 @@
 #include "exceptions/throw_.h"
+#include "compy_util/print.h"
+#include "compy_util/to_py_str.h"
 #include "exceptions/exception.h"
 #include "exceptions/stdexcept.h"
 #include "py_str.h"
-#include "pypp_util/print.h"
-#include "pypp_util/to_py_str.h"
 #include <string>
 
 void throw_fn() {
     print(PyStr("EXCEPTION RESULTS:"));
     try {
-        throw PyppException(PyStr("test").str());
-    } catch (const PyppException &) {
+        throw CompyException(PyStr("test").str());
+    } catch (const CompyException &) {
         print(PyStr("exception happened"));
     }
     try {
-        throw PyppTypeError(PyStr("test").str());
-    } catch (const PyppTypeError &) {
+        throw CompyTypeError(PyStr("test").str());
+    } catch (const CompyTypeError &) {
         print(PyStr("type error caught"));
     }
     try {
-        throw PyppTypeError(PyStr("test").str());
-    } catch (const PyppTypeError &pypp_e) {
-        std::string e = pypp_e.what();
+        throw CompyTypeError(PyStr("test").str());
+    } catch (const CompyTypeError &compy_e) {
+        std::string e = compy_e.what();
         print(PyStr("type error caught: ") + to_pystr(e));
     }
     try {
-        throw PyppTypeError(PyStr("test").str());
-    } catch (const PyppTypeError &) {
+        throw CompyTypeError(PyStr("test").str());
+    } catch (const CompyTypeError &) {
         print(PyStr("type error caught"));
-    } catch (const PyppValueError &) {
+    } catch (const CompyValueError &) {
         print(PyStr("value error caught"));
-    } catch (const PyppException &) {
+    } catch (const CompyException &) {
         print(PyStr("other error caught"));
     }
 }

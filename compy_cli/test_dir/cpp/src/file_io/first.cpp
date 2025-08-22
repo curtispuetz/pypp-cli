@@ -1,10 +1,11 @@
 #include "file_io/first.h"
+#include "compy_os.h"
+#include "compy_resources.h"
+#include "compy_shutil.h"
+#include "compy_text_io.h"
+#include "compy_util/print.h"
 #include "py_list.h"
 #include "py_str.h"
-#include "pypp_os.h"
-#include "pypp_shutil.h"
-#include "pypp_text_io.h"
-#include "pypp_util/print.h"
 
 void file_io_fn() {
     print(PyStr("FILE IO RESULTS:"));

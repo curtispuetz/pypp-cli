@@ -2,10 +2,10 @@
 
 #include "exceptions/exception.h"
 
-class CustomException : public PyppException {
+class CustomException : public CompyException {
   public:
     explicit CustomException(const std::string &msg)
-        : PyppException("CustomException: " + msg) {}
+        : CompyException("CustomException: " + msg) {}
 };
 
 class ChildException : public CustomException {

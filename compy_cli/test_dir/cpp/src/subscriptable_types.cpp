@@ -1,8 +1,8 @@
 #include "subscriptable_types.h"
 #include "compy_bridge_library_test_0/subscriptable_type.h"
+#include "compy_util/print.h"
 #include "py_list.h"
 #include "py_str.h"
-#include "pypp_util/print.h"
 
 void subscriptable_types_fn() {
     print(PyStr("compy SUBSCRIPTABLE TYPES RESULTS:"));

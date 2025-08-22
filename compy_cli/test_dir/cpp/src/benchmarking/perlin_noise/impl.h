@@ -1,8 +1,8 @@
 #pragma once
 
+#include "compy_random.h"
 #include "py_list.h"
 #include "py_tuple.h"
-#include "pypp_random.h"
 #include <utility>
 
 inline const PyList<PyTup<int, int>> GRADIENTS =

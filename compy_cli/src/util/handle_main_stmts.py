@@ -14,7 +14,7 @@ def handle_main_stmts(stmts: list[ast.stmt], d: Deps) -> str:
     before_main = d.handle_stmts(stmts[:-1])
     assert isinstance(main_stmt, ast.If), "shouldn't happen"
     inside_main = d.handle_stmts(main_stmt.body + [ast.Return(ast.Constant(0))])
-    d.add_inc(QInc("pypp_util/main_error_handler.h"))
+    d.add_inc(QInc("compy_util/main_error_handler.h"))
     return (
         before_main
         + " int main() { try {"

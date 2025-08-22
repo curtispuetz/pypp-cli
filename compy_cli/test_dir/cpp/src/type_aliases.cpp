@@ -1,7 +1,7 @@
 #include "type_aliases.h"
+#include "compy_util/print.h"
 #include "py_str.h"
 #include "py_tuple.h"
-#include "pypp_util/print.h"
 
 using _PrivateType = PyTup<int, PyList<PyStr>, double>;
 void type_aliases_fn() {

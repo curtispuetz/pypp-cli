@@ -5,7 +5,7 @@ from compy_cli.src.deps import Deps
 
 
 def handle_assert(node: ast.Assert, d: Deps) -> str:
-    d.add_inc(QInc("pypp_assert.h"))
+    d.add_inc(QInc("compy_assert.h"))
     test_str = d.handle_expr(node.test)
     msg_str = 'PyStr("")'
     if node.msg is not None:

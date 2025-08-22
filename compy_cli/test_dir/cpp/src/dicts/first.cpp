@@ -1,9 +1,9 @@
 #include "dicts/first.h"
+#include "compy_util/print.h"
+#include "compy_util/to_py_str.h"
 #include "py_dict.h"
 #include "py_list.h"
 #include "py_str.h"
-#include "pypp_util/print.h"
-#include "pypp_util/to_py_str.h"
 #include <utility>
 
 void _inline_dict(PyDict<int, int> d) { print(d); }

@@ -13,7 +13,7 @@ ATTR_MAP: AttrMap = {
     "random.Random": {
         PyImport("random"): MapInfo(
             "random::Random",
-            [QInc("pypp_random.h")],
+            [QInc("compy_random.h")],
         )
     }
 }

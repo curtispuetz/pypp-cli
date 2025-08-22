@@ -20,7 +20,7 @@ def handle_class_def_for_configclass(
         body_str = _calc_assigns(node, d, dtype)
     d.set_inc_in_h(False)
     # This is a secret name that won't be used other than to create the instance.
-    class_name = f"_PseudoPyppName{instance_name}"
+    class_name = f"_PseudoCompyName{instance_name}"
     result: str = (
         f"struct {class_name} "
         + "{"

@@ -1,7 +1,7 @@
 #include "lambdas.h"
+#include "compy_util/floor_div.h"
+#include "compy_util/print.h"
 #include "py_str.h"
-#include "pypp_util/floor_div.h"
-#include "pypp_util/print.h"
 #include <functional>
 
 void lambdas_fn() {

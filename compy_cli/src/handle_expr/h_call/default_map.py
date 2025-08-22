@@ -61,32 +61,32 @@ def _list_reserve(node: ast.Call, d) -> str:
 
 
 CALL_MAP: CallMap = {
-    "print": {None: CallMapInfoCppCall("print", [QInc("pypp_util/print.h")])},
+    "print": {None: CallMapInfoCppCall("print", [QInc("compy_util/print.h")])},
     "print_address": {
         PySpecificImpFrom(
             "compy_python.printing", "print_address"
         ): CallMapInfoLeftAndRight(
             "print(&",
             ")",
-            [QInc("pypp_util/print.h")],
+            [QInc("compy_util/print.h")],
         )
     },
     "len": {None: CallMapInfoLeftAndRight("", ".len()", [])},
-    "PyStr": {None: CallMapInfoCppCall("to_pystr", [QInc("pypp_util/to_py_str.h")])},
+    "PyStr": {None: CallMapInfoCppCall("to_pystr", [QInc("compy_util/to_py_str.h")])},
     "PySlice": {None: CallMapInfoCppCall("py_slice", [QInc("slice/creators.h")])},
     "mov": {
         PySpecificImpFrom("compy_python.ownership", "mov"): CallMapInfoCppCall(
             "std::move", [AngInc("utility")]
         )
     },
-    "pypp_get_resources": {
+    "compy_get_resources": {
         PySpecificImpFrom(
-            "compy_python.resources", "pypp_get_resources"
-        ): CallMapInfoCppCall("pypp_get_resources", [QInc("pypp_resources.h")])
+            "compy_python.resources", "compy_get_resources"
+        ): CallMapInfoCppCall("compy_get_resources", [QInc("compy_resources.h")])
     },
     "int_pow": {
         PySpecificImpFrom("compy_python.math", "int_pow"): CallMapInfoCppCall(
-            "int_pow", [QInc("pypp_util/math.h")]
+            "int_pow", [QInc("compy_util/math.h")]
         )
     },
     "PyDefaultDict": {
@@ -129,15 +129,15 @@ CALL_MAP: CallMap = {
             "collections", "defaultdict"
         ): CallMapInfoCustomMappingStartsWith(good_default_dict, [])
     },
-    "os.": {PyImport("os"): CallMapInfoReplaceDotWithDoubleColon([QInc("pypp_os.h")])},
+    "os.": {PyImport("os"): CallMapInfoReplaceDotWithDoubleColon([QInc("compy_os.h")])},
     "shutil.": {
         PyImport("shutil"): CallMapInfoReplaceDotWithDoubleColon(
-            [QInc("pypp_shutil.h")]
+            [QInc("compy_shutil.h")]
         )
     },
-    "pypp_time.": {
+    "compy_time.": {
         PyImport(
-            "compy_python.stl.pypp_time", "pypp_time"
-        ): CallMapInfoReplaceDotWithDoubleColon([QInc("pypp_time.h")])
+            "compy_python.stl.compy_time", "compy_time"
+        ): CallMapInfoReplaceDotWithDoubleColon([QInc("compy_time.h")])
     },
 }

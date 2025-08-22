@@ -8,10 +8,10 @@
 #include "compy_bridge_library_test_0/pseudo_a.h"
 #include "compy_bridge_library_test_0/pseudo_custom_type_cpp.h"
 #include "compy_bridge_library_test_0/replace_with_double_colon_call.h"
+#include "compy_util/print.h"
 #include "py_list.h"
 #include "py_str.h"
 #include "py_tuple.h"
-#include "pypp_util/print.h"
 #include <iostream>
 
 void _as_arg(PseudoCustomTypeCpp &arg) { print(arg.get_a()); }
@@ -32,10 +32,10 @@ struct _DataClassA {
         : pseudo_custom_type(a_pseudo_custom_type) {}
 };
 
-struct _PseudoPyppName_ConfigClassA {
+struct _PseudoCompyName_ConfigClassA {
     PseudoCustomTypeCpp pseudo_custom_type = PseudoCustomTypeCpp(1);
 };
-inline _PseudoPyppName_ConfigClassA _ConfigClassA;
+inline _PseudoCompyName_ConfigClassA _ConfigClassA;
 
 void bridge_lib_test_0_fn() {
     print(PyStr("compy BRIDGE LIB TEST 0 RESULTS:"));

@@ -1,11 +1,11 @@
 #include "operations.h"
+#include "compy_util/math.h"
+#include "compy_util/print.h"
 #include "py_dict.h"
 #include "py_list.h"
 #include "py_set.h"
 #include "py_str.h"
 #include "py_tuple.h"
-#include "pypp_util/math.h"
-#include "pypp_util/print.h"
 #include <cmath>
 
 void operations_fn() {

@@ -41,7 +41,7 @@ def handle_operator(node: ast.operator, d: Deps) -> tuple[str, str, str]:
         d.add_inc(AngInc("cmath"))
         return "std::pow(", ", ", ")"
     if isinstance(node, ast.FloorDiv):
-        d.add_inc(QInc("pypp_util/floor_div.h"))
+        d.add_inc(QInc("compy_util/floor_div.h"))
         return "py_floor_div(", ", ", ")"
     raise Exception(f"operator type {node} is not handled")
 

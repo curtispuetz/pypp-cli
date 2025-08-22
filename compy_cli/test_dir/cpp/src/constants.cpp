@@ -1,12 +1,12 @@
 #include "constants.h"
-#include "pypp_util/print.h"
+#include "compy_util/print.h"
 
 const int _A = 2;
-struct _PseudoPyppName_PrivateConfig {
+struct _PseudoCompyName_PrivateConfig {
     int a = 1;
     int b = 2;
 };
-inline _PseudoPyppName_PrivateConfig _PrivateConfig;
+inline _PseudoCompyName_PrivateConfig _PrivateConfig;
 
 void constant_fn() {
     print(PyStr("CONSTANT RESULTS:"));

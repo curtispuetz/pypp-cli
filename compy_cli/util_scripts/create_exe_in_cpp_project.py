@@ -27,7 +27,7 @@ if __name__ == "__main__":
             [
                 f"add_executable({executable_name_prefix}_test main.cpp)\n",
                 f"target_link_libraries({executable_name_prefix}_test PRIVATE "
-                f"pypp_common)",
+                f"compy_common)",
             ]
         )
     # add subproject to parent cmakefile
@@ -37,7 +37,7 @@ if __name__ == "__main__":
     with open(new_main, "w") as file:
         file.writelines(
             [
-                "#include <pypp_util/main_error_handler.h>\n",
+                "#include <compy_util/main_error_handler.h>\n",
                 "#include <cstdlib>  // Required for EXIT_FAILURE\n",
                 "\n",
                 "\n",
