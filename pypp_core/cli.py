@@ -17,11 +17,15 @@ def main_cli(absolute_dir: Path | None = None) -> None:
         "init", help="Initialize a new Py++ project in the given directory."
     )
     parser_install = subparsers.add_parser("install", help="Install pypp libraries")
-    parser_install.add_argument("library", help="Specify the library to install.")
+    parser_install.add_argument(
+        "libraries", help="Specify one or more libraries to install.", nargs="+"
+    )
     parser_uninstall = subparsers.add_parser(
         "uninstall", help="Uninstall pypp libraries"
     )
-    parser_uninstall.add_argument("library", help="Specify the library to uninstall.")
+    parser_uninstall.add_argument(
+        "libraries", help="Specify one or more libraries to uninstall.", nargs="+"
+    )
     subparsers.add_parser(
         "delete_timestamps",
         help="Remove the file_timestamps.json file so that transpiling is done "
@@ -64,9 +68,11 @@ def main_cli(absolute_dir: Path | None = None) -> None:
     if args.mode == "do":
         pypp_do(args.tasks, pypp_dirs)
     elif args.mode == "install":
-        pypp_install(args.library, pypp_dirs)
+        for lib in args.libraries:
+            pypp_install(lib, pypp_dirs)
     elif args.mode == "uninstall":
-        pypp_uninstall(args.library, pypp_dirs)
+        for lib in args.libraries:
+            pypp_uninstall(lib, pypp_dirs)
     elif args.mode == "delete_timestamps":
         pypp_delete_timestamps(pypp_dirs)
     elif args.mode == "run_python":

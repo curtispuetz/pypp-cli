@@ -93,7 +93,7 @@ def calc_name_map(proj_info: dict, dirs: PyppDirs) -> NameMap:
         NAME_MAP,
         proj_info,
         dirs,
-        "names_map",
+        "name_map",
         calc_map_info,
         partial(calc_common_warning_msg, name="name"),
     )

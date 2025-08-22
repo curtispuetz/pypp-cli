@@ -27,14 +27,13 @@ from pypp_core.src.mapping.maps.calc_subscriptable_type_map import (
 
 @dataclass(frozen=True, slots=True)
 class Maps:
-    names: NameMap
-    calls: CallMap
-    attrs: AttrMap
-    fn_args_passed_by_value: FnArgByValueMap
-    subscriptable_types: SubscriptableTypeMap
-    # TODO: rename to imports
-    imports_map: ImportMap
-    ann_assigns: AnnAssignsMap
+    name: NameMap
+    call: CallMap
+    attr: AttrMap
+    fn_arg_passed_by_value: FnArgByValueMap
+    subscriptable_type: SubscriptableTypeMap
+    import_: ImportMap
+    ann_assign: AnnAssignsMap
 
 
 def calc_maps(proj_info: dict, dirs: PyppDirs) -> Maps:

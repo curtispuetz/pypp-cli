@@ -68,7 +68,7 @@ def _calc_final_str(
 def _calc_result_from_maps_if_any(
     d: Deps, value_str: str, type_cpp: str, target_str: str
 ) -> str | None:
-    for starts_with_str, r in d.maps.ann_assigns.items():
+    for starts_with_str, r in d.maps.ann_assign.items():
         info = find_map_info(r, d)
         if info is None:
             continue
@@ -79,7 +79,7 @@ def _calc_result_from_maps_if_any(
         elif isinstance(info, AnnAssignMapInfoCustomMappingStartsWithFromLibrary):
             if type_cpp.startswith(starts_with_str):
                 d.add_incs(info.includes)
-                return calc_string_fn(info, "ann_assigns_map")(
+                return calc_string_fn(info, "ann_assign_map")(
                     type_cpp, value_str, target_str
                 )
     return None

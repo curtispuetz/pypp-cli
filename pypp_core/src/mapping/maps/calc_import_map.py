@@ -31,7 +31,7 @@ def calc_import_map(proj_info: dict, dirs: PyppDirs) -> ImportMap:
     modules: set[str] = set()
     libraries: dict[str, set[str]] = {}
     for installed_library in proj_info["installed_libraries"]:
-        json_path: Path = dirs.calc_bridge_json(installed_library, "imports_map")
+        json_path: Path = dirs.calc_bridge_json(installed_library, "import_map")
         if json_path.is_file():
             with open(json_path, "r") as f:
                 # Note: Json should already be verified valid on library install.
@@ -40,7 +40,7 @@ def calc_import_map(proj_info: dict, dirs: PyppDirs) -> ImportMap:
                     modules.update(r["direct_to_cpp_include"])
                 else:
                     assert "ignore" in r, (
-                        f"Invalid imports_map.json from library '{installed_library}'. "
+                        f"Invalid import_map.json from library '{installed_library}'. "
                         f"This should not happen because the library should be "
                         f"verified on install"
                     )
