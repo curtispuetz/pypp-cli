@@ -107,3 +107,9 @@ def list_fn():
     print(g)
     # test passing a list inline
     _test_fn(["1", "2"])
+    # extend
+    e.extend(["c", "d"])
+    print(e)
+    h: list[str] = ["e", "f"]
+    e.extend(mov(h))
+    print(e)
