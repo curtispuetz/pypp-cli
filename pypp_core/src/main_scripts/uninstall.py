@@ -1,14 +1,12 @@
 import json
 import shutil
 
+from pypp_core.src.main_scripts.util.pip_helper import pip_uninstall
 from pypp_core.src.pypp_dirs import PyppDirs
-from pypp_core.src.main_scripts.util.pip_helper import (
-    pip_install_or_uninstall,
-)
 
 
 def pypp_uninstall(library: str, dirs: PyppDirs):
-    library_name = pip_install_or_uninstall(library, dirs, install=False)
+    library_name = pip_uninstall(library, dirs)
     _delete_cpp_library_files(library_name, dirs)
     _remove_installed_library_to_proj_info_json(library_name, dirs)
 
