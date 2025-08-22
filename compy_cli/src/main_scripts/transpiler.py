@@ -1,10 +1,10 @@
 import ast
 from pathlib import Path
-from pypp_core.src.pypp_dirs import PyppDirs
-from pypp_core.src.mapping.maps.maps import Maps, calc_maps
-from pypp_core.src.util.calc_ast_tree import calc_ast_tree
-from pypp_core.src.util.file_change_tracker import PyChangedFile, PyFileChanges
-from pypp_core.src.util.source_calculator import (
+from compy_cli.src.pypp_dirs import PyppDirs
+from compy_cli.src.mapping.maps.maps import Maps, calc_maps
+from compy_cli.src.util.calc_ast_tree import calc_ast_tree
+from compy_cli.src.util.file_change_tracker import PyChangedFile, PyFileChanges
+from compy_cli.src.util.source_calculator import (
     calc_main_cpp_source,
     calc_src_file_cpp_and_h_source,
 )

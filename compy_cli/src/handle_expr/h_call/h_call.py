@@ -1,8 +1,8 @@
 import ast
 
-from pypp_core.src.deps import Deps
-from pypp_core.src.handle_expr.h_starred import handle_call_with_starred_arg
-from pypp_core.src.mapping.info_types import (
+from compy_cli.src.deps import Deps
+from compy_cli.src.handle_expr.h_starred import handle_call_with_starred_arg
+from compy_cli.src.mapping.info_types import (
     CallMapInfoCppCall,
     CallMapInfoCustomMapping,
     CallMapInfoCustomMappingFromLibrary,
@@ -11,7 +11,7 @@ from pypp_core.src.mapping.info_types import (
     CallMapInfoLeftAndRight,
     CallMapInfoReplaceDotWithDoubleColon,
 )
-from pypp_core.src.mapping.util import calc_string_fn, find_map_info
+from compy_cli.src.mapping.util import calc_string_fn, find_map_info
 
 
 def handle_call(node: ast.Call, d: Deps) -> str:

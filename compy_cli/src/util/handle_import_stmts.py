@@ -1,9 +1,9 @@
 import ast
 from pathlib import Path
 
-from pypp_core.src.d_types import PyImports, PyImport, QInc
-from pypp_core.src.mapping.maps.maps import Maps
-from pypp_core.src.util.ret_imports import IncMap
+from compy_cli.src.d_types import PyImports, PyImport, QInc
+from compy_cli.src.mapping.maps.maps import Maps
+from compy_cli.src.util.ret_imports import IncMap
 
 
 def handle_import_stmts(

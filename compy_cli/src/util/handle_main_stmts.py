@@ -1,7 +1,7 @@
 import ast
 
-from pypp_core.src.d_types import QInc
-from pypp_core.src.deps import Deps
+from compy_cli.src.d_types import QInc
+from compy_cli.src.deps import Deps
 
 
 def handle_main_stmts(stmts: list[ast.stmt], d: Deps) -> str:

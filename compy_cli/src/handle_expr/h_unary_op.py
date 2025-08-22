@@ -1,7 +1,7 @@
 import ast
 
-from pypp_core.src.deps import Deps
-from pypp_core.src.handle_other.unary_op import handle_unaryop
+from compy_cli.src.deps import Deps
+from compy_cli.src.handle_other.unary_op import handle_unaryop
 
 
 def handle_unary_op(node: ast.UnaryOp, d: Deps) -> str:

@@ -1,8 +1,8 @@
 import ast
 
-from pypp_core.src.deps import Deps
-from pypp_core.src.handle_stmt.h_ann_assign import handle_general_ann_assign
-from pypp_core.src.handle_stmt.h_assign import handle_assign
+from compy_cli.src.deps import Deps
+from compy_cli.src.handle_stmt.h_ann_assign import handle_general_ann_assign
+from compy_cli.src.handle_stmt.h_assign import handle_assign
 
 
 def handle_class_def_for_configclass(

@@ -1,7 +1,7 @@
 from pathlib import Path
 import shutil
 
-from pypp_core.src.util.inner_strings import calc_inside_rd
+from compy_cli.src.util.inner_strings import calc_inside_rd
 
 
 def calc_ref_str(type_cpp: str) -> tuple[str, str]:

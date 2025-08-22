@@ -1,4 +1,4 @@
-from pypp_core.src.handle_stmt.h_class_def.util import ARG_PREFIX
+from compy_cli.src.handle_stmt.h_class_def.util import ARG_PREFIX
 
 
 def calc_constructor_signature_for_class(

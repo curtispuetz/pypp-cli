@@ -1,15 +1,15 @@
 import ast
 from pathlib import Path
 
-from pypp_core.src.d_types import QInc
-from pypp_core.src.deps import Deps, DepsDeps
-from pypp_core.src.handle_expr.expr import handle_expr
-from pypp_core.src.handle_stmt.stmt import handle_stmt
-from pypp_core.src.mapping.maps.maps import Maps
-from pypp_core.src.util.calc_includes import calc_includes_for_main_file, calc_includes
-from pypp_core.src.util.handle_import_stmts import handle_import_stmts
-from pypp_core.src.util.handle_main_stmts import handle_main_stmts
-from pypp_core.src.util.ret_imports import RetImports
+from compy_cli.src.d_types import QInc
+from compy_cli.src.deps import Deps, DepsDeps
+from compy_cli.src.handle_expr.expr import handle_expr
+from compy_cli.src.handle_stmt.stmt import handle_stmt
+from compy_cli.src.mapping.maps.maps import Maps
+from compy_cli.src.util.calc_includes import calc_includes_for_main_file, calc_includes
+from compy_cli.src.util.handle_import_stmts import handle_import_stmts
+from compy_cli.src.util.handle_main_stmts import handle_main_stmts
+from compy_cli.src.util.ret_imports import RetImports
 
 
 def calc_main_cpp_source(

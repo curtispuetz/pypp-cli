@@ -1,7 +1,7 @@
 import ast
 
-from pypp_core.src.deps import Deps
-from pypp_core.src.handle_other.operator import handle_operator_for_aug_assign
+from compy_cli.src.deps import Deps
+from compy_cli.src.handle_other.operator import handle_operator_for_aug_assign
 
 
 def handle_aug_assign(node: ast.AugAssign, d: Deps) -> str:

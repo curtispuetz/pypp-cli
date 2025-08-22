@@ -1,12 +1,6 @@
 /.venv
 /.idea
 **/__pycache__/**
-/pypp_core/test_dir/cpp/build
-/pypp_core/test_dir/python/.venv
-/pypp_core/test_dir/python/.idea
-/pypp_core/test_dir2
-/pypp_core/test_dir3
-/pypp_core/test_dir/pypp_data/file_timestamps.json
 /compy_cli/test_dir/cpp/build
 /compy_cli/test_dir/python/.venv
 /compy_cli/test_dir/python/.idea
@@ -14,4 +8,4 @@
 /compy_cli/test_dir3
 /compy_cli/test_dir/pypp_data/file_timestamps.json
 dist/
-pypp_core.egg-info/
+compy_cli.egg-info/

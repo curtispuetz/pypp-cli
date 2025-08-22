@@ -6,7 +6,7 @@
         {
             "label": "Transpile and Format",
             "type": "shell",
-            "command": "${workspaceFolder}/.venv/Scripts/python.exe -m pypp_core.util_scripts.calling_cli.transpile_and_format",
+            "command": "${workspaceFolder}/.venv/Scripts/python.exe -m compy_cli.util_scripts.calling_cli.transpile_and_format",
             "problemMatcher": [],
             "presentation": {
                 "echo": true,
@@ -19,7 +19,7 @@
         {
             "label": "Build and Run",
             "type": "shell",
-            "command": "${workspaceFolder}/.venv/Scripts/python.exe -m pypp_core.util_scripts.calling_cli.build_and_run",
+            "command": "${workspaceFolder}/.venv/Scripts/python.exe -m compy_cli.util_scripts.calling_cli.build_and_run",
             "problemMatcher": [],
             "presentation": {
                 "echo": true,
@@ -32,7 +32,7 @@
         {
             "label": "Transpile, Format, Build and Run",
             "type": "shell",
-            "command": "${workspaceFolder}/.venv/Scripts/python.exe -m pypp_core.util_scripts.calling_cli.transpile_format_build_and_run",
+            "command": "${workspaceFolder}/.venv/Scripts/python.exe -m compy_cli.util_scripts.calling_cli.transpile_format_build_and_run",
             "problemMatcher": [],
             "presentation": {
                 "echo": true,
@@ -45,7 +45,7 @@
         {
             "label": "Run Python",
             "type": "shell",
-            "command": "${workspaceFolder}/.venv/Scripts/python.exe -m pypp_core.util_scripts.calling_cli.run_python",
+            "command": "${workspaceFolder}/.venv/Scripts/python.exe -m compy_cli.util_scripts.calling_cli.run_python",
             "problemMatcher": [],
             "presentation": {
                 "echo": true,
@@ -58,7 +58,7 @@
         {
             "label": "Run",
             "type": "shell",
-            "command": "${workspaceFolder}/.venv/Scripts/python.exe -m pypp_core.util_scripts.calling_cli.run",
+            "command": "${workspaceFolder}/.venv/Scripts/python.exe -m compy_cli.util_scripts.calling_cli.run",
             "problemMatcher": [],
             "presentation": {
                 "echo": true,
@@ -71,7 +71,7 @@
         {
             "label": "Install",
             "type": "shell",
-            "command": "${workspaceFolder}/.venv/Scripts/python.exe -m pypp_core.util_scripts.calling_cli.install",
+            "command": "${workspaceFolder}/.venv/Scripts/python.exe -m compy_cli.util_scripts.calling_cli.install",
             "problemMatcher": [],
             "presentation": {
                 "echo": true,
@@ -84,7 +84,7 @@
         {
             "label": "Uninstall",
             "type": "shell",
-            "command": "${workspaceFolder}/.venv/Scripts/python.exe -m pypp_core.util_scripts.calling_cli.uninstall",
+            "command": "${workspaceFolder}/.venv/Scripts/python.exe -m compy_cli.util_scripts.calling_cli.uninstall",
             "problemMatcher": [],
             "presentation": {
                 "echo": true,
@@ -97,7 +97,7 @@
         {
             "label": "del timestamps",
             "type": "shell",
-            "command": "${workspaceFolder}/.venv/Scripts/python.exe -m pypp_core.util_scripts.calling_cli.delete_timestamps",
+            "command": "${workspaceFolder}/.venv/Scripts/python.exe -m compy_cli.util_scripts.calling_cli.delete_timestamps",
             "problemMatcher": [],
             "presentation": {
                 "echo": true,

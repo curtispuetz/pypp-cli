@@ -4,7 +4,7 @@ from functools import partial
 from multiprocessing import Pool
 from pathlib import Path
 
-from pypp_core.src.pypp_dirs import PyppDirs
+from compy_cli.src.pypp_dirs import PyppDirs
 
 
 def _format_file(file: Path, dirs: PyppDirs):

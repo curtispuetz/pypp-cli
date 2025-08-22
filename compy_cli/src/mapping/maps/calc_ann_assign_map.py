@@ -1,15 +1,15 @@
 import json
 from pathlib import Path
 from typing import Callable
-from pypp_core.src.pypp_dirs import PyppDirs
-from pypp_core.src.d_types import PySpecificImpFrom
-from pypp_core.src.mapping.info_types import (
+from compy_cli.src.pypp_dirs import PyppDirs
+from compy_cli.src.d_types import PySpecificImpFrom
+from compy_cli.src.mapping.info_types import (
     AnnAssignMapInfo,
     AnnAssignMapInfoCustomMappingStartsWith,
     AnnAssignMapInfoCustomMappingStartsWithFromLibrary,
     AnnAssignsMap,
 )
-from pypp_core.src.mapping.maps.util import (
+from compy_cli.src.mapping.maps.util import (
     calc_cpp_includes,
     calc_imp_str,
     calc_required_py_import,

@@ -1,23 +1,23 @@
 import ast
 
-from pypp_core.src.deps import Deps
-from pypp_core.src.handle_expr.h_attribute import handle_attribute
-from pypp_core.src.handle_expr.h_bin_op import handle_bin_op
-from pypp_core.src.handle_expr.h_call.h_call import handle_call
-from pypp_core.src.handle_expr.h_compare import handle_compare
-from pypp_core.src.handle_expr.h_constant import handle_constant
-from pypp_core.src.handle_expr.h_dict import handle_dict
-from pypp_core.src.handle_expr.h_joined_string import handle_joined_string
-from pypp_core.src.handle_expr.h_lambda import handle_lambda
-from pypp_core.src.handle_expr.h_list import handle_list
-from pypp_core.src.handle_expr.h_name import handle_name
-from pypp_core.src.handle_expr.h_set import handle_set
-from pypp_core.src.handle_expr.h_subscript import handle_subscript
-from pypp_core.src.handle_expr.h_tuple import handle_tuple
-from pypp_core.src.handle_expr.h_unary_op import handle_unary_op
-from pypp_core.src.handle_expr.h_slice import handle_slice
-from pypp_core.src.handle_expr.h_yield import handle_yield
-from pypp_core.src.handle_expr.h_yield_from import handle_yield_from
+from compy_cli.src.deps import Deps
+from compy_cli.src.handle_expr.h_attribute import handle_attribute
+from compy_cli.src.handle_expr.h_bin_op import handle_bin_op
+from compy_cli.src.handle_expr.h_call.h_call import handle_call
+from compy_cli.src.handle_expr.h_compare import handle_compare
+from compy_cli.src.handle_expr.h_constant import handle_constant
+from compy_cli.src.handle_expr.h_dict import handle_dict
+from compy_cli.src.handle_expr.h_joined_string import handle_joined_string
+from compy_cli.src.handle_expr.h_lambda import handle_lambda
+from compy_cli.src.handle_expr.h_list import handle_list
+from compy_cli.src.handle_expr.h_name import handle_name
+from compy_cli.src.handle_expr.h_set import handle_set
+from compy_cli.src.handle_expr.h_subscript import handle_subscript
+from compy_cli.src.handle_expr.h_tuple import handle_tuple
+from compy_cli.src.handle_expr.h_unary_op import handle_unary_op
+from compy_cli.src.handle_expr.h_slice import handle_slice
+from compy_cli.src.handle_expr.h_yield import handle_yield
+from compy_cli.src.handle_expr.h_yield_from import handle_yield_from
 
 
 def handle_expr(node: ast.expr, d: Deps) -> str:

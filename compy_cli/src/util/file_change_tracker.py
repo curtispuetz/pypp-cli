@@ -3,7 +3,7 @@ from dataclasses import dataclass
 import fnmatch
 from pathlib import Path
 
-from pypp_core.src.pypp_dirs import PyppDirs, create_test_dir_pypp_dirs
+from compy_cli.src.pypp_dirs import PyppDirs, create_test_dir_pypp_dirs
 
 
 @dataclass(frozen=True, slots=True)

@@ -3,8 +3,8 @@ from pathlib import Path
 import shutil
 from importlib.resources import files, as_file
 
-from pypp_core.src.pypp_dirs import PyppDirs
-from pypp_core.src.util.util import rm_dirs_and_files
+from compy_cli.src.pypp_dirs import PyppDirs
+from compy_cli.src.util.util import rm_dirs_and_files
 
 
 def initialize_cpp_project(dirs: PyppDirs, proj_info: dict):
@@ -20,7 +20,7 @@ def initialize_cpp_project(dirs: PyppDirs, proj_info: dict):
 def _copy_cpp_template_to_cpp_dir(dirs: PyppDirs):
     print("Copying the C++ template to the cpp project directory")
     # Copy files and directories from the template
-    template_root = files("pypp_core.data.cpp_template")
+    template_root = files("compy_cli.data.cpp_template")
     for item in template_root.iterdir():
         with as_file(item) as src_path:
             dst_path: Path = dirs.cpp_dir / item.name

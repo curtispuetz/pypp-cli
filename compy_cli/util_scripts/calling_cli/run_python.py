@@ -1,6 +1,6 @@
 import os
 
-from pypp_core.util_scripts.calling_cli.util import run_cli
+from compy_cli.util_scripts.calling_cli.util import run_cli
 
 dirname: str = os.path.dirname(__file__)
 if __name__ == "__main__":

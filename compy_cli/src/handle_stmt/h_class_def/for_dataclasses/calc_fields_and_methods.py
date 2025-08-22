@@ -1,13 +1,13 @@
 import ast
 
-from pypp_core.src.deps import Deps
-from pypp_core.src.handle_stmt.h_class_def.util import (
+from compy_cli.src.deps import Deps
+from compy_cli.src.handle_stmt.h_class_def.util import (
     ClassMethod,
     calc_method,
     ClassField,
     calc_class_field,
 )
-from pypp_core.src.mapping.fn_arg import lookup_cpp_fn_arg
+from compy_cli.src.mapping.fn_arg import lookup_cpp_fn_arg
 
 
 def calc_fields_and_methods_for_dataclass(

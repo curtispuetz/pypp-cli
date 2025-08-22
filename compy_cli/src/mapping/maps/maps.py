@@ -1,18 +1,18 @@
 from dataclasses import dataclass
 
-from pypp_core.src.mapping.maps.calc_ann_assign_map import calc_ann_assign_map
-from pypp_core.src.pypp_dirs import PyppDirs
-from pypp_core.src.mapping.maps.calc_attr_map import calc_attr_map
-from pypp_core.src.mapping.maps.calc_call_map import calc_call_map
-from pypp_core.src.mapping.maps.calc_fn_arg_by_value_map import (
+from compy_cli.src.mapping.maps.calc_ann_assign_map import calc_ann_assign_map
+from compy_cli.src.pypp_dirs import PyppDirs
+from compy_cli.src.mapping.maps.calc_attr_map import calc_attr_map
+from compy_cli.src.mapping.maps.calc_call_map import calc_call_map
+from compy_cli.src.mapping.maps.calc_fn_arg_by_value_map import (
     calc_fn_arg_passed_by_value_map,
 )
-from pypp_core.src.mapping.maps.calc_import_map import (
+from compy_cli.src.mapping.maps.calc_import_map import (
     ImportMap,
     calc_import_map,
 )
-from pypp_core.src.mapping.maps.calc_name_map import calc_name_map
-from pypp_core.src.mapping.info_types import (
+from compy_cli.src.mapping.maps.calc_name_map import calc_name_map
+from compy_cli.src.mapping.info_types import (
     AnnAssignsMap,
     AttrMap,
     CallMap,
@@ -20,7 +20,7 @@ from pypp_core.src.mapping.info_types import (
     NameMap,
     SubscriptableTypeMap,
 )
-from pypp_core.src.mapping.maps.calc_subscriptable_type_map import (
+from compy_cli.src.mapping.maps.calc_subscriptable_type_map import (
     calc_subscriptable_type_map,
 )
 

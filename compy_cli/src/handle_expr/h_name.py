@@ -1,7 +1,7 @@
 import ast
 
-from pypp_core.src.deps import Deps
-from pypp_core.src.mapping.names import lookup_cpp_name
+from compy_cli.src.deps import Deps
+from compy_cli.src.mapping.names import lookup_cpp_name
 
 
 def handle_name(node: ast.Name, d: Deps) -> str:

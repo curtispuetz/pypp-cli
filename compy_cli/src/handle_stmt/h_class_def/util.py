@@ -1,8 +1,8 @@
 import ast
 from dataclasses import dataclass
 
-from pypp_core.src.deps import Deps
-from pypp_core.src.util.calc_fn_signature import calc_fn_signature
+from compy_cli.src.deps import Deps
+from compy_cli.src.util.calc_fn_signature import calc_fn_signature
 
 
 ARG_PREFIX = "a_"

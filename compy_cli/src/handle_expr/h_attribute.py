@@ -1,8 +1,8 @@
 import ast
 
-from pypp_core.src.d_types import AngInc, PyImport
-from pypp_core.src.deps import Deps
-from pypp_core.src.mapping.attributes import lookup_cpp_attribute
+from compy_cli.src.d_types import AngInc, PyImport
+from compy_cli.src.deps import Deps
+from compy_cli.src.mapping.attributes import lookup_cpp_attribute
 
 
 def handle_attribute(node: ast.Attribute, d: Deps):

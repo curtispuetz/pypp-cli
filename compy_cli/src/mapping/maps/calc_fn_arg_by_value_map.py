@@ -1,7 +1,7 @@
-from pypp_core.src.pypp_dirs import PyppDirs
-from pypp_core.src.d_types import PySpecificImpFrom
-from pypp_core.src.mapping.info_types import FnArgByValueMap
-from pypp_core.src.mapping.maps.util import load_map
+from compy_cli.src.pypp_dirs import PyppDirs
+from compy_cli.src.d_types import PySpecificImpFrom
+from compy_cli.src.mapping.info_types import FnArgByValueMap
+from compy_cli.src.mapping.maps.util import load_map
 
 FN_ARG_PASSED_BY_VALUE_MAP: FnArgByValueMap = {
     "int": {None: None},

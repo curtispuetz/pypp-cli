@@ -2,9 +2,9 @@ import ast
 from dataclasses import dataclass
 from typing import Callable
 
-from pypp_core.src.d_types import CppInclude, PyImports, PySpecificImport, is_imported
-from pypp_core.src.mapping.maps.maps import Maps
-from pypp_core.src.util.ret_imports import RetImports, add_inc
+from compy_cli.src.d_types import CppInclude, PyImports, PySpecificImport, is_imported
+from compy_cli.src.mapping.maps.maps import Maps
+from compy_cli.src.util.ret_imports import RetImports, add_inc
 
 
 @dataclass(frozen=True, slots=True)

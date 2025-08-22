@@ -1,5 +1,5 @@
-from pypp_core.src.d_types import AngInc, CppInclude
-from pypp_core.src.util.ret_imports import RetImports
+from compy_cli.src.d_types import AngInc, CppInclude
+from compy_cli.src.util.ret_imports import RetImports
 
 
 def calc_includes(ret_imports: RetImports) -> tuple[str, str]:

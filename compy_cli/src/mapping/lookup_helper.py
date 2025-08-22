@@ -1,9 +1,9 @@
-from pypp_core.src.deps import Deps
-from pypp_core.src.mapping.info_types import (
+from compy_cli.src.deps import Deps
+from compy_cli.src.mapping.info_types import (
     MapInfo,
     NameOrAttrMap,
 )
-from pypp_core.src.mapping.util import find_map_info
+from compy_cli.src.mapping.util import find_map_info
 
 
 def lookup_helper(key: str, d: Deps, map: NameOrAttrMap) -> MapInfo | None:

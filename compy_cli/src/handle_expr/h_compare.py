@@ -1,7 +1,7 @@
 import ast
 
-from pypp_core.src.deps import Deps
-from pypp_core.src.handle_other.cmpop import handle_cmpop
+from compy_cli.src.deps import Deps
+from compy_cli.src.handle_other.cmpop import handle_cmpop
 
 
 def handle_compare(node: ast.Compare, d: Deps) -> str:

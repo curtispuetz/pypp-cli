@@ -1,21 +1,21 @@
 import ast
 
-from pypp_core.src.deps import Deps
-from pypp_core.src.handle_stmt.h_ann_assign import handle_ann_assign
-from pypp_core.src.handle_stmt.h_assert import handle_assert
-from pypp_core.src.handle_stmt.h_assign import handle_assign
-from pypp_core.src.handle_stmt.h_aug_assign import handle_aug_assign
-from pypp_core.src.handle_stmt.h_class_def.h_class_def import handle_class_def
-from pypp_core.src.handle_stmt.h_expr import handle_stmt_expr
-from pypp_core.src.handle_stmt.h_fn_def import handle_fn_def
-from pypp_core.src.handle_stmt.h_for import handle_for
-from pypp_core.src.handle_stmt.h_if import handle_if
-from pypp_core.src.handle_stmt.h_raise import handle_raise
-from pypp_core.src.handle_stmt.h_return import handle_return
-from pypp_core.src.handle_stmt.h_try import handle_try
-from pypp_core.src.handle_stmt.h_type_alias import handle_type_alias
-from pypp_core.src.handle_stmt.h_while import handle_while
-from pypp_core.src.handle_stmt.h_with import handle_with
+from compy_cli.src.deps import Deps
+from compy_cli.src.handle_stmt.h_ann_assign import handle_ann_assign
+from compy_cli.src.handle_stmt.h_assert import handle_assert
+from compy_cli.src.handle_stmt.h_assign import handle_assign
+from compy_cli.src.handle_stmt.h_aug_assign import handle_aug_assign
+from compy_cli.src.handle_stmt.h_class_def.h_class_def import handle_class_def
+from compy_cli.src.handle_stmt.h_expr import handle_stmt_expr
+from compy_cli.src.handle_stmt.h_fn_def import handle_fn_def
+from compy_cli.src.handle_stmt.h_for import handle_for
+from compy_cli.src.handle_stmt.h_if import handle_if
+from compy_cli.src.handle_stmt.h_raise import handle_raise
+from compy_cli.src.handle_stmt.h_return import handle_return
+from compy_cli.src.handle_stmt.h_try import handle_try
+from compy_cli.src.handle_stmt.h_type_alias import handle_type_alias
+from compy_cli.src.handle_stmt.h_while import handle_while
+from compy_cli.src.handle_stmt.h_with import handle_with
 
 
 def handle_stmt(node: ast.stmt, d: Deps) -> str:

@@ -1,4 +1,4 @@
-from pypp_core.src.handle_stmt.h_class_def.util import ClassField, ARG_PREFIX
+from compy_cli.src.handle_stmt.h_class_def.util import ClassField, ARG_PREFIX
 
 
 def calc_constructor_signature_for_dataclass(

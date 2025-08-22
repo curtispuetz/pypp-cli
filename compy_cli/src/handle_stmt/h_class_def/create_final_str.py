@@ -1,13 +1,13 @@
 import ast
 
-from pypp_core.src.d_types import AngInc
-from pypp_core.src.deps import Deps
-from pypp_core.src.handle_stmt.h_class_def.util import (
+from compy_cli.src.d_types import AngInc
+from compy_cli.src.deps import Deps
+from compy_cli.src.handle_stmt.h_class_def.util import (
     ClassMethod,
     ClassField,
     ARG_PREFIX,
 )
-from pypp_core.src.util.calc_fn_signature import calc_fn_str_with_body
+from compy_cli.src.util.calc_fn_signature import calc_fn_str_with_body
 
 
 def create_final_str_for_class_def(

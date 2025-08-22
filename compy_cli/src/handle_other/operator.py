@@ -2,8 +2,8 @@
 #                  | RShift | BitOr | BitXor | BitAnd | FloorDiv
 import ast
 
-from pypp_core.src.d_types import QInc, AngInc
-from pypp_core.src.deps import Deps
+from compy_cli.src.d_types import QInc, AngInc
+from compy_cli.src.deps import Deps
 
 
 def _handle_operator(node: ast.operator) -> tuple[str, str, str] | None:

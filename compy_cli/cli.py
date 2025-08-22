@@ -1,13 +1,13 @@
 from pathlib import Path
 import argparse
 
-from pypp_core.src.pypp_dirs import PyppDirs
-from pypp_core.src.main_scripts.do import pypp_do
-from pypp_core.src.main_scripts.init import pypp_init
-from pypp_core.src.main_scripts.install import pypp_install
-from pypp_core.src.main_scripts.delete_timestamps import pypp_delete_timestamps
-from pypp_core.src.main_scripts.run_python import pypp_run_python
-from pypp_core.src.main_scripts.uninstall import pypp_uninstall
+from compy_cli.src.pypp_dirs import PyppDirs
+from compy_cli.src.main_scripts.do import pypp_do
+from compy_cli.src.main_scripts.init import pypp_init
+from compy_cli.src.main_scripts.install import pypp_install
+from compy_cli.src.main_scripts.delete_timestamps import pypp_delete_timestamps
+from compy_cli.src.main_scripts.run_python import pypp_run_python
+from compy_cli.src.main_scripts.uninstall import pypp_uninstall
 
 
 def main_cli(absolute_dir: Path | None = None) -> None:

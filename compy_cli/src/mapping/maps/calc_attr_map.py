@@ -1,13 +1,13 @@
 from functools import partial
 
-from pypp_core.src.pypp_dirs import PyppDirs
-from pypp_core.src.d_types import QInc, PyImport
-from pypp_core.src.mapping.maps.util import (
+from compy_cli.src.pypp_dirs import PyppDirs
+from compy_cli.src.d_types import QInc, PyImport
+from compy_cli.src.mapping.maps.util import (
     calc_map_info,
     load_map,
     calc_common_warning_msg,
 )
-from pypp_core.src.mapping.info_types import AttrMap, MapInfo
+from compy_cli.src.mapping.info_types import AttrMap, MapInfo
 
 ATTR_MAP: AttrMap = {
     "random.Random": {

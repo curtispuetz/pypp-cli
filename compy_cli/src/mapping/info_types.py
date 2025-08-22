@@ -1,7 +1,7 @@
 from collections.abc import Callable
 from dataclasses import dataclass
 
-from pypp_core.src.d_types import PySpecificImport, CppInclude
+from compy_cli.src.d_types import PySpecificImport, CppInclude
 
 
 @dataclass(frozen=True, slots=True)

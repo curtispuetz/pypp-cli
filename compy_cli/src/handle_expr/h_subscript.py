@@ -1,8 +1,8 @@
 import ast
 
-from pypp_core.src.deps import Deps
-from pypp_core.src.handle_expr.h_tuple import handle_tuple_inner_args
-from pypp_core.src.mapping.subscript_value import lookup_cpp_subscript_value_type
+from compy_cli.src.deps import Deps
+from compy_cli.src.handle_expr.h_tuple import handle_tuple_inner_args
+from compy_cli.src.mapping.subscript_value import lookup_cpp_subscript_value_type
 
 
 def handle_subscript(node: ast.Subscript, d: Deps) -> str:

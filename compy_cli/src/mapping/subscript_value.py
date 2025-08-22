@@ -1,6 +1,6 @@
-from pypp_core.src.deps import Deps
-from pypp_core.src.mapping.info_types import SubscriptableTypeMapValue
-from pypp_core.src.mapping.util import is_one
+from compy_cli.src.deps import Deps
+from compy_cli.src.mapping.info_types import SubscriptableTypeMapValue
+from compy_cli.src.mapping.util import is_one
 
 
 def lookup_cpp_subscript_value_type(cpp_value: str, d: Deps) -> tuple[str, str]:
