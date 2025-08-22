@@ -3,7 +3,7 @@ from dataclasses import dataclass
 import fnmatch
 from pathlib import Path
 
-from compy_cli.src.pypp_dirs import PyppDirs, create_test_dir_pypp_dirs
+from compy_cli.src.compy_dirs import CompyDirs, create_test_dir_pypp_dirs
 
 
 @dataclass(frozen=True, slots=True)
@@ -92,7 +92,7 @@ def _find_deleted_files(prev_timestamps: TimeStampsFile) -> set[Path]:
 
 
 def calc_py_file_changes(
-    dirs: PyppDirs,
+    dirs: CompyDirs,
     ignore_src_files: list[str],
     main_py_files: list[Path],
     src_py_files: list[Path],

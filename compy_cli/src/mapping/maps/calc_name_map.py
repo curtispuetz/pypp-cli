@@ -1,6 +1,6 @@
 from functools import partial
 
-from compy_cli.src.pypp_dirs import PyppDirs
+from compy_cli.src.compy_dirs import CompyDirs
 from compy_cli.src.d_types import (
     PySpecificImpFrom,
     AngInc,
@@ -88,7 +88,7 @@ NAME_MAP: NameMap = {
 }
 
 
-def calc_name_map(proj_info: dict, dirs: PyppDirs) -> NameMap:
+def calc_name_map(proj_info: dict, dirs: CompyDirs) -> NameMap:
     return load_map(
         NAME_MAP,
         proj_info,

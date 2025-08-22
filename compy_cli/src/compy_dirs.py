@@ -1,7 +1,7 @@
 from pathlib import Path
 
 
-class PyppDirs:
+class CompyDirs:
     def __init__(self, target_dir: Path):
         self.target_dir = target_dir
         self.resources_dir: Path = target_dir / "resources"
@@ -37,5 +37,5 @@ class PyppDirs:
         )
 
 
-def create_test_dir_pypp_dirs() -> PyppDirs:
-    return PyppDirs(Path(__file__).parent.parent / "test_dir")
+def create_test_dir_pypp_dirs() -> CompyDirs:
+    return CompyDirs(Path(__file__).parent.parent / "test_dir")

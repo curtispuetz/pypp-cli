@@ -1,6 +1,6 @@
 from functools import partial
 
-from compy_cli.src.pypp_dirs import PyppDirs
+from compy_cli.src.compy_dirs import CompyDirs
 from compy_cli.src.d_types import QInc, PyImport
 from compy_cli.src.mapping.maps.util import (
     calc_map_info,
@@ -19,7 +19,7 @@ ATTR_MAP: AttrMap = {
 }
 
 
-def calc_attr_map(proj_info: dict, dirs: PyppDirs) -> AttrMap:
+def calc_attr_map(proj_info: dict, dirs: CompyDirs) -> AttrMap:
     return load_map(
         ATTR_MAP,
         proj_info,

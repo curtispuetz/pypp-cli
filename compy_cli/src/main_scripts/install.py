@@ -5,10 +5,10 @@ from compy_cli.src.main_scripts.util.pip_helper import (
     get_lib_name_and_version_for_whl_file,
     pip_install,
 )
-from compy_cli.src.pypp_dirs import PyppDirs
+from compy_cli.src.compy_dirs import CompyDirs
 
 
-def pypp_install(library: str, dirs: PyppDirs):
+def pypp_install(library: str, dirs: CompyDirs):
     library_name, version = _get_library_name_and_version(library)
     pip_install(library, dirs)
     # TODO: add some validation that the data in like name_map.json is correct.
@@ -26,7 +26,7 @@ def _get_library_name_and_version(library: str) -> tuple[str, str]:
         return s[0], s[1]
 
 
-def _copy_cpp_library_files_if_any(library_name: str, dirs: PyppDirs):
+def _copy_cpp_library_files_if_any(library_name: str, dirs: CompyDirs):
     src_dir = dirs.calc_library_cpp_data_dir(library_name)
     dest_dir = dirs.calc_cpp_libs_dir(library_name)
     if dest_dir.exists():
@@ -36,7 +36,7 @@ def _copy_cpp_library_files_if_any(library_name: str, dirs: PyppDirs):
 
 
 def _add_installed_library_to_proj_info_json(
-    library_name: str, version: str, dirs: PyppDirs
+    library_name: str, version: str, dirs: CompyDirs
 ):
     with open(dirs.proj_info_file, "r") as f:
         proj_info: dict = json.load(f)

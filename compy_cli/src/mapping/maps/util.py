@@ -3,7 +3,7 @@ from collections.abc import Callable
 from pathlib import Path
 from typing import TypeVar
 
-from compy_cli.src.pypp_dirs import PyppDirs
+from compy_cli.src.compy_dirs import CompyDirs
 from compy_cli.src.d_types import (
     PySpecificImport,
     AngInc,
@@ -78,7 +78,7 @@ T = TypeVar("T")
 def load_map(
     default_map: dict[str, dict[PySpecificImport | None, T]],
     proj_info: dict,
-    dirs: PyppDirs,
+    dirs: CompyDirs,
     json_file_name: str,
     value_calc_fn: Callable[[dict, str], T],
     warning_fn: Callable[[str, str], str],

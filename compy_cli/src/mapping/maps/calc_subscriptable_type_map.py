@@ -1,4 +1,4 @@
-from compy_cli.src.pypp_dirs import PyppDirs
+from compy_cli.src.compy_dirs import CompyDirs
 from compy_cli.src.d_types import PySpecificImpFrom
 from compy_cli.src.mapping.info_types import SubscriptableTypeMap
 from compy_cli.src.mapping.maps.util import load_map
@@ -21,7 +21,7 @@ def _warning_msg(installed_library: str, full_type_str: str) -> str:
 
 
 def calc_subscriptable_type_map(
-    proj_info: dict, dirs: PyppDirs
+    proj_info: dict, dirs: CompyDirs
 ) -> SubscriptableTypeMap:
     return load_map(
         SUBSCRIPTABLE_TYPE_MAP,

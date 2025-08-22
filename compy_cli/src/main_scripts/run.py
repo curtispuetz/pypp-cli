@@ -1,10 +1,10 @@
 import subprocess
 from pathlib import Path
 
-from compy_cli.src.pypp_dirs import PyppDirs
+from compy_cli.src.compy_dirs import CompyDirs
 
 
-def pypp_run(dirs: PyppDirs):
+def pypp_run(dirs: CompyDirs):
     exe_path = Path(dirs.cpp_build_release_dir) / "main.exe"
     print("running generated executable...")
     subprocess.run([str(exe_path)], check=True)
