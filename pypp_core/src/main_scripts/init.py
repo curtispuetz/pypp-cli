@@ -5,6 +5,8 @@ import subprocess
 from pypp_core.src.pypp_dirs import PyppDirs
 import venv
 
+# TODO: rename project to compy
+
 
 def pypp_init(dirs: PyppDirs):
     _create_project_structure(dirs)
