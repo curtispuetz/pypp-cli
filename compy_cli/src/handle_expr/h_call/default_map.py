@@ -64,7 +64,7 @@ CALL_MAP: CallMap = {
     "print": {None: CallMapInfoCppCall("print", [QInc("pypp_util/print.h")])},
     "print_address": {
         PySpecificImpFrom(
-            "pypp_python.printing", "print_address"
+            "compy_python.printing", "print_address"
         ): CallMapInfoLeftAndRight(
             "print(&",
             ")",
@@ -75,17 +75,17 @@ CALL_MAP: CallMap = {
     "PyStr": {None: CallMapInfoCppCall("to_pystr", [QInc("pypp_util/to_py_str.h")])},
     "PySlice": {None: CallMapInfoCppCall("py_slice", [QInc("slice/creators.h")])},
     "mov": {
-        PySpecificImpFrom("pypp_python.ownership", "mov"): CallMapInfoCppCall(
+        PySpecificImpFrom("compy_python.ownership", "mov"): CallMapInfoCppCall(
             "std::move", [AngInc("utility")]
         )
     },
     "pypp_get_resources": {
         PySpecificImpFrom(
-            "pypp_python.resources", "pypp_get_resources"
+            "compy_python.resources", "pypp_get_resources"
         ): CallMapInfoCppCall("pypp_get_resources", [QInc("pypp_resources.h")])
     },
     "int_pow": {
-        PySpecificImpFrom("pypp_python.math", "int_pow"): CallMapInfoCppCall(
+        PySpecificImpFrom("compy_python.math", "int_pow"): CallMapInfoCppCall(
             "int_pow", [QInc("pypp_util/math.h")]
         )
     },
@@ -95,33 +95,33 @@ CALL_MAP: CallMap = {
         )
     },
     "tg": {
-        PySpecificImpFrom("pypp_python.tuple_get", "tg"): CallMapInfoCustomMapping(
+        PySpecificImpFrom("compy_python.tuple_get", "tg"): CallMapInfoCustomMapping(
             _tuple_get, []
         )
     },
     "dg": {
-        PySpecificImpFrom("pypp_python.dict_get", "dg"): CallMapInfoCustomMapping(
+        PySpecificImpFrom("compy_python.dict_get", "dg"): CallMapInfoCustomMapping(
             _dict_get, []
         )
     },
     "ug": {
-        PySpecificImpFrom("pypp_python.union", "ug"): CallMapInfoCustomMapping(
+        PySpecificImpFrom("compy_python.union", "ug"): CallMapInfoCustomMapping(
             _union_get, []
         )
     },
     "isinst": {
-        PySpecificImpFrom("pypp_python.union", "isinst"): CallMapInfoCustomMapping(
+        PySpecificImpFrom("compy_python.union", "isinst"): CallMapInfoCustomMapping(
             _union_isinst, []
         )
     },
     "is_none": {
-        PySpecificImpFrom("pypp_python.union", "is_none"): CallMapInfoCustomMapping(
+        PySpecificImpFrom("compy_python.union", "is_none"): CallMapInfoCustomMapping(
             _union_is_none, []
         )
     },
     "list_reserve": {
         PySpecificImpFrom(
-            "pypp_python.lists", "list_reserve"
+            "compy_python.lists", "list_reserve"
         ): CallMapInfoCustomMapping(_list_reserve, [])
     },
     "PyDefaultDict<": {
@@ -137,7 +137,7 @@ CALL_MAP: CallMap = {
     },
     "pypp_time.": {
         PyImport(
-            "pypp_python.stl.pypp_time", "pypp_time"
+            "compy_python.stl.pypp_time", "pypp_time"
         ): CallMapInfoReplaceDotWithDoubleColon([QInc("pypp_time.h")])
     },
 }

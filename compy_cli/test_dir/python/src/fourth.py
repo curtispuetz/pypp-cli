@@ -1,4 +1,4 @@
-from pypp_python.ownership import Valu
+from compy_python.ownership import Valu
 
 
 def string_as_argument(input_str: Valu(str)) -> str:

@@ -1,5 +1,5 @@
-from pypp_python.dict_get import dg
-from pypp_python.ownership import mov, Valu, Ref
+from compy_python.dict_get import dg
+from compy_python.ownership import mov, Valu, Ref
 
 
 def _inline_dict(d: Valu(dict[int, int])):

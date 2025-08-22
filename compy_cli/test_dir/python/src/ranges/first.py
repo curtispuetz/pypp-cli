@@ -1,4 +1,4 @@
-from pypp_python.ownership import mov
+from compy_python.ownership import mov
 
 
 def _iter_and_print(arg1: range):

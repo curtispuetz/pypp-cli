@@ -1,8 +1,8 @@
 import math
 import random
 
-from pypp_python.ownership import Valu, mov
-from pypp_python.tuple_get import tg
+from compy_python.ownership import Valu, mov
+from compy_python.tuple_get import tg
 
 
 def _fade(t: float) -> float:
