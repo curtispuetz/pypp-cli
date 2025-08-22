@@ -66,6 +66,6 @@ def fn_as_vars_fn():
     print(f(3, 4))
     # passing a lambda as argument
     _test_fn6(lambda x, y: f"Lambda {x, y}")
-    # lambda without any aruguments
+    # lambda without any arguments
     g: Callable[[], str] = lambda: "Lambda without args"
     print(g())

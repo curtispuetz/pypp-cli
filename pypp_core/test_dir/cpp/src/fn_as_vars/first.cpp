@@ -34,13 +34,11 @@ void fn_as_vars_fn() {
     TestDataClass e = TestDataClass(1);
     e.t(c);
     std::function<PyStr(int, int)> f = [](auto x, auto y) {
-        return PyStr(
-            std::format("Lambda {}", PyTup(std::move(x), std::move(y))));
+        return PyStr(std::format("Lambda {}", PyTup(x, y)));
     };
     print(f(3, 4));
     _test_fn6([](auto x, auto y) {
-        return PyStr(
-            std::format("Lambda {}", PyTup(std::move(x), std::move(y))));
+        return PyStr(std::format("Lambda {}", PyTup(x, y)));
     });
     std::function<PyStr()> g = []() { return PyStr("Lambda without args"); };
     print(g());

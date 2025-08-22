@@ -40,9 +40,7 @@ template <typename T> class PyList {
     PyList(const int size, const T &value) : data(size, value) {}
     PyList(const int size) : data(size) {}
 
-    void append(T &&value) {
-        data.push_back(std::move(value)); // move
-    }
+    void append(T &&value) { data.push_back(std::move(value)); }
 
     // Pop
     T pop(int index = -1) {
@@ -74,7 +72,7 @@ template <typename T> class PyList {
             index = data.size();
         data.insert(data.begin() + index, std::move(value));
     }
-
+    // TODO: implement extend
     // Remove
     void remove(const T &value) {
         auto it = std::find(data.begin(), data.end(), value);

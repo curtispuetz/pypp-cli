@@ -66,8 +66,9 @@ template <typename... Args> class PyTup {
     }
 
   public:
-    // Rvalue-only constructor for value types
-    PyTup(Args &&...args) : data(std::move(args)...) {}
+    // Perfect forwarding constructor: accepts both lvalues and rvalues
+    template <typename... UArgs>
+    explicit PyTup(UArgs &&...args) : data(std::forward<UArgs>(args)...) {}
     // Allow construction from lvalues if all Args are references (for PyDict
     // iterator, etc.)
     template <

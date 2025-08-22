@@ -9,21 +9,21 @@ from pypp_core.src.util.util import rm_dirs_and_files
 
 def initialize_cpp_project(dirs: PyppDirs, proj_info: dict):
     rm_dirs_and_files(dirs.cpp_dir, {"libs"})
-    _copy_cpp_template_to_cpp_dir()
+    _copy_cpp_template_to_cpp_dir(dirs)
     # Need to remove the timestamps file because all the C++ files need to be
     # generated again.
-    if dir.timestamps_file.exists():
-        dir.timestamps_file.unlink()
+    if dirs.timestamps_file.exists():
+        dirs.timestamps_file.unlink()
     _set_cpp_dir_not_dirty_in_json(dirs, proj_info)
 
 
-def _copy_cpp_template_to_cpp_dir():
+def _copy_cpp_template_to_cpp_dir(dirs: PyppDirs):
     print("Copying the C++ template to the cpp project directory")
     # Copy files and directories from the template
     template_root = files("pypp_core.data.cpp_template")
     for item in template_root.iterdir():
         with as_file(item) as src_path:
-            dst_path: Path = dir.cpp_dir / item.name
+            dst_path: Path = dirs.cpp_dir / item.name
             if src_path.is_dir():
                 shutil.copytree(src_path, dst_path)
             else:
