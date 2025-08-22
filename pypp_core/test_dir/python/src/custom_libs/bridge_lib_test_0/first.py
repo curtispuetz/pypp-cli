@@ -11,6 +11,8 @@ from pypp_bridge_library_test_0.modules_to_cpp_inc import pseudo_fn_a
 import pypp_bridge_library_test_0.modules_to_cpp_inc_2 as m2
 import pypp_bridge_library_test_0.replace_with_double_colon_call as dc_test
 from pypp_bridge_library_test_0.custom_print import custom_print
+from pypp_bridge_library_test_0.custom_list import PseudoCustomList
+from pypp_python.printing import print_address
 
 
 def _as_arg(arg: PseudoCustomType):
@@ -67,3 +69,5 @@ def bridge_lib_test_0_fn():
     print(pseudo_fn_a())
     print(m2.pseudo_fn_b())
     custom_print("aloha")
+    k: PseudoCustomList[int] = PseudoCustomList([1, 2, 3])
+    print_address(k)

@@ -8,7 +8,7 @@ from pypp_core.src.mapping.info_types import (
 )
 from pypp_core.src.mapping.util import calc_string_fn, find_map_info
 from pypp_core.src.util.calc_callable_type import calc_callable_type
-from pypp_core.src.util.inner_strings import calc_inside_ang
+from pypp_core.src.util.inner_strings import calc_inside_ang, calc_inside_rd
 from pypp_core.src.util.util import calc_ref_str
 
 
@@ -68,6 +68,7 @@ def _calc_final_str(
 def _calc_result_from_maps_if_any(
     d: Deps, value_str: str, type_cpp: str, target_str: str
 ) -> str | None:
+    value_str_stripped: str = calc_inside_rd(value_str) if "(" in value_str else ""
     for starts_with_str, r in d.maps.ann_assign.items():
         info = find_map_info(r, d)
         if info is None:
@@ -75,12 +76,14 @@ def _calc_result_from_maps_if_any(
         if isinstance(info, AnnAssignMapInfoCustomMappingStartsWith):
             if type_cpp.startswith(starts_with_str):
                 d.add_incs(info.includes)
-                return info.mapping_fn(type_cpp, value_str, target_str)
+                return info.mapping_fn(
+                    type_cpp, target_str, value_str, value_str_stripped
+                )
         elif isinstance(info, AnnAssignMapInfoCustomMappingStartsWithFromLibrary):
             if type_cpp.startswith(starts_with_str):
                 d.add_incs(info.includes)
                 return calc_string_fn(info, "ann_assign_map")(
-                    type_cpp, value_str, target_str
+                    type_cpp, target_str, value_str, value_str_stripped
                 )
     return None
 
