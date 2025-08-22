@@ -17,37 +17,36 @@ from pypp_core.src.mapping.util import calc_string_fn, find_map_info
 def handle_call(node: ast.Call, d: Deps) -> str:
     assert len(node.keywords) == 0, "keywords for a call are not supported."
     caller_str: str = d.handle_expr(node.func)
-    # TODO: rename _type to something like caller
-    for _type, r in d.maps.calls.items():
+    for caller, r in d.maps.calls.items():
         info = find_map_info(r, d)
         if info is None:
             continue
         if isinstance(info, CallMapInfoCppCall):
-            if caller_str == _type:
+            if caller_str == caller:
                 d.add_incs(info.includes)
                 return f"{info.cpp_call}({d.handle_exprs(node.args)})"
         elif isinstance(info, CallMapInfoLeftAndRight):
-            if caller_str == _type:
+            if caller_str == caller:
                 d.add_incs(info.includes)
                 return info.left + d.handle_exprs(node.args) + info.right
         elif isinstance(info, CallMapInfoCustomMapping):
-            if caller_str == _type:
+            if caller_str == caller:
                 d.add_incs(info.includes)
                 return info.mapping_fn(node, d)
         elif isinstance(info, CallMapInfoCustomMappingFromLibrary):
-            if caller_str == _type:
+            if caller_str == caller:
                 d.add_incs(info.includes)
                 return calc_string_fn(info, "calls_map")(node, d)
         elif isinstance(info, CallMapInfoCustomMappingStartsWith):
-            if caller_str.startswith(_type):
+            if caller_str.startswith(caller):
                 d.add_incs(info.includes)
                 return info.mapping_fn(node, d, caller_str)
         elif isinstance(info, CallMapInfoCustomMappingStartsWithFromLibrary):
-            if caller_str.startswith(_type):
+            if caller_str.startswith(caller):
                 d.add_incs(info.includes)
                 return calc_string_fn(info, "calls_map")(node, d, caller_str)
         elif isinstance(info, CallMapInfoReplaceDotWithDoubleColon):
-            if caller_str.startswith(_type):
+            if caller_str.startswith(caller):
                 d.add_incs(info.includes)
                 caller_str = caller_str.replace(".", "::")
                 return f"{caller_str}({d.handle_exprs(node.args)})"
