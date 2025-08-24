@@ -72,6 +72,16 @@ CALL_MAP: CallMap = {
         )
     },
     "len": {None: CallMapInfoLeftAndRight("", ".len()", [])},
+    "to_std_string": {
+        PySpecificImpFrom(
+            "compy_python.strings", "to_std_string"
+        ): CallMapInfoLeftAndRight("", ".str()", [])
+    },
+    "to_c_string": {
+        PySpecificImpFrom(
+            "compy_python.strings", "to_c_string"
+        ): CallMapInfoLeftAndRight("", ".str().c_str()", [])
+    },
     "PyStr": {None: CallMapInfoCppCall("to_pystr", [QInc("compy_util/to_py_str.h")])},
     "PySlice": {None: CallMapInfoCppCall("py_slice", [QInc("slice/creators.h")])},
     "mov": {
