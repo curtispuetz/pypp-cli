@@ -7,8 +7,8 @@ from compy_cli.src.main_scripts.run import compy_run
 from compy_cli.src.main_scripts.transpile import compy_transpile
 
 
-def compy_do(tasks: list[str], dirs: CompyDirs) -> None:
-    do_helper = _DoHelper(dirs)
+def compy_do(tasks: list[str], dirs: CompyDirs, exe_name: str | None) -> None:
+    do_helper = _DoHelper(dirs, exe_name)
     task_methods = {
         "transpile": do_helper.transpile,
         "format": do_helper.format,
@@ -21,9 +21,10 @@ def compy_do(tasks: list[str], dirs: CompyDirs) -> None:
 
 
 class _DoHelper:
-    def __init__(self, dirs: CompyDirs):
+    def __init__(self, dirs: CompyDirs, exe_name: str | None):
         self._dirs = dirs
         self._files_added_or_modified: list[Path] | None = None
+        self._exe_name = exe_name
 
     def transpile(self):
         self._files_added_or_modified = compy_transpile(self._dirs)
@@ -37,4 +38,4 @@ class _DoHelper:
         compy_build(self._dirs)
 
     def run(self):
-        compy_run(self._dirs)
+        compy_run(self._dirs, self._exe_name)
