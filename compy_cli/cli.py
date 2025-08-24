@@ -53,6 +53,12 @@ def main_cli(absolute_dir: Path | None = None) -> None:
         choices=["transpile", "format", "build", "run"],
         nargs="+",
     )
+    parser_main.add_argument(
+        "--exe_name",
+        "-e",
+        help="The name of the executable to run (required if 'run' is one of the tasks).",
+        required=False,
+    )
     parser_init_bridge = subparsers.add_parser(
         "init_bridge_library",
         help="Initialize a new Compy bridge-library in the current directory.",
@@ -77,7 +83,11 @@ def main_cli(absolute_dir: Path | None = None) -> None:
         )
 
     if args.mode == "do":
-        compy_do(args.tasks, compy_dirs)
+        if "run" in args.tasks and not args.exe_name:
+            parser.error(
+                "argument --exe_name/-e is required when 'run' is one of the tasks."
+            )
+        compy_do(args.tasks, compy_dirs, args.exe_name)
     elif args.mode == "install":
         for lib in args.libraries:
             compy_install(lib, compy_dirs)
