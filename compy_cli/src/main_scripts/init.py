@@ -5,8 +5,6 @@ import subprocess
 from compy_cli.src.compy_dirs import CompyDirs
 import venv
 
-# TODO: rename project to compy
-
 
 def compy_init(dirs: CompyDirs):
     _create_project_structure(dirs)
