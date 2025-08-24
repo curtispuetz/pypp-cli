@@ -42,7 +42,7 @@ def calc_import_map(proj_info: dict, dirs: CompyDirs) -> ImportMap:
                     assert "ignore" in r, (
                         f"Invalid import_map.json from library '{installed_library}'. "
                         f"This should not happen because the library should be "
-                        f"verified on install"
+                        f"verified on install."
                     )
                     if len(r["ignore"]) == 0:
                         libraries[installed_library] = set()

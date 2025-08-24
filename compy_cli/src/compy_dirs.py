@@ -21,6 +21,9 @@ class CompyDirs:
     def calc_site_packages_dir(self) -> Path:
         return self.python_dir / ".venv" / "Lib" / "site-packages"
 
+    def calc_bridge_lib_py_executable(self) -> Path:
+        return self.target_dir / ".venv" / "Scripts" / "python.exe"
+
     def calc_library_cpp_data_dir(self, library_name: str) -> Path:
         return self.calc_site_packages_dir() / library_name / "data" / "cpp"
 

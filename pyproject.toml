@@ -13,7 +13,7 @@ readme = "readme.md"
 license = { text = "MIT" }
 
 [project.scripts]
-compy = "compy_cli.cli:main"
+compy = "compy_cli.cli:main_cli"
 
 [tool.setuptools.package-data]
 "compy_cli" = ["data/**/*"]
