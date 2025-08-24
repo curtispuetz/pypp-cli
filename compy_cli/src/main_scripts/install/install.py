@@ -2,6 +2,7 @@ from collections.abc import Callable
 import json
 from pathlib import Path
 import shutil
+import subprocess
 
 from compy_cli.src.main_scripts.install.json_validations.always_pass_by_value import (
     validate_always_pass_by_value,
@@ -57,6 +58,7 @@ def compy_install(library: str, dirs: CompyDirs):
             f"{library_name}: {e}. "
             f"IMPORTANT: in order to avoid issues, uninstall {library_name}."
         )
+    _pip_install_any_specified_libraries(library_name, dirs)
     _copy_cpp_library_files_if_any(library_name, dirs)
     _add_installed_library_to_proj_info_json(library_name, version, dirs)
 
@@ -78,6 +80,18 @@ def _get_library_name_and_version(library: str) -> tuple[str, str]:
             raise ValueError("version must be specified for library")
         s = library.split("==")
         return s[0], s[1]
+
+
+def _pip_install_any_specified_libraries(library_name: str, dirs: CompyDirs):
+    json_path: Path = dirs.calc_bridge_json(library_name, "pip_install")
+    if json_path.exists():
+        with open(json_path, "r") as f:
+            data = json.load(f)
+        assert isinstance(data, dict), "pip_install.json must be a JSON Object"
+        for k, v in data.items():
+            assert isinstance(k, str), "Key in pip_install.json must be a string"
+            assert isinstance(v, str), "Entry in pip_install.json must be a string"
+            pip_install(f"{k}=={v}", dirs)
 
 
 def _copy_cpp_library_files_if_any(library_name: str, dirs: CompyDirs):
