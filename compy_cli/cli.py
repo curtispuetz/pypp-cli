@@ -4,7 +4,7 @@ import argparse
 from compy_cli.src.compy_dirs import CompyDirs
 from compy_cli.src.main_scripts.do import compy_do
 from compy_cli.src.main_scripts.init import compy_init
-from compy_cli.src.main_scripts.install import compy_install
+from compy_cli.src.main_scripts.install.install import compy_install
 from compy_cli.src.main_scripts.delete_timestamps import compy_delete_timestamps
 from compy_cli.src.main_scripts.run_python import compy_run_python
 from compy_cli.src.main_scripts.uninstall import compy_uninstall
