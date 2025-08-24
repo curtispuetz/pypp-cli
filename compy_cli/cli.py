@@ -4,6 +4,7 @@ import argparse
 from compy_cli.src.compy_dirs import CompyDirs
 from compy_cli.src.main_scripts.do import compy_do
 from compy_cli.src.main_scripts.init import compy_init
+from compy_cli.src.main_scripts.init_bridge_library import compy_init_bridge_library
 from compy_cli.src.main_scripts.install.install import compy_install
 from compy_cli.src.main_scripts.delete_timestamps import compy_delete_timestamps
 from compy_cli.src.main_scripts.run_python import compy_run_python
@@ -14,7 +15,7 @@ def main_cli(absolute_dir: Path | None = None) -> None:
     parser = argparse.ArgumentParser(description="compy CLI tool.")
     subparsers = parser.add_subparsers(dest="mode", required=False)
     subparsers.add_parser(
-        "init", help="Initialize a new Compy project in the given directory."
+        "init", help="Initialize a new Compy project in the current directory."
     )
     parser_install = subparsers.add_parser("install", help="Install compy libraries")
     parser_install.add_argument(
@@ -52,6 +53,14 @@ def main_cli(absolute_dir: Path | None = None) -> None:
         choices=["transpile", "format", "build", "run"],
         nargs="+",
     )
+    parser_init_bridge = subparsers.add_parser(
+        "init_bridge_library",
+        help="Initialize a new Compy bridge-library in the current directory.",
+    )
+    parser_init_bridge.add_argument(
+        "library_name",
+        help="The name of the bridge-library to initialize.",
+    )
 
     args = parser.parse_args()
     if absolute_dir is None:
@@ -59,6 +68,8 @@ def main_cli(absolute_dir: Path | None = None) -> None:
     compy_dirs = CompyDirs(absolute_dir)
     if args.mode == "init":
         compy_init(compy_dirs)
+    elif args.mode == "init_bridge_library":
+        compy_init_bridge_library(args.library_name, compy_dirs)
     elif not compy_dirs.proj_info_file.exists():
         parser.error(
             "compy_data/proj_info.json file not found. "
