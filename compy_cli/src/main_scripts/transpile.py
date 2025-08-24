@@ -42,7 +42,7 @@ def compy_transpile(dirs: CompyDirs) -> list[Path]:
     main_py_files: list[Path] = get_all_main_py_files(dirs.python_dir)
     if not main_py_files:
         raise Exception(f"No Python files (*.py) found in '{dirs.python_dir}'.")
-    write_cmake_lists_file(dirs, main_py_files)
+    write_cmake_lists_file(dirs, main_py_files, proj_info)
 
     # Step 2: calculate the files that have changed since the last transpile
     src_py_files: list[Path] = get_all_py_files(dirs.python_src_dir)

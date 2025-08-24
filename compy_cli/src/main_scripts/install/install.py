@@ -15,6 +15,9 @@ from compy_cli.src.main_scripts.install.json_validations.attr_map import (
 from compy_cli.src.main_scripts.install.json_validations.call_map import (
     validate_call_map,
 )
+from compy_cli.src.main_scripts.install.json_validations.cmake_lists import (
+    validate_cmake_lists,
+)
 from compy_cli.src.main_scripts.install.json_validations.import_map import (
     validate_import_map,
 )
@@ -39,6 +42,7 @@ BRIDGE_JSON_VALIDATION: dict[str, Callable[[object], None]] = {
     "attr_map": validate_attr_map,
     "subscriptable_types": validate_subscriptable_types,
     "always_pass_by_value": validate_always_pass_by_value,
+    "cmake_lists": validate_cmake_lists,
 }
 
 

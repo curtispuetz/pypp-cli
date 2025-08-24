@@ -1,8 +1,10 @@
+import json
 from pathlib import Path
 from compy_cli.src.compy_dirs import CompyDirs
 
 
-def write_cmake_lists_file(dirs: CompyDirs, main_py_files: list[Path]):
+def write_cmake_lists_file(dirs: CompyDirs, main_py_files: list[Path], proj_info: dict):
+    add_lines, link_libs = _calc_add_lines_and_link_libs_from_libraries(dirs, proj_info)
     cmake_lines = [
         "cmake_minimum_required(VERSION 4.0)",
         "project(compy LANGUAGES CXX)",
@@ -10,13 +12,25 @@ def write_cmake_lists_file(dirs: CompyDirs, main_py_files: list[Path]):
         "set(CMAKE_CXX_STANDARD 23)",
         "set(CMAKE_EXPORT_COMPILE_COMMANDS ON)",
         "",
+        *add_lines,
+        "",
         "file(GLOB_RECURSE SRC_FILES src/*.cpp)",
         "file(GLOB_RECURSE COMPY_FILES compy/*.cpp)",
         "file(GLOB_RECURSE LIB_FILES libs/*.cpp)",
         "",
-        "add_library(compy_common STATIC ${SRC_FILES} ${COMPY_FILES} ${LIB_FILES})",
-        "target_include_directories(compy_common PUBLIC "
-        "${CMAKE_SOURCE_DIR}/src ${CMAKE_SOURCE_DIR}/compy ${CMAKE_SOURCE_DIR}/libs)",
+        "add_library(",
+        "    compy_common STATIC",
+        "    ${SRC_FILES}",
+        "    ${COMPY_FILES}",
+        "    ${LIB_FILES}",
+        ")",
+        "target_include_directories(",
+        "    compy_common PUBLIC",
+        "    ${CMAKE_SOURCE_DIR}/src",
+        "    ${CMAKE_SOURCE_DIR}/compy",
+        "    ${CMAKE_SOURCE_DIR}/libs",
+        ")",
+        *_calc_link_libs_lines(link_libs),
         "",
     ]
 
@@ -33,3 +47,37 @@ def write_cmake_lists_file(dirs: CompyDirs, main_py_files: list[Path]):
     cmake_path.write_text(cmake_content)
 
     print("CMakeLists.txt generated to cpp project directory")
+
+
+def _calc_add_lines_and_link_libs_from_libraries(
+    dirs: CompyDirs, proj_info: dict
+) -> tuple[list[str], list[str]]:
+    add_lines: list[str] = []
+    link_libs: list[str] = []
+    # TODO: instead of passing proj_info dict everywhere, lets make a data structure to
+    #  hold the information and pass that around.
+    for installed_library in proj_info["installed_libraries"]:
+        cmake_lists: Path = dirs.calc_bridge_json(installed_library, "cmake_lists")
+        if cmake_lists.exists():
+            with open(cmake_lists, "r") as f:
+                data = json.load(f)
+            # Note: the json should be validated already when the library is installed.
+            # TODO: instead of just assuming the structure is correct, I could now
+            #  easily just call the validation functions I have even though it should
+            #  rarely be nessesary. Because it would be more safe and should be
+            #  super fast anyway.
+            add_lines.extend(data["add_lines"])
+            link_libs.extend(data["link_libraries"])
+    return add_lines, link_libs
+
+
+def _calc_link_libs_lines(link_libs: list[str]) -> list[str]:
+    # target_link_libraries(compy_common PUBLIC glfw)
+    if len(link_libs) == 0:
+        return []
+    return [
+        "target_link_libraries(",
+        "    compy_common PUBLIC",
+        *[f"    {lib}" for lib in link_libs],
+        ")",
+    ]
