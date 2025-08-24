@@ -2,7 +2,6 @@ from collections.abc import Callable
 import json
 from pathlib import Path
 import shutil
-import subprocess
 
 from compy_cli.src.main_scripts.install.json_validations.always_pass_by_value import (
     validate_always_pass_by_value,
