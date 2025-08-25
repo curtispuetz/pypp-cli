@@ -3,7 +3,7 @@ import ast
 from compy_cli.src.deps import Deps
 from compy_cli.src.handle_expr.h_starred import handle_call_with_starred_arg
 from compy_cli.src.mapping.info_types import (
-    CallMapInfoCppCall,
+    CallMapInfoToString,
     CallMapInfoCustomMapping,
     CallMapInfoCustomMappingFromLibrary,
     CallMapInfoCustomMappingStartsWith,
@@ -21,10 +21,10 @@ def handle_call(node: ast.Call, d: Deps) -> str:
         info = find_map_info(r, d)
         if info is None:
             continue
-        if isinstance(info, CallMapInfoCppCall):
+        if isinstance(info, CallMapInfoToString):
             if caller_str == caller:
                 d.add_incs(info.includes)
-                return f"{info.cpp_call}({d.handle_exprs(node.args)})"
+                return f"{info.to}({d.handle_exprs(node.args)})"
         elif isinstance(info, CallMapInfoLeftAndRight):
             if caller_str == caller:
                 d.add_incs(info.includes)

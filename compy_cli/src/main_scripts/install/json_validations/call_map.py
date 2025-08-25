@@ -28,14 +28,14 @@ def _validate_left_and_right(key_chain: list[str], vc: dict):
             )
 
 
-def _validate_cpp_call(key_chain: list[str], vc: dict):
+def _validate_to_string(key_chain: list[str], vc: dict):
     for kcc, vcc in vc.items():
         assert isinstance(kcc, str), (
             f"Key in entry for {'.'.join(key_chain)} in {_S} must be a string"
         )
         if kcc in VALIDATE_BASIC_INFO:
             VALIDATE_BASIC_INFO[kcc](key_chain + [kcc], vcc, _S)
-        elif kcc == "cpp_call":
+        elif kcc == "to":
             assert isinstance(vcc, str), (
                 f"Entry for {'.'.join(key_chain + [kcc])} in {_S} must be a string"
             )
@@ -75,7 +75,7 @@ def _validate_replace_dot_with_double_colon(key_chain: list[str], vc: dict):
 
 VALIDATE_CALL_ENTRY: dict[str, Callable[[list[str], dict], None]] = {
     "left_and_right": _validate_left_and_right,
-    "cpp_call": _validate_cpp_call,
+    "to_string": _validate_to_string,
     "custom_mapping": _validate_custom_mapping,
     "custom_mapping_starts_with": _validate_custom_mapping,
     "replace_dot_with_double_colon": _validate_replace_dot_with_double_colon,

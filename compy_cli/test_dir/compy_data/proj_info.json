@@ -4,8 +4,8 @@
         "glfw_test_2.py"
     ],
     "installed_libraries": {
-        "compy_bridge_library_test_1": "0.0.0",
         "compy_bridge_library_test_0": "0.0.0",
+        "compy_bridge_library_test_1": "0.0.0",
         "compy_bridge_lib_glfw": "0.0.0"
     }
 }
