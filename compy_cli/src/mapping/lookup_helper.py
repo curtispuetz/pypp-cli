@@ -1,12 +1,12 @@
 from compy_cli.src.deps import Deps
 from compy_cli.src.mapping.info_types import (
-    MapInfo,
+    ToStringEntry,
     NameOrAttrMap,
 )
 from compy_cli.src.mapping.util import find_map_info
 
 
-def lookup_helper(key: str, d: Deps, map: NameOrAttrMap) -> MapInfo | None:
+def lookup_helper(key: str, d: Deps, map: NameOrAttrMap) -> ToStringEntry | None:
     if key not in map:
         return None
     map_info = find_map_info(map[key], d)

@@ -3,13 +3,13 @@ import ast
 from compy_cli.src.deps import Deps
 from compy_cli.src.handle_expr.h_starred import handle_call_with_starred_arg
 from compy_cli.src.mapping.info_types import (
-    CallMapInfoToString,
-    CallMapInfoCustomMapping,
-    CallMapInfoCustomMappingFromLibrary,
-    CallMapInfoCustomMappingStartsWith,
-    CallMapInfoCustomMappingStartsWithFromLibrary,
-    CallMapInfoLeftAndRight,
-    CallMapInfoReplaceDotWithDoubleColon,
+    ToStringEntry,
+    CustomMappingEntry,
+    CustomMappingFromLibEntry,
+    CustomMappingStartsWithEntry,
+    CustomMappingStartsWithFromLibEntry,
+    LeftAndRightEntry,
+    ReplaceDotWithDoubleColonEntry,
 )
 from compy_cli.src.mapping.util import calc_string_fn, find_map_info
 
@@ -21,31 +21,31 @@ def handle_call(node: ast.Call, d: Deps) -> str:
         info = find_map_info(r, d)
         if info is None:
             continue
-        if isinstance(info, CallMapInfoToString):
+        if isinstance(info, ToStringEntry):
             if caller_str == caller:
                 d.add_incs(info.includes)
                 return f"{info.to}({d.handle_exprs(node.args)})"
-        elif isinstance(info, CallMapInfoLeftAndRight):
+        elif isinstance(info, LeftAndRightEntry):
             if caller_str == caller:
                 d.add_incs(info.includes)
                 return info.left + d.handle_exprs(node.args) + info.right
-        elif isinstance(info, CallMapInfoCustomMapping):
+        elif isinstance(info, CustomMappingEntry):
             if caller_str == caller:
                 d.add_incs(info.includes)
                 return info.mapping_fn(node, d)
-        elif isinstance(info, CallMapInfoCustomMappingFromLibrary):
+        elif isinstance(info, CustomMappingFromLibEntry):
             if caller_str == caller:
                 d.add_incs(info.includes)
                 return calc_string_fn(info, "call_map")(node, d)
-        elif isinstance(info, CallMapInfoCustomMappingStartsWith):
+        elif isinstance(info, CustomMappingStartsWithEntry):
             if caller_str.startswith(caller):
                 d.add_incs(info.includes)
                 return info.mapping_fn(node, d, caller_str)
-        elif isinstance(info, CallMapInfoCustomMappingStartsWithFromLibrary):
+        elif isinstance(info, CustomMappingStartsWithFromLibEntry):
             if caller_str.startswith(caller):
                 d.add_incs(info.includes)
                 return calc_string_fn(info, "call_map")(node, d, caller_str)
-        elif isinstance(info, CallMapInfoReplaceDotWithDoubleColon):
+        elif isinstance(info, ReplaceDotWithDoubleColonEntry):
             if caller_str.startswith(caller):
                 d.add_incs(info.includes)
                 caller_str = caller_str.replace(".", "::")

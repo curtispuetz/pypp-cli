@@ -8,11 +8,11 @@ from compy_cli.src.mapping.maps.util import (
     load_map,
     calc_common_warning_msg,
 )
-from compy_cli.src.mapping.info_types import AttrMap, MapInfo
+from compy_cli.src.mapping.info_types import AttrMap, ToStringEntry
 
 ATTR_MAP: AttrMap = {
     "random.Random": {
-        PyImport("random"): MapInfo(
+        PyImport("random"): ToStringEntry(
             "random::Random",
             [QInc("compy_random.h")],
         )

@@ -3,11 +3,11 @@ import ast
 from compy_cli.src.d_types import AngInc, PyImport, PySpecificImpFrom, QInc
 from compy_cli.src.handle_expr.h_call.default_dict_map_fn import good_default_dict
 from compy_cli.src.mapping.info_types import (
-    CallMapInfoToString,
-    CallMapInfoCustomMapping,
-    CallMapInfoCustomMappingStartsWith,
-    CallMapInfoLeftAndRight,
-    CallMapInfoReplaceDotWithDoubleColon,
+    ToStringEntry,
+    CustomMappingEntry,
+    CustomMappingStartsWithEntry,
+    LeftAndRightEntry,
+    ReplaceDotWithDoubleColonEntry,
     CallMap,
 )
 
@@ -61,93 +61,89 @@ def _list_reserve(node: ast.Call, d) -> str:
 
 
 CALL_MAP: CallMap = {
-    "print": {None: CallMapInfoToString("print", [QInc("compy_util/print.h")])},
+    "print": {None: ToStringEntry("print", [QInc("compy_util/print.h")])},
     "print_address": {
-        PySpecificImpFrom(
-            "compy_python.printing", "print_address"
-        ): CallMapInfoLeftAndRight(
+        PySpecificImpFrom("compy_python.printing", "print_address"): LeftAndRightEntry(
             "print(&",
             ")",
             [QInc("compy_util/print.h")],
         )
     },
-    "len": {None: CallMapInfoLeftAndRight("", ".len()", [])},
+    "len": {None: LeftAndRightEntry("", ".len()", [])},
     "to_std_string": {
-        PySpecificImpFrom(
-            "compy_python.strings", "to_std_string"
-        ): CallMapInfoLeftAndRight("", ".str()", [])
+        PySpecificImpFrom("compy_python.strings", "to_std_string"): LeftAndRightEntry(
+            "", ".str()", []
+        )
     },
     "to_c_string": {
-        PySpecificImpFrom(
-            "compy_python.strings", "to_c_string"
-        ): CallMapInfoLeftAndRight("", ".str().c_str()", [])
+        PySpecificImpFrom("compy_python.strings", "to_c_string"): LeftAndRightEntry(
+            "", ".str().c_str()", []
+        )
     },
-    "PyStr": {None: CallMapInfoToString("to_pystr", [QInc("compy_util/to_py_str.h")])},
-    "PySlice": {None: CallMapInfoToString("py_slice", [QInc("slice/creators.h")])},
+    "PyStr": {None: ToStringEntry("to_pystr", [QInc("compy_util/to_py_str.h")])},
+    "PySlice": {None: ToStringEntry("py_slice", [QInc("slice/creators.h")])},
     "mov": {
-        PySpecificImpFrom("compy_python.ownership", "mov"): CallMapInfoToString(
+        PySpecificImpFrom("compy_python.ownership", "mov"): ToStringEntry(
             "std::move", [AngInc("utility")]
         )
     },
     "compy_get_resources": {
         PySpecificImpFrom(
             "compy_python.resources", "compy_get_resources"
-        ): CallMapInfoToString("compy_get_resources", [QInc("compy_resources.h")])
+        ): ToStringEntry("compy_get_resources", [QInc("compy_resources.h")])
     },
     "int_pow": {
-        PySpecificImpFrom("compy_python.math", "int_pow"): CallMapInfoToString(
+        PySpecificImpFrom("compy_python.math", "int_pow"): ToStringEntry(
             "int_pow", [QInc("compy_util/math.h")]
         )
     },
     "PyDefaultDict": {
-        PySpecificImpFrom("collections", "defaultdict"): CallMapInfoCustomMapping(
+        PySpecificImpFrom("collections", "defaultdict"): CustomMappingEntry(
             _default_dict, []
         )
     },
     "tg": {
-        PySpecificImpFrom("compy_python.tuple_get", "tg"): CallMapInfoCustomMapping(
+        PySpecificImpFrom("compy_python.tuple_get", "tg"): CustomMappingEntry(
             _tuple_get, []
         )
     },
     "dg": {
-        PySpecificImpFrom("compy_python.dict_get", "dg"): CallMapInfoCustomMapping(
+        PySpecificImpFrom("compy_python.dict_get", "dg"): CustomMappingEntry(
             _dict_get, []
         )
     },
     "ug": {
-        PySpecificImpFrom("compy_python.union", "ug"): CallMapInfoCustomMapping(
+        PySpecificImpFrom("compy_python.union", "ug"): CustomMappingEntry(
             _union_get, []
         )
     },
     "isinst": {
-        PySpecificImpFrom("compy_python.union", "isinst"): CallMapInfoCustomMapping(
+        PySpecificImpFrom("compy_python.union", "isinst"): CustomMappingEntry(
             _union_isinst, []
         )
     },
     "is_none": {
-        PySpecificImpFrom("compy_python.union", "is_none"): CallMapInfoCustomMapping(
+        PySpecificImpFrom("compy_python.union", "is_none"): CustomMappingEntry(
             _union_is_none, []
         )
     },
     "list_reserve": {
-        PySpecificImpFrom(
-            "compy_python.lists", "list_reserve"
-        ): CallMapInfoCustomMapping(_list_reserve, [])
+        PySpecificImpFrom("compy_python.lists", "list_reserve"): CustomMappingEntry(
+            _list_reserve, []
+        )
     },
     "PyDefaultDict<": {
-        PySpecificImpFrom(
-            "collections", "defaultdict"
-        ): CallMapInfoCustomMappingStartsWith(good_default_dict, [])
-    },
-    "os.": {PyImport("os"): CallMapInfoReplaceDotWithDoubleColon([QInc("compy_os.h")])},
-    "shutil.": {
-        PyImport("shutil"): CallMapInfoReplaceDotWithDoubleColon(
-            [QInc("compy_shutil.h")]
+        PySpecificImpFrom("collections", "defaultdict"): CustomMappingStartsWithEntry(
+            good_default_dict, []
         )
+    },
+    "os.": {PyImport("os"): ReplaceDotWithDoubleColonEntry([QInc("compy_os.h")])},
+    "shutil.": {
+        PyImport("shutil"): ReplaceDotWithDoubleColonEntry([QInc("compy_shutil.h")])
     },
     "compy_time.": {
         PyImport(
             "compy_python.stl.compy_time", "compy_time"
-        ): CallMapInfoReplaceDotWithDoubleColon([QInc("compy_time.h")])
+        ): ReplaceDotWithDoubleColonEntry([QInc("compy_time.h")])
     },
 }

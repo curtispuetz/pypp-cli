@@ -6,8 +6,8 @@ from compy_cli.src.d_types import PySpecificImpFrom
 from compy_cli.src.main_scripts.util.load_proj_info import ProjInfo
 from compy_cli.src.mapping.info_types import (
     AnnAssignMapInfo,
-    AnnAssignMapInfoCustomMappingStartsWith,
-    AnnAssignMapInfoCustomMappingStartsWithFromLibrary,
+    CustomMappingStartsWithEntry,
+    CustomMappingStartsWithFromLibEntry,
     AnnAssignsMap,
 )
 from compy_cli.src.mapping.maps.util import (
@@ -32,19 +32,19 @@ def _uni(
 
 
 ANN_ASSIGN_MAP: AnnAssignsMap = {
-    "PyDict<": {None: AnnAssignMapInfoCustomMappingStartsWith(_py_dict, [])},
+    "PyDict<": {None: CustomMappingStartsWithEntry(_py_dict, [])},
     "Uni<": {
-        PySpecificImpFrom(
-            "compy_python.union", "Uni"
-        ): AnnAssignMapInfoCustomMappingStartsWith(_uni, [])
+        PySpecificImpFrom("compy_python.union", "Uni"): CustomMappingStartsWithEntry(
+            _uni, []
+        )
     },
 }
 
 
 def _calc_custom_mapping_starts_with_info(
     obj: dict,
-) -> AnnAssignMapInfoCustomMappingStartsWithFromLibrary:
-    return AnnAssignMapInfoCustomMappingStartsWithFromLibrary(
+) -> CustomMappingStartsWithFromLibEntry:
+    return CustomMappingStartsWithFromLibEntry(
         "\n".join(obj["mapping_function"]), calc_cpp_includes(obj)
     )
 
