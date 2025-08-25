@@ -5,7 +5,10 @@ from compy_cli.src.main_scripts.util.load_proj_info import ProjInfo
 
 
 def write_cmake_lists_file(
-    dirs: CompyDirs, main_py_files: list[Path], proj_info: ProjInfo
+    dirs: CompyDirs,
+    main_py_files: list[Path],
+    proj_info: ProjInfo,
+    ignored_main_file_stems: set[str],
 ):
     add_lines, link_libs = _calc_add_lines_and_link_libs_from_libraries(dirs, proj_info)
     cmake_lines = [
@@ -40,9 +43,12 @@ def write_cmake_lists_file(
     for py_file in main_py_files:
         exe_name = py_file.stem
         main_cpp = f"{exe_name}.cpp"
-        cmake_lines.append(f"add_executable({exe_name} {main_cpp})")
-        cmake_lines.append(f"target_link_libraries({exe_name} PRIVATE compy_common)")
-        cmake_lines.append("")
+        if exe_name not in ignored_main_file_stems:
+            cmake_lines.append(f"add_executable({exe_name} {main_cpp})")
+            cmake_lines.append(
+                f"target_link_libraries({exe_name} PRIVATE compy_common)"
+            )
+            cmake_lines.append("")
 
     cmake_content = "\n".join(cmake_lines)
 

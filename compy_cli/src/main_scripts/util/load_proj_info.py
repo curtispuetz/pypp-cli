@@ -12,6 +12,7 @@ from compy_cli.src.util.validations import validate_is_list_of_strings
 class ProjInfo:
     cpp_dir_is_dirty: bool
     ignored_src_files: list[str]
+    ignored_main_files: list[str]
     installed_libs: dict[str, str]
 
 
@@ -22,6 +23,7 @@ def load_proj_info(dirs: CompyDirs) -> ProjInfo:
     return ProjInfo(
         proj_info["cpp_dir_is_dirty"],
         proj_info.get("ignore_src_files", []),
+        proj_info.get("ignore_main_files", []),
         proj_info["installed_libraries"],
     )
 
@@ -37,6 +39,10 @@ def _validate_proj_info(proj_info: object):
     if "ignore_src_files" in proj_info:
         validate_is_list_of_strings(
             ["ignore_src_files"], proj_info["ignore_src_files"], "proj_info"
+        )
+    if "ignore_main_files" in proj_info:
+        validate_is_list_of_strings(
+            ["ignore_main_files"], proj_info["ignore_main_files"], "proj_info"
         )
     assert "installed_libraries" in proj_info, (
         "installed_libraries key missing in proj_info.json. Must be present even if "
