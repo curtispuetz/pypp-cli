@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 
+from compy_cli.src.main_scripts.util.load_proj_info import ProjInfo
 from compy_cli.src.mapping.maps.calc_ann_assign_map import calc_ann_assign_map
 from compy_cli.src.compy_dirs import CompyDirs
 from compy_cli.src.mapping.maps.calc_attr_map import calc_attr_map
@@ -36,7 +37,7 @@ class Maps:
     ann_assign: AnnAssignsMap
 
 
-def calc_maps(proj_info: dict, dirs: CompyDirs) -> Maps:
+def calc_maps(proj_info: ProjInfo, dirs: CompyDirs) -> Maps:
     return Maps(
         calc_name_map(proj_info, dirs),
         calc_call_map(proj_info, dirs),

@@ -4,10 +4,11 @@ import shutil
 from importlib.resources import files, as_file
 
 from compy_cli.src.compy_dirs import CompyDirs
+from compy_cli.src.main_scripts.util.load_proj_info import ProjInfo
 from compy_cli.src.util.util import rm_dirs_and_files
 
 
-def initialize_cpp_project(dirs: CompyDirs, proj_info: dict):
+def initialize_cpp_project(dirs: CompyDirs, proj_info: ProjInfo):
     rm_dirs_and_files(dirs.cpp_dir, {"libs"})
     _copy_cpp_template_to_cpp_dir(dirs)
     # Need to remove the timestamps file because all the C++ files need to be
@@ -30,7 +31,14 @@ def _copy_cpp_template_to_cpp_dir(dirs: CompyDirs):
                 shutil.copy2(src_path, dst_path)
 
 
-def _set_cpp_dir_not_dirty_in_json(dirs: CompyDirs, proj_info: dict):
-    proj_info["cpp_dir_is_dirty"] = False
+def _set_cpp_dir_not_dirty_in_json(dirs: CompyDirs, proj_info: ProjInfo):
     with open(dirs.proj_info_file, "w") as file:
-        json.dump(proj_info, file, indent=4)
+        json.dump(
+            {
+                "cpp_dir_is_dirty": False,
+                "ignore_src_files": proj_info.ignored_src_files,
+                "installed_libraries": proj_info.installed_libs,
+            },
+            file,
+            indent=4,
+        )

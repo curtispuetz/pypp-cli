@@ -12,6 +12,7 @@ from compy_cli.src.d_types import (
     PyImport,
     CppInclude,
 )
+from compy_cli.src.main_scripts.util.load_proj_info import ProjInfo
 from compy_cli.src.mapping.info_types import MapInfo
 
 _ERROR_STR = (
@@ -77,14 +78,14 @@ T = TypeVar("T")
 
 def load_map(
     default_map: dict[str, dict[PySpecificImport | None, T]],
-    proj_info: dict,
+    proj_info: ProjInfo,
     dirs: CompyDirs,
     json_file_name: str,
     value_calc_fn: Callable[[dict, str], T],
     warning_fn: Callable[[str, str], str],
 ) -> dict[str, dict[PySpecificImport | None, T]]:
     ret = default_map.copy()
-    for installed_library in proj_info["installed_libraries"]:
+    for installed_library in proj_info.installed_libs:
         json_path: Path = dirs.calc_bridge_json(installed_library, json_file_name)
         if json_path.is_file():
             with open(json_path, "r") as f:

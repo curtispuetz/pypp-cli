@@ -3,6 +3,7 @@ from pathlib import Path
 from typing import Callable
 from compy_cli.src.compy_dirs import CompyDirs
 from compy_cli.src.d_types import PySpecificImpFrom
+from compy_cli.src.main_scripts.util.load_proj_info import ProjInfo
 from compy_cli.src.mapping.info_types import (
     AnnAssignMapInfo,
     AnnAssignMapInfoCustomMappingStartsWith,
@@ -53,9 +54,9 @@ mapping_funcs: dict[str, Callable[[dict], AnnAssignMapInfo]] = {
 }
 
 
-def calc_ann_assign_map(proj_info: dict, dirs: CompyDirs) -> AnnAssignsMap:
+def calc_ann_assign_map(proj_info: ProjInfo, dirs: CompyDirs) -> AnnAssignsMap:
     ret = ANN_ASSIGN_MAP.copy()
-    for installed_library in proj_info["installed_libraries"]:
+    for installed_library in proj_info.installed_libs:
         json_path: Path = dirs.calc_bridge_json(installed_library, "ann_assign_map")
         if json_path.is_file():
             with open(json_path, "r") as f:

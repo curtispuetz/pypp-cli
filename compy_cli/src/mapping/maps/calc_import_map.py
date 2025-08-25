@@ -2,6 +2,7 @@ from dataclasses import dataclass
 import json
 from pathlib import Path
 from compy_cli.src.compy_dirs import CompyDirs
+from compy_cli.src.main_scripts.util.load_proj_info import ProjInfo
 
 
 def _calc_module_beginning(module: str) -> str:
@@ -27,10 +28,10 @@ class ImportMap:
         return False
 
 
-def calc_import_map(proj_info: dict, dirs: CompyDirs) -> ImportMap:
+def calc_import_map(proj_info: ProjInfo, dirs: CompyDirs) -> ImportMap:
     modules: set[str] = set()
     libraries: dict[str, set[str]] = {}
-    for installed_library in proj_info["installed_libraries"]:
+    for installed_library in proj_info.installed_libs:
         json_path: Path = dirs.calc_bridge_json(installed_library, "import_map")
         if json_path.is_file():
             with open(json_path, "r") as f:

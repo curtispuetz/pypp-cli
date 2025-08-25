@@ -1,6 +1,3 @@
-from enum import verify
-from re import A
-
 from compy_cli.src.main_scripts.install.json_validations.util import (
     validate_is_list_of_strings,
 )

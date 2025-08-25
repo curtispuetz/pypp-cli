@@ -56,7 +56,8 @@ def main_cli(absolute_dir: Path | None = None) -> None:
     parser_main.add_argument(
         "--exe_name",
         "-e",
-        help="The name of the executable to run (required if 'run' is one of the tasks).",
+        help="The name of the executable to run "
+        "(required if 'run' is one of the tasks).",
         required=False,
     )
     parser_init_bridge = subparsers.add_parser(
