@@ -1,5 +1,5 @@
 from compy_cli.src.deps import Deps
-from compy_cli.src.mapping.info_types import ToStringEntry
+from compy_cli.src.mapping.d_types import ToStringEntry
 from compy_cli.src.mapping.lookup_helper import lookup_helper
 
 

@@ -1,4 +1,4 @@
-from collections.abc import Callable
+from typing import Callable
 import json
 from pathlib import Path
 import shutil

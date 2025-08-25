@@ -1,5 +1,3 @@
-from functools import partial
-
 from compy_cli.src.compy_dirs import CompyDirs
 from compy_cli.src.d_types import (
     PySpecificImpFrom,
@@ -7,12 +5,11 @@ from compy_cli.src.d_types import (
     QInc,
 )
 from compy_cli.src.main_scripts.util.load_proj_info import ProjInfo
-from compy_cli.src.mapping.maps.util import (
-    calc_map_info,
-    load_map,
-    calc_common_warning_msg,
+from compy_cli.src.mapping.d_types import ToStringEntry, NameMap
+from compy_cli.src.mapping.maps.util.calc_map_1 import (
+    BASE_CALC_ENTRY_FN_MAP,
+    calc_map_a,
 )
-from compy_cli.src.mapping.info_types import ToStringEntry, NameMap
 
 
 NAME_MAP: NameMap = {
@@ -92,11 +89,6 @@ NAME_MAP: NameMap = {
 
 
 def calc_name_map(proj_info: ProjInfo, dirs: CompyDirs) -> NameMap:
-    return load_map(
-        NAME_MAP,
-        proj_info,
-        dirs,
-        "name_map",
-        calc_map_info,
-        partial(calc_common_warning_msg, name="name"),
+    return calc_map_a(
+        NAME_MAP, BASE_CALC_ENTRY_FN_MAP, "name_map", "name", proj_info, dirs
     )

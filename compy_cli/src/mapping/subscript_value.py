@@ -1,5 +1,5 @@
 from compy_cli.src.deps import Deps
-from compy_cli.src.mapping.info_types import SubscriptableTypeMapValue
+from compy_cli.src.mapping.d_types import SubscriptableTypeMapValue
 from compy_cli.src.mapping.util import is_one
 
 

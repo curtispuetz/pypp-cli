@@ -2,7 +2,7 @@ import ast
 
 from compy_cli.src.d_types import AngInc, PyImport, PySpecificImpFrom, QInc
 from compy_cli.src.handle_expr.h_call.default_dict_map_fn import good_default_dict
-from compy_cli.src.mapping.info_types import (
+from compy_cli.src.mapping.d_types import (
     ToStringEntry,
     CustomMappingEntry,
     CustomMappingStartsWithEntry,

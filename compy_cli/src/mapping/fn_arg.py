@@ -1,5 +1,5 @@
 from compy_cli.src.deps import Deps
-from compy_cli.src.mapping.info_types import FnArgByValueMapValue
+from compy_cli.src.mapping.d_types import FnArgByValueMapValue
 from compy_cli.src.mapping.util import is_one
 from compy_cli.src.util.inner_strings import calc_inside_rd
 

@@ -18,8 +18,8 @@ def compy_init(dirs: CompyDirs):
             "pip",
             "install",
             # TODO later: install from PyPI when available
-            # TODO now: update path
-            r"C:\Users\puetz\PycharmProjects\compy-python\dist\compy_python-0.0.0-py3-none-any.whl",
+            r"C:\Users\puetz\PycharmProjects\compy-python\dist"
+            r"\compy_python-0.0.0-py3-none-any.whl",
         ]
     )
     print("Compy project init finished")

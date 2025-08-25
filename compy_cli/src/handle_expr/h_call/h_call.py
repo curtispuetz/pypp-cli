@@ -2,7 +2,7 @@ import ast
 
 from compy_cli.src.deps import Deps
 from compy_cli.src.handle_expr.h_starred import handle_call_with_starred_arg
-from compy_cli.src.mapping.info_types import (
+from compy_cli.src.mapping.d_types import (
     ToStringEntry,
     CustomMappingEntry,
     CustomMappingFromLibEntry,

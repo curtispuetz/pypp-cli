@@ -56,9 +56,9 @@
             }
         },
         {
-            "label": "Run",
+            "label": "Run glfw",
             "type": "shell",
-            "command": "${workspaceFolder}/.venv/Scripts/python.exe -m compy_cli.util_scripts.calling_cli.run",
+            "command": "${workspaceFolder}/.venv/Scripts/python.exe -m compy_cli.util_scripts.calling_cli.run_glfw",
             "problemMatcher": [],
             "presentation": {
                 "echo": true,

@@ -2,13 +2,13 @@ import ast
 import types
 from compy_cli.src.d_types import PySpecificImport
 from compy_cli.src.deps import Deps
-from compy_cli.src.mapping.info_types import MappingFnStr
+from compy_cli.src.mapping.d_types import MappingFnStr
 
 
-def is_one(r: dict[PySpecificImport | None, None], d: Deps) -> bool:
+def is_one(r: set[PySpecificImport | None], d: Deps) -> bool:
     if None in r:
         return True
-    for required_import in r.keys():
+    for required_import in r:
         if required_import is not None and d.is_imported(required_import):
             return True
     return False

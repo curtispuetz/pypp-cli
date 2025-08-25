@@ -1,19 +1,13 @@
-import json
-from pathlib import Path
-from typing import Callable
 from compy_cli.src.compy_dirs import CompyDirs
 from compy_cli.src.d_types import PySpecificImpFrom
 from compy_cli.src.main_scripts.util.load_proj_info import ProjInfo
-from compy_cli.src.mapping.info_types import (
-    AnnAssignMapInfo,
+from compy_cli.src.mapping.d_types import (
     CustomMappingStartsWithEntry,
-    CustomMappingStartsWithFromLibEntry,
     AnnAssignsMap,
 )
-from compy_cli.src.mapping.maps.util import (
-    calc_cpp_includes,
-    calc_imp_str,
-    calc_required_py_import,
+from compy_cli.src.mapping.maps.util.calc_map_1 import (
+    BASE_CALC_ENTRY_FN_MAP,
+    calc_map_a,
 )
 
 
@@ -41,48 +35,12 @@ ANN_ASSIGN_MAP: AnnAssignsMap = {
 }
 
 
-def _calc_custom_mapping_starts_with_info(
-    obj: dict,
-) -> CustomMappingStartsWithFromLibEntry:
-    return CustomMappingStartsWithFromLibEntry(
-        "\n".join(obj["mapping_function"]), calc_cpp_includes(obj)
-    )
-
-
-mapping_funcs: dict[str, Callable[[dict], AnnAssignMapInfo]] = {
-    "custom_mapping_starts_with": _calc_custom_mapping_starts_with_info
-}
-
-
 def calc_ann_assign_map(proj_info: ProjInfo, dirs: CompyDirs) -> AnnAssignsMap:
-    ret = ANN_ASSIGN_MAP.copy()
-    for installed_library in proj_info.installed_libs:
-        json_path: Path = dirs.calc_bridge_json(installed_library, "ann_assign_map")
-        if json_path.is_file():
-            with open(json_path, "r") as f:
-                m: dict = json.load(f)
-            # Note: No assertions required here because the structure is (or will be)
-            # validated when the library is installed.
-            for mapping_type, mapping_vals in m.items():
-                if mapping_type in mapping_funcs:
-                    for k, v in mapping_vals.items():
-                        required_import = calc_required_py_import(v)
-                        if k in ret:
-                            if required_import in ret[k]:
-                                print(
-                                    f"warning: Compy transpiler already maps the ann "
-                                    f"assign "
-                                    f"'{k}{calc_imp_str(required_import)}'. Library "
-                                    f"{installed_library} is overriding this mapping."
-                                )
-                            ret[k][required_import] = mapping_funcs[mapping_type](v)
-                        else:
-                            ret[k] = {required_import: mapping_funcs[mapping_type](v)}
-                else:
-                    raise ValueError(
-                        f"invalid type '{mapping_type}' in ann_assign_map.json for "
-                        f"'{installed_library}' library. "
-                        f"This shouldn't happen because the json should be "
-                        f"validated when the library is installed"
-                    )
-    return ret
+    return calc_map_a(
+        ANN_ASSIGN_MAP,
+        BASE_CALC_ENTRY_FN_MAP,
+        "ann_assign_map",
+        "ann_assign",
+        proj_info,
+        dirs,
+    )
