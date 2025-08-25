@@ -37,6 +37,7 @@ def _set_cpp_dir_not_dirty_in_json(dirs: CompyDirs, proj_info: ProjInfo):
             {
                 "cpp_dir_is_dirty": False,
                 "ignore_src_files": proj_info.ignored_src_files,
+                "ignore_main_files": proj_info.ignored_main_files,
                 "installed_libraries": proj_info.installed_libs,
             },
             file,

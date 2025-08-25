@@ -1,3 +1,4 @@
+from glob import iglob
 import json
 from dataclasses import dataclass
 import fnmatch
@@ -17,6 +18,7 @@ class PyFileChanges:
     changed_files: list[PyChangedFile]
     new_files: list[PyChangedFile]
     deleted_files: list[Path]
+    ignored_main_file_stems: set[str]
 
 
 type TimeStampsFile = dict[str, dict[str, float]]
@@ -94,6 +96,7 @@ def _find_deleted_files(prev_timestamps: TimeStampsFile) -> set[Path]:
 def calc_py_file_changes(
     dirs: CompyDirs,
     ignore_src_files: list[str],
+    ignore_main_files: list[str],
     main_py_files: list[Path],
     src_py_files: list[Path],
 ) -> tuple[PyFileChanges, TimeStampsFile]:
@@ -105,8 +108,10 @@ def calc_py_file_changes(
     changed_files: list[PyChangedFile] = []
     new_files: list[PyChangedFile] = []
     deleted_files: set[Path] = _find_deleted_files(prev_timestamps)
-    ignored_src_files = 0
+    ignored_files = 0
+    ignored_main_file_stems: set[str] = set()
 
+    # TODO later: DRY code.
     for rel_path in src_py_files:
         abs_path: Path = dirs.python_src_dir / rel_path
         rel_path_posix: str = rel_path.as_posix()
@@ -123,21 +128,25 @@ def calc_py_file_changes(
                 deleted_files,
             )
         else:
-            ignored_src_files += 1
+            ignored_files += 1
     for rel_path in main_py_files:
         abs_path: Path = dirs.python_dir / rel_path
-        print("main file, ", rel_path)
-        _check_file_change(
-            True,
-            abs_path,
-            rel_path,
-            rel_path.as_posix(),
-            curr_timestamps,
-            prev_timestamps,
-            changed_files,
-            new_files,
-            deleted_files,
-        )
+        rel_path_posix: str = rel_path.as_posix()
+        if not _should_ignore_file(rel_path_posix, ignore_main_files):
+            _check_file_change(
+                True,
+                abs_path,
+                rel_path,
+                rel_path_posix,
+                curr_timestamps,
+                prev_timestamps,
+                changed_files,
+                new_files,
+                deleted_files,
+            )
+        else:
+            ignored_files += 1
+            ignored_main_file_stems.add(abs_path.stem)
 
     if not (changed_files or new_files or deleted_files):
         print("No file changes detected.")
@@ -146,16 +155,19 @@ def calc_py_file_changes(
             f"changed files: {len(changed_files)}, "
             f"new files: {len(new_files)}, "
             f"deleted files: {len(deleted_files)},"
-            f" ignored src files: {ignored_src_files}"
+            f" ignored files: {ignored_files}"
         )
 
-    return PyFileChanges(changed_files, new_files, list(deleted_files)), curr_timestamps
+    return PyFileChanges(
+        changed_files, new_files, list(deleted_files), ignored_main_file_stems
+    ), curr_timestamps
 
 
 if __name__ == "__main__":
     compy_dirs = create_test_dir_compy_dirs()
     calc_py_file_changes(
         compy_dirs,
+        [],
         [],
         get_all_main_py_files(compy_dirs.python_dir),
         get_all_py_files(compy_dirs.python_src_dir),
