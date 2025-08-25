@@ -6,6 +6,7 @@ from compy_cli.src.d_types import (
     AngInc,
     QInc,
 )
+from compy_cli.src.main_scripts.util.load_proj_info import ProjInfo
 from compy_cli.src.mapping.maps.util import (
     calc_map_info,
     load_map,
@@ -88,7 +89,7 @@ NAME_MAP: NameMap = {
 }
 
 
-def calc_name_map(proj_info: dict, dirs: CompyDirs) -> NameMap:
+def calc_name_map(proj_info: ProjInfo, dirs: CompyDirs) -> NameMap:
     return load_map(
         NAME_MAP,
         proj_info,

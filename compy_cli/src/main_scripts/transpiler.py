@@ -1,6 +1,7 @@
 import ast
 from pathlib import Path
 from compy_cli.src.compy_dirs import CompyDirs
+from compy_cli.src.main_scripts.util.load_proj_info import ProjInfo
 from compy_cli.src.mapping.maps.maps import Maps, calc_maps
 from compy_cli.src.util.calc_ast_tree import calc_ast_tree
 from compy_cli.src.util.file_change_tracker import PyChangedFile, PyFileChanges
@@ -12,7 +13,7 @@ from compy_cli.src.util.source_calculator import (
 
 class Transpiler:
     def __init__(
-        self, dirs: CompyDirs, proj_info: dict, src_py_files: list[Path]
+        self, dirs: CompyDirs, proj_info: ProjInfo, src_py_files: list[Path]
     ) -> None:
         self._dirs = dirs
         self._proj_info = proj_info
