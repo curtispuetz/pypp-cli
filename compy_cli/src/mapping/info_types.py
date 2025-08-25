@@ -5,26 +5,20 @@ from compy_cli.src.d_types import PySpecificImport, CppInclude
 
 
 @dataclass(frozen=True, slots=True)
-class MapInfo:
-    val: str
+class ToStringEntry:
+    to: str
     includes: list[CppInclude]
 
 
 @dataclass(frozen=True, slots=True)
-class CallMapInfoLeftAndRight:
+class LeftAndRightEntry:
     left: str
     right: str
     includes: list[CppInclude]
 
 
 @dataclass(frozen=True, slots=True)
-class CallMapInfoToString:
-    to: str
-    includes: list[CppInclude]
-
-
-@dataclass(frozen=True, slots=True)
-class CallMapInfoCustomMapping:
+class CustomMappingEntry:
     mapping_fn: Callable
     includes: list[CppInclude]
 
@@ -35,57 +29,44 @@ class MappingFnStr:
 
 
 @dataclass(frozen=True, slots=True)
-class CallMapInfoCustomMappingFromLibrary(MappingFnStr):
+class CustomMappingFromLibEntry(MappingFnStr):
     includes: list[CppInclude]
 
 
 @dataclass(frozen=True, slots=True)
-class CallMapInfoCustomMappingStartsWith:
+class CustomMappingStartsWithEntry:
     mapping_fn: Callable
     includes: list[CppInclude]
 
 
 @dataclass(frozen=True, slots=True)
-class CallMapInfoCustomMappingStartsWithFromLibrary(MappingFnStr):
+class CustomMappingStartsWithFromLibEntry(MappingFnStr):
     includes: list[CppInclude]
 
 
 @dataclass(frozen=True, slots=True)
-class CallMapInfoReplaceDotWithDoubleColon:
+class ReplaceDotWithDoubleColonEntry:
     includes: list[CppInclude]
 
 
 type CallMapInfo = (
-    CallMapInfoLeftAndRight
-    | CallMapInfoToString
-    | CallMapInfoCustomMapping
-    | CallMapInfoCustomMappingFromLibrary
-    | CallMapInfoCustomMappingStartsWith
-    | CallMapInfoCustomMappingStartsWithFromLibrary
-    | CallMapInfoReplaceDotWithDoubleColon
+    LeftAndRightEntry
+    | ToStringEntry
+    | CustomMappingEntry
+    | CustomMappingFromLibEntry
+    | CustomMappingStartsWithEntry
+    | CustomMappingStartsWithFromLibEntry
+    | ReplaceDotWithDoubleColonEntry
 )
-
-
-@dataclass(frozen=True, slots=True)
-class AnnAssignMapInfoCustomMappingStartsWith:
-    mapping_fn: Callable
-    includes: list[CppInclude]
-
-
-@dataclass(frozen=True, slots=True)
-class AnnAssignMapInfoCustomMappingStartsWithFromLibrary(MappingFnStr):
-    includes: list[CppInclude]
-
 
 type AnnAssignMapInfo = (
-    AnnAssignMapInfoCustomMappingStartsWith
-    | AnnAssignMapInfoCustomMappingStartsWithFromLibrary
+    CustomMappingStartsWithEntry | CustomMappingStartsWithFromLibEntry
 )
 
 
-type NameMapValue = dict[PySpecificImport | None, MapInfo]
+type NameMapValue = dict[PySpecificImport | None, ToStringEntry]
 type CallMapValue = dict[PySpecificImport | None, CallMapInfo]
-type AttrMapValue = dict[PySpecificImport | None, MapInfo]
+type AttrMapValue = dict[PySpecificImport | None, ToStringEntry]
 type AnnAssignMapValue = dict[PySpecificImport | None, AnnAssignMapInfo]
 type FnArgByValueMapValue = dict[PySpecificImport | None, None]
 type SubscriptableTypeMapValue = dict[PySpecificImport | None, None]

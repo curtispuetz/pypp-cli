@@ -3,8 +3,8 @@ import ast
 from compy_cli.src.deps import Deps
 from compy_cli.src.handle_expr.h_comp import handle_comp
 from compy_cli.src.mapping.info_types import (
-    AnnAssignMapInfoCustomMappingStartsWith,
-    AnnAssignMapInfoCustomMappingStartsWithFromLibrary,
+    CustomMappingStartsWithEntry,
+    CustomMappingStartsWithFromLibEntry,
 )
 from compy_cli.src.mapping.util import calc_string_fn, find_map_info
 from compy_cli.src.util.calc_callable_type import calc_callable_type
@@ -73,13 +73,13 @@ def _calc_result_from_maps_if_any(
         info = find_map_info(r, d)
         if info is None:
             continue
-        if isinstance(info, AnnAssignMapInfoCustomMappingStartsWith):
+        if isinstance(info, CustomMappingStartsWithEntry):
             if type_cpp.startswith(starts_with_str):
                 d.add_incs(info.includes)
                 return info.mapping_fn(
                     type_cpp, target_str, value_str, value_str_stripped
                 )
-        elif isinstance(info, AnnAssignMapInfoCustomMappingStartsWithFromLibrary):
+        elif isinstance(info, CustomMappingStartsWithFromLibEntry):
             if type_cpp.startswith(starts_with_str):
                 d.add_incs(info.includes)
                 return calc_string_fn(info, "ann_assign_map")(

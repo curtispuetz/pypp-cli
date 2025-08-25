@@ -13,7 +13,7 @@ from compy_cli.src.d_types import (
     CppInclude,
 )
 from compy_cli.src.main_scripts.util.load_proj_info import ProjInfo
-from compy_cli.src.mapping.info_types import MapInfo
+from compy_cli.src.mapping.info_types import ToStringEntry
 
 _ERROR_STR = (
     "This shouldn't happen because the json schema should have been validated "
@@ -52,12 +52,12 @@ def calc_required_py_import(obj: dict | None) -> PySpecificImport | None:
     return None
 
 
-def calc_map_info(obj: dict, json_file_name: str) -> MapInfo:
+def calc_map_info(obj: dict, json_file_name: str) -> ToStringEntry:
     assert "cpp_type" in obj, (
         f"{json_file_name}.json must specify a cpp_type for each element. {_ERROR_STR}"
     )
     cpp_includes = calc_cpp_includes(obj)
-    return MapInfo(obj["cpp_type"], cpp_includes)
+    return ToStringEntry(obj["cpp_type"], cpp_includes)
 
 
 def calc_imp_str(imp: PySpecificImport | None) -> str:

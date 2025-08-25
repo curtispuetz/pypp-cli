@@ -12,41 +12,41 @@ from compy_cli.src.mapping.maps.util import (
 )
 from compy_cli.src.mapping.info_types import (
     CallMapInfo,
-    CallMapInfoToString,
-    CallMapInfoCustomMappingFromLibrary,
-    CallMapInfoCustomMappingStartsWithFromLibrary,
-    CallMapInfoLeftAndRight,
-    CallMapInfoReplaceDotWithDoubleColon,
+    ToStringEntry,
+    CustomMappingFromLibEntry,
+    CustomMappingStartsWithFromLibEntry,
+    LeftAndRightEntry,
+    ReplaceDotWithDoubleColonEntry,
     CallMap,
 )
 
 
-def _calc_left_and_right_call_map_info(obj: dict) -> CallMapInfoLeftAndRight:
-    return CallMapInfoLeftAndRight(obj["left"], obj["right"], calc_cpp_includes(obj))
+def _calc_left_and_right_call_map_info(obj: dict) -> LeftAndRightEntry:
+    return LeftAndRightEntry(obj["left"], obj["right"], calc_cpp_includes(obj))
 
 
-def _calc_to_string_call_map_info(obj: dict) -> CallMapInfoToString:
-    return CallMapInfoToString(obj["to"], calc_cpp_includes(obj))
+def _calc_to_string_call_map_info(obj: dict) -> ToStringEntry:
+    return ToStringEntry(obj["to"], calc_cpp_includes(obj))
 
 
-def _calc_custom_mapping_info(obj: dict) -> CallMapInfoCustomMappingFromLibrary:
-    return CallMapInfoCustomMappingFromLibrary(
+def _calc_custom_mapping_info(obj: dict) -> CustomMappingFromLibEntry:
+    return CustomMappingFromLibEntry(
         "\n".join(obj["mapping_function"]), calc_cpp_includes(obj)
     )
 
 
 def _calc_custom_mapping_starts_with_info(
     obj: dict,
-) -> CallMapInfoCustomMappingStartsWithFromLibrary:
-    return CallMapInfoCustomMappingStartsWithFromLibrary(
+) -> CustomMappingStartsWithFromLibEntry:
+    return CustomMappingStartsWithFromLibEntry(
         "\n".join(obj["mapping_function"]), calc_cpp_includes(obj)
     )
 
 
 def _calc_replace_dot_with_double_colon_info(
     obj: dict,
-) -> CallMapInfoReplaceDotWithDoubleColon:
-    return CallMapInfoReplaceDotWithDoubleColon(calc_cpp_includes(obj))
+) -> ReplaceDotWithDoubleColonEntry:
+    return ReplaceDotWithDoubleColonEntry(calc_cpp_includes(obj))
 
 
 mapping_funcs: dict[str, Callable[[dict], CallMapInfo]] = {
