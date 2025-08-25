@@ -18,8 +18,8 @@ class CallMapInfoLeftAndRight:
 
 
 @dataclass(frozen=True, slots=True)
-class CallMapInfoCppCall:
-    cpp_call: str
+class CallMapInfoToString:
+    to: str
     includes: list[CppInclude]
 
 
@@ -57,7 +57,7 @@ class CallMapInfoReplaceDotWithDoubleColon:
 
 type CallMapInfo = (
     CallMapInfoLeftAndRight
-    | CallMapInfoCppCall
+    | CallMapInfoToString
     | CallMapInfoCustomMapping
     | CallMapInfoCustomMappingFromLibrary
     | CallMapInfoCustomMappingStartsWith

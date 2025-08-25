@@ -12,7 +12,7 @@ from compy_cli.src.mapping.maps.util import (
 )
 from compy_cli.src.mapping.info_types import (
     CallMapInfo,
-    CallMapInfoCppCall,
+    CallMapInfoToString,
     CallMapInfoCustomMappingFromLibrary,
     CallMapInfoCustomMappingStartsWithFromLibrary,
     CallMapInfoLeftAndRight,
@@ -25,8 +25,8 @@ def _calc_left_and_right_call_map_info(obj: dict) -> CallMapInfoLeftAndRight:
     return CallMapInfoLeftAndRight(obj["left"], obj["right"], calc_cpp_includes(obj))
 
 
-def _calc_cpp_call_call_map_info(obj: dict) -> CallMapInfoCppCall:
-    return CallMapInfoCppCall(obj["cpp_call"], calc_cpp_includes(obj))
+def _calc_to_string_call_map_info(obj: dict) -> CallMapInfoToString:
+    return CallMapInfoToString(obj["to"], calc_cpp_includes(obj))
 
 
 def _calc_custom_mapping_info(obj: dict) -> CallMapInfoCustomMappingFromLibrary:
@@ -51,7 +51,7 @@ def _calc_replace_dot_with_double_colon_info(
 
 mapping_funcs: dict[str, Callable[[dict], CallMapInfo]] = {
     "left_and_right": _calc_left_and_right_call_map_info,
-    "cpp_call": _calc_cpp_call_call_map_info,
+    "to_string": _calc_to_string_call_map_info,
     "custom_mapping": _calc_custom_mapping_info,
     "custom_mapping_starts_with": _calc_custom_mapping_starts_with_info,
     "replace_dot_with_double_colon": _calc_replace_dot_with_double_colon_info,

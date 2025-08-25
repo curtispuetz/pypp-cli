@@ -3,7 +3,7 @@ import ast
 from compy_cli.src.d_types import AngInc, PyImport, PySpecificImpFrom, QInc
 from compy_cli.src.handle_expr.h_call.default_dict_map_fn import good_default_dict
 from compy_cli.src.mapping.info_types import (
-    CallMapInfoCppCall,
+    CallMapInfoToString,
     CallMapInfoCustomMapping,
     CallMapInfoCustomMappingStartsWith,
     CallMapInfoLeftAndRight,
@@ -61,7 +61,7 @@ def _list_reserve(node: ast.Call, d) -> str:
 
 
 CALL_MAP: CallMap = {
-    "print": {None: CallMapInfoCppCall("print", [QInc("compy_util/print.h")])},
+    "print": {None: CallMapInfoToString("print", [QInc("compy_util/print.h")])},
     "print_address": {
         PySpecificImpFrom(
             "compy_python.printing", "print_address"
@@ -82,20 +82,20 @@ CALL_MAP: CallMap = {
             "compy_python.strings", "to_c_string"
         ): CallMapInfoLeftAndRight("", ".str().c_str()", [])
     },
-    "PyStr": {None: CallMapInfoCppCall("to_pystr", [QInc("compy_util/to_py_str.h")])},
-    "PySlice": {None: CallMapInfoCppCall("py_slice", [QInc("slice/creators.h")])},
+    "PyStr": {None: CallMapInfoToString("to_pystr", [QInc("compy_util/to_py_str.h")])},
+    "PySlice": {None: CallMapInfoToString("py_slice", [QInc("slice/creators.h")])},
     "mov": {
-        PySpecificImpFrom("compy_python.ownership", "mov"): CallMapInfoCppCall(
+        PySpecificImpFrom("compy_python.ownership", "mov"): CallMapInfoToString(
             "std::move", [AngInc("utility")]
         )
     },
     "compy_get_resources": {
         PySpecificImpFrom(
             "compy_python.resources", "compy_get_resources"
-        ): CallMapInfoCppCall("compy_get_resources", [QInc("compy_resources.h")])
+        ): CallMapInfoToString("compy_get_resources", [QInc("compy_resources.h")])
     },
     "int_pow": {
-        PySpecificImpFrom("compy_python.math", "int_pow"): CallMapInfoCppCall(
+        PySpecificImpFrom("compy_python.math", "int_pow"): CallMapInfoToString(
             "int_pow", [QInc("compy_util/math.h")]
         )
     },
