@@ -1,4 +1,4 @@
-from collections.abc import Callable
+from typing import Callable
 from dataclasses import dataclass
 
 from compy_cli.src.d_types import PySpecificImport, CppInclude
@@ -49,7 +49,7 @@ class ReplaceDotWithDoubleColonEntry:
     includes: list[CppInclude]
 
 
-type CallMapInfo = (
+type CallMapEntry = (
     LeftAndRightEntry
     | ToStringEntry
     | CustomMappingEntry
@@ -59,23 +59,44 @@ type CallMapInfo = (
     | ReplaceDotWithDoubleColonEntry
 )
 
-type AnnAssignMapInfo = (
-    CustomMappingStartsWithEntry | CustomMappingStartsWithFromLibEntry
+type NameMapEntry = (
+    ToStringEntry
+    | CustomMappingEntry
+    | CustomMappingFromLibEntry
+    | CustomMappingStartsWithEntry
+    | CustomMappingStartsWithFromLibEntry
+)
+
+type AttrMapEntry = (
+    ToStringEntry
+    | CustomMappingEntry
+    | CustomMappingFromLibEntry
+    | CustomMappingStartsWithEntry
+    | CustomMappingStartsWithFromLibEntry
+    | ReplaceDotWithDoubleColonEntry
+)
+
+type AnnAssignMapEntry = (
+    ToStringEntry
+    | CustomMappingEntry
+    | CustomMappingFromLibEntry
+    | CustomMappingStartsWithEntry
+    | CustomMappingStartsWithFromLibEntry
 )
 
 
-type NameMapValue = dict[PySpecificImport | None, ToStringEntry]
-type CallMapValue = dict[PySpecificImport | None, CallMapInfo]
-type AttrMapValue = dict[PySpecificImport | None, ToStringEntry]
-type AnnAssignMapValue = dict[PySpecificImport | None, AnnAssignMapInfo]
-type FnArgByValueMapValue = dict[PySpecificImport | None, None]
-type SubscriptableTypeMapValue = dict[PySpecificImport | None, None]
+type NameMapValue = dict[PySpecificImport | None, NameMapEntry]
+type CallMapValue = dict[PySpecificImport | None, CallMapEntry]
+type AttrMapValue = dict[PySpecificImport | None, AttrMapEntry]
+type AnnAssignMapValue = dict[PySpecificImport | None, AnnAssignMapEntry]
+type FnArgByValueMapValue = set[PySpecificImport | None]
+type SubscriptableTypeMapValue = set[PySpecificImport | None]
 type NameMap = dict[str, NameMapValue]
 type CallMap = dict[str, CallMapValue]
 type AttrMap = dict[str, AttrMapValue]
+type AnnAssignsMap = dict[str, AnnAssignMapValue]
 type FnArgByValueMap = dict[str, FnArgByValueMapValue]
 type SubscriptableTypeMap = dict[str, SubscriptableTypeMapValue]
-type AnnAssignsMap = dict[str, AnnAssignMapValue]
 
 type NameOrAttrMap = NameMap | AttrMap
 type NameCallOrAttrMapValue = NameMapValue | AttrMapValue | CallMapValue

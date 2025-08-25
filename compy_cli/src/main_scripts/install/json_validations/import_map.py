@@ -1,4 +1,4 @@
-from compy_cli.src.main_scripts.install.json_validations.util import (
+from compy_cli.src.util.validations import (
     validate_is_list_of_strings,
 )
 

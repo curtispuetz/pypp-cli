@@ -1,16 +1,16 @@
 from compy_cli.src.compy_dirs import CompyDirs
 from compy_cli.src.d_types import PySpecificImpFrom
 from compy_cli.src.main_scripts.util.load_proj_info import ProjInfo
-from compy_cli.src.mapping.info_types import SubscriptableTypeMap
-from compy_cli.src.mapping.maps.util import load_map
+from compy_cli.src.mapping.d_types import SubscriptableTypeMap
+from compy_cli.src.mapping.maps.util.calc_map_2 import calc_map_2
 
 SUBSCRIPTABLE_TYPE_MAP: SubscriptableTypeMap = {
-    "PyList": {None: None},
-    "PyDict": {None: None},
-    "PyTup": {None: None},
-    "PySet": {None: None},
-    "PyDefaultDict": {PySpecificImpFrom("collections", "defaultdict"): None},
-    "Uni": {PySpecificImpFrom("compy_python.union", "Uni"): None},
+    "PyList": {None},
+    "PyDict": {None},
+    "PyTup": {None},
+    "PySet": {None},
+    "PyDefaultDict": {PySpecificImpFrom("collections", "defaultdict")},
+    "Uni": {PySpecificImpFrom("compy_python.union", "Uni")},
 }
 
 
@@ -24,11 +24,10 @@ def _warning_msg(installed_library: str, full_type_str: str) -> str:
 def calc_subscriptable_type_map(
     proj_info: ProjInfo, dirs: CompyDirs
 ) -> SubscriptableTypeMap:
-    return load_map(
+    return calc_map_2(
         SUBSCRIPTABLE_TYPE_MAP,
         proj_info,
         dirs,
         "subscriptable_types",
-        lambda _a, _b: None,
         _warning_msg,
     )

@@ -2,10 +2,10 @@ from dataclasses import dataclass
 import json
 
 from compy_cli.src.compy_dirs import CompyDirs
-from compy_cli.src.main_scripts.install.json_validations.util import (
+from compy_cli.src.util.validations import (
     validate_is_dict_of_strings,
-    validate_is_list_of_strings,
 )
+from compy_cli.src.util.validations import validate_is_list_of_strings
 
 
 @dataclass(frozen=True, slots=True)

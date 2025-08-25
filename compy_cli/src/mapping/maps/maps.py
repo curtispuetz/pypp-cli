@@ -13,7 +13,7 @@ from compy_cli.src.mapping.maps.calc_import_map import (
     calc_import_map,
 )
 from compy_cli.src.mapping.maps.calc_name_map import calc_name_map
-from compy_cli.src.mapping.info_types import (
+from compy_cli.src.mapping.d_types import (
     AnnAssignsMap,
     AttrMap,
     CallMap,
