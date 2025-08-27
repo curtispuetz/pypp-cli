@@ -53,4 +53,5 @@
 
 #### TODO list
 - strategy for pure-libraries
+- strategy for testing bridge- and pure- libraries
 - implement opengl bridge-library
