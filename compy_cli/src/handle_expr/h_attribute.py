@@ -8,7 +8,7 @@ from compy_cli.src.mapping.attributes import lookup_cpp_attribute
 def handle_attribute(node: ast.Attribute, d: Deps):
     assert isinstance(node.attr, str), "Not supported"
     attr_str: str = node.attr
-    if attr_str == "union":
+    if attr_str == "union":  # This is for the set.union method.
         attr_str += "_"
     value_str = d.handle_expr(node.value)
     if value_str == "self":
