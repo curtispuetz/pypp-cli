@@ -2,7 +2,18 @@ from typing import Callable
 from compy_cli.src.main_scripts.install.json_validations.util.basic_info import (
     VALIDATE_BASIC_INFO,
 )
+from compy_cli.src.mapping.util import calc_funcs_in_str
 from compy_cli.src.util.validations import validate_is_list_of_strings
+
+
+def _validate_is_single_mapping_fn(key_chain: list[str], v: object, S: str):
+    validate_is_list_of_strings(key_chain, v, S)
+    assert isinstance(v, list), "shouldn't happen"
+    funcs = calc_funcs_in_str("\n".join(v))
+    assert len(funcs) == 1, (
+        f"Expected exactly one function in mapping_function in {S}. Instead got "
+        f"list: {[f.__name__ for f in funcs]}"
+    )
 
 
 def validate_to_string(key_chain: list[str], vc: dict, S: str):
@@ -30,7 +41,7 @@ def validate_custom_mapping(key_chain: list[str], vc: dict, S: str):
         if kcc in VALIDATE_BASIC_INFO:
             VALIDATE_BASIC_INFO[kcc](key_chain + [kcc], vcc, S)
         elif kcc == "mapping_function":
-            validate_is_list_of_strings(key_chain + [kcc], vcc, S)
+            _validate_is_single_mapping_fn(key_chain + [kcc], vcc, S)
         else:
             raise AssertionError(
                 f"Unexpected key {kcc} in entry for {'.'.join(key_chain)} in {S}"

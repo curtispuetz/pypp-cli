@@ -74,7 +74,6 @@ def calc_map_1(
                     required_import = calc_required_py_import(v)
                     if k in ret:
                         if required_import in ret[k]:
-                            # TODO now: change warning string.
                             print(
                                 f"warning: Compy transpiler already maps the "
                                 f"{friendly_name} "
