@@ -82,6 +82,8 @@ def _get_library_name_and_version(library: str) -> tuple[str, str]:
 
 
 def _pip_install_any_specified_libraries(library_name: str, dirs: CompyDirs):
+    # TODO: consider removing this because I think they can just add the
+    # libraries to the dependencies in their toml file instead.
     json_path: Path = dirs.calc_bridge_json(library_name, "pip_install")
     if json_path.exists():
         with open(json_path, "r") as f:
