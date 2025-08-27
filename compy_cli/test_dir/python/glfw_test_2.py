@@ -1,10 +1,11 @@
 import glfw
 from compy_python.nones import NULL
 from compy_python.strings import to_c_string
+from compy_bridge_lib_glfw.d_types import GLFWwindowPtr
 
 
 def key_callback(
-    _window: glfw._GLFWwindow, key: int, _scancode: int, action: int, _mods: int
+    _window: GLFWwindowPtr, key: int, _scancode: int, action: int, _mods: int
 ):
     if action == glfw.PRESS:
         print(f"Key {key} pressed")
@@ -12,16 +13,14 @@ def key_callback(
         print(f"Key {key} released")
 
 
-def mouse_button_callback(
-    _window: glfw._GLFWwindow, button: int, action: int, _mods: int
-):
+def mouse_button_callback(_window: GLFWwindowPtr, button: int, action: int, _mods: int):
     if action == glfw.PRESS:
         print(f"Mouse button {button} pressed")
     elif action == glfw.RELEASE:
         print(f"Mouse button {button} released")
 
 
-def cursor_position_callback(_window: glfw._GLFWwindow, xpos: float, ypos: float):
+def cursor_position_callback(_window: GLFWwindowPtr, xpos: float, ypos: float):
     print(f"Mouse moved to ({xpos}, {ypos})")
 
 
@@ -30,7 +29,7 @@ def glfw_test_2():
     if not glfw.init():
         raise Exception("Failed to initialize GLFW")
     # Create a windowed mode window and its OpenGL context
-    window: glfw._GLFWwindow = glfw.create_window(
+    window: GLFWwindowPtr = glfw.create_window(
         640, 480, to_c_string("Hello World"), NULL, NULL
     )
     if not window:

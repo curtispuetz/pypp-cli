@@ -36,6 +36,9 @@ target_link_libraries(
 add_executable(glfw_test glfw_test.cpp)
 target_link_libraries(glfw_test PRIVATE compy_common)
 
+add_executable(glfw_test_2 glfw_test_2.cpp)
+target_link_libraries(glfw_test_2 PRIVATE compy_common)
+
 add_executable(main main.cpp)
 target_link_libraries(main PRIVATE compy_common)
 

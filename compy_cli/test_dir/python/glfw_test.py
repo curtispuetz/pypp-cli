@@ -1,4 +1,5 @@
 import glfw
+from compy_bridge_lib_glfw.d_types import GLFWwindowPtr
 from compy_python.nones import NULL
 from compy_python.strings import to_c_string
 
@@ -8,7 +9,7 @@ def glfw_test():
     if not glfw.init():
         raise Exception("Failed to initialize GLFW")
     # Create a windowed mode window and its OpenGL context
-    window: glfw._GLFWwindow = glfw.create_window(
+    window: GLFWwindowPtr = glfw.create_window(
         640, 480, to_c_string("Hello World"), NULL, NULL
     )
     if not window:

@@ -2,7 +2,6 @@
 #include "classes/first.h"
 #include "classes/inheritance.h"
 #include "classes/nested_dependencies.h"
-#include "compy_bridge_lib_glfw/hello_world.h"
 #include "compy_union/first.h"
 #include "compy_util/main_error_handler.h"
 #include "compy_util/print.h"
@@ -135,7 +134,6 @@ int main() {
         bridge_lib_test_1_fn();
         list_ownership_tests_fn();
         list_fn();
-        print(hello_world_fn());
         class_nested_dependencies_fn();
         return 0;
     } catch (...) {
