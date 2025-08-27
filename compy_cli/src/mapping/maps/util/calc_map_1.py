@@ -1,6 +1,6 @@
 import json
 from pathlib import Path
-from typing import Any, Callable
+from typing import Callable
 from compy_cli.src.compy_dirs import CompyDirs
 from compy_cli.src.main_scripts.util.load_proj_info import ProjInfo
 from compy_cli.src.mapping.d_types import (
@@ -42,8 +42,13 @@ def calc_replace_dot_with_double_colon_entry(
     return ReplaceDotWithDoubleColonEntry(calc_cpp_includes(obj))
 
 
-# TODO: fix type
-BASE_CALC_ENTRY_FN_MAP: dict[str, Callable[[dict], Any]] = {
+BASE_CALC_ENTRY_FN_MAP: dict[
+    str,
+    Callable[
+        [dict],
+        ToStringEntry | CustomMappingFromLibEntry | CustomMappingStartsWithFromLibEntry,
+    ],
+] = {
     "to_string": calc_to_string_entry,
     "custom_mapping": calc_custom_mapping_from_lib_entry,
     "custom_mapping_starts_with": calc_custom_mapping_starts_with_from_lib_entry,
