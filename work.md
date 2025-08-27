@@ -43,14 +43,14 @@
 - config classes. AAGP
 - multiple executables. AAGP
 - all data types of integers and floats (i.e. uint8, int8, float32, etc.). C
-- template parameters
 - json library. MDN
-- unit tests
-- multiprocessing library
 - deque. MDN
 - heapq. MDN
 - magic methods. MDN
+- template parameters
+- unit tests
+- multiprocessing library
 
 #### TODO list
-- make special names smarter so that they are only recognized when the proper import of that name is included.
-- strategy for library development
+- strategy for pure-libraries
+- implement opengl bridge-library
