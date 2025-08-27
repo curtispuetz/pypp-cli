@@ -69,7 +69,7 @@ def _calc_add_lines_and_link_libs_from_libraries(
             with open(cmake_lists, "r") as f:
                 data = json.load(f)
             # Note: the json should be validated already when the library is installed.
-            # TODO: instead of just assuming the structure is correct, I could now
+            # TODO later: instead of just assuming the structure is correct, I could now
             #  easily just call the validation functions I have even though it should
             #  rarely be nessesary. Because it would be more safe and should be
             #  super fast anyway.
