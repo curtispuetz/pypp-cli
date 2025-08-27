@@ -13,7 +13,7 @@ void printing_fn() {
     print(true);
     print(PyList({1, 2, 3}));
     print(PySet({1, 2, 3}));
-    PyDict<int, int> a({{0, 1}, {1, 2}});
+    PyDict<int, int> a = {{0, 1}, {1, 2}};
     print(a);
     print(PyList({PyList({PyList({-1})})}));
     print(PyTup(1, 2));

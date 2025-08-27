@@ -39,7 +39,7 @@ void default_dict_fn() {
     print(j);
     print(i);
     auto k = PyDefaultDict<int, PyDict<int, int>>::dict_factory();
-    PyDict<int, int> l(k[0]);
+    PyDict<int, int> l = k[0];
     print(l);
     print(k);
     auto m = PyDefaultDict<int, PySet<int>>::set_factory();
@@ -68,7 +68,7 @@ void default_dict_fn() {
     print(x);
     print(w);
     auto y = PyDefaultDict<int, PyDict<int, int>>(_dict_factory);
-    PyDict<int, int> z(y[0]);
+    PyDict<int, int> z = y[0];
     print(z);
     print(y);
     auto aa = PyDefaultDict<int, PySet<int>>([]() { return PySet({1, 2, 3}); });

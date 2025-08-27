@@ -33,7 +33,7 @@ void for_loop_fn() {
         a.append(std::move(y));
     }
     print(a);
-    PyDict<int, int> c({{0, 1}, {1, 2}});
+    PyDict<int, int> c = {{0, 1}, {1, 2}};
     for (const auto &k : c.keys()) {
         int y = k;
         a.append(std::move(y));
@@ -60,8 +60,8 @@ void for_loop_fn() {
     }
     print(a);
     print(d);
-    PyDict<int, PyDict<int, PyDict<int, int>>> e(
-        {{0, {{0, {{0, 1}, {2, 3}}}}}});
+    PyDict<int, PyDict<int, PyDict<int, int>>> e = {
+        {0, {{0, {{0, 1}, {2, 3}}}}}};
     for (const auto &[k1, v1] : e.items()) {
         for (const auto &[k2, v2] : v1.items()) {
             for (const auto &[k3, v3] : v2.items()) {
