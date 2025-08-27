@@ -94,10 +94,10 @@ def _add_installed_library_to_proj_info_json(
 ):
     with open(dirs.proj_info_file, "r") as f:
         proj_info: dict = json.load(f)
-    if "installed_libraries" not in proj_info:
-        proj_info["installed_libraries"] = {library_name: version}
+    if "installed_bridge_libraries" not in proj_info:
+        proj_info["installed_bridge_libraries"] = {library_name: version}
     else:
-        if library_name not in proj_info["installed_libraries"]:
-            proj_info["installed_libraries"][library_name] = version
+        if library_name not in proj_info["installed_bridge_libraries"]:
+            proj_info["installed_bridge_libraries"][library_name] = version
     with open(dirs.proj_info_file, "w") as f:
         json.dump(proj_info, f, indent=4)

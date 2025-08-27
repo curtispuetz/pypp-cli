@@ -31,7 +31,7 @@ class ImportMap:
 def calc_import_map(proj_info: ProjInfo, dirs: CompyDirs) -> ImportMap:
     modules: set[str] = set()
     libraries: dict[str, set[str]] = {}
-    for installed_library in proj_info.installed_libs:
+    for installed_library in proj_info.installed_bridge_libs:
         json_path: Path = dirs.calc_bridge_json(installed_library, "import_map")
         if json_path.is_file():
             with open(json_path, "r") as f:

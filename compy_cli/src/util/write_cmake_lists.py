@@ -63,7 +63,7 @@ def _calc_add_lines_and_link_libs_from_libraries(
 ) -> tuple[list[str], list[str]]:
     add_lines: list[str] = []
     link_libs: list[str] = []
-    for installed_library in proj_info.installed_libs:
+    for installed_library in proj_info.installed_bridge_libs:
         cmake_lists: Path = dirs.calc_bridge_json(installed_library, "cmake_lists")
         if cmake_lists.exists():
             with open(cmake_lists, "r") as f:

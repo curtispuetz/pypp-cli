@@ -18,7 +18,7 @@ def calc_map_2(
     warning_fn: Callable[[str, str], str],
 ) -> dict[str, set[PySpecificImport | None]]:
     ret = default_map.copy()
-    for installed_library in proj_info.installed_libs:
+    for installed_library in proj_info.installed_bridge_libs:
         json_path: Path = dirs.calc_bridge_json(installed_library, json_file_name)
         if json_path.is_file():
             with open(json_path, "r") as f:

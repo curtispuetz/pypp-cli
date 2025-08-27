@@ -32,9 +32,9 @@ def _remove_installed_library_to_proj_info_json(library: str, dirs: CompyDirs):
     with open(dirs.proj_info_file, "r") as f:
         proj_info: dict = json.load(f)
     if (
-        "installed_libraries" in proj_info
-        and library in proj_info["installed_libraries"]
+        "installed_bridge_libraries" in proj_info
+        and library in proj_info["installed_bridge_libraries"]
     ):
-        del proj_info["installed_libraries"][library]
+        del proj_info["installed_bridge_libraries"][library]
     with open(dirs.proj_info_file, "w") as f:
         json.dump(proj_info, f, indent=4)
