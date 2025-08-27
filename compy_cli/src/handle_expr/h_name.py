@@ -36,7 +36,7 @@ def handle_name(node: ast.Name, d: Deps) -> str:
         elif isinstance(e, CustomMappingStartsWithEntry):
             if name.startswith(k):
                 d.add_incs(e.includes)
-                return e.mapping_fn(node, d, k)
+                return e.mapping_fn(node, d, name)
         elif isinstance(e, CustomMappingStartsWithFromLibEntry):
             if name.startswith(k):
                 d.add_incs(e.includes)
