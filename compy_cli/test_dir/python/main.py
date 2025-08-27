@@ -1,4 +1,5 @@
 from args_test import args_test_fn
+from classes.nested_dependencies import class_nested_dependencies_fn
 from custom_libs.bridge_lib_test_0.first import bridge_lib_test_0_fn
 from custom_libs.bridge_lib_test_1.first import bridge_lib_test_1_fn
 from exceptions.custom_exceptions import custom_exception_fn
@@ -131,3 +132,4 @@ if __name__ == "__main__":
     list_fn()
     # TODO: delete once glfw library is updated.
     print(hello_world_fn())
+    class_nested_dependencies_fn()
