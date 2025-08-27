@@ -13,7 +13,7 @@ class ProjInfo:
     cpp_dir_is_dirty: bool
     ignored_src_files: list[str]
     ignored_main_files: list[str]
-    installed_libs: dict[str, str]
+    installed_bridge_libs: dict[str, str]
 
 
 def load_proj_info(dirs: CompyDirs) -> ProjInfo:
@@ -24,7 +24,7 @@ def load_proj_info(dirs: CompyDirs) -> ProjInfo:
         proj_info["cpp_dir_is_dirty"],
         proj_info.get("ignore_src_files", []),
         proj_info.get("ignore_main_files", []),
-        proj_info["installed_libraries"],
+        proj_info["installed_bridge_libraries"],
     )
 
 
@@ -44,10 +44,12 @@ def _validate_proj_info(proj_info: object):
         validate_is_list_of_strings(
             ["ignore_main_files"], proj_info["ignore_main_files"], "proj_info"
         )
-    assert "installed_libraries" in proj_info, (
-        "installed_libraries key missing in proj_info.json. Must be present even if "
+    assert "installed_bridge_libraries" in proj_info, (
+        "installed_bridge_libraries key missing in proj_info.json. Must be present even if "
         "empty"
     )
     validate_is_dict_of_strings(
-        ["installed_libraries"], proj_info["installed_libraries"], "proj_info"
+        ["installed_bridge_libraries"],
+        proj_info["installed_bridge_libraries"],
+        "proj_info",
     )
