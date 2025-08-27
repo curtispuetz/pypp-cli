@@ -12,7 +12,7 @@ from compy_cli.src.mapping.d_types import (
 )
 from compy_cli.src.mapping.maps.util.calc_map_1 import (
     BASE_CALC_ENTRY_FN_MAP,
-    calc_map_a,
+    calc_map_1,
     calc_replace_dot_with_double_colon_entry,
 )
 
@@ -51,6 +51,6 @@ ATTR_CALC_ENTRY_FN_MAP: dict[str, Callable[[dict], AttrMapEntry]] = {
 
 
 def calc_attr_map(proj_info: ProjInfo, dirs: CompyDirs) -> AttrMap:
-    return calc_map_a(
+    return calc_map_1(
         ATTR_MAP, ATTR_CALC_ENTRY_FN_MAP, "attr_map", "attr", proj_info, dirs
     )
