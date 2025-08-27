@@ -69,20 +69,18 @@ def _calc_result_from_maps_if_any(
     d: Deps, value_str: str, type_cpp: str, target_str: str
 ) -> str | None:
     value_str_stripped: str = calc_inside_rd(value_str) if "(" in value_str else ""
-    for starts_with_str, r in d.maps.ann_assign.items():
-        info = find_map_entry(r, d)
-        if info is None:
+    for k, v in d.maps.ann_assign.items():
+        e = find_map_entry(v, d)
+        if e is None:
             continue
-        if isinstance(info, CustomMappingStartsWithEntry):
-            if type_cpp.startswith(starts_with_str):
-                d.add_incs(info.includes)
-                return info.mapping_fn(
-                    type_cpp, target_str, value_str, value_str_stripped
-                )
-        elif isinstance(info, CustomMappingStartsWithFromLibEntry):
-            if type_cpp.startswith(starts_with_str):
-                d.add_incs(info.includes)
-                return calc_string_fn(info, "ann_assign_map")(
+        if isinstance(e, CustomMappingStartsWithEntry):
+            if type_cpp.startswith(k):
+                d.add_incs(e.includes)
+                return e.mapping_fn(type_cpp, target_str, value_str, value_str_stripped)
+        elif isinstance(e, CustomMappingStartsWithFromLibEntry):
+            if type_cpp.startswith(k):
+                d.add_incs(e.includes)
+                return calc_string_fn(e, "ann_assign_map")(
                     type_cpp, target_str, value_str, value_str_stripped
                 )
     return None

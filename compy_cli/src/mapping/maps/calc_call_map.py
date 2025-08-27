@@ -13,7 +13,7 @@ from compy_cli.src.mapping.d_types import (
 )
 from compy_cli.src.mapping.maps.util.calc_map_1 import (
     BASE_CALC_ENTRY_FN_MAP,
-    calc_map_a,
+    calc_map_1,
     calc_replace_dot_with_double_colon_entry,
 )
 
@@ -30,6 +30,6 @@ CALL_CALC_ENTRY_FN_MAP: dict[str, Callable[[dict], CallMapEntry]] = {
 
 
 def calc_call_map(proj_info: ProjInfo, dirs: CompyDirs) -> CallMap:
-    return calc_map_a(
+    return calc_map_1(
         CALL_MAP, CALL_CALC_ENTRY_FN_MAP, "call_map", "call", proj_info, dirs
     )

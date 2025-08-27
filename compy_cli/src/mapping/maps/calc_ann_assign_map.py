@@ -7,7 +7,7 @@ from compy_cli.src.mapping.d_types import (
 )
 from compy_cli.src.mapping.maps.util.calc_map_1 import (
     BASE_CALC_ENTRY_FN_MAP,
-    calc_map_a,
+    calc_map_1,
 )
 
 
@@ -36,7 +36,7 @@ ANN_ASSIGN_MAP: AnnAssignsMap = {
 
 
 def calc_ann_assign_map(proj_info: ProjInfo, dirs: CompyDirs) -> AnnAssignsMap:
-    return calc_map_a(
+    return calc_map_1(
         ANN_ASSIGN_MAP,
         BASE_CALC_ENTRY_FN_MAP,
         "ann_assign_map",

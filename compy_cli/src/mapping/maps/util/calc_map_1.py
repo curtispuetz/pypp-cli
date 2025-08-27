@@ -50,7 +50,7 @@ BASE_CALC_ENTRY_FN_MAP: dict[str, Callable[[dict], Any]] = {
 }
 
 
-def calc_map_a(
+def calc_map_1(
     base_map,
     calc_entry_fn_map,
     json_name: str,

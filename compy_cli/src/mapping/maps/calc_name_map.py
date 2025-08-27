@@ -11,7 +11,7 @@ from compy_cli.src.mapping.d_types import (
 )
 from compy_cli.src.mapping.maps.util.calc_map_1 import (
     BASE_CALC_ENTRY_FN_MAP,
-    calc_map_a,
+    calc_map_1,
 )
 
 
@@ -92,6 +92,6 @@ NAME_MAP: NameMap = {
 
 
 def calc_name_map(proj_info: ProjInfo, dirs: CompyDirs) -> NameMap:
-    return calc_map_a(
+    return calc_map_1(
         NAME_MAP, BASE_CALC_ENTRY_FN_MAP, "name_map", "name", proj_info, dirs
     )
