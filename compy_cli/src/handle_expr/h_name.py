@@ -17,28 +17,28 @@ def handle_name(node: ast.Name, d: Deps) -> str:
         d.add_inc(d.ret_imports.include_map[node.id])
     name: str = node.id
 
-    for caller, r in d.maps.name.items():
-        e = find_map_entry(r, d)
+    for k, v in d.maps.name.items():
+        e = find_map_entry(v, d)
         if e is None:
             continue
         if isinstance(e, ToStringEntry):
-            if name == caller:
+            if name == k:
                 d.add_incs(e.includes)
                 return e.to
         elif isinstance(e, CustomMappingEntry):
-            if name == caller:
+            if name == k:
                 d.add_incs(e.includes)
                 return e.mapping_fn(node, d)
         elif isinstance(e, CustomMappingFromLibEntry):
-            if name.startswith(caller):
+            if name.startswith(k):
                 d.add_incs(e.includes)
                 return calc_string_fn(e, "name_map")(node, d)
         elif isinstance(e, CustomMappingStartsWithEntry):
-            if name.startswith(caller):
+            if name.startswith(k):
                 d.add_incs(e.includes)
-                return e.mapping_fn(node, d, caller)
+                return e.mapping_fn(node, d, k)
         elif isinstance(e, CustomMappingStartsWithFromLibEntry):
-            if name.startswith(caller):
+            if name.startswith(k):
                 d.add_incs(e.includes)
                 return calc_string_fn(e, "name_map")(node, d, name)
     return name

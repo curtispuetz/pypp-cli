@@ -14,12 +14,12 @@ def is_one(r: set[PySpecificImport | None], d: Deps) -> bool:
     return False
 
 
-def find_map_entry[T](r: dict[PySpecificImport | None, T], d: Deps) -> T | None:
-    for required_import, map_info in r.items():
+def find_map_entry[T](v: dict[PySpecificImport | None, T], d: Deps) -> T | None:
+    for required_import, map_info in v.items():
         if required_import is not None and d.is_imported(required_import):
             return map_info
-    if None in r:
-        return r[None]
+    if None in v:
+        return v[None]
     return None
 
 
