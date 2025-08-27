@@ -27,9 +27,7 @@ def calc_string_fn(
     info: MappingFnStr,
     json_file_name: str,
 ) -> types.FunctionType:
-    namespace = {"ast": ast, "Deps": Deps}
-    exec(info.mapping_fn_str, namespace)
-    funcs = [obj for obj in namespace.values() if isinstance(obj, types.FunctionType)]
+    funcs = calc_funcs_in_str(info.mapping_fn_str)
     # TODO: validate mapping function on install and remove this assertion.
     assert len(funcs) == 1, (
         "Expected exactly one function in mapping_function string from "
@@ -40,3 +38,9 @@ def calc_string_fn(
         "installed."
     )
     return funcs[0]
+
+
+def calc_funcs_in_str(mapping_fn: str) -> list[types.FunctionType]:
+    namespace = {"ast": ast, "Deps": Deps}
+    exec(mapping_fn, namespace)
+    return [obj for obj in namespace.values() if isinstance(obj, types.FunctionType)]
