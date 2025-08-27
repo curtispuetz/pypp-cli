@@ -1,64 +1,27 @@
 import json
 from pathlib import Path
-import subprocess
-import venv
 from compy_cli.src.compy_dirs import CompyDirs
+from compy_cli.src.main_scripts.util.init_libs import (
+    create_pyproject_toml,
+    create_python_hello_world,
+    create_python_venv_and_install_build,
+    create_readme,
+)
 
 
 def compy_init_bridge_library(library_name: str, dirs: CompyDirs):
     print("creating bridge-library files...")
-    _create_readme(dirs, library_name)
+    create_readme(dirs, library_name)
     library_name_underscores = library_name.replace("-", "_")
-    _create_pyproject_toml(dirs, library_name, library_name_underscores)
+    create_pyproject_toml(dirs, library_name, library_name_underscores, "data")
     proj_dir: Path = dirs.target_dir / library_name_underscores
     proj_dir.mkdir()
-    _create_python_hello_world(proj_dir)
+    cpp_dir: Path = proj_dir / "cpp"
+    cpp_dir.mkdir()
+    create_python_hello_world(proj_dir)
     _create_cpp_hello_world(proj_dir)
     _create_import_map(proj_dir)
-    _create_python_venv_and_install_build_requirements(dirs)
-
-
-def _create_readme(dirs: CompyDirs, library_name: str):
-    readme: Path = dirs.target_dir / "readme.md"
-    readme.write_text(f"# {library_name}\n")
-
-
-def _create_pyproject_toml(
-    dirs: CompyDirs, library_name: str, library_name_underscores: str
-):
-    pyproject: Path = dirs.target_dir / "pyproject.toml"
-    pyproject.write_text(
-        "\n".join(
-            [
-                "[project]",
-                f'name = "{library_name}"',
-                'version = "0.0.0"',
-                'description = ""',
-                "authors = []",
-                'readme = "readme.md"',
-                'license = {text = "MIT"}',
-                "",
-                "[tool.setuptools.package-data]",
-                f'"{library_name_underscores}" = ["data/**/*"]',
-                "",
-                "[build-system]",
-                'requires = ["setuptools>=61.0"]',
-                'build-backend = "setuptools.build_meta"',
-            ]
-        )
-    )
-
-
-def _create_python_hello_world(proj_dir: Path):
-    hello_world: Path = proj_dir / "hello_world.py"
-    hello_world.write_text(
-        "\n".join(
-            [
-                "def hello_world_fn() -> str:",
-                '    return "Hello, World!"',
-            ]
-        )
-    )
+    create_python_venv_and_install_build(dirs)
 
 
 def _create_cpp_hello_world(proj_dir: Path):
@@ -97,14 +60,3 @@ def _create_import_map(proj_dir: Path):
     data = {"ignore": []}
     with open(import_map, "w") as f:
         json.dump(data, f, indent=4)
-
-
-def _create_python_venv_and_install_build_requirements(dirs: CompyDirs):
-    venv_dir: Path = dirs.target_dir / ".venv"
-    print("creating python virtual environment...")
-    venv.create(venv_dir, with_pip=True)
-    print("python virtual environment created")
-    print("installing 'build' library...")
-    subprocess.check_call(
-        [dirs.calc_bridge_lib_py_executable(), "-m", "pip", "install", "build"]
-    )
