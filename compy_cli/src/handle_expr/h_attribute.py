@@ -1,8 +1,15 @@
 import ast
 
-from compy_cli.src.d_types import AngInc, PyImport
 from compy_cli.src.deps import Deps
-from compy_cli.src.mapping.attributes import lookup_cpp_attribute
+from compy_cli.src.mapping.d_types import (
+    CustomMappingEntry,
+    CustomMappingFromLibEntry,
+    CustomMappingStartsWithEntry,
+    CustomMappingStartsWithFromLibEntry,
+    ReplaceDotWithDoubleColonEntry,
+    ToStringEntry,
+)
+from compy_cli.src.mapping.util import calc_string_fn, find_map_entry
 
 
 def handle_attribute(node: ast.Attribute, d: Deps):
@@ -13,14 +20,34 @@ def handle_attribute(node: ast.Attribute, d: Deps):
     value_str = d.handle_expr(node.value)
     if value_str == "self":
         return attr_str
-    if d.is_imported(PyImport("math")) and value_str == "math":
-        if attr_str == "pi":
-            d.add_inc(AngInc("numbers"))
-            return "std::numbers::pi"
-        if attr_str == "radians":
-            d.add_inc(AngInc("numbers"))
-            return "(std::numbers::pi / 180.0) * "
-        d.add_inc(AngInc("cmath"))
-        return f"std::{attr_str}"
-    ret = f"{value_str}.{attr_str}"
-    return lookup_cpp_attribute(ret, d)
+    res = f"{value_str}.{attr_str}"
+    for k, v in d.maps.attr.items():
+        e = find_map_entry(v, d)
+        if e is None:
+            continue
+        if isinstance(e, ToStringEntry):
+            if res == k:
+                d.add_incs(e.includes)
+                return e.to
+        elif isinstance(e, CustomMappingEntry):
+            if res == k:
+                d.add_incs(e.includes)
+                return e.mapping_fn(node, d)
+        elif isinstance(e, CustomMappingFromLibEntry):
+            if res.startswith(k):
+                d.add_incs(e.includes)
+                return calc_string_fn(e, "attr_map")(node, d)
+        elif isinstance(e, CustomMappingStartsWithEntry):
+            if res.startswith(k):
+                d.add_incs(e.includes)
+                return e.mapping_fn(node, d, res)
+        elif isinstance(e, CustomMappingStartsWithFromLibEntry):
+            if res.startswith(k):
+                d.add_incs(e.includes)
+                return calc_string_fn(e, "attr_map")(node, d, res)
+        elif isinstance(e, ReplaceDotWithDoubleColonEntry):
+            if res.startswith(k):
+                d.add_incs(e.includes)
+                res = res.replace(".", "::")
+                return res
+    return res
