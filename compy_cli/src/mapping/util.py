@@ -14,7 +14,7 @@ def is_one(r: set[PySpecificImport | None], d: Deps) -> bool:
     return False
 
 
-def find_map_info[T](r: dict[PySpecificImport | None, T], d: Deps) -> T | None:
+def find_map_entry[T](r: dict[PySpecificImport | None, T], d: Deps) -> T | None:
     for required_import, map_info in r.items():
         if required_import is not None and d.is_imported(required_import):
             return map_info
@@ -30,6 +30,7 @@ def calc_string_fn(
     namespace = {"ast": ast, "Deps": Deps}
     exec(info.mapping_fn_str, namespace)
     funcs = [obj for obj in namespace.values() if isinstance(obj, types.FunctionType)]
+    # TODO: validate mapping function on install and remove this assertion.
     assert len(funcs) == 1, (
         "Expected exactly one function in mapping_function string from "
         f"{json_file_name}.json in an installed bridge-library. "

@@ -5,7 +5,10 @@ from compy_cli.src.d_types import (
     QInc,
 )
 from compy_cli.src.main_scripts.util.load_proj_info import ProjInfo
-from compy_cli.src.mapping.d_types import ToStringEntry, NameMap
+from compy_cli.src.mapping.d_types import (
+    ToStringEntry,
+    NameMap,
+)
 from compy_cli.src.mapping.maps.util.calc_map_1 import (
     BASE_CALC_ENTRY_FN_MAP,
     calc_map_a,
