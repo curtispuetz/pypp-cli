@@ -30,6 +30,6 @@ void ranges_fn() {
     print(PyRange(5, 10));
     print(PyRange(10, 5, -1));
     print(PyRange(5, 10, 1));
-    PyDict<PyRange, int> b({{a, 1}, {PyRange(1, 4), 2}});
+    PyDict<PyRange, int> b = {{a, 1}, {PyRange(1, 4), 2}};
     print(b);
 }

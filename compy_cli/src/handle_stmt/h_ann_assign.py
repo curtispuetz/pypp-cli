@@ -3,6 +3,8 @@ import ast
 from compy_cli.src.deps import Deps
 from compy_cli.src.handle_expr.h_comp import handle_comp
 from compy_cli.src.mapping.d_types import (
+    CustomMappingEntry,
+    CustomMappingFromLibEntry,
     CustomMappingStartsWithEntry,
     CustomMappingStartsWithFromLibEntry,
 )
@@ -73,6 +75,16 @@ def _calc_result_from_maps_if_any(
         e = find_map_entry(v, d)
         if e is None:
             continue
+        if isinstance(e, CustomMappingEntry):
+            if type_cpp == k:
+                d.add_incs(e.includes)
+                return e.mapping_fn(type_cpp, target_str, value_str, value_str_stripped)
+        elif isinstance(e, CustomMappingFromLibEntry):
+            if type_cpp.startswith(k):
+                d.add_incs(e.includes)
+                return calc_string_fn(e, "ann_assign_map")(
+                    type_cpp, target_str, value_str, value_str_stripped
+                )
         if isinstance(e, CustomMappingStartsWithEntry):
             if type_cpp.startswith(k):
                 d.add_incs(e.includes)

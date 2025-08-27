@@ -15,7 +15,7 @@ void zip_fn() {
         a.append(std::move(z));
     }
     print(a);
-    PyDict<double, int> b({{1.1, 4}, {2.2, 5}});
+    PyDict<double, int> b = {{1.1, 4}, {2.2, 5}};
     for (const auto &[x, z, y, w] :
          PyZip(PyList({1, 2}), PySet({PyStr("a"), PyStr("b")}), PyStr("ab"),
                b.items())) {

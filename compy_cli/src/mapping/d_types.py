@@ -77,8 +77,7 @@ type AttrMapEntry = (
 )
 
 type AnnAssignMapEntry = (
-    ToStringEntry
-    | CustomMappingEntry
+    CustomMappingEntry
     | CustomMappingFromLibEntry
     | CustomMappingStartsWithEntry
     | CustomMappingStartsWithFromLibEntry

@@ -44,7 +44,7 @@ void operations_fn() {
     print(PyStr(std::format("in: {}", o)));
     bool p = PySet({1, 5}).contains(5);
     print(PyStr(std::format("in set: {}", p)));
-    PyDict<int, PyStr> test_dict({{1, PyStr("a")}, {5, PyStr("b")}});
+    PyDict<int, PyStr> test_dict = {{1, PyStr("a")}, {5, PyStr("b")}};
     bool q = test_dict.contains(5);
     print(PyStr(std::format("in dict: {}", q)));
     bool r = PyTup(1, 5).contains(5);

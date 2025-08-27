@@ -11,12 +11,6 @@ from compy_cli.src.mapping.maps.util.calc_map_1 import (
 )
 
 
-def _py_dict(
-    type_cpp: str, target_str: str, value_str: str, _value_str_stripped: str
-) -> str:
-    return f"{type_cpp} {target_str}({value_str})"
-
-
 def _uni(
     type_cpp: str, target_str: str, _value_str: str, value_str_stripped: str
 ) -> str:
@@ -26,7 +20,6 @@ def _uni(
 
 
 ANN_ASSIGN_MAP: AnnAssignsMap = {
-    "PyDict<": {None: CustomMappingStartsWithEntry(_py_dict, [])},
     "Uni<": {
         PySpecificImpFrom("compy_python.union", "Uni"): CustomMappingStartsWithEntry(
             _uni, []

@@ -19,7 +19,7 @@ void enumerate_fn() {
         a.append(i);
     }
     print(a);
-    PyDict<int, int> d({{0, 1}, {1, 2}});
+    PyDict<int, int> d = {{0, 1}, {1, 2}};
     for (const auto &[i, val] : PyEnumerate(d.keys())) {
         a.append(i);
     }

@@ -8,7 +8,7 @@
 
 void dict_exceptions_fn() {
     print(PyStr("DICT EXCEPTIONS RESULTS:"));
-    PyDict<int, int> a({{0, 1}, {1, 2}});
+    PyDict<int, int> a = {{0, 1}, {1, 2}};
     try {
         a.pop(-1);
     } catch (const CompyKeyError &compy_e) {
