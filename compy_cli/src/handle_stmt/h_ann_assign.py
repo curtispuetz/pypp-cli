@@ -6,7 +6,7 @@ from compy_cli.src.mapping.d_types import (
     CustomMappingStartsWithEntry,
     CustomMappingStartsWithFromLibEntry,
 )
-from compy_cli.src.mapping.util import calc_string_fn, find_map_info
+from compy_cli.src.mapping.util import calc_string_fn, find_map_entry
 from compy_cli.src.util.calc_callable_type import calc_callable_type
 from compy_cli.src.util.inner_strings import calc_inside_ang, calc_inside_rd
 from compy_cli.src.util.util import calc_ref_str
@@ -70,7 +70,7 @@ def _calc_result_from_maps_if_any(
 ) -> str | None:
     value_str_stripped: str = calc_inside_rd(value_str) if "(" in value_str else ""
     for starts_with_str, r in d.maps.ann_assign.items():
-        info = find_map_info(r, d)
+        info = find_map_entry(r, d)
         if info is None:
             continue
         if isinstance(info, CustomMappingStartsWithEntry):

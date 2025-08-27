@@ -11,43 +11,43 @@ from compy_cli.src.mapping.d_types import (
     LeftAndRightEntry,
     ReplaceDotWithDoubleColonEntry,
 )
-from compy_cli.src.mapping.util import calc_string_fn, find_map_info
+from compy_cli.src.mapping.util import calc_string_fn, find_map_entry
 
 
 def handle_call(node: ast.Call, d: Deps) -> str:
     assert len(node.keywords) == 0, "keywords for a call are not supported."
     caller_str: str = d.handle_expr(node.func)
     for caller, r in d.maps.call.items():
-        info = find_map_info(r, d)
-        if info is None:
+        e = find_map_entry(r, d)
+        if e is None:
             continue
-        if isinstance(info, ToStringEntry):
+        if isinstance(e, ToStringEntry):
             if caller_str == caller:
-                d.add_incs(info.includes)
-                return f"{info.to}({d.handle_exprs(node.args)})"
-        elif isinstance(info, LeftAndRightEntry):
+                d.add_incs(e.includes)
+                return f"{e.to}({d.handle_exprs(node.args)})"
+        elif isinstance(e, LeftAndRightEntry):
             if caller_str == caller:
-                d.add_incs(info.includes)
-                return info.left + d.handle_exprs(node.args) + info.right
-        elif isinstance(info, CustomMappingEntry):
+                d.add_incs(e.includes)
+                return e.left + d.handle_exprs(node.args) + e.right
+        elif isinstance(e, CustomMappingEntry):
             if caller_str == caller:
-                d.add_incs(info.includes)
-                return info.mapping_fn(node, d)
-        elif isinstance(info, CustomMappingFromLibEntry):
+                d.add_incs(e.includes)
+                return e.mapping_fn(node, d)
+        elif isinstance(e, CustomMappingFromLibEntry):
             if caller_str == caller:
-                d.add_incs(info.includes)
-                return calc_string_fn(info, "call_map")(node, d)
-        elif isinstance(info, CustomMappingStartsWithEntry):
+                d.add_incs(e.includes)
+                return calc_string_fn(e, "call_map")(node, d)
+        elif isinstance(e, CustomMappingStartsWithEntry):
             if caller_str.startswith(caller):
-                d.add_incs(info.includes)
-                return info.mapping_fn(node, d, caller_str)
-        elif isinstance(info, CustomMappingStartsWithFromLibEntry):
+                d.add_incs(e.includes)
+                return e.mapping_fn(node, d, caller_str)
+        elif isinstance(e, CustomMappingStartsWithFromLibEntry):
             if caller_str.startswith(caller):
-                d.add_incs(info.includes)
-                return calc_string_fn(info, "call_map")(node, d, caller_str)
-        elif isinstance(info, ReplaceDotWithDoubleColonEntry):
+                d.add_incs(e.includes)
+                return calc_string_fn(e, "call_map")(node, d, caller_str)
+        elif isinstance(e, ReplaceDotWithDoubleColonEntry):
             if caller_str.startswith(caller):
-                d.add_incs(info.includes)
+                d.add_incs(e.includes)
                 caller_str = caller_str.replace(".", "::")
                 return f"{caller_str}({d.handle_exprs(node.args)})"
     return f"{caller_str}({d.handle_exprs(node.args)})"
