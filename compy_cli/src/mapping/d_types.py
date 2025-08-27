@@ -96,6 +96,3 @@ type AttrMap = dict[str, AttrMapValue]
 type AnnAssignsMap = dict[str, AnnAssignMapValue]
 type FnArgByValueMap = dict[str, FnArgByValueMapValue]
 type SubscriptableTypeMap = dict[str, SubscriptableTypeMapValue]
-
-type NameOrAttrMap = NameMap | AttrMap
-type NameCallOrAttrMapValue = NameMapValue | AttrMapValue | CallMapValue
