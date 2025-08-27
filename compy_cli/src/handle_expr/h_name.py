@@ -32,7 +32,7 @@ def handle_name(node: ast.Name, d: Deps) -> str:
         elif isinstance(e, CustomMappingFromLibEntry):
             if name.startswith(k):
                 d.add_incs(e.includes)
-                return calc_string_fn(e, "name_map")(node, d)
+                return calc_string_fn(e)(node, d)
         elif isinstance(e, CustomMappingStartsWithEntry):
             if name.startswith(k):
                 d.add_incs(e.includes)
@@ -40,5 +40,5 @@ def handle_name(node: ast.Name, d: Deps) -> str:
         elif isinstance(e, CustomMappingStartsWithFromLibEntry):
             if name.startswith(k):
                 d.add_incs(e.includes)
-                return calc_string_fn(e, "name_map")(node, d, name)
+                return calc_string_fn(e)(node, d, name)
     return name

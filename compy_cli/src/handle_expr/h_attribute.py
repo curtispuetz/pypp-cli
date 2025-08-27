@@ -36,7 +36,7 @@ def handle_attribute(node: ast.Attribute, d: Deps):
         elif isinstance(e, CustomMappingFromLibEntry):
             if res.startswith(k):
                 d.add_incs(e.includes)
-                return calc_string_fn(e, "attr_map")(node, d)
+                return calc_string_fn(e)(node, d)
         elif isinstance(e, CustomMappingStartsWithEntry):
             if res.startswith(k):
                 d.add_incs(e.includes)
@@ -44,7 +44,7 @@ def handle_attribute(node: ast.Attribute, d: Deps):
         elif isinstance(e, CustomMappingStartsWithFromLibEntry):
             if res.startswith(k):
                 d.add_incs(e.includes)
-                return calc_string_fn(e, "attr_map")(node, d, res)
+                return calc_string_fn(e)(node, d, res)
         elif isinstance(e, ReplaceDotWithDoubleColonEntry):
             if res.startswith(k):
                 d.add_incs(e.includes)

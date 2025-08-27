@@ -23,21 +23,8 @@ def find_map_entry[T](v: dict[PySpecificImport | None, T], d: Deps) -> T | None:
     return None
 
 
-def calc_string_fn(
-    info: MappingFnStr,
-    json_file_name: str,
-) -> types.FunctionType:
-    funcs = calc_funcs_in_str(info.mapping_fn_str)
-    # TODO: validate mapping function on install and remove this assertion.
-    assert len(funcs) == 1, (
-        "Expected exactly one function in mapping_function string from "
-        f"{json_file_name}.json in an installed bridge-library. "
-        "You shouldn't be seeing this error "
-        "because the mapping_function should have been "
-        "validated when the library was "
-        "installed."
-    )
-    return funcs[0]
+def calc_string_fn(info: MappingFnStr) -> types.FunctionType:
+    return calc_funcs_in_str(info.mapping_fn_str)[0]
 
 
 def calc_funcs_in_str(mapping_fn: str) -> list[types.FunctionType]:

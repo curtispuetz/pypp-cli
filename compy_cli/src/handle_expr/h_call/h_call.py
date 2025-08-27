@@ -36,7 +36,7 @@ def handle_call(node: ast.Call, d: Deps) -> str:
         elif isinstance(e, CustomMappingFromLibEntry):
             if caller_str == k:
                 d.add_incs(e.includes)
-                return calc_string_fn(e, "call_map")(node, d)
+                return calc_string_fn(e)(node, d)
         elif isinstance(e, CustomMappingStartsWithEntry):
             if caller_str.startswith(k):
                 d.add_incs(e.includes)
@@ -44,7 +44,7 @@ def handle_call(node: ast.Call, d: Deps) -> str:
         elif isinstance(e, CustomMappingStartsWithFromLibEntry):
             if caller_str.startswith(k):
                 d.add_incs(e.includes)
-                return calc_string_fn(e, "call_map")(node, d, caller_str)
+                return calc_string_fn(e)(node, d, caller_str)
         elif isinstance(e, ReplaceDotWithDoubleColonEntry):
             if caller_str.startswith(k):
                 d.add_incs(e.includes)

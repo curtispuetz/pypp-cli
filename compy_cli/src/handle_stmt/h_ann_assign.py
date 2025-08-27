@@ -82,7 +82,7 @@ def _calc_result_from_maps_if_any(
         elif isinstance(e, CustomMappingFromLibEntry):
             if type_cpp.startswith(k):
                 d.add_incs(e.includes)
-                return calc_string_fn(e, "ann_assign_map")(
+                return calc_string_fn(e)(
                     type_cpp, target_str, value_str, value_str_stripped
                 )
         if isinstance(e, CustomMappingStartsWithEntry):
@@ -92,7 +92,7 @@ def _calc_result_from_maps_if_any(
         elif isinstance(e, CustomMappingStartsWithFromLibEntry):
             if type_cpp.startswith(k):
                 d.add_incs(e.includes)
-                return calc_string_fn(e, "ann_assign_map")(
+                return calc_string_fn(e)(
                     type_cpp, target_str, value_str, value_str_stripped
                 )
     return None
