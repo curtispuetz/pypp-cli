@@ -1,11 +1,10 @@
 from dataclasses import dataclass
 from fnmatch import fnmatch
 from pathlib import Path
-from compy_cli.src.compy_dirs import CompyDirs
 
 
 @dataclass(frozen=True, slots=True)
-class PyFileChanges2:
+class PyFileChanges:
     changed_files: list[Path]
     new_files: list[Path]
     deleted_files: list[Path]
@@ -46,7 +45,7 @@ class FileChangeTracker:
 
     def calc_py_file_changes(
         self, root_dir: Path, ignore_files: list[str], py_files: list[Path]
-    ) -> PyFileChanges2:
+    ) -> PyFileChanges:
         for rel_path in py_files:
             abs_path: Path = root_dir / rel_path
             rel_path_posix: str = rel_path.as_posix()
@@ -54,7 +53,7 @@ class FileChangeTracker:
                 self._check_file_change(abs_path, rel_path, rel_path_posix)
             else:
                 self._ignored_file_stems.add(abs_path.stem)
-        return PyFileChanges2(
+        return PyFileChanges(
             self._changed_files,
             self._new_files,
             list(self._deleted_files),
