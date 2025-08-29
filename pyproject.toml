@@ -1,22 +1,30 @@
 [build-system]
-requires = ["setuptools>=61.0"]
-build-backend = "setuptools.build_meta"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
 [project]
 name = "compy_cli"
 version = "0.0"
 description = "A CLI tool called compy"
 authors = [
-    { name="Curtis Puetz", email="TODO@email.com" }
+    { name="Curtis Puetz", email="compy.main@gmail.com" }
 ]
 readme = "readme.md"
 license = { text = "MIT" }
+requires-python = ">=3.13"
+urls = { "Homepage" = "https://github.com/curtispuetz/compy-cli" }
+
 
 [project.scripts]
 compy = "compy_cli.cli:main_cli"
 
-[tool.setuptools.package-data]
-"compy_cli" = ["data/**/*"]
+[tool.hatch.build]
+include = [
+    "compy_cli/cli.py",
+    "compy_cli/data/**/*",
+    "compy_cli/src/**/*"
+]
+
 
 [tool.ruff]
 lint.ignore = [
