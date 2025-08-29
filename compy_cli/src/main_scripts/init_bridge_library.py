@@ -4,7 +4,7 @@ from compy_cli.src.compy_dirs import CompyDirs
 from compy_cli.src.main_scripts.util.init_libs import (
     create_pyproject_toml,
     create_python_hello_world,
-    create_python_venv_and_install_build,
+    create_python_venv_and_install_hatchling,
     create_readme,
 )
 
@@ -13,15 +13,13 @@ def compy_init_bridge_library(library_name: str, dirs: CompyDirs):
     print("creating bridge-library files...")
     create_readme(dirs, library_name)
     library_name_underscores = library_name.replace("-", "_")
-    create_pyproject_toml(dirs, library_name, library_name_underscores, "data")
+    create_pyproject_toml(dirs, library_name, library_name_underscores)
     proj_dir: Path = dirs.target_dir / library_name_underscores
     proj_dir.mkdir()
-    cpp_dir: Path = proj_dir / "cpp"
-    cpp_dir.mkdir()
     create_python_hello_world(proj_dir)
     _create_cpp_hello_world(proj_dir)
     _create_import_map(proj_dir)
-    create_python_venv_and_install_build(dirs)
+    create_python_venv_and_install_hatchling(dirs)
 
 
 def _create_cpp_hello_world(proj_dir: Path):

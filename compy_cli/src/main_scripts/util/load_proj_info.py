@@ -45,8 +45,8 @@ def _validate_proj_info(proj_info: object):
             ["ignore_main_files"], proj_info["ignore_main_files"], "proj_info"
         )
     assert "installed_bridge_libraries" in proj_info, (
-        "installed_bridge_libraries key missing in proj_info.json. Must be present even if "
-        "empty"
+        "installed_bridge_libraries key missing in proj_info.json. Must be present "
+        "even if empty."
     )
     validate_is_dict_of_strings(
         ["installed_bridge_libraries"],

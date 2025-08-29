@@ -14,7 +14,6 @@ def create_pyproject_toml(
     dirs: CompyDirs,
     library_name: str,
     library_name_underscores: str,
-    package_data: str,
     dependencies: list[str] | None = None,
 ):
     pyproject: Path = dirs.target_dir / "pyproject.toml"
@@ -28,14 +27,15 @@ def create_pyproject_toml(
                 "authors = []",
                 'readme = "readme.md"',
                 'license = {text = "MIT"}',
+                'requires-python = ">=3.13"',
                 *_create_pyproject_toml_deps(dependencies),
                 "",
-                "[tool.setuptools.package-data]",
-                f'"{library_name_underscores}" = ["{package_data}/**/*"]',
+                "[tool.hatch.build]",
+                f'include = ["{library_name_underscores}/**/*"]',
                 "",
                 "[build-system]",
-                'requires = ["setuptools>=61.0"]',
-                'build-backend = "setuptools.build_meta"',
+                'requires = ["hatchling"]',
+                'build-backend = "hatchling.build"',
             ]
         )
     )
@@ -60,12 +60,12 @@ def create_python_hello_world(proj_dir: Path):
     )
 
 
-def create_python_venv_and_install_build(dirs: CompyDirs):
+def create_python_venv_and_install_hatchling(dirs: CompyDirs):
     venv_dir: Path = dirs.target_dir / ".venv"
     print("creating python virtual environment...")
     venv.create(venv_dir, with_pip=True)
     print("python virtual environment created")
-    print("installing 'build' library...")
+    print("installing 'hatchling' library...")
     subprocess.check_call(
-        [dirs.calc_bridge_lib_py_executable(), "-m", "pip", "install", "build"]
+        [dirs.calc_bridge_lib_py_executable(), "-m", "pip", "install", "hatchling"]
     )
