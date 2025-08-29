@@ -18,7 +18,7 @@ def pip_uninstall(pip_str: str, dirs: CompyDirs):
 
 
 def _process(pip_str: str, dirs: CompyDirs, s: str):
-    print(f"running 'pip {s}' for library...")
+    print(f"running 'pip {s} {pip_str}'...")
     subprocess.check_call([dirs.calc_py_executable(), "-m", "pip", s, pip_str])
     # Remove timestamps file because changing a library might change how things are
     # transpiled

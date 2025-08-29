@@ -110,7 +110,7 @@
         {
             "label": "Build library",
             "type": "shell",
-            "command": "${workspaceFolder}/.venv/Scripts/python.exe -m build",
+            "command": "${workspaceFolder}/.venv/Scripts/python.exe -m hatchling build",
             "problemMatcher": [],
             "presentation": {
                 "echo": true,

@@ -67,5 +67,5 @@ def create_python_venv_and_install_hatchling(dirs: CompyDirs):
     print("python virtual environment created")
     print("installing 'hatchling' library...")
     subprocess.check_call(
-        [dirs.calc_bridge_lib_py_executable(), "-m", "pip", "install", "hatchling"]
+        [dirs.calc_lib_py_executable(), "-m", "pip", "install", "hatchling"]
     )
