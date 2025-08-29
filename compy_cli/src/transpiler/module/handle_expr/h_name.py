@@ -2,7 +2,7 @@ import ast
 
 
 from compy_cli.src.transpiler.module.deps import Deps
-from compy_cli.src.transpiler.module.mapping.d_types import (
+from compy_cli.src.transpiler.maps.d_types import (
     CustomMappingEntry,
     CustomMappingFromLibEntry,
     CustomMappingStartsWithEntry,

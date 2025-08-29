@@ -9,7 +9,7 @@ from compy_cli.src.transpiler.module.d_types import (
 from compy_cli.src.transpiler.module.handle_expr.h_call.default_dict_map_fn import (
     good_default_dict,
 )
-from compy_cli.src.transpiler.module.mapping.d_types import (
+from compy_cli.src.transpiler.maps.d_types import (
     ToStringEntry,
     CustomMappingEntry,
     CustomMappingStartsWithEntry,

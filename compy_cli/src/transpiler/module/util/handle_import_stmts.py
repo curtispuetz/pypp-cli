@@ -2,7 +2,7 @@ import ast
 from pathlib import Path
 
 from compy_cli.src.transpiler.module.d_types import PyImports, PyImport, QInc
-from compy_cli.src.transpiler.module.mapping.maps.maps import Maps
+from compy_cli.src.transpiler.maps.maps import Maps
 from compy_cli.src.transpiler.module.util.ret_imports import IncMap
 
 

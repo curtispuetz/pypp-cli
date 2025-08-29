@@ -5,7 +5,7 @@ from compy_cli.src.transpiler.module.d_types import QInc
 from compy_cli.src.transpiler.module.deps import Deps, DepsDeps
 from compy_cli.src.transpiler.module.handle_expr.expr import handle_expr
 from compy_cli.src.transpiler.module.handle_stmt.stmt import handle_stmt
-from compy_cli.src.transpiler.module.mapping.maps.maps import Maps
+from compy_cli.src.transpiler.maps.maps import Maps
 from compy_cli.src.transpiler.module.util.calc_includes import (
     calc_includes_for_main_file,
     calc_includes,

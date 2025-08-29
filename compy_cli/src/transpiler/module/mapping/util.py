@@ -2,7 +2,7 @@ import ast
 import types
 from compy_cli.src.transpiler.module.d_types import PySpecificImport
 from compy_cli.src.transpiler.module.deps import Deps
-from compy_cli.src.transpiler.module.mapping.d_types import MappingFnStr
+from compy_cli.src.transpiler.maps.d_types import MappingFnStr
 
 
 def is_one(r: set[PySpecificImport | None], d: Deps) -> bool:

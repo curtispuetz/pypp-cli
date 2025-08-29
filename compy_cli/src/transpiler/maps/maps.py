@@ -1,21 +1,21 @@
 from dataclasses import dataclass
 
 from compy_cli.src.transpiler.util.load_proj_info import ProjInfo
-from compy_cli.src.transpiler.module.mapping.maps.calc_ann_assign_map import (
+from compy_cli.src.transpiler.maps.calc_ann_assign_map import (
     calc_ann_assign_map,
 )
 from compy_cli.src.compy_dirs import CompyDirs
-from compy_cli.src.transpiler.module.mapping.maps.calc_attr_map import calc_attr_map
-from compy_cli.src.transpiler.module.mapping.maps.calc_call_map import calc_call_map
-from compy_cli.src.transpiler.module.mapping.maps.calc_fn_arg_by_value_map import (
+from compy_cli.src.transpiler.maps.calc_attr_map import calc_attr_map
+from compy_cli.src.transpiler.maps.calc_call_map import calc_call_map
+from compy_cli.src.transpiler.maps.calc_fn_arg_by_value_map import (
     calc_fn_arg_passed_by_value_map,
 )
-from compy_cli.src.transpiler.module.mapping.maps.calc_import_map import (
+from compy_cli.src.transpiler.maps.calc_import_map import (
     ImportMap,
     calc_import_map,
 )
-from compy_cli.src.transpiler.module.mapping.maps.calc_name_map import calc_name_map
-from compy_cli.src.transpiler.module.mapping.d_types import (
+from compy_cli.src.transpiler.maps.calc_name_map import calc_name_map
+from compy_cli.src.transpiler.maps.d_types import (
     AnnAssignsMap,
     AttrMap,
     CallMap,
@@ -23,7 +23,7 @@ from compy_cli.src.transpiler.module.mapping.d_types import (
     NameMap,
     SubscriptableTypeMap,
 )
-from compy_cli.src.transpiler.module.mapping.maps.calc_subscriptable_type_map import (
+from compy_cli.src.transpiler.maps.calc_subscriptable_type_map import (
     calc_subscriptable_type_map,
 )
 
