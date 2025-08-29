@@ -6,7 +6,7 @@ from compy_cli.src.compy_dirs import CompyDirs
 from compy_cli.src.transpiler.maps.maps import Maps, calc_maps
 from compy_cli.src.transpiler.util.calc_ast_tree import calc_ast_tree
 from compy_cli.src.transpiler.util.load_proj_info import ProjInfo
-from compy_cli.src.transpiler.module.source_calculator import (
+from compy_cli.src.transpiler.module.source_cltr import (
     calc_main_cpp_source,
     calc_src_file_cpp_and_h_source,
 )
