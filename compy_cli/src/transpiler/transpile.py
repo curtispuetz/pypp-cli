@@ -9,7 +9,7 @@ from compy_cli.src.transpiler.util.transpiler import TranspileResults, Transpile
 from compy_cli.src.transpiler.util.file_changes.file_loader import (
     save_timestamps,
 )
-from compy_cli.src.transpiler.util.file_changes.calculator import (
+from compy_cli.src.transpiler.util.file_changes.cltr import (
     PyFileChanges,
 )
 from compy_cli.src.transpiler.util.file_changes.file_loader import (

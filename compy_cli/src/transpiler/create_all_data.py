@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from compy_cli.src.compy_dirs import CompyDirs
-from compy_cli.src.transpiler.util.file_changes.src_and_main_calculator import (
+from compy_cli.src.transpiler.util.file_changes.src_and_main_cltr import (
     FileChangeCltr,
     FileChangeCltrDeps,
 )

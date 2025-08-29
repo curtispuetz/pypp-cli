@@ -1,14 +1,12 @@
 from dataclasses import dataclass
 from pathlib import Path
 from compy_cli.src.compy_dirs import CompyDirs
-from compy_cli.src.transpiler.util.file_changes.calculator import (
+from compy_cli.src.transpiler.util.file_changes.cltr import (
     calc_py_file_changes,
     PyFileChanges,
 )
 from compy_cli.src.transpiler.util.file_changes.file_loader import TimeStampsFile
 from compy_cli.src.transpiler.util.load_proj_info import ProjInfo
-
-# TODO: rename all 'Calculator' to 'Cltr'
 
 
 @dataclass(frozen=True, slots=True)

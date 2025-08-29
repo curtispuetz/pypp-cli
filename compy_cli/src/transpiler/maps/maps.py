@@ -28,7 +28,6 @@ from compy_cli.src.transpiler.maps.calc_subscriptable_type_map import (
 )
 
 
-# TODO: maybe move this out of the 'module' folder
 @dataclass(frozen=True, slots=True)
 class Maps:
     name: NameMap
