@@ -5,7 +5,9 @@ from compy_cli.src.compy_dirs import CompyDirs
 from compy_cli.src.package_manager.installer.json_validations.util.validations import (
     validate_is_dict_of_strings,
 )
-from compy_cli.src.package_manager.installer.json_validations.util.validations import validate_is_list_of_strings
+from compy_cli.src.package_manager.installer.json_validations.util.validations import (
+    validate_is_list_of_strings,
+)
 
 
 @dataclass(frozen=True, slots=True)

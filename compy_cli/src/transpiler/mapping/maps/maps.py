@@ -1,7 +1,9 @@
 from dataclasses import dataclass
 
 from compy_cli.src.transpiler.util.load_proj_info import ProjInfo
-from compy_cli.src.transpiler.mapping.maps.calc_ann_assign_map import calc_ann_assign_map
+from compy_cli.src.transpiler.mapping.maps.calc_ann_assign_map import (
+    calc_ann_assign_map,
+)
 from compy_cli.src.compy_dirs import CompyDirs
 from compy_cli.src.transpiler.mapping.maps.calc_attr_map import calc_attr_map
 from compy_cli.src.transpiler.mapping.maps.calc_call_map import calc_call_map

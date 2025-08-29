@@ -4,16 +4,16 @@ from compy_cli.src.transpiler.deps import Deps
 from compy_cli.src.transpiler.handle_stmt.h_class_def.for_class.for_class import (
     handle_class_def_for_class,
 )
-from compy_cli.src.transpiler.handle_stmt.h_class_def.for_configclass.for_configclass import (
+from compy_cli.src.transpiler.handle_stmt.h_class_def.for_configclass.for_configclass import (  # noqa: E501
     handle_class_def_for_configclass,
 )
-from compy_cli.src.transpiler.handle_stmt.h_class_def.for_dataclasses.for_dataclasses import (
+from compy_cli.src.transpiler.handle_stmt.h_class_def.for_dataclasses.for_dataclasses import (  # noqa: E501
     handle_class_def_for_dataclass,
 )
 from compy_cli.src.transpiler.handle_stmt.h_class_def.for_exception import (
     handle_class_def_for_exception,
 )
-from compy_cli.src.transpiler.handle_stmt.h_class_def.for_interface.for_interface import (
+from compy_cli.src.transpiler.handle_stmt.h_class_def.for_interface.for_interface import (  # noqa: E501
     handle_class_def_for_interface,
 )
 

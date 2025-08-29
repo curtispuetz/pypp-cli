@@ -2,6 +2,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from compy_cli.src.compy_dirs import CompyDirs
+from compy_cli.src.transpiler.util.calculator import Transpiler, TranspilerDeps
 from compy_cli.src.transpiler.util.load_proj_info import load_proj_info
 from compy_cli.src.transpiler.util.load_proj_info import ProjInfo
 from compy_cli.src.transpiler.util.file_changes.calculator import (
@@ -9,6 +10,10 @@ from compy_cli.src.transpiler.util.file_changes.calculator import (
     get_all_main_py_files,
     get_all_py_files,
     load_previous_timestamps,
+)
+from compy_cli.src.transpiler.util.write_cmake_lists import (
+    CMakeListsWriter,
+    CMakeListsWriterDeps,
 )
 
 
@@ -28,20 +33,6 @@ class CalcChangesDeps:
 
 
 @dataclass(frozen=True, slots=True)
-class WriteCmakeListsFileDeps:
-    dirs: CompyDirs
-    main_py_files: list[Path]
-    proj_info: ProjInfo
-
-
-@dataclass(frozen=True, slots=True)
-class TranspileDeps:
-    dirs: CompyDirs
-    proj_info: ProjInfo
-    src_py_files: list[Path]
-
-
-@dataclass(frozen=True, slots=True)
 class AllData:
     dirs: CompyDirs
     proj_info: ProjInfo
@@ -50,8 +41,10 @@ class AllData:
     prev_timestamps: TimeStampsFile
     initialize_cpp_project_deps: InitializeCppProjectDeps
     calc_changes_deps: CalcChangesDeps
-    write_cmake_lists_file_deps: WriteCmakeListsFileDeps
-    transpile_deps: TranspileDeps
+    cmake_lists_writer_deps: CMakeListsWriterDeps
+    cmake_lists_writer: CMakeListsWriter
+    transpiler_deps: TranspilerDeps
+    transpiler: Transpiler
 
 
 def create_all_data(dirs: CompyDirs) -> AllData:
@@ -59,6 +52,8 @@ def create_all_data(dirs: CompyDirs) -> AllData:
     main_py_files = create_main_py_files(dirs)
     src_py_files = get_all_py_files(dirs.python_src_dir)
     prev_timestamps = load_previous_timestamps(dirs.timestamps_file)
+    transpiler_deps = TranspilerDeps(dirs, proj_info, src_py_files)
+    cmake_lists_writer_deps = CMakeListsWriterDeps(dirs, main_py_files, proj_info)
 
     return AllData(
         dirs,
@@ -68,8 +63,10 @@ def create_all_data(dirs: CompyDirs) -> AllData:
         prev_timestamps,
         InitializeCppProjectDeps(dirs, proj_info),
         CalcChangesDeps(dirs, proj_info, main_py_files, src_py_files, prev_timestamps),
-        WriteCmakeListsFileDeps(dirs, main_py_files, proj_info),
-        TranspileDeps(dirs, proj_info, src_py_files),
+        cmake_lists_writer_deps,
+        CMakeListsWriter(cmake_lists_writer_deps),
+        transpiler_deps,
+        Transpiler(transpiler_deps),
     )
 
 

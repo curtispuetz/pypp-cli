@@ -3,7 +3,7 @@ import json
 from pathlib import Path
 import shutil
 
-from compy_cli.src.package_manager.installer.json_validations.always_pass_by_value import (
+from compy_cli.src.package_manager.installer.json_validations.always_pass_by_value import (  # noqa: E501
     validate_always_pass_by_value,
 )
 from compy_cli.src.package_manager.installer.json_validations.ann_assign_map import (
@@ -24,7 +24,7 @@ from compy_cli.src.package_manager.installer.json_validations.import_map import 
 from compy_cli.src.package_manager.installer.json_validations.name_map import (
     validate_name_map,
 )
-from compy_cli.src.package_manager.installer.json_validations.subscriptable_types import (
+from compy_cli.src.package_manager.installer.json_validations.subscriptable_types import (  # noqa: E501
     validate_subscriptable_types,
 )
 from compy_cli.src.package_manager.util.pip_helper import (

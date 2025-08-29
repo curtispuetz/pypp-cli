@@ -7,7 +7,7 @@ from compy_cli.src.transpiler.handle_stmt.h_class_def.create_final_str import (
 from compy_cli.src.transpiler.handle_stmt.h_class_def.for_dataclasses.calc_fields_and_methods import (  # noqa: E501
     calc_fields_and_methods_for_dataclass,
 )
-from compy_cli.src.transpiler.handle_stmt.h_class_def.for_dataclasses.calc_constructor_sig import (
+from compy_cli.src.transpiler.handle_stmt.h_class_def.for_dataclasses.calc_constructor_sig import (  # noqa: E501
     calc_constructor_signature_for_dataclass,
 )
 

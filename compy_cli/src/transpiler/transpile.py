@@ -4,13 +4,9 @@ from compy_cli.src.compy_dirs import CompyDirs
 from compy_cli.src.transpiler.create_all_data import (
     AllData,
     CalcChangesDeps,
-    TranspileDeps,
     create_all_data,
 )
-from compy_cli.src.transpiler.util.calculator import (
-    TranspileResults,
-    transpile_all_changed_files,
-)
+from compy_cli.src.transpiler.util.calculator import TranspileResults, Transpiler
 from compy_cli.src.transpiler.util.file_changes.calculator import (
     save_timestamps,
 )
@@ -24,25 +20,21 @@ from compy_cli.src.transpiler.util.file_changes.calculator import (
 from compy_cli.src.transpiler.util.initalize_cpp import (
     initialize_cpp_project,
 )
-from compy_cli.src.transpiler.util.write_cmake_lists import write_cmake_lists_file
 
 
 def compy_transpile(dirs: CompyDirs) -> list[Path]:
-    all_data: AllData = create_all_data(dirs)
+    a: AllData = create_all_data(dirs)
     # Step 1: Copy the C++ template to the cpp project directory if marked as dirty
-    if all_data.proj_info.cpp_dir_is_dirty:
-        initialize_cpp_project(all_data.initialize_cpp_project_deps)
+    if a.proj_info.cpp_dir_is_dirty:
+        initialize_cpp_project(a.initialize_cpp_project_deps)
     else:
         print("C++ template already copied to the cpp project directory")
 
     # Step 2: calculate the files that have changed since the last transpile
-    src_changes, main_changes = _calc_changes(all_data.calc_changes_deps)
+    src_changes, main_changes = _calc_changes(a.calc_changes_deps)
 
     # Step 2.1 write the CMakeLists.txt file
-    write_cmake_lists_file(
-        all_data.write_cmake_lists_file_deps,
-        main_changes.ignored_file_stems,
-    )
+    a.cmake_lists_writer.write(main_changes.ignored_file_stems)
 
     # Step 3: iterate over the deleted Py files and delete the corresponding C++ files
     files_deleted: int = 0
@@ -58,7 +50,7 @@ def compy_transpile(dirs: CompyDirs) -> list[Path]:
     # Step 4: iterate over the changes and new files and transpile them
     assert dirs.python_src_dir.exists(), "src/ dir must be defined; dir not found"
     dirs.cpp_src_dir.mkdir(parents=True, exist_ok=True)
-    ret = _transpile(all_data.transpile_deps, src_changes, main_changes, files_deleted)
+    ret = _transpile(a.transpiler, src_changes, main_changes, files_deleted)
 
     # Step 5: save the file timestamps
     save_timestamps(
@@ -70,16 +62,16 @@ def compy_transpile(dirs: CompyDirs) -> list[Path]:
 
 
 def _transpile(
-    d: TranspileDeps,
+    t: Transpiler,
     src_changes: PyFileChanges,
     main_changes: PyFileChanges,
     files_deleted: int,
 ) -> list[Path]:
-    src: TranspileResults = transpile_all_changed_files(
-        d, src_changes.new_files, src_changes.changed_files
+    src: TranspileResults = t.transpile_all_changed_files(
+        src_changes.new_files, src_changes.changed_files
     )
-    main: TranspileResults = transpile_all_changed_files(
-        d, main_changes.new_files, main_changes.changed_files, is_main_files=True
+    main: TranspileResults = t.transpile_all_changed_files(
+        main_changes.new_files, main_changes.changed_files, is_main_files=True
     )
 
     print(

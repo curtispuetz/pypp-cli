@@ -7,7 +7,7 @@ from compy_cli.src.transpiler.deps import Deps
 from compy_cli.src.transpiler.handle_stmt.h_class_def.create_final_str import (
     create_final_str_for_class_def,
 )
-from compy_cli.src.transpiler.handle_stmt.h_class_def.for_class.calc_fields_and_methods import (
+from compy_cli.src.transpiler.handle_stmt.h_class_def.for_class.calc_fields_and_methods import (  # noqa: E501
     calc_methods_fields_and_base_constructor_calls_for_class,
 )
 
