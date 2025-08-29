@@ -4,7 +4,10 @@ from compy_cli.src.transpiler.module.d_types import QInc
 from compy_cli.src.transpiler.module.deps import Deps
 from compy_cli.src.transpiler.module.mapping.fn_arg import lookup_cpp_fn_arg
 from compy_cli.src.transpiler.module.util.calc_callable_type import calc_callable_type
-from compy_cli.src.transpiler.module.util.inner_strings import calc_inside_sq, calc_inside_rd
+from compy_cli.src.transpiler.module.util.inner_strings import (
+    calc_inside_sq,
+    calc_inside_rd,
+)
 
 
 def calc_fn_signature(

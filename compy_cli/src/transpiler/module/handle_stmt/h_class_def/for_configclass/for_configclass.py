@@ -1,7 +1,9 @@
 import ast
 
 from compy_cli.src.transpiler.module.deps import Deps
-from compy_cli.src.transpiler.module.handle_stmt.h_ann_assign import handle_general_ann_assign
+from compy_cli.src.transpiler.module.handle_stmt.h_ann_assign import (
+    handle_general_ann_assign,
+)
 from compy_cli.src.transpiler.module.handle_stmt.h_assign import handle_assign
 
 

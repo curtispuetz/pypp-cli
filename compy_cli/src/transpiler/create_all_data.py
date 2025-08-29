@@ -5,10 +5,10 @@ from compy_cli.src.compy_dirs import CompyDirs
 from compy_cli.src.transpiler.util.transpiler import Transpiler, TranspilerDeps
 from compy_cli.src.transpiler.util.load_proj_info import load_proj_info
 from compy_cli.src.transpiler.util.load_proj_info import ProjInfo
-from compy_cli.src.transpiler.util.file_changes.calculator import (
+from compy_cli.src.transpiler.util.file_changes.file_loader import (
     TimeStampsFile,
-    get_all_main_py_files,
-    get_all_py_files,
+    calc_all_main_py_files,
+    calc_all_py_files,
     load_previous_timestamps,
 )
 from compy_cli.src.transpiler.util.write_cmake_lists import (
@@ -50,7 +50,7 @@ class AllData:
 def create_all_data(dirs: CompyDirs) -> AllData:
     proj_info: ProjInfo = load_proj_info(dirs)
     main_py_files = create_main_py_files(dirs)
-    src_py_files = get_all_py_files(dirs.python_src_dir)
+    src_py_files = calc_all_py_files(dirs.python_src_dir)
     prev_timestamps = load_previous_timestamps(dirs.timestamps_file)
     transpiler_deps = TranspilerDeps(dirs, proj_info, src_py_files)
     cmake_lists_writer_deps = CMakeListsWriterDeps(dirs, main_py_files, proj_info)
@@ -71,7 +71,7 @@ def create_all_data(dirs: CompyDirs) -> AllData:
 
 
 def create_main_py_files(dirs: CompyDirs) -> list[Path]:
-    ret: list[Path] = get_all_main_py_files(dirs.python_dir)
+    ret: list[Path] = calc_all_main_py_files(dirs.python_dir)
     if not ret:
         raise Exception(
             f"No Python files (*.py) found in '{dirs.python_dir}'. These are the main "

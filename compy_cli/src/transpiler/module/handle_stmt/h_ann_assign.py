@@ -10,7 +10,10 @@ from compy_cli.src.transpiler.module.mapping.d_types import (
 )
 from compy_cli.src.transpiler.module.mapping.util import calc_string_fn, find_map_entry
 from compy_cli.src.transpiler.module.util.calc_callable_type import calc_callable_type
-from compy_cli.src.transpiler.module.util.inner_strings import calc_inside_ang, calc_inside_rd
+from compy_cli.src.transpiler.module.util.inner_strings import (
+    calc_inside_ang,
+    calc_inside_rd,
+)
 from compy_cli.src.transpiler.module.util.calc_ref_string import calc_ref_str
 
 

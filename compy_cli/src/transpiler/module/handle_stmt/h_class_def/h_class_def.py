@@ -1,7 +1,7 @@
 import ast
 
 from compy_cli.src.transpiler.module.deps import Deps
-from compy_cli.src.transpiler.module.handle_stmt.h_class_def.for_class.for_class import (
+from compy_cli.src.transpiler.module.handle_stmt.h_class_def.for_class.for_class import (  # noqa: E501
     handle_class_def_for_class,
 )
 from compy_cli.src.transpiler.module.handle_stmt.h_class_def.for_configclass.for_configclass import (  # noqa: E501

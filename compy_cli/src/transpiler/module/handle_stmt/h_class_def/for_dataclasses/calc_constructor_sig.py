@@ -1,4 +1,7 @@
-from compy_cli.src.transpiler.module.handle_stmt.h_class_def.util import ClassField, ARG_PREFIX
+from compy_cli.src.transpiler.module.handle_stmt.h_class_def.util import (
+    ClassField,
+    ARG_PREFIX,
+)
 
 
 def calc_constructor_signature_for_dataclass(
