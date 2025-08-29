@@ -25,22 +25,19 @@ from compy_cli.src.transpiler.util.write_cmake_lists import (
 )
 
 
-# TODO: maybe make the 'deps' private? because I don't need to access them elsewhere.
-#  and also maybe some of the other ones too.
 @dataclass(frozen=True, slots=True)
 class AllData:
-    dirs: CompyDirs
     proj_info: ProjInfo
-    main_py_files: list[Path]
-    src_py_files: list[Path]
-    prev_timestamps: TimeStampsFile
-    cpp_project_initializer_deps: CppProjectInitializerDeps
+    _main_py_files: list[Path]
+    _src_py_files: list[Path]
+    _prev_timestamps: TimeStampsFile
+    _cpp_project_initializer_deps: CppProjectInitializerDeps
     cpp_project_initializer: CppProjectInitializer
-    file_change_cltr_deps: FileChangeCltrDeps
+    _file_change_cltr_deps: FileChangeCltrDeps
     file_change_cltr: FileChangeCltr
-    cmake_lists_writer_deps: CMakeListsWriterDeps
+    _cmake_lists_writer_deps: CMakeListsWriterDeps
     cmake_lists_writer: CMakeListsWriter
-    transpiler_deps: TranspilerDeps
+    _transpiler_deps: TranspilerDeps
     transpiler: Transpiler
 
 
@@ -57,7 +54,6 @@ def create_all_data(dirs: CompyDirs) -> AllData:
     cpp_project_initializer_deps = CppProjectInitializerDeps(dirs, proj_info)
 
     return AllData(
-        dirs,
         proj_info,
         main_py_files,
         src_py_files,
