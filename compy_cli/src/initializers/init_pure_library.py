@@ -1,4 +1,5 @@
 from pathlib import Path
+import subprocess
 from compy_cli.src.compy_dirs import CompyDirs
 from compy_cli.src.initializers.util.init_libs import (
     create_pyproject_toml,
@@ -6,7 +7,6 @@ from compy_cli.src.initializers.util.init_libs import (
     create_python_venv_and_install_hatchling,
     create_readme,
 )
-from compy_cli.src.package_manager.util.pip_helper import pip_install
 
 
 def compy_init_pure_library(library_name: str, dirs: CompyDirs):
@@ -17,6 +17,11 @@ def compy_init_pure_library(library_name: str, dirs: CompyDirs):
     create_pyproject_toml(dirs, library_name, library_name_underscores, [cp])
     proj_dir: Path = dirs.target_dir / library_name_underscores
     proj_dir.mkdir()
+    cpp_dir: Path = proj_dir / "cpp"
+    cpp_dir.mkdir()
+    compy_data_dir: Path = dirs.target_dir / "compy_data"
+    compy_data_dir.mkdir()
     create_python_hello_world(proj_dir)
     create_python_venv_and_install_hatchling(dirs)
-    pip_install(cp, dirs)
+    print(f"running 'pip install {cp}'...")
+    subprocess.check_call([dirs.calc_lib_py_executable(), "-m", "pip", "install", cp])
