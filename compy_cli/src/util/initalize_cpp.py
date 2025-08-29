@@ -4,18 +4,18 @@ import shutil
 from importlib.resources import files, as_file
 
 from compy_cli.src.compy_dirs import CompyDirs
-from compy_cli.src.main_scripts.util.load_proj_info import ProjInfo
+from compy_cli.src.util.create_all_data import InitializeCppProjectDeps
 from compy_cli.src.util.util import rm_dirs_and_files
 
 
-def initialize_cpp_project(dirs: CompyDirs, proj_info: ProjInfo):
-    rm_dirs_and_files(dirs.cpp_dir, {"libs"})
-    _copy_cpp_template_to_cpp_dir(dirs)
+def initialize_cpp_project(d: InitializeCppProjectDeps):
+    rm_dirs_and_files(d.dirs.cpp_dir, {"libs"})
+    _copy_cpp_template_to_cpp_dir(d.dirs)
     # Need to remove the timestamps file because all the C++ files need to be
     # generated again.
-    if dirs.timestamps_file.exists():
-        dirs.timestamps_file.unlink()
-    _set_cpp_dir_not_dirty_in_json(dirs, proj_info)
+    if d.dirs.timestamps_file.exists():
+        d.dirs.timestamps_file.unlink()
+    _set_cpp_dir_not_dirty_in_json(d)
 
 
 def _copy_cpp_template_to_cpp_dir(dirs: CompyDirs):
@@ -31,14 +31,14 @@ def _copy_cpp_template_to_cpp_dir(dirs: CompyDirs):
                 shutil.copy2(src_path, dst_path)
 
 
-def _set_cpp_dir_not_dirty_in_json(dirs: CompyDirs, proj_info: ProjInfo):
-    with open(dirs.proj_info_file, "w") as file:
+def _set_cpp_dir_not_dirty_in_json(d: InitializeCppProjectDeps):
+    with open(d.dirs.proj_info_file, "w") as file:
         json.dump(
             {
                 "cpp_dir_is_dirty": False,
-                "ignore_src_files": proj_info.ignored_src_files,
-                "ignore_main_files": proj_info.ignored_main_files,
-                "installed_bridge_libraries": proj_info.installed_bridge_libs,
+                "ignore_src_files": d.proj_info.ignored_src_files,
+                "ignore_main_files": d.proj_info.ignored_main_files,
+                "installed_bridge_libraries": d.proj_info.installed_bridge_libs,
             },
             file,
             indent=4,

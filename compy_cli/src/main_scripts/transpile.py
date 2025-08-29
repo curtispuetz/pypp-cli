@@ -1,21 +1,27 @@
 from pathlib import Path
 
 from compy_cli.src.compy_dirs import CompyDirs
-from compy_cli.src.util.transpiler import Transpiler
-from compy_cli.src.main_scripts.util.load_proj_info import load_proj_info
-from compy_cli.src.main_scripts.util.load_proj_info import ProjInfo
+from compy_cli.src.util.create_all_data import (
+    AllData,
+    CalcChangesDeps,
+    TranspileDeps,
+    create_all_data,
+)
+from compy_cli.src.util.transpiler import (
+    _Transpiler,
+    TranspileResults,
+    transpile_all_changed_files,
+)
 from compy_cli.src.util.file_changes.calculator import (
-    get_all_main_py_files,
-    get_all_py_files,
     save_timestamps,
 )
 from compy_cli.src.util.file_changes.file_change_tracker_2 import (
-    FileChangeTracker,
+    _FileChangeTracker,
     PyFileChanges,
+    calc_py_file_changes,
 )
 from compy_cli.src.util.file_changes.calculator import (
     TimeStampsFile,
-    load_previous_timestamps,
 )
 from compy_cli.src.util.initalize_cpp import (
     initialize_cpp_project,
@@ -24,30 +30,20 @@ from compy_cli.src.util.write_cmake_lists import write_cmake_lists_file
 
 
 def compy_transpile(dirs: CompyDirs) -> list[Path]:
+    all_data: AllData = create_all_data(dirs)
     # Step 1: Copy the C++ template to the cpp project directory if marked as dirty
-    proj_info: ProjInfo = load_proj_info(dirs)
-    if proj_info.cpp_dir_is_dirty:
-        initialize_cpp_project(dirs, proj_info)
+    if all_data.proj_info.cpp_dir_is_dirty:
+        initialize_cpp_project(all_data.initialize_cpp_project_deps)
     else:
         print("C++ template already copied to the cpp project directory")
 
     # Step 2: calculate the files that have changed since the last transpile
-    main_py_files: list[Path] = get_all_main_py_files(dirs.python_dir)
-    if not main_py_files:
-        raise Exception(
-            f"No Python files (*.py) found in '{dirs.python_dir}'. These are the main "
-            f"files and at least one is needed."
-        )
-
-    src_py_files: list[Path] = get_all_py_files(dirs.python_src_dir)
-    prev_timestamps: TimeStampsFile = load_previous_timestamps(dirs.timestamps_file)
-    src_changes, main_changes = _calc_changes(
-        dirs, proj_info, main_py_files, src_py_files, prev_timestamps
-    )
+    src_changes, main_changes = _calc_changes(all_data.calc_changes_deps)
 
     # Step 2.1 write the CMakeLists.txt file
     write_cmake_lists_file(
-        dirs, main_py_files, proj_info, main_changes.ignored_file_stems
+        all_data.write_cmake_lists_file_deps,
+        main_changes.ignored_file_stems,
     )
 
     # Step 3: iterate over the deleted Py files and delete the corresponding C++ files
@@ -64,9 +60,7 @@ def compy_transpile(dirs: CompyDirs) -> list[Path]:
     # Step 4: iterate over the changes and new files and transpile them
     assert dirs.python_src_dir.exists(), "src/ dir must be defined; dir not found"
     dirs.cpp_src_dir.mkdir(parents=True, exist_ok=True)
-    ret = _transpile(
-        dirs, proj_info, src_py_files, src_changes, main_changes, files_deleted
-    )
+    ret = _transpile(all_data.transpile_deps, src_changes, main_changes, files_deleted)
 
     # Step 5: save the file timestamps
     save_timestamps(
@@ -78,79 +72,66 @@ def compy_transpile(dirs: CompyDirs) -> list[Path]:
 
 
 def _transpile(
-    dirs: CompyDirs,
-    proj_info: ProjInfo,
-    src_py_files: list[Path],
+    d: TranspileDeps,
     src_changes: PyFileChanges,
     main_changes: PyFileChanges,
     files_deleted: int,
 ) -> list[Path]:
-    src_transpiler = Transpiler(dirs, proj_info, src_py_files)
-    src_transpiler.transpile_all_changed_files(
-        src_changes.new_files, src_changes.changed_files
+    src: TranspileResults = transpile_all_changed_files(
+        d, src_changes.new_files, src_changes.changed_files
     )
-    main_transpiler = Transpiler(dirs, proj_info, src_py_files, is_main_files=True)
-    main_transpiler.transpile_all_changed_files(
-        main_changes.new_files, main_changes.changed_files
+    main: TranspileResults = transpile_all_changed_files(
+        d, main_changes.new_files, main_changes.changed_files, is_main_files=True
     )
 
     print(
         f"Compy transpile finished. "
         f"files deleted: {files_deleted}, "
         f"py files transpiled: "
-        f"{src_transpiler.py_files_transpiled + main_transpiler.py_files_transpiled}, "
+        f"{src.py_files_transpiled + main.py_files_transpiled}, "
         f"header files written: "
-        f"{src_transpiler.header_files_written + main_transpiler.header_files_written},"
+        f"{src.header_files_written + main.header_files_written},"
         f" cpp files written: "
-        f"{src_transpiler.cpp_files_written + main_transpiler.cpp_files_written}"
+        f"{src.cpp_files_written + main.cpp_files_written}"
     )
 
-    return (
-        src_transpiler.files_added_or_modified + main_transpiler.files_added_or_modified
-    )
+    return src.files_added_or_modified + main.files_added_or_modified
 
 
-def _calc_changes(
-    dirs: CompyDirs,
-    proj_info: ProjInfo,
-    main_py_files: list[Path],
-    src_py_files: list[Path],
-    prev_timestamps: TimeStampsFile,
-) -> tuple[PyFileChanges, PyFileChanges]:
-    fct_src = FileChangeTracker(prev_timestamps.src_files)
-    fct_main = FileChangeTracker(prev_timestamps.main_files)
-    src_changes = fct_src.calc_py_file_changes(
-        dirs.python_src_dir, proj_info.ignored_src_files, src_py_files
+def _calc_changes(d: CalcChangesDeps) -> tuple[PyFileChanges, PyFileChanges]:
+    src = calc_py_file_changes(
+        d.prev_timestamps.src_files,
+        d.dirs.python_src_dir,
+        d.proj_info.ignored_src_files,
+        d.src_py_files,
     )
-    main_changes = fct_main.calc_py_file_changes(
-        dirs.python_dir, proj_info.ignored_main_files, main_py_files
+    main = calc_py_file_changes(
+        d.prev_timestamps.main_files,
+        d.dirs.python_dir,
+        d.proj_info.ignored_main_files,
+        d.main_py_files,
     )
 
     if not (
-        src_changes.changed_files
-        or src_changes.new_files
-        or src_changes.deleted_files
-        or main_changes.changed_files
-        or main_changes.new_files
-        or main_changes.deleted_files
+        src.changed_files
+        or src.new_files
+        or src.deleted_files
+        or main.changed_files
+        or main.new_files
+        or main.deleted_files
     ):
         print("No file changes detected.")
     else:
         print(
-            f"changed files: {
-                len(src_changes.changed_files) + len(main_changes.changed_files)
-            }, "
-            f"new files: {len(src_changes.new_files) + len(main_changes.new_files)}, "
-            f"deleted files: {
-                len(src_changes.deleted_files) + len(main_changes.deleted_files)
-            },"
+            f"changed files: {len(src.changed_files) + len(main.changed_files)}, "
+            f"new files: {len(src.new_files) + len(main.new_files)}, "
+            f"deleted files: {len(src.deleted_files) + len(main.deleted_files)},"
             f" ignored files: {
-                list(src_changes.ignored_file_stems)
-                + list(main_changes.ignored_file_stems)
+                list(src.ignored_file_stems) + list(main.ignored_file_stems)
             }"
         )
 
-    return src_changes, main_changes
+    return src, main
 
 
 def _delete_cpp_and_h_file(filepath: Path, dirs: CompyDirs) -> int:
