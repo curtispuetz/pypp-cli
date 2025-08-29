@@ -1,16 +1,13 @@
 import json
 from pathlib import Path
-from compy_cli.src.compy_dirs import CompyDirs
-from compy_cli.src.main_scripts.util.load_proj_info import ProjInfo
+from compy_cli.src.util.create_all_data import WriteCmakeListsFileDeps
 
 
 def write_cmake_lists_file(
-    dirs: CompyDirs,
-    main_py_files: list[Path],
-    proj_info: ProjInfo,
+    d: WriteCmakeListsFileDeps,
     ignored_main_file_stems: set[str],
 ):
-    add_lines, link_libs = _calc_add_lines_and_link_libs_from_libraries(dirs, proj_info)
+    add_lines, link_libs = _calc_add_lines_and_link_libs_from_libraries(d)
     cmake_lines = [
         "cmake_minimum_required(VERSION 4.0)",
         "project(compy LANGUAGES CXX)",
@@ -40,7 +37,7 @@ def write_cmake_lists_file(
         "",
     ]
 
-    for py_file in main_py_files:
+    for py_file in d.main_py_files:
         exe_name = py_file.stem
         main_cpp = f"{exe_name}.cpp"
         if exe_name not in ignored_main_file_stems:
@@ -52,19 +49,19 @@ def write_cmake_lists_file(
 
     cmake_content = "\n".join(cmake_lines)
 
-    cmake_path: Path = dirs.cpp_dir / "CMakeLists.txt"
+    cmake_path: Path = d.dirs.cpp_dir / "CMakeLists.txt"
     cmake_path.write_text(cmake_content)
 
     print("CMakeLists.txt generated to cpp project directory")
 
 
 def _calc_add_lines_and_link_libs_from_libraries(
-    dirs: CompyDirs, proj_info: ProjInfo
+    d: WriteCmakeListsFileDeps,
 ) -> tuple[list[str], list[str]]:
     add_lines: list[str] = []
     link_libs: list[str] = []
-    for installed_library in proj_info.installed_bridge_libs:
-        cmake_lists: Path = dirs.calc_bridge_json(installed_library, "cmake_lists")
+    for installed_library in d.proj_info.installed_bridge_libs:
+        cmake_lists: Path = d.dirs.calc_bridge_json(installed_library, "cmake_lists")
         if cmake_lists.exists():
             with open(cmake_lists, "r") as f:
                 data = json.load(f)

@@ -19,7 +19,17 @@ def _should_ignore_file(rel_path_posix: str, ignore_src_files: list[str]) -> boo
     return False
 
 
-class FileChangeTracker:
+def calc_py_file_changes(
+    prev_timestamps: dict[str, float],
+    root_dir: Path,
+    ignore_files: list[str],
+    py_files: list[Path],
+) -> PyFileChanges:
+    fct = _FileChangeTracker(prev_timestamps)
+    return fct.calc_py_file_changes(root_dir, ignore_files, py_files)
+
+
+class _FileChangeTracker:
     def __init__(self, prev_timestamps: dict[str, float]):
         self._prev_timestamps = prev_timestamps
         self._curr_timestamps: dict[str, float] = {}
