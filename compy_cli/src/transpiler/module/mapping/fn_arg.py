@@ -1,5 +1,5 @@
 from compy_cli.src.transpiler.module.deps import Deps
-from compy_cli.src.transpiler.module.mapping.d_types import FnArgByValueMapValue
+from compy_cli.src.transpiler.maps.d_types import FnArgByValueMapValue
 from compy_cli.src.transpiler.module.mapping.util import is_one
 from compy_cli.src.transpiler.module.util.inner_strings import calc_inside_rd
 

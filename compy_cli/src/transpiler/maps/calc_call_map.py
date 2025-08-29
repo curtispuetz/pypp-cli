@@ -3,15 +3,15 @@ from typing import Callable
 from compy_cli.src.compy_dirs import CompyDirs
 from compy_cli.src.transpiler.module.handle_expr.h_call.default_map import CALL_MAP
 from compy_cli.src.transpiler.util.load_proj_info import ProjInfo
-from compy_cli.src.transpiler.module.mapping.maps.util.util import (
+from compy_cli.src.transpiler.maps.util.util import (
     calc_cpp_includes,
 )
-from compy_cli.src.transpiler.module.mapping.d_types import (
+from compy_cli.src.transpiler.maps.d_types import (
     CallMapEntry,
     LeftAndRightEntry,
     CallMap,
 )
-from compy_cli.src.transpiler.module.mapping.maps.util.calc_map_1 import (
+from compy_cli.src.transpiler.maps.util.calc_map_1 import (
     BASE_CALC_ENTRY_FN_MAP,
     calc_map_1,
     calc_replace_dot_with_double_colon_entry,

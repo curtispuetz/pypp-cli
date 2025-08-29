@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Callable
 from compy_cli.src.compy_dirs import CompyDirs
-from compy_cli.src.transpiler.module.mapping.maps.maps import Maps, calc_maps
+from compy_cli.src.transpiler.maps.maps import Maps, calc_maps
 from compy_cli.src.transpiler.util.calc_ast_tree import calc_ast_tree
 from compy_cli.src.transpiler.util.load_proj_info import ProjInfo
 from compy_cli.src.transpiler.module.source_calculator import (

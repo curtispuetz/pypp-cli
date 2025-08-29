@@ -4,7 +4,7 @@ from compy_cli.src.transpiler.module.deps import Deps
 from compy_cli.src.transpiler.module.handle_expr.h_starred import (
     handle_call_with_starred_arg,
 )
-from compy_cli.src.transpiler.module.mapping.d_types import (
+from compy_cli.src.transpiler.maps.d_types import (
     ToStringEntry,
     CustomMappingEntry,
     CustomMappingFromLibEntry,

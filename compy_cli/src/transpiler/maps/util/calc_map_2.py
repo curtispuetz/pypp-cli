@@ -7,7 +7,7 @@ from compy_cli.src.transpiler.module.d_types import (
     PySpecificImport,
 )
 from compy_cli.src.transpiler.util.load_proj_info import ProjInfo
-from compy_cli.src.transpiler.module.mapping.maps.util.util import (
+from compy_cli.src.transpiler.maps.util.util import (
     calc_imp_str,
     calc_required_py_import,
 )

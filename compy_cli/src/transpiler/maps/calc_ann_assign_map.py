@@ -1,11 +1,11 @@
 from compy_cli.src.compy_dirs import CompyDirs
 from compy_cli.src.transpiler.module.d_types import PySpecificImpFrom
 from compy_cli.src.transpiler.util.load_proj_info import ProjInfo
-from compy_cli.src.transpiler.module.mapping.d_types import (
+from compy_cli.src.transpiler.maps.d_types import (
     CustomMappingStartsWithEntry,
     AnnAssignsMap,
 )
-from compy_cli.src.transpiler.module.mapping.maps.util.calc_map_1 import (
+from compy_cli.src.transpiler.maps.util.calc_map_1 import (
     BASE_CALC_ENTRY_FN_MAP,
     calc_map_1,
 )

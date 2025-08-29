@@ -3,16 +3,16 @@ from pathlib import Path
 from typing import Callable
 from compy_cli.src.compy_dirs import CompyDirs
 from compy_cli.src.transpiler.util.load_proj_info import ProjInfo
-from compy_cli.src.transpiler.module.mapping.d_types import (
+from compy_cli.src.transpiler.maps.d_types import (
     CustomMappingFromLibEntry,
     CustomMappingStartsWithFromLibEntry,
     ReplaceDotWithDoubleColonEntry,
     ToStringEntry,
 )
-from compy_cli.src.transpiler.module.mapping.maps.util.util import (
+from compy_cli.src.transpiler.maps.util.util import (
     calc_imp_str,
 )
-from compy_cli.src.transpiler.module.mapping.maps.util.util import (
+from compy_cli.src.transpiler.maps.util.util import (
     calc_cpp_includes,
     calc_required_py_import,
 )

@@ -1,8 +1,8 @@
 from compy_cli.src.compy_dirs import CompyDirs
 from compy_cli.src.transpiler.module.d_types import PySpecificImpFrom
 from compy_cli.src.transpiler.util.load_proj_info import ProjInfo
-from compy_cli.src.transpiler.module.mapping.d_types import SubscriptableTypeMap
-from compy_cli.src.transpiler.module.mapping.maps.util.calc_map_2 import calc_map_2
+from compy_cli.src.transpiler.maps.d_types import SubscriptableTypeMap
+from compy_cli.src.transpiler.maps.util.calc_map_2 import calc_map_2
 
 SUBSCRIPTABLE_TYPE_MAP: SubscriptableTypeMap = {
     "PyList": {None},

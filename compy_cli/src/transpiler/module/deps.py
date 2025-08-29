@@ -8,7 +8,7 @@ from compy_cli.src.transpiler.module.d_types import (
     PySpecificImport,
     is_imported,
 )
-from compy_cli.src.transpiler.module.mapping.maps.maps import Maps
+from compy_cli.src.transpiler.maps.maps import Maps
 from compy_cli.src.transpiler.module.util.ret_imports import RetImports, add_inc
 
 
