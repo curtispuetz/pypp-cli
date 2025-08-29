@@ -7,7 +7,9 @@ from compy_cli.src.transpiler.module.handle_expr.h_call.h_call import handle_cal
 from compy_cli.src.transpiler.module.handle_expr.h_compare import handle_compare
 from compy_cli.src.transpiler.module.handle_expr.h_constant import handle_constant
 from compy_cli.src.transpiler.module.handle_expr.h_dict import handle_dict
-from compy_cli.src.transpiler.module.handle_expr.h_joined_string import handle_joined_string
+from compy_cli.src.transpiler.module.handle_expr.h_joined_string import (
+    handle_joined_string,
+)
 from compy_cli.src.transpiler.module.handle_expr.h_lambda import handle_lambda
 from compy_cli.src.transpiler.module.handle_expr.h_list import handle_list
 from compy_cli.src.transpiler.module.handle_expr.h_name import handle_name

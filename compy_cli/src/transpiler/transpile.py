@@ -7,14 +7,14 @@ from compy_cli.src.transpiler.create_all_data import (
     create_all_data,
 )
 from compy_cli.src.transpiler.util.transpiler import TranspileResults, Transpiler
-from compy_cli.src.transpiler.util.file_changes.calculator import (
+from compy_cli.src.transpiler.util.file_changes.file_loader import (
     save_timestamps,
 )
-from compy_cli.src.transpiler.util.file_changes.file_change_tracker_2 import (
+from compy_cli.src.transpiler.util.file_changes.calculator import (
     PyFileChanges,
     calc_py_file_changes,
 )
-from compy_cli.src.transpiler.util.file_changes.calculator import (
+from compy_cli.src.transpiler.util.file_changes.file_loader import (
     TimeStampsFile,
 )
 from compy_cli.src.transpiler.util.initalize_cpp import (

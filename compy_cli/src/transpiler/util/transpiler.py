@@ -11,6 +11,7 @@ from compy_cli.src.transpiler.module.source_calculator import (
     calc_src_file_cpp_and_h_source,
 )
 
+
 @dataclass
 class TranspileResults:
     files_added_or_modified: list[Path]

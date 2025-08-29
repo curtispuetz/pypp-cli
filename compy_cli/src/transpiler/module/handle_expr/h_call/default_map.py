@@ -1,6 +1,11 @@
 import ast
 
-from compy_cli.src.transpiler.module.d_types import AngInc, PyImport, PySpecificImpFrom, QInc
+from compy_cli.src.transpiler.module.d_types import (
+    AngInc,
+    PyImport,
+    PySpecificImpFrom,
+    QInc,
+)
 from compy_cli.src.transpiler.module.handle_expr.h_call.default_dict_map_fn import (
     good_default_dict,
 )

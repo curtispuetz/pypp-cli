@@ -27,6 +27,7 @@ from compy_cli.src.transpiler.module.mapping.maps.calc_subscriptable_type_map im
     calc_subscriptable_type_map,
 )
 
+
 # TODO: maybe move this out of the 'module' folder
 @dataclass(frozen=True, slots=True)
 class Maps:
