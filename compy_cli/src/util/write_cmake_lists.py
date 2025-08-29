@@ -1,6 +1,6 @@
 import json
 from pathlib import Path
-from compy_cli.src.util.create_all_data import WriteCmakeListsFileDeps
+from compy_cli.src.util.transpiler.create_all_data import WriteCmakeListsFileDeps
 
 
 def write_cmake_lists_file(

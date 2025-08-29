@@ -4,7 +4,7 @@ from pathlib import Path
 from typing import Callable
 from compy_cli.src.mapping.maps.maps import Maps, calc_maps
 from compy_cli.src.util.calc_ast_tree import calc_ast_tree
-from compy_cli.src.util.create_all_data import TranspileDeps
+from compy_cli.src.util.transpiler.create_all_data import TranspileDeps
 from compy_cli.src.util.source_calculator import (
     calc_main_cpp_source,
     calc_src_file_cpp_and_h_source,

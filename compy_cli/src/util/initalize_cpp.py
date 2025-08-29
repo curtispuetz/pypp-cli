@@ -4,7 +4,7 @@ import shutil
 from importlib.resources import files, as_file
 
 from compy_cli.src.compy_dirs import CompyDirs
-from compy_cli.src.util.create_all_data import InitializeCppProjectDeps
+from compy_cli.src.util.transpiler.create_all_data import InitializeCppProjectDeps
 from compy_cli.src.util.util import rm_dirs_and_files
 
 

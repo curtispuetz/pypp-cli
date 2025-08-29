@@ -1,14 +1,13 @@
 from pathlib import Path
 
 from compy_cli.src.compy_dirs import CompyDirs
-from compy_cli.src.util.create_all_data import (
+from compy_cli.src.util.transpiler.create_all_data import (
     AllData,
     CalcChangesDeps,
     TranspileDeps,
     create_all_data,
 )
-from compy_cli.src.util.transpiler import (
-    _Transpiler,
+from compy_cli.src.util.transpiler.calculator import (
     TranspileResults,
     transpile_all_changed_files,
 )
@@ -16,7 +15,6 @@ from compy_cli.src.util.file_changes.calculator import (
     save_timestamps,
 )
 from compy_cli.src.util.file_changes.file_change_tracker_2 import (
-    _FileChangeTracker,
     PyFileChanges,
     calc_py_file_changes,
 )
