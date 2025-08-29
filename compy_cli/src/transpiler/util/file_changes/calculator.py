@@ -2,7 +2,7 @@ import json
 from dataclasses import dataclass
 from pathlib import Path
 
-
+# TODO: rename file
 @dataclass(frozen=True, slots=True)
 class TimeStampsFile:
     main_files: dict[str, float]

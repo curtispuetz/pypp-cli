@@ -6,7 +6,7 @@ from compy_cli.src.transpiler.create_all_data import (
     CalcChangesDeps,
     create_all_data,
 )
-from compy_cli.src.transpiler.util.calculator import TranspileResults, Transpiler
+from compy_cli.src.transpiler.util.transpiler import TranspileResults, Transpiler
 from compy_cli.src.transpiler.util.file_changes.calculator import (
     save_timestamps,
 )

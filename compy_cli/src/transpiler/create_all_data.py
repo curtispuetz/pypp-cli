@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from compy_cli.src.compy_dirs import CompyDirs
-from compy_cli.src.transpiler.util.calculator import Transpiler, TranspilerDeps
+from compy_cli.src.transpiler.util.transpiler import Transpiler, TranspilerDeps
 from compy_cli.src.transpiler.util.load_proj_info import load_proj_info
 from compy_cli.src.transpiler.util.load_proj_info import ProjInfo
 from compy_cli.src.transpiler.util.file_changes.calculator import (
