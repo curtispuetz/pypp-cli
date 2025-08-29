@@ -2,13 +2,16 @@ import ast
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Callable
+from compy_cli.src.compy_dirs import CompyDirs
 from compy_cli.src.transpiler.mapping.maps.maps import Maps, calc_maps
 from compy_cli.src.transpiler.util.calc_ast_tree import calc_ast_tree
-from compy_cli.src.transpiler.create_all_data import TranspileDeps
+from compy_cli.src.transpiler.util.load_proj_info import ProjInfo
 from compy_cli.src.transpiler.util.source_calculator import (
     calc_main_cpp_source,
     calc_src_file_cpp_and_h_source,
 )
+
+# TODO: rename file to transpiler
 
 
 @dataclass
@@ -19,26 +22,37 @@ class TranspileResults:
     cpp_files_written: int
 
 
-def transpile_all_changed_files(
-    d: TranspileDeps,
-    new_files: list[Path],
-    changed_files: list[Path],
-    is_main_files: bool = False,
-) -> TranspileResults:
-    transpiler = _Transpiler(d, is_main_files)
-    transpiler.transpile_all_changed_files(new_files, changed_files)
-    return TranspileResults(
-        transpiler.files_added_or_modified,
-        transpiler.py_files_transpiled,
-        transpiler.header_files_written,
-        transpiler.cpp_files_written,
-    )
+@dataclass(frozen=True, slots=True)
+class TranspilerDeps:
+    dirs: CompyDirs
+    proj_info: ProjInfo
+    src_py_files: list[Path]
 
 
-class _Transpiler:
+class Transpiler:
+    def __init__(self, d: TranspilerDeps) -> None:
+        self._d = d
+
+    def transpile_all_changed_files(
+        self,
+        new_files: list[Path],
+        changed_files: list[Path],
+        is_main_files: bool = False,
+    ) -> TranspileResults:
+        transpiler = _TranspilerHelper(self._d, is_main_files)
+        transpiler.transpile_all_changed_files(new_files, changed_files)
+        return TranspileResults(
+            transpiler.files_added_or_modified,
+            transpiler.py_files_transpiled,
+            transpiler.header_files_written,
+            transpiler.cpp_files_written,
+        )
+
+
+class _TranspilerHelper:
     def __init__(
         self,
-        d: TranspileDeps,
+        d: TranspilerDeps,
         is_main_files: bool = False,
     ) -> None:
         self._d = d

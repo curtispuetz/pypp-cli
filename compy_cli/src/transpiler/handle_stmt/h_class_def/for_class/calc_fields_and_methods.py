@@ -1,7 +1,7 @@
 import ast
 
 from compy_cli.src.transpiler.deps import Deps
-from compy_cli.src.transpiler.handle_stmt.h_class_def.for_class.calc_constructor_sig import (
+from compy_cli.src.transpiler.handle_stmt.h_class_def.for_class.calc_constructor_sig import (  # noqa: E501
     calc_constructor_signature_for_class,
 )
 from compy_cli.src.transpiler.handle_stmt.h_class_def.util import (
@@ -12,6 +12,11 @@ from compy_cli.src.transpiler.handle_stmt.h_class_def.util import (
     ARG_PREFIX,
 )
 from compy_cli.src.transpiler.util.calc_fn_signature import calc_fn_arg_types
+
+
+_ERROR_STR: str = (
+    "only field assignments without type annotation are supported in __init__"
+)
 
 
 def calc_methods_fields_and_base_constructor_calls_for_class(
@@ -65,13 +70,9 @@ def _calc_fields_and_base_constructor_calls(
                 calc_class_field(field_types[assign_name], field_name, assign_name)
             )
         elif isinstance(item, ast.Expr):
-            error_str: str = (
-                "only field assignments without type annotation are "
-                "supported in __init__"
-            )
-            assert isinstance(item.value, ast.Call), error_str
-            assert isinstance(item.value.func, ast.Attribute), error_str
-            assert item.value.func.attr == "__init__", error_str
+            assert isinstance(item.value, ast.Call), _ERROR_STR
+            assert isinstance(item.value.func, ast.Attribute), _ERROR_STR
+            assert item.value.func.attr == "__init__", _ERROR_STR
             args_str_list: list[str] = []
             for arg in item.value.args[1:]:
                 args_str_list.append(ARG_PREFIX + d.handle_expr(arg))
@@ -79,5 +80,5 @@ def _calc_fields_and_base_constructor_calls(
             base_class_name = d.handle_expr(item.value.func.value)
             ret.append(f"{base_class_name}({args_str})")
         else:
-            raise ValueError(error_str)
+            raise ValueError(_ERROR_STR)
     return ret

@@ -3,7 +3,9 @@ from compy_cli.src.package_manager.installer.json_validations.util.basic_info im
     VALIDATE_BASIC_INFO,
 )
 from compy_cli.src.transpiler.mapping.util import calc_funcs_in_str
-from compy_cli.src.package_manager.installer.json_validations.util.validations import validate_is_list_of_strings
+from compy_cli.src.package_manager.installer.json_validations.util.validations import (
+    validate_is_list_of_strings,
+)
 
 
 def _validate_is_single_mapping_fn(key_chain: list[str], v: object, S: str):
