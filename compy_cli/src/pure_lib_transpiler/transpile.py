@@ -49,4 +49,12 @@ def compy_transpile_pure(
     )
     r = transpiler.get_results()
     print_transpilation_results(r, files_deleted)
+
+    with open(paths.timestamps_file, "w") as f:
+        json.dump(
+            changes.new_timestamps,
+            f,
+            indent=2,
+        )
+
     return r.files_added_or_modified
