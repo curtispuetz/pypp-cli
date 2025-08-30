@@ -1,8 +1,7 @@
 from dataclasses import dataclass
 import json
 from pathlib import Path
-from compy_cli.src.compy_dirs import CompyDirs
-from compy_cli.src.transpiler.util.load_proj_info import ProjInfo
+from compy_cli.src.compy_dirs import calc_bridge_json
 
 
 def _calc_module_beginning(module: str) -> str:
@@ -28,11 +27,15 @@ class ImportMap:
         return False
 
 
-def calc_import_map(proj_info: ProjInfo, dirs: CompyDirs) -> ImportMap:
+def calc_import_map(
+    installed_bridge_libs: dict[str, str], py_env_parent_dir: Path
+) -> ImportMap:
     modules: set[str] = set()
     libraries: dict[str, set[str]] = {}
-    for installed_library in proj_info.installed_bridge_libs:
-        json_path: Path = dirs.calc_bridge_json(installed_library, "import_map")
+    for installed_library in installed_bridge_libs:
+        json_path: Path = calc_bridge_json(
+            py_env_parent_dir, installed_library, "import_map"
+        )
         if json_path.is_file():
             with open(json_path, "r") as f:
                 # Note: Json should already be verified valid on library install.

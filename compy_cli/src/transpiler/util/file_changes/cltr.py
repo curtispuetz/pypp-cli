@@ -3,6 +3,7 @@ from fnmatch import fnmatch
 from pathlib import Path
 
 
+# TODO: extract this stuff to common area
 @dataclass(frozen=True, slots=True)
 class PyFileChanges:
     changed_files: list[Path]

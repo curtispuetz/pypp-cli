@@ -2,11 +2,10 @@ import json
 from typing import Callable
 from pathlib import Path
 
-from compy_cli.src.compy_dirs import CompyDirs
+from compy_cli.src.compy_dirs import calc_bridge_json
 from compy_cli.src.transpiler.module.d_types import (
     PySpecificImport,
 )
-from compy_cli.src.transpiler.util.load_proj_info import ProjInfo
 from compy_cli.src.transpiler.maps.util.util import (
     calc_imp_str,
     calc_required_py_import,
@@ -15,14 +14,16 @@ from compy_cli.src.transpiler.maps.util.util import (
 
 def calc_map_2(
     default_map: dict[str, set[PySpecificImport | None]],
-    proj_info: ProjInfo,
-    dirs: CompyDirs,
+    installed_bridge_libs: dict[str, str],
+    py_env_parent_dir: Path,
     json_file_name: str,
     warning_fn: Callable[[str, str], str],
 ) -> dict[str, set[PySpecificImport | None]]:
     ret = default_map.copy()
-    for installed_library in proj_info.installed_bridge_libs:
-        json_path: Path = dirs.calc_bridge_json(installed_library, json_file_name)
+    for installed_library in installed_bridge_libs:
+        json_path: Path = calc_bridge_json(
+            py_env_parent_dir, installed_library, json_file_name
+        )
         if json_path.is_file():
             with open(json_path, "r") as f:
                 m: dict = json.load(f)

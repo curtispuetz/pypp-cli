@@ -1,6 +1,5 @@
-from compy_cli.src.compy_dirs import CompyDirs
+from pathlib import Path
 from compy_cli.src.transpiler.module.d_types import PySpecificImpFrom
-from compy_cli.src.transpiler.util.load_proj_info import ProjInfo
 from compy_cli.src.transpiler.maps.d_types import (
     CustomMappingStartsWithEntry,
     AnnAssignsMap,
@@ -28,12 +27,14 @@ ANN_ASSIGN_MAP: AnnAssignsMap = {
 }
 
 
-def calc_ann_assign_map(proj_info: ProjInfo, dirs: CompyDirs) -> AnnAssignsMap:
+def calc_ann_assign_map(
+    installed_bridge_libs: dict[str, str], py_env_parent_dir: Path
+) -> AnnAssignsMap:
     return calc_map_1(
         ANN_ASSIGN_MAP,
         BASE_CALC_ENTRY_FN_MAP,
         "ann_assign_map",
         "ann_assign",
-        proj_info,
-        dirs,
+        installed_bridge_libs,
+        py_env_parent_dir,
     )
