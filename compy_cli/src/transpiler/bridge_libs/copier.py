@@ -1,7 +1,11 @@
 from dataclasses import dataclass
 from pathlib import Path
 import shutil
-from compy_cli.src.dirs_cltr import calc_cpp_libs_dir, calc_library_cpp_data_dir
+
+from compy_cli.src.transpiler.bridge_libs.util import (
+    calc_cpp_libs_dir,
+    calc_library_cpp_data_dir,
+)
 
 
 def copy_all_bridge_lib_cpp_files(

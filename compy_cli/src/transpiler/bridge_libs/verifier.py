@@ -2,7 +2,7 @@ from dataclasses import dataclass
 import json
 from pathlib import Path
 from typing import Callable
-from compy_cli.src.bridge_json_path_cltr import BridgeJsonPathCltr
+from compy_cli.src.transpiler.bridge_json_path_cltr import BridgeJsonPathCltr
 from compy_cli.src.transpiler.bridge_libs.json_validations.always_pass_by_value import (
     validate_always_pass_by_value,
 )

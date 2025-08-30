@@ -1,7 +1,6 @@
 from pathlib import Path
 import argparse
 
-from compy_cli.src.dirs_cltr import CompyDirsCltr
 from compy_cli.src.do import compy_do
 from compy_cli.src.initializers.init import compy_init
 from compy_cli.src.initializers.init_bridge_library import compy_init_bridge_library
@@ -83,14 +82,14 @@ def main_cli(absolute_dir: Path | None = None) -> None:
     args = parser.parse_args()
     if absolute_dir is None:
         absolute_dir = Path.cwd()
-    dirs_cltr = CompyDirsCltr(absolute_dir)
     if args.mode == "init":
-        compy_init(dirs_cltr)
+        compy_init(absolute_dir)
     elif args.mode == "init_bridge_library":
-        compy_init_bridge_library(args.library_name, dirs_cltr)
+        compy_init_bridge_library(args.library_name, absolute_dir)
     elif args.mode == "init_pure_library":
-        compy_init_pure_library(args.library_name, dirs_cltr)
-    elif not dirs_cltr.calc_proj_info_file().exists():
+        compy_init_pure_library(args.library_name, absolute_dir)
+    # TODO now: fix
+    elif not (absolute_dir / "compy_files" / "proj_info.json").exists():
         parser.error(
             "compy_files/proj_info.json file not found. "
             "Ensure your Compy project is properly initialized."
@@ -101,17 +100,17 @@ def main_cli(absolute_dir: Path | None = None) -> None:
             parser.error(
                 "argument --exe_name/-e is required when 'run' is one of the tasks."
             )
-        compy_do(args.tasks, dirs_cltr, args.exe_name)
+        compy_do(args.tasks, absolute_dir, args.exe_name)
     elif args.mode == "install":
         for lib in args.libraries:
-            compy_install(lib, dirs_cltr)
+            compy_install(lib, absolute_dir)
     elif args.mode == "uninstall":
         for lib in args.libraries:
-            compy_uninstall(lib, dirs_cltr)
+            compy_uninstall(lib, absolute_dir)
     elif args.mode == "delete_timestamps":
-        compy_delete_timestamps(dirs_cltr)
+        compy_delete_timestamps(absolute_dir)
     elif args.mode == "run_python":
-        compy_run_python(args.file, dirs_cltr)
+        compy_run_python(args.file, absolute_dir)
 
 
 if __name__ == "__main__":

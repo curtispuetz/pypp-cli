@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from compy_cli.src.bridge_json_path_cltr import BridgeJsonPathCltr
+from compy_cli.src.transpiler.bridge_json_path_cltr import BridgeJsonPathCltr
 from compy_cli.src.transpiler.maps.maps import MapsCltr
 from compy_cli.src.transpiler.maps.util.calc_import_map import ImportMapCltr
 from compy_cli.src.transpiler.maps.util.calc_map_1 import MapCltr1

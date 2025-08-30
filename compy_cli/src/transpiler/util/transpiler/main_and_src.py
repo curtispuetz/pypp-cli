@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from pathlib import Path
 
-from compy_cli.src.bridge_json_path_cltr import BridgeJsonPathCltr
+from compy_cli.src.transpiler.bridge_json_path_cltr import BridgeJsonPathCltr
 from compy_cli.src.transpiler.create_transpler_data import create_transpiler
 from compy_cli.src.transpiler.print_results import print_transpilation_results
 from compy_cli.src.transpiler.util.file_changes.cltr import PyFileChanges

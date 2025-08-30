@@ -1,10 +1,11 @@
-from compy_cli.src.dirs_cltr import CompyDirsCltr
+from pathlib import Path
+from compy_cli.src.other.compy_paths.delete_timestamps import create_timestamps_file
 
 
-def compy_delete_timestamps(dirs_cltr: CompyDirsCltr):
-    timestamps_files = dirs_cltr.calc_timestamps_file()
-    if not timestamps_files.exists():
+def compy_delete_timestamps(target_dir: Path):
+    timestamps_file = create_timestamps_file(target_dir)
+    if not timestamps_file.exists():
         print("file_timestamps.json does not exist, nothing to remove")
     else:
-        timestamps_files.unlink()
+        timestamps_file.unlink()
         print("file_timestamps.json removed")

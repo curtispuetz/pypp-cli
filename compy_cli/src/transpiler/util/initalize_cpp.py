@@ -4,7 +4,7 @@ from pathlib import Path
 import shutil
 from importlib.resources import files, as_file
 
-from compy_cli.src.library.file_actions import rm_dirs_and_files
+from compy_cli.src.other.library.file_actions import rm_dirs_and_files
 from compy_cli.src.transpiler.util.load_proj_info import ProjInfo
 
 
