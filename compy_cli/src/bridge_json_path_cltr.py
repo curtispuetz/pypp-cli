@@ -9,7 +9,7 @@ class BridgeJsonPathCltr:
         return (
             self._site_packages_dir
             / library_name
-            / "data"
+            / "compy_data"
             / "bridge_jsons"
             / f"{json_file_name}.json"
         )

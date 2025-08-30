@@ -14,7 +14,7 @@ def compy_init(dirs_cltr: CompyDirsCltr):
         dirs_cltr.calc_cpp_dir(),
         dirs_cltr.calc_python_src_dir(),
         dirs_cltr.calc_resources_dir(),
-        dirs_cltr.calc_compy_data_dir(),
+        dirs_cltr.calc_compy_files_dir(),
         dirs_cltr.calc_proj_info_file(),
         dirs_cltr.calc_py_executable(),
     )
@@ -32,7 +32,7 @@ class _CompyInitHelper:
     _cpp_dir: Path
     _python_src_dir: Path
     _resources_dir: Path
-    _compy_data_dir: Path
+    _compy_files_dir: Path
     _proj_info_file: Path
     _py_executable: Path
 
@@ -56,7 +56,7 @@ class _CompyInitHelper:
         self._python_dir.mkdir(parents=True, exist_ok=True)
         self._python_src_dir.mkdir(parents=True, exist_ok=True)
         self._resources_dir.mkdir(parents=True, exist_ok=True)
-        self._compy_data_dir.mkdir(parents=True, exist_ok=True)
+        self._compy_files_dir.mkdir(parents=True, exist_ok=True)
 
     def _create_python_main_file(self):
         main_py_path = self._python_dir / "main.py"

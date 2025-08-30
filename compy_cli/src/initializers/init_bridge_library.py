@@ -24,7 +24,7 @@ def compy_init_bridge_library(library_name: str, dirs_cltr: CompyDirsCltr):
 
 
 def _create_cpp_hello_world(proj_dir: Path):
-    cpp_dir: Path = proj_dir / "data" / "cpp"
+    cpp_dir: Path = proj_dir / "compy_data" / "cpp"
     cpp_dir.mkdir(parents=True)
     hello_world_h: Path = cpp_dir / "hello_world.h"
     hello_world_h.write_text(
@@ -53,7 +53,7 @@ def _create_cpp_hello_world(proj_dir: Path):
 
 
 def _create_import_map(proj_dir: Path):
-    bridge_jsons_dir: Path = proj_dir / "data" / "bridge_jsons"
+    bridge_jsons_dir: Path = proj_dir / "compy_data" / "bridge_jsons"
     bridge_jsons_dir.mkdir(parents=True)
     import_map: Path = bridge_jsons_dir / "import_map.json"
     data = {"ignore": []}

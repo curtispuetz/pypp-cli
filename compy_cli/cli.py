@@ -92,7 +92,7 @@ def main_cli(absolute_dir: Path | None = None) -> None:
         compy_init_pure_library(args.library_name, dirs_cltr)
     elif not dirs_cltr.calc_proj_info_file().exists():
         parser.error(
-            "compy_data/proj_info.json file not found. "
+            "compy_files/proj_info.json file not found. "
             "Ensure your Compy project is properly initialized."
         )
 
