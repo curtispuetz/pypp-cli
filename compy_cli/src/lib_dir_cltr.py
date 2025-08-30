@@ -7,7 +7,6 @@ class PureLibDirCltrDeps:
     target_dir: Path
 
 
-# TODO: move to common location
 class PureLibDirCltr:
     def __init__(self, d: PureLibDirCltrDeps):
         self._d = d
