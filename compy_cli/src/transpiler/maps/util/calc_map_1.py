@@ -61,9 +61,9 @@ class MapCltr1(MapCltrAlgo):
         self, base_map, calc_entry_fn_map, json_file_name: str, friendly_name: str
     ):
         ret = base_map.copy()
-        for installed_library in self._installed_bridge_libs:
+        for bridge_lib in self._bridge_libs:
             json_path: Path = self._bridge_json_path_cltr.calc_bridge_json(
-                installed_library, json_file_name
+                bridge_lib, json_file_name
             )
             if json_path.is_file():
                 with open(json_path, "r") as f:
@@ -76,7 +76,7 @@ class MapCltr1(MapCltrAlgo):
                         calc_entry_fn_map,
                         mapping_type,
                         json_file_name,
-                        installed_library,
+                        bridge_lib,
                     )
                     for k, v in mapping_vals.items():
                         required_import = calc_required_py_import(v)
@@ -86,7 +86,7 @@ class MapCltr1(MapCltrAlgo):
                                     f"warning: Compy transpiler already maps the "
                                     f"{friendly_name} "
                                     f"'{k}{calc_imp_str(required_import)}'. Library "
-                                    f"{installed_library} is overriding this mapping."
+                                    f"{bridge_lib} is overriding this mapping."
                                 )
                             ret[k][required_import] = calc_entry_fn_map[mapping_type](v)
                         else:

@@ -22,9 +22,9 @@ class MapCltr2(MapCltrAlgo):
         warning_fn: Callable[[str, str], str],
     ) -> dict[str, set[PySpecificImport | None]]:
         ret = default_map.copy()
-        for installed_library in self._installed_bridge_libs:
+        for bridge_lib in self._bridge_libs:
             json_path: Path = self._bridge_json_path_cltr.calc_bridge_json(
-                installed_library, json_file_name
+                bridge_lib, json_file_name
             )
             if json_path.is_file():
                 with open(json_path, "r") as f:
@@ -36,7 +36,7 @@ class MapCltr2(MapCltrAlgo):
                             print(
                                 f"warning: {
                                     warning_fn(
-                                        installed_library,
+                                        bridge_lib,
                                         f'{_type}{calc_imp_str(required_import)}',
                                     )
                                 }"

@@ -33,9 +33,9 @@ class ImportMapCltr(MapCltrAlgo):
     def calc_import_map(self) -> ImportMap:
         modules: set[str] = set()
         libraries: dict[str, set[str]] = {}
-        for installed_library in self._installed_bridge_libs:
+        for bridge_lib in self._bridge_libs:
             json_path: Path = self._bridge_json_path_cltr.calc_bridge_json(
-                installed_library, "import_map"
+                bridge_lib, "import_map"
             )
             if json_path.is_file():
                 with open(json_path, "r") as f:
@@ -46,12 +46,12 @@ class ImportMapCltr(MapCltrAlgo):
                     else:
                         assert "ignore" in r, (
                             f"Invalid import_map.json from library "
-                            f"'{installed_library}'. "
+                            f"'{bridge_lib}'. "
                             f"This should not happen because the library should be "
                             f"verified on install."
                         )
                         if len(r["ignore"]) == 0:
-                            libraries[installed_library] = set()
+                            libraries[bridge_lib] = set()
                         else:
-                            libraries[installed_library] = set(r["ignore"])
+                            libraries[bridge_lib] = set(r["ignore"])
         return ImportMap(modules, libraries)

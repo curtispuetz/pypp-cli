@@ -22,7 +22,7 @@ class CMakeListsWriter:
     _cpp_dir: Path
     _bridge_json_path_cltr: BridgeJsonPathCltr
     _main_py_files: list[Path]
-    _installed_bridge_libs: dict[str, str]
+    _bridge_libs: list[str]
 
     def write(self, ignored_main_file_stems: set[str]):
         add_lines, link_libs = self._calc_add_lines_and_link_libs_from_libraries()
@@ -77,9 +77,9 @@ class CMakeListsWriter:
     ) -> tuple[list[str], list[str]]:
         add_lines: list[str] = []
         link_libs: list[str] = []
-        for installed_library in self._installed_bridge_libs:
+        for bridge_lib in self._bridge_libs:
             cmake_lists: Path = self._bridge_json_path_cltr.calc_bridge_json(
-                installed_library, "cmake_lists"
+                bridge_lib, "cmake_lists"
             )
             if cmake_lists.exists():
                 with open(cmake_lists, "r") as f:

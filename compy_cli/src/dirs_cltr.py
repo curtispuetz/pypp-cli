@@ -18,9 +18,6 @@ class CompyDirsCltr:
     def calc_cpp_build_dir(self) -> Path:
         return self.calc_cpp_dir() / "build"
 
-    def calc_cpp_libs_dir(self, library_name: str) -> Path:
-        return self.calc_cpp_dir() / "libs" / library_name
-
     def calc_cpp_build_release_dir(self) -> Path:
         return self.calc_cpp_build_dir() / "release"
 
@@ -51,5 +48,10 @@ class CompyDirsCltr:
     def calc_site_packages_dir(self) -> Path:
         return self.calc_python_dir() / ".venv" / "Lib" / "site-packages"
 
-    def calc_library_cpp_data_dir(self, library_name: str) -> Path:
-        return self.calc_site_packages_dir() / library_name / "data" / "cpp"
+
+def calc_cpp_libs_dir(cpp_dir: Path, library_name: str) -> Path:
+    return cpp_dir / "libs" / library_name
+
+
+def calc_library_cpp_data_dir(site_packages_dir: Path, library_name: str) -> Path:
+    return site_packages_dir / library_name / "data" / "cpp"
