@@ -2,7 +2,7 @@ import ast
 from pathlib import Path
 
 from compy_cli.src.transpiler.module.d_types import QInc
-from compy_cli.src.transpiler.module.deps import Deps, DepsDeps
+from compy_cli.src.transpiler.module.deps import Deps
 from compy_cli.src.transpiler.module.handle_expr.expr import handle_expr
 from compy_cli.src.transpiler.module.handle_stmt.stmt import handle_stmt
 from compy_cli.src.transpiler.maps.maps import Maps
@@ -46,14 +46,12 @@ def _create_deps(
 ) -> tuple[int, Deps]:
     cpp_inc_map, i, py_imports = handle_import_stmts(module.body, maps, src_py_files)
     d: Deps = Deps(
-        DepsDeps(
-            RetImports(set(), set(), cpp_inc_map),
-            [],
-            py_imports,
-            maps,
-            handle_expr,
-            handle_stmt,
-        )
+        RetImports(set(), set(), cpp_inc_map),
+        [],
+        maps,
+        py_imports,
+        handle_expr,
+        handle_stmt,
     )
 
     return i, d

@@ -4,13 +4,9 @@ import shutil
 
 from compy_cli.src.bridge_json_path_cltr import BridgeJsonPathCltr
 from compy_cli.src.dirs_cltr import CompyDirsCltr
-from compy_cli.src.package_manager.installer.json_verifier import (
-    BridgeJsonVerifier,
-    BridgeJsonVerifierDeps,
-)
+from compy_cli.src.package_manager.installer.json_verifier import BridgeJsonVerifier
 from compy_cli.src.package_manager.util.pip_helper import (
     PipHelper,
-    PipHelperDeps,
     get_lib_name_and_version_for_whl_file,
 )
 
@@ -18,13 +14,11 @@ from compy_cli.src.package_manager.util.pip_helper import (
 def compy_install(library: str, dirs_cltr: CompyDirsCltr):
     library_name, version = _get_library_name_and_version(library)
     pip_helper = PipHelper(
-        PipHelperDeps(dirs_cltr.calc_py_executable(), dirs_cltr.calc_timestamps_file())
+        dirs_cltr.calc_py_executable(), dirs_cltr.calc_timestamps_file()
     )
     pip_helper.install(library)
     bridge_json_verifier = BridgeJsonVerifier(
-        BridgeJsonVerifierDeps(
-            BridgeJsonPathCltr(dirs_cltr.calc_python_dir()), library_name
-        )
+        BridgeJsonPathCltr(dirs_cltr.calc_python_dir()), library_name
     )
     bridge_json_verifier.verify_bridge_jsons()
     _copy_cpp_library_files_if_any(library_name, dirs_cltr)

@@ -1,8 +1,9 @@
+from dataclasses import dataclass
 import json
 from typing import Callable
 from pathlib import Path
 
-from compy_cli.src.transpiler.maps.util.util import MapsCltrAlgoDeps
+from compy_cli.src.bridge_json_path_cltr import BridgeJsonPathCltr
 from compy_cli.src.transpiler.module.d_types import (
     PySpecificImport,
 )
@@ -12,9 +13,10 @@ from compy_cli.src.transpiler.maps.util.util import (
 )
 
 
+@dataclass(frozen=True, slots=True)
 class MapCltr2:
-    def __init__(self, d: MapsCltrAlgoDeps):
-        self._d = d
+    _installed_bridge_libs: dict[str, str]
+    _bridge_json_path_cltr: BridgeJsonPathCltr
 
     def calc_map_2(
         self,
@@ -23,8 +25,8 @@ class MapCltr2:
         warning_fn: Callable[[str, str], str],
     ) -> dict[str, set[PySpecificImport | None]]:
         ret = default_map.copy()
-        for installed_library in self._d.installed_bridge_libs:
-            json_path: Path = self._d.bridge_json_path_cltr.calc_bridge_json(
+        for installed_library in self._installed_bridge_libs:
+            json_path: Path = self._bridge_json_path_cltr.calc_bridge_json(
                 installed_library, json_file_name
             )
             if json_path.is_file():

@@ -6,7 +6,6 @@ import shutil
 from compy_cli.src.dirs_cltr import CompyDirsCltr
 from compy_cli.src.package_manager.util.pip_helper import (
     PipHelper,
-    PipHelperDeps,
     get_lib_name_and_version_for_whl_file,
 )
 
@@ -14,7 +13,7 @@ from compy_cli.src.package_manager.util.pip_helper import (
 def compy_uninstall(library: str, dirs_cltr: CompyDirsCltr):
     library_name = _get_library_name(library)
     pip_helper = PipHelper(
-        PipHelperDeps(dirs_cltr.calc_py_executable(), dirs_cltr.calc_timestamps_file())
+        dirs_cltr.calc_py_executable(), dirs_cltr.calc_timestamps_file()
     )
     pip_helper.uninstall(library)
     _delete_cpp_library_files(library_name, dirs_cltr)

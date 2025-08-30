@@ -18,16 +18,11 @@ def _calc_link_libs_lines(link_libs: list[str]) -> list[str]:
 
 
 @dataclass(frozen=True, slots=True)
-class CMakeListsWriterDeps:
-    cpp_dir: Path
-    bridge_json_path_cltr: BridgeJsonPathCltr
-    main_py_files: list[Path]
-    installed_bridge_libs: dict[str, str]
-
-
 class CMakeListsWriter:
-    def __init__(self, d: CMakeListsWriterDeps):
-        self._d = d
+    _cpp_dir: Path
+    _bridge_json_path_cltr: BridgeJsonPathCltr
+    _main_py_files: list[Path]
+    _installed_bridge_libs: dict[str, str]
 
     def write(self, ignored_main_file_stems: set[str]):
         add_lines, link_libs = self._calc_add_lines_and_link_libs_from_libraries()
@@ -60,7 +55,7 @@ class CMakeListsWriter:
             "",
         ]
 
-        for py_file in self._d.main_py_files:
+        for py_file in self._main_py_files:
             exe_name = py_file.stem
             main_cpp = f"{exe_name}.cpp"
             if exe_name not in ignored_main_file_stems:
@@ -72,7 +67,7 @@ class CMakeListsWriter:
 
         cmake_content = "\n".join(cmake_lines)
 
-        cmake_path: Path = self._d.cpp_dir / "CMakeLists.txt"
+        cmake_path: Path = self._cpp_dir / "CMakeLists.txt"
         cmake_path.write_text(cmake_content)
 
         print("CMakeLists.txt generated to cpp project directory")
@@ -82,8 +77,8 @@ class CMakeListsWriter:
     ) -> tuple[list[str], list[str]]:
         add_lines: list[str] = []
         link_libs: list[str] = []
-        for installed_library in self._d.installed_bridge_libs:
-            cmake_lists: Path = self._d.bridge_json_path_cltr.calc_bridge_json(
+        for installed_library in self._installed_bridge_libs:
+            cmake_lists: Path = self._bridge_json_path_cltr.calc_bridge_json(
                 installed_library, "cmake_lists"
             )
             if cmake_lists.exists():

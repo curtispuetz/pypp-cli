@@ -1,7 +1,8 @@
 from dataclasses import dataclass
 import json
 from pathlib import Path
-from compy_cli.src.transpiler.maps.util.util import MapsCltrAlgoDeps
+
+from compy_cli.src.bridge_json_path_cltr import BridgeJsonPathCltr
 
 
 def _calc_module_beginning(module: str) -> str:
@@ -27,15 +28,16 @@ class ImportMap:
         return False
 
 
+@dataclass(frozen=True, slots=True)
 class ImportMapCltr:
-    def __init__(self, d: MapsCltrAlgoDeps) -> None:
-        self._d = d
+    _installed_bridge_libs: dict[str, str]
+    _bridge_json_path_cltr: BridgeJsonPathCltr
 
     def calc_import_map(self) -> ImportMap:
         modules: set[str] = set()
         libraries: dict[str, set[str]] = {}
-        for installed_library in self._d.installed_bridge_libs:
-            json_path: Path = self._d.bridge_json_path_cltr.calc_bridge_json(
+        for installed_library in self._installed_bridge_libs:
+            json_path: Path = self._bridge_json_path_cltr.calc_bridge_json(
                 installed_library, "import_map"
             )
             if json_path.is_file():

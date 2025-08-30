@@ -9,41 +9,35 @@ from compy_cli.src.transpiler.util.load_proj_info import ProjInfo
 
 
 @dataclass(frozen=True, slots=True)
-class CppProjectInitializerDeps:
-    cpp_dir: Path
-    timestamps_file: Path
-    proj_info_file: Path
-    proj_info: ProjInfo
-
-
 class CppProjectInitializer:
-    def __init__(self, d: CppProjectInitializerDeps):
-        self._d = d
+    _cpp_dir: Path
+    _timestamps_file: Path
+    _proj_info_file: Path
+    _proj_info: ProjInfo
 
     def initialize_of_cpp_dir_is_dirty(self):
-        if self._d.proj_info.cpp_dir_is_dirty:
+        if self._proj_info.cpp_dir_is_dirty:
             self._initialize()
         else:
             print("C++ template already copied to the cpp project directory")
 
     def _initialize(self):
-        rm_dirs_and_files(self._d.cpp_dir, {"libs"})
+        rm_dirs_and_files(self._cpp_dir, {"libs"})
         self._copy_cpp_template_to_cpp_dir()
         # Need to remove the timestamps file because all the C++ files need to be
         # generated again.
-        if self._d.timestamps_file.exists():
-            self._d.timestamps_file.unlink()
+        if self._timestamps_file.exists():
+            self._timestamps_file.unlink()
         self._set_cpp_dir_not_dirty_in_json()
 
     def _set_cpp_dir_not_dirty_in_json(self):
-        with open(self._d.proj_info_file, "w") as file:
+        with open(self._proj_info_file, "w") as file:
             json.dump(
                 {
                     "cpp_dir_is_dirty": False,
-                    "ignore_src_files": self._d.proj_info.ignored_src_files,
-                    "ignore_main_files": self._d.proj_info.ignored_main_files,
-                    "installed_"
-                    "bridge_libraries": self._d.proj_info.installed_bridge_libs,
+                    "ignore_src_files": self._proj_info.ignored_src_files,
+                    "ignore_main_files": self._proj_info.ignored_main_files,
+                    "installed_bridge_libraries": self._proj_info.installed_bridge_libs,
                 },
                 file,
                 indent=4,
@@ -55,7 +49,7 @@ class CppProjectInitializer:
         template_root = files("compy_cli.data.cpp_template")
         for item in template_root.iterdir():
             with as_file(item) as src_path:
-                dst_path: Path = self._d.cpp_dir / item.name
+                dst_path: Path = self._cpp_dir / item.name
                 if src_path.is_dir():
                     shutil.copytree(src_path, dst_path)
                 else:
