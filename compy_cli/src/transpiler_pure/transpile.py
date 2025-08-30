@@ -5,6 +5,8 @@ from compy_cli.src.compy_dirs import CompyDirs
 from compy_cli.src.package_manager.installer.json_validations.util.validations import (
     validate_is_list_of_strings,
 )
+from compy_cli.src.transpiler.maps.calc_import_map import ImportMap
+from compy_cli.src.transpiler.maps.maps import Maps
 from compy_cli.src.transpiler.print_results import print_transpilation_results
 from compy_cli.src.transpiler.util.deleter import delete_cpp_and_h_files
 from compy_cli.src.transpiler.util.file_changes.file_loader import calc_all_py_files
@@ -79,9 +81,8 @@ def compy_transpile_pure(dirs: CompyDirs) -> list[Path]:
             python_dir,
             cpp_dir,
             python_dir,
-            dirs.target_dir,
-            {},
             py_files,
+            Maps({}, {}, {}, {}, {}, ImportMap(set(), {}), {}),
         )
     )
     transpiler.transpile_all_changed_files(changes.new_files, changes.changed_files)

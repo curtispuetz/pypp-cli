@@ -10,7 +10,6 @@ from compy_cli.src.transpiler.util.initalize_cpp import (
     CppProjectInitializer,
     CppProjectInitializerDeps,
 )
-from compy_cli.src.transpiler.util.transpiler import Transpiler, TranspilerDeps
 from compy_cli.src.transpiler.util.load_proj_info import load_proj_info
 from compy_cli.src.transpiler.util.load_proj_info import ProjInfo
 from compy_cli.src.transpiler.util.file_changes.file_loader import (
@@ -29,7 +28,7 @@ from compy_cli.src.transpiler.util.write_cmake_lists import (
 class AllData:
     proj_info: ProjInfo
     _main_py_files: list[Path]
-    _src_py_files: list[Path]
+    src_py_files: list[Path]
     _prev_timestamps: TimeStampsFile
     _cpp_project_initializer_deps: CppProjectInitializerDeps
     cpp_project_initializer: CppProjectInitializer
@@ -37,8 +36,6 @@ class AllData:
     file_change_cltr: FileChangeCltr
     _cmake_lists_writer_deps: CMakeListsWriterDeps
     cmake_lists_writer: CMakeListsWriter
-    _transpiler_deps: TranspilerDeps
-    transpiler: Transpiler
 
 
 def create_all_data(dirs: CompyDirs) -> AllData:
@@ -46,15 +43,6 @@ def create_all_data(dirs: CompyDirs) -> AllData:
     main_py_files = create_main_py_files(dirs)
     src_py_files = calc_all_py_files(dirs.python_src_dir)
     prev_timestamps = load_previous_timestamps(dirs.timestamps_file)
-    transpiler_deps = TranspilerDeps(
-        dirs.cpp_dir,
-        dirs.python_dir,
-        dirs.cpp_src_dir,
-        dirs.python_src_dir,
-        dirs.python_dir,
-        proj_info.installed_bridge_libs,
-        src_py_files,
-    )
     cmake_lists_writer_deps = CMakeListsWriterDeps(dirs, main_py_files, proj_info)
     file_change_cltr_deps = FileChangeCltrDeps(
         dirs, proj_info, main_py_files, src_py_files, prev_timestamps
@@ -72,8 +60,6 @@ def create_all_data(dirs: CompyDirs) -> AllData:
         FileChangeCltr(file_change_cltr_deps),
         cmake_lists_writer_deps,
         CMakeListsWriter(cmake_lists_writer_deps),
-        transpiler_deps,
-        Transpiler(transpiler_deps),
     )
 
 

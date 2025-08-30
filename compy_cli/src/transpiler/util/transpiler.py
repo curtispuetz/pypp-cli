@@ -2,7 +2,7 @@ import ast
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Callable
-from compy_cli.src.transpiler.maps.maps import Maps, calc_maps
+from compy_cli.src.transpiler.maps.maps import Maps
 from compy_cli.src.transpiler.util.calc_ast_tree import calc_ast_tree
 from compy_cli.src.transpiler.module.source_cltr import (
     calc_main_cpp_source,
@@ -24,9 +24,8 @@ class TranspilerDeps:
     python_dir: Path
     cpp_src_dir: Path
     python_src_dir: Path
-    py_env_parent_dir: Path
-    installed_bridge_libs: dict[str, str]
     src_py_files: list[Path]
+    maps: Maps
 
 
 class Transpiler:
@@ -63,7 +62,6 @@ class _TranspilerHelper:
         self.py_files_transpiled: int = 0
         self.header_files_written: int = 0
         self.cpp_files_written: int = 0
-        self._maps: Maps | None = None
 
     def transpile_all_changed_files(
         self,
@@ -92,11 +90,7 @@ class _TranspilerHelper:
     ):
         for file in new_files + changed_files:
             self.py_files_transpiled += 1
-            if self._maps is None:
-                self._maps = calc_maps(
-                    self._d.installed_bridge_libs, self._d.py_env_parent_dir
-                )
-            fn(file, self._maps)
+            fn(file, self._d.maps)
 
     def _transpile_cpp_and_h_files(
         self,
