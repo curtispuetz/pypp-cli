@@ -18,7 +18,6 @@ def compy_init_pure_library(library_name: str, dirs: CompyDirs):
     create_pyproject_toml(dirs, library_name, library_name_underscores, [cp])
     lib_dir: Path = dirs.calc_pure_lib_dir(library_name_underscores)
     lib_dir.mkdir()
-    # TODO: probably but this at the root instead of inside the python_dir
     cpp_dir: Path = dirs.calc_pure_lib_cpp_dir(library_name_underscores)
     cpp_dir.mkdir()
     compy_data_dir: Path = dirs.calc_pure_lib_compy_data_dir()
