@@ -35,13 +35,17 @@ def load_previous_timestamps(timestamps_file: Path) -> TimeStampsFile:
     )
 
 
-def save_timestamps(timestamps: TimeStampsFile, timestamps_file: Path):
-    with open(timestamps_file, "w") as f:
-        json.dump(
-            {
-                "main_files": timestamps.main_files,
-                "src_files": timestamps.src_files,
-            },
-            f,
-            indent=2,
-        )
+class TimestampsSaver:
+    def __init__(self, timestamps_file: Path):
+        self._timestamps_file = timestamps_file
+
+    def save(self, timestamps: TimeStampsFile):
+        with open(self._timestamps_file, "w") as f:
+            json.dump(
+                {
+                    "main_files": timestamps.main_files,
+                    "src_files": timestamps.src_files,
+                },
+                f,
+                indent=2,
+            )

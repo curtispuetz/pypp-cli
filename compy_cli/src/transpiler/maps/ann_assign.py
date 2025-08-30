@@ -1,12 +1,7 @@
-from pathlib import Path
 from compy_cli.src.transpiler.module.d_types import PySpecificImpFrom
 from compy_cli.src.transpiler.maps.d_types import (
     CustomMappingStartsWithEntry,
     AnnAssignsMap,
-)
-from compy_cli.src.transpiler.maps.util.calc_map_1 import (
-    BASE_CALC_ENTRY_FN_MAP,
-    calc_map_1,
 )
 
 
@@ -25,16 +20,3 @@ ANN_ASSIGN_MAP: AnnAssignsMap = {
         )
     },
 }
-
-
-def calc_ann_assign_map(
-    installed_bridge_libs: dict[str, str], py_env_parent_dir: Path
-) -> AnnAssignsMap:
-    return calc_map_1(
-        ANN_ASSIGN_MAP,
-        BASE_CALC_ENTRY_FN_MAP,
-        "ann_assign_map",
-        "ann_assign",
-        installed_bridge_libs,
-        py_env_parent_dir,
-    )

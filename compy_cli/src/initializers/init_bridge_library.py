@@ -1,25 +1,29 @@
 import json
 from pathlib import Path
-from compy_cli.src.compy_dirs import CompyDirs
+from compy_cli.src.dirs_cltr import CompyDirsCltr
 from compy_cli.src.initializers.util.init_libs import (
-    create_pyproject_toml,
+    InitLibsHelper,
+    InitLibsHelperDeps,
     create_python_hello_world,
-    create_python_venv_and_install_hatchling,
-    create_readme,
 )
 
 
-def compy_init_bridge_library(library_name: str, dirs: CompyDirs):
+def compy_init_bridge_library(library_name: str, dirs_cltr: CompyDirsCltr):
     print("creating bridge-library files...")
-    create_readme(dirs, library_name)
-    library_name_underscores = library_name.replace("-", "_")
-    create_pyproject_toml(dirs, library_name, library_name_underscores)
-    proj_dir: Path = dirs.target_dir / library_name_underscores
+    init_libs_helper = InitLibsHelper(
+        InitLibsHelperDeps(
+            dirs_cltr.target_dir, dirs_cltr.calc_lib_py_executable(), library_name
+        )
+    )
+    init_libs_helper.create_readme()
+    library_name_with_underscores = library_name.replace("-", "_")
+    init_libs_helper.create_pyproject_toml(library_name_with_underscores)
+    proj_dir: Path = dirs_cltr.target_dir / library_name_with_underscores
     proj_dir.mkdir()
     create_python_hello_world(proj_dir)
     _create_cpp_hello_world(proj_dir)
     _create_import_map(proj_dir)
-    create_python_venv_and_install_hatchling(dirs)
+    init_libs_helper.create_python_venv_and_install_hatchling()
 
 
 def _create_cpp_hello_world(proj_dir: Path):

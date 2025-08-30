@@ -1,5 +1,4 @@
 import ast
-from pathlib import Path
 from typing import Callable
 
 from compy_cli.src.transpiler.module.d_types import AngInc, QInc, PyImport
@@ -11,7 +10,6 @@ from compy_cli.src.transpiler.maps.d_types import (
 )
 from compy_cli.src.transpiler.maps.util.calc_map_1 import (
     BASE_CALC_ENTRY_FN_MAP,
-    calc_map_1,
     calc_replace_dot_with_double_colon_entry,
 )
 
@@ -47,16 +45,3 @@ ATTR_CALC_ENTRY_FN_MAP: dict[str, Callable[[dict], AttrMapEntry]] = {
     **BASE_CALC_ENTRY_FN_MAP,
     "replace_dot_with_double_colon": calc_replace_dot_with_double_colon_entry,
 }
-
-
-def calc_attr_map(
-    installed_bridge_libs: dict[str, str], py_env_parent_dir: Path
-) -> AttrMap:
-    return calc_map_1(
-        ATTR_MAP,
-        ATTR_CALC_ENTRY_FN_MAP,
-        "attr_map",
-        "attr",
-        installed_bridge_libs,
-        py_env_parent_dir,
-    )

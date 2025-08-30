@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from pathlib import Path
 
+from compy_cli.src.bridge_json_path_cltr import BridgeJsonPathCltr
 from compy_cli.src.transpiler.create_transpler_data import create_transpiler_data
 from compy_cli.src.transpiler.print_results import print_transpilation_results
 from compy_cli.src.transpiler.util.file_changes.cltr import PyFileChanges
@@ -14,6 +15,7 @@ class MainAndSrcTranspilerDeps:
     python_src_dir: Path
     installed_bridge_libs: dict[str, str]
     src_py_files: list[Path]
+    bridge_json_path_cltr: BridgeJsonPathCltr
 
 
 class MainAndSrcTranspiler:
@@ -26,6 +28,10 @@ class MainAndSrcTranspiler:
         main_changes: PyFileChanges,
         files_deleted: int,
     ) -> list[Path]:
+        assert self._d.python_src_dir.exists(), (
+            "src/ dir must be defined; dir not found"
+        )
+        self._d.cpp_src_dir.mkdir(parents=True, exist_ok=True)
         if (
             len(src_changes.new_files) > 0
             or len(src_changes.changed_files) > 0
@@ -33,7 +39,7 @@ class MainAndSrcTranspiler:
             or len(main_changes.changed_files) > 0
         ):
             a = create_transpiler_data(
-                self._d.python_dir,
+                self._d.bridge_json_path_cltr,
                 self._d.installed_bridge_libs,
                 self._d.src_py_files,
             )

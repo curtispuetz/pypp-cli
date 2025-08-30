@@ -1,13 +1,13 @@
 import subprocess
 import os
 
-from compy_cli.src.compy_dirs import CompyDirs
+from compy_cli.src.dirs_cltr import CompyDirsCltr
 
 
-def compy_run_python(file: str, dirs: CompyDirs):
+def compy_run_python(file: str, dirs_cltr: CompyDirsCltr):
     env = os.environ.copy()
     existing = env.get("PYTHONPATH", "")
-    env["PYTHONPATH"] = str(dirs.python_src_dir) + (
+    env["PYTHONPATH"] = str(dirs_cltr.calc_python_src_dir()) + (
         os.pathsep + existing if existing else ""
     )
-    subprocess.check_call([dirs.calc_py_executable(), file], env=env)
+    subprocess.check_call([dirs_cltr.calc_py_executable(), file], env=env)

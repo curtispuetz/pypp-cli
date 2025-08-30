@@ -1,0 +1,73 @@
+from dataclasses import dataclass
+import json
+from pathlib import Path
+from typing import Callable
+from compy_cli.src.bridge_json_path_cltr import BridgeJsonPathCltr
+from compy_cli.src.package_manager.installer.json_validations.always_pass_by_value import (  # noqa: E501
+    validate_always_pass_by_value,
+)
+from compy_cli.src.package_manager.installer.json_validations.ann_assign_map import (
+    validate_ann_assign_map,
+)
+from compy_cli.src.package_manager.installer.json_validations.attr_map import (
+    validate_attr_map,
+)
+from compy_cli.src.package_manager.installer.json_validations.call_map import (
+    validate_call_map,
+)
+from compy_cli.src.package_manager.installer.json_validations.cmake_lists import (
+    validate_cmake_lists,
+)
+from compy_cli.src.package_manager.installer.json_validations.import_map import (
+    validate_import_map,
+)
+from compy_cli.src.package_manager.installer.json_validations.name_map import (
+    validate_name_map,
+)
+from compy_cli.src.package_manager.installer.json_validations.subscriptable_types import (  # noqa: E501
+    validate_subscriptable_types,
+)
+
+
+BRIDGE_JSON_VALIDATION: dict[str, Callable[[object], None]] = {
+    "name_map": validate_name_map,
+    "ann_assign_map": validate_ann_assign_map,
+    "import_map": validate_import_map,
+    "call_map": validate_call_map,
+    "attr_map": validate_attr_map,
+    "subscriptable_types": validate_subscriptable_types,
+    "always_pass_by_value": validate_always_pass_by_value,
+    "cmake_lists": validate_cmake_lists,
+}
+
+
+@dataclass(frozen=True, slots=True)
+class BridgeJsonVerifierDeps:
+    bridge_json_path_cltr: BridgeJsonPathCltr
+    library_name: str
+
+
+class BridgeJsonVerifier:
+    def __init__(self, d: BridgeJsonVerifierDeps) -> None:
+        self._d = d
+
+    def verify_bridge_jsons(self):
+        try:
+            self._verify_bridge_json_files()
+        except AssertionError as e:
+            raise AssertionError(
+                f"An issue was found in one of the json files for bridge-library "
+                f"{self._d.library_name}: {e}. "
+                f"IMPORTANT: in order to avoid issues, uninstall "
+                f"{self._d.library_name}."
+            )
+
+    def _verify_bridge_json_files(self):
+        for file_name, validate in BRIDGE_JSON_VALIDATION.items():
+            json_path: Path = self._d.bridge_json_path_cltr.calc_bridge_json(
+                self._d.library_name, file_name
+            )
+            if json_path.exists():
+                with open(json_path, "r") as f:
+                    data = json.load(f)
+                validate(data)

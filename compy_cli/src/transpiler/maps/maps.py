@@ -1,19 +1,24 @@
 from dataclasses import dataclass
-from pathlib import Path
 
-from compy_cli.src.transpiler.maps.calc_ann_assign_map import (
-    calc_ann_assign_map,
+from compy_cli.src.transpiler.maps.ann_assign import (
+    ANN_ASSIGN_MAP,
 )
-from compy_cli.src.transpiler.maps.calc_attr_map import calc_attr_map
-from compy_cli.src.transpiler.maps.calc_call_map import calc_call_map
-from compy_cli.src.transpiler.maps.calc_fn_arg_by_value_map import (
-    calc_fn_arg_passed_by_value_map,
+from compy_cli.src.transpiler.maps.attr import (
+    ATTR_CALC_ENTRY_FN_MAP,
+    ATTR_MAP,
 )
-from compy_cli.src.transpiler.maps.calc_import_map import (
+from compy_cli.src.transpiler.maps.call import (
+    CALL_CALC_ENTRY_FN_MAP,
+)
+from compy_cli.src.transpiler.maps.fn_arg_passed_by_value import (
+    FN_ARG_PASSED_BY_VALUE_MAP,
+    fn_arg_passed_by_value_warning_msg,
+)
+from compy_cli.src.transpiler.maps.util.calc_import_map import (
     ImportMap,
-    calc_import_map,
+    ImportMapCltr,
 )
-from compy_cli.src.transpiler.maps.calc_name_map import calc_name_map
+from compy_cli.src.transpiler.maps.name import NAME_MAP
 from compy_cli.src.transpiler.maps.d_types import (
     AnnAssignsMap,
     AttrMap,
@@ -22,9 +27,16 @@ from compy_cli.src.transpiler.maps.d_types import (
     NameMap,
     SubscriptableTypeMap,
 )
-from compy_cli.src.transpiler.maps.calc_subscriptable_type_map import (
-    calc_subscriptable_type_map,
+from compy_cli.src.transpiler.maps.subscriptable_types import (
+    SUBSCRIPTABLE_TYPE_MAP,
+    subscriptable_type_warning_msg,
 )
+from compy_cli.src.transpiler.maps.util.calc_map_1 import (
+    BASE_CALC_ENTRY_FN_MAP,
+    MapCltr1,
+)
+from compy_cli.src.transpiler.maps.util.calc_map_2 import MapCltr2
+from compy_cli.src.transpiler.module.handle_expr.h_call.default_map import CALL_MAP
 
 
 @dataclass(frozen=True, slots=True)
@@ -38,13 +50,46 @@ class Maps:
     ann_assign: AnnAssignsMap
 
 
-def calc_maps(installed_bridge_libs: dict[str, str], py_env_parent_dir: Path) -> Maps:
-    return Maps(
-        calc_name_map(installed_bridge_libs, py_env_parent_dir),
-        calc_call_map(installed_bridge_libs, py_env_parent_dir),
-        calc_attr_map(installed_bridge_libs, py_env_parent_dir),
-        calc_fn_arg_passed_by_value_map(installed_bridge_libs, py_env_parent_dir),
-        calc_subscriptable_type_map(installed_bridge_libs, py_env_parent_dir),
-        calc_import_map(installed_bridge_libs, py_env_parent_dir),
-        calc_ann_assign_map(installed_bridge_libs, py_env_parent_dir),
-    )
+@dataclass(frozen=True, slots=True)
+class MapsCltrDeps:
+    cltr1: MapCltr1
+    cltr2: MapCltr2
+    import_cltr: ImportMapCltr
+
+
+class MapsCltr:
+    def __init__(self, d: MapsCltrDeps) -> None:
+        self._d = d
+
+    def calc_maps(self) -> Maps:
+        return Maps(
+            self._d.cltr1.calc_map_1(
+                NAME_MAP, BASE_CALC_ENTRY_FN_MAP, "name_map", "name"
+            ),
+            self._d.cltr1.calc_map_1(
+                CALL_MAP,
+                CALL_CALC_ENTRY_FN_MAP,
+                "call_map",
+                "call",
+            ),
+            self._d.cltr1.calc_map_1(
+                ATTR_MAP, ATTR_CALC_ENTRY_FN_MAP, "attr_map", "attr"
+            ),
+            self._d.cltr2.calc_map_2(
+                FN_ARG_PASSED_BY_VALUE_MAP,
+                "always_pass_by_value",
+                fn_arg_passed_by_value_warning_msg,
+            ),
+            self._d.cltr2.calc_map_2(
+                SUBSCRIPTABLE_TYPE_MAP,
+                "subscriptable_types",
+                subscriptable_type_warning_msg,
+            ),
+            self._d.import_cltr.calc_import_map(),
+            self._d.cltr1.calc_map_1(
+                ANN_ASSIGN_MAP,
+                BASE_CALC_ENTRY_FN_MAP,
+                "ann_assign_map",
+                "ann_assign",
+            ),
+        )

@@ -1,18 +1,14 @@
-from pathlib import Path
 from typing import Callable
 
-from compy_cli.src.transpiler.module.handle_expr.h_call.default_map import CALL_MAP
 from compy_cli.src.transpiler.maps.util.util import (
     calc_cpp_includes,
 )
 from compy_cli.src.transpiler.maps.d_types import (
     CallMapEntry,
     LeftAndRightEntry,
-    CallMap,
 )
 from compy_cli.src.transpiler.maps.util.calc_map_1 import (
     BASE_CALC_ENTRY_FN_MAP,
-    calc_map_1,
     calc_replace_dot_with_double_colon_entry,
 )
 
@@ -26,16 +22,3 @@ CALL_CALC_ENTRY_FN_MAP: dict[str, Callable[[dict], CallMapEntry]] = {
     "left_and_right": _calc_left_and_right_entry,
     "replace_dot_with_double_colon": calc_replace_dot_with_double_colon_entry,
 }
-
-
-def calc_call_map(
-    installed_bridge_libs: dict[str, str], py_env_parent_dir: Path
-) -> CallMap:
-    return calc_map_1(
-        CALL_MAP,
-        CALL_CALC_ENTRY_FN_MAP,
-        "call_map",
-        "call",
-        installed_bridge_libs,
-        py_env_parent_dir,
-    )
