@@ -2,8 +2,7 @@ from dataclasses import dataclass
 import json
 from pathlib import Path
 
-from compy_cli.src.compy_dirs import CompyDirs
-from compy_cli.src.transpiler.util.load_proj_info import ProjInfo
+from compy_cli.src.compy_dirs import calc_bridge_json
 
 
 def _calc_link_libs_lines(link_libs: list[str]) -> list[str]:
@@ -20,9 +19,10 @@ def _calc_link_libs_lines(link_libs: list[str]) -> list[str]:
 
 @dataclass(frozen=True, slots=True)
 class CMakeListsWriterDeps:
-    dirs: CompyDirs
+    cpp_dir: Path
+    python_dir: Path
     main_py_files: list[Path]
-    proj_info: ProjInfo
+    installed_bridge_libs: dict[str, str]
 
 
 class CMakeListsWriter:
@@ -72,7 +72,7 @@ class CMakeListsWriter:
 
         cmake_content = "\n".join(cmake_lines)
 
-        cmake_path: Path = self._d.dirs.cpp_dir / "CMakeLists.txt"
+        cmake_path: Path = self._d.cpp_dir / "CMakeLists.txt"
         cmake_path.write_text(cmake_content)
 
         print("CMakeLists.txt generated to cpp project directory")
@@ -82,9 +82,9 @@ class CMakeListsWriter:
     ) -> tuple[list[str], list[str]]:
         add_lines: list[str] = []
         link_libs: list[str] = []
-        for installed_library in self._d.proj_info.installed_bridge_libs:
-            cmake_lists: Path = self._d.dirs.calc_bridge_json(
-                installed_library, "cmake_lists"
+        for installed_library in self._d.installed_bridge_libs:
+            cmake_lists: Path = calc_bridge_json(
+                self._d.python_dir, installed_library, "cmake_lists"
             )
             if cmake_lists.exists():
                 with open(cmake_lists, "r") as f:
