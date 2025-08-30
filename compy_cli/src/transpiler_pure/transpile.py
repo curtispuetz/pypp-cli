@@ -3,7 +3,7 @@ import json
 from pathlib import Path
 from compy_cli.src.dirs_cltr import CompyDirsCltr
 from compy_cli.src.lib_dir_cltr import PureLibDirCltr
-from compy_cli.src.package_manager.installer.json_validations.util.validations import (
+from compy_cli.src.transpiler.bridge_libs.json_validations.util.validations import (
     validate_is_list_of_strings,
 )
 from compy_cli.src.transpiler.maps.util.calc_import_map import ImportMap

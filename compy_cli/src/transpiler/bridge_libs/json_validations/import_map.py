@@ -1,4 +1,4 @@
-from compy_cli.src.package_manager.installer.json_validations.util.validations import (
+from compy_cli.src.transpiler.bridge_libs.json_validations.util.validations import (
     validate_is_list_of_strings,
 )
 
