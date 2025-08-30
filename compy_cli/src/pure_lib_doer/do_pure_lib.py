@@ -9,12 +9,11 @@ from compy_cli.src.pure_lib_doer.pure_lib_proj_info import load_pure_proj_info
 from compy_cli.src.pure_lib_transpiler.transpile import compy_transpile_pure
 
 
-def compy_do_pure_lib(tasks: list[str], target_dir: Path, exe_name: str | None) -> None:
+def compy_do_pure_lib(tasks: list[str], target_dir: Path) -> None:
     proj_info = load_pure_proj_info(target_dir / "compy_files" / "proj_info.json")
     do_helper = _DoPureHelper(
         create_do_pure_compy_paths(target_dir, proj_info.lib_dir_name),
         proj_info.ignored_files,
-        exe_name,
     )
     task_methods = {"transpile": do_helper.transpile, "format": do_helper.format}
     for task in tasks:
@@ -23,15 +22,9 @@ def compy_do_pure_lib(tasks: list[str], target_dir: Path, exe_name: str | None) 
 
 
 class _DoPureHelper:
-    def __init__(
-        self,
-        paths: DoPureCompyPaths,
-        ignored_files: list[str],
-        exe_name: str | None,
-    ):
+    def __init__(self, paths: DoPureCompyPaths, ignored_files: list[str]):
         self._paths = paths
         self._ignored_files = ignored_files
-        self._exe_name = exe_name
         self._files_added_or_modified: list[Path] | None = None
 
     def transpile(self):
