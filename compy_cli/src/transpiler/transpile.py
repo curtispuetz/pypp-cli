@@ -86,18 +86,22 @@ def _transpile(
         or len(main_changes.changed_files) > 0
     ):
         a = create_transpiler_data(
-            cpp_dir,
             python_dir,
-            cpp_src_dir,
-            python_src_dir,
             installed_bridge_libs,
             src_py_files,
         )
         a.transpiler.transpile_all_changed_files(
-            src_changes.new_files, src_changes.changed_files
+            src_changes.new_files,
+            src_changes.changed_files,
+            python_src_dir,
+            cpp_src_dir,
         )
         a.transpiler.transpile_all_changed_files(
-            main_changes.new_files, main_changes.changed_files, is_main_files=True
+            main_changes.new_files,
+            main_changes.changed_files,
+            python_dir,
+            cpp_dir,
+            is_main_files=True,
         )
         r = a.transpiler.get_results()
         print_transpilation_results(r, files_deleted)
