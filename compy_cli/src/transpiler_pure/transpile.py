@@ -1,11 +1,5 @@
-from dataclasses import dataclass
 import json
 from pathlib import Path
-from compy_cli.src.dirs_cltr import CompyDirsCltr
-from compy_cli.src.lib_dir_cltr import PureLibDirCltr
-from compy_cli.src.transpiler.bridge_libs.json_validations.util.validations import (
-    validate_is_list_of_strings,
-)
 from compy_cli.src.transpiler.maps.util.calc_import_map import ImportMap
 from compy_cli.src.transpiler.maps.maps import Maps
 from compy_cli.src.transpiler.print_results import print_transpilation_results
@@ -15,31 +9,7 @@ from compy_cli.src.transpiler.util.transpiler.transpiler import (
     Transpiler,
 )
 from compy_cli.src.transpiler_pure.file_change_cltr import PureFileChangeCltr
-
-
-@dataclass(frozen=True, slots=True)
-class PureProjInfo:
-    lib_dir_name: str
-    ignored_files: list[str]
-
-
-def load_pure_proj_info(proj_info_file: Path) -> PureProjInfo:
-    with open(proj_info_file, "r") as f:
-        data = json.load(f)
-    _validate_pure_proj_info(data)
-    return PureProjInfo(data["lib_dir_name"], data.get("ignore_files", []))
-
-
-def _validate_pure_proj_info(proj_info: object):
-    assert isinstance(proj_info, dict), "proj_info.json must be a JSON Object"
-    assert "lib_dir_name" in proj_info, "lib_dir_name key missing in proj_info.json"
-    assert isinstance(proj_info["lib_dir_name"], str), (
-        "lib_dir_name must be a string in proj_info.json"
-    )
-    if "ignore_files" in proj_info:
-        validate_is_list_of_strings(
-            ["ignore_files"], proj_info["ignore_files"], "proj_info"
-        )
+from compy_cli.src.other.compy_paths.do_pure import DoPureCompyPaths
 
 
 def load_pure_previous_timestamps(timestamps_file: Path) -> dict[str, float]:
@@ -50,24 +20,22 @@ def load_pure_previous_timestamps(timestamps_file: Path) -> dict[str, float]:
     return {}
 
 
-def compy_transpile_pure(dirs_cltr: CompyDirsCltr) -> list[Path]:
-    pure_lib_dir_cltr = PureLibDirCltr(dirs_cltr.target_dir)
-    proj_info = load_pure_proj_info(pure_lib_dir_cltr.calc_proj_info())
-    pure_lib_dir = pure_lib_dir_cltr.calc_python_dir(proj_info.lib_dir_name)
-    pure_lib_cpp_dir = pure_lib_dir_cltr.calc_cpp_dir(proj_info.lib_dir_name)
-    py_files: list[Path] = calc_all_py_files(pure_lib_dir)
+def compy_transpile_pure(
+    paths: DoPureCompyPaths, ignored_files: list[str]
+) -> list[Path]:
+    py_files: list[Path] = calc_all_py_files(paths.python_dir)
     prev_timestamps: dict[str, float] = load_pure_previous_timestamps(
-        pure_lib_dir_cltr.calc_timestamps_file()
+        paths.timestamps_file
     )
     pure_file_change_cltr = PureFileChangeCltr(
-        pure_lib_dir,
-        proj_info.ignored_files,
+        paths.python_dir,
+        ignored_files,
         py_files,
         prev_timestamps,
     )
     changes = pure_file_change_cltr.calc_changes()
 
-    cpp_and_h_file_deleter = CppAndHFileDeleter(pure_lib_cpp_dir)
+    cpp_and_h_file_deleter = CppAndHFileDeleter(paths.cpp_dir)
     files_deleted: int = cpp_and_h_file_deleter.delete_files(
         [changes.deleted_files, changes.changed_files]
     )
@@ -77,7 +45,7 @@ def compy_transpile_pure(dirs_cltr: CompyDirsCltr) -> list[Path]:
         Maps({}, {}, {}, {}, {}, ImportMap(set(), {}), {}),
     )
     transpiler.transpile_all_changed_files(
-        changes.new_files, changes.changed_files, pure_lib_dir, pure_lib_cpp_dir
+        changes.new_files, changes.changed_files, paths.python_dir, paths.cpp_dir
     )
     r = transpiler.get_results()
     print_transpilation_results(r, files_deleted)

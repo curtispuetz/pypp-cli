@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from compy_cli.src.bridge_json_path_cltr import BridgeJsonPathCltr
+from compy_cli.src.transpiler.bridge_json_path_cltr import BridgeJsonPathCltr
 from compy_cli.src.transpiler.module.d_types import (
     AngInc,
     CppInclude,

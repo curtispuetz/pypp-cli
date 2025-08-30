@@ -1,8 +1,8 @@
 from dataclasses import dataclass
 from pathlib import Path
 
-from compy_cli.src.bridge_json_path_cltr import BridgeJsonPathCltr
-from compy_cli.src.dirs_cltr import CompyDirsCltr
+from compy_cli.src.other.compy_paths.do import DoCompyPaths
+from compy_cli.src.transpiler.bridge_json_path_cltr import BridgeJsonPathCltr
 from compy_cli.src.transpiler.bridge_libs.copier import copy_all_bridge_lib_cpp_files
 from compy_cli.src.transpiler.bridge_libs.deleter import delete_all_bridge_lib_cpp_files
 from compy_cli.src.transpiler.bridge_libs.finder import (
@@ -41,35 +41,30 @@ class AllData:
     timestamps_saver: TimestampsSaver
 
 
-def create_all_data(dirs_cltr: CompyDirsCltr) -> AllData:
-    proj_info_file: Path = dirs_cltr.calc_proj_info_file()
-    cpp_dir: Path = dirs_cltr.calc_cpp_dir()
-    cpp_src_dir: Path = dirs_cltr.calc_cpp_src_dir()
-    python_dir: Path = dirs_cltr.calc_python_dir()
-    python_src_dir: Path = dirs_cltr.calc_python_src_dir()
-    timestamps_file: Path = dirs_cltr.calc_timestamps_file()
-    proj_info: ProjInfo = load_proj_info(proj_info_file)
-    main_py_files = create_main_py_files(python_dir)
-    src_py_files = calc_all_py_files(python_src_dir)
-    site_packages_dir = dirs_cltr.calc_site_packages_dir()
-    bridge_json_path_cltr = BridgeJsonPathCltr(site_packages_dir)
+def create_all_data(paths: DoCompyPaths) -> AllData:
+    proj_info: ProjInfo = load_proj_info(paths.proj_info_file)
+    main_py_files = create_main_py_files(paths.python_dir)
+    src_py_files = calc_all_py_files(paths.python_src_dir)
+    bridge_json_path_cltr = BridgeJsonPathCltr(paths.site_packages_dir)
 
-    bridge_libs = find_bridge_libs(site_packages_dir)
+    bridge_libs = find_bridge_libs(paths.site_packages_dir)
     new_bridge_libs, deleted_bridge_libs = find_added_and_deleted_bridge_libs(
-        cpp_dir, set(bridge_libs)
+        paths.cpp_dir, set(bridge_libs)
     )
-    delete_all_bridge_lib_cpp_files(cpp_dir, deleted_bridge_libs)
+    delete_all_bridge_lib_cpp_files(paths.cpp_dir, deleted_bridge_libs)
     verify_all_bridge_libs(new_bridge_libs, bridge_json_path_cltr)
-    copy_all_bridge_lib_cpp_files(cpp_dir, site_packages_dir, new_bridge_libs)
+    copy_all_bridge_lib_cpp_files(
+        paths.cpp_dir, paths.site_packages_dir, new_bridge_libs
+    )
     # Should remove the timestamps file because transpiling can be different with a
     # new bridge library.
     if (
         len(new_bridge_libs) > 0 or len(deleted_bridge_libs) > 0
-    ) and timestamps_file.exists():
+    ) and paths.timestamps_file.exists():
         print("removing file_timestamps.json because bridge-libraries have changed")
-        timestamps_file.unlink()
+        paths.timestamps_file.unlink()
 
-    prev_timestamps = load_previous_timestamps(timestamps_file)
+    prev_timestamps = load_previous_timestamps(paths.timestamps_file)
 
     return AllData(
         proj_info,
@@ -77,11 +72,11 @@ def create_all_data(dirs_cltr: CompyDirsCltr) -> AllData:
         src_py_files,
         prev_timestamps,
         CppProjectInitializer(
-            dirs_cltr.calc_cpp_build_dir(), timestamps_file, proj_info_file, proj_info
+            paths.cpp_build_dir, paths.timestamps_file, paths.proj_info_file, proj_info
         ),
         FileChangeCltr(
-            python_dir,
-            python_src_dir,
+            paths.python_dir,
+            paths.python_src_dir,
             proj_info.ignored_src_files,
             proj_info.ignored_main_files,
             main_py_files,
@@ -90,22 +85,22 @@ def create_all_data(dirs_cltr: CompyDirsCltr) -> AllData:
         ),
         bridge_json_path_cltr,
         CMakeListsWriter(
-            cpp_dir,
+            paths.cpp_dir,
             bridge_json_path_cltr,
             main_py_files,
             bridge_libs,
         ),
         MainAndSrcTranspiler(
-            cpp_dir,
-            python_dir,
-            cpp_src_dir,
-            python_src_dir,
+            paths.cpp_dir,
+            paths.python_dir,
+            paths.cpp_src_dir,
+            paths.python_src_dir,
             bridge_libs,
             src_py_files,
             bridge_json_path_cltr,
         ),
-        CppAndHFileDeleter(cpp_src_dir),
-        TimestampsSaver(timestamps_file),
+        CppAndHFileDeleter(paths.cpp_src_dir),
+        TimestampsSaver(paths.timestamps_file),
     )
 
 

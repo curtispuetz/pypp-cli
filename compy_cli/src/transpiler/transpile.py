@@ -1,6 +1,5 @@
 from pathlib import Path
 
-from compy_cli.src.dirs_cltr import CompyDirsCltr
 from compy_cli.src.transpiler.create_all_data import (
     AllData,
     create_all_data,
@@ -8,10 +7,11 @@ from compy_cli.src.transpiler.create_all_data import (
 from compy_cli.src.transpiler.util.file_changes.file_loader import (
     TimeStampsFile,
 )
+from compy_cli.src.other.compy_paths.do import DoCompyPaths
 
 
-def compy_transpile(dirs_cltr: CompyDirsCltr) -> list[Path]:
-    a: AllData = create_all_data(dirs_cltr)
+def compy_transpile(paths: DoCompyPaths) -> list[Path]:
+    a: AllData = create_all_data(paths)
 
     a.cpp_project_initializer.initialize_of_cpp_dir_is_dirty()
 
