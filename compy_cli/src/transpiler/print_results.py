@@ -1,4 +1,4 @@
-from compy_cli.src.transpiler.util.transpiler import TranspileResults
+from compy_cli.src.transpiler.util.transpiler.transpiler import TranspileResults
 
 
 def print_transpilation_results(r: TranspileResults, files_deleted: int):

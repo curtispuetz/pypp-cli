@@ -18,6 +18,10 @@ from compy_cli.src.transpiler.util.file_changes.file_loader import (
     calc_all_py_files,
     load_previous_timestamps,
 )
+from compy_cli.src.transpiler.util.transpiler.main_and_src import (
+    MainAndSrcTranspiler,
+    MainAndSrcTranspilerDeps,
+)
 from compy_cli.src.transpiler.util.write_cmake_lists import (
     CMakeListsWriter,
     CMakeListsWriterDeps,
@@ -36,6 +40,8 @@ class AllData:
     file_change_cltr: FileChangeCltr
     _cmake_lists_writer_deps: CMakeListsWriterDeps
     cmake_lists_writer: CMakeListsWriter
+    _main_and_src_transpiler_deps: MainAndSrcTranspilerDeps
+    main_and_src_transpiler: MainAndSrcTranspiler
 
 
 def create_all_data(dirs: CompyDirs) -> AllData:
@@ -61,6 +67,14 @@ def create_all_data(dirs: CompyDirs) -> AllData:
         proj_info.ignored_main_files,
         proj_info.installed_bridge_libs,
     )
+    main_and_src_transpiler_deps = MainAndSrcTranspilerDeps(
+        dirs.cpp_dir,
+        dirs.python_dir,
+        dirs.cpp_src_dir,
+        dirs.python_src_dir,
+        proj_info.installed_bridge_libs,
+        src_py_files,
+    )
 
     return AllData(
         proj_info,
@@ -73,6 +87,8 @@ def create_all_data(dirs: CompyDirs) -> AllData:
         FileChangeCltr(file_change_cltr_deps),
         cmake_lists_writer_deps,
         CMakeListsWriter(cmake_lists_writer_deps),
+        main_and_src_transpiler_deps,
+        MainAndSrcTranspiler(main_and_src_transpiler_deps),
     )
 
 

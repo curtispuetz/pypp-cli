@@ -2,7 +2,10 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from compy_cli.src.transpiler.maps.maps import calc_maps
-from compy_cli.src.transpiler.util.transpiler import Transpiler, TranspilerDeps
+from compy_cli.src.transpiler.util.transpiler._helper import TranspilerDeps
+from compy_cli.src.transpiler.util.transpiler.transpiler import (
+    Transpiler,
+)
 
 
 @dataclass(frozen=True, slots=True)
