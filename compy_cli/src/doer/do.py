@@ -2,7 +2,7 @@ from pathlib import Path
 
 from compy_cli.src.builder.build import compy_build
 from compy_cli.src.formatter.format import compy_format
-from compy_cli.src.run import compy_run
+from compy_cli.src.runner.run import compy_run
 from compy_cli.src.transpiler.transpile import compy_transpile
 from compy_cli.src.other.compy_paths.do import DoCompyPaths, create_do_compy_paths
 

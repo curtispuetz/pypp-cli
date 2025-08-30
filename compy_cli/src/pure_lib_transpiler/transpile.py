@@ -1,5 +1,6 @@
 import json
 from pathlib import Path
+from compy_cli.src.pure_lib_transpiler.file_change_cltr import PureFileChangeCltr
 from compy_cli.src.transpiler.maps.util.calc_import_map import ImportMap
 from compy_cli.src.transpiler.maps.maps import Maps
 from compy_cli.src.transpiler.print_results import print_transpilation_results
@@ -8,7 +9,6 @@ from compy_cli.src.transpiler.util.file_changes.file_loader import calc_all_py_f
 from compy_cli.src.transpiler.util.transpiler.transpiler import (
     Transpiler,
 )
-from compy_cli.src.transpiler_pure.file_change_cltr import PureFileChangeCltr
 from compy_cli.src.other.compy_paths.do_pure import DoPureCompyPaths
 
 
