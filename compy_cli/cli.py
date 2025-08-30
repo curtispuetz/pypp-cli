@@ -1,16 +1,16 @@
 from pathlib import Path
 import argparse
 
-from compy_cli.src.do import compy_do
+from compy_cli.src.doer.do import compy_do
 from compy_cli.src.initializers.init import compy_init
 from compy_cli.src.initializers.init_bridge_library import compy_init_bridge_library
 from compy_cli.src.initializers.init_pure_library import (
     compy_init_pure_library,
 )
-from compy_cli.src.install import compy_install
-from compy_cli.src.delete_timestamps import compy_delete_timestamps
-from compy_cli.src.run_python import compy_run_python
-from compy_cli.src.uninstall import compy_uninstall
+from compy_cli.src.package_manager.install import compy_install
+from compy_cli.src.timestamps_deleter.delete_timestamps import compy_delete_timestamps
+from compy_cli.src.python_runner.run_python import compy_run_python
+from compy_cli.src.package_manager.uninstall import compy_uninstall
 
 
 def main_cli(absolute_dir: Path | None = None) -> None:

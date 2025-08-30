@@ -1,12 +1,12 @@
 from pathlib import Path
 
 from compy_cli.src.formatter.format import compy_format
-from compy_cli.src.pure_lib_proj_info import load_pure_proj_info
-from compy_cli.src.transpiler_pure.transpile import compy_transpile_pure
 from compy_cli.src.other.compy_paths.do_pure import (
     DoPureCompyPaths,
     create_do_pure_compy_paths,
 )
+from compy_cli.src.pure_lib_doer.pure_lib_proj_info import load_pure_proj_info
+from compy_cli.src.pure_lib_transpiler.transpile import compy_transpile_pure
 
 
 def compy_do_pure_lib(tasks: list[str], target_dir: Path, exe_name: str | None) -> None:
