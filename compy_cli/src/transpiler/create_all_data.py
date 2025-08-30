@@ -39,8 +39,8 @@ class AllData:
 
 
 def create_all_data(dirs: CompyDirs) -> AllData:
-    proj_info: ProjInfo = load_proj_info(dirs)
-    main_py_files = create_main_py_files(dirs)
+    proj_info: ProjInfo = load_proj_info(dirs.proj_info_file)
+    main_py_files = create_main_py_files(dirs.python_dir)
     src_py_files = calc_all_py_files(dirs.python_src_dir)
     prev_timestamps = load_previous_timestamps(dirs.timestamps_file)
     cmake_lists_writer_deps = CMakeListsWriterDeps(dirs, main_py_files, proj_info)
@@ -76,11 +76,11 @@ def create_all_data(dirs: CompyDirs) -> AllData:
     )
 
 
-def create_main_py_files(dirs: CompyDirs) -> list[Path]:
-    ret: list[Path] = calc_all_main_py_files(dirs.python_dir)
+def create_main_py_files(python_dir: Path) -> list[Path]:
+    ret: list[Path] = calc_all_main_py_files(python_dir)
     if not ret:
         raise Exception(
-            f"No Python files (*.py) found in '{dirs.python_dir}'. These are the main "
+            f"No Python files (*.py) found in '{python_dir}'. These are the main "
             f"files and at least one is needed."
         )
     return ret

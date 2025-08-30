@@ -23,8 +23,8 @@ class PureProjInfo:
     ignored_files: list[str]
 
 
-def load_pure_proj_info(dirs: CompyDirs) -> PureProjInfo:
-    with open(dirs.calc_pure_lib_proj_info(), "r") as f:
+def load_pure_proj_info(proj_info_file: Path) -> PureProjInfo:
+    with open(proj_info_file, "r") as f:
         data = json.load(f)
     _validate_pure_proj_info(data)
     return PureProjInfo(data["lib_dir_name"], data.get("ignore_files", []))
@@ -51,7 +51,7 @@ def load_pure_previous_timestamps(timestamps_file: Path) -> dict[str, float]:
 
 
 def compy_transpile_pure(dirs: CompyDirs) -> list[Path]:
-    proj_info = load_pure_proj_info(dirs)
+    proj_info = load_pure_proj_info(dirs.calc_pure_lib_proj_info())
     py_files: list[Path] = calc_all_py_files(
         dirs.calc_pure_lib_dir(proj_info.lib_dir_name)
     )

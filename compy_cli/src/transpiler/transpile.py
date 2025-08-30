@@ -48,7 +48,10 @@ def compy_transpile(dirs: CompyDirs) -> list[Path]:
     assert dirs.python_src_dir.exists(), "src/ dir must be defined; dir not found"
     dirs.cpp_src_dir.mkdir(parents=True, exist_ok=True)
     ret = _transpile(
-        dirs,
+        dirs.cpp_dir,
+        dirs.python_dir,
+        dirs.cpp_src_dir,
+        dirs.python_src_dir,
         a.src_py_files,
         a.proj_info.installed_bridge_libs,
         src_changes,
@@ -66,7 +69,10 @@ def compy_transpile(dirs: CompyDirs) -> list[Path]:
 
 
 def _transpile(
-    dirs: CompyDirs,
+    cpp_dir: Path,
+    python_dir: Path,
+    cpp_src_dir: Path,
+    python_src_dir: Path,
     src_py_files: list[Path],
     installed_bridge_libs: dict[str, str],
     src_changes: PyFileChanges,
@@ -79,7 +85,14 @@ def _transpile(
         or len(main_changes.new_files) > 0
         or len(main_changes.changed_files) > 0
     ):
-        a = create_transpiler_data(dirs, installed_bridge_libs, src_py_files)
+        a = create_transpiler_data(
+            cpp_dir,
+            python_dir,
+            cpp_src_dir,
+            python_src_dir,
+            installed_bridge_libs,
+            src_py_files,
+        )
         a.transpiler.transpile_all_changed_files(
             src_changes.new_files, src_changes.changed_files
         )
