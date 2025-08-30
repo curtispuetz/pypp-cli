@@ -2,7 +2,7 @@ import json
 from pathlib import Path
 import subprocess
 from compy_cli.src.dirs_cltr import CompyDirsCltr
-from compy_cli.src.initializers.pure_library.lib_dir_cltr import (
+from compy_cli.src.lib_dir_cltr import (
     PureLibDirCltr,
     PureLibDirCltrDeps,
 )
