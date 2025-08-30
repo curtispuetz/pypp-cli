@@ -53,7 +53,14 @@ def create_all_data(dirs: CompyDirs) -> AllData:
         src_py_files,
         prev_timestamps,
     )
-    cpp_project_initializer_deps = CppProjectInitializerDeps(dirs, proj_info)
+    cpp_project_initializer_deps = CppProjectInitializerDeps(
+        dirs.cpp_build_dir,
+        dirs.timestamps_file,
+        dirs.proj_info_file,
+        proj_info.ignored_src_files,
+        proj_info.ignored_main_files,
+        proj_info.installed_bridge_libs,
+    )
 
     return AllData(
         proj_info,
