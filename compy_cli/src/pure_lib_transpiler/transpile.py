@@ -1,14 +1,9 @@
 import json
 from pathlib import Path
 from compy_cli.src.pure_lib_transpiler.file_change_cltr import PureFileChangeCltr
-from compy_cli.src.transpiler.maps.util.calc_import_map import ImportMap
-from compy_cli.src.transpiler.maps.maps import Maps
-from compy_cli.src.transpiler.print_results import print_transpilation_results
+from compy_cli.src.pure_lib_transpiler.transpiler import PureLibTranspiler
 from compy_cli.src.transpiler.util.deleter import CppAndHFileDeleter
 from compy_cli.src.transpiler.util.file_changes.file_loader import calc_all_py_files
-from compy_cli.src.transpiler.util.transpiler.transpiler import (
-    Transpiler,
-)
 from compy_cli.src.other.compy_paths.do_pure import DoPureCompyPaths
 
 
@@ -40,15 +35,10 @@ def compy_transpile_pure(
         [changes.deleted_files, changes.changed_files]
     )
 
-    transpiler = Transpiler(
-        py_files,
-        Maps({}, {}, {}, {}, {}, ImportMap(set(), {}), {}),
+    t = PureLibTranspiler(
+        paths.python_dir, paths.cpp_dir, paths.site_packages_dir, py_files
     )
-    transpiler.transpile_all_changed_files(
-        changes.new_files, changes.changed_files, paths.python_dir, paths.cpp_dir
-    )
-    r = transpiler.get_results()
-    print_transpilation_results(r, files_deleted)
+    ret = t.transpile(changes, files_deleted)
 
     with open(paths.timestamps_file, "w") as f:
         json.dump(
@@ -57,4 +47,4 @@ def compy_transpile_pure(
             indent=2,
         )
 
-    return r.files_added_or_modified
+    return ret

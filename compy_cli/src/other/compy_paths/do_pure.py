@@ -6,6 +6,7 @@ from pathlib import Path
 class DoPureCompyPaths:
     python_dir: Path
     cpp_dir: Path
+    site_packages_dir: Path
     timestamps_file: Path
 
 
@@ -15,5 +16,8 @@ def create_do_pure_compy_paths(
     python_dir = target_dir / python_dir_name
     compy_files_dir = target_dir / "compy_files"
     return DoPureCompyPaths(
-        python_dir, python_dir / "compy_cpp", compy_files_dir / "file_timestamps.json"
+        python_dir,
+        python_dir / "compy_cpp",
+        target_dir / ".venv" / "Lib" / "site-packages",
+        compy_files_dir / "file_timestamps.json",
     )
