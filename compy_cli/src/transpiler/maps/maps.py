@@ -1,10 +1,9 @@
 from dataclasses import dataclass
+from pathlib import Path
 
-from compy_cli.src.transpiler.util.load_proj_info import ProjInfo
 from compy_cli.src.transpiler.maps.calc_ann_assign_map import (
     calc_ann_assign_map,
 )
-from compy_cli.src.compy_dirs import CompyDirs
 from compy_cli.src.transpiler.maps.calc_attr_map import calc_attr_map
 from compy_cli.src.transpiler.maps.calc_call_map import calc_call_map
 from compy_cli.src.transpiler.maps.calc_fn_arg_by_value_map import (
@@ -39,13 +38,13 @@ class Maps:
     ann_assign: AnnAssignsMap
 
 
-def calc_maps(proj_info: ProjInfo, dirs: CompyDirs) -> Maps:
+def calc_maps(installed_bridge_libs: dict[str, str], py_env_parent_dir: Path) -> Maps:
     return Maps(
-        calc_name_map(proj_info, dirs),
-        calc_call_map(proj_info, dirs),
-        calc_attr_map(proj_info, dirs),
-        calc_fn_arg_passed_by_value_map(proj_info, dirs),
-        calc_subscriptable_type_map(proj_info, dirs),
-        calc_import_map(proj_info, dirs),
-        calc_ann_assign_map(proj_info, dirs),
+        calc_name_map(installed_bridge_libs, py_env_parent_dir),
+        calc_call_map(installed_bridge_libs, py_env_parent_dir),
+        calc_attr_map(installed_bridge_libs, py_env_parent_dir),
+        calc_fn_arg_passed_by_value_map(installed_bridge_libs, py_env_parent_dir),
+        calc_subscriptable_type_map(installed_bridge_libs, py_env_parent_dir),
+        calc_import_map(installed_bridge_libs, py_env_parent_dir),
+        calc_ann_assign_map(installed_bridge_libs, py_env_parent_dir),
     )

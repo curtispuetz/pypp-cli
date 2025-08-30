@@ -46,7 +46,15 @@ def create_all_data(dirs: CompyDirs) -> AllData:
     main_py_files = create_main_py_files(dirs)
     src_py_files = calc_all_py_files(dirs.python_src_dir)
     prev_timestamps = load_previous_timestamps(dirs.timestamps_file)
-    transpiler_deps = TranspilerDeps(dirs, proj_info, src_py_files)
+    transpiler_deps = TranspilerDeps(
+        dirs.cpp_dir,
+        dirs.python_dir,
+        dirs.cpp_src_dir,
+        dirs.python_src_dir,
+        dirs.python_dir,
+        proj_info.installed_bridge_libs,
+        src_py_files,
+    )
     cmake_lists_writer_deps = CMakeListsWriterDeps(dirs, main_py_files, proj_info)
     file_change_cltr_deps = FileChangeCltrDeps(
         dirs, proj_info, main_py_files, src_py_files, prev_timestamps

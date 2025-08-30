@@ -1,8 +1,7 @@
 import json
 from pathlib import Path
 from typing import Callable
-from compy_cli.src.compy_dirs import CompyDirs
-from compy_cli.src.transpiler.util.load_proj_info import ProjInfo
+from compy_cli.src.compy_dirs import calc_bridge_json
 from compy_cli.src.transpiler.maps.d_types import (
     CustomMappingFromLibEntry,
     CustomMappingStartsWithFromLibEntry,
@@ -58,14 +57,16 @@ BASE_CALC_ENTRY_FN_MAP: dict[
 def calc_map_1(
     base_map,
     calc_entry_fn_map,
-    json_name: str,
+    json_file_name: str,
     friendly_name: str,
-    proj_info: ProjInfo,
-    dirs: CompyDirs,
+    installed_bridge_libs: dict[str, str],
+    py_env_parent_dir: Path,
 ):
     ret = base_map.copy()
-    for installed_library in proj_info.installed_bridge_libs:
-        json_path: Path = dirs.calc_bridge_json(installed_library, json_name)
+    for installed_library in installed_bridge_libs:
+        json_path: Path = calc_bridge_json(
+            py_env_parent_dir, installed_library, json_file_name
+        )
         if json_path.is_file():
             with open(json_path, "r") as f:
                 m: dict = json.load(f)
@@ -73,7 +74,7 @@ def calc_map_1(
             # validated when the library is installed.
             for mapping_type, mapping_vals in m.items():
                 _assert_valid_mapping_type(
-                    calc_entry_fn_map, mapping_type, json_name, installed_library
+                    calc_entry_fn_map, mapping_type, json_file_name, installed_library
                 )
                 for k, v in mapping_vals.items():
                     required_import = calc_required_py_import(v)

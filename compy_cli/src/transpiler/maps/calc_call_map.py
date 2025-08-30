@@ -1,8 +1,7 @@
+from pathlib import Path
 from typing import Callable
 
-from compy_cli.src.compy_dirs import CompyDirs
 from compy_cli.src.transpiler.module.handle_expr.h_call.default_map import CALL_MAP
-from compy_cli.src.transpiler.util.load_proj_info import ProjInfo
 from compy_cli.src.transpiler.maps.util.util import (
     calc_cpp_includes,
 )
@@ -29,7 +28,14 @@ CALL_CALC_ENTRY_FN_MAP: dict[str, Callable[[dict], CallMapEntry]] = {
 }
 
 
-def calc_call_map(proj_info: ProjInfo, dirs: CompyDirs) -> CallMap:
+def calc_call_map(
+    installed_bridge_libs: dict[str, str], py_env_parent_dir: Path
+) -> CallMap:
     return calc_map_1(
-        CALL_MAP, CALL_CALC_ENTRY_FN_MAP, "call_map", "call", proj_info, dirs
+        CALL_MAP,
+        CALL_CALC_ENTRY_FN_MAP,
+        "call_map",
+        "call",
+        installed_bridge_libs,
+        py_env_parent_dir,
     )

@@ -1,6 +1,5 @@
-from compy_cli.src.compy_dirs import CompyDirs
+from pathlib import Path
 from compy_cli.src.transpiler.module.d_types import PySpecificImpFrom
-from compy_cli.src.transpiler.util.load_proj_info import ProjInfo
 from compy_cli.src.transpiler.maps.d_types import FnArgByValueMap
 from compy_cli.src.transpiler.maps.util.calc_map_2 import calc_map_2
 
@@ -31,12 +30,12 @@ def _warning_msg(installed_library: str, full_type_str: str) -> str:
 
 
 def calc_fn_arg_passed_by_value_map(
-    proj_info: ProjInfo, dirs: CompyDirs
+    installed_bridge_libs: dict[str, str], py_env_parent_dir: Path
 ) -> FnArgByValueMap:
     return calc_map_2(
         FN_ARG_PASSED_BY_VALUE_MAP,
-        proj_info,
-        dirs,
+        installed_bridge_libs,
+        py_env_parent_dir,
         "always_pass_by_value",
         _warning_msg,
     )

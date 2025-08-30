@@ -44,14 +44,27 @@ class FileChangeCltr:
             or main.new_files
             or main.deleted_files
         ):
-            print("No file changes detected.")
+            print(NO_FILE_CHANGES_DETECTED)
         else:
-            print(
-                f"changed files: {len(src.changed_files) + len(main.changed_files)}, "
-                f"new files: {len(src.new_files) + len(main.new_files)}, "
-                f"deleted files: {len(src.deleted_files) + len(main.deleted_files)},"
-                f" ignored files: {
-                    list(src.ignored_file_stems) + list(main.ignored_file_stems)
-                }"
+            file_change_print(
+                len(src.changed_files) + len(main.changed_files),
+                len(src.new_files) + len(main.new_files),
+                len(src.deleted_files) + len(main.deleted_files),
+                list(src.ignored_file_stems) + list(main.ignored_file_stems),
             )
         return src, main
+
+
+NO_FILE_CHANGES_DETECTED: str = "No file changes detected."
+
+
+# TODO: move to a util file
+def file_change_print(
+    changed_files: int, new_files: int, deleted_files: int, ignored_files: list[str]
+):
+    print(
+        f"changed files: {changed_files}, "
+        f"new files: {new_files}, "
+        f"deleted files: {deleted_files}, "
+        f"ignored files: {ignored_files}"
+    )

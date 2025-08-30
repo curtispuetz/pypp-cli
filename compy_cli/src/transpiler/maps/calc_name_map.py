@@ -1,10 +1,9 @@
-from compy_cli.src.compy_dirs import CompyDirs
+from pathlib import Path
 from compy_cli.src.transpiler.module.d_types import (
     PySpecificImpFrom,
     AngInc,
     QInc,
 )
-from compy_cli.src.transpiler.util.load_proj_info import ProjInfo
 from compy_cli.src.transpiler.maps.d_types import (
     ToStringEntry,
     NameMap,
@@ -91,7 +90,14 @@ NAME_MAP: NameMap = {
 }
 
 
-def calc_name_map(proj_info: ProjInfo, dirs: CompyDirs) -> NameMap:
+def calc_name_map(
+    installed_bridge_libs: dict[str, str], py_env_parent_dir: Path
+) -> NameMap:
     return calc_map_1(
-        NAME_MAP, BASE_CALC_ENTRY_FN_MAP, "name_map", "name", proj_info, dirs
+        NAME_MAP,
+        BASE_CALC_ENTRY_FN_MAP,
+        "name_map",
+        "name",
+        installed_bridge_libs,
+        py_env_parent_dir,
     )
