@@ -101,8 +101,6 @@ class _CompyInitHelper:
                 "-m",
                 "pip",
                 "install",
-                # TODO: install from PyPI when available
-                r"C:\Users\puetz\PycharmProjects\compy-python\dist"
-                r"\compy_python-0.0.0-py3-none-any.whl",
+                "compy-python",
             ]
         )
