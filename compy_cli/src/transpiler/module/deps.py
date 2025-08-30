@@ -12,31 +12,21 @@ from compy_cli.src.transpiler.maps.maps import Maps
 from compy_cli.src.transpiler.module.util.ret_imports import RetImports, add_inc
 
 
-@dataclass(frozen=True, slots=True)
-class DepsDeps:
+@dataclass(slots=True)
+class Deps:
     ret_imports: RetImports
     ret_h_file: list[str]
-    py_imports: PyImports
     maps: Maps
-    handle_expr_fn: Callable[[ast.expr, "Deps"], str]
-    handle_stmt: Callable[[ast.stmt, "Deps"], str]
-
-
-class Deps:
-    def __init__(self, d: DepsDeps) -> None:
-        self.ret_imports = d.ret_imports
-        self.ret_h_file = d.ret_h_file
-        self.py_imports = d.py_imports
-        self.maps = d.maps
-        self.handle_expr_fn = d.handle_expr_fn
-        self.handle_stmt = d.handle_stmt
-        self._include_in_header: bool = False
+    _py_imports: PyImports
+    _handle_expr_fn: Callable[[ast.expr, "Deps"], str]
+    _handle_stmt: Callable[[ast.stmt, "Deps"], str]
+    _include_in_header: bool = False
 
     def set_inc_in_h(self, include: bool):
         self._include_in_header = include
 
     def handle_expr(self, node: ast.expr) -> str:
-        return self.handle_expr_fn(node, self)
+        return self._handle_expr_fn(node, self)
 
     def handle_exprs(self, exprs: list[ast.expr]):
         ret: list[str] = []
@@ -47,7 +37,7 @@ class Deps:
     def handle_stmts(self, stmts: list[ast.stmt]) -> str:
         ret: list[str] = []
         for node in stmts:
-            ret.append(self.handle_stmt(node, self))
+            ret.append(self._handle_stmt(node, self))
         return " ".join(ret)
 
     def add_inc(self, inc: CppInclude):
@@ -58,4 +48,4 @@ class Deps:
             self.add_inc(inc)
 
     def is_imported(self, imp: PySpecificImport) -> bool:
-        return is_imported(self.py_imports, imp)
+        return is_imported(self._py_imports, imp)

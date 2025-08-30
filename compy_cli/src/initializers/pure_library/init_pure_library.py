@@ -2,13 +2,9 @@ import json
 from pathlib import Path
 import subprocess
 from compy_cli.src.dirs_cltr import CompyDirsCltr
-from compy_cli.src.lib_dir_cltr import (
-    PureLibDirCltr,
-    PureLibDirCltrDeps,
-)
+from compy_cli.src.lib_dir_cltr import PureLibDirCltr
 from compy_cli.src.initializers.util.init_libs import (
     InitLibsHelper,
-    InitLibsHelperDeps,
     create_python_hello_world,
 )
 
@@ -17,11 +13,11 @@ def compy_init_pure_library(library_name: str, dirs_cltr: CompyDirsCltr):
     print("creating pure-library files...")
     lib_py_executable: Path = dirs_cltr.calc_lib_py_executable()
     init_libs_helper = InitLibsHelper(
-        InitLibsHelperDeps(dirs_cltr.target_dir, lib_py_executable, library_name)
+        dirs_cltr.target_dir, lib_py_executable, library_name
     )
     init_libs_helper.create_readme()
     library_name_underscores = library_name.replace("-", "_")
-    pure_lib_dir_cltr = PureLibDirCltr(PureLibDirCltrDeps(dirs_cltr.target_dir))
+    pure_lib_dir_cltr = PureLibDirCltr(dirs_cltr.target_dir)
     cp: str = "compy-python==0.0.5"
     init_libs_helper.create_pyproject_toml(library_name_underscores, [cp])
     lib_dir: Path = pure_lib_dir_cltr.calc_python_dir(library_name_underscores)

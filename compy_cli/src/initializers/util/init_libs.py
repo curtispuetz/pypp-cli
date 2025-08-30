@@ -24,29 +24,24 @@ def create_python_hello_world(proj_dir: Path):
 
 
 @dataclass(frozen=True, slots=True)
-class InitLibsHelperDeps:
-    target_dir: Path
-    lib_py_executable: Path
-    library_name: str
-
-
 class InitLibsHelper:
-    def __init__(self, d: InitLibsHelperDeps):
-        self._d = d
+    _target_dir: Path
+    _lib_py_executable: Path
+    _library_name: str
 
     def create_readme(self):
-        readme: Path = self._d.target_dir / "readme.md"
-        readme.write_text(f"# {self._d.library_name}\n")
+        readme: Path = self._target_dir / "readme.md"
+        readme.write_text(f"# {self._library_name}\n")
 
     def create_pyproject_toml(
         self, library_name_underscores: str, dependencies: list[str] | None = None
     ):
-        pyproject: Path = self._d.target_dir / "pyproject.toml"
+        pyproject: Path = self._target_dir / "pyproject.toml"
         pyproject.write_text(
             "\n".join(
                 [
                     "[project]",
-                    f'name = "{self._d.library_name}"',
+                    f'name = "{self._library_name}"',
                     'version = "0.0.0"',
                     'description = ""',
                     "authors = []",
@@ -66,11 +61,11 @@ class InitLibsHelper:
         )
 
     def create_python_venv_and_install_hatchling(self):
-        venv_dir: Path = self._d.target_dir / ".venv"
+        venv_dir: Path = self._target_dir / ".venv"
         print("creating python virtual environment...")
         venv.create(venv_dir, with_pip=True)
         print("python virtual environment created")
         print("installing 'hatchling' library...")
         subprocess.check_call(
-            [self._d.lib_py_executable, "-m", "pip", "install", "hatchling"]
+            [self._lib_py_executable, "-m", "pip", "install", "hatchling"]
         )

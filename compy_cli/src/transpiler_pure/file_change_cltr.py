@@ -11,23 +11,18 @@ from compy_cli.src.transpiler.util.file_changes.src_and_main_cltr import (
 
 
 @dataclass(frozen=True, slots=True)
-class PureFileChangeCltrDeps:
-    root_dir: Path
-    ignored_files: list[str]
-    py_files: list[Path]
-    prev_timestamps: dict[str, float]
-
-
 class PureFileChangeCltr:
-    def __init__(self, d: PureFileChangeCltrDeps):
-        self._d = d
+    _root_dir: Path
+    _ignored_files: list[str]
+    _py_files: list[Path]
+    _prev_timestamps: dict[str, float]
 
     def calc_changes(self) -> PyFileChanges:
         ret = calc_py_file_changes(
-            self._d.prev_timestamps,
-            self._d.root_dir,
-            self._d.ignored_files,
-            self._d.py_files,
+            self._prev_timestamps,
+            self._root_dir,
+            self._ignored_files,
+            self._py_files,
         )
 
         if not (ret.changed_files or ret.new_files or ret.deleted_files):

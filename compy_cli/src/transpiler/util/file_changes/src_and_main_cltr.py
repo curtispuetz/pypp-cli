@@ -8,32 +8,27 @@ from compy_cli.src.transpiler.util.file_changes.file_loader import TimeStampsFil
 
 
 @dataclass(frozen=True, slots=True)
-class FileChangeCltrDeps:
-    python_dir: Path
-    python_src_dir: Path
-    ignored_src_files: list[str]
-    ignored_main_files: list[str]
-    main_py_files: list[Path]
-    src_py_files: list[Path]
-    prev_timestamps: TimeStampsFile
-
-
 class FileChangeCltr:
-    def __init__(self, d: FileChangeCltrDeps):
-        self._d = d
+    _python_dir: Path
+    _python_src_dir: Path
+    _ignored_src_files: list[str]
+    _ignored_main_files: list[str]
+    _main_py_files: list[Path]
+    _src_py_files: list[Path]
+    _prev_timestamps: TimeStampsFile
 
     def calc_changes(self) -> tuple[PyFileChanges, PyFileChanges]:
         src = calc_py_file_changes(
-            self._d.prev_timestamps.src_files,
-            self._d.python_src_dir,
-            self._d.ignored_src_files,
-            self._d.src_py_files,
+            self._prev_timestamps.src_files,
+            self._python_src_dir,
+            self._ignored_src_files,
+            self._src_py_files,
         )
         main = calc_py_file_changes(
-            self._d.prev_timestamps.main_files,
-            self._d.python_dir,
-            self._d.ignored_main_files,
-            self._d.main_py_files,
+            self._prev_timestamps.main_files,
+            self._python_dir,
+            self._ignored_main_files,
+            self._main_py_files,
         )
 
         if not (

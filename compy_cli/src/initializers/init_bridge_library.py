@@ -3,7 +3,6 @@ from pathlib import Path
 from compy_cli.src.dirs_cltr import CompyDirsCltr
 from compy_cli.src.initializers.util.init_libs import (
     InitLibsHelper,
-    InitLibsHelperDeps,
     create_python_hello_world,
 )
 
@@ -11,9 +10,7 @@ from compy_cli.src.initializers.util.init_libs import (
 def compy_init_bridge_library(library_name: str, dirs_cltr: CompyDirsCltr):
     print("creating bridge-library files...")
     init_libs_helper = InitLibsHelper(
-        InitLibsHelperDeps(
-            dirs_cltr.target_dir, dirs_cltr.calc_lib_py_executable(), library_name
-        )
+        dirs_cltr.target_dir, dirs_cltr.calc_lib_py_executable(), library_name
     )
     init_libs_helper.create_readme()
     library_name_with_underscores = library_name.replace("-", "_")

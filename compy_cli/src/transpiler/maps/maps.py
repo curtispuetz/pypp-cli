@@ -51,42 +51,37 @@ class Maps:
 
 
 @dataclass(frozen=True, slots=True)
-class MapsCltrDeps:
-    cltr1: MapCltr1
-    cltr2: MapCltr2
-    import_cltr: ImportMapCltr
-
-
 class MapsCltr:
-    def __init__(self, d: MapsCltrDeps) -> None:
-        self._d = d
+    _cltr1: MapCltr1
+    _cltr2: MapCltr2
+    _import_cltr: ImportMapCltr
 
     def calc_maps(self) -> Maps:
         return Maps(
-            self._d.cltr1.calc_map_1(
+            self._cltr1.calc_map_1(
                 NAME_MAP, BASE_CALC_ENTRY_FN_MAP, "name_map", "name"
             ),
-            self._d.cltr1.calc_map_1(
+            self._cltr1.calc_map_1(
                 CALL_MAP,
                 CALL_CALC_ENTRY_FN_MAP,
                 "call_map",
                 "call",
             ),
-            self._d.cltr1.calc_map_1(
+            self._cltr1.calc_map_1(
                 ATTR_MAP, ATTR_CALC_ENTRY_FN_MAP, "attr_map", "attr"
             ),
-            self._d.cltr2.calc_map_2(
+            self._cltr2.calc_map_2(
                 FN_ARG_PASSED_BY_VALUE_MAP,
                 "always_pass_by_value",
                 fn_arg_passed_by_value_warning_msg,
             ),
-            self._d.cltr2.calc_map_2(
+            self._cltr2.calc_map_2(
                 SUBSCRIPTABLE_TYPE_MAP,
                 "subscriptable_types",
                 subscriptable_type_warning_msg,
             ),
-            self._d.import_cltr.calc_import_map(),
-            self._d.cltr1.calc_map_1(
+            self._import_cltr.calc_import_map(),
+            self._cltr1.calc_map_1(
                 ANN_ASSIGN_MAP,
                 BASE_CALC_ENTRY_FN_MAP,
                 "ann_assign_map",
