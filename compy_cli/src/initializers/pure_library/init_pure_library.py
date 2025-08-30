@@ -24,8 +24,8 @@ def compy_init_pure_library(library_name: str, dirs_cltr: CompyDirsCltr):
     lib_dir.mkdir()
     cpp_dir: Path = pure_lib_dir_cltr.calc_cpp_dir(library_name_underscores)
     cpp_dir.mkdir()
-    compy_data_dir: Path = pure_lib_dir_cltr.calc_compy_data_dir()
-    compy_data_dir.mkdir()
+    compy_files_dir: Path = pure_lib_dir_cltr.calc_compy_files_dir()
+    compy_files_dir.mkdir()
     proj_info_file: Path = pure_lib_dir_cltr.calc_proj_info()
     with open(proj_info_file, "w") as f:
         json.dump({"lib_dir_name": library_name_underscores}, f, indent=4)

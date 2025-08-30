@@ -1,12 +1,11 @@
 from pathlib import Path
 
 
-
 def find_bridge_libs(site_packages_dir: Path) -> list[str]:
     ret = []
     for entry in site_packages_dir.iterdir():
         if entry.is_dir() and not entry.name.endswith(".dist-info"):
-            bridge_jsons_dir = entry / "data" / "bridge_jsons"
+            bridge_jsons_dir = entry / "compy_data" / "bridge_jsons"
             if bridge_jsons_dir.is_dir():
                 ret.append(entry.name)
     print("Found bridge libraries:", ret)

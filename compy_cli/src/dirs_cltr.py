@@ -27,14 +27,14 @@ class CompyDirsCltr:
     def calc_python_src_dir(self) -> Path:
         return self.calc_python_dir() / "src"
 
-    def calc_compy_data_dir(self) -> Path:
-        return self._t / "compy_data"
+    def calc_compy_files_dir(self) -> Path:
+        return self._t / "compy_files"
 
     def calc_timestamps_file(self) -> Path:
-        return self.calc_compy_data_dir() / "file_timestamps.json"
+        return self.calc_compy_files_dir() / "file_timestamps.json"
 
     def calc_proj_info_file(self) -> Path:
-        return self.calc_compy_data_dir() / "proj_info.json"
+        return self.calc_compy_files_dir() / "proj_info.json"
 
     def calc_py_executable(self) -> Path:
         return self.calc_python_dir() / ".venv" / "Scripts" / "python.exe"
@@ -54,4 +54,4 @@ def calc_cpp_libs_dir(cpp_dir: Path, library_name: str) -> Path:
 
 
 def calc_library_cpp_data_dir(site_packages_dir: Path, library_name: str) -> Path:
-    return site_packages_dir / library_name / "data" / "cpp"
+    return site_packages_dir / library_name / "compy_data" / "cpp"

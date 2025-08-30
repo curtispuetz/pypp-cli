@@ -6,6 +6,6 @@
 /compy_cli/test_dir/python/.idea
 /compy_cli/test_dir2
 /compy_cli/test_dir3
-/compy_cli/test_dir/compy_data/file_timestamps.json
+/compy_cli/test_dir/compy_files/file_timestamps.json
 dist/
 compy_cli.egg-info/
