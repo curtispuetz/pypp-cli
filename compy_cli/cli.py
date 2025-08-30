@@ -5,9 +5,10 @@ from compy_cli.src.doer.do import compy_do
 from compy_cli.src.initializers.init import compy_init
 from compy_cli.src.initializers.init_bridge_library import compy_init_bridge_library
 from compy_cli.src.initializers.init_pure_library import (
-    compy_init_pure_library,
+    compy_init_pure_lib,
 )
 from compy_cli.src.package_manager.install import compy_install
+from compy_cli.src.pure_lib_doer.do_pure_lib import compy_do_pure_lib
 from compy_cli.src.timestamps_deleter.delete_timestamps import compy_delete_timestamps
 from compy_cli.src.python_runner.run_python import compy_run_python
 from compy_cli.src.package_manager.uninstall import compy_uninstall
@@ -42,10 +43,10 @@ def main_cli(absolute_dir: Path | None = None) -> None:
     parser_run_python.add_argument(
         "file", help="The Python file to run. This should be a file with main block."
     )
-    parser_main = subparsers.add_parser(
+    parser_do = subparsers.add_parser(
         "do", help="transpile, format, build, and/or run."
     )
-    parser_main.add_argument(
+    parser_do.add_argument(
         "tasks",
         help="Transpile your python code to C++, format the generated C++ code, build "
         "the C++ code, and/or run the resulting executable. You can choose one or "
@@ -55,12 +56,24 @@ def main_cli(absolute_dir: Path | None = None) -> None:
         choices=["transpile", "format", "build", "run"],
         nargs="+",
     )
-    parser_main.add_argument(
+    parser_do.add_argument(
         "--exe_name",
         "-e",
         help="The name of the executable to run "
         "(required if 'run' is one of the tasks).",
         required=False,
+    )
+    parser_do_pure_lib = subparsers.add_parser(
+        "do_pure_lib", help="transpile and format a pure library"
+    )
+    parser_do_pure_lib.add_argument(
+        "tasks",
+        help="Transpile your python code to C++ and format the generated C++ code."
+        "You can choose only transpile or transpile and format. "
+        "For example, 'transpile format' will do both, and 'transpile' will only "
+        "transpile.",
+        choices=["transpile", "format"],
+        nargs="+",
     )
     parser_init_bridge = subparsers.add_parser(
         "init_bridge_library",
@@ -71,7 +84,7 @@ def main_cli(absolute_dir: Path | None = None) -> None:
         help="The name of the bridge-library to initialize.",
     )
     parser_init_pure = subparsers.add_parser(
-        "init_pure_library",
+        "init_pure_lib",
         help="Initialize a new Compy pure-library in the current directory.",
     )
     parser_init_pure.add_argument(
@@ -86,8 +99,8 @@ def main_cli(absolute_dir: Path | None = None) -> None:
         compy_init(absolute_dir)
     elif args.mode == "init_bridge_library":
         compy_init_bridge_library(args.library_name, absolute_dir)
-    elif args.mode == "init_pure_library":
-        compy_init_pure_library(args.library_name, absolute_dir)
+    elif args.mode == "init_pure_lib":
+        compy_init_pure_lib(args.library_name, absolute_dir)
     # TODO now: fix
     elif not (absolute_dir / "compy_files" / "proj_info.json").exists():
         parser.error(
@@ -101,6 +114,8 @@ def main_cli(absolute_dir: Path | None = None) -> None:
                 "argument --exe_name/-e is required when 'run' is one of the tasks."
             )
         compy_do(args.tasks, absolute_dir, args.exe_name)
+    if args.mode == "do_pure_lib":
+        compy_do_pure_lib(args.tasks, absolute_dir)
     elif args.mode == "install":
         for lib in args.libraries:
             compy_install(lib, absolute_dir)

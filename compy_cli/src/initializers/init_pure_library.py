@@ -10,7 +10,7 @@ from compy_cli.src.other.compy_paths.init_pure_library import (
 )
 
 
-def compy_init_pure_library(library_name: str, target_dir: Path):
+def compy_init_pure_lib(library_name: str, target_dir: Path):
     print("creating pure-library files...")
     python_dir_name = library_name.replace("-", "_")
     paths = create_init_pure_lib_compy_paths(target_dir, python_dir_name)

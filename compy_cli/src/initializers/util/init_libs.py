@@ -65,7 +65,7 @@ class InitLibsHelper:
         print("creating python virtual environment...")
         venv.create(venv_dir, with_pip=True)
         print("python virtual environment created")
-        print("installing 'hatchling' library...")
+        print("running 'pip install hatchling'...")
         subprocess.check_call(
             [self._lib_py_executable, "-m", "pip", "install", "hatchling"]
         )
