@@ -3,21 +3,18 @@ import json
 from typing import Callable
 from pathlib import Path
 
-from compy_cli.src.bridge_json_path_cltr import BridgeJsonPathCltr
 from compy_cli.src.transpiler.module.d_types import (
     PySpecificImport,
 )
 from compy_cli.src.transpiler.maps.util.util import (
+    MapCltrAlgo,
     calc_imp_str,
     calc_required_py_import,
 )
 
 
 @dataclass(frozen=True, slots=True)
-class MapCltr2:
-    _installed_bridge_libs: dict[str, str]
-    _bridge_json_path_cltr: BridgeJsonPathCltr
-
+class MapCltr2(MapCltrAlgo):
     def calc_map_2(
         self,
         default_map: dict[str, set[PySpecificImport | None]],

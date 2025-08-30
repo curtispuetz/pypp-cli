@@ -2,7 +2,7 @@ from dataclasses import dataclass
 import json
 from pathlib import Path
 
-from compy_cli.src.bridge_json_path_cltr import BridgeJsonPathCltr
+from compy_cli.src.transpiler.maps.util.util import MapCltrAlgo
 
 
 def _calc_module_beginning(module: str) -> str:
@@ -29,10 +29,7 @@ class ImportMap:
 
 
 @dataclass(frozen=True, slots=True)
-class ImportMapCltr:
-    _installed_bridge_libs: dict[str, str]
-    _bridge_json_path_cltr: BridgeJsonPathCltr
-
+class ImportMapCltr(MapCltrAlgo):
     def calc_import_map(self) -> ImportMap:
         modules: set[str] = set()
         libraries: dict[str, set[str]] = {}
