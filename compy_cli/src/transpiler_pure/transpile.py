@@ -76,16 +76,13 @@ def compy_transpile_pure(dirs: CompyDirs) -> list[Path]:
     python_dir = dirs.calc_pure_lib_dir(proj_info.lib_dir_name)
     transpiler = Transpiler(
         TranspilerDeps(
-            # TODO: The first two args dont matter. I will fix that later.
-            cpp_dir,
-            python_dir,
-            cpp_dir,
-            python_dir,
             py_files,
             Maps({}, {}, {}, {}, {}, ImportMap(set(), {}), {}),
         )
     )
-    transpiler.transpile_all_changed_files(changes.new_files, changes.changed_files)
+    transpiler.transpile_all_changed_files(
+        changes.new_files, changes.changed_files, python_dir, cpp_dir
+    )
     r = transpiler.get_results()
     print_transpilation_results(r, files_deleted)
     return r.files_added_or_modified
