@@ -2,7 +2,6 @@ from dataclasses import dataclass
 import json
 from pathlib import Path
 from typing import Callable
-from compy_cli.src.bridge_json_path_cltr import BridgeJsonPathCltr
 from compy_cli.src.transpiler.maps.d_types import (
     CustomMappingFromLibEntry,
     CustomMappingStartsWithFromLibEntry,
@@ -10,6 +9,7 @@ from compy_cli.src.transpiler.maps.d_types import (
     ToStringEntry,
 )
 from compy_cli.src.transpiler.maps.util.util import (
+    MapCltrAlgo,
     calc_imp_str,
 )
 from compy_cli.src.transpiler.maps.util.util import (
@@ -56,10 +56,7 @@ BASE_CALC_ENTRY_FN_MAP: dict[
 
 
 @dataclass(frozen=True, slots=True)
-class MapCltr1:
-    _installed_bridge_libs: dict[str, str]
-    _bridge_json_path_cltr: BridgeJsonPathCltr
-
+class MapCltr1(MapCltrAlgo):
     def calc_map_1(
         self, base_map, calc_entry_fn_map, json_file_name: str, friendly_name: str
     ):
