@@ -59,12 +59,12 @@ def load_pure_previous_timestamps(timestamps_file: Path) -> dict[str, float]:
 
 def compy_transpile_pure(dirs_cltr: CompyDirsCltr) -> list[Path]:
     pure_lib_dir_cltr = PureLibDirCltr(PureLibDirCltrDeps(dirs_cltr.target_dir))
-    proj_info = load_pure_proj_info(pure_lib_dir_cltr.calc_pure_lib_proj_info())
-    pure_lib_dir = pure_lib_dir_cltr.calc_pure_lib_dir(proj_info.lib_dir_name)
-    pure_lib_cpp_dir = pure_lib_dir_cltr.calc_pure_lib_cpp_dir(proj_info.lib_dir_name)
+    proj_info = load_pure_proj_info(pure_lib_dir_cltr.calc_proj_info())
+    pure_lib_dir = pure_lib_dir_cltr.calc_python_dir(proj_info.lib_dir_name)
+    pure_lib_cpp_dir = pure_lib_dir_cltr.calc_cpp_dir(proj_info.lib_dir_name)
     py_files: list[Path] = calc_all_py_files(pure_lib_dir)
     prev_timestamps: dict[str, float] = load_pure_previous_timestamps(
-        pure_lib_dir_cltr.calc_pure_lib_timestamps_file()
+        pure_lib_dir_cltr.calc_timestamps_file()
     )
     pure_file_change_cltr_deps = PureFileChangeCltrDeps(
         pure_lib_dir,

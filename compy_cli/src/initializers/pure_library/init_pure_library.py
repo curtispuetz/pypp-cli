@@ -24,13 +24,13 @@ def compy_init_pure_library(library_name: str, dirs_cltr: CompyDirsCltr):
     pure_lib_dir_cltr = PureLibDirCltr(PureLibDirCltrDeps(dirs_cltr.target_dir))
     cp: str = "compy-python==0.0.5"
     init_libs_helper.create_pyproject_toml(library_name_underscores, [cp])
-    lib_dir: Path = pure_lib_dir_cltr.calc_pure_lib_dir(library_name_underscores)
+    lib_dir: Path = pure_lib_dir_cltr.calc_python_dir(library_name_underscores)
     lib_dir.mkdir()
-    cpp_dir: Path = pure_lib_dir_cltr.calc_pure_lib_cpp_dir(library_name_underscores)
+    cpp_dir: Path = pure_lib_dir_cltr.calc_cpp_dir(library_name_underscores)
     cpp_dir.mkdir()
-    compy_data_dir: Path = pure_lib_dir_cltr.calc_pure_lib_compy_data_dir()
+    compy_data_dir: Path = pure_lib_dir_cltr.calc_compy_data_dir()
     compy_data_dir.mkdir()
-    proj_info_file: Path = pure_lib_dir_cltr.calc_pure_lib_proj_info()
+    proj_info_file: Path = pure_lib_dir_cltr.calc_proj_info()
     with open(proj_info_file, "w") as f:
         json.dump({"lib_dir_name": library_name_underscores}, f, indent=4)
     create_python_hello_world(lib_dir)
