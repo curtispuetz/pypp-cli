@@ -41,6 +41,13 @@ BRIDGE_JSON_VALIDATION: dict[str, Callable[[object], None]] = {
 }
 
 
+def verify_bridge_json_files(
+    bridge_json_path_cltr: BridgeJsonPathCltr, library_name: str
+):
+    verifier = BridgeJsonVerifier(bridge_json_path_cltr, library_name)
+    verifier.verify_bridge_jsons()
+
+
 @dataclass(frozen=True, slots=True)
 class BridgeJsonVerifier:
     _bridge_json_path_cltr: BridgeJsonPathCltr
@@ -53,8 +60,7 @@ class BridgeJsonVerifier:
             raise AssertionError(
                 f"An issue was found in one of the json files for bridge-library "
                 f"{self._library_name}: {e}. "
-                f"IMPORTANT: in order to avoid issues, uninstall "
-                f"{self._library_name}."
+                f"Uninstall {self._library_name}."
             )
 
     def _verify_bridge_json_files(self):

@@ -19,7 +19,9 @@ class CppProjectInitializer:
         if self._proj_info.cpp_dir_is_dirty:
             self._initialize()
         else:
-            print("C++ template already copied to the cpp project directory")
+            print(
+                "Not copying C++ template to the cpp project directory. Already copied."
+            )
 
     def _initialize(self):
         rm_dirs_and_files(self._cpp_dir, {"libs"})
@@ -37,7 +39,6 @@ class CppProjectInitializer:
                     "cpp_dir_is_dirty": False,
                     "ignore_src_files": self._proj_info.ignored_src_files,
                     "ignore_main_files": self._proj_info.ignored_main_files,
-                    "installed_bridge_libraries": self._proj_info.installed_bridge_libs,
                 },
                 file,
                 indent=4,

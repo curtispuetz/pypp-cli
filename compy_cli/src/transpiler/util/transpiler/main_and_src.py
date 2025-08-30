@@ -13,7 +13,7 @@ class MainAndSrcTranspiler:
     _python_dir: Path
     _cpp_src_dir: Path
     _python_src_dir: Path
-    _installed_bridge_libs: dict[str, str]
+    _bridge_libs: list[str]
     _src_py_files: list[Path]
     _bridge_json_path_cltr: BridgeJsonPathCltr
 
@@ -33,7 +33,7 @@ class MainAndSrcTranspiler:
         ):
             t = create_transpiler(
                 self._bridge_json_path_cltr,
-                self._installed_bridge_libs,
+                self._bridge_libs,
                 self._src_py_files,
             )
             t.transpile_all_changed_files(

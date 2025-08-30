@@ -10,12 +10,12 @@ from compy_cli.src.transpiler.util.transpiler.transpiler import Transpiler
 
 def create_transpiler(
     bridge_json_path_cltr: BridgeJsonPathCltr,
-    installed_bridge_libs: dict[str, str],
+    bridge_libs: list[str],
     src_py_files: list[Path],
 ) -> Transpiler:
     maps_cltr = MapsCltr(
-        MapCltr1(installed_bridge_libs, bridge_json_path_cltr),
-        MapCltr2(installed_bridge_libs, bridge_json_path_cltr),
-        ImportMapCltr(installed_bridge_libs, bridge_json_path_cltr),
+        MapCltr1(bridge_libs, bridge_json_path_cltr),
+        MapCltr2(bridge_libs, bridge_json_path_cltr),
+        ImportMapCltr(bridge_libs, bridge_json_path_cltr),
     )
     return Transpiler(src_py_files, maps_cltr.calc_maps())

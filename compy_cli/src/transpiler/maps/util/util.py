@@ -48,5 +48,5 @@ def calc_imp_str(imp: PySpecificImport | None) -> str:
 
 @dataclass(frozen=True, slots=True)
 class MapCltrAlgo:
-    _installed_bridge_libs: dict[str, str]
+    _bridge_libs: list[str]
     _bridge_json_path_cltr: BridgeJsonPathCltr
