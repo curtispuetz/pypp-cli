@@ -1,11 +1,13 @@
 from pathlib import Path
 import argparse
 
-from compy_cli.src.compy_dirs import CompyDirs
+from compy_cli.src.dirs_cltr import CompyDirsCltr
 from compy_cli.src.do import compy_do
 from compy_cli.src.initializers.init import compy_init
 from compy_cli.src.initializers.init_bridge_library import compy_init_bridge_library
-from compy_cli.src.initializers.init_pure_library import compy_init_pure_library
+from compy_cli.src.initializers.pure_library.init_pure_library import (
+    compy_init_pure_library,
+)
 from compy_cli.src.package_manager.installer.install import compy_install
 from compy_cli.src.delete_timestamps import compy_delete_timestamps
 from compy_cli.src.run_python import compy_run_python
@@ -81,14 +83,14 @@ def main_cli(absolute_dir: Path | None = None) -> None:
     args = parser.parse_args()
     if absolute_dir is None:
         absolute_dir = Path.cwd()
-    compy_dirs = CompyDirs(absolute_dir)
+    dirs_cltr = CompyDirsCltr(absolute_dir)
     if args.mode == "init":
-        compy_init(compy_dirs)
+        compy_init(dirs_cltr)
     elif args.mode == "init_bridge_library":
-        compy_init_bridge_library(args.library_name, compy_dirs)
+        compy_init_bridge_library(args.library_name, dirs_cltr)
     elif args.mode == "init_pure_library":
-        compy_init_pure_library(args.library_name, compy_dirs)
-    elif not compy_dirs.proj_info_file.exists():
+        compy_init_pure_library(args.library_name, dirs_cltr)
+    elif not dirs_cltr.calc_proj_info_file().exists():
         parser.error(
             "compy_data/proj_info.json file not found. "
             "Ensure your Compy project is properly initialized."
@@ -99,17 +101,17 @@ def main_cli(absolute_dir: Path | None = None) -> None:
             parser.error(
                 "argument --exe_name/-e is required when 'run' is one of the tasks."
             )
-        compy_do(args.tasks, compy_dirs, args.exe_name)
+        compy_do(args.tasks, dirs_cltr, args.exe_name)
     elif args.mode == "install":
         for lib in args.libraries:
-            compy_install(lib, compy_dirs)
+            compy_install(lib, dirs_cltr)
     elif args.mode == "uninstall":
         for lib in args.libraries:
-            compy_uninstall(lib, compy_dirs)
+            compy_uninstall(lib, dirs_cltr)
     elif args.mode == "delete_timestamps":
-        compy_delete_timestamps(compy_dirs)
+        compy_delete_timestamps(dirs_cltr)
     elif args.mode == "run_python":
-        compy_run_python(args.file, compy_dirs)
+        compy_run_python(args.file, dirs_cltr)
 
 
 if __name__ == "__main__":

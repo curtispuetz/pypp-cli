@@ -2,7 +2,7 @@ from dataclasses import dataclass
 import json
 from pathlib import Path
 
-from compy_cli.src.compy_dirs import calc_bridge_json
+from compy_cli.src.bridge_json_path_cltr import BridgeJsonPathCltr
 
 
 def _calc_link_libs_lines(link_libs: list[str]) -> list[str]:
@@ -20,7 +20,7 @@ def _calc_link_libs_lines(link_libs: list[str]) -> list[str]:
 @dataclass(frozen=True, slots=True)
 class CMakeListsWriterDeps:
     cpp_dir: Path
-    python_dir: Path
+    bridge_json_path_cltr: BridgeJsonPathCltr
     main_py_files: list[Path]
     installed_bridge_libs: dict[str, str]
 
@@ -83,8 +83,8 @@ class CMakeListsWriter:
         add_lines: list[str] = []
         link_libs: list[str] = []
         for installed_library in self._d.installed_bridge_libs:
-            cmake_lists: Path = calc_bridge_json(
-                self._d.python_dir, installed_library, "cmake_lists"
+            cmake_lists: Path = self._d.bridge_json_path_cltr.calc_bridge_json(
+                installed_library, "cmake_lists"
             )
             if cmake_lists.exists():
                 with open(cmake_lists, "r") as f:

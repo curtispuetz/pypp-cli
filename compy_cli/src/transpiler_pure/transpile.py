@@ -1,14 +1,18 @@
 from dataclasses import dataclass
 import json
 from pathlib import Path
-from compy_cli.src.compy_dirs import CompyDirs
+from compy_cli.src.dirs_cltr import CompyDirsCltr
+from compy_cli.src.initializers.pure_library.lib_dir_cltr import (
+    PureLibDirCltr,
+    PureLibDirCltrDeps,
+)
 from compy_cli.src.package_manager.installer.json_validations.util.validations import (
     validate_is_list_of_strings,
 )
-from compy_cli.src.transpiler.maps.calc_import_map import ImportMap
+from compy_cli.src.transpiler.maps.util.calc_import_map import ImportMap
 from compy_cli.src.transpiler.maps.maps import Maps
 from compy_cli.src.transpiler.print_results import print_transpilation_results
-from compy_cli.src.transpiler.util.deleter import delete_cpp_and_h_files
+from compy_cli.src.transpiler.util.deleter import CppAndHFileDeleter
 from compy_cli.src.transpiler.util.file_changes.file_loader import calc_all_py_files
 from compy_cli.src.transpiler.util.transpiler._helper import TranspilerDeps
 from compy_cli.src.transpiler.util.transpiler.transpiler import (
@@ -53,16 +57,17 @@ def load_pure_previous_timestamps(timestamps_file: Path) -> dict[str, float]:
     return {}
 
 
-def compy_transpile_pure(dirs: CompyDirs) -> list[Path]:
-    proj_info = load_pure_proj_info(dirs.calc_pure_lib_proj_info())
-    py_files: list[Path] = calc_all_py_files(
-        dirs.calc_pure_lib_dir(proj_info.lib_dir_name)
-    )
+def compy_transpile_pure(dirs_cltr: CompyDirsCltr) -> list[Path]:
+    pure_lib_dir_cltr = PureLibDirCltr(PureLibDirCltrDeps(dirs_cltr.target_dir))
+    proj_info = load_pure_proj_info(pure_lib_dir_cltr.calc_pure_lib_proj_info())
+    pure_lib_dir = pure_lib_dir_cltr.calc_pure_lib_dir(proj_info.lib_dir_name)
+    pure_lib_cpp_dir = pure_lib_dir_cltr.calc_pure_lib_cpp_dir(proj_info.lib_dir_name)
+    py_files: list[Path] = calc_all_py_files(pure_lib_dir)
     prev_timestamps: dict[str, float] = load_pure_previous_timestamps(
-        dirs.calc_pure_lib_timestamps_file()
+        pure_lib_dir_cltr.calc_pure_lib_timestamps_file()
     )
     pure_file_change_cltr_deps = PureFileChangeCltrDeps(
-        dirs.calc_pure_lib_dir(proj_info.lib_dir_name),
+        pure_lib_dir,
         proj_info.ignored_files,
         py_files,
         prev_timestamps,
@@ -70,13 +75,11 @@ def compy_transpile_pure(dirs: CompyDirs) -> list[Path]:
     pure_file_change_cltr = PureFileChangeCltr(pure_file_change_cltr_deps)
     changes = pure_file_change_cltr.calc_changes()
 
-    files_deleted: int = delete_cpp_and_h_files(
-        [changes.deleted_files, changes.changed_files],
-        dirs.calc_pure_lib_cpp_dir(proj_info.lib_dir_name),
+    cpp_and_h_file_deleter = CppAndHFileDeleter(pure_lib_cpp_dir)
+    files_deleted: int = cpp_and_h_file_deleter.delete_files(
+        [changes.deleted_files, changes.changed_files]
     )
 
-    cpp_dir = dirs.calc_pure_lib_cpp_dir(proj_info.lib_dir_name)
-    python_dir = dirs.calc_pure_lib_dir(proj_info.lib_dir_name)
     transpiler = Transpiler(
         TranspilerDeps(
             py_files,
@@ -84,7 +87,7 @@ def compy_transpile_pure(dirs: CompyDirs) -> list[Path]:
         )
     )
     transpiler.transpile_all_changed_files(
-        changes.new_files, changes.changed_files, python_dir, cpp_dir
+        changes.new_files, changes.changed_files, pure_lib_dir, pure_lib_cpp_dir
     )
     r = transpiler.get_results()
     print_transpilation_results(r, files_deleted)

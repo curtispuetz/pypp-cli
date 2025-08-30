@@ -1,13 +1,13 @@
 import json
 from pathlib import Path
 from typing import Callable
-from compy_cli.src.compy_dirs import calc_bridge_json
 from compy_cli.src.transpiler.maps.d_types import (
     CustomMappingFromLibEntry,
     CustomMappingStartsWithFromLibEntry,
     ReplaceDotWithDoubleColonEntry,
     ToStringEntry,
 )
+from compy_cli.src.transpiler.maps.util.util import MapsCltrAlgoDeps
 from compy_cli.src.transpiler.maps.util.util import (
     calc_imp_str,
 )
@@ -54,42 +54,47 @@ BASE_CALC_ENTRY_FN_MAP: dict[
 }
 
 
-def calc_map_1(
-    base_map,
-    calc_entry_fn_map,
-    json_file_name: str,
-    friendly_name: str,
-    installed_bridge_libs: dict[str, str],
-    py_env_parent_dir: Path,
-):
-    ret = base_map.copy()
-    for installed_library in installed_bridge_libs:
-        json_path: Path = calc_bridge_json(
-            py_env_parent_dir, installed_library, json_file_name
-        )
-        if json_path.is_file():
-            with open(json_path, "r") as f:
-                m: dict = json.load(f)
-            # Note: No assertions required here because the structure is (or will be)
-            # validated when the library is installed.
-            for mapping_type, mapping_vals in m.items():
-                _assert_valid_mapping_type(
-                    calc_entry_fn_map, mapping_type, json_file_name, installed_library
-                )
-                for k, v in mapping_vals.items():
-                    required_import = calc_required_py_import(v)
-                    if k in ret:
-                        if required_import in ret[k]:
-                            print(
-                                f"warning: Compy transpiler already maps the "
-                                f"{friendly_name} "
-                                f"'{k}{calc_imp_str(required_import)}'. Library "
-                                f"{installed_library} is overriding this mapping."
-                            )
-                        ret[k][required_import] = calc_entry_fn_map[mapping_type](v)
-                    else:
-                        ret[k] = {required_import: calc_entry_fn_map[mapping_type](v)}
-    return ret
+class MapCltr1:
+    def __init__(self, d: MapsCltrAlgoDeps):
+        self._d = d
+
+    def calc_map_1(
+        self, base_map, calc_entry_fn_map, json_file_name: str, friendly_name: str
+    ):
+        ret = base_map.copy()
+        for installed_library in self._d.installed_bridge_libs:
+            json_path: Path = self._d.bridge_json_path_cltr.calc_bridge_json(
+                installed_library, json_file_name
+            )
+            if json_path.is_file():
+                with open(json_path, "r") as f:
+                    m: dict = json.load(f)
+                # Note: No assertions required here because the structure is
+                # (or will be)
+                # validated when the library is installed.
+                for mapping_type, mapping_vals in m.items():
+                    _assert_valid_mapping_type(
+                        calc_entry_fn_map,
+                        mapping_type,
+                        json_file_name,
+                        installed_library,
+                    )
+                    for k, v in mapping_vals.items():
+                        required_import = calc_required_py_import(v)
+                        if k in ret:
+                            if required_import in ret[k]:
+                                print(
+                                    f"warning: Compy transpiler already maps the "
+                                    f"{friendly_name} "
+                                    f"'{k}{calc_imp_str(required_import)}'. Library "
+                                    f"{installed_library} is overriding this mapping."
+                                )
+                            ret[k][required_import] = calc_entry_fn_map[mapping_type](v)
+                        else:
+                            ret[k] = {
+                                required_import: calc_entry_fn_map[mapping_type](v)
+                            }
+        return ret
 
 
 def _assert_valid_mapping_type(

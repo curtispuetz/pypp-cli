@@ -1,4 +1,3 @@
-from pathlib import Path
 from compy_cli.src.transpiler.module.d_types import (
     PySpecificImpFrom,
     AngInc,
@@ -7,10 +6,6 @@ from compy_cli.src.transpiler.module.d_types import (
 from compy_cli.src.transpiler.maps.d_types import (
     ToStringEntry,
     NameMap,
-)
-from compy_cli.src.transpiler.maps.util.calc_map_1 import (
-    BASE_CALC_ENTRY_FN_MAP,
-    calc_map_1,
 )
 
 
@@ -88,16 +83,3 @@ NAME_MAP: NameMap = {
         )
     },
 }
-
-
-def calc_name_map(
-    installed_bridge_libs: dict[str, str], py_env_parent_dir: Path
-) -> NameMap:
-    return calc_map_1(
-        NAME_MAP,
-        BASE_CALC_ENTRY_FN_MAP,
-        "name_map",
-        "name",
-        installed_bridge_libs,
-        py_env_parent_dir,
-    )

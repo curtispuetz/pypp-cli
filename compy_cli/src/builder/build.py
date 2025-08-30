@@ -1,18 +1,17 @@
+from pathlib import Path
 import subprocess
 
-from compy_cli.src.compy_dirs import CompyDirs
 
-
-def compy_build(dirs: CompyDirs):
+def compy_build(cpp_dir: Path):
     print("running cmake build...")
     # NOTE: you only need to do the first 'cmake -S . -B build' part if there was file
     #  changes to the code base. However, for simplicity, I will just do it each time.
     # cmake -S . -B build
-    subprocess.run(["cmake", "-S", ".", "-B", "build"], cwd=dirs.cpp_dir, check=True)
+    subprocess.run(["cmake", "-S", ".", "-B", "build"], cwd=cpp_dir, check=True)
     # cmake --build build --config Release
     subprocess.run(
         ["cmake", "--build", "build", "--config", "Release"],
-        cwd=dirs.cpp_dir,
+        cwd=cpp_dir,
         check=True,
     )
     print("cmake build finished")

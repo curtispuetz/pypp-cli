@@ -1,3 +1,5 @@
+from dataclasses import dataclass
+from compy_cli.src.bridge_json_path_cltr import BridgeJsonPathCltr
 from compy_cli.src.transpiler.module.d_types import (
     AngInc,
     CppInclude,
@@ -42,3 +44,9 @@ def calc_required_py_import(obj: dict | None) -> PySpecificImport | None:
 
 def calc_imp_str(imp: PySpecificImport | None) -> str:
     return "" if imp is None else f" ({imp})"
+
+
+@dataclass(frozen=True, slots=True)
+class MapsCltrAlgoDeps:
+    installed_bridge_libs: dict[str, str]
+    bridge_json_path_cltr: BridgeJsonPathCltr
