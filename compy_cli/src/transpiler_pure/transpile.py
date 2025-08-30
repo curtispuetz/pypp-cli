@@ -10,7 +10,10 @@ from compy_cli.src.transpiler.maps.maps import Maps
 from compy_cli.src.transpiler.print_results import print_transpilation_results
 from compy_cli.src.transpiler.util.deleter import delete_cpp_and_h_files
 from compy_cli.src.transpiler.util.file_changes.file_loader import calc_all_py_files
-from compy_cli.src.transpiler.util.transpiler import Transpiler, TranspilerDeps
+from compy_cli.src.transpiler.util.transpiler._helper import TranspilerDeps
+from compy_cli.src.transpiler.util.transpiler.transpiler import (
+    Transpiler,
+)
 from compy_cli.src.transpiler_pure.file_change_cltr import (
     PureFileChangeCltr,
     PureFileChangeCltrDeps,
