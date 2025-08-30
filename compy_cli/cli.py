@@ -5,7 +5,7 @@ from compy_cli.src.dirs_cltr import CompyDirsCltr
 from compy_cli.src.do import compy_do
 from compy_cli.src.initializers.init import compy_init
 from compy_cli.src.initializers.init_bridge_library import compy_init_bridge_library
-from compy_cli.src.initializers.pure_library.init_pure_library import (
+from compy_cli.src.initializers.init_pure_library import (
     compy_init_pure_library,
 )
 from compy_cli.src.install import compy_install
