@@ -1,4 +1,4 @@
-from compy_cli.src.package_manager.installer.json_validations.util.basic_info import (
+from compy_cli.src.transpiler.bridge_libs.json_validations.util.basic_info import (
     validate_required_py_import,
 )
 

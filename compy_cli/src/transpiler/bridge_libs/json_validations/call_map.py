@@ -1,10 +1,10 @@
 from typing import Callable
 
 
-from compy_cli.src.package_manager.installer.json_validations.util.basic_info import (
+from compy_cli.src.transpiler.bridge_libs.json_validations.util.basic_info import (
     VALIDATE_BASIC_INFO,
 )
-from compy_cli.src.package_manager.installer.json_validations.util.validate_1 import (
+from compy_cli.src.transpiler.bridge_libs.json_validations.util.validate_1 import (
     BASE_VALIDATE_ENTRY_MAP,
     validate_1,
     validate_replace_dot_with_double_colon,

@@ -1,4 +1,4 @@
-from compy_cli.src.package_manager.installer.json_validations.util.validate_2 import (
+from compy_cli.src.transpiler.bridge_libs.json_validations.util.validate_2 import (
     validate_2,
 )
 

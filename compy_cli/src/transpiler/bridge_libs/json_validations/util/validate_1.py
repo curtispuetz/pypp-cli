@@ -1,9 +1,9 @@
 from typing import Callable
-from compy_cli.src.package_manager.installer.json_validations.util.basic_info import (
+from compy_cli.src.transpiler.bridge_libs.json_validations.util.basic_info import (
     VALIDATE_BASIC_INFO,
 )
 from compy_cli.src.transpiler.module.mapping.util import calc_funcs_in_str
-from compy_cli.src.package_manager.installer.json_validations.util.validations import (
+from compy_cli.src.transpiler.bridge_libs.json_validations.util.validations import (
     validate_is_list_of_strings,
 )
 
