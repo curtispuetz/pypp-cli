@@ -45,7 +45,13 @@ def create_all_data(dirs: CompyDirs) -> AllData:
     prev_timestamps = load_previous_timestamps(dirs.timestamps_file)
     cmake_lists_writer_deps = CMakeListsWriterDeps(dirs, main_py_files, proj_info)
     file_change_cltr_deps = FileChangeCltrDeps(
-        dirs, proj_info, main_py_files, src_py_files, prev_timestamps
+        dirs.python_dir,
+        dirs.python_src_dir,
+        proj_info.ignored_src_files,
+        proj_info.ignored_main_files,
+        main_py_files,
+        src_py_files,
+        prev_timestamps,
     )
     cpp_project_initializer_deps = CppProjectInitializerDeps(dirs, proj_info)
 
