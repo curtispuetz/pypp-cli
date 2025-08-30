@@ -1,18 +1,18 @@
 from dataclasses import dataclass
 from pathlib import Path
-from compy_cli.src.compy_dirs import CompyDirs
 from compy_cli.src.transpiler.util.file_changes.cltr import (
     calc_py_file_changes,
     PyFileChanges,
 )
 from compy_cli.src.transpiler.util.file_changes.file_loader import TimeStampsFile
-from compy_cli.src.transpiler.util.load_proj_info import ProjInfo
 
 
 @dataclass(frozen=True, slots=True)
 class FileChangeCltrDeps:
-    dirs: CompyDirs
-    proj_info: ProjInfo
+    python_dir: Path
+    python_src_dir: Path
+    ignored_src_files: list[str]
+    ignored_main_files: list[str]
     main_py_files: list[Path]
     src_py_files: list[Path]
     prev_timestamps: TimeStampsFile
@@ -25,14 +25,14 @@ class FileChangeCltr:
     def calc_changes(self) -> tuple[PyFileChanges, PyFileChanges]:
         src = calc_py_file_changes(
             self._d.prev_timestamps.src_files,
-            self._d.dirs.python_src_dir,
-            self._d.proj_info.ignored_src_files,
+            self._d.python_src_dir,
+            self._d.ignored_src_files,
             self._d.src_py_files,
         )
         main = calc_py_file_changes(
             self._d.prev_timestamps.main_files,
-            self._d.dirs.python_dir,
-            self._d.proj_info.ignored_main_files,
+            self._d.python_dir,
+            self._d.ignored_main_files,
             self._d.main_py_files,
         )
 

@@ -59,8 +59,8 @@ def compy_transpile_pure(dirs: CompyDirs) -> list[Path]:
         dirs.calc_pure_lib_timestamps_file()
     )
     pure_file_change_cltr_deps = PureFileChangeCltrDeps(
-        dirs,
-        proj_info,
+        dirs.calc_pure_lib_dir(proj_info.lib_dir_name),
+        proj_info.ignored_files,
         py_files,
         prev_timestamps,
     )
