@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 import json
+from pathlib import Path
 
-from compy_cli.src.compy_dirs import CompyDirs
 from compy_cli.src.package_manager.installer.json_validations.util.validations import (
     validate_is_dict_of_strings,
 )
@@ -18,8 +18,8 @@ class ProjInfo:
     installed_bridge_libs: dict[str, str]
 
 
-def load_proj_info(dirs: CompyDirs) -> ProjInfo:
-    with open(dirs.proj_info_file) as file:
+def load_proj_info(proj_info_file: Path) -> ProjInfo:
+    with open(proj_info_file) as file:
         proj_info = json.load(file)
     _validate_proj_info(proj_info)
     return ProjInfo(
