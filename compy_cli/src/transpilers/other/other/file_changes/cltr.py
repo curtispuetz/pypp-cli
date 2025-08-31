@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from fnmatch import fnmatch
 from pathlib import Path
 
@@ -18,7 +18,7 @@ def calc_py_file_changes(
     ignore_files: list[str],
     py_files: list[Path],
 ) -> PyFileChanges:
-    fct = _FileChangeTracker(prev_timestamps)
+    fct = _FileChangeTracker(prev_timestamps, _find_deleted_files(prev_timestamps))
     return fct.calc_py_file_changes(root_dir, ignore_files, py_files)
 
 
@@ -29,20 +29,20 @@ def _should_ignore_file(rel_path_posix: str, ignore_src_files: list[str]) -> boo
     return False
 
 
-# TODO: make this a dataclass
-class _FileChangeTracker:
-    def __init__(self, prev_timestamps: dict[str, float]):
-        self._prev_timestamps = prev_timestamps
-        self._curr_timestamps: dict[str, float] = {}
-        self._changed_files: list[Path] = []
-        self._new_files: list[Path] = []
-        self._deleted_files: set[Path] = self._find_deleted_files()
-        self._ignored_file_stems: set[str] = set()
+def _find_deleted_files(prev_timestamps) -> set[Path]:
+    if len(prev_timestamps) == 0:
+        return set()
+    return {Path(k) for k in list(prev_timestamps.keys())}
 
-    def _find_deleted_files(self) -> set[Path]:
-        if len(self._prev_timestamps) == 0:
-            return set()
-        return {Path(k) for k in list(self._prev_timestamps.keys())}
+
+@dataclass(frozen=True, slots=True)
+class _FileChangeTracker:
+    _prev_timestamps: dict[str, float]
+    _deleted_files: set[Path]
+    _curr_timestamps: dict[str, float] = field(default_factory=dict)
+    _changed_files: list[Path] = field(default_factory=list)
+    _new_files: list[Path] = field(default_factory=list)
+    _ignored_file_stems: set[str] = field(default_factory=set)
 
     def _check_file_change(self, filepath: Path, rel_path: Path, rel_path_posix: str):
         modified_time = filepath.stat().st_mtime
