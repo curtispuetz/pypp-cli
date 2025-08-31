@@ -1,8 +1,8 @@
-import ast
 import types
 from compy_cli.src.transpilers.other.module.d_types import PySpecificImport
-from compy_cli.src.transpilers.other.module.deps import Deps
+from compy_cli.src.transpilers.other.transpiler.deps import Deps
 from compy_cli.src.transpilers.other.maps.d_types import MappingFnStr
+from compy_cli.src.transpilers.other.other.fn_str import calc_funcs_in_str
 
 
 def is_one(r: set[PySpecificImport | None], d: Deps) -> bool:
@@ -25,9 +25,3 @@ def find_map_entry[T](v: dict[PySpecificImport | None, T], d: Deps) -> T | None:
 
 def calc_string_fn(info: MappingFnStr) -> types.FunctionType:
     return calc_funcs_in_str(info.mapping_fn_str)[0]
-
-
-def calc_funcs_in_str(mapping_fn: str) -> list[types.FunctionType]:
-    namespace = {"ast": ast, "Deps": Deps}
-    exec(mapping_fn, namespace)
-    return [obj for obj in namespace.values() if isinstance(obj, types.FunctionType)]

@@ -6,7 +6,7 @@ from compy_cli.src.transpilers.other.maps.maps import Maps
 from compy_cli.src.transpilers.other.module.util.ret_imports import IncMap
 
 
-def handle_import_stmts(
+def analyse_import_stmts(
     stmts: list[ast.stmt], maps: Maps, src_py_files: list[Path]
 ) -> tuple[IncMap, int, PyImports]:
     modules_in_project: set[str] = _calc_all_modules_for_project(src_py_files)

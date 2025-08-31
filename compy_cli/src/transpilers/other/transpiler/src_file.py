@@ -1,7 +1,8 @@
 from compy_cli.src.transpilers.other.maps.maps import Maps
-from compy_cli.src.transpilers.other.module.code_cltr import (
-    calc_src_file_cpp_and_h_code,
+from compy_cli.src.transpilers.other.transpiler.util import (
+    handle_imports_and_create_deps,
 )
+from compy_cli.src.transpilers.other.module.util.calc_includes import calc_includes
 from compy_cli.src.transpilers.other.transpiler.calc_ast_tree import calc_ast
 from compy_cli.src.transpilers.other.transpiler.results import TranspileResults
 
@@ -26,11 +27,24 @@ class SrcFileTranspiler:
 
     def _calc_cpp_and_h_code(self, file: Path) -> tuple[str, str, Path]:
         py_src_file: Path = self._py_src_dir / file
-        src_file_py_ast_tree: ast.Module = calc_ast(py_src_file)
+        py_ast: ast.Module = calc_ast(py_src_file)
         h_file: Path = file.with_suffix(".h")
-        return *calc_src_file_cpp_and_h_code(
-            src_file_py_ast_tree, h_file, self._maps, self._src_py_files
-        ), h_file
+        import_end, d = handle_imports_and_create_deps(
+            py_ast, self._maps, self._src_py_files
+        )
+        cpp_code_minus_include: str = d.handle_stmts(py_ast.body[import_end:])
+        h_includes, cpp_includes = calc_includes(d.ret_imports)
+        cpp_code = self._calc_cpp_code(cpp_code_minus_include, h_file, cpp_includes)
+        h_code: str = "#pragma once\n\n" + h_includes + " ".join(d.ret_h_file)
+        return cpp_code, h_code, h_file
+
+    def _calc_cpp_code(
+        self, cpp_code_minus_include: str, h_file: Path, cpp_includes: str
+    ) -> str:
+        if cpp_code_minus_include.strip() != "":
+            all_cpp_includes = f'#include "{h_file.as_posix()}"\n' + cpp_includes
+            return all_cpp_includes + cpp_code_minus_include
+        return ""
 
     def _write_cpp_file(self, file: Path, cpp_code: str):
         cpp_file: Path = file.with_suffix(".cpp")

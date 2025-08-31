@@ -1,6 +1,6 @@
 import ast
 
-from compy_cli.src.transpilers.other.module.deps import Deps
+from compy_cli.src.transpilers.other.transpiler.deps import Deps
 from compy_cli.src.transpilers.other.module.handle_expr.h_starred import (
     handle_call_with_starred_arg,
 )
