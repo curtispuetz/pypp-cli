@@ -1,3 +1,4 @@
+from dataclasses import dataclass
 from pathlib import Path
 
 from compy_cli.src.builder.build import compy_build
@@ -20,11 +21,11 @@ def compy_do(tasks: list[str], target_dir: Path, exe_name: str | None) -> None:
         task_methods[task]()
 
 
+@dataclass(slots=True)
 class _DoHelper:
-    def __init__(self, paths: DoCompyPaths, exe_name: str | None):
-        self._paths = paths
-        self._files_added_or_modified: list[Path] | None = None
-        self._exe_name = exe_name
+    _paths: DoCompyPaths
+    _exe_name: str
+    _files_added_or_modified: list[Path] | None = None
 
     def transpile(self):
         self._files_added_or_modified = compy_transpile(self._paths)
