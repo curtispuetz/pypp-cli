@@ -3,7 +3,7 @@ from pathlib import Path
 
 from compy_cli.src.transpilers.other.transpiler.d_types import PyImports, PyImport, QInc
 from compy_cli.src.transpilers.other.transpiler.maps.maps import Maps
-from compy_cli.src.transpilers.other.transpiler.ret_imports import IncMap
+from compy_cli.src.transpilers.other.transpiler.cpp_includes import IncMap
 
 
 def analyse_import_stmts(

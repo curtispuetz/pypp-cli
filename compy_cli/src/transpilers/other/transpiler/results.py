@@ -8,3 +8,15 @@ class TranspileResults:
     py_files_transpiled: int
     h_files_written: int
     cpp_files_written: int
+
+    def print(self, files_deleted: int):
+        print(
+            f"Compy transpile finished. "
+            f"files deleted: {files_deleted}, "
+            f"py files transpiled: "
+            f"{self.py_files_transpiled}, "
+            f"header files written: "
+            f"{self.h_files_written},"
+            f" cpp files written: "
+            f"{self.cpp_files_written}"
+        )

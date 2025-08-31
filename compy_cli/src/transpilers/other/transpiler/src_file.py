@@ -33,7 +33,7 @@ class SrcFileTranspiler:
             py_ast, self._maps, self._src_py_files
         )
         cpp_code_minus_include: str = d.handle_stmts(py_ast.body[import_end:])
-        h_includes, cpp_includes = calc_includes(d.ret_imports)
+        h_includes, cpp_includes = calc_includes(d.cpp_includes)
         cpp_code = self._calc_cpp_code(cpp_code_minus_include, h_file, cpp_includes)
         h_code: str = "#pragma once\n\n" + h_includes + " ".join(d.ret_h_file)
         return cpp_code, h_code, h_file

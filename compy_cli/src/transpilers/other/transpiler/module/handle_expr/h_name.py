@@ -16,8 +16,8 @@ from compy_cli.src.transpilers.other.transpiler.module.mapping.util import (
 
 
 def handle_name(node: ast.Name, d: Deps) -> str:
-    if node.id in d.ret_imports.include_map:
-        d.add_inc(d.ret_imports.include_map[node.id])
+    if node.id in d.cpp_includes.include_map:
+        d.add_inc(d.cpp_includes.include_map[node.id])
     name: str = node.id
 
     for k, v in d.maps.name.items():
