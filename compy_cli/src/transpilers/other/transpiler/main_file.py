@@ -1,12 +1,12 @@
-from compy_cli.src.transpilers.other.maps.maps import Maps
+from compy_cli.src.transpilers.other.transpiler.maps.maps import Maps
 from compy_cli.src.transpilers.other.transpiler.util import (
     handle_imports_and_create_deps,
 )
-from compy_cli.src.transpilers.other.module.d_types import QInc
-from compy_cli.src.transpilers.other.module.util.calc_includes import (
+from compy_cli.src.transpilers.other.transpiler.d_types import QInc
+from compy_cli.src.transpilers.other.transpiler.calc_includes import (
     calc_includes_for_main_file,
 )
-from compy_cli.src.transpilers.other.module.util.handle_main_stmts import (
+from compy_cli.src.transpilers.other.transpiler.handle_main_stmts import (
     handle_main_stmts,
 )
 from compy_cli.src.transpilers.other.transpiler.calc_ast_tree import calc_ast

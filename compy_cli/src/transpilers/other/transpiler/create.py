@@ -3,10 +3,12 @@ from pathlib import Path
 from compy_cli.src.transpilers.other.other.bridge_json_path_cltr import (
     BridgeJsonPathCltr,
 )
-from compy_cli.src.transpilers.other.maps.maps import MapsCltr
-from compy_cli.src.transpilers.other.maps.util.calc_import_map import ImportMapCltr
-from compy_cli.src.transpilers.other.maps.util.calc_map_1 import MapCltr1
-from compy_cli.src.transpilers.other.maps.util.calc_map_2 import MapCltr2
+from compy_cli.src.transpilers.other.transpiler.maps.maps import MapsCltr
+from compy_cli.src.transpilers.other.transpiler.maps.util.calc_import_map import (
+    ImportMapCltr,
+)
+from compy_cli.src.transpilers.other.transpiler.maps.util.calc_map_1 import MapCltr1
+from compy_cli.src.transpilers.other.transpiler.maps.util.calc_map_2 import MapCltr2
 from compy_cli.src.transpilers.other.transpiler.transpiler import Transpiler
 
 
