@@ -1,9 +1,10 @@
+from dataclasses import dataclass
 from pathlib import Path
 
 
+@dataclass(frozen=True, slots=True)
 class CppAndHFileDeleter:
-    def __init__(self, cpp_src_dir: Path):
-        self._cpp_src_dir = cpp_src_dir
+    _cpp_src_dir: Path
 
     def delete_files(self, file_lists: list[list[Path]]) -> int:
         files_deleted: int = 0

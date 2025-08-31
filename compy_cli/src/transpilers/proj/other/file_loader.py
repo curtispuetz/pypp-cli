@@ -28,9 +28,9 @@ def load_previous_timestamps(timestamps_file: Path) -> TimeStampsFile:
     )
 
 
+@dataclass(frozen=True, slots=True)
 class TimestampsSaver:
-    def __init__(self, timestamps_file: Path):
-        self._timestamps_file = timestamps_file
+    _timestamps_file: Path
 
     def save(self, timestamps: TimeStampsFile):
         with open(self._timestamps_file, "w") as f:
