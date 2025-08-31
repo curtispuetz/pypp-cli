@@ -1,9 +1,10 @@
+from dataclasses import dataclass
 from pathlib import Path
 
 
+@dataclass(frozen=True, slots=True)
 class BridgeJsonPathCltr:
-    def __init__(self, site_packages_dir: Path) -> None:
-        self._site_packages_dir = site_packages_dir
+    _site_packages_dir: Path
 
     def calc_bridge_json(self, library_name: str, json_file_name: str) -> Path:
         return (
