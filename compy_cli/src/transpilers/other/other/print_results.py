@@ -1,4 +1,4 @@
-from compy_cli.src.transpilers.other.other.transpiler.transpiler import TranspileResults
+from compy_cli.src.transpilers.other.other.transpiler.results import TranspileResults
 
 
 def print_transpilation_results(r: TranspileResults, files_deleted: int):
@@ -8,7 +8,7 @@ def print_transpilation_results(r: TranspileResults, files_deleted: int):
         f"py files transpiled: "
         f"{r.py_files_transpiled}, "
         f"header files written: "
-        f"{r.header_files_written},"
+        f"{r.h_files_written},"
         f" cpp files written: "
         f"{r.cpp_files_written}"
     )
