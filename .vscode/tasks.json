@@ -134,6 +134,19 @@
             }
         },
         {
+            "label": "del timestamps pure",
+            "type": "shell",
+            "command": "${workspaceFolder}/.venv/Scripts/python.exe -m compy_cli.util_scripts.calling_cli.delete_timestamps_pure_lib",
+            "problemMatcher": [],
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "dedicated",
+                "showReuseMessage": false
+            }
+        },
+        {
             "label": "Build library",
             "type": "shell",
             "command": "${workspaceFolder}/.venv/Scripts/python.exe -m hatchling build",
