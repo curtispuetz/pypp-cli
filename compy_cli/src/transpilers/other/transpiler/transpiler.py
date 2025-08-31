@@ -1,7 +1,7 @@
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Callable
-from compy_cli.src.transpilers.other.maps.maps import Maps
+from compy_cli.src.transpilers.other.transpiler.maps.maps import Maps
 from compy_cli.src.transpilers.other.transpiler.main_file import (
     MainFileTranspiler,
 )

@@ -2,7 +2,7 @@ import ast
 from pathlib import Path
 
 # Config
-target_module = "transpilers.other"
+target_module = "transpilers.other.transpiler.maps"
 
 
 # Implementation
@@ -38,5 +38,6 @@ for py_file in py_files:
             assert stmt.module is not None, "Not supported"
             if stmt.module.startswith(full_target_module):
                 print(py_file)
+                break  # So you don't print the same twice
         else:
             break

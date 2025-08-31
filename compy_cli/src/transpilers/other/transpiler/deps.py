@@ -2,14 +2,14 @@ import ast
 from dataclasses import dataclass
 from typing import Callable
 
-from compy_cli.src.transpilers.other.module.d_types import (
+from compy_cli.src.transpilers.other.transpiler.d_types import (
     CppInclude,
     PyImports,
     PySpecificImport,
     is_imported,
 )
-from compy_cli.src.transpilers.other.maps.maps import Maps
-from compy_cli.src.transpilers.other.module.util.ret_imports import RetImports, add_inc
+from compy_cli.src.transpilers.other.transpiler.maps.maps import Maps
+from compy_cli.src.transpilers.other.transpiler.ret_imports import RetImports, add_inc
 
 
 @dataclass(slots=True)
