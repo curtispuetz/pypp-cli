@@ -6,7 +6,7 @@ from compy_cli.src.other.compy_paths.do_pure import DoPureCompyPaths
 from compy_cli.src.pure_lib_transpiler.file_change_cltr import PureFileChangeCltr
 from compy_cli.src.pure_lib_transpiler.transpiler import PureLibTranspiler
 from compy_cli.src.transpiler.bridge_json_path_cltr import BridgeJsonPathCltr
-from compy_cli.src.transpiler.bridge_libs.finder import find_bridge_libs
+from compy_cli.src.transpiler.bridge_libs.finder import find_libs
 from compy_cli.src.transpiler.bridge_libs.verifier import verify_all_bridge_libs
 from compy_cli.src.transpiler.util.deleter import CppAndHFileDeleter
 from compy_cli.src.transpiler.util.file_changes.file_loader import calc_all_py_files
@@ -23,7 +23,7 @@ def create_pure_all_data(
     paths: DoPureCompyPaths, ignored_files: list[str]
 ) -> PureAllData:
     py_files: list[Path] = calc_all_py_files(paths.python_dir)
-    bridge_libs = find_bridge_libs(paths.site_packages_dir)
+    bridge_libs, _ = find_libs(paths.site_packages_dir)
     bridge_json_path_cltr = BridgeJsonPathCltr(paths.site_packages_dir)
     verify_all_bridge_libs(bridge_libs, bridge_json_path_cltr)
     # Note: not removing timestamps file here because users can just do that themselves

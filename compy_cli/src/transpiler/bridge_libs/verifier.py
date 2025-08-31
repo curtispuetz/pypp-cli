@@ -30,10 +30,12 @@ from compy_cli.src.transpiler.bridge_libs.json_validations.subscriptable_types i
 
 
 def verify_all_bridge_libs(
-    bridge_libs_not_copied: list[str], bridge_json_path_cltr: BridgeJsonPathCltr
+    bridge_libs: list[str], bridge_json_path_cltr: BridgeJsonPathCltr
 ):
-    for bridge_lib in bridge_libs_not_copied:
+    for bridge_lib in bridge_libs:
         _verify_bridge_json_files(bridge_json_path_cltr, bridge_lib)
+    if len(bridge_libs) > 0:
+        print("Verified all JSONS for new bridge-libraries")
 
 
 BRIDGE_JSON_VALIDATION: dict[str, Callable[[object], None]] = {
