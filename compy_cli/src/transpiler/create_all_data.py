@@ -3,11 +3,13 @@ from pathlib import Path
 
 from compy_cli.src.other.compy_paths.do import DoCompyPaths
 from compy_cli.src.transpiler.bridge_json_path_cltr import BridgeJsonPathCltr
-from compy_cli.src.transpiler.bridge_libs.copier import copy_all_bridge_lib_cpp_files
-from compy_cli.src.transpiler.bridge_libs.deleter import delete_all_bridge_lib_cpp_files
+from compy_cli.src.transpiler.bridge_libs.copier import (
+    copy_all_lib_cpp_files,
+)
+from compy_cli.src.transpiler.bridge_libs.deleter import delete_all_cpp_lib_files
 from compy_cli.src.transpiler.bridge_libs.finder import (
-    find_added_and_deleted_bridge_libs,
-    find_bridge_libs,
+    find_added_and_deleted_libs,
+    find_libs,
 )
 from compy_cli.src.transpiler.bridge_libs.verifier import verify_all_bridge_libs
 from compy_cli.src.transpiler.util.deleter import CppAndHFileDeleter
@@ -41,14 +43,14 @@ def create_all_data(paths: DoCompyPaths) -> AllData:
     src_py_files = calc_all_py_files(paths.python_src_dir)
     bridge_json_path_cltr = BridgeJsonPathCltr(paths.site_packages_dir)
 
-    bridge_libs = find_bridge_libs(paths.site_packages_dir)
-    new_bridge_libs, deleted_bridge_libs = find_added_and_deleted_bridge_libs(
-        paths.cpp_dir, set(bridge_libs)
+    bridge_libs, pure_libs = find_libs(paths.site_packages_dir)
+    new_bridge_libs, new_pure_libs, deleted_libs = find_added_and_deleted_libs(
+        paths.cpp_dir, bridge_libs, pure_libs
     )
-    delete_all_bridge_lib_cpp_files(paths.cpp_dir, deleted_bridge_libs)
+    delete_all_cpp_lib_files(paths.cpp_dir, deleted_libs)
     verify_all_bridge_libs(new_bridge_libs, bridge_json_path_cltr)
-    copy_all_bridge_lib_cpp_files(
-        paths.cpp_dir, paths.site_packages_dir, new_bridge_libs
+    copy_all_lib_cpp_files(
+        paths.cpp_dir, paths.site_packages_dir, new_bridge_libs, new_pure_libs
     )
     # Note: not removing timestamps file here because users can just do that themselves
     # if they want that.
