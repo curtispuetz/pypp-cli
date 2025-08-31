@@ -2,11 +2,11 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Callable
 from compy_cli.src.transpilers.other.maps.maps import Maps
-from compy_cli.src.transpilers.other.other.transpiler.main_file import (
+from compy_cli.src.transpilers.other.transpiler.main_file import (
     MainFileTranspiler,
 )
-from compy_cli.src.transpilers.other.other.transpiler.results import TranspileResults
-from compy_cli.src.transpilers.other.other.transpiler.src_file import SrcFileTranspiler
+from compy_cli.src.transpilers.other.transpiler.results import TranspileResults
+from compy_cli.src.transpilers.other.transpiler.src_file import SrcFileTranspiler
 
 
 # TODO: this code is confusing. Should make it make more sense by renaming things.

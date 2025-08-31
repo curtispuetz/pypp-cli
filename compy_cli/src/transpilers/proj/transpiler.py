@@ -4,7 +4,7 @@ from pathlib import Path
 from compy_cli.src.transpilers.other.other.bridge_json_path_cltr import (
     BridgeJsonPathCltr,
 )
-from compy_cli.src.transpilers.other.other.transpiler.create import (
+from compy_cli.src.transpilers.other.transpiler.create import (
     create_transpiler,
 )
 from compy_cli.src.transpilers.other.other.print_results import (
