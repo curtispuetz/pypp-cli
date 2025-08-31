@@ -7,9 +7,6 @@ from compy_cli.src.transpilers.other.other.bridge_json_path_cltr import (
 from compy_cli.src.transpilers.other.transpiler.create import (
     create_transpiler,
 )
-from compy_cli.src.transpilers.other.other.print_results import (
-    print_transpilation_results,
-)
 from compy_cli.src.transpilers.other.other.file_changes.cltr import PyFileChanges
 
 
@@ -33,6 +30,6 @@ class PureLibTranspiler:
                 self._cpp_dir,
             )
             r = transpiler.get_results()
-            print_transpilation_results(r, files_deleted)
+            r.print(files_deleted)
             return r.files_added_or_modified
         return []

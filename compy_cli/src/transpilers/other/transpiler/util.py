@@ -12,7 +12,7 @@ from compy_cli.src.transpilers.other.transpiler.maps.maps import Maps
 from compy_cli.src.transpilers.other.transpiler.handle_import_stmts import (
     analyse_import_stmts,
 )
-from compy_cli.src.transpilers.other.transpiler.ret_imports import RetImports
+from compy_cli.src.transpilers.other.transpiler.cpp_includes import CppIncludes
 
 
 def handle_imports_and_create_deps(
@@ -22,7 +22,7 @@ def handle_imports_and_create_deps(
         module.body, maps, src_py_files
     )
     d: Deps = Deps(
-        RetImports(set(), set(), cpp_inc_map),
+        CppIncludes(set(), set(), cpp_inc_map),
         [],
         maps,
         py_imports,

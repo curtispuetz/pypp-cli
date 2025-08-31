@@ -2,7 +2,7 @@ import ast
 from pathlib import Path
 
 # Config
-target_module = "transpilers.other.transpiler.maps"
+target_module = "transpilers.other.transpiler"
 
 
 # Implementation
@@ -18,7 +18,7 @@ for part in target_module.split("."):
 
 def calc_all_py_files_ignoring(root: Path, ignore: Path) -> list[Path]:
     ret: list[Path] = []
-    # TODO: change to depth first search because that output is prefered.
+    # TODO later: change to depth first search because that output is prefered.
     for path in root.rglob("*.py"):
         if ignore not in path.parents:
             ret.append(path.relative_to(root))
@@ -37,7 +37,8 @@ for py_file in py_files:
         if isinstance(stmt, ast.ImportFrom):
             assert stmt.module is not None, "Not supported"
             if stmt.module.startswith(full_target_module):
-                print(py_file)
+                res = str(py_file)
+                print(res, " " * (70 - len(res)) + stmt.module)
                 break  # So you don't print the same twice
         else:
             break

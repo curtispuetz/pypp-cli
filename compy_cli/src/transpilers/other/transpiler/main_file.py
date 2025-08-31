@@ -38,7 +38,7 @@ class MainFileTranspiler:
         )
         d.add_inc(QInc("cstdlib"))
         cpp_code_minus_includes: str = handle_main_stmts(py_ast.body[import_end:], d)
-        return calc_includes_for_main_file(d.ret_imports) + cpp_code_minus_includes
+        return calc_includes_for_main_file(d.cpp_includes) + cpp_code_minus_includes
 
     def _write_cpp_file(self, file: Path, code: str):
         cpp_file_rel: Path = file.with_suffix(".cpp")
