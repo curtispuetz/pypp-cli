@@ -16,7 +16,6 @@ from compy_cli.src.transpiler.util.initalize_cpp import CppProjectInitializer
 from compy_cli.src.transpiler.util.load_proj_info import load_proj_info
 from compy_cli.src.transpiler.util.load_proj_info import ProjInfo
 from compy_cli.src.transpiler.util.file_changes.file_loader import (
-    TimeStampsFile,
     TimestampsSaver,
     calc_all_main_py_files,
     calc_all_py_files,
@@ -28,13 +27,8 @@ from compy_cli.src.transpiler.util.write_cmake_lists import CMakeListsWriter
 
 @dataclass(frozen=True, slots=True)
 class AllData:
-    proj_info: ProjInfo
-    _main_py_files: list[Path]
-    src_py_files: list[Path]
-    _prev_timestamps: TimeStampsFile
     cpp_project_initializer: CppProjectInitializer
     file_change_cltr: FileChangeCltr
-    bridge_json_path_cltr: BridgeJsonPathCltr
     cmake_lists_writer: CMakeListsWriter
     main_and_src_transpiler: MainAndSrcTranspiler
     cpp_and_h_file_deleter: CppAndHFileDeleter
@@ -56,21 +50,12 @@ def create_all_data(paths: DoCompyPaths) -> AllData:
     copy_all_bridge_lib_cpp_files(
         paths.cpp_dir, paths.site_packages_dir, new_bridge_libs
     )
-    # Should remove the timestamps file because transpiling can be different with a
-    # new bridge library.
-    if (
-        len(new_bridge_libs) > 0 or len(deleted_bridge_libs) > 0
-    ) and paths.timestamps_file.exists():
-        print("removing file_timestamps.json because bridge-libraries have changed")
-        paths.timestamps_file.unlink()
+    # Note: not removing timestamps file here because users can just do that themselves
+    # if they want that.
 
     prev_timestamps = load_previous_timestamps(paths.timestamps_file)
 
     return AllData(
-        proj_info,
-        main_py_files,
-        src_py_files,
-        prev_timestamps,
         CppProjectInitializer(
             paths.cpp_build_dir, paths.timestamps_file, paths.proj_info_file, proj_info
         ),
@@ -83,7 +68,6 @@ def create_all_data(paths: DoCompyPaths) -> AllData:
             src_py_files,
             prev_timestamps,
         ),
-        bridge_json_path_cltr,
         CMakeListsWriter(
             paths.cpp_dir,
             bridge_json_path_cltr,
