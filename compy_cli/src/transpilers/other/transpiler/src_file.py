@@ -2,8 +2,8 @@ from compy_cli.src.transpilers.other.maps.maps import Maps
 from compy_cli.src.transpilers.other.module.source_cltr import (
     calc_src_file_cpp_and_h_source,
 )
-from compy_cli.src.transpilers.other.other.transpiler.calc_ast_tree import calc_ast
-from compy_cli.src.transpilers.other.other.transpiler.results import TranspileResults
+from compy_cli.src.transpilers.other.transpiler.calc_ast_tree import calc_ast
+from compy_cli.src.transpilers.other.transpiler.results import TranspileResults
 
 
 import ast
