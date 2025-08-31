@@ -1,17 +1,18 @@
 from pathlib import Path
 import argparse
 
-from compy_cli.src.doer.do import compy_do
+from compy_cli.src.doers.proj.do import compy_do
 from compy_cli.src.initializers.init import compy_init
 from compy_cli.src.initializers.init_bridge_library import compy_init_bridge_library
 from compy_cli.src.initializers.init_pure_library import (
     compy_init_pure_lib,
 )
-from compy_cli.src.package_manager.install import compy_install
-from compy_cli.src.pure_lib_doer.do_pure_lib import compy_do_pure_lib
+from compy_cli.src.other.compy_paths.util import calc_proj_info_path
+from compy_cli.src.package_managers.install import compy_install
+from compy_cli.src.doers.pure_lib.do_pure_lib import compy_do_pure_lib
 from compy_cli.src.timestamps_deleter.delete_timestamps import compy_delete_timestamps
 from compy_cli.src.python_runner.run_python import compy_run_python
-from compy_cli.src.package_manager.uninstall import compy_uninstall
+from compy_cli.src.package_managers.uninstall import compy_uninstall
 
 
 def main_cli(absolute_dir: Path | None = None) -> None:
@@ -101,8 +102,7 @@ def main_cli(absolute_dir: Path | None = None) -> None:
         compy_init_bridge_library(args.library_name, absolute_dir)
     elif args.mode == "init_pure_lib":
         compy_init_pure_lib(args.library_name, absolute_dir)
-    # TODO now: fix
-    elif not (absolute_dir / "compy_files" / "proj_info.json").exists():
+    elif not calc_proj_info_path(absolute_dir).exists():
         parser.error(
             "compy_files/proj_info.json file not found. "
             "Ensure your Compy project is properly initialized."
