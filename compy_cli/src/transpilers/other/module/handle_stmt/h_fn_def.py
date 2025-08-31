@@ -1,6 +1,6 @@
 import ast
 
-from compy_cli.src.transpilers.other.module.deps import Deps
+from compy_cli.src.transpilers.other.transpiler.deps import Deps
 from compy_cli.src.transpilers.other.module.util.calc_fn_signature import (
     calc_fn_signature,
     calc_fn_str_with_body,

@@ -2,7 +2,7 @@ from typing import Callable
 from compy_cli.src.transpilers.other.bridge_libs.json_validations.util.basic_info import (  # noqa: E501
     VALIDATE_BASIC_INFO,
 )
-from compy_cli.src.transpilers.other.module.mapping.util import calc_funcs_in_str
+from compy_cli.src.transpilers.other.other.fn_str import calc_funcs_in_str
 from compy_cli.src.other.library.json_validations import (
     validate_is_list_of_strings,
 )

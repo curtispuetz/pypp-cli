@@ -1,6 +1,6 @@
 import ast
 
-from compy_cli.src.transpilers.other.module.deps import Deps
+from compy_cli.src.transpilers.other.transpiler.deps import Deps
 from compy_cli.src.transpilers.other.module.handle_stmt.h_class_def.for_class.calc_constructor_sig import (  # noqa: E501
     calc_constructor_signature_for_class,
 )

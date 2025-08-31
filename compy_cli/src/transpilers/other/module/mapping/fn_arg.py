@@ -1,4 +1,4 @@
-from compy_cli.src.transpilers.other.module.deps import Deps
+from compy_cli.src.transpilers.other.transpiler.deps import Deps
 from compy_cli.src.transpilers.other.maps.d_types import FnArgByValueMapValue
 from compy_cli.src.transpilers.other.module.mapping.util import is_one
 from compy_cli.src.transpilers.other.module.util.inner_strings import calc_inside_rd

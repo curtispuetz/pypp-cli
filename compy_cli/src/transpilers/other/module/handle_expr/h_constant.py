@@ -1,7 +1,7 @@
 import ast
 
 from compy_cli.src.transpilers.other.module.d_types import QInc
-from compy_cli.src.transpilers.other.module.deps import Deps
+from compy_cli.src.transpilers.other.transpiler.deps import Deps
 
 SPECIAL_CHAR_MAP: dict[int, str] = str.maketrans(
     {

@@ -1,5 +1,14 @@
 from compy_cli.src.transpilers.other.maps.maps import Maps
-from compy_cli.src.transpilers.other.module.code_cltr import calc_main_cpp_code
+from compy_cli.src.transpilers.other.transpiler.util import (
+    handle_imports_and_create_deps,
+)
+from compy_cli.src.transpilers.other.module.d_types import QInc
+from compy_cli.src.transpilers.other.module.util.calc_includes import (
+    calc_includes_for_main_file,
+)
+from compy_cli.src.transpilers.other.module.util.handle_main_stmts import (
+    handle_main_stmts,
+)
 from compy_cli.src.transpilers.other.transpiler.calc_ast_tree import calc_ast
 from compy_cli.src.transpilers.other.transpiler.results import TranspileResults
 
@@ -23,8 +32,13 @@ class MainFileTranspiler:
 
     def _calc_cpp_code(self, file: Path) -> str:
         py_main_file: Path = self._py_src_dir / file
-        main_py_ast: ast.Module = calc_ast(py_main_file)
-        return calc_main_cpp_code(main_py_ast, self._maps, self._src_py_files)
+        py_ast: ast.Module = calc_ast(py_main_file)
+        import_end, d = handle_imports_and_create_deps(
+            py_ast, self._maps, self._src_py_files
+        )
+        d.add_inc(QInc("cstdlib"))
+        cpp_code_minus_includes: str = handle_main_stmts(py_ast.body[import_end:], d)
+        return calc_includes_for_main_file(d.ret_imports) + cpp_code_minus_includes
 
     def _write_cpp_file(self, file: Path, code: str):
         cpp_file_rel: Path = file.with_suffix(".cpp")
