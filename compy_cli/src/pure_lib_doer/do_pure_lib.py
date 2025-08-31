@@ -1,3 +1,4 @@
+from dataclasses import dataclass
 from pathlib import Path
 
 from compy_cli.src.formatter.format import compy_format
@@ -21,11 +22,11 @@ def compy_do_pure_lib(tasks: list[str], target_dir: Path) -> None:
         task_methods[task]()
 
 
+@dataclass(slots=True)
 class _DoPureHelper:
-    def __init__(self, paths: DoPureCompyPaths, ignored_files: list[str]):
-        self._paths = paths
-        self._ignored_files = ignored_files
-        self._files_added_or_modified: list[Path] | None = None
+    _paths: DoPureCompyPaths
+    _ignored_files: list[str]
+    _files_added_or_modified: list[Path] | None = None
 
     def transpile(self):
         self._files_added_or_modified = compy_transpile_pure(
