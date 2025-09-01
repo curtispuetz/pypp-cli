@@ -52,6 +52,7 @@
 - multiprocessing library
 
 #### TODO list
-- strategy for pure-libraries
-- strategy for testing bridge- and pure- libraries
+- strategy for pure-libraries. C
+- strategy for testing bridge- and pure- libraries. AAGP
+  - Solution: just build them and install them to your project for testing for now.
 - implement opengl bridge-library
