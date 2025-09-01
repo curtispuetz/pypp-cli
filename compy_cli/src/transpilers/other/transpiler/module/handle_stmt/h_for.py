@@ -1,6 +1,7 @@
 import ast
 from dataclasses import dataclass
 
+from compy_cli.src.transpilers.other.transpiler.d_types import QInc
 from compy_cli.src.transpilers.other.transpiler.deps import Deps
 from compy_cli.src.transpilers.other.transpiler.module.handle_expr.h_tuple import (
     handle_tuple_inner_args,
@@ -15,8 +16,12 @@ def handle_for(node: ast.For, d: Deps) -> str:
         target_str = "[" + handle_tuple_inner_args(node.target, d) + "]"
     else:
         target_str: str = d.handle_expr(node.target)
+    range_inc = QInc("py_range.h")
+    has_range_include = d.cpp_includes.contains(range_inc)
     iter_str = d.handle_expr(node.iter)
     if iter_str.startswith("PyRange(") and iter_str.endswith(")"):
+        if not has_range_include:
+            d.cpp_includes.discard(range_inc)
         # This is not necessary because PyRange can be iterated over directly, but if
         # it is used explicitly in the loop, I might as well convert it to the
         # traditional C++ for loop syntax, since it is slightly more performant.

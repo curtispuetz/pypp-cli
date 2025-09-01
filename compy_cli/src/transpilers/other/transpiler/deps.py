@@ -9,7 +9,7 @@ from compy_cli.src.transpilers.other.transpiler.d_types import (
     is_imported,
 )
 from compy_cli.src.transpilers.other.transpiler.maps.maps import Maps
-from compy_cli.src.transpilers.other.transpiler.cpp_includes import CppIncludes, add_inc
+from compy_cli.src.transpilers.other.transpiler.cpp_includes import CppIncludes
 
 
 @dataclass(slots=True)
@@ -41,7 +41,7 @@ class Deps:
         return " ".join(ret)
 
     def add_inc(self, inc: CppInclude):
-        add_inc(self.cpp_includes, inc, self._include_in_header)
+        self.cpp_includes.add_inc(inc, self._include_in_header)
 
     def add_incs(self, incs: list[CppInclude]):
         for inc in incs:

@@ -3,7 +3,6 @@
 #include "compy_random.h"
 #include "compy_time.h"
 #include "compy_util/print.h"
-#include "py_range.h"
 #include "py_str.h"
 
 void perlin_noise_fn() {
