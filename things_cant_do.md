@@ -1,5 +1,5 @@
 # Things you can't do in Compy (only the C++ won't work)
-#### Note: some things in here could be old, or could be removed from the list in the future. The list is a WIP.
+#### Note: some things in here could be old, or could be removed from the list in the future. The list is a WIP and earlier items are likely not true anymore.
 - overwrite built-in Python keywords
 - use variables out of their scope
 - let things have references to variables that have gone out of scope and deleted (this is like the hard one)
