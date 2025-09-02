@@ -553,7 +553,7 @@ Features that are missing:
 
 I can't think of any other missing features at the moment, but I am sure that many will come up. 
 
-Some features are excluded from ComPy on purpose because I don't think they are needed to write the ComPy code that I want to write. A big example of this is pointers. I don't see a reason to support them generically. But, if someone really wanted they could probably create a bridge-library to support them generically. The reason I say "generically" is because I support a specific type of pointer in my GLFW bridge library ([reference](https://github.com/curtispuetz/compy-bridge-lib-glfw/blob/master/compy_bridge_lib_glfw/compy_data/bridge_jsons/name_map.json)).
+Some features are excluded from ComPy on purpose because I don't think they are needed to write the ComPy code that I want to write. A big example of this is pointers. I don't see a reason to support them generically. But, if someone really wanted, they could probably create a bridge-library to support them generically. The reason I say "generically" is because I support a specific type of pointer in my GLFW bridge library ([reference](https://github.com/curtispuetz/compy-bridge-lib-glfw/blob/master/compy_bridge_lib_glfw/compy_data/bridge_jsons/name_map.json)).
 
 ComPy likely won't be useful for web development for a while.
 
