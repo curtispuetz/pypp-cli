@@ -1,5 +1,4 @@
-from compy_python.lists import list_reserve
-from compy_python.ownership import mov, Valu, Ref
+from compy_python import mov, Valu, Ref, list_reserve
 
 
 def _test_fn(arg1: Valu(list[str])):

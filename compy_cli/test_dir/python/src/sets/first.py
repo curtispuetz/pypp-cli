@@ -1,4 +1,4 @@
-from compy_python.ownership import mov, Valu
+from compy_python import mov, Valu
 
 
 def _inline_set(s: Valu(set[float])):

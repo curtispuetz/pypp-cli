@@ -1,4 +1,4 @@
-from compy_python.custom_types import (
+from compy_python import (
     int8_t,
     int32_t,
     int64_t,

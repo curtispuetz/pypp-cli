@@ -1,9 +1,7 @@
 from collections import defaultdict
 from dataclasses import dataclass
 
-from compy_python.custom_types import auto
-from compy_python.ownership import Valu
-from compy_python.printing import print_address
+from compy_python import print_address, Valu, auto
 
 
 def _dict_factory() -> dict[int, int]:

@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 
 from compy_bridge_library_test_0.pseudo_custom_type import PseudoCustomType
-from compy_python.configclass import configclass
+from compy_python import configclass, print_address
 from compy_bridge_library_test_0 import test_namespace
 from compy_bridge_library_test_0.name_only_call import name_only_call_fn
 from compy_bridge_library_test_0.include_only_call import include_only_call_fn
@@ -12,7 +12,6 @@ import compy_bridge_library_test_0.modules_to_cpp_inc_2 as m2
 import compy_bridge_library_test_0.replace_with_double_colon_call as dc_test
 from compy_bridge_library_test_0.custom_print import custom_print
 from compy_bridge_library_test_0.custom_list import PseudoCustomList
-from compy_python.printing import print_address
 
 
 def _as_arg(arg: PseudoCustomType):

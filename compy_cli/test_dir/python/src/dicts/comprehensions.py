@@ -1,4 +1,4 @@
-from compy_python.ownership import mov
+from compy_python import mov
 
 
 def dict_comprehension_fn():

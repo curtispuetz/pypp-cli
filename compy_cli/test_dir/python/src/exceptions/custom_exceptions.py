@@ -1,4 +1,4 @@
-from compy_python.exceptionclass import exception
+from compy_python import exception
 
 
 @exception

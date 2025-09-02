@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from compy_python.ownership import Valu
+from compy_python import Valu
 
 
 @dataclass

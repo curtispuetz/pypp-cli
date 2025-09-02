@@ -1,5 +1,4 @@
-from compy_python.custom_types import auto
-import compy_python.stl.compy_time as compy_time
+from compy_python import compy_time, auto
 
 
 def time_library_fn():
