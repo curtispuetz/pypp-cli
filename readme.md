@@ -32,7 +32,6 @@ just like you would in C++. The code is valid Python code, which can be run with
 interpreter, but can also be transpiled to C++ and then built into an executable program.
 
 Not all C++ features are supported, but enough that I care about are supported (or will be in future ComPy versions), so that I am content to use ComPy instead of C++.
-I will give an idea about how to write code for ComPy projects and what the transpiled C++ code looks like in the section after the next section.
 
 In the rest of this document, I will give a brief idea about how to use ComPy and how ComPy works, as an introduction. Then, before the v1.0.0 release, I will have complete documentation on a website that explains every detail possible so you can work with ComPy with a solid reference.
 
