@@ -1,4 +1,4 @@
-from compy_python.resources import compy_get_resources
+from compy_python import compy_get_resources
 import os
 import shutil
 

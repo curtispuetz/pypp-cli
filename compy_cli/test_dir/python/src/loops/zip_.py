@@ -1,5 +1,4 @@
-from compy_python.ownership import mov
-from compy_python.tuple_get import tg
+from compy_python import tg, mov
 
 
 def zip_fn():

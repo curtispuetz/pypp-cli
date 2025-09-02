@@ -1,4 +1,4 @@
-from compy_python.ownership import Valu, mov
+from compy_python import Valu, mov
 
 
 class ClassA:

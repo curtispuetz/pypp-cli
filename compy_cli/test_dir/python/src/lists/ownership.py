@@ -1,5 +1,4 @@
-from compy_python.ownership import mov
-from compy_python.printing import print_address
+from compy_python import print_address, mov
 
 
 class _PrivateClass:

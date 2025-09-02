@@ -1,6 +1,6 @@
 from typing import Callable
 
-from compy_python.configclass import configclass
+from compy_python import configclass
 
 A: int = 1
 B: str = "B"

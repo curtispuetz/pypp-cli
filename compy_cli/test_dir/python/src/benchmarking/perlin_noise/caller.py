@@ -1,7 +1,6 @@
 import random
 
-from compy_python.custom_types import auto
-import compy_python.stl.compy_time as compy_time
+from compy_python import auto, compy_time
 
 from benchmarking.perlin_noise.impl import PerlinNoise, create_perlin_noise
 

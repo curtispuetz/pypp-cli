@@ -1,7 +1,6 @@
 import glfw
 from compy_bridge_lib_glfw.d_types import GLFWwindowPtr
-from compy_python.nones import NULL
-from compy_python.strings import to_c_string
+from compy_python import to_c_string, NULL
 
 
 def glfw_test():

@@ -1,5 +1,4 @@
-from compy_python.dict_get import dg
-from compy_python.ownership import mov, Valu, Ref
+from compy_python import mov, Valu, Ref, dg
 
 
 def _inline_dict(d: Valu(dict[int, int])):

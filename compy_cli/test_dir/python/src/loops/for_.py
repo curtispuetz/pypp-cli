@@ -1,4 +1,4 @@
-from compy_python.ownership import mov
+from compy_python import mov
 
 
 def for_loop_fn():

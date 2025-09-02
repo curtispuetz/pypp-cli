@@ -30,7 +30,7 @@ class SrcFileTranspiler:
         py_ast: ast.Module = calc_ast(py_src_file)
         h_file: Path = file.with_suffix(".h")
         import_end, d = handle_imports_and_create_deps(
-            py_ast, self._maps, self._src_py_files
+            py_ast, self._maps, self._src_py_files, py_src_file
         )
         cpp_code_minus_include: str = d.handle_stmts(py_ast.body[import_end:])
         h_includes, cpp_includes = calc_includes(d.cpp_includes)

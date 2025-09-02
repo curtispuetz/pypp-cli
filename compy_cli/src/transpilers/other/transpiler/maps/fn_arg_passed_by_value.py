@@ -6,16 +6,16 @@ FN_ARG_PASSED_BY_VALUE_MAP: FnArgByValueMap = {
     "double": {None},  # python float
     "bool": {None},
     "float": {
-        PySpecificImpFrom("compy_python.custom_types", "float32")
+        PySpecificImpFrom("compy_python", "float32")
     },  # python float32
-    "int8_t": {PySpecificImpFrom("compy_python.custom_types", "int8_t")},
-    "int16_t": {PySpecificImpFrom("compy_python.custom_types", "int16_t")},
-    "int32_t": {PySpecificImpFrom("compy_python.custom_types", "int32_t")},
-    "int64_t": {PySpecificImpFrom("compy_python.custom_types", "int64_t")},
-    "uint8_t": {PySpecificImpFrom("compy_python.custom_types", "uint8_t")},
-    "uint16_t": {PySpecificImpFrom("compy_python.custom_types", "uint16_t")},
-    "uint32_t": {PySpecificImpFrom("compy_python.custom_types", "uint32_t")},
-    "uint64_t": {PySpecificImpFrom("compy_python.custom_types", "uint64_t")},
+    "int8_t": {PySpecificImpFrom("compy_python", "int8_t")},
+    "int16_t": {PySpecificImpFrom("compy_python", "int16_t")},
+    "int32_t": {PySpecificImpFrom("compy_python", "int32_t")},
+    "int64_t": {PySpecificImpFrom("compy_python", "int64_t")},
+    "uint8_t": {PySpecificImpFrom("compy_python", "uint8_t")},
+    "uint16_t": {PySpecificImpFrom("compy_python", "uint16_t")},
+    "uint32_t": {PySpecificImpFrom("compy_python", "uint32_t")},
+    "uint64_t": {PySpecificImpFrom("compy_python", "uint64_t")},
     "PyRange": {None},
 }
 

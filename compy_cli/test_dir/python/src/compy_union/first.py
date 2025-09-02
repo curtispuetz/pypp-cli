@@ -1,6 +1,4 @@
-from compy_python.ownership import Valu, mov
-from compy_python.printing import print_address
-from compy_python.union import Uni, ug, isinst, is_none
+from compy_python import Uni, ug, isinst, is_none, print_address, Valu, mov
 
 
 class ClassWithUnion:

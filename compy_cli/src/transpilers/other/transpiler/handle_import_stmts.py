@@ -7,7 +7,7 @@ from compy_cli.src.transpilers.other.transpiler.cpp_includes import IncMap
 
 
 def analyse_import_stmts(
-    stmts: list[ast.stmt], maps: Maps, src_py_files: list[Path]
+    stmts: list[ast.stmt], maps: Maps, src_py_files: list[Path], file_path: Path
 ) -> tuple[IncMap, int, PyImports]:
     modules_in_project: set[str] = _calc_all_modules_for_project(src_py_files)
     i = 0
@@ -17,7 +17,10 @@ def analyse_import_stmts(
         # ast.Import are ignored
         if isinstance(node, ast.ImportFrom):
             if node.module in py_imports.imp_from:
-                raise Exception("Duplicate import from module not supported")
+                raise Exception(
+                    f"Duplicate import from module not supported. "
+                    f"module: {node.module}. In {file_path}"
+                )
             if node.module is None:
                 raise Exception("Relative imports not supported")
             if node.module in modules_in_project or maps.import_.contains(node.module):

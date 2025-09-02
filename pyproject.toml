@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "compy_cli"
+name = "compy-cli"
 version = "0.0.0"
 description = "A CLI tool called compy"
 authors = [
