@@ -1,5 +1,5 @@
 # ComPy (Compiled Python) - (Transpiles to C++) - Release v1.0.0 coming soon
-This project's first version will be released soon (likely within a week from today, which is Sept. 2nd). 
+This project's first version will be released soon (likely within a week from today, which is Sept. 2nd). You will not find any usage instructions yet. Check back later.
 
 Upon Release, ComPy will be a Python framework for writing Python projects which can be transpiled into C++ (CMake) projects. 
 
