@@ -60,6 +60,7 @@ from default_dict.first import default_dict_fn
 from pypp_union.first import pypp_union_fn
 from constants import constant_fn
 from number_types import number_types_fn
+from triple_quote_strings import triple_quote_strings_fn
 
 if __name__ == "__main__":
     print(return_something(1, 9))
@@ -130,3 +131,4 @@ if __name__ == "__main__":
     list_ownership_tests_fn()
     list_fn()
     class_nested_dependencies_fn()
+    triple_quote_strings_fn()
