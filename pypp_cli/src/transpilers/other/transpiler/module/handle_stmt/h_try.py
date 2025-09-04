@@ -1,7 +1,7 @@
 import ast
 
 from pypp_cli.src.transpilers.other.transpiler.deps import Deps
-from pypp_cli.src.transpilers.other.transpiler.module.handle_other.exception_handler import (
+from pypp_cli.src.transpilers.other.transpiler.module.handle_other.exception_handler import (  # noqa: E501
     handle_exception_handlers,
 )
 

@@ -13,7 +13,7 @@ from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_assign impor
 from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_aug_assign import (
     handle_aug_assign,
 )
-from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_class_def.h_class_def import (
+from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_class_def.h_class_def import (  # noqa: E501
     handle_class_def,
 )
 from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_expr import (

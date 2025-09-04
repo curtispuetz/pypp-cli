@@ -2,7 +2,7 @@ import ast
 
 from pypp_cli.src.transpilers.other.transpiler.d_types import AngInc
 from pypp_cli.src.transpilers.other.transpiler.deps import Deps
-from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_class_def.util import (
+from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_class_def.util import (  # noqa: E501
     ClassMethod,
     ClassField,
     ARG_PREFIX,

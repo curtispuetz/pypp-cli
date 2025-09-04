@@ -19,7 +19,7 @@ from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_constant imp
 from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_dict import (
     handle_dict,
 )
-from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_joined_string import (
+from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_joined_string import (  # noqa: E501
     handle_joined_string,
 )
 from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_lambda import (
