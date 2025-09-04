@@ -61,4 +61,6 @@ void operations_fn() {
     print(PyStr(std::format("not in tuple: {}", w)));
     bool x = !PyStr("zzxyz").contains(PyStr("abc"));
     print(PyStr(std::format("not in string: {}", x)));
+    print(PyStr("printing reference:"));
+    print(&x);
 }

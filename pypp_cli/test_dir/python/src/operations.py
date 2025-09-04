@@ -81,3 +81,5 @@ def operations_fn():
     # not in string
     x: bool = "abc" not in "zzxyz"
     print(f"not in string: {x}")
+    print("printing reference:")
+    print(Ref(x))
