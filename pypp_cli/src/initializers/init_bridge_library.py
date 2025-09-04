@@ -9,7 +9,7 @@ from pypp_cli.src.other.pypp_paths.init_bridge_library import (
 )
 
 
-def pypp_init_bridge_library(library_name: str, target_dir: Path):
+def pypp_init_bridge_lib(library_name: str, target_dir: Path):
     print("creating bridge-library files...")
     python_dir_name = library_name.replace("-", "_")
     paths = create_init_bridge_lib_pypp_paths(target_dir, python_dir_name)
@@ -30,9 +30,9 @@ def _create_cpp_hello_world(cpp_dir: Path, hello_world_h: Path, hello_world_cpp:
             [
                 "#pragma once",
                 "",
-                "#include <string>",
+                "#include <py_str.h>",
                 "",
-                "std::string hello_world_fn();",
+                "PyStr hello_world_fn();",
             ]
         )
     )
@@ -41,8 +41,8 @@ def _create_cpp_hello_world(cpp_dir: Path, hello_world_h: Path, hello_world_cpp:
             [
                 '#include "hello_world.h"',
                 "",
-                "std::string hello_world_fn() {",
-                '    return "Hello, World!";',
+                "PyStr hello_world_fn() {",
+                '    return PyStr("Hello, World!");',
                 "}",
             ]
         )

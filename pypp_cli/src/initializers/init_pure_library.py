@@ -16,7 +16,7 @@ def pypp_init_pure_lib(library_name: str, target_dir: Path):
     paths = create_init_pure_lib_pypp_paths(target_dir, python_dir_name)
     init_libs_helper = InitLibsHelper(target_dir, paths.lib_py_executable, library_name)
     init_libs_helper.create_readme()
-    cp: str = "pypp-python==0.0.5"
+    cp: str = "pypp-python"
     init_libs_helper.create_pyproject_toml(python_dir_name, [cp])
     paths.python_dir.mkdir()
     paths.cpp_dir.mkdir()

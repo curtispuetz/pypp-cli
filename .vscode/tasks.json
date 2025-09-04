@@ -121,6 +121,19 @@
             }
         },
         {
+            "label": "init bridge",
+            "type": "shell",
+            "command": "${workspaceFolder}/.venv/Scripts/python.exe -m pypp_cli.util_scripts.calling_cli.init_bridge_lib",
+            "problemMatcher": [],
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "dedicated",
+                "showReuseMessage": false
+            }
+        },
+        {
             "label": "do pure",
             "type": "shell",
             "command": "${workspaceFolder}/.venv/Scripts/python.exe -m pypp_cli.util_scripts.calling_cli.transpile_and_format_pure_lib",
