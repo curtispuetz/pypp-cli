@@ -1,1 +1,0 @@
-Resources for the compy project go here

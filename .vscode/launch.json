@@ -8,7 +8,7 @@
             "name": "Transpile and Format",
             "type": "debugpy",
             "request": "launch",
-            "module": "compy_cli.util_scripts.calling_cli.transpile_and_format",
+            "module": "pypp_cli.util_scripts.calling_cli.transpile_and_format",
             "console": "integratedTerminal"
         }
     ]
