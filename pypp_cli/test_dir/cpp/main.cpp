@@ -61,6 +61,7 @@
 #include "subscriptable_types.h"
 #include "third.h"
 #include "time_library/first.h"
+#include "triple_quote_strings.h"
 #include "tuples/exceptions.h"
 #include "tuples/first.h"
 #include "type_aliases.h"
@@ -135,6 +136,7 @@ int main() {
         list_ownership_tests_fn();
         list_fn();
         class_nested_dependencies_fn();
+        triple_quote_strings_fn();
         return 0;
     } catch (...) {
         handle_fatal_exception();
