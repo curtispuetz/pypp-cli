@@ -3,7 +3,7 @@ import argparse
 
 from pypp_cli.src.doers.proj.do import pypp_do
 from pypp_cli.src.initializers.init import pypp_init
-from pypp_cli.src.initializers.init_bridge_library import pypp_init_bridge_library
+from pypp_cli.src.initializers.init_bridge_library import pypp_init_bridge_lib
 from pypp_cli.src.initializers.init_pure_library import (
     pypp_init_pure_lib,
 )
@@ -77,7 +77,7 @@ def main_cli(absolute_dir: Path | None = None) -> None:
         nargs="+",
     )
     parser_init_bridge = subparsers.add_parser(
-        "init_bridge_library",
+        "init_bridge_lib",
         help="Initialize a new Py++ bridge-library in the current directory.",
     )
     parser_init_bridge.add_argument(
@@ -98,8 +98,8 @@ def main_cli(absolute_dir: Path | None = None) -> None:
         absolute_dir = Path.cwd()
     if args.mode == "init":
         pypp_init(absolute_dir)
-    elif args.mode == "init_bridge_library":
-        pypp_init_bridge_library(args.library_name, absolute_dir)
+    elif args.mode == "init_bridge_lib":
+        pypp_init_bridge_lib(args.library_name, absolute_dir)
     elif args.mode == "init_pure_lib":
         pypp_init_pure_lib(args.library_name, absolute_dir)
     elif not calc_proj_info_path(absolute_dir).exists():
