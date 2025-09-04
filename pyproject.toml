@@ -3,26 +3,26 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "compy-cli"
+name = "pypp-cli"
 version = "0.0.0"
-description = "A CLI tool called compy"
+description = "A CLI tool called pypp"
 authors = [
-    { name="Curtis Puetz", email="compy.main@gmail.com" }
+    { name="Curtis Puetz", email="pypp.main@gmail.com" }
 ]
 readme = "readme.md"
 license = { text = "MIT" }
 requires-python = ">=3.13"
-urls = { "Homepage" = "https://github.com/curtispuetz/compy-cli" }
+urls = { "Homepage" = "https://github.com/curtispuetz/pypp-cli" }
 
 
 [project.scripts]
-compy = "compy_cli.cli:main_cli"
+pypp = "pypp_cli.cli:main_cli"
 
 [tool.hatch.build]
 include = [
-    "compy_cli/cli.py",
-    "compy_cli/data/**/*",
-    "compy_cli/src/**/*"
+    "pypp_cli/cli.py",
+    "pypp_cli/data/**/*",
+    "pypp_cli/src/**/*"
 ]
 
 
