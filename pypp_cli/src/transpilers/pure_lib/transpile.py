@@ -4,9 +4,7 @@ from pypp_cli.src.transpilers.pure_lib.create_all_data import create_pure_all_da
 from pypp_cli.src.other.pypp_paths.do_pure import DoPurePyppPaths
 
 
-def pypp_transpile_pure(
-    paths: DoPurePyppPaths, ignored_files: list[str]
-) -> list[Path]:
+def pypp_transpile_pure(paths: DoPurePyppPaths, ignored_files: list[str]) -> list[Path]:
     a = create_pure_all_data(paths, ignored_files)
 
     changes = a.file_change_cltr.calc_changes()

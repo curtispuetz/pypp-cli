@@ -15,9 +15,7 @@ NAME_MAP: NameMap = {
     "int": {None: ToStringEntry("int", [])},
     "float": {None: ToStringEntry("double", [])},
     "float32": {
-        PySpecificImpFrom("pypp_python", "float32"): ToStringEntry(
-            "float", []
-        )
+        PySpecificImpFrom("pypp_python", "float32"): ToStringEntry("float", [])
     },
     "int8_t": {
         PySpecificImpFrom("pypp_python", "int8_t"): ToStringEntry(

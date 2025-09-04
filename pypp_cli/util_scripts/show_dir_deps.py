@@ -7,9 +7,7 @@ target_module = "transpilers.other.transpiler"
 
 # Implementation
 full_target_module = "pypp_cli.src." + target_module
-proj_root_dir: Path = Path(
-    r"/pypp_cli\src"
-)
+proj_root_dir: Path = Path(r"/pypp_cli\src")
 
 target_dir: Path = proj_root_dir
 for part in target_module.split("."):

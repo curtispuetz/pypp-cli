@@ -4,7 +4,7 @@ from pypp_cli.src.transpilers.other.transpiler.deps import Deps
 from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_class_def.for_class.calc_constructor_sig import (  # noqa: E501
     calc_constructor_signature_for_class,
 )
-from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_class_def.util import (
+from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_class_def.util import (  # noqa: E501
     ClassMethod,
     calc_method,
     ClassField,
