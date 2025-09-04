@@ -21,9 +21,6 @@ from pypp_cli.src.transpilers.other.transpiler.module.util.inner_strings import 
     calc_inside_ang,
     calc_inside_rd,
 )
-from pypp_cli.src.transpilers.other.transpiler.module.util.calc_ref_string import (
-    calc_ref_str,
-)
 
 
 def handle_ann_assign(node: ast.AnnAssign, d: Deps) -> str:
@@ -75,8 +72,9 @@ def _calc_final_str(
     result_from_maps = _calc_result_from_maps_if_any(d, value_str, type_cpp, target_str)
     if result_from_maps is not None:
         return f"{const_str}{result_from_maps};"
-    ref, type_cpp = calc_ref_str(type_cpp)
-    return f"{const_str}{type_cpp}{ref} {target_str} = {value_str};"
+    if type_cpp.startswith("&"):
+        type_cpp = type_cpp[1:] + "&"
+    return f"{const_str}{type_cpp} {target_str} = {value_str};"
 
 
 def _calc_result_from_maps_if_any(

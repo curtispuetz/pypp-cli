@@ -1,5 +1,6 @@
 import ast
 
+from pypp_cli.src.transpilers.other.transpiler.d_types import PySpecificImpFrom
 from pypp_cli.src.transpilers.other.transpiler.deps import Deps
 from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_starred import (
     handle_call_with_starred_arg,
@@ -22,6 +23,9 @@ from pypp_cli.src.transpilers.other.transpiler.module.mapping.util import (
 def handle_call(node: ast.Call, d: Deps) -> str:
     assert len(node.keywords) == 0, "keywords for a call are not supported."
     caller_str: str = d.handle_expr(node.func)
+    if caller_str == "Ref" and d.is_imported(PySpecificImpFrom("pypp_python", "Ref")):
+        assert len(node.args) == 1, "Ref() must have exactly one argument."
+        return f"&{d.handle_expr(node.args[0])}"
     for k, v in d.maps.call.items():
         e = find_map_entry(v, d)
         if e is None:

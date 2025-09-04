@@ -10,7 +10,6 @@ from pypp_cli.src.transpilers.other.transpiler.module.util.calc_callable_type im
 )
 from pypp_cli.src.transpilers.other.transpiler.module.util.inner_strings import (
     calc_inside_sq,
-    calc_inside_rd,
 )
 
 
@@ -28,8 +27,8 @@ def calc_fn_signature(
         if cpp_ret_type.startswith("Iterator[") and cpp_ret_type.endswith("]"):
             d.add_inc(QInc("pypp_util/generator.h"))
             cpp_ret_type = f"Generator<{calc_inside_sq(cpp_ret_type)}>"
-        elif cpp_ret_type.startswith("Ref(") and cpp_ret_type.endswith(")"):
-            cpp_ret_type = calc_inside_rd(cpp_ret_type) + "&"
+        elif cpp_ret_type.startswith("&"):
+            cpp_ret_type = cpp_ret_type[1:] + "&"
     cpp_args_str = _calc_cpp_args_str(node, d, skip_first_arg)
     return f"{cpp_ret_type} {fn_name}({cpp_args_str})"
 
