@@ -2,11 +2,8 @@ import glfw
 import OpenGL.GL as GL
 from pypp_bridge_lib_opengl.custom import (
     gl_gen_buffer,
-    gl_gen_buffers,
     gl_gen_vertex_array,
-    gl_gen_vertex_arrays,
     gl_shader_source,
-    gl_shader_sources,
     gl_get_shader_iv,
     gl_get_program_iv,
     gl_get_shader_info_log,
