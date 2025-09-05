@@ -65,8 +65,17 @@ def handle_general_ann_assign(
         return f"{type_cpp} {target_str};"
     if isinstance(node.value, (ast.ListComp, ast.SetComp, ast.DictComp)):
         return f"{type_cpp} {target_str}; " + handle_comp(node.value, d, target_str)
-    value_str = d.handle_expr(node.value)
-    direct_initialize = False
+    direct_initialize: bool = False
+    if (
+        isinstance(node.value, ast.Call)
+        and isinstance(node.value.func, ast.Name)
+        and node.value.func.id == "set"
+    ):
+        direct_initialize = True
+        value_str = "{}"
+    else:
+        value_str = d.handle_expr(node.value)
+
     i: int = value_str.find("(")
     if i != -1:
         func_name = value_str[:i]
@@ -75,10 +84,6 @@ def handle_general_ann_assign(
         ):
             direct_initialize = True
             value_str = calc_inside_rd(value_str)
-    if value_str == "PyList({})":
-        value_str = _empty_initialize("PyList", type_cpp)
-    elif value_str == "PySet()":
-        value_str = _empty_initialize("PySet", type_cpp)
     return _calc_final_str(
         d, value_str, const_str, type_cpp, target_str, direct_initialize
     )
@@ -131,7 +136,3 @@ def _calc_result_from_maps_if_any(
                     type_cpp, target_str, value_str, value_str_stripped
                 )
     return None
-
-
-def _empty_initialize(s: str, type_cpp: str):
-    return f"{s}<{calc_inside_ang(type_cpp)}>" + "({})"
