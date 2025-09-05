@@ -7,7 +7,7 @@ name = "pypp-cli"
 version = "0.0.0"
 description = "A CLI tool called pypp"
 authors = [
-    { name="Curtis Puetz", email="pypp.main@gmail.com" }
+    { name="Curtis Puetz", email="pypp.main@yahoo.com" }
 ]
 readme = "readme.md"
 license = { text = "MIT" }
