@@ -7,6 +7,7 @@
 #include <format>
 #include <initializer_list>
 #include <iostream>
+#include <sstream>
 #include <unordered_map>
 #include <utility>
 #include <vector>
