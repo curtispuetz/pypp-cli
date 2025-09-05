@@ -4,9 +4,10 @@ if __name__ == "__main__":
     run_cli(
         [
             "uninstall",
-            r"C:\Users\puetz\PycharmProjects\bridge-library-test-0",
-            r"C:\Users\puetz\PycharmProjects\bridge-library-test-1",
-            r"C:\Users\puetz\PycharmProjects\bridge-lib-glfw",
-            r"C:\Users\puetz\PycharmProjects\pure-library-test-0",
+            # "pypp_bridge_library_test_0",
+            # "pypp_bridge_library_test_1",
+            # "pypp_pure_library_test_0",
+            # "pypp_bridge_lib_glfw",
+            "pypp_bridge_lib_opengl",
         ]
     )
