@@ -9,23 +9,23 @@
 void throw_fn() {
     print(PyStr("EXCEPTION RESULTS:"));
     try {
-        throw PyppException(PyStr("test").str());
+        throw PyppException(PyStr("test"));
     } catch (const PyppException &) {
         print(PyStr("exception happened"));
     }
     try {
-        throw PyppTypeError(PyStr("test").str());
+        throw PyppTypeError(PyStr("test"));
     } catch (const PyppTypeError &) {
         print(PyStr("type error caught"));
     }
     try {
-        throw PyppTypeError(PyStr("test").str());
+        throw PyppTypeError(PyStr("test"));
     } catch (const PyppTypeError &pypp_e) {
         std::string e = pypp_e.what();
         print(PyStr("type error caught: ") + to_pystr(e));
     }
     try {
-        throw PyppTypeError(PyStr("test").str());
+        throw PyppTypeError(PyStr("test"));
     } catch (const PyppTypeError &) {
         print(PyStr("type error caught"));
     } catch (const PyppValueError &) {

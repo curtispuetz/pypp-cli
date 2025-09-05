@@ -2,8 +2,10 @@
 #include <ios>
 #include <string>
 
+class PyStr;
+
 class PyppIOError : public std::ios_base::failure {
   public:
-    explicit PyppIOError(const std::string &msg)
-        : std::ios_base::failure("PyppIOError: " + msg) {}
+    PyppIOError(const PyStr &msg);
+    PyppIOError(const std::string &msg);
 };

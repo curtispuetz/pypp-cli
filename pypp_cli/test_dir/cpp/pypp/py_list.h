@@ -194,6 +194,8 @@ template <typename T> class PyList {
         return std::find(data.begin(), data.end(), value) != data.end();
     }
 
+    std::vector<T> &data_ref() { return data; }
+
     // Iterator support
     auto begin() { return data.begin(); }
     auto end() { return data.end(); }
