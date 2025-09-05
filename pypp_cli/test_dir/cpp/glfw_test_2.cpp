@@ -29,13 +29,13 @@ void cursor_position_callback(GLFWwindow *_window, double xpos, double ypos) {
 
 void glfw_test_2() {
     if (!glfwInit()) {
-        throw PyppException(PyStr("Failed to initialize GLFW").str());
+        throw PyppException(PyStr("Failed to initialize GLFW"));
     }
     GLFWwindow *window = glfwCreateWindow(
         640, 480, PyStr("Hello World").str().c_str(), NULL, NULL);
     if (!window) {
         glfwTerminate();
-        throw PyppException(PyStr("Failed to create GLFW window").str());
+        throw PyppException(PyStr("Failed to create GLFW window"));
     }
     glfwMakeContextCurrent(window);
     glfwSetKeyCallback(window, key_callback);
