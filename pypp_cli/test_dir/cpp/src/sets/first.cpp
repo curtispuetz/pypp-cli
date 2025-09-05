@@ -10,7 +10,7 @@ void _inline_set(PySet<double> s) { print(s); }
 
 void set_fn() {
     print(PyStr("SET RESULTS:"));
-    PySet<int> a = PySet({1, 2, 3});
+    PySet<int> a({1, 2, 3});
     print(a);
     a.add(4);
     print(a);
@@ -21,7 +21,7 @@ void set_fn() {
     a.remove(3);
     print(a);
     print(to_pystr(a.contains(1)));
-    PySet<int> b = PySet({1, 5});
+    PySet<int> b({1, 5});
     print(a.union_(b));
     print(a.intersection(b));
     print(a.difference(b));

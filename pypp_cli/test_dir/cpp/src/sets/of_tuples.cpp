@@ -6,6 +6,6 @@
 
 void set_of_tuples_fn() {
     print(PyStr("SET OF TUPLES RESULTS:"));
-    PySet<PyTup<int, int>> a = PySet({PyTup(1, 2), PyTup(3, 4)});
+    PySet<PyTup<int, int>> a({PyTup(1, 2), PyTup(3, 4)});
     print(a);
 }

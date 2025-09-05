@@ -45,6 +45,6 @@ void slices_fn() {
     print(a[py_slice(2, std::nullopt, 2)]);
     print(s[g]);
     print(s[py_slice(2, std::nullopt, 2)]);
-    PySet<PySlice> h = PySet({e, g});
+    PySet<PySlice> h({e, g});
     print(h);
 }
