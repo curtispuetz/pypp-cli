@@ -26,7 +26,7 @@ def _math_custom_mapping(_node: ast.Attribute, d, res_str: str):
     return f"std::{attr_str}"
 
 
-def _ctypes_custom_mapping(node: ast.Attribute, d, res_str: str):
+def _ctypes_custom_mapping(node: ast.Attribute, _d, res_str: str):
     node.attr
     attr_str: str = res_str[res_str.rfind(".") + 1 :]
     assert attr_str.startswith("c_void_p"), "only ctypes.c_void_p is supported"

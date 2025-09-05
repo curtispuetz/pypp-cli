@@ -1,6 +1,7 @@
 from pypp_cli.util_scripts.calling_cli.util import run_cli
 
 if __name__ == "__main__":
+    # TODO later: Fix because this command is deleted
     run_cli(
         [
             "install",

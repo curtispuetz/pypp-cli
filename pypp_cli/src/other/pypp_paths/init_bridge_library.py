@@ -4,7 +4,6 @@ from pathlib import Path
 
 @dataclass(frozen=True, slots=True)
 class InitBridgeLibraryPaths:
-    lib_py_executable: Path
     python_dir: Path
     cpp_dir: Path
     hello_world_h: Path
@@ -21,7 +20,6 @@ def create_init_bridge_lib_pypp_paths(
     cpp_dir = pypp_data_dir / "cpp"
     bridge_jsons_dir = pypp_data_dir / "bridge_jsons"
     return InitBridgeLibraryPaths(
-        target_dir / ".venv" / "Scripts" / "python.exe",
         python_dir,
         cpp_dir,
         cpp_dir / "hello_world.h",

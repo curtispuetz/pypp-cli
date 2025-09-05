@@ -4,7 +4,6 @@ from pathlib import Path
 
 @dataclass(frozen=True, slots=True)
 class InitPureLibraryPaths:
-    lib_py_executable: Path
     python_dir: Path
     cpp_dir: Path
     pypp_files_dir: Path
@@ -17,7 +16,6 @@ def create_init_pure_lib_pypp_paths(
     python_dir = target_dir / python_dir_name
     pypp_files_dir = target_dir / "pypp_files"
     return InitPureLibraryPaths(
-        target_dir / ".venv" / "Scripts" / "python.exe",
         python_dir,
         python_dir / "pypp_cpp",
         pypp_files_dir,

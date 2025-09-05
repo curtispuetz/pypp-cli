@@ -13,14 +13,13 @@ def pypp_init_bridge_lib(library_name: str, target_dir: Path):
     print("creating bridge-library files...")
     python_dir_name = library_name.replace("-", "_")
     paths = create_init_bridge_lib_pypp_paths(target_dir, python_dir_name)
-    init_libs_helper = InitLibsHelper(target_dir, paths.lib_py_executable, library_name)
+    init_libs_helper = InitLibsHelper(target_dir, library_name)
     init_libs_helper.create_readme()
     init_libs_helper.create_pyproject_toml(python_dir_name)
     paths.python_dir.mkdir()
     create_python_hello_world(paths.python_dir)
     _create_cpp_hello_world(paths.cpp_dir, paths.hello_world_h, paths.hello_world_cpp)
     _create_import_map(paths.bridge_jsons_dir, paths.import_map_json)
-    init_libs_helper.create_python_venv_and_install_hatchling()
 
 
 def _create_cpp_hello_world(cpp_dir: Path, hello_world_h: Path, hello_world_cpp: Path):
