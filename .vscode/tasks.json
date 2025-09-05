@@ -4,7 +4,7 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Transpile and Format",
+            "label": "T&F",
             "type": "shell",
             "command": "${workspaceFolder}/.venv/Scripts/python.exe -m pypp_cli.util_scripts.calling_cli.transpile_and_format",
             "problemMatcher": [],
@@ -17,7 +17,7 @@
             }
         },
         {
-            "label": "Build and Run",
+            "label": "B&R",
             "type": "shell",
             "command": "${workspaceFolder}/.venv/Scripts/python.exe -m pypp_cli.util_scripts.calling_cli.build_and_run",
             "problemMatcher": [],
@@ -30,7 +30,7 @@
             }
         },
         {
-            "label": "Transpile, Format, Build and Run",
+            "label": "TFB&R",
             "type": "shell",
             "command": "${workspaceFolder}/.venv/Scripts/python.exe -m pypp_cli.util_scripts.calling_cli.transpile_format_build_and_run",
             "problemMatcher": [],
@@ -95,7 +95,7 @@
             }
         },
         {
-            "label": "del timestamps",
+            "label": "del T",
             "type": "shell",
             "command": "${workspaceFolder}/.venv/Scripts/python.exe -m pypp_cli.util_scripts.calling_cli.delete_timestamps",
             "problemMatcher": [],
@@ -147,7 +147,7 @@
             }
         },
         {
-            "label": "del timestamps pure",
+            "label": "del T pure",
             "type": "shell",
             "command": "${workspaceFolder}/.venv/Scripts/python.exe -m pypp_cli.util_scripts.calling_cli.delete_timestamps_pure_lib",
             "problemMatcher": [],
@@ -160,7 +160,20 @@
             }
         },
         {
-            "label": "Build library",
+            "label": "UI&Del",
+            "type": "shell",
+            "command": "${workspaceFolder}/.venv/Scripts/python.exe -m pypp_cli.util_scripts.calling_cli.uninstall_install_and_del_timestamps",
+            "problemMatcher": [],
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "dedicated",
+                "showReuseMessage": false
+            }
+        },
+        {
+            "label": "Build lib",
             "type": "shell",
             "command": "${workspaceFolder}/.venv/Scripts/python.exe -m hatchling build",
             "problemMatcher": [],

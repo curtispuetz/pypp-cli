@@ -1,5 +1,18 @@
 import glfw
 import OpenGL.GL as GL
+from pypp_bridge_lib_opengl.custom import (
+    gl_gen_buffer,
+    gl_gen_buffers,
+    gl_gen_vertex_array,
+    gl_gen_vertex_arrays,
+    gl_shader_source,
+    gl_shader_sources,
+    gl_get_shader_iv,
+    gl_get_program_iv,
+    gl_get_shader_info_log,
+    gl_get_program_info_log,
+)
+from pypp_bridge_lib_opengl.glad_loader import glad_load_gl_loader
 import numpy as np
 import ctypes
 
@@ -8,7 +21,7 @@ from pypp_bridge_lib_glfw.d_types import GLFWwindowPtr
 from pypp_python import to_c_string, NULL, float32
 
 # Vertex shader source
-VERTEX_SHADER: str = """
+_VERTEX_SHADER: str = """
 #version 330 core
 layout(location = 0) in vec3 position;
 layout(location = 1) in vec3 color;
@@ -23,7 +36,7 @@ void main()
 """
 
 # Fragment shader source
-FRAGMENT_SHADER: str = """
+_FRAGMENT_SHADER: str = """
 #version 330 core
 in vec3 vertexColor;
 out vec4 FragColor;
@@ -37,26 +50,28 @@ void main()
 
 def compile_shader(source: str, shader_type: GL.GLenum) -> int:
     shader: GL.GLuint = GL.glCreateShader(shader_type)
-    GL.glShaderSource(shader, source)
+    gl_shader_source(shader, source)
     GL.glCompileShader(shader)
-    if not GL.glGetShaderiv(shader, GL.GL_COMPILE_STATUS):
+    if not gl_get_shader_iv(shader, GL.GL_COMPILE_STATUS):
         raise RuntimeError(
-            "Shader compilation failed: " + GL.glGetShaderInfoLog(shader)
+            "Shader compilation failed: " + gl_get_shader_info_log(shader)
         )
     return shader
 
 
 def create_shader_program():
-    vertex_shader: GL.GLuint = compile_shader(VERTEX_SHADER, GL.GL_VERTEX_SHADER)
-    fragment_shader: GL.GLuint = compile_shader(FRAGMENT_SHADER, GL.GL_FRAGMENT_SHADER)
+    vertex_shader: GL.GLuint = compile_shader(_VERTEX_SHADER, GL.GL_VERTEX_SHADER)
+    fragment_shader: GL.GLuint = compile_shader(_FRAGMENT_SHADER, GL.GL_FRAGMENT_SHADER)
 
     program: GL.GLuint = GL.glCreateProgram()
     GL.glAttachShader(program, vertex_shader)
     GL.glAttachShader(program, fragment_shader)
     GL.glLinkProgram(program)
 
-    if not GL.glGetProgramiv(program, GL.GL_LINK_STATUS):
-        raise RuntimeError("Program linking failed: " + GL.glGetProgramInfoLog(program))
+    if not gl_get_program_iv(program, GL.GL_LINK_STATUS):
+        raise RuntimeError(
+            "Program linking failed: " + gl_get_program_info_log(program)
+        )
 
     GL.glDeleteShader(vertex_shader)
     GL.glDeleteShader(fragment_shader)
@@ -65,11 +80,7 @@ def create_shader_program():
 
 
 def np_arr(data: list[float32]):
-    return np.array(data, dtype=np.float32)
-
-
-def glad_load_gl_loader():
-    pass
+    return np.array(data, np.float32)
 
 
 def opengl_test():
@@ -91,7 +102,8 @@ def opengl_test():
 
     glfw.make_context_current(window)
 
-    glad_load_gl_loader()
+    if not glad_load_gl_loader():
+        raise Exception("Failed to initialize GLAD")
 
     # Vertex data (positions + colors)
     # fmt: off
@@ -106,8 +118,8 @@ def opengl_test():
     # fmt: on
 
     # Create VAO and VBO
-    VAO: GL.GLuint = GL.glGenVertexArrays(1)
-    VBO: GL.GLuint = GL.glGenBuffers(1)
+    VAO: GL.GLuint = gl_gen_vertex_array()
+    VBO: GL.GLuint = gl_gen_buffer()
 
     GL.glBindVertexArray(VAO)
 
