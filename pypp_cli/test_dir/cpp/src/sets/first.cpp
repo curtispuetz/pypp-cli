@@ -49,7 +49,7 @@ void set_fn() {
     print(a);
     PyList<PySet<int>> list_of_sets({PySet({1, 2}), PySet({3, 4})});
     print(list_of_sets);
-    PySet<int> c = PySet<int>({});
+    PySet<int> c({});
     print(c);
     _inline_set(PySet({1.2, 4.4}));
 }
