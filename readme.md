@@ -580,7 +580,7 @@ For bugs, you can also open an Issue on the [Py++ GitHub](https://github.com/cur
 
 Ways to reach me:
 - DM me on [my reddit](https://www.reddit.com/user/joeblow2322/).
-- Email me at pypp.main@gmail.com
+- Email me at pypp.main@yahoo.com
 - tweet at me or DM me on X.com. To either my [Py++ account](https://x.com/CompiledPy) or my [personal account](https://x.com/curtispuetz) (your choice).
 
 ## Other Py++ repositories
