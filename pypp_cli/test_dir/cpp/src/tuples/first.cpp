@@ -34,7 +34,7 @@ void tuples_fn() {
     print(x, y, z);
     auto [u, v] = _get_tup();
     print(u, v);
-    PyList<int> c = PyList({1, 2, 3});
+    PyList<int> c({1, 2, 3});
     PyTup<int, PyList<int>> d = PyTup(1, c);
     print(d);
     print(PyStr("below will be [1, 2, 3] for Python, but [] for C++ because "

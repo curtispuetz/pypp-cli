@@ -8,6 +8,7 @@ from imports_test.first import imports_test_fn
 from imports_test.second import imports_test_fn2
 from lambdas import lambdas_fn
 from lists.ownership import list_ownership_tests_fn
+from number_types.in_collections import number_types_in_collections_fn
 from random_library.first import random_fn
 from second import return_friend
 from subscriptable_types import subscriptable_types_fn
@@ -132,3 +133,4 @@ if __name__ == "__main__":
     list_fn()
     class_nested_dependencies_fn()
     triple_quote_strings_fn()
+    number_types_in_collections_fn()

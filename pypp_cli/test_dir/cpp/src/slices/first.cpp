@@ -13,7 +13,7 @@ void slices_fn() {
     print(py_slice(1, 5, -2));
     print(py_slice(1, 5, 1));
     print(py_slice(0, 5, 1));
-    PyList<int> a = PyList({1, 2, 3, 4, 5});
+    PyList<int> a({1, 2, 3, 4, 5});
     PyStr s = PyStr("12345");
     PySlice b = py_slice(2);
     print(a[b]);

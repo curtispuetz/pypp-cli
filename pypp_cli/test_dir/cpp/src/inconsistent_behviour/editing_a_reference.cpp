@@ -4,11 +4,11 @@
 
 void editing_a_reference_fn() {
     print(PyStr("INCONSISTENT BEHAVIOR RESULTS:"));
-    PyList<int> a = PyList({1, 2, 3});
+    PyList<int> a({1, 2, 3});
     PyList<int> b = a;
     b.append(4);
     print(PyStr(std::format("inconsistent behavior: {}", a)));
-    PyList<int> c = PyList({1, 2, 3});
+    PyList<int> c({1, 2, 3});
     PyList<int> d = update_and_return_new(c);
     d[-1] = 99;
     print(PyStr(std::format("inconsistent behavior: {}", c)));

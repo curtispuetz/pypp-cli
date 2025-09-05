@@ -60,7 +60,7 @@ void file_io_fn() {
     {
         PyTextIO file(text_file, PyStr("r"));
         PyList<PyStr> lines = file.readlines();
-        PyList<PyStr> stripped_lines = PyList<PyStr>({});
+        PyList<PyStr> stripped_lines({});
         for (const auto &line : lines) {
             stripped_lines.append(line.strip());
         }

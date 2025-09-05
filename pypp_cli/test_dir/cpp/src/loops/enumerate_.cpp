@@ -9,7 +9,7 @@
 
 void enumerate_fn() {
     print(PyStr("ENUMERATE RESULTS:"));
-    PyList<int> a = PyList<int>({});
+    PyList<int> a({});
     for (const auto &[i, val] : PyEnumerate(PyList({1, 2, 3}))) {
         a.append(i);
         a.append(std::move(val));

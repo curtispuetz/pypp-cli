@@ -45,6 +45,10 @@ def handle_ann_assign(node: ast.AnnAssign, d: Deps) -> str:
     return result
 
 
+# TODO: refactor
+DIRECT_INITIALIZERS: dict[str, type] = {"PyList": ast.List}
+
+
 def handle_general_ann_assign(
     node: ast.AnnAssign,
     d: Deps,
@@ -59,21 +63,39 @@ def handle_general_ann_assign(
     if isinstance(node.value, (ast.ListComp, ast.SetComp, ast.DictComp)):
         return f"{type_cpp} {target_str}; " + handle_comp(node.value, d, target_str)
     value_str = d.handle_expr(node.value)
+    direct_initialize = False
+    i: int = value_str.find("(")
+    if i != -1:
+        func_name = value_str[:i]
+        if func_name in DIRECT_INITIALIZERS and isinstance(
+            node.value, DIRECT_INITIALIZERS[func_name]
+        ):
+            direct_initialize = True
+            value_str = calc_inside_rd(value_str)
     if value_str == "PyList({})":
         value_str = _empty_initialize("PyList", type_cpp)
     elif value_str == "PySet()":
         value_str = _empty_initialize("PySet", type_cpp)
-    return _calc_final_str(d, value_str, const_str, type_cpp, target_str)
+    return _calc_final_str(
+        d, value_str, const_str, type_cpp, target_str, direct_initialize
+    )
 
 
 def _calc_final_str(
-    d: Deps, value_str: str, const_str: str, type_cpp: str, target_str: str
+    d: Deps,
+    value_str: str,
+    const_str: str,
+    type_cpp: str,
+    target_str: str,
+    direct_initialize: bool,
 ):
     result_from_maps = _calc_result_from_maps_if_any(d, value_str, type_cpp, target_str)
     if result_from_maps is not None:
         return f"{const_str}{result_from_maps};"
     if type_cpp.startswith("&"):
         type_cpp = type_cpp[1:] + "&"
+    if direct_initialize:
+        return f"{const_str}{type_cpp} {target_str}({value_str});"
     return f"{const_str}{type_cpp} {target_str} = {value_str};"
 
 

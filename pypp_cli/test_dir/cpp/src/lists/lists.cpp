@@ -10,7 +10,7 @@ void _test_fn(PyList<PyStr> arg1) { print(arg1); }
 
 void list_fn() {
     print(PyStr("LIST RESULTS:"));
-    PyList<int> a = PyList({1, 2, 3, 4, 5});
+    PyList<int> a({1, 2, 3, 4, 5});
     print(a);
     a[0] = 10;
     print(a);
@@ -66,12 +66,12 @@ void list_fn() {
     print(c[py_slice(c.len() - 2, 5, 1)]);
     print(c[py_slice(c.len() - 4, c.len() - 1, 1)]);
     print(c[py_slice(5, 1, -1)]);
-    PyList<PyStr> e = PyList({PyStr("a"), PyStr("b")});
+    PyList<PyStr> e({PyStr("a"), PyStr("b")});
     print(e);
-    PyList<int> f = PyList<int>({});
+    PyList<int> f({});
     print(f);
     e.reserve(10);
-    PyList<PyList<int>> g = PyList({PyList({1, 2}), PyList({3, 4})});
+    PyList<PyList<int>> g({PyList({1, 2}), PyList({3, 4})});
     PyList<int> &g_0 = g[0];
     g_0.append(99);
     print(g);
@@ -80,7 +80,7 @@ void list_fn() {
     _test_fn(PyList({PyStr("1"), PyStr("2")}));
     e.extend(PyList({PyStr("c"), PyStr("d")}));
     print(e);
-    PyList<PyStr> h = PyList({PyStr("e"), PyStr("f")});
+    PyList<PyStr> h({PyStr("e"), PyStr("f")});
     e.extend(std::move(h));
     print(e);
 }

@@ -61,7 +61,7 @@ void string_ops() {
     print(s_joined);
     PyStr a = PyStr("");
     print(a);
-    PyList<PyStr> list_of_chars = PyList<PyStr>({});
+    PyList<PyStr> list_of_chars({});
     for (const auto &c : PyStr("abcdefg")) {
         PyStr ch = c;
         list_of_chars.append(std::move(ch));

@@ -36,6 +36,7 @@
 #include "loops/while_.h"
 #include "loops/zip_.h"
 #include "math_library/first.h"
+#include "number_types/in_collections.h"
 #include "number_types/number_types.h"
 #include "numbers_test/first.h"
 #include "operations.h"
@@ -75,11 +76,11 @@ int main() {
         print(string_as_argument(PyStr("hello")));
         print(if_elif_else_fn(6, 6));
         number_ops();
-        PyList<int> my_list = PyList({1, 2, 3, 4});
+        PyList<int> my_list({1, 2, 3, 4});
         list_as_arg(my_list);
         list_as_mutable_arg(my_list);
         print(my_list);
-        PyList<PyStr> str_list = PyList({PyStr("ab"), PyStr("cd")});
+        PyList<PyStr> str_list({PyStr("ab"), PyStr("cd")});
         print(str_list);
         string_ops();
         set_fn();
@@ -137,6 +138,7 @@ int main() {
         list_fn();
         class_nested_dependencies_fn();
         triple_quote_strings_fn();
+        number_types_in_collections_fn();
         return 0;
     } catch (...) {
         handle_fatal_exception();

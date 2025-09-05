@@ -5,9 +5,9 @@
 #include "pypp_random.h"
 #include <utility>
 
-inline const PyList<PyTup<int, int>> GRADIENTS =
-    PyList({PyTup(1, 0), PyTup(-1, 0), PyTup(0, 1), PyTup(0, -1), PyTup(1, 1),
-            PyTup(-1, 1), PyTup(1, -1), PyTup(-1, -1)});
+inline const PyList<PyTup<int, int>>
+    GRADIENTS({PyTup(1, 0), PyTup(-1, 0), PyTup(0, 1), PyTup(0, -1),
+               PyTup(1, 1), PyTup(-1, 1), PyTup(1, -1), PyTup(-1, -1)});
 class PerlinNoise {
   public:
     int _p_len;
