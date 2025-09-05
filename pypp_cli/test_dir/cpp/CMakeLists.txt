@@ -53,8 +53,5 @@ target_link_libraries(glfw_test_2 PRIVATE pypp_common)
 add_executable(main main.cpp)
 target_link_libraries(main PRIVATE pypp_common)
 
-add_executable(opengl_test opengl_test.cpp)
-target_link_libraries(opengl_test PRIVATE pypp_common)
-
 add_executable(second_executable_example second_executable_example.cpp)
 target_link_libraries(second_executable_example PRIVATE pypp_common)

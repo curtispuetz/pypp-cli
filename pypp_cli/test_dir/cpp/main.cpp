@@ -36,7 +36,7 @@
 #include "loops/while_.h"
 #include "loops/zip_.h"
 #include "math_library/first.h"
-#include "number_types.h"
+#include "number_types/number_types.h"
 #include "numbers_test/first.h"
 #include "operations.h"
 #include "printing/first.h"
