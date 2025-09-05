@@ -1,9 +1,7 @@
 from dataclasses import dataclass
 import json
 from pathlib import Path
-import subprocess
 
-import venv
 
 from pypp_cli.src.other.pypp_paths.init import InitPyppPaths, create_init_pypp_paths
 
@@ -11,21 +9,12 @@ from pypp_cli.src.other.pypp_paths.init import InitPyppPaths, create_init_pypp_p
 def pypp_init(target_dir: Path):
     pypp_init_helper = _PyppInitHelper(create_init_pypp_paths(target_dir))
     pypp_init_helper.create_project_structure()
-    print("Py++ project structure creation finished")
-    print("creating python virtual environment...")
-    pypp_init_helper.create_python_virtual_environment()
-    pypp_init_helper.install_pypp_python()
     print("Py++ project init finished")
 
 
 @dataclass(frozen=True, slots=True)
 class _PyppInitHelper:
     _paths: InitPyppPaths
-
-    def create_python_virtual_environment(self):
-        venv_dir: Path = self._paths.python_dir / ".venv"
-        venv.create(venv_dir, with_pip=True)
-        print("Python virtual environment created in python project directory")
 
     def create_project_structure(
         self,
@@ -76,14 +65,3 @@ class _PyppInitHelper:
         data = {"cpp_dir_is_dirty": True}
         with open(self._paths.proj_info_file, "w") as file:
             json.dump(data, file, indent=4)
-
-    def install_pypp_python(self):
-        subprocess.check_call(
-            [
-                self._paths.py_executable,
-                "-m",
-                "pip",
-                "install",
-                "pypp-python",
-            ]
-        )

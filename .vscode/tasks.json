@@ -121,7 +121,20 @@
             }
         },
         {
-            "label": "init pure",
+            "label": "I",
+            "type": "shell",
+            "command": "${workspaceFolder}/.venv/Scripts/python.exe -m pypp_cli.util_scripts.calling_cli.init",
+            "problemMatcher": [],
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "dedicated",
+                "showReuseMessage": false
+            }
+        },
+        {
+            "label": "I pure",
             "type": "shell",
             "command": "${workspaceFolder}/.venv/Scripts/python.exe -m pypp_cli.util_scripts.calling_cli.init_pure_lib",
             "problemMatcher": [],
@@ -134,7 +147,7 @@
             }
         },
         {
-            "label": "init bridge",
+            "label": "I bridge",
             "type": "shell",
             "command": "${workspaceFolder}/.venv/Scripts/python.exe -m pypp_cli.util_scripts.calling_cli.init_bridge_lib",
             "problemMatcher": [],

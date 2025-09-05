@@ -8,11 +8,8 @@ from pypp_cli.src.initializers.init_pure_library import (
     pypp_init_pure_lib,
 )
 from pypp_cli.src.other.pypp_paths.util import calc_proj_info_path
-from pypp_cli.src.package_managers.install import pypp_install
 from pypp_cli.src.doers.pure_lib.do_pure_lib import pypp_do_pure_lib
 from pypp_cli.src.timestamps_deleter.delete_timestamps import pypp_delete_timestamps
-from pypp_cli.src.python_runner.run_python import pypp_run_python
-from pypp_cli.src.package_managers.uninstall import pypp_uninstall
 
 
 def main_cli(absolute_dir: Path | None = None) -> None:
@@ -21,28 +18,10 @@ def main_cli(absolute_dir: Path | None = None) -> None:
     subparsers.add_parser(
         "init", help="Initialize a new Py++ project in the current directory."
     )
-    parser_install = subparsers.add_parser("install", help="Install pypp libraries")
-    parser_install.add_argument(
-        "libraries", help="Specify one or more libraries to install.", nargs="+"
-    )
-    parser_uninstall = subparsers.add_parser(
-        "uninstall", help="Uninstall pypp libraries"
-    )
-    parser_uninstall.add_argument(
-        "libraries", help="Specify one or more libraries to uninstall.", nargs="+"
-    )
     subparsers.add_parser(
         "delete_timestamps",
         help="Remove the file_timestamps.json file so that transpiling is done "
         "for all python files regardless of whether they were modified.",
-    )
-    parser_run_python = subparsers.add_parser(
-        "run_python",
-        help="run your code with the python interpreter. Behaviour should be the same "
-        "as the C++ executable, but could be different if there is a bug.",
-    )
-    parser_run_python.add_argument(
-        "file", help="The Python file to run. This should be a file with main block."
     )
     parser_do = subparsers.add_parser(
         "do", help="transpile, format, build, and/or run."
@@ -116,16 +95,8 @@ def main_cli(absolute_dir: Path | None = None) -> None:
         pypp_do(args.tasks, absolute_dir, args.exe_name)
     if args.mode == "do_pure_lib":
         pypp_do_pure_lib(args.tasks, absolute_dir)
-    elif args.mode == "install":
-        for lib in args.libraries:
-            pypp_install(lib, absolute_dir)
-    elif args.mode == "uninstall":
-        for lib in args.libraries:
-            pypp_uninstall(lib, absolute_dir)
     elif args.mode == "delete_timestamps":
         pypp_delete_timestamps(absolute_dir)
-    elif args.mode == "run_python":
-        pypp_run_python(args.file, absolute_dir)
 
 
 if __name__ == "__main__":
