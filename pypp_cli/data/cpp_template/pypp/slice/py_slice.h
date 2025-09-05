@@ -2,6 +2,7 @@
 
 #include "py_tuple.h"
 #include <optional>
+#include <sstream>
 #include <stdexcept>
 
 struct PySlice {

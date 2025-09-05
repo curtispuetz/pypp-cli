@@ -5,6 +5,7 @@
 #include <format>
 #include <optional>
 #include <ostream>
+#include <sstream>
 #include <string>
 
 class PyStr {

@@ -4,6 +4,7 @@
 #ifdef _WIN32
 #include <windows.h>
 #elif __linux__
+#include <linux/limits.h>
 #include <unistd.h>
 #elif __APPLE__
 #include <mach-o/dyld.h>

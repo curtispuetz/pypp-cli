@@ -3,6 +3,7 @@
 #include <exceptions/stdexcept.h>
 #include <format>
 #include <ostream>
+#include <sstream>
 
 struct PyRange {
   private:

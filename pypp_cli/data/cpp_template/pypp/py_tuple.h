@@ -5,6 +5,7 @@
 #include <any>
 #include <format>
 #include <iostream>
+#include <sstream>
 #include <tuple>
 #include <utility>
 
