@@ -11,6 +11,16 @@ FetchContent_Declare(
     GIT_TAG 3.4
 )
 FetchContent_MakeAvailable(glfw)
+include(FetchContent)
+FetchContent_Declare(
+    glad
+    GIT_REPOSITORY https://github.com/Dav1dde/glad.git
+    GIT_TAG v2.0.8
+    GIT_PROGRESS TRUE
+    SOURCE_SUBDIR cmake
+)
+FetchContent_MakeAvailable(glad)
+glad_add_library(glad_gl_core_43 STATIC REPRODUCIBLE LOADER API gl:core=4.3)
 
 file(GLOB_RECURSE SRC_FILES src/*.cpp)
 file(GLOB_RECURSE pypp_FILES pypp/*.cpp)
@@ -31,6 +41,7 @@ target_include_directories(
 target_link_libraries(
     pypp_common PUBLIC
     glfw
+    glad_gl_core_43
 )
 
 add_executable(glfw_test glfw_test.cpp)
@@ -41,6 +52,9 @@ target_link_libraries(glfw_test_2 PRIVATE pypp_common)
 
 add_executable(main main.cpp)
 target_link_libraries(main PRIVATE pypp_common)
+
+add_executable(opengl_test opengl_test.cpp)
+target_link_libraries(opengl_test PRIVATE pypp_common)
 
 add_executable(second_executable_example second_executable_example.cpp)
 target_link_libraries(second_executable_example PRIVATE pypp_common)

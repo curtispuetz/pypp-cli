@@ -11,8 +11,10 @@ from pypp_bridge_lib_opengl.custom import (
     gl_get_program_iv,
     gl_get_shader_info_log,
     gl_get_program_info_log,
+    gl_delete_buffer,
+    gl_delete_vertex_array,
 )
-from pypp_bridge_lib_opengl.glad_loader import glad_load_gl_loader
+from pypp_bridge_lib_opengl.glad_loader import glad_load_gl
 import numpy as np
 import ctypes
 
@@ -21,7 +23,7 @@ from pypp_bridge_lib_glfw.d_types import GLFWwindowPtr
 from pypp_python import to_c_string, NULL, float32
 
 # Vertex shader source
-_VERTEX_SHADER: str = """
+vertex_shader_src: str = """
 #version 330 core
 layout(location = 0) in vec3 position;
 layout(location = 1) in vec3 color;
@@ -36,7 +38,7 @@ void main()
 """
 
 # Fragment shader source
-_FRAGMENT_SHADER: str = """
+fragment_shader_src: str = """
 #version 330 core
 in vec3 vertexColor;
 out vec4 FragColor;
@@ -48,7 +50,7 @@ void main()
 """
 
 
-def compile_shader(source: str, shader_type: GL.GLenum) -> int:
+def compile_shader(source: str, shader_type: GL.GLenum) -> GL.GLuint:
     shader: GL.GLuint = GL.glCreateShader(shader_type)
     gl_shader_source(shader, source)
     GL.glCompileShader(shader)
@@ -59,9 +61,11 @@ def compile_shader(source: str, shader_type: GL.GLenum) -> int:
     return shader
 
 
-def create_shader_program():
-    vertex_shader: GL.GLuint = compile_shader(_VERTEX_SHADER, GL.GL_VERTEX_SHADER)
-    fragment_shader: GL.GLuint = compile_shader(_FRAGMENT_SHADER, GL.GL_FRAGMENT_SHADER)
+def create_shader_program() -> GL.GLuint:
+    vertex_shader: GL.GLuint = compile_shader(vertex_shader_src, GL.GL_VERTEX_SHADER)
+    fragment_shader: GL.GLuint = compile_shader(
+        fragment_shader_src, GL.GL_FRAGMENT_SHADER
+    )
 
     program: GL.GLuint = GL.glCreateProgram()
     GL.glAttachShader(program, vertex_shader)
@@ -77,10 +81,6 @@ def create_shader_program():
     GL.glDeleteShader(fragment_shader)
 
     return program
-
-
-def np_arr(data: list[float32]):
-    return np.array(data, np.float32)
 
 
 def opengl_test():
@@ -102,7 +102,7 @@ def opengl_test():
 
     glfw.make_context_current(window)
 
-    if not glad_load_gl_loader():
+    if not glad_load_gl():
         raise Exception("Failed to initialize GLAD")
 
     # Vertex data (positions + colors)
@@ -118,16 +118,16 @@ def opengl_test():
     # fmt: on
 
     # Create VAO and VBO
-    VAO: GL.GLuint = gl_gen_vertex_array()
-    VBO: GL.GLuint = gl_gen_buffer()
+    vao: GL.GLuint = gl_gen_vertex_array()
+    vbo: GL.GLuint = gl_gen_buffer()
 
-    GL.glBindVertexArray(VAO)
+    GL.glBindVertexArray(vao)
 
-    GL.glBindBuffer(GL.GL_ARRAY_BUFFER, VBO)
+    GL.glBindBuffer(GL.GL_ARRAY_BUFFER, vbo)
     GL.glBufferData(
         GL.GL_ARRAY_BUFFER,
         len(vertices) * GL.sizeof(GL.GLfloat),
-        np_arr(vertices),
+        np.array(vertices, np.float32),
         GL.GL_STATIC_DRAW,
     )
 
@@ -159,14 +159,14 @@ def opengl_test():
         GL.glClear(GL.GL_COLOR_BUFFER_BIT)
 
         GL.glUseProgram(shader_program)
-        GL.glBindVertexArray(VAO)
+        GL.glBindVertexArray(vao)
         GL.glDrawArrays(GL.GL_TRIANGLES, 0, 3)
 
         glfw.swap_buffers(window)
 
     # Cleanup
-    GL.glDeleteVertexArrays(1, [VAO])
-    GL.glDeleteBuffers(1, [VBO])
+    gl_delete_vertex_array(vao)
+    gl_delete_buffer(vbo)
     glfw.terminate()
 
 
