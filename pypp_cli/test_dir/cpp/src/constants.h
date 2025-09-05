@@ -10,7 +10,7 @@ inline const int A = 1;
 inline const PyStr B = PyStr("B");
 inline const PyList<int> C({1, 2, 3});
 inline const PyDict<int, int> D = {{0, 1}};
-inline const PySet<int> E = PySet({1, 2, 3});
+inline const PySet<int> E({1, 2, 3});
 inline const std::function<int(int)> G = [](auto x) { return x + 1; };
 struct _PseudoPyppNameMyConfig {
     int a = 1;

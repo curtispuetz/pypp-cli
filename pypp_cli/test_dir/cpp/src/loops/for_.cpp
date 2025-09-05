@@ -26,7 +26,7 @@ void for_loop_fn() {
         a.append(std::move(y));
     }
     print(a);
-    PySet<int> b = PySet({10, 20, 30});
+    PySet<int> b({10, 20, 30});
     for (const auto &val : b) {
         int y = val;
         a.append(std::move(y));

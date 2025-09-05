@@ -8,7 +8,7 @@
 
 void set_exceptions_fn() {
     print(PyStr("SET EXCEPTIONS RESULTS:"));
-    PySet<int> a = PySet({1, 2});
+    PySet<int> a({1, 2});
     try {
         a.remove(3);
     } catch (const PyppKeyError &pypp_e) {

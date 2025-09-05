@@ -46,7 +46,10 @@ def handle_ann_assign(node: ast.AnnAssign, d: Deps) -> str:
 
 
 # TODO: refactor
-DIRECT_INITIALIZERS: dict[str, type] = {"PyList": ast.List}
+DIRECT_INITIALIZERS: dict[str, type] = {
+    "PyList": ast.List,
+    "PySet": ast.Set,
+}
 
 
 def handle_general_ann_assign(

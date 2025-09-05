@@ -14,7 +14,7 @@ void f_strings_fn() {
     PyStr a =
         PyStr(std::format("this {} my {}st test f string", PyStr("is"), 1));
     print(a);
-    PySet<int> my_set = PySet({1, 2});
+    PySet<int> my_set({1, 2});
     PyDict<int, int> my_dict = {{0, 1}};
     PyStr b = PyStr(std::format(
         "list: {}, tuple: {}, set: {}, dict: {}, slice: {}, range: {}",
