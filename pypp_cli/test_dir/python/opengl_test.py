@@ -1,44 +1,5 @@
 import glfw
-from OpenGL.GL import (
-    glCreateShader,
-    glShaderSource,
-    glCompileShader,
-    glGetShaderiv,
-    GL_COMPILE_STATUS,
-    glGetShaderInfoLog,
-    glCreateProgram,
-    glAttachShader,
-    glLinkProgram,
-    glGetProgramiv,
-    GL_LINK_STATUS,
-    glGetProgramInfoLog,
-    glDeleteShader,
-    glGenVertexArrays,
-    glGenBuffers,
-    glBindVertexArray,
-    glBindBuffer,
-    GL_ARRAY_BUFFER,
-    glBufferData,
-    GL_STATIC_DRAW,
-    glVertexAttribPointer,
-    glEnableVertexAttribArray,
-    GL_FLOAT,
-    GL_FALSE,
-    glClearColor,
-    glClear,
-    GL_COLOR_BUFFER_BIT,
-    glUseProgram,
-    glDrawArrays,
-    GL_TRIANGLES,
-    GL_VERTEX_SHADER,
-    GL_FRAGMENT_SHADER,
-    glDeleteVertexArrays,
-    glDeleteBuffers,
-    sizeof,
-    GLfloat,
-    GLuint,
-    GLenum,
-)
+import OpenGL.GL as GL
 import numpy as np
 import ctypes
 
@@ -74,29 +35,31 @@ void main()
 """
 
 
-def compile_shader(source: str, shader_type: GLenum) -> int:
-    shader: int = glCreateShader(shader_type)
-    glShaderSource(shader, source)
-    glCompileShader(shader)
-    if not glGetShaderiv(shader, GL_COMPILE_STATUS):
-        raise RuntimeError("Shader compilation failed: " + glGetShaderInfoLog(shader))
+def compile_shader(source: str, shader_type: GL.GLenum) -> int:
+    shader: GL.GLuint = GL.glCreateShader(shader_type)
+    GL.glShaderSource(shader, source)
+    GL.glCompileShader(shader)
+    if not GL.glGetShaderiv(shader, GL.GL_COMPILE_STATUS):
+        raise RuntimeError(
+            "Shader compilation failed: " + GL.glGetShaderInfoLog(shader)
+        )
     return shader
 
 
 def create_shader_program():
-    vertex_shader: int = compile_shader(VERTEX_SHADER, GL_VERTEX_SHADER)
-    fragment_shader: int = compile_shader(FRAGMENT_SHADER, GL_FRAGMENT_SHADER)
+    vertex_shader: GL.GLuint = compile_shader(VERTEX_SHADER, GL.GL_VERTEX_SHADER)
+    fragment_shader: GL.GLuint = compile_shader(FRAGMENT_SHADER, GL.GL_FRAGMENT_SHADER)
 
-    program: int = glCreateProgram()
-    glAttachShader(program, vertex_shader)
-    glAttachShader(program, fragment_shader)
-    glLinkProgram(program)
+    program: GL.GLuint = GL.glCreateProgram()
+    GL.glAttachShader(program, vertex_shader)
+    GL.glAttachShader(program, fragment_shader)
+    GL.glLinkProgram(program)
 
-    if not glGetProgramiv(program, GL_LINK_STATUS):
-        raise RuntimeError("Program linking failed: " + glGetProgramInfoLog(program))
+    if not GL.glGetProgramiv(program, GL.GL_LINK_STATUS):
+        raise RuntimeError("Program linking failed: " + GL.glGetProgramInfoLog(program))
 
-    glDeleteShader(vertex_shader)
-    glDeleteShader(fragment_shader)
+    GL.glDeleteShader(vertex_shader)
+    GL.glDeleteShader(fragment_shader)
 
     return program
 
@@ -143,55 +106,55 @@ def opengl_test():
     # fmt: on
 
     # Create VAO and VBO
-    VAO: GLuint = glGenVertexArrays(1)
-    VBO: GLuint = glGenBuffers(1)
+    VAO: GL.GLuint = GL.glGenVertexArrays(1)
+    VBO: GL.GLuint = GL.glGenBuffers(1)
 
-    glBindVertexArray(VAO)
+    GL.glBindVertexArray(VAO)
 
-    glBindBuffer(GL_ARRAY_BUFFER, VBO)
-    glBufferData(
-        GL_ARRAY_BUFFER,
-        len(vertices) * sizeof(GLfloat),
+    GL.glBindBuffer(GL.GL_ARRAY_BUFFER, VBO)
+    GL.glBufferData(
+        GL.GL_ARRAY_BUFFER,
+        len(vertices) * GL.sizeof(GL.GLfloat),
         np_arr(vertices),
-        GL_STATIC_DRAW,
+        GL.GL_STATIC_DRAW,
     )
 
     # Position attribute
-    glVertexAttribPointer(
-        0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), ctypes.c_void_p(0)
+    GL.glVertexAttribPointer(
+        0, 3, GL.GL_FLOAT, GL.GL_FALSE, 6 * GL.sizeof(GL.GLfloat), ctypes.c_void_p(0)
     )
-    glEnableVertexAttribArray(0)
+    GL.glEnableVertexAttribArray(0)
 
     # Color attribute
-    glVertexAttribPointer(
+    GL.glVertexAttribPointer(
         1,
         3,
-        GL_FLOAT,
-        GL_FALSE,
-        6 * sizeof(GLfloat),
-        ctypes.c_void_p(3 * sizeof(GLfloat)),
+        GL.GL_FLOAT,
+        GL.GL_FALSE,
+        6 * GL.sizeof(GL.GLfloat),
+        ctypes.c_void_p(3 * GL.sizeof(GL.GLfloat)),
     )
-    glEnableVertexAttribArray(1)
+    GL.glEnableVertexAttribArray(1)
 
     # Build shader program
-    shader_program: int = create_shader_program()
+    shader_program: GL.GLuint = create_shader_program()
 
     # Main render loop
     while not glfw.window_should_close(window):
         glfw.poll_events()
 
-        glClearColor(0.2, 0.3, 0.3, 1.0)
-        glClear(GL_COLOR_BUFFER_BIT)
+        GL.glClearColor(0.2, 0.3, 0.3, 1.0)
+        GL.glClear(GL.GL_COLOR_BUFFER_BIT)
 
-        glUseProgram(shader_program)
-        glBindVertexArray(VAO)
-        glDrawArrays(GL_TRIANGLES, 0, 3)
+        GL.glUseProgram(shader_program)
+        GL.glBindVertexArray(VAO)
+        GL.glDrawArrays(GL.GL_TRIANGLES, 0, 3)
 
         glfw.swap_buffers(window)
 
     # Cleanup
-    glDeleteVertexArrays(1, [VAO])
-    glDeleteBuffers(1, [VBO])
+    GL.glDeleteVertexArrays(1, [VAO])
+    GL.glDeleteBuffers(1, [VBO])
     glfw.terminate()
 
 
