@@ -6,7 +6,7 @@
 
 void while_loop_fn() {
     print(PyStr("WHILE LOOP RESULTS:"));
-    PyList<int> a = PyList<int>({});
+    PyList<int> a({});
     int i = 0;
     while (i < 3) {
         a.append(std::move(i));

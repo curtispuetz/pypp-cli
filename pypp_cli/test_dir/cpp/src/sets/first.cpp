@@ -47,7 +47,7 @@ void set_fn() {
     print(to_pystr(PySet({1, 2}) != PySet({1, 2})));
     a.clear();
     print(a);
-    PyList<PySet<int>> list_of_sets = PyList({PySet({1, 2}), PySet({3, 4})});
+    PyList<PySet<int>> list_of_sets({PySet({1, 2}), PySet({3, 4})});
     print(list_of_sets);
     PySet<int> c = PySet<int>({});
     print(c);

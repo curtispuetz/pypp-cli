@@ -9,7 +9,7 @@
 
 void zip_fn() {
     print(PyStr("ZIP RESULTS:"));
-    PyList<int> a = PyList<int>({});
+    PyList<int> a({});
     for (const auto &[x, z] : PyZip(PyList({1, 2}), PyList({3, 4}))) {
         a.append(std::move(x));
         a.append(std::move(z));

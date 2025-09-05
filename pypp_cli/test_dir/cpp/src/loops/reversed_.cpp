@@ -8,13 +8,13 @@
 
 void reversed_fn() {
     print(PyStr("REVERSED RESULTS:"));
-    PyList<int> a = PyList<int>({});
+    PyList<int> a({});
     for (const auto &x : PyReversed(PyList({1, 2, 3}))) {
         int y = x;
         a.append(std::move(y));
     }
     print(a);
-    PyList<PyStr> b = PyList<PyStr>({});
+    PyList<PyStr> b({});
     for (const auto &x : PyReversed(PyStr("abcd"))) {
         PyStr y = x;
         b.append(std::move(y));

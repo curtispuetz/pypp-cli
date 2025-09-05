@@ -7,7 +7,7 @@
 #include <utility>
 
 void _iter_and_print(PyRange arg1) {
-    PyList<int> a1 = PyList<int>({});
+    PyList<int> a1({});
     for (const auto &i : arg1) {
         int y = i;
         a1.append(std::move(y));

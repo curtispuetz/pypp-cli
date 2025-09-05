@@ -9,7 +9,7 @@
 
 void for_loop_fn() {
     print(PyStr("FOR RESULTS:"));
-    PyList<int> ret = PyList<int>({});
+    PyList<int> ret({});
     for (int i = 2; i < 10; i += 2) {
         ret.append(std::move(i));
     }
@@ -20,7 +20,7 @@ void for_loop_fn() {
         ret.append(std::move(k));
     }
     print(ret);
-    PyList<int> a = PyList<int>({});
+    PyList<int> a({});
     for (const auto &val : ret) {
         int y = val;
         a.append(std::move(y));
@@ -50,7 +50,7 @@ void for_loop_fn() {
         a.append(std::move(y));
     }
     print(a);
-    PyList<PyTup<int, int>> d = PyList({PyTup(1, 2), PyTup(3, 4)});
+    PyList<PyTup<int, int>> d({PyTup(1, 2), PyTup(3, 4)});
     for (const auto &[first, second] : d) {
         int x = first;
         int y = second;

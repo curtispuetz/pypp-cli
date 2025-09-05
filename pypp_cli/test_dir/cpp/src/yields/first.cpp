@@ -20,7 +20,7 @@ Generator<int> yield_from_example() { CO_YIELD_FROM(yield_over_list()); }
 
 void yield_fn() {
     print(PyStr("YIELD RESULTS:"));
-    PyList<int> a = PyList<int>({});
+    PyList<int> a({});
     for (const auto &i : yield_123()) {
         int y = i;
         a.append(std::move(y));

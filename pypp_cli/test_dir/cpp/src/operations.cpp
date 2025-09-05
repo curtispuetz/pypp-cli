@@ -34,7 +34,7 @@ void operations_fn() {
     print(PyStr(std::format("uadd: {}", k)));
     int l1 = ~5;
     print(PyStr(std::format("invert: {}", l1)));
-    PyList<int> t1 = PyList({1, 2});
+    PyList<int> t1({1, 2});
     PyList<int> &t2 = t1;
     bool m = t1 == t2;
     print(PyStr(std::format("is: {}", m)));
