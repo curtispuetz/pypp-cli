@@ -18,7 +18,6 @@ from pypp_cli.src.transpilers.other.transpiler.module.util.calc_callable_type im
     calc_callable_type,
 )
 from pypp_cli.src.transpilers.other.transpiler.module.util.inner_strings import (
-    calc_inside_ang,
     calc_inside_rd,
 )
 
