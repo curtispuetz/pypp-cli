@@ -49,6 +49,8 @@ class _PyppInitHelper:
         main_py_path.write_text(
             "\n".join(
                 [
+                    "# main file example",
+                    "",
                     "from hello_world import first_fn",
                     "",
                     "if __name__ == '__main__':",
@@ -62,6 +64,8 @@ class _PyppInitHelper:
         src_py_path.write_text(
             "\n".join(
                 [
+                    "# src file example",
+                    "",
                     "def first_fn():",
                     "    print('Hello, World!')",
                 ]
