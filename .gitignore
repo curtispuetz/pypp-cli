@@ -1,7 +1,7 @@
 /.venv
 /.idea
 **/__pycache__/**
-/pypp_cli/test_dir/cpp/build
+/pypp_cli/test_dir/cpp/
 /pypp_cli/test_dir/python/.venv
 /pypp_cli/test_dir/python/.idea
 /pypp_cli/test_dir2
