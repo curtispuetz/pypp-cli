@@ -6,6 +6,7 @@
 #include "pypp_util/to_py_str.h"
 #include <string>
 
+namespace me {
 void throw_fn() {
     pypp::print(pypp::PyStr("EXCEPTION RESULTS:"));
     try {
@@ -34,3 +35,5 @@ void throw_fn() {
         pypp::print(pypp::PyStr("other error caught"));
     }
 }
+
+} // namespace me

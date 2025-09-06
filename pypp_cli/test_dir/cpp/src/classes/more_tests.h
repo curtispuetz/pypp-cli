@@ -2,6 +2,7 @@
 
 #include <utility>
 
+namespace me {
 class ClassA {
   public:
     int _x;
@@ -19,3 +20,5 @@ class ClassWithDifferentOrder {
     ClassWithDifferentOrder(int a_x, int a_y, int a_z)
         : _z(std::move(a_z)), _x(std::move(a_x)), _y(std::move(a_y)) {}
 };
+
+} // namespace me

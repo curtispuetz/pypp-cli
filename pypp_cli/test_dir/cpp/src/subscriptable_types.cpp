@@ -4,6 +4,7 @@
 #include "pypp_bridge_library_test_0/subscriptable_type.h"
 #include "pypp_util/print.h"
 
+namespace me {
 void subscriptable_types_fn() {
     pypp::print(pypp::PyStr("pypp SUBSCRIPTABLE TYPES RESULTS:"));
     PseudoSubscriptableTypeCpp<int> a = PseudoSubscriptableTypeCpp<int>(9);
@@ -22,3 +23,5 @@ void subscriptable_types_fn() {
         pypp::PyList({pypp::PyStr("c"), pypp::PyStr("d")}));
     e.print();
 }
+
+} // namespace me

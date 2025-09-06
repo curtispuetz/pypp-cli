@@ -3,6 +3,7 @@
 #include "pypp_util/print.h"
 #include <utility>
 
+namespace me {
 class _ClassA {
   public:
     int a;
@@ -33,3 +34,5 @@ void class_nested_dependencies_fn() {
     _ClassC class_c = _ClassC(3, class_b);
     pypp::print(class_c.access());
 }
+
+} // namespace me

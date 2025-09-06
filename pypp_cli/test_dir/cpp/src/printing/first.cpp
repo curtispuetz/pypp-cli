@@ -6,6 +6,7 @@
 #include "py_tuple.h"
 #include "pypp_util/print.h"
 
+namespace me {
 void printing_fn() {
     pypp::print(pypp::PyStr("PRINTING RESULTS:"));
     pypp::print(1);
@@ -23,3 +24,5 @@ void printing_fn() {
                 a.values(), a.items());
     pypp::print(pypp::PyList({true, false}));
 }
+
+} // namespace me

@@ -4,6 +4,7 @@
 #include "pypp_util/print.h"
 #include <utility>
 
+namespace me {
 class _PrivateClass {
   public:
     int _v;
@@ -31,3 +32,5 @@ void list_ownership_tests_fn() {
     pypp::PyList<_PrivateClass> c = _calc_obj_list();
     pypp::print(&c);
 }
+
+} // namespace me

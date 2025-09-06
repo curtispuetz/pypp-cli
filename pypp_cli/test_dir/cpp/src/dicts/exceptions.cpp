@@ -6,6 +6,7 @@
 #include "pypp_util/to_py_str.h"
 #include <string>
 
+namespace me {
 void dict_exceptions_fn() {
     pypp::print(pypp::PyStr("DICT EXCEPTIONS RESULTS:"));
     pypp::PyDict<int, int> a = {{0, 1}, {1, 2}};
@@ -22,3 +23,5 @@ void dict_exceptions_fn() {
         pypp::print(pypp::PyStr("key error: ") + pypp::to_pystr(e));
     }
 }
+
+} // namespace me

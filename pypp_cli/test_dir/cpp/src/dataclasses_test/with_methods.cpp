@@ -2,6 +2,7 @@
 #include "py_str.h"
 #include "pypp_util/print.h"
 
+namespace me {
 int DataClassWithMethods::add(int x) { return field1 + x; }
 
 int DataClassWithMethods::subtract(int x) { return field1 - x; }
@@ -19,3 +20,5 @@ void dataclass_with_methods_fn() {
     _PrivateDataClassWithMethods p = _PrivateDataClassWithMethods(3);
     pypp::print(p.add(2));
 }
+
+} // namespace me

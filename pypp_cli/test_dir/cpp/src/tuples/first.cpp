@@ -5,6 +5,7 @@
 #include "pypp_util/print.h"
 #include "pypp_util/to_py_str.h"
 
+namespace me {
 void _inline_tuple(pypp::PyTup<double, pypp::PyStr> tup) { pypp::print(tup); }
 
 pypp::PyTup<int, double> _get_tup() { return pypp::PyTup(1, 2.0); }
@@ -42,3 +43,5 @@ void tuples_fn() {
                             "C++ because the list was moved:"));
     pypp::print(c);
 }
+
+} // namespace me

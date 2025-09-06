@@ -35,7 +35,13 @@ class SrcFileTranspiler:
         cpp_code_minus_include: str = d.handle_stmts(py_ast.body[import_end:])
         h_includes, cpp_includes = calc_includes(d.cpp_includes)
         cpp_code = self._calc_cpp_code(cpp_code_minus_include, h_file, cpp_includes)
-        h_code: str = "#pragma once\n\n" + h_includes + " ".join(d.ret_h_file)
+        h_code: str = (
+            "#pragma once\n\n"
+            + h_includes
+            + "namespace me {"
+            + " ".join(d.ret_h_file)
+            + "} // namespace me"
+        )
         return cpp_code, h_code, h_file
 
     def _calc_cpp_code(
@@ -43,7 +49,12 @@ class SrcFileTranspiler:
     ) -> str:
         if cpp_code_minus_include.strip() != "":
             all_cpp_includes = f'#include "{h_file.as_posix()}"\n' + cpp_includes
-            return all_cpp_includes + cpp_code_minus_include
+            return (
+                all_cpp_includes
+                + "namespace me {"
+                + cpp_code_minus_include
+                + "} // namespace me"
+            )
         return ""
 
     def _write_cpp_file(self, file: Path, cpp_code: str):

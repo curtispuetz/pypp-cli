@@ -9,6 +9,7 @@
 #include "slice/creators.h"
 #include "slice/py_slice.h"
 
+namespace me {
 void f_strings_fn() {
     pypp::print(pypp::PyStr("F STRING RESULTS:"));
     pypp::PyStr a = pypp::PyStr(
@@ -22,3 +23,5 @@ void f_strings_fn() {
         pypp::py_slice(10), pypp::PyRange(1)));
     pypp::print(b);
 }
+
+} // namespace me

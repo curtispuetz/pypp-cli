@@ -1,6 +1,7 @@
 #include "benchmarking/perlin_noise/impl.h"
 #include <cmath>
 
+namespace me {
 double _fade(double t) { return ((t * t) * t) * ((t * ((t * 6) - 15)) + 10); }
 
 double _lerp(double t, double y_1, double y_2) {
@@ -66,3 +67,5 @@ PerlinNoise create_perlin_noise(int permutation_table_size,
     rng.shuffle(arr_to_shuffle);
     return PerlinNoise(permutation_table_size, std::move(arr_to_shuffle));
 }
+
+} // namespace me

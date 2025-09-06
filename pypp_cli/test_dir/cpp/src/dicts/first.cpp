@@ -6,6 +6,7 @@
 #include "pypp_util/to_py_str.h"
 #include <utility>
 
+namespace me {
 void _inline_dict(pypp::PyDict<int, int> d) { pypp::print(d); }
 
 pypp::PyDict<int, int> _get_dict() { return {{0, 1}, {1, 2}}; }
@@ -76,3 +77,5 @@ void dict_fn() {
     pypp::PyDict<int, int> h = _get_dict();
     pypp::print(h);
 }
+
+} // namespace me

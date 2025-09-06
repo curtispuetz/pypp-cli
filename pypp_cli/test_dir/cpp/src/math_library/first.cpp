@@ -4,6 +4,7 @@
 #include <cmath>
 #include <numbers>
 
+namespace me {
 void math_library_fn() {
     pypp::print(pypp::PyStr("MATH LIBRARY RESULTS:"));
     double sqrt_result = std::sqrt(9);
@@ -25,3 +26,5 @@ void math_library_fn() {
     pypp::print(tan_result);
     pypp::print(radians_result);
 }
+
+} // namespace me

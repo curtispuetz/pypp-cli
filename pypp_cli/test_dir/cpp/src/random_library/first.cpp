@@ -3,6 +3,7 @@
 #include "pypp_random.h"
 #include "pypp_util/print.h"
 
+namespace me {
 double _random_as_arg(pypp::random::Random &a) { return a.random(); }
 
 class _RandomWrapper {
@@ -22,3 +23,5 @@ void random_fn() {
     double d = c.mult(a);
     pypp::print(d);
 }
+
+} // namespace me

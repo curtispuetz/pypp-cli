@@ -6,6 +6,7 @@
 #include "py_str.h"
 #include <utility>
 
+namespace me {
 struct OnlyHDataClass {
     pypp::PyList<double> field1;
     pypp::PyDict<pypp::PyStr, pypp::PySet<int>> field2;
@@ -13,3 +14,5 @@ struct OnlyHDataClass {
                    pypp::PyDict<pypp::PyStr, pypp::PySet<int>> a_field2)
         : field1(std::move(a_field1)), field2(std::move(a_field2)) {}
 };
+
+} // namespace me

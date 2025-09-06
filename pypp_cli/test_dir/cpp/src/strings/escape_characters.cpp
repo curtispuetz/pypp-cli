@@ -2,6 +2,7 @@
 #include "py_str.h"
 #include "pypp_util/print.h"
 
+namespace me {
 void string_esc_chars_fn() {
     pypp::print(pypp::PyStr("STRING ESC CHARS RESULTS:"));
     pypp::PyStr a = pypp::PyStr("\n");
@@ -21,3 +22,5 @@ void string_esc_chars_fn() {
     pypp::PyStr m = pypp::PyStr("abcd\\\\");
     pypp::print(m);
 }
+
+} // namespace me

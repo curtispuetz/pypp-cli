@@ -3,6 +3,7 @@
 #include "pypp_util/print.h"
 #include <cstdint>
 
+namespace me {
 void number_types_fn() {
     pypp::print(pypp::PyStr("NUMBER TYPES RESULTS:"));
     int8_t a = -1;
@@ -17,3 +18,5 @@ void number_types_fn() {
     float i = 3.14;
     pypp::print(i);
 }
+
+} // namespace me

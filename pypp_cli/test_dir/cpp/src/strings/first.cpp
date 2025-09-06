@@ -6,6 +6,7 @@
 #include "slice/creators.h"
 #include <utility>
 
+namespace me {
 void string_ops() {
     pypp::print(pypp::PyStr("STRING RESULTS:"));
     pypp::PyStr s = pypp::PyStr("  abd  ");
@@ -76,3 +77,5 @@ void string_ops() {
     }
     pypp::print(list_of_chars);
 }
+
+} // namespace me

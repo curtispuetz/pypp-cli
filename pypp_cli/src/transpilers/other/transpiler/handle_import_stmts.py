@@ -8,11 +8,12 @@ from pypp_cli.src.transpilers.other.transpiler.cpp_includes import IncMap
 
 def analyse_import_stmts(
     stmts: list[ast.stmt], maps: Maps, src_py_files: list[Path], file_path: Path
-) -> tuple[IncMap, int, PyImports]:
+) -> tuple[IncMap, int, PyImports, set[str]]:
     modules_in_project: set[str] = _calc_all_modules_for_project(src_py_files)
     i = 0
     cpp_inc_map: IncMap = {}
     py_imports = PyImports({}, set())
+    user_namespace: set[str] = set()
     for i, node in enumerate(stmts):
         # ast.Import are ignored
         if isinstance(node, ast.ImportFrom):
@@ -28,6 +29,9 @@ def analyse_import_stmts(
                 for alias in node.names:
                     assert alias.asname is None, "'as' is not supported in import from"
                     cpp_inc_map[alias.name] = inc
+            if node.module in modules_in_project:
+                for alias in node.names:
+                    user_namespace.add(alias.name)
             py_imports.imp_from[node.module] = [n.name for n in node.names]
         elif isinstance(node, ast.Import):
             for name in node.names:
@@ -44,7 +48,7 @@ def analyse_import_stmts(
                 py_imports.imp.add(PyImport(name.name, name.asname))
         else:
             break
-    return cpp_inc_map, i, py_imports
+    return cpp_inc_map, i, py_imports, user_namespace
 
 
 def _calc_all_modules_for_project(src_py_files: list[Path]) -> set[str]:

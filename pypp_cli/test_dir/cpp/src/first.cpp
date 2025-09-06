@@ -1,5 +1,6 @@
 #include "first.h"
 
+namespace me {
 pypp::PyStr return_something(int a, int b) {
     pypp::PyStr ret;
     if (a > b) {
@@ -9,3 +10,5 @@ pypp::PyStr return_something(int a, int b) {
     }
     return ret;
 }
+
+} // namespace me

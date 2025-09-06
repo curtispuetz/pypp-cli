@@ -2,6 +2,7 @@
 
 #include <utility>
 
+namespace me {
 class BaseClass {
   public:
     int a;
@@ -42,3 +43,4 @@ class ChildMultiple : public BaseClass, public BaseClass2 {
 };
 
 void class_inheritance_fn();
+} // namespace me

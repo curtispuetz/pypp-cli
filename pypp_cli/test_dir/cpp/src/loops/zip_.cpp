@@ -7,6 +7,7 @@
 #include "pypp_util/print.h"
 #include <utility>
 
+namespace me {
 void zip_fn() {
     pypp::print(pypp::PyStr("ZIP RESULTS:"));
     pypp::PyList<int> a({});
@@ -25,3 +26,5 @@ void zip_fn() {
                                             w.get<0>(), w.get<0>())));
     }
 }
+
+} // namespace me

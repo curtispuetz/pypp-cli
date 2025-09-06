@@ -1,6 +1,7 @@
 #include "dataclasses_test/first.h"
 #include "pypp_util/print.h"
 
+namespace me {
 struct _PrivateDataClass {
     int field1;
     _PrivateDataClass(int a_field1) : field1(std::move(a_field1)) {}
@@ -26,3 +27,5 @@ void dataclass_fn() {
     FrozenDataClass j = FrozenDataClass(std::move(i), 5);
     pypp::print(j.field1, j.field2);
 }
+
+} // namespace me

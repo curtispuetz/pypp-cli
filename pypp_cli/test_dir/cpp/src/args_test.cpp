@@ -1,6 +1,7 @@
 #include "args_test.h"
 #include "pypp_util/print.h"
 
+namespace me {
 void int_arg(int a) { pypp::print(a); }
 
 void float_arg(double a) { pypp::print(a); }
@@ -64,3 +65,5 @@ void args_test_fn() {
     pseudo_int16_t_cpp o = 16;
     pseudo_int16_t_arg(o);
 }
+
+} // namespace me

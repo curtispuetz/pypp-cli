@@ -4,6 +4,7 @@
 #include "pypp_util/print.h"
 #include <utility>
 
+namespace me {
 pypp::Generator<int> yield_123() {
     co_yield 1;
     co_yield 2;
@@ -39,3 +40,5 @@ void yield_fn() {
     }
     pypp::print(a);
 }
+
+} // namespace me

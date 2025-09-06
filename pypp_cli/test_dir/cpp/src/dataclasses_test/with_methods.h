@@ -2,6 +2,7 @@
 
 #include <utility>
 
+namespace me {
 struct DataClassWithMethods {
     int field1;
     DataClassWithMethods(int a_field1) : field1(std::move(a_field1)) {}
@@ -10,3 +11,4 @@ struct DataClassWithMethods {
 };
 
 void dataclass_with_methods_fn();
+} // namespace me

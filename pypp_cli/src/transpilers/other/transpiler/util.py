@@ -18,7 +18,7 @@ from pypp_cli.src.transpilers.other.transpiler.cpp_includes import CppIncludes
 def handle_imports_and_create_deps(
     module: ast.Module, maps: Maps, src_py_files: list[Path], file_path: Path
 ) -> tuple[int, Deps]:
-    cpp_inc_map, import_end, py_imports = analyse_import_stmts(
+    cpp_inc_map, import_end, py_imports, user_namespace = analyse_import_stmts(
         module.body, maps, src_py_files, file_path
     )
     d: Deps = Deps(
@@ -28,6 +28,7 @@ def handle_imports_and_create_deps(
         py_imports,
         handle_expr,
         handle_stmt,
+        user_namespace,
     )
 
     return import_end, d

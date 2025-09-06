@@ -5,6 +5,7 @@
 #include "pypp_util/to_py_str.h"
 #include <string>
 
+namespace me {
 void string_exceptions_fn() {
     pypp::print(pypp::PyStr("STRING EXCEPTIONS RESULTS:"));
     pypp::PyStr s = pypp::PyStr("test");
@@ -33,3 +34,5 @@ void string_exceptions_fn() {
         pypp::print(pypp::PyStr("index error: ") + pypp::to_pystr(e));
     }
 }
+
+} // namespace me

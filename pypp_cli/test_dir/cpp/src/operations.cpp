@@ -8,6 +8,7 @@
 #include "pypp_util/print.h"
 #include <cmath>
 
+namespace me {
 void operations_fn() {
     pypp::print(pypp::PyStr("OPERATIONS RESULTS:"));
     double a = std::pow(2, 3);
@@ -65,3 +66,5 @@ void operations_fn() {
     pypp::print(pypp::PyStr("printing reference:"));
     pypp::print(&x);
 }
+
+} // namespace me

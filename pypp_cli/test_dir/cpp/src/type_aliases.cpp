@@ -3,6 +3,7 @@
 #include "py_tuple.h"
 #include "pypp_util/print.h"
 
+namespace me {
 using _PrivateType = pypp::PyTup<int, pypp::PyList<pypp::PyStr>, double>;
 void type_aliases_fn() {
     pypp::print(pypp::PyStr("TYPE ALIASES RESULTS:"));
@@ -19,3 +20,5 @@ void type_aliases_fn() {
 }
 
 int process_matrix(Matrix &m) { return m[0][0]; }
+
+} // namespace me

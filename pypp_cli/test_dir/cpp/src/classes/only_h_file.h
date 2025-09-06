@@ -5,6 +5,7 @@
 #include "py_set.h"
 #include "py_str.h"
 
+namespace me {
 class OnlyHClass {
   public:
     pypp::PyList<double> &field1;
@@ -13,3 +14,5 @@ class OnlyHClass {
                pypp::PyDict<pypp::PyStr, pypp::PySet<int>> &a_field2)
         : field1(a_field1), field2(a_field2) {}
 };
+
+} // namespace me

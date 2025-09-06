@@ -1,6 +1,7 @@
 #include "classes/first.h"
 #include "pypp_util/print.h"
 
+namespace me {
 int ClassA::add(int c) { return a + c; }
 
 class _PrivateClass {
@@ -23,3 +24,5 @@ void classes_fn() {
     _PrivateClass f = _PrivateClass(3);
     pypp::print(f.a);
 }
+
+} // namespace me
