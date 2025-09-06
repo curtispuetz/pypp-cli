@@ -7,6 +7,9 @@
             "label": "T&F",
             "type": "shell",
             "command": "${workspaceFolder}/.venv/Scripts/python.exe -m pypp_cli.util_scripts.calling_cli.transpile_and_format",
+            "osx": {
+                "command": "${workspaceFolder}/.venv/bin/python -m pypp_cli.util_scripts.calling_cli.transpile_and_format"
+            },
             "problemMatcher": [],
             "presentation": {
                 "echo": true,
@@ -111,6 +114,9 @@
             "label": "del T",
             "type": "shell",
             "command": "${workspaceFolder}/.venv/Scripts/python.exe -m pypp_cli.util_scripts.calling_cli.delete_timestamps",
+            "osx": {
+                "command": "${workspaceFolder}/.venv/bin/python -m pypp_cli.util_scripts.calling_cli.delete_timestamps"
+            },
             "problemMatcher": [],
             "presentation": {
                 "echo": true,

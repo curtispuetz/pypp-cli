@@ -1,4 +1,4 @@
-# Py++ - (Python like code that transpiles to C++) - Release v1.0.0-alpha coming soon
+# Py++ - (Python code that transpiles to C++) - Release v1.0.0-alpha coming soon
 This project's first alpha version will be released soon (likely within a week from today, which is Sept. 2nd). You will not find any usage instructions yet. Check back later.
 
 Upon Release, Py++ will be a programming language with a syntax highly resembling Python syntax. In fact, the code you write is a valid subset of Python and can be run with the Python interpreter, and we will try to support Python's standard libraries. The code is transpiled into C++ (CMake) projects, and a C++ compiler is used. 
