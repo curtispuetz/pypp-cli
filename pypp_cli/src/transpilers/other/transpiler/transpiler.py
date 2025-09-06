@@ -9,7 +9,6 @@ from pypp_cli.src.transpilers.other.transpiler.results import TranspileResults
 from pypp_cli.src.transpilers.other.transpiler.src_file import SrcFileTranspiler
 
 
-# TODO: this code is confusing. Should make it make more sense by renaming things.
 @dataclass(frozen=True, slots=True)
 class Transpiler:
     _src_py_files: list[Path]
