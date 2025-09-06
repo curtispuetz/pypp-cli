@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "pypp-cli"
 version = "0.0.0"
-description = "A CLI tool called pypp"
+description = "The CLI tool for the Py++ project"
 authors = [
     { name="Curtis Puetz", email="pypp.main@yahoo.com" }
 ]
