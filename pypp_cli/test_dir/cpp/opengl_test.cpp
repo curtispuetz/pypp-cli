@@ -8,21 +8,22 @@
 #include <GLFW/glfw3.h>
 #include <glad/gl.h>
 
-PyStr vertex_shader_src =
-    PyStr("\n#version 330 core\nlayout(location = 0) in vec3 "
-          "position;\nlayout(location = 1) in vec3 color;\n\nout vec3 "
-          "vertexColor;\n\nvoid main()\n{\n    gl_Position = vec4(position, "
-          "1.0);\n    vertexColor = color;\n}\n");
-PyStr fragment_shader_src = PyStr(
+pypp::PyStr vertex_shader_src =
+    pypp::PyStr("\n#version 330 core\nlayout(location = 0) in vec3 "
+                "position;\nlayout(location = 1) in vec3 color;\n\nout vec3 "
+                "vertexColor;\n\nvoid main()\n{\n    gl_Position = "
+                "vec4(position, 1.0);\n    vertexColor = color;\n}\n");
+pypp::PyStr fragment_shader_src = pypp::PyStr(
     "\n#version 330 core\nin vec3 vertexColor;\nout vec4 FragColor;\n\nvoid "
     "main()\n{\n    FragColor = vec4(vertexColor, 1.0);\n}\n");
-GLuint compile_shader(PyStr &source, GLenum shader_type) {
+GLuint compile_shader(pypp::PyStr &source, GLenum shader_type) {
     GLuint shader = glCreateShader(shader_type);
     gl_shader_source(shader, source);
     glCompileShader(shader);
     if (!gl_get_shader_iv(shader, GL_COMPILE_STATUS)) {
-        throw PyppRuntimeError(PyStr("Shader compilation failed: ") +
-                               gl_get_shader_info_log(shader));
+        throw pypp::PyppRuntimeError(
+            pypp::PyStr("Shader compilation failed: ") +
+            gl_get_shader_info_log(shader));
     }
     return shader;
 }
@@ -36,8 +37,8 @@ GLuint create_shader_program() {
     glAttachShader(program, fragment_shader);
     glLinkProgram(program);
     if (!gl_get_program_iv(program, GL_LINK_STATUS)) {
-        throw PyppRuntimeError(PyStr("Program linking failed: ") +
-                               gl_get_program_info_log(program));
+        throw pypp::PyppRuntimeError(pypp::PyStr("Program linking failed: ") +
+                                     gl_get_program_info_log(program));
     }
     glDeleteShader(vertex_shader);
     glDeleteShader(fragment_shader);
@@ -46,23 +47,24 @@ GLuint create_shader_program() {
 
 void opengl_test() {
     if (!glfwInit()) {
-        throw PyppException(PyStr("Failed to initialize GLFW"));
+        throw pypp::PyppException(pypp::PyStr("Failed to initialize GLFW"));
     }
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     GLFWwindow *window = glfwCreateWindow(
-        800, 600, PyStr("PyOpenGL Triangle").str().c_str(), NULL, NULL);
+        800, 600, pypp::PyStr("PyOpenGL Triangle").str().c_str(), NULL, NULL);
     if (!window) {
         glfwTerminate();
-        throw PyppException(PyStr("Failed to create GLFW window"));
+        throw pypp::PyppException(pypp::PyStr("Failed to create GLFW window"));
     }
     glfwMakeContextCurrent(window);
     if (!gladLoadGL(glfwGetProcAddress)) {
-        throw PyppException(PyStr("Failed to initialize GLAD"));
+        throw pypp::PyppException(pypp::PyStr("Failed to initialize GLAD"));
     }
-    PyList<float> vertices({-0.5, -0.5, 0.0, 1.0, 0.0, 0.0, 0.5, -0.5, 0.0, 0.0,
-                            1.0, 0.0, 0.0, 0.5, 0.0, 0.0, 0.0, 1.0});
+    pypp::PyList<float> vertices({-0.5, -0.5, 0.0, 1.0, 0.0, 0.0, 0.5, -0.5,
+                                  0.0, 0.0, 1.0, 0.0, 0.0, 0.5, 0.0, 0.0, 0.0,
+                                  1.0});
     GLuint vao = gl_gen_vertex_array();
     GLuint vbo = gl_gen_buffer();
     glBindVertexArray(vao);
@@ -95,7 +97,7 @@ int main() {
         opengl_test();
         return 0;
     } catch (...) {
-        handle_fatal_exception();
+        pypp::handle_fatal_exception();
         return EXIT_FAILURE;
     }
 }

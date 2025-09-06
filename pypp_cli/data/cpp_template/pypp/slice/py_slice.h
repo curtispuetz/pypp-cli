@@ -5,6 +5,7 @@
 #include <sstream>
 #include <stdexcept>
 
+namespace pypp {
 struct PySlice {
   public:
     PySlice(std::optional<int> start, std::optional<int> stop, int step);
@@ -27,10 +28,12 @@ struct PySlice {
     int _step;
 };
 
+} // namespace pypp
+
 namespace std {
 // Hash function for usage as key in PyDict and PySet
-template <> struct hash<PySlice> {
-    size_t operator()(const PySlice &slice) const {
+template <> struct hash<pypp::PySlice> {
+    size_t operator()(const pypp::PySlice &slice) const {
         std::size_t seed = 0;
         if (slice.start().has_value()) {
             seed ^= std::hash<int>()(*slice.start()) + 0x9e3779b9 +
@@ -52,11 +55,11 @@ template <> struct hash<PySlice> {
     }
 };
 // Formatter for std::format
-template <> struct formatter<PySlice> : formatter<string> {
+template <> struct formatter<pypp::PySlice> : formatter<string> {
     constexpr auto parse(format_parse_context &ctx) { return ctx.begin(); }
 
     template <typename FormatContext>
-    auto format(const PySlice &pyslice, FormatContext &ctx) const {
+    auto format(const pypp::PySlice &pyslice, FormatContext &ctx) const {
         std::ostringstream oss;
         pyslice.print(oss);
         return std::format_to(ctx.out(), "{}", oss.str());

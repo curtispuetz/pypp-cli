@@ -8,6 +8,7 @@
 #include <sstream>
 #include <string>
 
+namespace pypp {
 class PyStr {
     std::string s;
     static std::string repeat_string(const std::string &input, int rep);
@@ -149,20 +150,22 @@ class PyStr {
     friend std::ostream &operator<<(std::ostream &os, const PyStr &pystr);
 };
 
+} // namespace pypp
+
 namespace std {
 // Hash function for usage as a key in PyDict and PySet
-template <> struct hash<PyStr> {
-    std::size_t operator()(const PyStr &p) const noexcept {
+template <> struct hash<pypp::PyStr> {
+    std::size_t operator()(const pypp::PyStr &p) const noexcept {
         return std::hash<std::string>()(p.str());
     }
 };
 
 // Formatter for std::format
-template <> struct formatter<PyStr, char> {
+template <> struct formatter<pypp::PyStr, char> {
     constexpr auto parse(format_parse_context &ctx) { return ctx.begin(); }
 
     template <typename FormatContext>
-    auto format(const PyStr &p, FormatContext &ctx) const {
+    auto format(const pypp::PyStr &p, FormatContext &ctx) const {
         return std::format_to(ctx.out(), "{}", p.str());
     }
 };

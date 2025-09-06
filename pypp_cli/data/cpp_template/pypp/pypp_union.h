@@ -2,6 +2,7 @@
 #include <type_traits>
 #include <variant>
 
+namespace pypp {
 template <typename... Types> class Uni {
   public:
     using VariantType = std::variant<Types...>;
@@ -35,3 +36,4 @@ template <typename... Types> class Uni {
 
 // dedction guide
 template <typename... Ts> Uni(Ts...) -> Uni<Ts...>;
+} // namespace pypp

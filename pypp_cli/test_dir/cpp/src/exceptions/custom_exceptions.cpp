@@ -3,24 +3,27 @@
 #include "pypp_util/to_py_str.h"
 #include <string>
 
-class _PrivateCustomException : public PyppException {
+class _PrivateCustomException : public pypp::PyppException {
   public:
-    explicit _PrivateCustomException(const PyStr &msg)
-        : PyppException(PyStr("_PrivateCustomException: ") + msg) {}
+    explicit _PrivateCustomException(const pypp::PyStr &msg)
+        : pypp::PyppException(pypp::PyStr("_PrivateCustomException: ") + msg) {}
 };
 
 void custom_exception_fn() {
-    print(PyStr("pypp CUSTOM EXCEPTION RESULTS:"));
+    pypp::print(pypp::PyStr("pypp CUSTOM EXCEPTION RESULTS:"));
     try {
-        throw CustomException(PyStr("This is a custom exception message."));
+        throw CustomException(
+            pypp::PyStr("This is a custom exception message."));
     } catch (const CustomException &pypp_e) {
         std::string e = pypp_e.what();
-        print(PyStr("custom exception caught: ") + to_pystr(e));
+        pypp::print(pypp::PyStr("custom exception caught: ") +
+                    pypp::to_pystr(e));
     }
     try {
-        throw ChildException(PyStr("This is a child exception message."));
+        throw ChildException(pypp::PyStr("This is a child exception message."));
     } catch (const ChildException &pypp_e) {
         std::string e = pypp_e.what();
-        print(PyStr("child exception caught: ") + to_pystr(e));
+        pypp::print(pypp::PyStr("child exception caught: ") +
+                    pypp::to_pystr(e));
     }
 }

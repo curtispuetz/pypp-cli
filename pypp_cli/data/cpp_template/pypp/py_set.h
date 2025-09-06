@@ -8,6 +8,7 @@
 #include <sstream>
 #include <unordered_set>
 
+namespace pypp {
 template <typename T> class PySet {
   private:
     std::unordered_set<T> data;
@@ -183,13 +184,15 @@ std::ostream &operator<<(std::ostream &os, const PySet<T> &other) {
     return os;
 }
 
+} // namespace pypp
+
 namespace std {
 // Formatter for std::format
-template <typename T> struct formatter<PySet<T>, char> {
+template <typename T> struct formatter<pypp::PySet<T>, char> {
     constexpr auto parse(format_parse_context &ctx) { return ctx.begin(); }
 
     template <typename FormatContext>
-    auto format(const PySet<T> &s, FormatContext &ctx) const {
+    auto format(const pypp::PySet<T> &s, FormatContext &ctx) const {
         std::ostringstream oss;
         s.print(oss);
         return std::format_to(ctx.out(), "{}", oss.str());

@@ -4,27 +4,32 @@
 #include "py_str.h"
 #include "pypp_util/print.h"
 
-PyList<int> &_get_list(PyList<int> &input_list) { return input_list; }
+pypp::PyList<int> &_get_list(pypp::PyList<int> &input_list) {
+    return input_list;
+}
 
 void ref_vars_fn() {
-    print(PyStr("REF VARS RESULTS:"));
-    PyList<PyList<int>> a({PyList({1, 2}), PyList({3, 4})});
-    print(a);
-    PyList<int> b = a[0];
+    pypp::print(pypp::PyStr("REF VARS RESULTS:"));
+    pypp::PyList<pypp::PyList<int>> a(
+        {pypp::PyList({1, 2}), pypp::PyList({3, 4})});
+    pypp::print(a);
+    pypp::PyList<int> b = a[0];
     b.append(5);
-    print(PyStr("Python and C++ should print different results:"));
-    print(a);
-    PyList<PyList<int>> c({PyList({1, 2}), PyList({3, 4})});
-    PyList<int> &d = c[0];
+    pypp::print(pypp::PyStr("Python and C++ should print different results:"));
+    pypp::print(a);
+    pypp::PyList<pypp::PyList<int>> c(
+        {pypp::PyList({1, 2}), pypp::PyList({3, 4})});
+    pypp::PyList<int> &d = c[0];
     d.append(5);
-    print(PyStr("Python and C++ should print the same results:"));
-    print(c);
-    PyDict<int, PyList<int>> e = {{0, PyList({1, 2})}, {1, PyList({3, 4})}};
-    PyList<int> &f = e[0];
+    pypp::print(pypp::PyStr("Python and C++ should print the same results:"));
+    pypp::print(c);
+    pypp::PyDict<int, pypp::PyList<int>> e = {{0, pypp::PyList({1, 2})},
+                                              {1, pypp::PyList({3, 4})}};
+    pypp::PyList<int> &f = e[0];
     f.append(5);
-    print(e);
-    PyList<int> original_list({1, 2, 3});
-    PyList<int> &g = _get_list(original_list);
+    pypp::print(e);
+    pypp::PyList<int> original_list({1, 2, 3});
+    pypp::PyList<int> &g = _get_list(original_list);
     g.append(4);
-    print(original_list);
+    pypp::print(original_list);
 }

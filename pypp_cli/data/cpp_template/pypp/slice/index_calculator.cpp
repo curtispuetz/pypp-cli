@@ -1,5 +1,6 @@
 #include "index_calculator.h"
 
+namespace pypp {
 int calc_stop_index(std::optional<int> stop, int step, int collection_size) {
     int ret;
     if (step > 0) {
@@ -43,3 +44,4 @@ int calc_start_index(std::optional<int> start, int step, int collection_size) {
     }
     return ret;
 }
+} // namespace pypp

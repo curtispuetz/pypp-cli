@@ -1,5 +1,6 @@
 #include "pypp_random.h"
 
+namespace pypp {
 namespace random {
 
 Random::Random(int seed_val)
@@ -17,3 +18,4 @@ int Random::randint(int a, int b) {
 }
 
 } // namespace random
+} // namespace pypp

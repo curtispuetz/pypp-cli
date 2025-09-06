@@ -7,21 +7,22 @@
 #include <utility>
 
 void reversed_fn() {
-    print(PyStr("REVERSED RESULTS:"));
-    PyList<int> a({});
-    for (const auto &x : PyReversed(PyList({1, 2, 3}))) {
+    pypp::print(pypp::PyStr("REVERSED RESULTS:"));
+    pypp::PyList<int> a({});
+    for (const auto &x : pypp::PyReversed(pypp::PyList({1, 2, 3}))) {
         int y = x;
         a.append(std::move(y));
     }
-    print(a);
-    PyList<PyStr> b({});
-    for (const auto &x : PyReversed(PyStr("abcd"))) {
-        PyStr y = x;
+    pypp::print(a);
+    pypp::PyList<pypp::PyStr> b({});
+    for (const auto &x : pypp::PyReversed(pypp::PyStr("abcd"))) {
+        pypp::PyStr y = x;
         b.append(std::move(y));
     }
-    print(b);
+    pypp::print(b);
     for (const auto &[x, z] :
-         PyZip(PyReversed(PyList({1, 2, 3})), PyReversed(PyStr("abc")))) {
-        print(PyStr(std::format("{}, {}", x, z)));
+         pypp::PyZip(pypp::PyReversed(pypp::PyList({1, 2, 3})),
+                     pypp::PyReversed(pypp::PyStr("abc")))) {
+        pypp::print(pypp::PyStr(std::format("{}, {}", x, z)));
     }
 }

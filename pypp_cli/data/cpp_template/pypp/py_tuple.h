@@ -9,6 +9,7 @@
 #include <tuple>
 #include <utility>
 
+namespace pypp {
 template <typename... Args> class PyTup {
   private:
     std::tuple<Args...> data;
@@ -155,10 +156,12 @@ std::ostream &operator<<(std::ostream &os, const PyTup<Args...> &tup) {
     return os;     // Return the ostream reference to allow chaining
 }
 
+} // namespace pypp
+
 namespace std {
 // Hash function for usage as a key in PyDict and PySet
-template <typename... Args> struct hash<PyTup<Args...>> {
-    std::size_t operator()(const PyTup<Args...> &tup) const noexcept {
+template <typename... Args> struct hash<pypp::PyTup<Args...>> {
+    std::size_t operator()(const pypp::PyTup<Args...> &tup) const noexcept {
         return std::apply(
             [](const auto &...args) {
                 return (std::hash<std::decay_t<decltype(args)>>{}(args) ^ ...);
@@ -168,11 +171,11 @@ template <typename... Args> struct hash<PyTup<Args...>> {
 };
 
 // Formatter for std::format
-template <typename... Args> struct formatter<PyTup<Args...>, char> {
+template <typename... Args> struct formatter<pypp::PyTup<Args...>, char> {
     constexpr auto parse(format_parse_context &ctx) { return ctx.begin(); }
 
     template <typename FormatContext>
-    auto format(const PyTup<Args...> &tup, FormatContext &ctx) const {
+    auto format(const pypp::PyTup<Args...> &tup, FormatContext &ctx) const {
         std::ostringstream oss;
         tup.print(oss); // Use the print method to format the tuple
         return std::format_to(ctx.out(), "{}", oss.str());
@@ -181,11 +184,11 @@ template <typename... Args> struct formatter<PyTup<Args...>, char> {
 
 // Structured bindings support for PyTup
 template <typename... Args>
-struct tuple_size<PyTup<Args...>>
+struct tuple_size<pypp::PyTup<Args...>>
     : std::integral_constant<std::size_t, sizeof...(Args)> {};
 
 template <std::size_t I, typename... Args>
-struct tuple_element<I, PyTup<Args...>> {
+struct tuple_element<I, pypp::PyTup<Args...>> {
     using type = std::tuple_element_t<I, std::tuple<Args...>>;
 };
 } // namespace std

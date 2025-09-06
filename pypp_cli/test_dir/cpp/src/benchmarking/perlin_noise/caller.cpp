@@ -6,14 +6,14 @@
 #include "pypp_util/print.h"
 
 void perlin_noise_fn() {
-    print(PyStr("PERLIN NOISE RESULTS:"));
-    random::Random rng = random::Random(42);
+    pypp::print(pypp::PyStr("PERLIN NOISE RESULTS:"));
+    pypp::random::Random rng = pypp::random::Random(42);
     PerlinNoise p = create_perlin_noise(512, rng);
-    auto a = pypp_time::perf_counter_start();
+    auto a = pypp::time::perf_counter_start();
     for (int i = 0; i < 1000000; i += 1) {
         double shift = i * 1e-05;
         p.calc(0.7 + shift, 0.6 + shift, 1, 0.5, 2.0);
     }
-    double b = pypp_time::perf_counter_end(a);
-    print(PyStr(std::format("Time taken: {} seconds", b)));
+    double b = pypp::time::perf_counter_end(a);
+    pypp::print(pypp::PyStr(std::format("Time taken: {} seconds", b)));
 }

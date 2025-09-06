@@ -1,5 +1,7 @@
 #include "pypp_util/floor_div.h"
 
+namespace pypp {
+
 int py_floor_div(int a, int b) {
     int div = a / b;
     int rem = a % b;
@@ -8,3 +10,5 @@ int py_floor_div(int a, int b) {
     }
     return div;
 }
+
+} // namespace pypp

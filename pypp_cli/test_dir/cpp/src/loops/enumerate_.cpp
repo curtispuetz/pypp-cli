@@ -8,30 +8,30 @@
 #include <utility>
 
 void enumerate_fn() {
-    print(PyStr("ENUMERATE RESULTS:"));
-    PyList<int> a({});
-    for (const auto &[i, val] : PyEnumerate(PyList({1, 2, 3}))) {
+    pypp::print(pypp::PyStr("ENUMERATE RESULTS:"));
+    pypp::PyList<int> a({});
+    for (const auto &[i, val] : pypp::PyEnumerate(pypp::PyList({1, 2, 3}))) {
         a.append(i);
         a.append(std::move(val));
     }
-    print(a);
-    for (const auto &[i, val] : PyEnumerate(PySet({-1, -3}))) {
+    pypp::print(a);
+    for (const auto &[i, val] : pypp::PyEnumerate(pypp::PySet({-1, -3}))) {
         a.append(i);
     }
-    print(a);
-    PyDict<int, int> d = {{0, 1}, {1, 2}};
-    for (const auto &[i, val] : PyEnumerate(d.keys())) {
+    pypp::print(a);
+    pypp::PyDict<int, int> d = {{0, 1}, {1, 2}};
+    for (const auto &[i, val] : pypp::PyEnumerate(d.keys())) {
         a.append(i);
     }
-    print(a);
-    for (const auto &[i, val] : PyEnumerate(d.values())) {
+    pypp::print(a);
+    for (const auto &[i, val] : pypp::PyEnumerate(d.values())) {
         a.append(i);
     }
-    print(a);
-    for (const auto &[i, val] : PyEnumerate(d.items())) {
+    pypp::print(a);
+    for (const auto &[i, val] : pypp::PyEnumerate(d.items())) {
         a.append(i);
         int y = val.get<0>();
         a.append(std::move(y));
     }
-    print(a);
+    pypp::print(a);
 }

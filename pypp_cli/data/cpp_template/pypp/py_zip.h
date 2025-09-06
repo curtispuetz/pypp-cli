@@ -4,6 +4,7 @@
 #include <tuple> // Use std::tuple instead of PyTup
 #include <utility>
 
+namespace pypp {
 // Forward declaration of the iterator class
 template <typename... Iterators> class py_zip_iterator;
 
@@ -119,3 +120,5 @@ template <typename... Iterators> class py_zip_iterator {
         return ((std::get<I>(_its) != std::get<I>(other._its)) && ...);
     }
 };
+
+} // namespace pypp

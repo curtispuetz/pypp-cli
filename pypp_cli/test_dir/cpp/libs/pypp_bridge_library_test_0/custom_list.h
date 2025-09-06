@@ -5,8 +5,8 @@ template <typename T>
 class PseudoCustomList
 {
 public:
-    PseudoCustomList(PyList<T> elements) : elements_(elements) {}
+    PseudoCustomList(pypp::PyList<T> elements) : elements_(elements) {}
 
 private:
-    PyList<T> elements_;
+    pypp::PyList<T> elements_;
 };

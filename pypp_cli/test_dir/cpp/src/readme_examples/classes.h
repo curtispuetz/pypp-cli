@@ -4,8 +4,9 @@
 
 class Greeter {
   public:
-    PyStr &name;
-    PyStr &prefix;
-    Greeter(PyStr &a_name, PyStr &a_prefix) : name(a_name), prefix(a_prefix) {}
-    PyStr greet();
+    pypp::PyStr &name;
+    pypp::PyStr &prefix;
+    Greeter(pypp::PyStr &a_name, pypp::PyStr &a_prefix)
+        : name(a_name), prefix(a_prefix) {}
+    pypp::PyStr greet();
 };

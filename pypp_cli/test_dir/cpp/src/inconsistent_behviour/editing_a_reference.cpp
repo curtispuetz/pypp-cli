@@ -3,18 +3,18 @@
 #include "pypp_util/print.h"
 
 void editing_a_reference_fn() {
-    print(PyStr("INCONSISTENT BEHAVIOR RESULTS:"));
-    PyList<int> a({1, 2, 3});
-    PyList<int> b = a;
+    pypp::print(pypp::PyStr("INCONSISTENT BEHAVIOR RESULTS:"));
+    pypp::PyList<int> a({1, 2, 3});
+    pypp::PyList<int> b = a;
     b.append(4);
-    print(PyStr(std::format("inconsistent behavior: {}", a)));
-    PyList<int> c({1, 2, 3});
-    PyList<int> d = update_and_return_new(c);
+    pypp::print(pypp::PyStr(std::format("inconsistent behavior: {}", a)));
+    pypp::PyList<int> c({1, 2, 3});
+    pypp::PyList<int> d = update_and_return_new(c);
     d[-1] = 99;
-    print(PyStr(std::format("inconsistent behavior: {}", c)));
+    pypp::print(pypp::PyStr(std::format("inconsistent behavior: {}", c)));
 }
 
-PyList<int> update_and_return_new(PyList<int> &l1) {
+pypp::PyList<int> update_and_return_new(pypp::PyList<int> &l1) {
     l1.append(4);
     return l1;
 }

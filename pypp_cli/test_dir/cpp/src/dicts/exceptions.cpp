@@ -7,18 +7,18 @@
 #include <string>
 
 void dict_exceptions_fn() {
-    print(PyStr("DICT EXCEPTIONS RESULTS:"));
-    PyDict<int, int> a = {{0, 1}, {1, 2}};
+    pypp::print(pypp::PyStr("DICT EXCEPTIONS RESULTS:"));
+    pypp::PyDict<int, int> a = {{0, 1}, {1, 2}};
     try {
         a.pop(-1);
-    } catch (const PyppKeyError &pypp_e) {
+    } catch (const pypp::PyppKeyError &pypp_e) {
         std::string e = pypp_e.what();
-        print(PyStr("key error: ") + to_pystr(e));
+        pypp::print(pypp::PyStr("key error: ") + pypp::to_pystr(e));
     }
     try {
         a.dg(-1);
-    } catch (const PyppKeyError &pypp_e) {
+    } catch (const pypp::PyppKeyError &pypp_e) {
         std::string e = pypp_e.what();
-        print(PyStr("key error: ") + to_pystr(e));
+        pypp::print(pypp::PyStr("key error: ") + pypp::to_pystr(e));
     }
 }

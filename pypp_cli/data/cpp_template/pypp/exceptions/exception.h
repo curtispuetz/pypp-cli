@@ -2,6 +2,7 @@
 #include <exception>
 #include <py_str.h>
 
+namespace pypp {
 class PyppException : public std::exception {
   public:
     explicit PyppException(const PyStr &msg)
@@ -30,3 +31,5 @@ class PyppStopIteration : public PyppException {
     explicit PyppStopIteration(const PyStr &msg = PyStr("Iteration stopped"))
         : PyppException(PyStr("PyppStopIteration: ") + msg) {}
 };
+
+} // namespace pypp

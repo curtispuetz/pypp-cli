@@ -7,12 +7,13 @@
 #include <string>
 
 void tuple_exceptions_fn() {
-    print(PyStr("TUPLE EXCEPTIONS RESULTS:"));
-    PyTup<int, double, PyStr> a = PyTup(2, 2.2, PyStr("b"));
+    pypp::print(pypp::PyStr("TUPLE EXCEPTIONS RESULTS:"));
+    pypp::PyTup<int, double, pypp::PyStr> a =
+        pypp::PyTup(2, 2.2, pypp::PyStr("b"));
     try {
         a.index(1);
-    } catch (const PyppValueError &pypp_e) {
+    } catch (const pypp::PyppValueError &pypp_e) {
         std::string e = pypp_e.what();
-        print(PyStr("value error: ") + to_pystr(e));
+        pypp::print(pypp::PyStr("value error: ") + pypp::to_pystr(e));
     }
 }

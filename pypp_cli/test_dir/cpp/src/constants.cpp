@@ -9,12 +9,12 @@ struct _PseudoPyppName_PrivateConfig {
 inline _PseudoPyppName_PrivateConfig _PrivateConfig;
 
 void constant_fn() {
-    print(PyStr("CONSTANT RESULTS:"));
+    pypp::print(pypp::PyStr("CONSTANT RESULTS:"));
     const int _F = 4;
-    print(F);
-    print(_F);
-    print(G(1));
-    print(MyConfig.a, MyConfig.b);
-    print(MyConfig2.a, MyConfig2.b);
-    print(_PrivateConfig.a, _PrivateConfig.b);
+    pypp::print(F);
+    pypp::print(_F);
+    pypp::print(G(1));
+    pypp::print(MyConfig.a, MyConfig.b);
+    pypp::print(MyConfig2.a, MyConfig2.b);
+    pypp::print(_PrivateConfig.a, _PrivateConfig.b);
 }

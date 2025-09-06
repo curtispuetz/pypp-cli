@@ -4,36 +4,38 @@
 #include "pypp_util/print.h"
 #include <utility>
 
-Generator<int> yield_123() {
+pypp::Generator<int> yield_123() {
     co_yield 1;
     co_yield 2;
     co_yield 3;
 }
 
-Generator<int> yield_over_list() {
-    for (const auto &i : PyList({1, 2, 3})) {
+pypp::Generator<int> yield_over_list() {
+    for (const auto &i : pypp::PyList({1, 2, 3})) {
         co_yield i;
     }
 }
 
-Generator<int> yield_from_example() { CO_YIELD_FROM(yield_over_list()); }
+pypp::Generator<int> yield_from_example() {
+    PYPP_CO_YIELD_FROM(yield_over_list());
+}
 
 void yield_fn() {
-    print(PyStr("YIELD RESULTS:"));
-    PyList<int> a({});
+    pypp::print(pypp::PyStr("YIELD RESULTS:"));
+    pypp::PyList<int> a({});
     for (const auto &i : yield_123()) {
         int y = i;
         a.append(std::move(y));
     }
-    print(a);
+    pypp::print(a);
     for (const auto &i : yield_over_list()) {
         int y = i;
         a.append(std::move(y));
     }
-    print(a);
+    pypp::print(a);
     for (const auto &i : yield_from_example()) {
         int y = i;
         a.append(std::move(y));
     }
-    print(a);
+    pypp::print(a);
 }

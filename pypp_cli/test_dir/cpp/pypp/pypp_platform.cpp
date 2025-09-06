@@ -12,7 +12,7 @@
 #endif
 
 #include <exceptions/stdexcept.h> // Only needed in the implementation
-
+namespace pypp {
 namespace platform {
 
 PyStr get_executable_dir() {
@@ -41,3 +41,4 @@ PyStr get_executable_dir() {
 }
 
 } // namespace platform
+} // namespace pypp

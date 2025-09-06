@@ -7,9 +7,11 @@
 #include "pypp_util/print.h"
 #include <utility>
 
-PyDict<int, int> _dict_factory() { return {{1, 2}, {3, 4}}; }
+pypp::PyDict<int, int> _dict_factory() { return {{1, 2}, {3, 4}}; }
 
-void _default_dict_as_arg(PyDefaultDict<int, int> a) { print(a[0]); }
+void _default_dict_as_arg(pypp::PyDefaultDict<int, int> a) {
+    pypp::print(a[0]);
+}
 
 struct _CustomType {
     int val;
@@ -17,69 +19,72 @@ struct _CustomType {
 };
 
 void default_dict_fn() {
-    print(PyStr("DEFAULT DICT RESULTS:"));
-    auto a = PyDefaultDict<int, int>::int_factory();
+    pypp::print(pypp::PyStr("DEFAULT DICT RESULTS:"));
+    auto a = pypp::PyDefaultDict<int, int>::int_factory();
     int b = a[0];
-    print(b);
-    print(a);
-    auto c = PyDefaultDict<int, double>::float_factory();
+    pypp::print(b);
+    pypp::print(a);
+    auto c = pypp::PyDefaultDict<int, double>::float_factory();
     double d = c[0];
-    print(d);
-    print(c);
-    auto e = PyDefaultDict<int, bool>::bool_factory();
+    pypp::print(d);
+    pypp::print(c);
+    auto e = pypp::PyDefaultDict<int, bool>::bool_factory();
     bool f = e[0];
-    print(f);
-    print(e);
-    auto g = PyDefaultDict<int, PyStr>::str_factory();
-    PyStr h = g[0];
-    print(h);
-    print(g);
-    auto i = PyDefaultDict<int, PyList<int>>::list_factory();
-    PyList<int> j = i[0];
-    print(j);
-    print(i);
-    auto k = PyDefaultDict<int, PyDict<int, int>>::dict_factory();
-    PyDict<int, int> l = k[0];
-    print(l);
-    print(k);
-    auto m = PyDefaultDict<int, PySet<int>>::set_factory();
-    PySet<int> n = m[0];
-    print(n);
-    print(m);
-    auto o = PyDefaultDict<int, int>([]() { return 42; });
+    pypp::print(f);
+    pypp::print(e);
+    auto g = pypp::PyDefaultDict<int, pypp::PyStr>::str_factory();
+    pypp::PyStr h = g[0];
+    pypp::print(h);
+    pypp::print(g);
+    auto i = pypp::PyDefaultDict<int, pypp::PyList<int>>::list_factory();
+    pypp::PyList<int> j = i[0];
+    pypp::print(j);
+    pypp::print(i);
+    auto k = pypp::PyDefaultDict<int, pypp::PyDict<int, int>>::dict_factory();
+    pypp::PyDict<int, int> l = k[0];
+    pypp::print(l);
+    pypp::print(k);
+    auto m = pypp::PyDefaultDict<int, pypp::PySet<int>>::set_factory();
+    pypp::PySet<int> n = m[0];
+    pypp::print(n);
+    pypp::print(m);
+    auto o = pypp::PyDefaultDict<int, int>([]() { return 42; });
     int p = o[0];
-    print(p);
-    print(o);
-    auto q = PyDefaultDict<int, double>([]() { return 3.14; });
+    pypp::print(p);
+    pypp::print(o);
+    auto q = pypp::PyDefaultDict<int, double>([]() { return 3.14; });
     double r = q[0];
-    print(r);
-    print(q);
-    auto s = PyDefaultDict<int, bool>([]() { return true; });
+    pypp::print(r);
+    pypp::print(q);
+    auto s = pypp::PyDefaultDict<int, bool>([]() { return true; });
     bool t = s[0];
-    print(t);
-    print(s);
-    auto u = PyDefaultDict<int, PyStr>([]() { return PyStr("default"); });
-    PyStr v = u[0];
-    print(v);
-    print(u);
-    auto w =
-        PyDefaultDict<int, PyList<int>>([]() { return PyList({1, 2, 3}); });
-    PyList<int> x = w[0];
-    print(x);
-    print(w);
-    auto y = PyDefaultDict<int, PyDict<int, int>>(_dict_factory);
-    PyDict<int, int> z = y[0];
-    print(z);
-    print(y);
-    auto aa = PyDefaultDict<int, PySet<int>>([]() { return PySet({1, 2, 3}); });
-    PySet<int> ab = aa[0];
-    print(ab);
-    print(aa);
+    pypp::print(t);
+    pypp::print(s);
+    auto u = pypp::PyDefaultDict<int, pypp::PyStr>(
+        []() { return pypp::PyStr("default"); });
+    pypp::PyStr v = u[0];
+    pypp::print(v);
+    pypp::print(u);
+    auto w = pypp::PyDefaultDict<int, pypp::PyList<int>>(
+        []() { return pypp::PyList({1, 2, 3}); });
+    pypp::PyList<int> x = w[0];
+    pypp::print(x);
+    pypp::print(w);
+    auto y = pypp::PyDefaultDict<int, pypp::PyDict<int, int>>(_dict_factory);
+    pypp::PyDict<int, int> z = y[0];
+    pypp::print(z);
+    pypp::print(y);
+    auto aa = pypp::PyDefaultDict<int, pypp::PySet<int>>(
+        []() { return pypp::PySet({1, 2, 3}); });
+    pypp::PySet<int> ab = aa[0];
+    pypp::print(ab);
+    pypp::print(aa);
     w[9].append(99);
-    print(w);
-    auto ac = PyDefaultDict<int, _CustomType>([]() { return _CustomType(42); });
+    pypp::print(w);
+    auto ac =
+        pypp::PyDefaultDict<int, _CustomType>([]() { return _CustomType(42); });
     _CustomType ad = ac[0];
-    print(ad.val);
-    print(&ad);
-    _default_dict_as_arg(PyDefaultDict<int, int>::int_factory());
+    pypp::print(ad.val);
+    pypp::print(&ad);
+    _default_dict_as_arg(pypp::PyDefaultDict<int, int>::int_factory());
 }

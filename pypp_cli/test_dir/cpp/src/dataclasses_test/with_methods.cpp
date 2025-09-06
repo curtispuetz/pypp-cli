@@ -13,9 +13,9 @@ struct _PrivateDataClassWithMethods {
 };
 
 void dataclass_with_methods_fn() {
-    print(PyStr("DATACLASS WITH METHODS RESULTS:"));
+    pypp::print(pypp::PyStr("DATACLASS WITH METHODS RESULTS:"));
     DataClassWithMethods k = DataClassWithMethods(2);
-    print(k.add(1), k.subtract(1));
+    pypp::print(k.add(1), k.subtract(1));
     _PrivateDataClassWithMethods p = _PrivateDataClassWithMethods(3);
-    print(p.add(2));
+    pypp::print(p.add(2));
 }

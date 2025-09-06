@@ -7,18 +7,19 @@
 #include "pypp_util/print.h"
 
 void printing_fn() {
-    print(PyStr("PRINTING RESULTS:"));
-    print(1);
-    print(1.2);
-    print(true);
-    print(PyList({1, 2, 3}));
-    print(PySet({1, 2, 3}));
-    PyDict<int, int> a = {{0, 1}, {1, 2}};
-    print(a);
-    print(PyList({PyList({PyList({-1})})}));
-    print(PyTup(1, 2));
-    print(1, 2, 3, 4);
-    print(PyStr("multiple arguments:"), PyList({1, 2}), a, PySet({1, 2}),
-          PyTup(5, 6), 3.14, a.keys(), a.values(), a.items());
-    print(PyList({true, false}));
+    pypp::print(pypp::PyStr("PRINTING RESULTS:"));
+    pypp::print(1);
+    pypp::print(1.2);
+    pypp::print(true);
+    pypp::print(pypp::PyList({1, 2, 3}));
+    pypp::print(pypp::PySet({1, 2, 3}));
+    pypp::PyDict<int, int> a = {{0, 1}, {1, 2}};
+    pypp::print(a);
+    pypp::print(pypp::PyList({pypp::PyList({pypp::PyList({-1})})}));
+    pypp::print(pypp::PyTup(1, 2));
+    pypp::print(1, 2, 3, 4);
+    pypp::print(pypp::PyStr("multiple arguments:"), pypp::PyList({1, 2}), a,
+                pypp::PySet({1, 2}), pypp::PyTup(5, 6), 3.14, a.keys(),
+                a.values(), a.items());
+    pypp::print(pypp::PyList({true, false}));
 }

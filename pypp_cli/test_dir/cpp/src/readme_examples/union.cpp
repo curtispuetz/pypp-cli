@@ -5,13 +5,13 @@
 #include "pypp_util/print.h"
 
 void union_example() {
-    Uni<int, double, PyList<int>> int_float_or_list(3.14);
+    pypp::Uni<int, double, pypp::PyList<int>> int_float_or_list(3.14);
     if (int_float_or_list.isinst<double>()) {
         double val = int_float_or_list.ug<double>();
-        print(val);
+        pypp::print(val);
     }
-    Uni<int, std::monostate> b(std::monostate{});
+    pypp::Uni<int, std::monostate> b(std::monostate{});
     if (b.is_none()) {
-        print(PyStr("b is None"));
+        pypp::print(pypp::PyStr("b is None"));
     }
 }

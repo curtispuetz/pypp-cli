@@ -5,10 +5,10 @@
 #include <utility>
 
 void dict_comprehension_fn() {
-    print(PyStr("DICT COMPREHENSION RESULTS:"));
-    PyDict<int, int> squares;
+    pypp::print(pypp::PyStr("DICT COMPREHENSION RESULTS:"));
+    pypp::PyDict<int, int> squares;
     for (int x = 0; x < 4; x += 1) {
         squares[std::move(x)] = x * x;
     }
-    print(PyStr(std::format("Squares: {}", squares)));
+    pypp::print(pypp::PyStr(std::format("Squares: {}", squares)));
 }

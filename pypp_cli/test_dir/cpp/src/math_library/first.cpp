@@ -5,7 +5,7 @@
 #include <numbers>
 
 void math_library_fn() {
-    print(PyStr("MATH LIBRARY RESULTS:"));
+    pypp::print(pypp::PyStr("MATH LIBRARY RESULTS:"));
     double sqrt_result = std::sqrt(9);
     double hypot_result = std::hypot(3, 4);
     int floor_result = std::floor(3.5);
@@ -15,13 +15,13 @@ void math_library_fn() {
     double cos_result = std::cos(std::numbers::pi / 4);
     double tan_result = std::tan(std::numbers::pi / 4);
     double radians_result = (std::numbers::pi / 180.0) * (90);
-    print(sqrt_result);
-    print(hypot_result);
-    print(floor_result);
-    print(ceil_result);
-    print(pi_value);
-    print(sin_result);
-    print(cos_result);
-    print(tan_result);
-    print(radians_result);
+    pypp::print(sqrt_result);
+    pypp::print(hypot_result);
+    pypp::print(floor_result);
+    pypp::print(ceil_result);
+    pypp::print(pi_value);
+    pypp::print(sin_result);
+    pypp::print(cos_result);
+    pypp::print(tan_result);
+    pypp::print(radians_result);
 }

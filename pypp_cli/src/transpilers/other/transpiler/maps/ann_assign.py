@@ -14,7 +14,7 @@ def _uni(
 
 
 ANN_ASSIGN_MAP: AnnAssignsMap = {
-    "Uni<": {
+    "pypp::Uni<": {
         PySpecificImpFrom("pypp_python", "Uni"): CustomMappingStartsWithEntry(_uni, [])
     },
 }

@@ -8,18 +8,20 @@
 #include <utility>
 
 void zip_fn() {
-    print(PyStr("ZIP RESULTS:"));
-    PyList<int> a({});
-    for (const auto &[x, z] : PyZip(PyList({1, 2}), PyList({3, 4}))) {
+    pypp::print(pypp::PyStr("ZIP RESULTS:"));
+    pypp::PyList<int> a({});
+    for (const auto &[x, z] :
+         pypp::PyZip(pypp::PyList({1, 2}), pypp::PyList({3, 4}))) {
         a.append(std::move(x));
         a.append(std::move(z));
     }
-    print(a);
-    PyDict<double, int> b = {{1.1, 4}, {2.2, 5}};
+    pypp::print(a);
+    pypp::PyDict<double, int> b = {{1.1, 4}, {2.2, 5}};
     for (const auto &[x, z, y, w] :
-         PyZip(PyList({1, 2}), PySet({PyStr("a"), PyStr("b")}), PyStr("ab"),
-               b.items())) {
-        print(PyStr(std::format("{}, {}, {}, {}, {}", x, z, y, w.get<0>(),
-                                w.get<0>())));
+         pypp::PyZip(pypp::PyList({1, 2}),
+                     pypp::PySet({pypp::PyStr("a"), pypp::PyStr("b")}),
+                     pypp::PyStr("ab"), b.items())) {
+        pypp::print(pypp::PyStr(std::format("{}, {}, {}, {}, {}", x, z, y,
+                                            w.get<0>(), w.get<0>())));
     }
 }

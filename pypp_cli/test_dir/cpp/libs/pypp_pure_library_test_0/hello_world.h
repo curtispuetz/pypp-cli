@@ -2,4 +2,4 @@
 
 #include "py_str.h"
 
-PyStr hello_world_fn();
+pypp::PyStr hello_world_fn();

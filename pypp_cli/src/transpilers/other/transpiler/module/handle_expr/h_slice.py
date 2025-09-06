@@ -11,4 +11,4 @@ def handle_slice(node: ast.Slice, d: Deps):
     lower: str = "0" if node.lower is None else d.handle_expr(node.lower)
     step: str = "1" if node.step is None else d.handle_expr(node.step)
     upper: str = "std::nullopt" if node.upper is None else d.handle_expr(node.upper)
-    return f"py_slice({lower}, {upper}, {step})"
+    return f"pypp::py_slice({lower}, {upper}, {step})"

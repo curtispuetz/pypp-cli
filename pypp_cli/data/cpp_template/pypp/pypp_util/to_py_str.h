@@ -3,6 +3,8 @@
 #include "py_str.h"
 #include <string>
 
+namespace pypp {
+
 template <typename T> inline PyStr to_pystr(const T &value) {
     return PyStr(std::to_string(value));
 }
@@ -11,3 +13,5 @@ template <typename T> inline PyStr to_pystr(const T &value) {
 inline PyStr to_pystr(std::string value) { return PyStr(std::move(value)); }
 
 inline PyStr to_pystr(const char *value) { return PyStr(std::string(value)); }
+
+} // namespace pypp

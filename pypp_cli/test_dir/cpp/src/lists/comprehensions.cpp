@@ -8,25 +8,27 @@
 int square(int x) { return x * x; }
 
 void list_comprehension_fn() {
-    print(PyStr("LIST COMPREHENSION RESULTS:"));
-    PyList<int> squares;
+    pypp::print(pypp::PyStr("LIST COMPREHENSION RESULTS:"));
+    pypp::PyList<int> squares;
     for (int x = 0; x < 10; x += 1) {
         squares.append(x * x);
     }
-    print(PyStr(std::format("Squares: {}", squares)));
-    PyList<int> squares_func;
+    pypp::print(pypp::PyStr(std::format("Squares: {}", squares)));
+    pypp::PyList<int> squares_func;
     for (int x = 0; x < 10; x += 1) {
         squares_func.append(square(x));
     }
-    print(PyStr(std::format("Squares using function: {}", squares_func)));
-    PyList<int> fibonacci;
-    for (const auto &[x, y] : PyZip(PyList({0, 1}), PyList({1, 2}))) {
+    pypp::print(
+        pypp::PyStr(std::format("Squares using function: {}", squares_func)));
+    pypp::PyList<int> fibonacci;
+    for (const auto &[x, y] :
+         pypp::PyZip(pypp::PyList({0, 1}), pypp::PyList({1, 2}))) {
         fibonacci.append(x + y);
     }
-    print(PyStr(std::format("Fibonacci: {}", fibonacci)));
-    PyList<int> a;
+    pypp::print(pypp::PyStr(std::format("Fibonacci: {}", fibonacci)));
+    pypp::PyList<int> a;
     for (int i = 0; i < 10; i += 1) {
         a.append(std::move(i));
     }
-    print(a);
+    pypp::print(a);
 }

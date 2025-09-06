@@ -1,5 +1,5 @@
 #include "readme_examples/dataclasses.h"
 
-PyStr Greeter::greet() {
-    return PyStr(std::format("Hello, {} {}!", prefix, name));
+pypp::PyStr Greeter::greet() {
+    return pypp::PyStr(std::format("Hello, {} {}!", prefix, name));
 }

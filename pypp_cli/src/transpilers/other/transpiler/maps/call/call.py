@@ -76,11 +76,17 @@ def _list_reserve(node: ast.Call, d) -> str:
     return f"{list_arg}.reserve({size_arg})"
 
 
+def _pypp_time(node: ast.Call, d, caller_str: str) -> str:
+    fn: str = caller_str[caller_str.rfind(".") + 1 :]
+    return f"pypp::time::{fn}({d.handle_exprs(node.args)})"
+
+
 CALL_MAP: CallMap = {
-    "print": {None: ToStringEntry("print", [QInc("pypp_util/print.h")])},
+    "print": {None: ToStringEntry("pypp::print", [QInc("pypp_util/print.h")])},
+    # TODO: This can be deleted now that I can use print(Ref(a))
     "print_address": {
         PySpecificImpFrom("pypp_python", "print_address"): LeftAndRightEntry(
-            "print(&",
+            "pypp::print(&",
             ")",
             [QInc("pypp_util/print.h")],
         )
@@ -96,8 +102,12 @@ CALL_MAP: CallMap = {
             "", ".str().c_str()", []
         )
     },
-    "PyStr": {None: ToStringEntry("to_pystr", [QInc("pypp_util/to_py_str.h")])},
-    "PySlice": {None: ToStringEntry("py_slice", [QInc("slice/creators.h")])},
+    "pypp::PyStr": {
+        None: ToStringEntry("pypp::to_pystr", [QInc("pypp_util/to_py_str.h")])
+    },
+    "pypp::PySlice": {
+        None: ToStringEntry("pypp::py_slice", [QInc("slice/creators.h")])
+    },
     "mov": {
         PySpecificImpFrom("pypp_python", "mov"): ToStringEntry(
             "std::move", [AngInc("utility")]
@@ -105,15 +115,15 @@ CALL_MAP: CallMap = {
     },
     "pypp_get_resources": {
         PySpecificImpFrom("pypp_python", "pypp_get_resources"): ToStringEntry(
-            "pypp_get_resources", [QInc("pypp_resources.h")]
+            "pypp::pypp_get_resources", [QInc("pypp_resources.h")]
         )
     },
     "int_pow": {
         PySpecificImpFrom("pypp_python", "int_pow"): ToStringEntry(
-            "int_pow", [QInc("pypp_util/math.h")]
+            "pypp::int_pow", [QInc("pypp_util/math.h")]
         )
     },
-    "PyDefaultDict": {
+    "pypp::PyDefaultDict": {
         PySpecificImpFrom("collections", "defaultdict"): CustomMappingEntry(
             _default_dict, []
         )
@@ -136,18 +146,20 @@ CALL_MAP: CallMap = {
             _list_reserve, []
         )
     },
-    "PyDefaultDict<": {
+    "pypp::PyDefaultDict<": {
         PySpecificImpFrom("collections", "defaultdict"): CustomMappingStartsWithEntry(
             good_default_dict, []
         )
     },
-    "os.": {PyImport("os"): ReplaceDotWithDoubleColonEntry([QInc("pypp_os.h")])},
+    "os.": {PyImport("os"): ReplaceDotWithDoubleColonEntry([QInc("pypp_os.h")], True)},
     "shutil.": {
-        PyImport("shutil"): ReplaceDotWithDoubleColonEntry([QInc("pypp_shutil.h")])
+        PyImport("shutil"): ReplaceDotWithDoubleColonEntry(
+            [QInc("pypp_shutil.h")], True
+        )
     },
     "pypp_time.": {
-        PySpecificImpFrom("pypp_python", "pypp_time"): ReplaceDotWithDoubleColonEntry(
-            [QInc("pypp_time.h")]
+        PySpecificImpFrom("pypp_python", "pypp_time"): CustomMappingStartsWithEntry(
+            _pypp_time, [QInc("pypp_time.h")]
         )
     },
 }

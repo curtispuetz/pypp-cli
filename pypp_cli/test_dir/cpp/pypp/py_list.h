@@ -10,6 +10,7 @@
 #include <sstream>
 #include <vector>
 
+namespace pypp {
 template <typename T> class PyList {
   private:
     std::vector<T> data;
@@ -232,10 +233,18 @@ std::ostream &operator<<(std::ostream &os, const PyList<T> &list) {
     return os;
 }
 
+// This can be used as a helper function to create the PyList so that the
+// mapping from Python to C++ is more clear.
+template <typename T>
+PyList<T> create_list_full(const int size, const T &value) {
+    return PyList<T>(size, value);
+}
+} // namespace pypp
+
 namespace std {
 // Hash function for usage as a key in PyDict and PySet
-template <typename T> struct hash<PyList<T>> {
-    std::size_t operator()(const PyList<T> &p) const noexcept {
+template <typename T> struct hash<pypp::PyList<T>> {
+    std::size_t operator()(const pypp::PyList<T> &p) const noexcept {
         std::size_t seed = 0;
         for (const auto &item : p) {
             seed ^=
@@ -245,21 +254,14 @@ template <typename T> struct hash<PyList<T>> {
     }
 };
 // Formatter for std::format
-template <typename T> struct formatter<PyList<T>, char> {
+template <typename T> struct formatter<pypp::PyList<T>, char> {
     constexpr auto parse(format_parse_context &ctx) { return ctx.begin(); }
 
     template <typename FormatContext>
-    auto format(const PyList<T> &p, FormatContext &ctx) const {
+    auto format(const pypp::PyList<T> &p, FormatContext &ctx) const {
         std::ostringstream oss;
         p.print(oss);
         return std::format_to(ctx.out(), "{}", oss.str());
     }
 };
 } // namespace std
-
-// This can be used as a helper function to create the PyList so that the
-// mapping from Python to C++ is more clear.
-template <typename T>
-PyList<T> create_list_full(const int size, const T &value) {
-    return PyList<T>(size, value);
-}

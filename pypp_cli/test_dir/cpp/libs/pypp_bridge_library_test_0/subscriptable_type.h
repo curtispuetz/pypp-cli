@@ -1,8 +1,8 @@
 // A wrapper around std::vector without any methods
 #pragma once
 
-#include <vector>
 #include "py_list.h"
+#include <vector>
 
 template <typename T>
 class PseudoSubscriptableTypeCpp
@@ -21,8 +21,8 @@ template <typename T>
 class PseudoSubscriptableType2Cpp
 {
 public:
-    PyList<T> data_;
-    PseudoSubscriptableType2Cpp(PyList<T> vec) : data_(std::move(vec)) {}
+    pypp::PyList<T> data_;
+    PseudoSubscriptableType2Cpp(pypp::PyList<T> vec) : data_(std::move(vec)) {}
     void print() const
     {
         // Just to have a method that can be called
@@ -32,4 +32,4 @@ public:
 
 // Deduction guide
 template <typename T>
-PseudoSubscriptableType2Cpp(PyList<T>) -> PseudoSubscriptableType2Cpp<T>;
+PseudoSubscriptableType2Cpp(pypp::PyList<T>) -> PseudoSubscriptableType2Cpp<T>;

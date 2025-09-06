@@ -10,15 +10,15 @@
 #include "slice/py_slice.h"
 
 void f_strings_fn() {
-    print(PyStr("F STRING RESULTS:"));
-    PyStr a =
-        PyStr(std::format("this {} my {}st test f string", PyStr("is"), 1));
-    print(a);
-    PySet<int> my_set({1, 2});
-    PyDict<int, int> my_dict = {{0, 1}};
-    PyStr b = PyStr(std::format(
+    pypp::print(pypp::PyStr("F STRING RESULTS:"));
+    pypp::PyStr a = pypp::PyStr(
+        std::format("this {} my {}st test f string", pypp::PyStr("is"), 1));
+    pypp::print(a);
+    pypp::PySet<int> my_set({1, 2});
+    pypp::PyDict<int, int> my_dict = {{0, 1}};
+    pypp::PyStr b = pypp::PyStr(std::format(
         "list: {}, tuple: {}, set: {}, dict: {}, slice: {}, range: {}",
-        PyList({1, 2}), PyTup(1, 2), my_set, my_dict, py_slice(10),
-        PyRange(1)));
-    print(b);
+        pypp::PyList({1, 2}), pypp::PyTup(1, 2), my_set, my_dict,
+        pypp::py_slice(10), pypp::PyRange(1)));
+    pypp::print(b);
 }

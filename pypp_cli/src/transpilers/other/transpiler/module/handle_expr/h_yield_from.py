@@ -9,4 +9,4 @@ def handle_yield_from(node: ast.YieldFrom, d: Deps) -> str:
     assert node.value is not None, "Not supported"
     # Note: Imports will never be in header.
     value: str = d.handle_expr(node.value)
-    return f"CO_YIELD_FROM({value})"
+    return f"PYPP_CO_YIELD_FROM({value})"

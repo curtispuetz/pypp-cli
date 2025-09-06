@@ -5,6 +5,7 @@
 #include <ostream>
 #include <sstream>
 
+namespace pypp {
 struct PyRange {
   private:
     // The iterator class for PyRange.
@@ -95,10 +96,12 @@ inline std::ostream &operator<<(std::ostream &os, const PyRange &pyrange) {
     return os;
 }
 
+} // namespace pypp
+
 namespace std {
 // Hash function for usage as a key in PyDict and PySet
-template <> struct hash<PyRange> {
-    std::size_t operator()(const PyRange &p) const noexcept {
+template <> struct hash<pypp::PyRange> {
+    std::size_t operator()(const pypp::PyRange &p) const noexcept {
         std::size_t seed = 0;
         seed ^= std::hash<int>()(p.m_start) + 0x9e3779b9 + (seed << 6) +
                 (seed >> 2);
@@ -110,11 +113,11 @@ template <> struct hash<PyRange> {
     }
 };
 // Formatter for std::format
-template <> struct formatter<PyRange> : formatter<string> {
+template <> struct formatter<pypp::PyRange> : formatter<string> {
     constexpr auto parse(format_parse_context &ctx) { return ctx.begin(); }
 
     template <typename FormatContext>
-    auto format(const PyRange &pyrange, FormatContext &ctx) const {
+    auto format(const pypp::PyRange &pyrange, FormatContext &ctx) const {
         std::ostringstream oss;
         pyrange.print(oss);
         return std::format_to(ctx.out(), "{}", oss.str());

@@ -2,6 +2,7 @@
 
 #include <py_str.h>
 
+namespace pypp {
 namespace platform {
 
 /**
@@ -10,3 +11,4 @@ namespace platform {
 PyStr get_executable_dir(); // Declaration only
 
 } // namespace platform
+} // namespace pypp

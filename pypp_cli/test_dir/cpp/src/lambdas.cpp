@@ -5,7 +5,7 @@
 #include <functional>
 
 void lambdas_fn() {
-    print(PyStr("LAMBDA RESULTS:"));
-    std::function<int(int)> a = [](auto x) { return py_floor_div(x, 2); };
-    print(a(5));
+    pypp::print(pypp::PyStr("LAMBDA RESULTS:"));
+    std::function<int(int)> a = [](auto x) { return pypp::py_floor_div(x, 2); };
+    pypp::print(a(5));
 }

@@ -1,3 +1,6 @@
+#pragma once
+namespace pypp {
+
 inline int int_pow(int base, int exp) {
     int result = 1;
     while (exp > 0) {
@@ -8,3 +11,5 @@ inline int int_pow(int base, int exp) {
     }
     return result;
 }
+
+} // namespace pypp

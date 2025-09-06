@@ -58,6 +58,8 @@ def handle_call(node: ast.Call, d: Deps) -> str:
             if caller_str.startswith(k):
                 d.add_incs(e.includes)
                 caller_str = caller_str.replace(".", "::")
+                if e.add_pypp_namespace:
+                    caller_str = "pypp::" + caller_str
                 return f"{caller_str}({d.handle_exprs(node.args)})"
     return f"{caller_str}({d.handle_exprs(node.args)})"
 

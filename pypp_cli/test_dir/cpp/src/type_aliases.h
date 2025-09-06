@@ -2,7 +2,7 @@
 
 #include "py_list.h"
 
-using Matrix = PyList<PyList<int>>;
+using Matrix = pypp::PyList<pypp::PyList<int>>;
 void type_aliases_fn();
-using L = PyList<int>;
+using L = pypp::PyList<int>;
 int process_matrix(Matrix &m);

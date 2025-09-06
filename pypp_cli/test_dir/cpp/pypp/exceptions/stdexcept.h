@@ -1,8 +1,9 @@
 #pragma once
 
 #include <stdexcept>
-class PyStr;
 
+namespace pypp {
+class PyStr;
 class PyppRuntimeError : public std::runtime_error {
   public:
     PyppRuntimeError(const PyStr &msg);
@@ -56,3 +57,4 @@ class PyppAttributeError : public std::logic_error {
     PyppAttributeError(const PyStr &msg);
     PyppAttributeError(const std::string &msg);
 };
+} // namespace pypp

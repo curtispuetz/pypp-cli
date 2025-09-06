@@ -1,3 +1,3 @@
 #include "second.h"
 
-PyStr return_friend() { return PyStr("friend"); }
+pypp::PyStr return_friend() { return pypp::PyStr("friend"); }

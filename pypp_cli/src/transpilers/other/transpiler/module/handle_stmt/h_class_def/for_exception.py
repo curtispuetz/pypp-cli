@@ -27,8 +27,8 @@ def handle_class_def_for_exception(
     ret = (
         f"class {class_name} : public {base_name}"
         + "{ public: explicit "
-        + f"{class_name}(const PyStr &msg) : {base_name}("
-        + f'PyStr("{class_name}: ") + msg)'
+        + f"{class_name}(const pypp::PyStr &msg) : {base_name}("
+        + f'pypp::PyStr("{class_name}: ") + msg)'
         + "{} };\n\n"
     )
     if name_doesnt_start_with_underscore:

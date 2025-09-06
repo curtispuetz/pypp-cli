@@ -27,9 +27,9 @@ class _ClassC {
 };
 
 void class_nested_dependencies_fn() {
-    print(PyStr("CLASS NESTED DEPENDENCIES RESULTS:"));
+    pypp::print(pypp::PyStr("CLASS NESTED DEPENDENCIES RESULTS:"));
     _ClassA class_a = _ClassA(1);
     _ClassB class_b = _ClassB(2, class_a);
     _ClassC class_c = _ClassC(3, class_b);
-    print(class_c.access());
+    pypp::print(class_c.access());
 }

@@ -50,6 +50,7 @@ class CustomMappingStartsWithFromLibEntry(MappingFnStr):
 @dataclass(frozen=True, slots=True)
 class ReplaceDotWithDoubleColonEntry:
     includes: list[CppInclude]
+    add_pypp_namespace: bool
 
 
 type CallMapEntry = (

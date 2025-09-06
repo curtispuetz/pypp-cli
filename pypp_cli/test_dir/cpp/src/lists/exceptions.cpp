@@ -7,37 +7,37 @@
 #include <string>
 
 void list_exceptions_fn() {
-    print(PyStr("LIST EXCEPTIONS RESULTS:"));
-    PyList<int> a({});
+    pypp::print(pypp::PyStr("LIST EXCEPTIONS RESULTS:"));
+    pypp::PyList<int> a({});
     try {
         a.pop();
-    } catch (const PyppIndexError &pypp_e) {
+    } catch (const pypp::PyppIndexError &pypp_e) {
         std::string e = pypp_e.what();
-        print(PyStr("index error: ") + to_pystr(e));
+        pypp::print(pypp::PyStr("index error: ") + pypp::to_pystr(e));
     }
-    PyList<int> b({1, 2, 3});
+    pypp::PyList<int> b({1, 2, 3});
     try {
         b.pop(3);
-    } catch (const PyppIndexError &pypp_e) {
+    } catch (const pypp::PyppIndexError &pypp_e) {
         std::string e = pypp_e.what();
-        print(PyStr("index error: ") + to_pystr(e));
+        pypp::print(pypp::PyStr("index error: ") + pypp::to_pystr(e));
     }
     try {
         b.remove(4);
-    } catch (const PyppValueError &pypp_e) {
+    } catch (const pypp::PyppValueError &pypp_e) {
         std::string e = pypp_e.what();
-        print(PyStr("value error: ") + to_pystr(e));
+        pypp::print(pypp::PyStr("value error: ") + pypp::to_pystr(e));
     }
     try {
         b.index(4);
-    } catch (const PyppValueError &pypp_e) {
+    } catch (const pypp::PyppValueError &pypp_e) {
         std::string e = pypp_e.what();
-        print(PyStr("value error: ") + to_pystr(e));
+        pypp::print(pypp::PyStr("value error: ") + pypp::to_pystr(e));
     }
     try {
         b[3];
-    } catch (const PyppIndexError &pypp_e) {
+    } catch (const pypp::PyppIndexError &pypp_e) {
         std::string e = pypp_e.what();
-        print(PyStr("index error: ") + to_pystr(e));
+        pypp::print(pypp::PyStr("index error: ") + pypp::to_pystr(e));
     }
 }

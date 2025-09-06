@@ -10,22 +10,22 @@ int ClassWithUnion::calc() {
 }
 
 void pypp_union_fn() {
-    print(PyStr("pypp UNION RESULTS:"));
-    Uni<int, double> a(3.14);
+    pypp::print(pypp::PyStr("pypp UNION RESULTS:"));
+    pypp::Uni<int, double> a(3.14);
     if (a.isinst<double>()) {
-        print(a.ug<double>());
+        pypp::print(a.ug<double>());
     }
     if (!a.isinst<int>()) {
-        print(PyStr("a is not an int"));
+        pypp::print(pypp::PyStr("a is not an int"));
     }
-    Uni<int, std::monostate> b(std::monostate{});
+    pypp::Uni<int, std::monostate> b(std::monostate{});
     if (b.is_none()) {
-        print(PyStr("b is None"));
+        pypp::print(pypp::PyStr("b is None"));
     }
-    Uni<int, double> c(42);
+    pypp::Uni<int, double> c(42);
     ClassWithUnion d = ClassWithUnion(c);
-    print(d.calc());
-    Uni<int, double> e(3.14);
+    pypp::print(d.calc());
+    pypp::Uni<int, double> e(3.14);
     ClassWithUnionByValue f = ClassWithUnionByValue(std::move(e));
-    print(&f);
+    pypp::print(&f);
 }
