@@ -1,6 +1,8 @@
 from dataclasses import dataclass
 from pathlib import Path
 
+from pypp_cli.src.other.pypp_paths.util import calc_sitepackages_dir
+
 
 @dataclass
 class DoPurePyppPaths:
@@ -18,6 +20,6 @@ def create_do_pure_pypp_paths(
     return DoPurePyppPaths(
         python_dir,
         python_dir / "pypp_cpp",
-        target_dir / ".venv" / "Lib" / "site-packages",
+        calc_sitepackages_dir(target_dir),
         pypp_files_dir / "file_timestamps.json",
     )
