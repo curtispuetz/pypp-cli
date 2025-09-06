@@ -7,11 +7,10 @@ def pypp_build(cpp_dir: Path):
     # NOTE: you only need to do the first 'cmake -S . -B build' part if there was file
     #  changes to the code base. However, for simplicity, I will just do it each time.
     # cmake -S . -B build
-    subprocess.run(["cmake", "-S", ".", "-B", "build"], cwd=cpp_dir, check=True)
+    subprocess.check_call(["cmake", "-S", ".", "-B", "build"], cwd=cpp_dir)
     # cmake --build build --config Release
-    subprocess.run(
+    subprocess.check_call(
         ["cmake", "--build", "build", "--config", "Release"],
         cwd=cpp_dir,
-        check=True,
     )
     print("cmake build finished")

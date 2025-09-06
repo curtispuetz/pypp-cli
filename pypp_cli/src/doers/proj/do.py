@@ -24,7 +24,7 @@ def pypp_do(tasks: list[str], target_dir: Path, exe_name: str | None) -> None:
 @dataclass(slots=True)
 class _DoHelper:
     _paths: DoPyppPaths
-    _exe_name: str
+    _exe_name: str | None
     _files_added_or_modified: list[Path] | None = None
 
     def transpile(self):

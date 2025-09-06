@@ -7,8 +7,8 @@ from pathlib import Path
 
 def _format_file(file: Path, cpp_dir: Path):
     # clang-format -i --style=file main.cpp
-    subprocess.run(
-        ["clang-format", "-i", "--style=file", str(file)], cwd=cpp_dir, check=True
+    subprocess.check_call(
+        ["clang-format", "-i", "--style=file", str(file)], cwd=cpp_dir
     )
 
 
