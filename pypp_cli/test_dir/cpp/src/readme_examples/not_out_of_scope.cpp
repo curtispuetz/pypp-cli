@@ -1,5 +1,6 @@
 #include "readme_examples/not_out_of_scope.h"
 
+namespace me {
 int var_not_out_of_scope(bool condition) {
     int m;
     if (condition) {
@@ -9,3 +10,5 @@ int var_not_out_of_scope(bool condition) {
     }
     return 10 * m;
 }
+
+} // namespace me

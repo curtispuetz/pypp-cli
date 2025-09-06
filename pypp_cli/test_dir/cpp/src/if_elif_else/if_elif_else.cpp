@@ -1,5 +1,6 @@
 #include "if_elif_else/if_elif_else.h"
 
+namespace me {
 pypp::PyStr if_elif_else_fn(int a, int b) {
     pypp::PyStr ret;
     if (a < b) {
@@ -25,3 +26,5 @@ pypp::PyStr if_elif_elif_else_fn(int a, int b) {
     }
     return ret;
 }
+
+} // namespace me

@@ -3,6 +3,7 @@
 #include "py_str.h"
 #include <utility>
 
+namespace me {
 class ClassA {
   public:
     int a;
@@ -20,3 +21,4 @@ class ClassWithPassByValue {
 };
 
 void classes_fn();
+} // namespace me

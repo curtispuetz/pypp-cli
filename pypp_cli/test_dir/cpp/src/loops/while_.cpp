@@ -4,6 +4,7 @@
 #include "pypp_util/print.h"
 #include <utility>
 
+namespace me {
 void while_loop_fn() {
     pypp::print(pypp::PyStr("WHILE LOOP RESULTS:"));
     pypp::PyList<int> a({});
@@ -31,3 +32,5 @@ void while_loop_fn() {
     }
     pypp::print(a);
 }
+
+} // namespace me

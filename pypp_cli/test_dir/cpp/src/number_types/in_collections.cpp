@@ -6,6 +6,7 @@
 #include "pypp_util/print.h"
 #include <cstdint>
 
+namespace me {
 void _lists() {
     pypp::PyList<int8_t> a({1, 2, 3, 4});
     pypp::print(a);
@@ -105,3 +106,5 @@ void number_types_in_collections_fn() {
     pypp::print(_set_factory());
     pypp::print(_dict_factory());
 }
+
+} // namespace me

@@ -5,6 +5,7 @@
 #include "pypp_util/print.h"
 #include <utility>
 
+namespace me {
 int square(int x) { return x * x; }
 
 void list_comprehension_fn() {
@@ -32,3 +33,5 @@ void list_comprehension_fn() {
     }
     pypp::print(a);
 }
+
+} // namespace me

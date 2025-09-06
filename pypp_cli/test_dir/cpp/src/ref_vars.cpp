@@ -4,6 +4,7 @@
 #include "py_str.h"
 #include "pypp_util/print.h"
 
+namespace me {
 pypp::PyList<int> &_get_list(pypp::PyList<int> &input_list) {
     return input_list;
 }
@@ -33,3 +34,5 @@ void ref_vars_fn() {
     g.append(4);
     pypp::print(original_list);
 }
+
+} // namespace me

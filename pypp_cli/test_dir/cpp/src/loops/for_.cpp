@@ -7,6 +7,7 @@
 #include "pypp_util/print.h"
 #include <utility>
 
+namespace me {
 void for_loop_fn() {
     pypp::print(pypp::PyStr("FOR RESULTS:"));
     pypp::PyList<int> ret({});
@@ -74,3 +75,5 @@ void for_loop_fn() {
     }
     pypp::print(a);
 }
+
+} // namespace me

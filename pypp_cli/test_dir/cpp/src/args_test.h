@@ -4,6 +4,7 @@
 #include "pypp_bridge_library_test_0/pass_by_value_test.h"
 #include <cstdint>
 
+namespace me {
 void int_arg(int a);
 void float_arg(double a);
 void str_arg(pypp::PyStr &a);
@@ -20,3 +21,4 @@ void uint64_t_arg(uint64_t a);
 void pseudo_int8_t_arg(pseudo_int8_t_cpp a);
 void pseudo_int16_t_arg(pseudo_int16_t_cpp a);
 void args_test_fn();
+} // namespace me

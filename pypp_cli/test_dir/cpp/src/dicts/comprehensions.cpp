@@ -4,6 +4,7 @@
 #include "pypp_util/print.h"
 #include <utility>
 
+namespace me {
 void dict_comprehension_fn() {
     pypp::print(pypp::PyStr("DICT COMPREHENSION RESULTS:"));
     pypp::PyDict<int, int> squares;
@@ -12,3 +13,5 @@ void dict_comprehension_fn() {
     }
     pypp::print(pypp::PyStr(std::format("Squares: {}", squares)));
 }
+
+} // namespace me

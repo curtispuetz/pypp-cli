@@ -2,6 +2,7 @@
 
 #include "py_str.h"
 
+namespace me {
 class InterfaceClass {
   public:
     virtual void speak(int a) = 0;
@@ -22,3 +23,4 @@ class Impl2 : public InterfaceClass {
 };
 
 void interfaces_fn();
+} // namespace me

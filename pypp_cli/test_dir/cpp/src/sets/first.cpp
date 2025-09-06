@@ -6,6 +6,7 @@
 #include "pypp_util/to_py_str.h"
 #include <utility>
 
+namespace me {
 void _inline_set(pypp::PySet<double> s) { pypp::print(s); }
 
 void set_fn() {
@@ -58,3 +59,5 @@ void set_fn() {
     pypp::print(c);
     _inline_set(pypp::PySet({1.2, 4.4}));
 }
+
+} // namespace me

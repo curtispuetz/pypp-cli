@@ -6,6 +6,7 @@
 #include "slice/creators.h"
 #include "slice/py_slice.h"
 
+namespace me {
 void slices_fn() {
     pypp::print(pypp::PyStr("SLICE RESULTS:"));
     pypp::print(pypp::py_slice(2));
@@ -48,3 +49,5 @@ void slices_fn() {
     pypp::PySet<pypp::PySlice> h({e, g});
     pypp::print(h);
 }
+
+} // namespace me

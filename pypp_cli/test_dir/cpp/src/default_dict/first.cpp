@@ -7,6 +7,7 @@
 #include "pypp_util/print.h"
 #include <utility>
 
+namespace me {
 pypp::PyDict<int, int> _dict_factory() { return {{1, 2}, {3, 4}}; }
 
 void _default_dict_as_arg(pypp::PyDefaultDict<int, int> a) {
@@ -88,3 +89,5 @@ void default_dict_fn() {
     pypp::print(&ad);
     _default_dict_as_arg(pypp::PyDefaultDict<int, int>::int_factory());
 }
+
+} // namespace me

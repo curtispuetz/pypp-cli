@@ -2,6 +2,7 @@
 
 #include "py_str.h"
 
+namespace me {
 struct Greeter {
     const pypp::PyStr &name;
     const pypp::PyStr &prefix;
@@ -9,3 +10,5 @@ struct Greeter {
         : name(a_name), prefix(a_prefix) {}
     pypp::PyStr greet();
 };
+
+} // namespace me

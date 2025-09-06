@@ -3,6 +3,7 @@
 #include "py_tuple.h"
 #include "pypp_util/print.h"
 
+namespace me {
 pypp::PyStr _test_fn(int a, int b) {
     return pypp::PyStr(std::format("{} {}", a, b));
 }
@@ -49,3 +50,5 @@ void fn_as_vars_fn() {
     };
     pypp::print(g());
 }
+
+} // namespace me

@@ -6,6 +6,7 @@
 #include "pypp_util/print.h"
 #include <utility>
 
+namespace me {
 void reversed_fn() {
     pypp::print(pypp::PyStr("REVERSED RESULTS:"));
     pypp::PyList<int> a({});
@@ -26,3 +27,5 @@ void reversed_fn() {
         pypp::print(pypp::PyStr(std::format("{}, {}", x, z)));
     }
 }
+
+} // namespace me

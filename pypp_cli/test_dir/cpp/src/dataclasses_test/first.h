@@ -3,6 +3,7 @@
 #include "py_str.h"
 #include <utility>
 
+namespace me {
 struct FirstDataClass {
     pypp::PyStr field1;
     int field2;
@@ -32,3 +33,4 @@ struct FrozenDataClassWithReference {
 };
 
 void dataclass_fn();
+} // namespace me

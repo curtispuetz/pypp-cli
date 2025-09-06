@@ -19,6 +19,9 @@ def handle_name(node: ast.Name, d: Deps) -> str:
     if node.id in d.cpp_includes.include_map:
         d.add_inc(d.cpp_includes.include_map[node.id])
     name: str = node.id
+    if name in d.user_namespace:
+        # In this case there is no need to check the maps, because it wont be in there.
+        return "me::" + name
 
     for k, v in d.maps.name.items():
         e = find_map_entry(v, d)

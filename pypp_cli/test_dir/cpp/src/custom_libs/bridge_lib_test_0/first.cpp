@@ -14,6 +14,7 @@
 #include "pypp_util/print.h"
 #include <iostream>
 
+namespace me {
 void _as_arg(PseudoCustomTypeCpp &arg) { pypp::print(arg.get_a()); }
 
 PseudoCustomTypeCpp _factory() { return PseudoCustomTypeCpp(100); }
@@ -68,3 +69,5 @@ void bridge_lib_test_0_fn() {
     PseudoCustomList<int> k(pypp::PyList({1, 2, 3}));
     pypp::print(&k);
 }
+
+} // namespace me

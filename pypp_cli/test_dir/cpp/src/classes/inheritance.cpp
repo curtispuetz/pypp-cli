@@ -2,6 +2,7 @@
 #include "py_str.h"
 #include "pypp_util/print.h"
 
+namespace me {
 int BaseClass::add(int val) { return a + val; }
 
 int BaseClass::add2(int val) { return a + val; }
@@ -27,3 +28,5 @@ void class_inheritance_fn() {
     pypp::print(c.add(5));
     pypp::print(c.mult2(5));
 }
+
+} // namespace me

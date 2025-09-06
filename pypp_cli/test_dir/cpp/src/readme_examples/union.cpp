@@ -4,6 +4,7 @@
 #include "pypp_union.h"
 #include "pypp_util/print.h"
 
+namespace me {
 void union_example() {
     pypp::Uni<int, double, pypp::PyList<int>> int_float_or_list(3.14);
     if (int_float_or_list.isinst<double>()) {
@@ -15,3 +16,5 @@ void union_example() {
         pypp::print(pypp::PyStr("b is None"));
     }
 }
+
+} // namespace me

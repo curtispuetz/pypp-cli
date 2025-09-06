@@ -6,6 +6,7 @@
 #include "slice/creators.h"
 #include <utility>
 
+namespace me {
 void _test_fn(pypp::PyList<pypp::PyStr> arg1) { pypp::print(arg1); }
 
 void list_fn() {
@@ -85,3 +86,5 @@ void list_fn() {
     e.extend(std::move(h));
     pypp::print(e);
 }
+
+} // namespace me

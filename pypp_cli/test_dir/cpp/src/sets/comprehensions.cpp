@@ -4,6 +4,7 @@
 #include "pypp_util/print.h"
 #include <utility>
 
+namespace me {
 void set_comprehension_fn() {
     pypp::print(pypp::PyStr("SET COMPREHENSION RESULTS:"));
     pypp::PySet<int> squares;
@@ -17,3 +18,5 @@ void set_comprehension_fn() {
     }
     pypp::print(a);
 }
+
+} // namespace me

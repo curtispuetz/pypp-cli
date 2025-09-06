@@ -3,6 +3,7 @@
 #include "pypp_union.h"
 #include <utility>
 
+namespace me {
 class ClassWithUnion {
   public:
     pypp::Uni<int, double> &value;
@@ -18,3 +19,4 @@ class ClassWithUnionByValue {
 };
 
 void pypp_union_fn();
+} // namespace me

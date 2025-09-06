@@ -2,6 +2,7 @@
 
 #include "py_str.h"
 
+namespace me {
 class Greeter {
   public:
     pypp::PyStr &name;
@@ -10,3 +11,5 @@ class Greeter {
         : name(a_name), prefix(a_prefix) {}
     pypp::PyStr greet();
 };
+
+} // namespace me

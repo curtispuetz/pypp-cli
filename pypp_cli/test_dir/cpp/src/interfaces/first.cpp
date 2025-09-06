@@ -1,6 +1,7 @@
 #include "interfaces/first.h"
 #include "pypp_util/print.h"
 
+namespace me {
 class _PrivateInterface {
   public:
     virtual void a() = 0;
@@ -32,3 +33,5 @@ void interfaces_fn() {
     _fn_that_accepts_interface(a);
     _fn_that_accepts_interface(b);
 }
+
+} // namespace me

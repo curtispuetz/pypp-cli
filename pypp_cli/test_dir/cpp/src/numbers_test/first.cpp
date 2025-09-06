@@ -3,6 +3,7 @@
 #include "pypp_util/floor_div.h"
 #include "pypp_util/print.h"
 
+namespace me {
 void number_ops() {
     pypp::print(pypp::PyStr("NUMBER RESULTS:"));
     int a = 1 + 2;
@@ -33,3 +34,5 @@ void number_ops() {
     h /= 5;
     pypp::print(h);
 }
+
+} // namespace me

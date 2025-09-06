@@ -20,6 +20,7 @@ class Deps:
     _py_imports: PyImports
     _handle_expr_fn: Callable[[ast.expr, "Deps"], str]
     _handle_stmt: Callable[[ast.stmt, "Deps"], str]
+    user_namespace: set[str]
     _include_in_header: bool = False
 
     def set_inc_in_h(self, include: bool):

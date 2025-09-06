@@ -6,6 +6,7 @@
 #include "pypp_util/print.h"
 #include <utility>
 
+namespace me {
 void _iter_and_print(pypp::PyRange arg1) {
     pypp::PyList<int> a1({});
     for (const auto &i : arg1) {
@@ -33,3 +34,5 @@ void ranges_fn() {
     pypp::PyDict<pypp::PyRange, int> b = {{a, 1}, {pypp::PyRange(1, 4), 2}};
     pypp::print(b);
 }
+
+} // namespace me

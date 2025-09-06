@@ -3,6 +3,7 @@
 #include "pypp_time.h"
 #include "pypp_util/print.h"
 
+namespace me {
 void time_library_fn() {
     pypp::print(
         pypp::PyStr("TIME LIBRARY RESULTS (depends on time of execution):"));
@@ -16,3 +17,5 @@ void time_library_fn() {
     pypp::print(
         pypp::PyStr(std::format("performance time elapsed time: {}", d)));
 }
+
+} // namespace me

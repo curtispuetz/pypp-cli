@@ -6,6 +6,7 @@
 #include "pypp_util/to_py_str.h"
 #include <string>
 
+namespace me {
 void list_exceptions_fn() {
     pypp::print(pypp::PyStr("LIST EXCEPTIONS RESULTS:"));
     pypp::PyList<int> a({});
@@ -41,3 +42,5 @@ void list_exceptions_fn() {
         pypp::print(pypp::PyStr("index error: ") + pypp::to_pystr(e));
     }
 }
+
+} // namespace me

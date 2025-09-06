@@ -7,6 +7,7 @@
 #include "pypp_text_io.h"
 #include "pypp_util/print.h"
 
+namespace me {
 void file_io_fn() {
     pypp::print(pypp::PyStr("FILE IO RESULTS:"));
     pypp::PyStr test_dir = pypp::pypp_get_resources(pypp::PyStr("test_dir"));
@@ -72,3 +73,5 @@ void file_io_fn() {
         pypp::print(pypp::PyStr(std::format("Lines: {}", stripped_lines)));
     }
 }
+
+} // namespace me

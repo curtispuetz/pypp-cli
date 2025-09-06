@@ -3,6 +3,7 @@
 #include "pypp_util/to_py_str.h"
 #include <string>
 
+namespace me {
 class _PrivateCustomException : public pypp::PyppException {
   public:
     explicit _PrivateCustomException(const pypp::PyStr &msg)
@@ -27,3 +28,5 @@ void custom_exception_fn() {
                     pypp::to_pystr(e));
     }
 }
+
+} // namespace me

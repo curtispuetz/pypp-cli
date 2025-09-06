@@ -5,6 +5,7 @@
 #include "pypp_random.h"
 #include <utility>
 
+namespace me {
 inline const pypp::PyList<pypp::PyTup<int, int>>
     GRADIENTS({pypp::PyTup(1, 0), pypp::PyTup(-1, 0), pypp::PyTup(0, 1),
                pypp::PyTup(0, -1), pypp::PyTup(1, 1), pypp::PyTup(-1, 1),
@@ -28,3 +29,4 @@ class PerlinNoise {
 
 PerlinNoise create_perlin_noise(int permutation_table_size,
                                 pypp::random::Random &rng);
+} // namespace me

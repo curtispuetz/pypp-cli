@@ -7,6 +7,7 @@
 #include "pypp_util/print.h"
 #include <utility>
 
+namespace me {
 void enumerate_fn() {
     pypp::print(pypp::PyStr("ENUMERATE RESULTS:"));
     pypp::PyList<int> a({});
@@ -35,3 +36,5 @@ void enumerate_fn() {
     }
     pypp::print(a);
 }
+
+} // namespace me

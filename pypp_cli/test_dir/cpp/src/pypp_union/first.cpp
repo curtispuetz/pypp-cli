@@ -2,6 +2,7 @@
 #include "py_str.h"
 #include "pypp_util/print.h"
 
+namespace me {
 int ClassWithUnion::calc() {
     if (value.isinst<int>()) {
         return value.ug<int>() * 2;
@@ -29,3 +30,5 @@ void pypp_union_fn() {
     ClassWithUnionByValue f = ClassWithUnionByValue(std::move(e));
     pypp::print(&f);
 }
+
+} // namespace me

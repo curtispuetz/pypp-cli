@@ -6,6 +6,7 @@
 #include "py_str.h"
 #include <functional>
 
+namespace me {
 inline const int A = 1;
 inline const pypp::PyStr B = pypp::PyStr("B");
 inline const pypp::PyList<int> C({1, 2, 3});
@@ -26,3 +27,4 @@ inline _PseudoPyppNameMyConfig2 MyConfig2;
 
 void constant_fn();
 inline const int F = 3;
+} // namespace me

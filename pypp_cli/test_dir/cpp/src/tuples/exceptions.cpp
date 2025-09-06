@@ -6,6 +6,7 @@
 #include "pypp_util/to_py_str.h"
 #include <string>
 
+namespace me {
 void tuple_exceptions_fn() {
     pypp::print(pypp::PyStr("TUPLE EXCEPTIONS RESULTS:"));
     pypp::PyTup<int, double, pypp::PyStr> a =
@@ -17,3 +18,5 @@ void tuple_exceptions_fn() {
         pypp::print(pypp::PyStr("value error: ") + pypp::to_pystr(e));
     }
 }
+
+} // namespace me
