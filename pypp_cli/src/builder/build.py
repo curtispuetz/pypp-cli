@@ -1,5 +1,6 @@
 from pathlib import Path
 import subprocess
+import shutil
 
 
 def pypp_build(cpp_dir: Path):
@@ -7,6 +8,10 @@ def pypp_build(cpp_dir: Path):
     # NOTE: you only need to do the first 'cmake -S . -B build' part if there was file
     #  changes to the code base. However, for simplicity, I will just do it each time.
     # cmake -S . -B build
+    if shutil.which("cmake") is None:
+        raise RuntimeError(
+            "cmake not found. To use pypp, install cmake and ensure it is in your PATH."
+        )
     subprocess.check_call(["cmake", "-S", ".", "-B", "build"], cwd=cpp_dir)
     # cmake --build build --config Release
     subprocess.check_call(
