@@ -9,4 +9,4 @@ from pypp_cli.src.transpilers.other.transpiler.deps import Deps
 def handle_list(node: ast.List, d: Deps) -> str:
     d.add_inc(QInc("py_list.h"))
     args_str: str = d.handle_exprs(node.elts)
-    return "PyList({" + args_str + "})"
+    return "pypp::PyList({" + args_str + "})"

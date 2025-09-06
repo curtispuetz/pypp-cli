@@ -3,6 +3,8 @@
 #include <exception>
 #include <iostream>
 
+namespace pypp {
+
 void handle_fatal_exception() {
     try {
         throw; // Re-throw current exception
@@ -12,3 +14,5 @@ void handle_fatal_exception() {
         std::cerr << "Unhandled unknown exception." << std::endl;
     }
 }
+
+} // namespace pypp

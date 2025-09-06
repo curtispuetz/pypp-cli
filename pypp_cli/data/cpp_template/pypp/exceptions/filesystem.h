@@ -2,6 +2,7 @@
 #include <filesystem>
 #include <string>
 
+namespace pypp {
 class PyppFileNotFoundError : public std::filesystem::filesystem_error {
   public:
     PyppFileNotFoundError(const std::string &msg,
@@ -17,3 +18,5 @@ class PyppFileSystemError : public std::filesystem::filesystem_error {
         : std::filesystem::filesystem_error("PyppFileSystemError: " + msg, path,
                                             std::error_code()) {}
 };
+
+} // namespace pypp

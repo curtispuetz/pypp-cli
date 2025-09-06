@@ -70,18 +70,19 @@
 
 int main() {
     try {
-        print(return_something(1, 9));
-        print(return_friend());
-        print(using_inline_string());
-        print(string_as_argument(PyStr("hello")));
-        print(if_elif_else_fn(6, 6));
+        pypp::print(return_something(1, 9));
+        pypp::print(return_friend());
+        pypp::print(using_inline_string());
+        pypp::print(string_as_argument(pypp::PyStr("hello")));
+        pypp::print(if_elif_else_fn(6, 6));
         number_ops();
-        PyList<int> my_list({1, 2, 3, 4});
+        pypp::PyList<int> my_list({1, 2, 3, 4});
         list_as_arg(my_list);
         list_as_mutable_arg(my_list);
-        print(my_list);
-        PyList<PyStr> str_list({PyStr("ab"), PyStr("cd")});
-        print(str_list);
+        pypp::print(my_list);
+        pypp::PyList<pypp::PyStr> str_list(
+            {pypp::PyStr("ab"), pypp::PyStr("cd")});
+        pypp::print(str_list);
         string_ops();
         set_fn();
         for_loop_fn();
@@ -141,7 +142,7 @@ int main() {
         number_types_in_collections_fn();
         return 0;
     } catch (...) {
-        handle_fatal_exception();
+        pypp::handle_fatal_exception();
         return EXIT_FAILURE;
     }
 }

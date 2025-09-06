@@ -22,9 +22,11 @@
 #include <coroutine>
 #include <exception>
 
-#define CO_YIELD_FROM(gen)                                                     \
+#define PYPP_CO_YIELD_FROM(gen)                                                \
     for (auto &&_v : (gen))                                                    \
     co_yield std::move(_v)
+
+namespace pypp {
 
 template <typename T> struct Generator {
     struct promise_type {
@@ -95,3 +97,5 @@ template <typename T> struct Generator {
   private:
     handle_type coro;
 };
+
+} // namespace pypp

@@ -3,6 +3,7 @@
 #include <iterator> // For std::rbegin, std::rend, std::crbegin, std::crend
 #include <utility>  // For std::forward
 
+namespace pypp {
 // The main PyReversed class (the "range")
 template <typename T> class PyReversed {
   public:
@@ -26,3 +27,4 @@ template <typename T> class PyReversed {
 
 // C++17 Deduction Guide for easier instantiation (e.g., PyReversed(my_vec))
 template <typename T> PyReversed(T &&) -> PyReversed<T>;
+} // namespace pypp

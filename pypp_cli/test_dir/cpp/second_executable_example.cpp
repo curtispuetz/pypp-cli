@@ -5,10 +5,10 @@
 
 int main() {
     try {
-        print(PyStr("hello world!"));
+        pypp::print(pypp::PyStr("hello world!"));
         return 0;
     } catch (...) {
-        handle_fatal_exception();
+        pypp::handle_fatal_exception();
         return EXIT_FAILURE;
     }
 }

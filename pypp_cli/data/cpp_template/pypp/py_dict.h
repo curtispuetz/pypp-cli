@@ -13,6 +13,7 @@
 #include <vector>
 
 // PyDictKeys
+namespace pypp {
 template <typename K, typename V> class PyDictKeys {
     using MapType = std::unordered_map<K, V>;
     const MapType &map;
@@ -287,13 +288,15 @@ std::ostream &operator<<(std::ostream &os, const PyDict<K, V> &dict) {
     return os;
 }
 
+} // namespace pypp
+
 namespace std {
 // formatter for std::format
-template <typename K, typename V> struct formatter<PyDict<K, V>, char> {
+template <typename K, typename V> struct formatter<pypp::PyDict<K, V>, char> {
     constexpr auto parse(format_parse_context &ctx) { return ctx.begin(); }
 
     template <typename FormatContext>
-    auto format(const PyDict<K, V> &dict, FormatContext &ctx) const {
+    auto format(const pypp::PyDict<K, V> &dict, FormatContext &ctx) const {
         std::ostringstream oss;
         dict.print(oss);
         return std::format_to(ctx.out(), "{}", oss.str());

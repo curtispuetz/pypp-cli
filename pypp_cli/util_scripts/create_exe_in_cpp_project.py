@@ -45,7 +45,7 @@ if __name__ == "__main__":
                 "    try {\n",
                 "        return 0;\n",
                 "    } catch (...) {\n",
-                "        handle_fatal_exception();\n",
+                "        pypp::handle_fatal_exception();\n",
                 "        return EXIT_FAILURE;\n",
                 "    }\n",
                 "}\n",

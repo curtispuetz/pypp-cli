@@ -39,7 +39,7 @@ def calc_custom_mapping_starts_with_from_lib_entry(
 def calc_replace_dot_with_double_colon_entry(
     obj: dict,
 ) -> ReplaceDotWithDoubleColonEntry:
-    return ReplaceDotWithDoubleColonEntry(calc_cpp_includes(obj))
+    return ReplaceDotWithDoubleColonEntry(calc_cpp_includes(obj), False)
 
 
 BASE_CALC_ENTRY_FN_MAP: dict[

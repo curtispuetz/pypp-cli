@@ -3,6 +3,8 @@
 #include "py_dict.h"
 #include <functional>
 
+namespace pypp {
+
 // PyDefaultDict: a light wrapper around PyDict that mimics Python's
 // collections.defaultdict Usage: PyDefaultDict<Key, Value> d([]{ return
 // default_value; });
@@ -88,3 +90,4 @@ class PyDefaultDict {
         });
     }
 };
+} // namespace pypp

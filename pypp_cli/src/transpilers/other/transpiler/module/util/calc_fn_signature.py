@@ -26,7 +26,7 @@ def calc_fn_signature(
         cpp_ret_type = d.handle_expr(node.returns)
         if cpp_ret_type.startswith("Iterator[") and cpp_ret_type.endswith("]"):
             d.add_inc(QInc("pypp_util/generator.h"))
-            cpp_ret_type = f"Generator<{calc_inside_sq(cpp_ret_type)}>"
+            cpp_ret_type = f"pypp::Generator<{calc_inside_sq(cpp_ret_type)}>"
         elif cpp_ret_type.startswith("&"):
             cpp_ret_type = cpp_ret_type[1:] + "&"
     cpp_args_str = _calc_cpp_args_str(node, d, skip_first_arg)

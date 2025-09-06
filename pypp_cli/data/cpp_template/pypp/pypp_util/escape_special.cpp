@@ -1,6 +1,8 @@
 #include "pypp_util/escape_special.h"
 #include <string>
 
+namespace pypp {
+
 PyStr escape_specials(const PyStr &input) {
     std::string result;
     for (char c : input.str()) {
@@ -32,3 +34,5 @@ PyStr escape_specials(const PyStr &input) {
     }
     return PyStr(std::move(result));
 }
+
+} // namespace pypp

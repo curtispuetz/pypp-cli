@@ -7,9 +7,9 @@
 #include "pypp_util/print.h"
 
 void bridge_lib_test_1_fn() {
-    print(PyStr("pypp BRIDGE LIB TEST 1 RESULTS:"));
-    print(pseudo_fn());
-    print(pseudo_fn_a());
-    print(pseudo_fn_b());
-    print(pseudo_namespace::pseudo_fn_c());
+    pypp::print(pypp::PyStr("pypp BRIDGE LIB TEST 1 RESULTS:"));
+    pypp::print(pseudo_fn());
+    pypp::print(pseudo_fn_a());
+    pypp::print(pseudo_fn_b());
+    pypp::print(pseudo_namespace::pseudo_fn_c());
 }

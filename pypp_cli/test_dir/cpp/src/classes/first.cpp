@@ -10,16 +10,16 @@ class _PrivateClass {
 };
 
 void classes_fn() {
-    print(PyStr("CLASSES RESULTS:"));
-    PyStr a = PyStr("hello");
+    pypp::print(pypp::PyStr("CLASSES RESULTS:"));
+    pypp::PyStr a = pypp::PyStr("hello");
     ClassA b = ClassA(1, a);
-    print(b.add(2));
-    print(b.b);
-    ClassWithPassByValue c = ClassWithPassByValue(1, PyStr("world"));
-    print(c.b);
-    PyStr d = PyStr("abc");
+    pypp::print(b.add(2));
+    pypp::print(b.b);
+    ClassWithPassByValue c = ClassWithPassByValue(1, pypp::PyStr("world"));
+    pypp::print(c.b);
+    pypp::PyStr d = pypp::PyStr("abc");
     ClassWithPassByValue e = ClassWithPassByValue(1, std::move(d));
-    print(e.b);
+    pypp::print(e.b);
     _PrivateClass f = _PrivateClass(3);
-    print(f.a);
+    pypp::print(f.a);
 }

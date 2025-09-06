@@ -1,27 +1,27 @@
 #include "if_elif_else/if_elif_else.h"
 
-PyStr if_elif_else_fn(int a, int b) {
-    PyStr ret;
+pypp::PyStr if_elif_else_fn(int a, int b) {
+    pypp::PyStr ret;
     if (a < b) {
-        ret = PyStr("less than");
+        ret = pypp::PyStr("less than");
     } else if (a == b) {
-        ret = PyStr("equal");
+        ret = pypp::PyStr("equal");
     } else {
-        ret = PyStr("greater than");
+        ret = pypp::PyStr("greater than");
     }
     return ret;
 }
 
-PyStr if_elif_elif_else_fn(int a, int b) {
-    PyStr ret;
+pypp::PyStr if_elif_elif_else_fn(int a, int b) {
+    pypp::PyStr ret;
     if (a < b) {
-        ret = PyStr("less than");
+        ret = pypp::PyStr("less than");
     } else if (a == b) {
-        ret = PyStr("equal");
+        ret = pypp::PyStr("equal");
     } else if (a > b) {
-        ret = PyStr("dunno");
+        ret = pypp::PyStr("dunno");
     } else {
-        ret = PyStr("greater than");
+        ret = pypp::PyStr("greater than");
     }
     return ret;
 }

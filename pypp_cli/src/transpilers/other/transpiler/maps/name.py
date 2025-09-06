@@ -10,7 +10,7 @@ from pypp_cli.src.transpilers.other.transpiler.maps.d_types import (
 
 
 NAME_MAP: NameMap = {
-    "str": {None: ToStringEntry("PyStr", [QInc("py_str.h")])},
+    "str": {None: ToStringEntry("pypp::PyStr", [QInc("py_str.h")])},
     # NOTE: technically I don't think this is necessary since int and int are the same
     "int": {None: ToStringEntry("int", [])},
     "float": {None: ToStringEntry("double", [])},
@@ -61,23 +61,23 @@ NAME_MAP: NameMap = {
             "uint64_t", [AngInc("cstdint")]
         )
     },
-    "list": {None: ToStringEntry("PyList", [QInc("py_list.h")])},
-    "dict": {None: ToStringEntry("PyDict", [QInc("py_dict.h")])},
+    "list": {None: ToStringEntry("pypp::PyList", [QInc("py_list.h")])},
+    "dict": {None: ToStringEntry("pypp::PyDict", [QInc("py_dict.h")])},
     "defaultdict": {
         PySpecificImpFrom("collections", "defaultdict"): ToStringEntry(
-            "PyDefaultDict", [QInc("py_dict_default.h")]
+            "pypp::PyDefaultDict", [QInc("py_dict_default.h")]
         )
     },
-    "tuple": {None: ToStringEntry("PyTup", [QInc("py_tuple.h")])},
-    "set": {None: ToStringEntry("PySet", [QInc("py_set.h")])},
-    "range": {None: ToStringEntry("PyRange", [QInc("py_range.h")])},
-    "slice": {None: ToStringEntry("PySlice", [QInc("slice/py_slice.h")])},
-    "enumerate": {None: ToStringEntry("PyEnumerate", [QInc("py_enumerate.h")])},
-    "zip": {None: ToStringEntry("PyZip", [QInc("py_zip.h")])},
-    "reversed": {None: ToStringEntry("PyReversed", [QInc("py_reversed.h")])},
+    "tuple": {None: ToStringEntry("pypp::PyTup", [QInc("py_tuple.h")])},
+    "set": {None: ToStringEntry("pypp::PySet", [QInc("py_set.h")])},
+    "range": {None: ToStringEntry("pypp::PyRange", [QInc("py_range.h")])},
+    "slice": {None: ToStringEntry("pypp::PySlice", [QInc("slice/py_slice.h")])},
+    "enumerate": {None: ToStringEntry("pypp::PyEnumerate", [QInc("py_enumerate.h")])},
+    "zip": {None: ToStringEntry("pypp::PyZip", [QInc("py_zip.h")])},
+    "reversed": {None: ToStringEntry("pypp::PyReversed", [QInc("py_reversed.h")])},
     "Uni": {
         PySpecificImpFrom("pypp_python", "Uni"): ToStringEntry(
-            "Uni", [QInc("pypp_union.h")]
+            "pypp::Uni", [QInc("pypp_union.h")]
         )
     },
 }

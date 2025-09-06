@@ -8,34 +8,37 @@
 void key_callback(GLFWwindow *_window, int key, int _scancode, int action,
                   int _mods) {
     if (action == GLFW_PRESS) {
-        print(PyStr(std::format("Key {} pressed", key)));
+        pypp::print(pypp::PyStr(std::format("Key {} pressed", key)));
     } else if (action == GLFW_RELEASE) {
-        print(PyStr(std::format("Key {} released", key)));
+        pypp::print(pypp::PyStr(std::format("Key {} released", key)));
     }
 }
 
 void mouse_button_callback(GLFWwindow *_window, int button, int action,
                            int _mods) {
     if (action == GLFW_PRESS) {
-        print(PyStr(std::format("Mouse button {} pressed", button)));
+        pypp::print(
+            pypp::PyStr(std::format("Mouse button {} pressed", button)));
     } else if (action == GLFW_RELEASE) {
-        print(PyStr(std::format("Mouse button {} released", button)));
+        pypp::print(
+            pypp::PyStr(std::format("Mouse button {} released", button)));
     }
 }
 
 void cursor_position_callback(GLFWwindow *_window, double xpos, double ypos) {
-    print(PyStr(std::format("Mouse moved to ({}, {})", xpos, ypos)));
+    pypp::print(
+        pypp::PyStr(std::format("Mouse moved to ({}, {})", xpos, ypos)));
 }
 
 void glfw_test_2() {
     if (!glfwInit()) {
-        throw PyppException(PyStr("Failed to initialize GLFW"));
+        throw pypp::PyppException(pypp::PyStr("Failed to initialize GLFW"));
     }
     GLFWwindow *window = glfwCreateWindow(
-        640, 480, PyStr("Hello World").str().c_str(), NULL, NULL);
+        640, 480, pypp::PyStr("Hello World").str().c_str(), NULL, NULL);
     if (!window) {
         glfwTerminate();
-        throw PyppException(PyStr("Failed to create GLFW window"));
+        throw pypp::PyppException(pypp::PyStr("Failed to create GLFW window"));
     }
     glfwMakeContextCurrent(window);
     glfwSetKeyCallback(window, key_callback);
@@ -53,7 +56,7 @@ int main() {
         glfw_test_2();
         return 0;
     } catch (...) {
-        handle_fatal_exception();
+        pypp::handle_fatal_exception();
         return EXIT_FAILURE;
     }
 }

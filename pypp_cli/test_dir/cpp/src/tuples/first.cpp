@@ -5,39 +5,40 @@
 #include "pypp_util/print.h"
 #include "pypp_util/to_py_str.h"
 
-void _inline_tuple(PyTup<double, PyStr> tup) { print(tup); }
+void _inline_tuple(pypp::PyTup<double, pypp::PyStr> tup) { pypp::print(tup); }
 
-PyTup<int, double> _get_tup() { return PyTup(1, 2.0); }
+pypp::PyTup<int, double> _get_tup() { return pypp::PyTup(1, 2.0); }
 
-void _argument_unpacking(int a, double b) { print(a, b); }
+void _argument_unpacking(int a, double b) { pypp::print(a, b); }
 
-void _arg_unpacking_fail(int a, int b, int c) { print(a, b, c); }
+void _arg_unpacking_fail(int a, int b, int c) { pypp::print(a, b, c); }
 
 void tuples_fn() {
-    print(PyStr("TUPLE RESULTS:"));
-    PyTup<int, double, PyStr> a = PyTup(1, 1.2, PyStr("a"));
-    print(to_pystr(a.count(2)));
-    print(to_pystr(a.index(1.2)));
+    pypp::print(pypp::PyStr("TUPLE RESULTS:"));
+    pypp::PyTup<int, double, pypp::PyStr> a =
+        pypp::PyTup(1, 1.2, pypp::PyStr("a"));
+    pypp::print(pypp::to_pystr(a.count(2)));
+    pypp::print(pypp::to_pystr(a.index(1.2)));
     int b = a.get<0>();
-    print(to_pystr(b));
-    print(to_pystr(PyTup(1, 2) == PyTup(1, 2)));
-    print(to_pystr(PyTup(1, 2) != PyTup(1, 2)));
-    print(to_pystr(PyTup(1, 2) < PyTup(1, 2)));
-    print(to_pystr(PyTup(1, 2) <= PyTup(1, 2)));
-    print(to_pystr(PyTup(1, 2) > PyTup(1, 2)));
-    print(to_pystr(PyTup(1, 2) >= PyTup(1, 2)));
-    print(PyTup(1, 2));
-    print(PyTup(1, 2, PyStr("a")));
-    print(to_pystr(PyTup(1, 2).len()));
-    _inline_tuple(PyTup(1.2, PyStr("z")));
+    pypp::print(pypp::to_pystr(b));
+    pypp::print(pypp::to_pystr(pypp::PyTup(1, 2) == pypp::PyTup(1, 2)));
+    pypp::print(pypp::to_pystr(pypp::PyTup(1, 2) != pypp::PyTup(1, 2)));
+    pypp::print(pypp::to_pystr(pypp::PyTup(1, 2) < pypp::PyTup(1, 2)));
+    pypp::print(pypp::to_pystr(pypp::PyTup(1, 2) <= pypp::PyTup(1, 2)));
+    pypp::print(pypp::to_pystr(pypp::PyTup(1, 2) > pypp::PyTup(1, 2)));
+    pypp::print(pypp::to_pystr(pypp::PyTup(1, 2) >= pypp::PyTup(1, 2)));
+    pypp::print(pypp::PyTup(1, 2));
+    pypp::print(pypp::PyTup(1, 2, pypp::PyStr("a")));
+    pypp::print(pypp::to_pystr(pypp::PyTup(1, 2).len()));
+    _inline_tuple(pypp::PyTup(1.2, pypp::PyStr("z")));
     auto [x, y, z] = a;
-    print(x, y, z);
+    pypp::print(x, y, z);
     auto [u, v] = _get_tup();
-    print(u, v);
-    PyList<int> c({1, 2, 3});
-    PyTup<int, PyList<int>> d = PyTup(1, c);
-    print(d);
-    print(PyStr("below will be [1, 2, 3] for Python, but [] for C++ because "
-                "the list was moved:"));
-    print(c);
+    pypp::print(u, v);
+    pypp::PyList<int> c({1, 2, 3});
+    pypp::PyTup<int, pypp::PyList<int>> d = pypp::PyTup(1, c);
+    pypp::print(d);
+    pypp::print(pypp::PyStr("below will be [1, 2, 3] for Python, but [] for "
+                            "C++ because the list was moved:"));
+    pypp::print(c);
 }

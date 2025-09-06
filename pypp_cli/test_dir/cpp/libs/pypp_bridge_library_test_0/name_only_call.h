@@ -2,7 +2,4 @@
 
 #include "py_str.h"
 
-PyStr name_only_call_fn_cpp()
-{
-    return PyStr("pseudo string");
-}
+pypp::PyStr name_only_call_fn_cpp() { return pypp::PyStr("pseudo string"); }

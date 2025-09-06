@@ -27,4 +27,4 @@ def lookup_cpp_exception_type(exception: str, d: Deps) -> str:
     if exception not in PY_TO_CPP_INCLUDE_MAP:
         return exception
     d.add_inc(PY_TO_CPP_INCLUDE_MAP[exception])
-    return "Pypp" + exception
+    return "pypp::Pypp" + exception

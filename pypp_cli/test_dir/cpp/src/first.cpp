@@ -1,11 +1,11 @@
 #include "first.h"
 
-PyStr return_something(int a, int b) {
-    PyStr ret;
+pypp::PyStr return_something(int a, int b) {
+    pypp::PyStr ret;
     if (a > b) {
-        ret = PyStr("abc");
+        ret = pypp::PyStr("abc");
     } else {
-        ret = PyStr("xyz");
+        ret = pypp::PyStr("xyz");
     }
     return ret;
 }

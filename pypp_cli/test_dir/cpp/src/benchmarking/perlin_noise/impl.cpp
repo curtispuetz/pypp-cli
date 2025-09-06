@@ -38,13 +38,13 @@ int PerlinNoise::_hash(int x, int y) {
     return _p[(_p[x % _p_len] + y) % _p_len];
 }
 
-PyTup<int, int> PerlinNoise::_gradient_vector(int x, int y) {
+pypp::PyTup<int, int> PerlinNoise::_gradient_vector(int x, int y) {
     int i = _hash(x, y) % 8;
     return GRADIENTS[i];
 }
 
-PyTup<PyTup<int, int>, PyTup<int, int>, PyTup<int, int>, PyTup<int, int>,
-      double, double>
+pypp::PyTup<pypp::PyTup<int, int>, pypp::PyTup<int, int>, pypp::PyTup<int, int>,
+            pypp::PyTup<int, int>, double, double>
 PerlinNoise::_calc_grad_vecs_and_relative_position(double x, double y) {
     int x0 = int(std::floor(x));
     int y0 = int(std::floor(y));
@@ -52,13 +52,14 @@ PerlinNoise::_calc_grad_vecs_and_relative_position(double x, double y) {
     int y1 = y0 + 1;
     double u = x - x0;
     double v = y - y0;
-    return PyTup(_gradient_vector(x0, y0), _gradient_vector(x1, y0),
-                 _gradient_vector(x0, y1), _gradient_vector(x1, y1), u, v);
+    return pypp::PyTup(_gradient_vector(x0, y0), _gradient_vector(x1, y0),
+                       _gradient_vector(x0, y1), _gradient_vector(x1, y1), u,
+                       v);
 }
 
 PerlinNoise create_perlin_noise(int permutation_table_size,
-                                random::Random &rng) {
-    PyList<int> arr_to_shuffle;
+                                pypp::random::Random &rng) {
+    pypp::PyList<int> arr_to_shuffle;
     for (int i = 1; i < permutation_table_size + 1; i += 1) {
         arr_to_shuffle.append(std::move(i));
     }

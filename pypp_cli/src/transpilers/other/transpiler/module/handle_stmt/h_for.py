@@ -19,7 +19,7 @@ def handle_for(node: ast.For, d: Deps) -> str:
     range_inc = QInc("py_range.h")
     has_range_include = d.cpp_includes.contains(range_inc)
     iter_str = d.handle_expr(node.iter)
-    if iter_str.startswith("PyRange(") and iter_str.endswith(")"):
+    if iter_str.startswith("pypp::PyRange(") and iter_str.endswith(")"):
         if not has_range_include:
             d.cpp_includes.discard(range_inc)
         # This is not necessary because PyRange can be iterated over directly, but if

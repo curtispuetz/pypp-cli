@@ -3,20 +3,21 @@
 #include "pypp_util/print.h"
 
 void string_esc_chars_fn() {
-    print(PyStr("STRING ESC CHARS RESULTS:"));
-    PyStr a = PyStr("\n");
-    PyStr b = PyStr("abcd\n");
-    PyStr c = PyStr("\t");
-    PyStr d = PyStr("abcd\t");
-    PyStr e = PyStr("\r");
-    PyStr f = PyStr("abcd\r");
-    PyStr g = PyStr("\b");
-    PyStr h = PyStr("abcd\b");
-    PyStr i = PyStr("\f");
-    PyStr j = PyStr("abcd\f");
-    PyStr k = PyStr("\\");
-    PyStr l1 = PyStr("abcd\\");
-    print(((((((((((a + b) + c) + d) + e) + f) + g) + h) + i) + j) + k) + l1);
-    PyStr m = PyStr("abcd\\\\");
-    print(m);
+    pypp::print(pypp::PyStr("STRING ESC CHARS RESULTS:"));
+    pypp::PyStr a = pypp::PyStr("\n");
+    pypp::PyStr b = pypp::PyStr("abcd\n");
+    pypp::PyStr c = pypp::PyStr("\t");
+    pypp::PyStr d = pypp::PyStr("abcd\t");
+    pypp::PyStr e = pypp::PyStr("\r");
+    pypp::PyStr f = pypp::PyStr("abcd\r");
+    pypp::PyStr g = pypp::PyStr("\b");
+    pypp::PyStr h = pypp::PyStr("abcd\b");
+    pypp::PyStr i = pypp::PyStr("\f");
+    pypp::PyStr j = pypp::PyStr("abcd\f");
+    pypp::PyStr k = pypp::PyStr("\\");
+    pypp::PyStr l1 = pypp::PyStr("abcd\\");
+    pypp::print(((((((((((a + b) + c) + d) + e) + f) + g) + h) + i) + j) + k) +
+                l1);
+    pypp::PyStr m = pypp::PyStr("abcd\\\\");
+    pypp::print(m);
 }

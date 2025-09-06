@@ -7,30 +7,30 @@
 #include <string>
 
 void throw_fn() {
-    print(PyStr("EXCEPTION RESULTS:"));
+    pypp::print(pypp::PyStr("EXCEPTION RESULTS:"));
     try {
-        throw PyppException(PyStr("test"));
-    } catch (const PyppException &) {
-        print(PyStr("exception happened"));
+        throw pypp::PyppException(pypp::PyStr("test"));
+    } catch (const pypp::PyppException &) {
+        pypp::print(pypp::PyStr("exception happened"));
     }
     try {
-        throw PyppTypeError(PyStr("test"));
-    } catch (const PyppTypeError &) {
-        print(PyStr("type error caught"));
+        throw pypp::PyppTypeError(pypp::PyStr("test"));
+    } catch (const pypp::PyppTypeError &) {
+        pypp::print(pypp::PyStr("type error caught"));
     }
     try {
-        throw PyppTypeError(PyStr("test"));
-    } catch (const PyppTypeError &pypp_e) {
+        throw pypp::PyppTypeError(pypp::PyStr("test"));
+    } catch (const pypp::PyppTypeError &pypp_e) {
         std::string e = pypp_e.what();
-        print(PyStr("type error caught: ") + to_pystr(e));
+        pypp::print(pypp::PyStr("type error caught: ") + pypp::to_pystr(e));
     }
     try {
-        throw PyppTypeError(PyStr("test"));
-    } catch (const PyppTypeError &) {
-        print(PyStr("type error caught"));
-    } catch (const PyppValueError &) {
-        print(PyStr("value error caught"));
-    } catch (const PyppException &) {
-        print(PyStr("other error caught"));
+        throw pypp::PyppTypeError(pypp::PyStr("test"));
+    } catch (const pypp::PyppTypeError &) {
+        pypp::print(pypp::PyStr("type error caught"));
+    } catch (const pypp::PyppValueError &) {
+        pypp::print(pypp::PyStr("value error caught"));
+    } catch (const pypp::PyppException &) {
+        pypp::print(pypp::PyStr("other error caught"));
     }
 }

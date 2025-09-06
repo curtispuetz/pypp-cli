@@ -2,6 +2,6 @@
 #include "pypp_util/print.h"
 
 int var_out_of_scope(bool condition) {
-    print(condition);
+    pypp::print(condition);
     return 1;
 }

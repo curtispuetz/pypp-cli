@@ -5,15 +5,15 @@
 #include <utility>
 
 void set_comprehension_fn() {
-    print(PyStr("SET COMPREHENSION RESULTS:"));
-    PySet<int> squares;
+    pypp::print(pypp::PyStr("SET COMPREHENSION RESULTS:"));
+    pypp::PySet<int> squares;
     for (int x = 0; x < 4; x += 1) {
         squares.add(x * x);
     }
-    print(PyStr(std::format("Squares: {}", squares)));
-    PySet<int> a;
+    pypp::print(pypp::PyStr(std::format("Squares: {}", squares)));
+    pypp::PySet<int> a;
     for (int i = 0; i < 4; i += 1) {
         a.add(std::move(i));
     }
-    print(a);
+    pypp::print(a);
 }

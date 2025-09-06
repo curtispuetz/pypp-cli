@@ -4,6 +4,7 @@
 #include "py_str.h"
 #include <fstream>
 
+namespace pypp {
 class PyTextIO {
   private:
     std::fstream file_stream;
@@ -180,3 +181,4 @@ class PyTextIO {
 
 //     return 0;
 // }
+} // namespace pypp

@@ -5,6 +5,7 @@
 #include <stdexcept>
 #include <vector>
 
+namespace pypp {
 namespace random {
 
 class Random {
@@ -43,3 +44,4 @@ template <typename T> T Random::choice(const PyList<T> &v) {
 }
 
 } // namespace random
+} // namespace pypp

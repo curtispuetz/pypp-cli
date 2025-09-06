@@ -2,8 +2,8 @@
 #include <string>
 #include <system_error>
 
+namespace pypp {
 class PyStr;
-
 class PyppOSError : public std::system_error {
   public:
     PyppOSError(const PyStr &msg, std::error_code ec);
@@ -15,3 +15,4 @@ class PyppSystemError : public std::system_error {
     PyppSystemError(const PyStr &msg, std::error_code ec);
     PyppSystemError(const std::string &msg, std::error_code ec);
 };
+} // namespace pypp

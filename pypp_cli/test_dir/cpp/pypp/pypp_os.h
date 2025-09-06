@@ -7,6 +7,7 @@
 #include <numeric>
 #include <vector>
 
+namespace pypp {
 namespace os {
 
 namespace fs = std::filesystem;
@@ -119,3 +120,4 @@ inline PyStr abspath(const PyStr &p) {
 
 } // namespace path
 } // namespace os
+} // namespace pypp

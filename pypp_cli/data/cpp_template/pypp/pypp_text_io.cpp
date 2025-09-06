@@ -4,6 +4,7 @@
 #include <stdexcept>
 #include <string>
 
+namespace pypp {
 void PyTextIO::check_file_open() const {
     if (!file_stream.is_open()) {
         throw std::runtime_error("File not open: " + filename_.str());
@@ -119,3 +120,4 @@ bool PyTextIO::good() const { return file_stream.good(); }
 bool PyTextIO::eof() const { return file_stream.eof(); }
 
 bool PyTextIO::fail() const { return file_stream.fail(); }
+} // namespace pypp

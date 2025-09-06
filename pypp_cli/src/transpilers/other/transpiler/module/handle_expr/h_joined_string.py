@@ -18,7 +18,7 @@ def handle_joined_string(node: ast.JoinedStr, d: Deps) -> str:
             std_format_args.append(handle_formatted_value(n, d))
     first_arg_str: str = "".join(std_format_first_arg)
     args_str: str = ", ".join(std_format_args)
-    return f'PyStr(std::format("{first_arg_str}", {args_str}))'
+    return f'pypp::PyStr(std::format("{first_arg_str}", {args_str}))'
 
 
 def handle_formatted_value(node: ast.FormattedValue, d: Deps) -> str:

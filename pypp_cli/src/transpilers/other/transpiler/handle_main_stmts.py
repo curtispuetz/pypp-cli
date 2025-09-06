@@ -19,7 +19,7 @@ def handle_main_stmts(stmts: list[ast.stmt], d: Deps) -> str:
         before_main
         + " int main() { try {"
         + inside_main
-        + "} catch (...) { handle_fatal_exception(); return EXIT_FAILURE;} }"
+        + "} catch (...) { pypp::handle_fatal_exception(); return EXIT_FAILURE;} }"
     )
 
 

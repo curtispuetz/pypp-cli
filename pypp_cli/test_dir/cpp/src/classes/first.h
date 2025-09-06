@@ -6,16 +6,16 @@
 class ClassA {
   public:
     int a;
-    PyStr &b;
-    ClassA(int a_a, PyStr &a_b) : a(std::move(a_a)), b(a_b) {}
+    pypp::PyStr &b;
+    ClassA(int a_a, pypp::PyStr &a_b) : a(std::move(a_a)), b(a_b) {}
     int add(int c);
 };
 
 class ClassWithPassByValue {
   public:
     int a;
-    PyStr b;
-    ClassWithPassByValue(int a_a, PyStr a_b)
+    pypp::PyStr b;
+    ClassWithPassByValue(int a_a, pypp::PyStr a_b)
         : a(std::move(a_a)), b(std::move(a_b)) {}
 };
 

@@ -14,7 +14,7 @@
 #include "pypp_util/print.h"
 #include <iostream>
 
-void _as_arg(PseudoCustomTypeCpp &arg) { print(arg.get_a()); }
+void _as_arg(PseudoCustomTypeCpp &arg) { pypp::print(arg.get_a()); }
 
 PseudoCustomTypeCpp _factory() { return PseudoCustomTypeCpp(100); }
 
@@ -38,33 +38,33 @@ struct _PseudoPyppName_ConfigClassA {
 inline _PseudoPyppName_ConfigClassA _ConfigClassA;
 
 void bridge_lib_test_0_fn() {
-    print(PyStr("pypp BRIDGE LIB TEST 0 RESULTS:"));
+    pypp::print(pypp::PyStr("pypp BRIDGE LIB TEST 0 RESULTS:"));
     PseudoCustomTypeCpp a = PseudoCustomTypeCpp(42);
     int b = a.get_a();
-    print(b);
+    pypp::print(b);
     _as_arg(a);
     _ClassA c = _ClassA(a);
-    print(c.get_a());
+    pypp::print(c.get_a());
     PseudoCustomTypeCpp d = _factory();
-    print(d.get_a());
+    pypp::print(d.get_a());
     _DataClassA e = _DataClassA(a);
-    print(e.pseudo_custom_type.get_a());
-    print(_ConfigClassA.pseudo_custom_type.get_a());
+    pypp::print(e.pseudo_custom_type.get_a());
+    pypp::print(_ConfigClassA.pseudo_custom_type.get_a());
     test_namespace::PseudoACpp f = test_namespace::PseudoACpp(7);
-    print(f.get_a());
-    print(name_only_call_fn_cpp());
-    print(include_only_call_fn());
-    PyTup<int, int> g = PyTup(1, 2);
-    print(g.get<1>());
+    pypp::print(f.get_a());
+    pypp::print(name_only_call_fn_cpp());
+    pypp::print(include_only_call_fn());
+    pypp::PyTup<int, int> g = pypp::PyTup(1, 2);
+    pypp::print(g.get<1>());
     PseudoGeneric<int> h = PseudoGeneric<int>(3);
     h.print_value();
-    PseudoGeneric<PyStr> i = PseudoGeneric<PyStr>::string_factory();
+    PseudoGeneric<pypp::PyStr> i = PseudoGeneric<pypp::PyStr>::string_factory();
     i.print_value();
     int j = dc_test::sub_namespace::test_fn();
-    print(j);
-    print(pseudo_fn_a());
-    print(m2::pseudo_fn_b());
-    std::cout << "[Custom Print]: " << PyStr("aloha") << std::endl;
-    PseudoCustomList<int> k(PyList({1, 2, 3}));
-    print(&k);
+    pypp::print(j);
+    pypp::print(pseudo_fn_a());
+    pypp::print(m2::pseudo_fn_b());
+    std::cout << "[Custom Print]: " << pypp::PyStr("aloha") << std::endl;
+    PseudoCustomList<int> k(pypp::PyList({1, 2, 3}));
+    pypp::print(&k);
 }

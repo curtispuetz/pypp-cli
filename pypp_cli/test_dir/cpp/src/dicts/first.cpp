@@ -6,69 +6,73 @@
 #include "pypp_util/to_py_str.h"
 #include <utility>
 
-void _inline_dict(PyDict<int, int> d) { print(d); }
+void _inline_dict(pypp::PyDict<int, int> d) { pypp::print(d); }
 
-PyDict<int, int> _get_dict() { return {{0, 1}, {1, 2}}; }
+pypp::PyDict<int, int> _get_dict() { return {{0, 1}, {1, 2}}; }
 
 void dict_fn() {
-    print(PyStr("DICT RESULTS:"));
-    PyDict<int, PyStr> a = {{0, PyStr("a")}, {1, PyStr("b")}, {2, PyStr("c")}};
-    print(a);
-    PyDict<int, int> g = {{0, 1}, {1, 2}};
+    pypp::print(pypp::PyStr("DICT RESULTS:"));
+    pypp::PyDict<int, pypp::PyStr> a = {
+        {0, pypp::PyStr("a")}, {1, pypp::PyStr("b")}, {2, pypp::PyStr("c")}};
+    pypp::print(a);
+    pypp::PyDict<int, int> g = {{0, 1}, {1, 2}};
     int g0 = g.dg(1);
-    print(g0);
-    print(a[0]);
-    a[3] = PyStr("d");
-    print(a);
-    PyStr val = a.setdefault(4, PyStr("e"));
-    print(val);
-    print(a);
-    val = a.setdefault(4, PyStr("f"));
-    print(val);
-    print(a);
+    pypp::print(g0);
+    pypp::print(a[0]);
+    a[3] = pypp::PyStr("d");
+    pypp::print(a);
+    pypp::PyStr val = a.setdefault(4, pypp::PyStr("e"));
+    pypp::print(val);
+    pypp::print(a);
+    val = a.setdefault(4, pypp::PyStr("f"));
+    pypp::print(val);
+    pypp::print(a);
     int x_key = 99;
-    PyStr x_val = PyStr("z");
+    pypp::PyStr x_val = pypp::PyStr("z");
     a[std::move(x_key)] = std::move(x_val);
-    print(a);
+    pypp::print(a);
     val = a.setdefault(std::move(x_key), std::move(x_val));
-    print(val);
-    print(a.keys());
-    print(a.values());
-    print(a.items());
-    PyDict<int, PyList<int>> d = {{0, PyList({1, 2, 3})},
-                                  {1, PyList({4, 5, 6})}};
-    print(d);
+    pypp::print(val);
+    pypp::print(a.keys());
+    pypp::print(a.values());
+    pypp::print(a.items());
+    pypp::PyDict<int, pypp::PyList<int>> d = {{0, pypp::PyList({1, 2, 3})},
+                                              {1, pypp::PyList({4, 5, 6})}};
+    pypp::print(d);
     d.clear();
-    d[0] = PyList({1});
-    print(d);
-    a.update({{4, PyStr("z")}, {5, PyStr("x")}});
-    print(a);
-    PyDict<int, PyStr> b = {{6, PyStr("y")}, {7, PyStr("w")}};
-    PyDict<int, PyStr> x_dict = {{8, PyStr("v")}, {9, PyStr("u")}};
+    d[0] = pypp::PyList({1});
+    pypp::print(d);
+    a.update({{4, pypp::PyStr("z")}, {5, pypp::PyStr("x")}});
+    pypp::print(a);
+    pypp::PyDict<int, pypp::PyStr> b = {{6, pypp::PyStr("y")},
+                                        {7, pypp::PyStr("w")}};
+    pypp::PyDict<int, pypp::PyStr> x_dict = {{8, pypp::PyStr("v")},
+                                             {9, pypp::PyStr("u")}};
     b.update(std::move(x_dict));
-    print(b);
-    PyStr pop_val = a.pop(1);
-    print(pop_val);
-    print(a);
-    pop_val = a.pop(10, PyStr("default value"));
-    print(pop_val);
-    print(a);
-    print(to_pystr(a.len()));
-    print(to_pystr(a.contains(5)));
-    PyDict<int, PyStr> a_copy = a.copy();
+    pypp::print(b);
+    pypp::PyStr pop_val = a.pop(1);
+    pypp::print(pop_val);
+    pypp::print(a);
+    pop_val = a.pop(10, pypp::PyStr("default value"));
+    pypp::print(pop_val);
+    pypp::print(a);
+    pypp::print(pypp::to_pystr(a.len()));
+    pypp::print(pypp::to_pystr(a.contains(5)));
+    pypp::PyDict<int, pypp::PyStr> a_copy = a.copy();
     a.pop(0);
-    print(a_copy);
-    print(a);
-    PyDict<int, int> e = {};
-    print(e);
-    PyDict<int, PyDict<int, int>> f = {{0, {{0, 1}}}, {1, {{0, 1}}}};
-    print(f);
-    PyDict<int, int> &f0 = f[0];
+    pypp::print(a_copy);
+    pypp::print(a);
+    pypp::PyDict<int, int> e = {};
+    pypp::print(e);
+    pypp::PyDict<int, pypp::PyDict<int, int>> f = {{0, {{0, 1}}},
+                                                   {1, {{0, 1}}}};
+    pypp::print(f);
+    pypp::PyDict<int, int> &f0 = f[0];
     f0[99] = 98;
-    print(f);
+    pypp::print(f);
     f[1][77] = 76;
-    print(f);
+    pypp::print(f);
     _inline_dict({{0, 1}, {1, 2}});
-    PyDict<int, int> h = _get_dict();
-    print(h);
+    pypp::PyDict<int, int> h = _get_dict();
+    pypp::print(h);
 }

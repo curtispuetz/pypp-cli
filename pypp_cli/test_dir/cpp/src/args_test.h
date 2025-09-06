@@ -6,7 +6,7 @@
 
 void int_arg(int a);
 void float_arg(double a);
-void str_arg(PyStr &a);
+void str_arg(pypp::PyStr &a);
 void bool_arg(bool a);
 void float32_arg(float a);
 void int8_t_arg(int8_t a);

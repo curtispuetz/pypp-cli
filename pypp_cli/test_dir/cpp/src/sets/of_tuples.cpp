@@ -5,7 +5,8 @@
 #include "pypp_util/print.h"
 
 void set_of_tuples_fn() {
-    print(PyStr("SET OF TUPLES RESULTS:"));
-    PySet<PyTup<int, int>> a({PyTup(1, 2), PyTup(3, 4)});
-    print(a);
+    pypp::print(pypp::PyStr("SET OF TUPLES RESULTS:"));
+    pypp::PySet<pypp::PyTup<int, int>> a(
+        {pypp::PyTup(1, 2), pypp::PyTup(3, 4)});
+    pypp::print(a);
 }

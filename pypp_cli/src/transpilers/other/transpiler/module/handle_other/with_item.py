@@ -12,7 +12,7 @@ def handle_with_item(nodes: list[ast.withitem], d: Deps) -> str:
     args_str = d.handle_exprs(args)
     variable_name = _assert_variable_name(node, error_str)
     d.add_inc(QInc("pypp_text_io.h"))
-    return f"PyTextIO {variable_name}({args_str});"
+    return f"pypp::PyTextIO {variable_name}({args_str});"
 
 
 def _assert_with_item_is_open(

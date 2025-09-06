@@ -7,19 +7,16 @@ GLuint gl_gen_buffer()
     return buffer;
 }
 
-PyList<GLuint> gl_gen_buffers(int n)
+pypp::PyList<GLuint> gl_gen_buffers(int n)
 {
-    PyList<GLuint> buffers(n);
+    pypp::PyList<GLuint> buffers(n);
     glGenBuffers(n, buffers.data_ref().data());
     return buffers;
 }
 
-void gl_delete_buffer(GLuint buffer)
-{
-    glDeleteBuffers(1, &buffer);
-}
+void gl_delete_buffer(GLuint buffer) { glDeleteBuffers(1, &buffer); }
 
-void gl_delete_buffers(PyList<GLuint> &buffers)
+void gl_delete_buffers(pypp::PyList<GLuint> &buffers)
 {
     glDeleteBuffers(buffers.len(), buffers.data_ref().data());
 }
@@ -31,30 +28,27 @@ GLuint gl_gen_vertex_array()
     return array;
 }
 
-PyList<GLuint> gl_gen_vertex_arrays(int n)
+pypp::PyList<GLuint> gl_gen_vertex_arrays(int n)
 {
-    PyList<GLuint> arrays(n);
+    pypp::PyList<GLuint> arrays(n);
     glGenVertexArrays(n, arrays.data_ref().data());
     return arrays;
 }
 
-void gl_delete_vertex_array(GLuint array)
-{
-    glDeleteVertexArrays(1, &array);
-}
+void gl_delete_vertex_array(GLuint array) { glDeleteVertexArrays(1, &array); }
 
-void gl_delete_vertex_arrays(PyList<GLuint> &arrays)
+void gl_delete_vertex_arrays(pypp::PyList<GLuint> &arrays)
 {
     glDeleteVertexArrays(arrays.len(), arrays.data_ref().data());
 }
 
-void gl_shader_source(GLuint shader, PyStr &source)
+void gl_shader_source(GLuint shader, pypp::PyStr &source)
 {
     const char *src = source.str().c_str();
     glShaderSource(shader, 1, &src, nullptr);
 }
 
-void gl_shader_sources(GLuint shader, PyList<PyStr> &sources)
+void gl_shader_sources(GLuint shader, pypp::PyList<pypp::PyStr> &sources)
 {
     std::vector<const char *> c_strs;
     c_strs.reserve(sources.len());
@@ -80,16 +74,16 @@ GLint gl_get_program_iv(GLuint program, GLenum pname)
     return param;
 }
 
-PyStr gl_get_shader_info_log(GLuint shader)
+pypp::PyStr gl_get_shader_info_log(GLuint shader)
 {
     char infoLog[512];
     glGetShaderInfoLog(shader, 512, nullptr, infoLog);
-    return PyStr(infoLog);
+    return pypp::PyStr(infoLog);
 }
 
-PyStr gl_get_program_info_log(GLuint program)
+pypp::PyStr gl_get_program_info_log(GLuint program)
 {
     char infoLog[512];
     glGetProgramInfoLog(program, 512, nullptr, infoLog);
-    return PyStr(infoLog);
+    return pypp::PyStr(infoLog);
 }

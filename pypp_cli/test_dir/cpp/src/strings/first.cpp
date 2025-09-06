@@ -7,64 +7,72 @@
 #include <utility>
 
 void string_ops() {
-    print(PyStr("STRING RESULTS:"));
-    PyStr s = PyStr("  abd  ");
-    print(s);
-    print(to_pystr(s.len()));
-    print(s[2]);
-    print(s[py_slice(2, 4, 1)]);
-    print(s[py_slice(0, 4, 1)]);
-    print(s[py_slice(3, std::nullopt, 1)]);
-    print(s[py_slice(2, 5, 2)]);
-    print(s[py_slice(2, std::nullopt, 2)]);
-    print(s[py_slice(0, std::nullopt, 1)]);
-    print(PyStr("invalid slice: "));
-    PyStr s_concat = PyStr("Hello ") + PyStr("World");
-    print(s_concat);
-    print(((PyStr("Hello") + PyStr(" ")) + PyStr("World")) + PyStr("!"));
-    print(PyStr("A") + PyStr("B"));
-    print(PyStr("AB") * 5);
-    print(PyStr("ab").upper());
-    print(PyStr("AB").lower());
-    print(to_pystr(PyStr("abcdefg").find(PyStr("b"))));
-    print(to_pystr(PyStr("abcbc").index(PyStr("bc"))));
-    print(to_pystr(PyStr("abab").rindex(PyStr("ab"))));
-    print(to_pystr(PyStr("ababab").count(PyStr("ab"))));
-    print(to_pystr(PyStr("abab").startswith(PyStr("ab"))));
-    print(to_pystr(PyStr("abab").endswith(PyStr("ab"))));
-    print(PyStr("abcdab").replace(PyStr("ab"), PyStr("xy")));
-    print(PyStr("abcdab").replace(PyStr("ab"), PyStr("xy"), 1));
-    print(s.strip());
-    print(s.lstrip());
-    print(s.rstrip());
-    print(to_pystr(PyStr("a") == PyStr("a")));
-    print(to_pystr(PyStr("a") > PyStr("a")));
-    print(to_pystr(PyStr("a") >= PyStr("a")));
-    print(to_pystr(PyStr("a") < PyStr("a")));
-    print(to_pystr(PyStr("a") <= PyStr("a")));
-    print(to_pystr(PyStr("a") != PyStr("a")));
-    print(s);
-    s += PyStr("n");
-    s += PyStr("");
-    print(s);
+    pypp::print(pypp::PyStr("STRING RESULTS:"));
+    pypp::PyStr s = pypp::PyStr("  abd  ");
+    pypp::print(s);
+    pypp::print(pypp::to_pystr(s.len()));
+    pypp::print(s[2]);
+    pypp::print(s[pypp::py_slice(2, 4, 1)]);
+    pypp::print(s[pypp::py_slice(0, 4, 1)]);
+    pypp::print(s[pypp::py_slice(3, std::nullopt, 1)]);
+    pypp::print(s[pypp::py_slice(2, 5, 2)]);
+    pypp::print(s[pypp::py_slice(2, std::nullopt, 2)]);
+    pypp::print(s[pypp::py_slice(0, std::nullopt, 1)]);
+    pypp::print(pypp::PyStr("invalid slice: "));
+    pypp::PyStr s_concat = pypp::PyStr("Hello ") + pypp::PyStr("World");
+    pypp::print(s_concat);
+    pypp::print(
+        ((pypp::PyStr("Hello") + pypp::PyStr(" ")) + pypp::PyStr("World")) +
+        pypp::PyStr("!"));
+    pypp::print(pypp::PyStr("A") + pypp::PyStr("B"));
+    pypp::print(pypp::PyStr("AB") * 5);
+    pypp::print(pypp::PyStr("ab").upper());
+    pypp::print(pypp::PyStr("AB").lower());
+    pypp::print(pypp::to_pystr(pypp::PyStr("abcdefg").find(pypp::PyStr("b"))));
+    pypp::print(pypp::to_pystr(pypp::PyStr("abcbc").index(pypp::PyStr("bc"))));
+    pypp::print(pypp::to_pystr(pypp::PyStr("abab").rindex(pypp::PyStr("ab"))));
+    pypp::print(pypp::to_pystr(pypp::PyStr("ababab").count(pypp::PyStr("ab"))));
+    pypp::print(
+        pypp::to_pystr(pypp::PyStr("abab").startswith(pypp::PyStr("ab"))));
+    pypp::print(
+        pypp::to_pystr(pypp::PyStr("abab").endswith(pypp::PyStr("ab"))));
+    pypp::print(
+        pypp::PyStr("abcdab").replace(pypp::PyStr("ab"), pypp::PyStr("xy")));
+    pypp::print(
+        pypp::PyStr("abcdab").replace(pypp::PyStr("ab"), pypp::PyStr("xy"), 1));
+    pypp::print(s.strip());
+    pypp::print(s.lstrip());
+    pypp::print(s.rstrip());
+    pypp::print(pypp::to_pystr(pypp::PyStr("a") == pypp::PyStr("a")));
+    pypp::print(pypp::to_pystr(pypp::PyStr("a") > pypp::PyStr("a")));
+    pypp::print(pypp::to_pystr(pypp::PyStr("a") >= pypp::PyStr("a")));
+    pypp::print(pypp::to_pystr(pypp::PyStr("a") < pypp::PyStr("a")));
+    pypp::print(pypp::to_pystr(pypp::PyStr("a") <= pypp::PyStr("a")));
+    pypp::print(pypp::to_pystr(pypp::PyStr("a") != pypp::PyStr("a")));
+    pypp::print(s);
+    s += pypp::PyStr("n");
+    s += pypp::PyStr("");
+    pypp::print(s);
     s *= 5;
-    print(s);
+    pypp::print(s);
     s *= -5;
-    print(s);
-    PyList<PyStr> l1 = PyStr("0,1,2").split(PyStr(","));
-    print(l1);
-    PyList<PyStr> l2 = PyStr("0 1 2").split();
-    print(l2);
-    print(PyStr(" ").join(PyList({PyStr("1"), PyStr("2"), PyStr("3")})));
-    PyStr s_joined = PyStr(", ").join(
-        PyList({PyStr("a"), PyStr("b"), PyStr("c"), PyStr("d")}));
-    print(s_joined);
-    PyStr a = PyStr("");
-    print(a);
-    PyList<PyStr> list_of_chars({});
-    for (const auto &c : PyStr("abcdefg")) {
-        PyStr ch = c;
+    pypp::print(s);
+    pypp::PyList<pypp::PyStr> l1 = pypp::PyStr("0,1,2").split(pypp::PyStr(","));
+    pypp::print(l1);
+    pypp::PyList<pypp::PyStr> l2 = pypp::PyStr("0 1 2").split();
+    pypp::print(l2);
+    pypp::print(pypp::PyStr(" ").join(
+        pypp::PyList({pypp::PyStr("1"), pypp::PyStr("2"), pypp::PyStr("3")})));
+    pypp::PyStr s_joined = pypp::PyStr(", ").join(
+        pypp::PyList({pypp::PyStr("a"), pypp::PyStr("b"), pypp::PyStr("c"),
+                      pypp::PyStr("d")}));
+    pypp::print(s_joined);
+    pypp::PyStr a = pypp::PyStr("");
+    pypp::print(a);
+    pypp::PyList<pypp::PyStr> list_of_chars({});
+    for (const auto &c : pypp::PyStr("abcdefg")) {
+        pypp::PyStr ch = c;
         list_of_chars.append(std::move(ch));
     }
-    print(list_of_chars);
+    pypp::print(list_of_chars);
 }

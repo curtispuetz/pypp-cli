@@ -1,6 +1,8 @@
 #include "stdexcept.h"
 #include <py_str.h>
 
+namespace pypp {
+
 PyppRuntimeError::PyppRuntimeError(const PyStr &msg)
     : std::runtime_error("PyppRuntimeError: " + msg.str()) {}
 PyppRuntimeError::PyppRuntimeError(const std::string &msg)
@@ -45,3 +47,5 @@ PyppAttributeError::PyppAttributeError(const PyStr &msg)
     : std::logic_error("PyppAttributeError: " + msg.str()) {}
 PyppAttributeError::PyppAttributeError(const std::string &msg)
     : std::logic_error("PyppAttributeError: " + msg) {}
+
+} // namespace pypp

@@ -7,12 +7,12 @@
 #include <string>
 
 void set_exceptions_fn() {
-    print(PyStr("SET EXCEPTIONS RESULTS:"));
-    PySet<int> a({1, 2});
+    pypp::print(pypp::PyStr("SET EXCEPTIONS RESULTS:"));
+    pypp::PySet<int> a({1, 2});
     try {
         a.remove(3);
-    } catch (const PyppKeyError &pypp_e) {
+    } catch (const pypp::PyppKeyError &pypp_e) {
         std::string e = pypp_e.what();
-        print(PyStr("key error: ") + to_pystr(e));
+        pypp::print(pypp::PyStr("key error: ") + pypp::to_pystr(e));
     }
 }

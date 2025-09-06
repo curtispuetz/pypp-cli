@@ -2,4 +2,4 @@
 
 #include "py_str.h"
 
-PyStr return_something(int a, int b);
+pypp::PyStr return_something(int a, int b);

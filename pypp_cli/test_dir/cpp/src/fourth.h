@@ -2,4 +2,4 @@
 
 #include "py_str.h"
 
-PyStr string_as_argument(PyStr input_str);
+pypp::PyStr string_as_argument(pypp::PyStr input_str);

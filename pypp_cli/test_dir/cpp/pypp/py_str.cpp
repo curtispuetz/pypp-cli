@@ -5,6 +5,7 @@
 #include <iostream>
 #include <sstream>
 
+namespace pypp {
 PyStr::PyStr(std::string &&str) : s(std::move(str)) {}
 
 PyStr PyStr::replace(const PyStr &old, const PyStr &replacement,
@@ -200,3 +201,4 @@ bool PyStr::operator>(const PyStr &other) const { return s > other.str(); }
 bool PyStr::operator>=(const PyStr &other) const { return s >= other.str(); }
 
 bool PyStr::operator!=(const PyStr &other) const { return s != other.str(); }
+} // namespace pypp

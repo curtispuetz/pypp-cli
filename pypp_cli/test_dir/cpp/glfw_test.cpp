@@ -6,13 +6,13 @@
 
 void glfw_test() {
     if (!glfwInit()) {
-        throw PyppException(PyStr("Failed to initialize GLFW"));
+        throw pypp::PyppException(pypp::PyStr("Failed to initialize GLFW"));
     }
     GLFWwindow *window = glfwCreateWindow(
-        640, 480, PyStr("Hello World").str().c_str(), NULL, NULL);
+        640, 480, pypp::PyStr("Hello World").str().c_str(), NULL, NULL);
     if (!window) {
         glfwTerminate();
-        throw PyppException(PyStr("Failed to create GLFW window"));
+        throw pypp::PyppException(pypp::PyStr("Failed to create GLFW window"));
     }
     glfwMakeContextCurrent(window);
     while (!glfwWindowShouldClose(window)) {
@@ -27,7 +27,7 @@ int main() {
         glfw_test();
         return 0;
     } catch (...) {
-        handle_fatal_exception();
+        pypp::handle_fatal_exception();
         return EXIT_FAILURE;
     }
 }

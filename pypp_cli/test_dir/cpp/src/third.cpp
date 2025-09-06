@@ -1,8 +1,8 @@
 #include "third.h"
 
-PyStr using_inline_string() {
-    if (PyStr("a") > PyStr("b")) {
-        return PyStr("10");
+pypp::PyStr using_inline_string() {
+    if (pypp::PyStr("a") > pypp::PyStr("b")) {
+        return pypp::PyStr("10");
     }
-    return PyStr("5");
+    return pypp::PyStr("5");
 }

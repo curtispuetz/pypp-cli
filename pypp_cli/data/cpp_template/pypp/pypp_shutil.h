@@ -4,6 +4,7 @@
 #include <filesystem>
 #include <string>
 
+namespace pypp {
 namespace shutil {
 // Recursively deletes a directory and all its contents, like Python's
 // shutil.rmtree(path)
@@ -16,3 +17,4 @@ inline void rmtree(const PyStr &path) {
     }
 }
 } // namespace shutil
+} // namespace pypp

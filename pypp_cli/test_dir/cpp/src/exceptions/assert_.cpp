@@ -4,7 +4,7 @@
 #include "pypp_util/print.h"
 
 void assert_fn() {
-    print(PyStr("ASSERT TESTS"));
-    assert(1 == 1, PyStr("should not fail"));
-    assert(1 == 1, PyStr(""));
+    pypp::print(pypp::PyStr("ASSERT TESTS"));
+    pypp::assert(1 == 1, pypp::PyStr("should not fail"));
+    pypp::assert(1 == 1, pypp::PyStr(""));
 }

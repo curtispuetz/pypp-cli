@@ -11,7 +11,7 @@ from pypp_cli.src.transpilers.other.transpiler.module.mapping.subscript_value im
 
 def handle_subscript(node: ast.Subscript, d: Deps) -> str:
     value_cpp_str = d.handle_expr(node.value)
-    if value_cpp_str == "PyDefaultDict":
+    if value_cpp_str == "pypp::PyDefaultDict":
         assert isinstance(node.slice, ast.Tuple), (
             "defaultdict must be called as defaultdict[KeyType, ValueType]"
         )

@@ -17,13 +17,13 @@ int ChildClass2::add(int val) { return add2(val); }
 int ChildMultiple::add(int val) { return (a + z) + val; }
 
 void class_inheritance_fn() {
-    print(PyStr("CLASS INHERITANCE RESULTS:"));
+    pypp::print(pypp::PyStr("CLASS INHERITANCE RESULTS:"));
     ChildClass a = ChildClass(2, 2);
-    print(a.add(3));
-    print(a.multiply(3));
+    pypp::print(a.add(3));
+    pypp::print(a.multiply(3));
     ChildClass2 b = ChildClass2(3, 3, 3);
-    print(b.add(4));
+    pypp::print(b.add(4));
     ChildMultiple c = ChildMultiple(4, 4, 4);
-    print(c.add(5));
-    print(c.mult2(5));
+    pypp::print(c.add(5));
+    pypp::print(c.mult2(5));
 }

@@ -52,5 +52,7 @@ def handle_attribute(node: ast.Attribute, d: Deps):
             if res.startswith(k):
                 d.add_incs(e.includes)
                 res = res.replace(".", "::")
+                if e.add_pypp_namespace:
+                    res = "pypp::" + res
                 return res
     return res

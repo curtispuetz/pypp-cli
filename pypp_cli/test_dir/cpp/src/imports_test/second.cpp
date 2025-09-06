@@ -4,7 +4,7 @@
 #include "pypp_util/print.h"
 
 void imports_test_fn2() {
-    print(PyStr("IMPORTS TEST RESULTS 2:"));
-    print(C);
-    print(MyConfig2.a, MyConfig2.b);
+    pypp::print(pypp::PyStr("IMPORTS TEST RESULTS 2:"));
+    pypp::print(C);
+    pypp::print(MyConfig2.a, MyConfig2.b);
 }

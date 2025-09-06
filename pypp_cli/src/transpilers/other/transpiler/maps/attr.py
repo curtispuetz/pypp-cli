@@ -36,7 +36,7 @@ def _ctypes_custom_mapping(node: ast.Attribute, _d, res_str: str):
 ATTR_MAP: AttrMap = {
     "random.Random": {
         PyImport("random"): ToStringEntry(
-            "random::Random",
+            "pypp::random::Random",
             [QInc("pypp_random.h")],
         )
     },

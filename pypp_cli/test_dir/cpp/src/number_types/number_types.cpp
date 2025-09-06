@@ -4,7 +4,7 @@
 #include <cstdint>
 
 void number_types_fn() {
-    print(PyStr("NUMBER TYPES RESULTS:"));
+    pypp::print(pypp::PyStr("NUMBER TYPES RESULTS:"));
     int8_t a = -1;
     int16_t b = -129;
     int32_t c = -32769;
@@ -13,7 +13,7 @@ void number_types_fn() {
     uint16_t f = 256;
     uint32_t g = 65536;
     uint64_t h = 4294967296;
-    print(a, b, c, d, e, f, g, h);
+    pypp::print(a, b, c, d, e, f, g, h);
     float i = 3.14;
-    print(i);
+    pypp::print(i);
 }

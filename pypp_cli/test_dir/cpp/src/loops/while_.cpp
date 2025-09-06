@@ -5,14 +5,14 @@
 #include <utility>
 
 void while_loop_fn() {
-    print(PyStr("WHILE LOOP RESULTS:"));
-    PyList<int> a({});
+    pypp::print(pypp::PyStr("WHILE LOOP RESULTS:"));
+    pypp::PyList<int> a({});
     int i = 0;
     while (i < 3) {
         a.append(std::move(i));
         i += 1;
     }
-    print(a);
+    pypp::print(a);
     while (true) {
         a.append(std::move(i));
         if (i > 3) {
@@ -20,7 +20,7 @@ void while_loop_fn() {
         }
         i += 1;
     }
-    print(a);
+    pypp::print(a);
     while (i < 7) {
         if (i == 5) {
             i += 1;
@@ -29,5 +29,5 @@ void while_loop_fn() {
         a.append(std::move(i));
         i += 1;
     }
-    print(a);
+    pypp::print(a);
 }

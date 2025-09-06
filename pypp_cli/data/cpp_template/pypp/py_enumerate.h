@@ -5,6 +5,7 @@
 #include <tuple> // Use std::tuple instead of PyTup
 #include <utility>
 
+namespace pypp {
 // Forward declaration of the iterator class
 template <typename T> class py_enumerate_iterator;
 
@@ -76,3 +77,4 @@ template <typename T> class py_enumerate_iterator {
     InnerIterator _it;
     size_t _index;
 };
+} // namespace pypp

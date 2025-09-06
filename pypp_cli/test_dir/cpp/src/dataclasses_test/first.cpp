@@ -7,22 +7,22 @@ struct _PrivateDataClass {
 };
 
 void dataclass_fn() {
-    print(PyStr("DATACLASS RESULTS:"));
-    FirstDataClass a =
-        FirstDataClass(PyStr("the answer to the universe and everything:"), 42);
-    print(a.field1, a.field2);
-    PyStr b = PyStr("abc");
+    pypp::print(pypp::PyStr("DATACLASS RESULTS:"));
+    FirstDataClass a = FirstDataClass(
+        pypp::PyStr("the answer to the universe and everything:"), 42);
+    pypp::print(a.field1, a.field2);
+    pypp::PyStr b = pypp::PyStr("abc");
     DataClassWithReference c = DataClassWithReference(b, 1);
-    print(c.field1, c.field2);
-    PyStr d = PyStr("xyz");
+    pypp::print(c.field1, c.field2);
+    pypp::PyStr d = pypp::PyStr("xyz");
     FirstDataClass e = FirstDataClass(std::move(d), 2);
-    print(e.field1, e.field2);
-    FrozenDataClass f = FrozenDataClass(PyStr("a"), 3);
-    print(f.field1, f.field2);
-    PyStr g = PyStr("abc");
+    pypp::print(e.field1, e.field2);
+    FrozenDataClass f = FrozenDataClass(pypp::PyStr("a"), 3);
+    pypp::print(f.field1, f.field2);
+    pypp::PyStr g = pypp::PyStr("abc");
     FrozenDataClassWithReference h = FrozenDataClassWithReference(g, 4);
-    print(h.field1, h.field2);
-    PyStr i = PyStr("xyz");
+    pypp::print(h.field1, h.field2);
+    pypp::PyStr i = pypp::PyStr("xyz");
     FrozenDataClass j = FrozenDataClass(std::move(i), 5);
-    print(j.field1, j.field2);
+    pypp::print(j.field1, j.field2);
 }

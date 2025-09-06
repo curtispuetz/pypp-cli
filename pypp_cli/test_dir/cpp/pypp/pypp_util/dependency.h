@@ -3,6 +3,8 @@
 #include <functional>
 #include <variant>
 
+namespace pypp {
+
 // A generic wrapper that can either own or reference a dependency
 template <typename T> class PyppDependency {
     std::variant<std::reference_wrapper<T>, T> data_;
@@ -30,3 +32,5 @@ template <typename T> class PyppDependency {
         }
     }
 };
+
+} // namespace pypp

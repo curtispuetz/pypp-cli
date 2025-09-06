@@ -3,6 +3,7 @@
 #include "pypp_util/floor_div.h"
 #include "slice/index_calculator.h"
 
+namespace pypp {
 PySlice::PySlice(std::optional<int> start, std::optional<int> stop, int step)
     : _start(start), _stop(stop), _step(step) {
     if (step == 0) {
@@ -65,3 +66,4 @@ std::ostream &operator<<(std::ostream &os, const PySlice &pyslice) {
     pyslice.print(os);
     return os;
 }
+} // namespace pypp
