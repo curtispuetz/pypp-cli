@@ -1,6 +1,5 @@
 from dataclasses import dataclass
 from pathlib import Path
-import sys
 
 from pypp_cli.src.other.pypp_paths.util import calc_sitepackages_dir
 
@@ -20,10 +19,7 @@ class DoPyppPaths:
 def create_do_pypp_paths(target_dir: Path) -> DoPyppPaths:
     cpp_dir = target_dir / "cpp"
     cpp_src_dir = cpp_dir / "src"
-    if sys.platform == "win32":
-        cpp_build_release_dir = cpp_dir / "build" / "Release"
-    else:
-        cpp_build_release_dir = cpp_dir / "build"
+    cpp_build_release_dir = cpp_dir / "build"
     python_dir = target_dir / "python"
     python_src_dir = python_dir / "src"
     pypp_files_dir = target_dir / "pypp_files"

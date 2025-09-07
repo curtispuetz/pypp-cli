@@ -8,7 +8,7 @@ from pypp_cli.src.transpilers.proj.transpile import pypp_transpile
 from pypp_cli.src.other.pypp_paths.do import DoPyppPaths, create_do_pypp_paths
 
 
-def pypp_do(tasks: list[str], target_dir: Path, exe_name: str | None) -> None:
+def pypp_do(tasks: list[str], target_dir: Path, exe_name: str) -> None:
     do_helper = _DoHelper(create_do_pypp_paths(target_dir), exe_name)
     task_methods = {
         "transpile": do_helper.transpile,
@@ -24,7 +24,7 @@ def pypp_do(tasks: list[str], target_dir: Path, exe_name: str | None) -> None:
 @dataclass(slots=True)
 class _DoHelper:
     _paths: DoPyppPaths
-    _exe_name: str | None
+    _exe_name: str
     _files_added_or_modified: list[Path] | None = None
 
     def transpile(self):
