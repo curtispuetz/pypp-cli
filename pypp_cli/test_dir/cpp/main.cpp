@@ -16,6 +16,7 @@
 #include "exceptions/custom_exceptions.h"
 #include "exceptions/throw_.h"
 #include "file_io/first.h"
+#include "file_io/test_is_here.h"
 #include "first.h"
 #include "fn_as_vars/first.h"
 #include "fourth.h"
@@ -140,6 +141,7 @@ int main() {
         me::class_nested_dependencies_fn();
         me::triple_quote_strings_fn();
         me::number_types_in_collections_fn();
+        me::test_is_here_fn();
         return 0;
     } catch (...) {
         pypp::handle_fatal_exception();
