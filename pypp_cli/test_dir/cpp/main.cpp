@@ -61,6 +61,7 @@
 #include "strings/f_strings.h"
 #include "strings/first.h"
 #include "subscriptable_types.h"
+#include "ternary_op.h"
 #include "third.h"
 #include "time_library/first.h"
 #include "triple_quote_strings.h"
@@ -142,6 +143,7 @@ int main() {
         me::triple_quote_strings_fn();
         me::number_types_in_collections_fn();
         me::test_is_here_fn();
+        me::ternary_op_fn();
         return 0;
     } catch (...) {
         pypp::handle_fatal_exception();

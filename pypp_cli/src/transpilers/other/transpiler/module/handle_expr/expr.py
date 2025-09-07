@@ -19,6 +19,9 @@ from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_constant imp
 from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_dict import (
     handle_dict,
 )
+from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_if_exp import (
+    handle_if_exp,
+)
 from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_joined_string import (  # noqa: E501
     handle_joined_string,
 )
@@ -52,6 +55,7 @@ from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_yield import
 from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_yield_from import (
     handle_yield_from,
 )
+from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_if import handle_if
 
 
 def handle_expr(node: ast.expr, d: Deps) -> str:
@@ -89,6 +93,8 @@ def handle_expr(node: ast.expr, d: Deps) -> str:
         return handle_yield(node, d)
     if isinstance(node, ast.YieldFrom):
         return handle_yield_from(node, d)
+    if isinstance(node, ast.IfExp):
+        return handle_if_exp(node, d)
     if isinstance(node, ast.Starred):
         raise Exception(
             "Starred expressions are only supported if they are the only argument in a "

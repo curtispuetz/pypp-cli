@@ -63,6 +63,7 @@ from pypp_union.first import pypp_union_fn
 from constants import constant_fn
 from number_types.number_types import number_types_fn
 from triple_quote_strings import triple_quote_strings_fn
+from ternary_op import ternary_op_fn
 
 if __name__ == "__main__":
     print(return_something(1, 9))
@@ -136,3 +137,4 @@ if __name__ == "__main__":
     triple_quote_strings_fn()
     number_types_in_collections_fn()
     test_is_here_fn()
+    ternary_op_fn()
