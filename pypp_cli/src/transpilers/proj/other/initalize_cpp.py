@@ -15,7 +15,7 @@ class CppProjectInitializer:
     _proj_info_file: Path
     _proj_info: ProjInfo
 
-    def initialize_of_cpp_dir_is_dirty(self):
+    def initialize_if_cpp_dir_is_dirty(self):
         if self._proj_info.cpp_dir_is_dirty:
             self._initialize()
         else:

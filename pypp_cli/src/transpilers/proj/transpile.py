@@ -13,7 +13,7 @@ from pypp_cli.src.other.pypp_paths.do import DoPyppPaths
 def pypp_transpile(paths: DoPyppPaths) -> list[Path]:
     a: AllData = create_all_data(paths)
 
-    a.cpp_project_initializer.initialize_of_cpp_dir_is_dirty()
+    a.cpp_project_initializer.initialize_if_cpp_dir_is_dirty()
 
     src_changes, main_changes = a.file_change_cltr.calc_changes()
 
