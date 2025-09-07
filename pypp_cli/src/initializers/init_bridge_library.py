@@ -27,6 +27,8 @@ def _create_cpp_hello_world(cpp_dir: Path, hello_world_h: Path, hello_world_cpp:
     hello_world_h.write_text(
         "\n".join(
             [
+                "// cpp src example",
+                "",
                 "#pragma once",
                 "",
                 "#include <py_str.h>",
@@ -38,6 +40,8 @@ def _create_cpp_hello_world(cpp_dir: Path, hello_world_h: Path, hello_world_cpp:
     hello_world_cpp.write_text(
         "\n".join(
             [
+                "// cpp src example",
+                "",
                 '#include "hello_world.h"',
                 "",
                 "PyStr hello_world_fn() {",
