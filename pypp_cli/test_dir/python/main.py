@@ -3,6 +3,7 @@ from classes.nested_dependencies import class_nested_dependencies_fn
 from custom_libs.bridge_lib_test_0.first import bridge_lib_test_0_fn
 from custom_libs.bridge_lib_test_1.first import bridge_lib_test_1_fn
 from exceptions.custom_exceptions import custom_exception_fn
+from file_io.test_is_here import test_is_here_fn
 from first import return_something
 from imports_test.first import imports_test_fn
 from imports_test.second import imports_test_fn2
@@ -134,3 +135,4 @@ if __name__ == "__main__":
     class_nested_dependencies_fn()
     triple_quote_strings_fn()
     number_types_in_collections_fn()
+    test_is_here_fn()
