@@ -16,6 +16,7 @@ def pypp_build(cpp_dir: Path):
         raise RuntimeError(
             "cmake not found. To use pypp, install cmake and ensure it is in your PATH."
         )
+    # cmake -S . -B build
     subprocess.check_call(["cmake", "-S", ".", "-B", "build"], cwd=cpp_dir)
     # cmake --build build --config Release
     subprocess.check_call(
