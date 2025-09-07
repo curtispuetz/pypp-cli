@@ -163,9 +163,9 @@ template <typename K, typename V> class PyDictItems {
             if (!first)
                 os << ", ";
             os << "(";
-            print_py_value(os, kv.get<0>());
+            print_py_value(os, kv.template get<0>());
             os << ", ";
-            print_py_value(os, kv.get<1>());
+            print_py_value(os, kv.template get<1>());
             os << ")";
             first = false;
         }

@@ -1,6 +1,8 @@
 #pragma once
 
 #include "py_dict.h"
+#include "py_set.h"
+#include "py_str.h"
 #include <functional>
 
 namespace pypp {

@@ -30,12 +30,12 @@ class CMakeListsWriter:
         add_lines, link_libs = self._calc_add_lines_and_link_libs_from_libraries()
         cmake_lines = [
             "cmake_minimum_required(VERSION 4.0)",
-            "project(pypp LANGUAGES CXX)",
+            "set(CMAKE_CXX_COMPILER clang++)",
+            "set(CMAKE_C_COMPILER clang)",
+            "project(pypp LANGUAGES C CXX)",
             "",
             "set(CMAKE_CXX_STANDARD 23)",
             "set(CMAKE_EXPORT_COMPILE_COMMANDS ON)",
-            "set(CMAKE_CXX_COMPILER clang++)",
-            "set(CMAKE_C_COMPILER clang)",
             "",
             *add_lines,
             "",

@@ -8,6 +8,10 @@ def pypp_build(cpp_dir: Path):
     # NOTE: you only need to do the first 'cmake -S . -B build' part if there was file
     #  changes to the code base. However, for simplicity, I will just do it each time.
     # cmake -S . -B build
+    # Note: The first cmake command you wana do is something like:
+    # cmake -S . -B build -G "Ninja" -DCMAKE_C_COMPILER=clang
+    # -DCMAKE_CXX_COMPILER=clang++
+    # because this sets up the build system to use the clang compiler.
     if shutil.which("cmake") is None:
         raise RuntimeError(
             "cmake not found. To use pypp, install cmake and ensure it is in your PATH."
