@@ -2,6 +2,8 @@ from pathlib import Path
 
 
 def find_libs(site_packages_dir: Path) -> tuple[list[str], list[str]]:
+    if not site_packages_dir.is_dir():
+        return [], []
     bridge = []
     pure = []
     for entry in site_packages_dir.iterdir():
