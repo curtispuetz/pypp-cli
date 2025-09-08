@@ -164,6 +164,22 @@ template <typename T> class PySet {
     // Size
     int len() const { return data.size(); }
 
+    // min
+    T min() const {
+        if (data.empty()) {
+            throw PyppValueError("min() set argument is empty");
+        }
+        return *std::min_element(data.begin(), data.end());
+    }
+
+    // max
+    T max() const {
+        if (data.empty()) {
+            throw PyppValueError("max() set argument is empty");
+        }
+        return *std::max_element(data.begin(), data.end());
+    }
+
     // Clear
     void clear() { data.clear(); }
 
