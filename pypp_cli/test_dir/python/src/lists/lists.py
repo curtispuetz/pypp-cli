@@ -116,3 +116,8 @@ def list_fn():
     i: list[int] = [5, 3, 1, 4, 2]
     i.sort()
     print(i)
+    # copy
+    j: list[int] = i[:]
+    j[1] = 99
+    print(i)
+    print(j)

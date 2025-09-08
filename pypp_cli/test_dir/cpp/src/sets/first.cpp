@@ -13,6 +13,8 @@ void set_fn() {
     pypp::print(pypp::PyStr("SET RESULTS:"));
     pypp::PySet<int> a({1, 2, 3});
     pypp::print(a);
+    pypp::PySet<int> c({});
+    pypp::print(c);
     a.add(4);
     pypp::print(a);
     int add_val = 4;
@@ -55,8 +57,6 @@ void set_fn() {
     pypp::PyList<pypp::PySet<int>> list_of_sets(
         {pypp::PySet({1, 2}), pypp::PySet({3, 4})});
     pypp::print(list_of_sets);
-    pypp::PySet<int> c({});
-    pypp::print(c);
     _inline_set(pypp::PySet({1.2, 4.4}));
 }
 
