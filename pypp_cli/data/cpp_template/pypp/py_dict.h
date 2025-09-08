@@ -184,6 +184,8 @@ template <typename K, typename V> class PyDict {
     // Constructors
     PyDict() = default;
     PyDict(std::initializer_list<std::pair<const K, V>> init) : data(init) {}
+    // range based constructor
+    template <typename Iter> PyDict(Iter begin, Iter end) : data(begin, end) {}
 
     // clear()
     void clear() { data.clear(); }
@@ -240,6 +242,7 @@ template <typename K, typename V> class PyDict {
 
     // operator[] allows for assignment, like Pythons dict[x] = y
     V &operator[](K &&key) { return data[std::move(key)]; }
+    V &operator[](const K &key) { return data[key]; }
 
     // Size
     int len() const { return data.size(); }

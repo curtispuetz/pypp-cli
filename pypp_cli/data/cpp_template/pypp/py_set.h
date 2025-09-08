@@ -18,6 +18,8 @@ template <typename T> class PySet {
     // Constructors
     PySet() = default;
     PySet(std::initializer_list<T> init) : data(init) {}
+    // range based constructor
+    template <typename Iter> PySet(Iter begin, Iter end) : data(begin, end) {}
 
     // Add an element
     void add(T &&value) { data.insert(value); }

@@ -1,4 +1,7 @@
 #include "args_test.h"
+#include "built_in_functions/dict_fn.h"
+#include "built_in_functions/list_fn.h"
+#include "built_in_functions/set_fn.h"
 #include "classes/first.h"
 #include "classes/inheritance.h"
 #include "classes/nested_dependencies.h"
@@ -148,6 +151,9 @@ int main() {
         me::ternary_op_fn();
         me::list_declaration_fn();
         me::list_operations_fn();
+        me::built_in_list_fn();
+        me::built_in_set_fn();
+        me::built_in_dict_fn();
         return 0;
     } catch (...) {
         pypp::handle_fatal_exception();

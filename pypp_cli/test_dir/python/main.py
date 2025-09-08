@@ -1,4 +1,7 @@
 from args_test import args_test_fn
+from built_in_functions.dict_fn import built_in_dict_fn
+from built_in_functions.list_fn import built_in_list_fn
+from built_in_functions.set_fn import built_in_set_fn
 from classes.nested_dependencies import class_nested_dependencies_fn
 from custom_libs.bridge_lib_test_0.first import bridge_lib_test_0_fn
 from custom_libs.bridge_lib_test_1.first import bridge_lib_test_1_fn
@@ -142,3 +145,6 @@ if __name__ == "__main__":
     ternary_op_fn()
     list_declaration_fn()
     list_operations_fn()
+    built_in_list_fn()
+    built_in_set_fn()
+    built_in_dict_fn()

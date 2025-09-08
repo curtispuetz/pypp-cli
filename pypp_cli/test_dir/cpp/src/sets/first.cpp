@@ -13,7 +13,7 @@ void set_fn() {
     pypp::print(pypp::PyStr("SET RESULTS:"));
     pypp::PySet<int> a({1, 2, 3});
     pypp::print(a);
-    pypp::PySet<int> c({});
+    pypp::PySet<int> c = pypp::PySet<int>();
     pypp::print(c);
     a.add(4);
     pypp::print(a);
