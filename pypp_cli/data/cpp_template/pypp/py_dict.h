@@ -204,6 +204,22 @@ template <typename K, typename V> class PyDict {
         return it->second;
     }
 
+    V &get(const K &key, const V &default_value) {
+        auto it = data.find(key);
+        if (it == data.end())
+            return const_cast<V &>(default_value);
+        return it->second;
+    }
+
+    V &setdefault(const K &&key, V &&default_value) {
+        auto [it, inserted] =
+            data.emplace(std::move(key), std::move(default_value));
+        return it->second;
+    }
+
+    // TODO: confirm if I can assign DictKeys and DictValues to variables and
+    // pass them around.
+
     // update(other_dict)
     void update(PyDict<K, V> &&other) {
         for (auto &[key, value] : other.data)
@@ -228,13 +244,6 @@ template <typename K, typename V> class PyDict {
             return value;
         }
         return default_value;
-    }
-
-    // setdefault(key, default)
-    V &setdefault(const K &&key, V &&default_value) {
-        auto [it, inserted] =
-            data.emplace(std::move(key), std::move(default_value));
-        return it->second;
     }
 
     // contains(key)
