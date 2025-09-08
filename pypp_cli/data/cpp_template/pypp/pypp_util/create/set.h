@@ -21,4 +21,6 @@ template <typename T, typename U> PySet<T> set(const PyDict<T, U> &dict) {
 
 PySet<PyStr> set(const PyStr &s);
 
+template <typename T> PySet<T> set() { return PySet<T>(); }
+
 }

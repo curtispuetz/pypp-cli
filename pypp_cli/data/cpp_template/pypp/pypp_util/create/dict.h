@@ -20,4 +20,7 @@ PyDict<T, U> dict(const PyList<PyTup<T, U>> &lst_of_tuples) {
     }
     return dict;
 }
+
+template <typename T, typename U> PyDict<T, U> dict() { return PyDict<T, U>(); }
+
 } // namespace pypp
