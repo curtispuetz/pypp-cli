@@ -16,6 +16,8 @@ void dict_fn() {
     pypp::PyDict<int, pypp::PyStr> a = {
         {0, pypp::PyStr("a")}, {1, pypp::PyStr("b")}, {2, pypp::PyStr("c")}};
     pypp::print(a);
+    pypp::PyDict<int, pypp::PyStr> a_0 = {};
+    pypp::print(a_0);
     pypp::PyDict<int, int> g = {{0, 1}, {1, 2}};
     int g0 = g.dg(1);
     pypp::print(g0);
