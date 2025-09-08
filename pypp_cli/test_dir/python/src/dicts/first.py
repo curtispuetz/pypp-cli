@@ -14,6 +14,9 @@ def dict_fn():
     # declaration
     a: dict[int, str] = {0: "a", 1: "b", 2: "c"}
     print(a)
+    # empty
+    a_0: dict[int, str] = {}
+    print(a_0)
     # dg (better than access with [] because it throws)
     g: dict[int, int] = {0: 1, 1: 2}
     g0: int = dg(g, 1)
