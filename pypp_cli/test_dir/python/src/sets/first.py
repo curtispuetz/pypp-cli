@@ -10,6 +10,9 @@ def set_fn():
     # declaration
     a: set[int] = {1, 2, 3}
     print(a)
+    # initialize empty
+    c: set[int] = set()
+    print(c)
     # adding
     a.add(4)
     print(a)
@@ -67,8 +70,5 @@ def set_fn():
     # list of sets
     list_of_sets: list[set[int]] = [{1, 2}, {3, 4}]
     print(list_of_sets)
-    # initialize empty
-    c: set[int] = set()
-    print(c)
     # inline passing
     _inline_set({1.2, 4.4})

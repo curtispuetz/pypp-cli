@@ -88,6 +88,10 @@ void list_fn() {
     pypp::PyList<int> i({5, 3, 1, 4, 2});
     i.sort();
     pypp::print(i);
+    pypp::PyList<int> j = i[pypp::py_slice(0, std::nullopt, 1)];
+    j[1] = 99;
+    pypp::print(i);
+    pypp::print(j);
 }
 
 } // namespace me
