@@ -1,3 +1,7 @@
+from collections import defaultdict
+from pypp_python import auto
+
+
 def built_in_set_fn():
     print("BUILT-IN set FUNCTION RESULTS:")
     a: set[int] = {1, 2, 3}
@@ -14,3 +18,6 @@ def built_in_set_fn():
     print(f)
     g: set[str] = set[str]()
     print(g)
+    h: auto = defaultdict[int, str](str, {1: "one"})
+    i: set[int] = set(h)
+    print(i)

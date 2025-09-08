@@ -1,6 +1,7 @@
 #pragma once
 
 #include "py_dict.h"
+#include "py_dict_default.h"
 #include "py_list.h"
 #include "py_set.h"
 #include "py_str.h"
@@ -15,6 +16,12 @@ template <typename T> PyList<T> list(const PyList<T> &lst) {
 }
 
 template <typename T, typename U> PyList<T> list(const PyDict<T, U> &dict) {
+    auto keys = dict.keys();
+    return PyList<T>(keys.begin(), keys.end());
+}
+
+template <typename T, typename U>
+PyList<T> list(const PyDefaultDict<T, U> &dict) {
     auto keys = dict.keys();
     return PyList<T>(keys.begin(), keys.end());
 }

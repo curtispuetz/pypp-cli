@@ -1,5 +1,6 @@
 #include "built_in_functions/list_fn.h"
 #include "py_dict.h"
+#include "py_dict_default.h"
 #include "py_list.h"
 #include "py_set.h"
 #include "py_str.h"
@@ -24,6 +25,10 @@ void built_in_list_fn() {
     pypp::print(f);
     pypp::PyList<pypp::PyStr> g = pypp::PyList<pypp::PyStr>();
     pypp::print(g);
+    auto h = pypp::PyDefaultDict<int, pypp::PyStr>::str_factory(
+        {{1, pypp::PyStr("one")}});
+    pypp::PyList<int> i = pypp::list(h);
+    pypp::print(i);
 }
 
 } // namespace me
