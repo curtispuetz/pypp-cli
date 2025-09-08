@@ -20,4 +20,7 @@ template <typename T, typename U> PyList<T> list(const PyDict<T, U> &dict) {
 }
 
 PyList<PyStr> list(const PyStr &s);
+
+template <typename T> PyList<T> list() { return PyList<T>(); }
+
 } // namespace pypp
