@@ -11,7 +11,10 @@
 #include "custom_libs/bridge_lib_test_1/first.h"
 #include "dataclasses_test/first.h"
 #include "dataclasses_test/with_methods.h"
+#include "default_dict/create_with_defaults.h"
 #include "default_dict/first.h"
+#include "default_dict/methods.h"
+#include "default_dict/operations.h"
 #include "dicts/comprehensions.h"
 #include "dicts/exceptions.h"
 #include "dicts/first.h"
@@ -158,6 +161,9 @@ int main() {
         me::built_in_dict_fn();
         me::set_operations_fn();
         me::dict_operations_fn();
+        me::default_dict_operations_fn();
+        me::default_dict_methods_fn();
+        me::default_dict_create_with_defaults();
         return 0;
     } catch (...) {
         pypp::handle_fatal_exception();
