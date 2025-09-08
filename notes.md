@@ -30,3 +30,5 @@ with an underscore. But if you don't name it starting with an underscore the con
 to the header file in the transpiled C++ (this is the little nuance).
 - When setting a default dict variable you must specify it as auto.
 - pypp_time must be imported exactly like this 'import pypp_python.stl.pypp_time as pypp_time'
+- Feature requests:
+    - set operations like "|", "^", "&", etc.

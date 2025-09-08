@@ -11,7 +11,7 @@ def set_fn():
     a: set[int] = {1, 2, 3}
     print(a)
     # initialize empty
-    c: set[int] = set()
+    c: set[int] = set[int]()
     print(c)
     # adding
     a.add(4)

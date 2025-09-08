@@ -4,6 +4,8 @@ from pathlib import Path
 def find_added_and_deleted_libs(
     cpp_dir: Path, bridge_libs: list[str], pure_libs: list[str]
 ) -> tuple[list[str], list[str], list[str]]:
+    # TODO: fix the issue here. Because it relies on there being a cpp lib directory
+    #  for the bridge library, but not all bridge libraries have such a directory.
     libs_dir: Path = cpp_dir / "libs"
     if not libs_dir.is_dir():
         return bridge_libs, pure_libs, []

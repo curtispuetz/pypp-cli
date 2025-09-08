@@ -104,6 +104,13 @@ CALL_MAP: CallMap = {
             "", ".str().c_str()", []
         )
     },
+    "pypp::PyList": {
+        None: ToStringEntry("pypp::list", [QInc("pypp_util/create/list.h")])
+    },
+    "pypp::PyDict": {
+        None: ToStringEntry("pypp::dict", [QInc("pypp_util/create/dict.h")])
+    },
+    "pypp::PySet": {None: ToStringEntry("pypp::set", [QInc("pypp_util/create/set.h")])},
     "pypp::PyStr": {
         None: ToStringEntry("pypp::to_pystr", [QInc("pypp_util/to_py_str.h")])
     },

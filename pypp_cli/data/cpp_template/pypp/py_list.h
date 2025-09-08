@@ -40,6 +40,8 @@ template <typename T> class PyList {
     PyList(std::initializer_list<T> init) : data(init) {}
     PyList(const int size, const T &value) : data(size, value) {}
     PyList(const int size) : data(size) {}
+    // range based constructor
+    template <typename Iter> PyList(Iter begin, Iter end) : data(begin, end) {}
 
     void append(T &&value) { data.push_back(std::move(value)); }
 

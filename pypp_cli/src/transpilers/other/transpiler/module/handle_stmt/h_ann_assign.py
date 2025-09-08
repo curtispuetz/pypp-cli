@@ -71,10 +71,7 @@ def handle_general_ann_assign(
     direct_initialize: bool = False
     value_str: str = ""
     if isinstance(node.value, ast.Call) and isinstance(node.value.func, ast.Name):
-        if node.value.func.id == "set":
-            direct_initialize = True
-            value_str = "{}"
-        elif node.value.func.id in LIST_INIT_FNS:
+        if node.value.func.id in LIST_INIT_FNS:
             direct_initialize = True
             value_str = d.handle_exprs(node.value.args)
     if value_str == "":
