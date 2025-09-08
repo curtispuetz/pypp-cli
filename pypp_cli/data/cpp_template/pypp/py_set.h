@@ -34,6 +34,17 @@ template <typename T> class PySet {
     // Discard an element (no error if not found)
     void discard(const T &value) { data.erase(value); }
 
+    // pop
+    T pop() {
+        if (data.empty()) {
+            throw PyppKeyError("pop from an empty set");
+        }
+        auto it = data.begin();
+        T value = *it;
+        data.erase(it);
+        return value;
+    }
+
     // Check membership
     bool contains(const T &value) const {
         return data.find(value) != data.end();

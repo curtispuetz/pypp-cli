@@ -54,6 +54,8 @@ void set_fn() {
     pypp::print(pypp::to_pystr(pypp::PySet({1, 2}) != pypp::PySet({1, 2})));
     a.clear();
     pypp::print(a);
+    pypp::print(b.pop());
+    pypp::print(b);
     pypp::PyList<pypp::PySet<int>> list_of_sets(
         {pypp::PySet({1, 2}), pypp::PySet({3, 4})});
     pypp::print(list_of_sets);

@@ -67,6 +67,9 @@ def set_fn():
     # clear
     a.clear()
     print(a)
+    # pop
+    print(b.pop())
+    print(b)
     # list of sets
     list_of_sets: list[set[int]] = [{1, 2}, {3, 4}]
     print(list_of_sets)
