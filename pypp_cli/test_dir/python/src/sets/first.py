@@ -73,6 +73,11 @@ def set_fn():
     # pop
     print(b.pop())
     print(b)
+    # copy
+    d: set[int] = {1, 2}
+    e: set[int] = d.copy()
+    d.add(3)
+    print(f"original: {d}, copied set: {e}")
     # list of sets
     list_of_sets: list[set[int]] = [{1, 2}, {3, 4}]
     print(list_of_sets)

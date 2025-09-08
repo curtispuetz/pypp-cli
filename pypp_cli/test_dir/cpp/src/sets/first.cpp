@@ -58,6 +58,10 @@ void set_fn() {
     pypp::print(a);
     pypp::print(b.pop());
     pypp::print(b);
+    pypp::PySet<int> d({1, 2});
+    pypp::PySet<int> e = d.copy();
+    d.add(3);
+    pypp::print(pypp::PyStr(std::format("original: {}, copied set: {}", d, e)));
     pypp::PyList<pypp::PySet<int>> list_of_sets(
         {pypp::PySet({1, 2}), pypp::PySet({3, 4})});
     pypp::print(list_of_sets);

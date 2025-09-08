@@ -117,7 +117,11 @@ def list_fn():
     i.sort()
     print(i)
     # copy
-    j: list[int] = i[:]
-    j[1] = 99
-    print(i)
-    print(j)
+    j: list[int] = [1, 2]
+    k: list[int] = j.copy()
+    j.append(3)
+    print(f"original: {j}, copied list: {k}")
+    # copy option 2
+    l: list[int] = k[:]
+    k.append(4)
+    print(f"original: {k}, copied list: {l}")

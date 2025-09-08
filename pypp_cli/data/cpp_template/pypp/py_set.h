@@ -157,6 +157,12 @@ template <typename T> class PySet {
         return true;
     }
 
+    PySet<T> copy() const {
+        PySet<T> new_set;
+        new_set.data = data;
+        return new_set;
+    }
+
     bool operator==(const PySet<T> &other) const { return data == other.data; }
 
     bool operator!=(const PySet<T> &other) const { return data != other.data; }
