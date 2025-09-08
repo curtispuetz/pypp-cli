@@ -28,6 +28,7 @@
 #include "lambdas.h"
 #include "lists/as_arg.h"
 #include "lists/comprehensions.h"
+#include "lists/declaration.h"
 #include "lists/exceptions.h"
 #include "lists/lists.h"
 #include "lists/ownership.h"
@@ -144,6 +145,7 @@ int main() {
         me::number_types_in_collections_fn();
         me::test_is_here_fn();
         me::ternary_op_fn();
+        me::list_declaration_fn();
         return 0;
     } catch (...) {
         pypp::handle_fatal_exception();
