@@ -163,10 +163,6 @@ template <typename T> class PySet {
         return new_set;
     }
 
-    bool operator==(const PySet<T> &other) const { return data == other.data; }
-
-    bool operator!=(const PySet<T> &other) const { return data != other.data; }
-
     // Size
     int len() const { return data.size(); }
 
@@ -188,6 +184,10 @@ template <typename T> class PySet {
 
     // Clear
     void clear() { data.clear(); }
+
+    // Lexicographical comparison
+    bool operator==(const PySet<T> &other) const { return data == other.data; }
+    bool operator!=(const PySet<T> &other) const { return data != other.data; }
 
     // Iterator support
     auto begin() { return data.begin(); }

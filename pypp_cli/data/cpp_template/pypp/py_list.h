@@ -183,16 +183,12 @@ template <typename T> class PyList {
         return result;
     }
 
+    // Lexicographical comparison
     bool operator==(const PyList<T> &other) const { return data == other.data; }
-
     bool operator!=(const PyList<T> &other) const { return data != other.data; }
-
     bool operator<(const PyList<T> &other) const { return data < other.data; }
-
     bool operator<=(const PyList<T> &other) const { return data <= other.data; }
-
     bool operator>(const PyList<T> &other) const { return data > other.data; }
-
     bool operator>=(const PyList<T> &other) const { return data >= other.data; }
 
     PyList<T> operator+(const PyList<T> &other) const {

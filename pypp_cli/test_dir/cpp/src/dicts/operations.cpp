@@ -18,6 +18,18 @@ void dict_operations_fn() {
     pypp::print(a.len());
     pypp::print(a.min());
     pypp::print(a.max());
+    pypp::PyDict<int, pypp::PyStr> b = {{1, pypp::PyStr("one")},
+                                        {2, pypp::PyStr("two")},
+                                        {3, pypp::PyStr("three")}};
+    if (a == b) {
+        pypp::print(pypp::PyStr("is equal"));
+    }
+    pypp::PyDict<int, pypp::PyStr> c = {{1, pypp::PyStr("one")},
+                                        {2, pypp::PyStr("two")},
+                                        {3, pypp::PyStr("thee")}};
+    if (a != c) {
+        pypp::print(pypp::PyStr("is not equal"));
+    }
 }
 
 } // namespace me

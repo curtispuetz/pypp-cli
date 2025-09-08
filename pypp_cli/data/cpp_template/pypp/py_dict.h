@@ -276,6 +276,14 @@ template <typename K, typename V> class PyDict {
         return it->first;
     }
 
+    // Lexicographical comparison
+    bool operator==(const PyDict<K, V> &other) const {
+        return data == other.data;
+    }
+    bool operator!=(const PyDict<K, V> &other) const {
+        return data != other.data;
+    }
+
     // copy()
     PyDict<K, V> copy() const {
         PyDict<K, V> new_dict;
