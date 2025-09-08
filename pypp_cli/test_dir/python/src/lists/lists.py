@@ -112,3 +112,7 @@ def list_fn():
     h: list[str] = ["e", "f"]
     e.extend(mov(h))
     print(e)
+    # sort
+    i: list[int] = [5, 3, 1, 4, 2]
+    i.sort()
+    print(i)
