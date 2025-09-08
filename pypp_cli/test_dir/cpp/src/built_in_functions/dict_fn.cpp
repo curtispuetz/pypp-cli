@@ -1,5 +1,6 @@
 #include "built_in_functions/dict_fn.h"
 #include "py_dict.h"
+#include "py_dict_default.h"
 #include "py_list.h"
 #include "py_str.h"
 #include "py_tuple.h"
@@ -22,6 +23,10 @@ void built_in_dict_fn() {
     pypp::print(c);
     pypp::PyDict<double, pypp::PyStr> d = pypp::PyDict<double, pypp::PyStr>();
     pypp::print(d);
+    auto e = pypp::PyDefaultDict<pypp::PyStr, int>::int_factory(
+        {{pypp::PyStr("one"), 1}});
+    pypp::PyDict<pypp::PyStr, int> f = pypp::dict(e);
+    pypp::print(f);
 }
 
 } // namespace me

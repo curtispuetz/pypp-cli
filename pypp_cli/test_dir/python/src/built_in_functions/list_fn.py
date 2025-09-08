@@ -1,3 +1,7 @@
+from collections import defaultdict
+from pypp_python import auto
+
+
 def built_in_list_fn():
     print("BUILT-IN LIST FUNCTION RESULTS:")
     a: list[int] = [1, 2, 3]
@@ -14,3 +18,6 @@ def built_in_list_fn():
     print(f)
     g: list[str] = list[str]()
     print(g)
+    h: auto = defaultdict[int, str](str, {1: "one"})
+    i: list[int] = list(h)
+    print(i)
