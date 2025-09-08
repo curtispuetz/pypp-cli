@@ -92,6 +92,8 @@ CALL_MAP: CallMap = {
         )
     },
     "len": {None: LeftAndRightEntry("", ".len()", [])},
+    "min": {None: LeftAndRightEntry("", ".min()", [])},
+    "max": {None: LeftAndRightEntry("", ".max()", [])},
     "to_std_string": {
         PySpecificImpFrom("pypp_python", "to_std_string"): LeftAndRightEntry(
             "", ".str()", []

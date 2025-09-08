@@ -31,6 +31,7 @@
 #include "lists/declaration.h"
 #include "lists/exceptions.h"
 #include "lists/lists.h"
+#include "lists/operations.h"
 #include "lists/ownership.h"
 #include "loops/enumerate_.h"
 #include "loops/for_.h"
@@ -146,6 +147,7 @@ int main() {
         me::test_is_here_fn();
         me::ternary_op_fn();
         me::list_declaration_fn();
+        me::list_operations_fn();
         return 0;
     } catch (...) {
         pypp::handle_fatal_exception();

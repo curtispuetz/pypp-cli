@@ -118,6 +118,22 @@ template <typename T> class PyList {
     // Size
     int len() const { return data.size(); }
 
+    // min
+    T min() const {
+        if (data.empty()) {
+            throw PyppValueError("min() iterable argument is empty");
+        }
+        return *std::min_element(data.begin(), data.end());
+    }
+
+    // max
+    T max() const {
+        if (data.empty()) {
+            throw PyppValueError("max() iterable argument is empty");
+        }
+        return *std::max_element(data.begin(), data.end());
+    }
+
     // Operator []
     // So modifications of operators are allowed?
     T &operator[](int index) {
