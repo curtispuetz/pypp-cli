@@ -1,4 +1,5 @@
 import ast
+from typing import Callable
 
 from pypp_cli.src.transpilers.other.transpiler.deps import Deps
 from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_comp import (
@@ -44,6 +45,9 @@ def handle_ann_assign(node: ast.AnnAssign, d: Deps) -> str:
     return result
 
 
+LIST_INIT_FNS = {"int_list", "float_list", "str_list"}
+
+
 # TODO: refactor
 DIRECT_INITIALIZERS: dict[str, type] = {
     "pypp::PyList": ast.List,
@@ -65,14 +69,15 @@ def handle_general_ann_assign(
     if isinstance(node.value, (ast.ListComp, ast.SetComp, ast.DictComp)):
         return f"{type_cpp} {target_str}; " + handle_comp(node.value, d, target_str)
     direct_initialize: bool = False
-    if (
-        isinstance(node.value, ast.Call)
-        and isinstance(node.value.func, ast.Name)
-        and node.value.func.id == "set"
-    ):
-        direct_initialize = True
-        value_str = "{}"
-    else:
+    value_str: str = ""
+    if isinstance(node.value, ast.Call) and isinstance(node.value.func, ast.Name):
+        if node.value.func.id == "set":
+            direct_initialize = True
+            value_str = "{}"
+        elif node.value.func.id in LIST_INIT_FNS:
+            direct_initialize = True
+            value_str = d.handle_exprs(node.value.args)
+    if value_str == "":
         value_str = d.handle_expr(node.value)
 
     i: int = value_str.find("(")
