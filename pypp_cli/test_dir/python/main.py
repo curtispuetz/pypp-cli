@@ -15,6 +15,7 @@ from lists.ownership import list_ownership_tests_fn
 from number_types.in_collections import number_types_in_collections_fn
 from random_library.first import random_fn
 from second import return_friend
+from sets.operations import set_operations_fn
 from subscriptable_types import subscriptable_types_fn
 from third import using_inline_string
 from fourth import string_as_argument
@@ -148,3 +149,4 @@ if __name__ == "__main__":
     built_in_list_fn()
     built_in_set_fn()
     built_in_dict_fn()
+    set_operations_fn()

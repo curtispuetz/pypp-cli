@@ -60,6 +60,7 @@
 #include "sets/exceptions.h"
 #include "sets/first.h"
 #include "sets/of_tuples.h"
+#include "sets/operations.h"
 #include "slices/first.h"
 #include "strings/escape_characters.h"
 #include "strings/exceptions.h"
@@ -154,6 +155,7 @@ int main() {
         me::built_in_list_fn();
         me::built_in_set_fn();
         me::built_in_dict_fn();
+        me::set_operations_fn();
         return 0;
     } catch (...) {
         pypp::handle_fatal_exception();
