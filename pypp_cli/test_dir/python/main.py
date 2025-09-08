@@ -65,6 +65,7 @@ from number_types.number_types import number_types_fn
 from triple_quote_strings import triple_quote_strings_fn
 from ternary_op import ternary_op_fn
 from lists.declaration import list_declaration_fn
+from lists.operations import list_operations_fn
 
 if __name__ == "__main__":
     print(return_something(1, 9))
@@ -140,3 +141,4 @@ if __name__ == "__main__":
     test_is_here_fn()
     ternary_op_fn()
     list_declaration_fn()
+    list_operations_fn()
