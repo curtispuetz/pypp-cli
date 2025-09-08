@@ -95,6 +95,9 @@ template <typename T> class PyList {
     // Clear
     void clear() { data.clear(); }
 
+    // Sort
+    void sort() { std::sort(data.begin(), data.end()); }
+
     // Index
     int index(const T &value) const {
         auto it = std::find(data.begin(), data.end(), value);

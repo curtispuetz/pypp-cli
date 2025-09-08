@@ -85,6 +85,9 @@ void list_fn() {
     pypp::PyList<pypp::PyStr> h({pypp::PyStr("e"), pypp::PyStr("f")});
     e.extend(std::move(h));
     pypp::print(e);
+    pypp::PyList<int> i({5, 3, 1, 4, 2});
+    i.sort();
+    pypp::print(i);
 }
 
 } // namespace me
