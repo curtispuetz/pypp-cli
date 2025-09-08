@@ -146,6 +146,15 @@ template <typename T> class PySet {
         return other.issubset(*this);
     }
 
+    bool isdisjoint(const PySet<T> &other) const {
+        for (const auto &item : data) {
+            if (other.contains(item)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     bool operator==(const PySet<T> &other) const { return data == other.data; }
 
     bool operator!=(const PySet<T> &other) const { return data != other.data; }

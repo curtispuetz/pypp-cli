@@ -48,6 +48,8 @@ void set_fn() {
         pypp::to_pystr(pypp::PySet({1, 2, 3}).issuperset(pypp::PySet({1, 2}))));
     pypp::print(
         pypp::to_pystr(pypp::PySet({1, 4, 3}).issuperset(pypp::PySet({1, 2}))));
+    pypp::print(pypp::PySet({1, 2}).isdisjoint(pypp::PySet({3, 4})));
+    pypp::print(pypp::PySet({1, 2}).isdisjoint(pypp::PySet({2, 3})));
     pypp::print(pypp::to_pystr(pypp::PySet({1, 2}) == pypp::PySet({1, 2})));
     pypp::print(pypp::to_pystr(pypp::PySet({1, 2}) == pypp::PySet({1, 2, 3})));
     pypp::print(pypp::to_pystr(pypp::PySet({1, 2}) != pypp::PySet({1, 2, 3})));
