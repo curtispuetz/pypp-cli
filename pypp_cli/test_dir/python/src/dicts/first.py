@@ -23,9 +23,9 @@ def dict_fn():
     print(g0)
     # access (not recommended unless you know the key exists)
     print(a[0])
-    # get with default value is not supported by Py++
-    # default_v: str = a.get(-1, "default value")
-    # print(default_v)
+    # get with default value. Default value must be set.
+    default_v: str = a.get(-1, "default value")
+    print(f"default value for dict = {default_v}")
     # setting
     a[3] = "d"
     print(a)

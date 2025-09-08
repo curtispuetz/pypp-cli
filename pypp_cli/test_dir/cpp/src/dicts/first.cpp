@@ -22,6 +22,9 @@ void dict_fn() {
     int g0 = g.dg(1);
     pypp::print(g0);
     pypp::print(a[0]);
+    pypp::PyStr default_v = a.get(-1, pypp::PyStr("default value"));
+    pypp::print(
+        pypp::PyStr(std::format("default value for dict = {}", default_v)));
     a[3] = pypp::PyStr("d");
     pypp::print(a);
     pypp::PyStr val = a.setdefault(4, pypp::PyStr("e"));
