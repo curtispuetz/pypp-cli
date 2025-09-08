@@ -8,5 +8,11 @@ def dict_operations_fn():
     print(len(a))
     print(min(a))
     print(max(a))
+    b: dict[int, str] = {1: "one", 2: "two", 3: "three"}
+    if a == b:
+        print("is equal")
+    c: dict[int, str] = {1: "one", 2: "two", 3: "thee"}
+    if a != c:
+        print("is not equal")
 
     # TODO later: implement |, |=, and any other operations there are for dict.
