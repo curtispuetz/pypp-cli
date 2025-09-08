@@ -15,6 +15,7 @@
 #include "dicts/comprehensions.h"
 #include "dicts/exceptions.h"
 #include "dicts/first.h"
+#include "dicts/operations.h"
 #include "exceptions/assert_.h"
 #include "exceptions/custom_exceptions.h"
 #include "exceptions/throw_.h"
@@ -156,6 +157,7 @@ int main() {
         me::built_in_set_fn();
         me::built_in_dict_fn();
         me::set_operations_fn();
+        me::dict_operations_fn();
         return 0;
     } catch (...) {
         pypp::handle_fatal_exception();

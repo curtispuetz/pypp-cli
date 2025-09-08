@@ -5,6 +5,7 @@ from built_in_functions.set_fn import built_in_set_fn
 from classes.nested_dependencies import class_nested_dependencies_fn
 from custom_libs.bridge_lib_test_0.first import bridge_lib_test_0_fn
 from custom_libs.bridge_lib_test_1.first import bridge_lib_test_1_fn
+from dicts.operations import dict_operations_fn
 from exceptions.custom_exceptions import custom_exception_fn
 from file_io.test_is_here import test_is_here_fn
 from first import return_something
@@ -150,3 +151,4 @@ if __name__ == "__main__":
     built_in_set_fn()
     built_in_dict_fn()
     set_operations_fn()
+    dict_operations_fn()

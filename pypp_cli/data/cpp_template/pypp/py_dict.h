@@ -256,6 +256,26 @@ template <typename K, typename V> class PyDict {
     // Size
     int len() const { return data.size(); }
 
+    K min() const {
+        if (data.empty()) {
+            throw PyppValueError("min() dict argument is empty");
+        }
+        auto it = std::min_element(
+            data.begin(), data.end(),
+            [](const auto &a, const auto &b) { return a.first < b.first; });
+        return it->first;
+    }
+
+    K max() const {
+        if (data.empty()) {
+            throw PyppValueError("max() dict argument is empty");
+        }
+        auto it = std::max_element(
+            data.begin(), data.end(),
+            [](const auto &a, const auto &b) { return a.first < b.first; });
+        return it->first;
+    }
+
     // copy()
     PyDict<K, V> copy() const {
         PyDict<K, V> new_dict;
