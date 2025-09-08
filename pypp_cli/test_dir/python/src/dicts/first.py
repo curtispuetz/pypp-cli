@@ -48,6 +48,9 @@ def dict_fn():
     print(a.values())
     # items
     print(a.items())
+    # iterate over items
+    for k, v in a.items():
+        print(f"{k}: {v}")
     # dict with list as value
     d: dict[int, list[int]] = {
         0: [1, 2, 3],

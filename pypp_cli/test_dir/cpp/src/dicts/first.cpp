@@ -42,6 +42,9 @@ void dict_fn() {
     pypp::print(a.keys());
     pypp::print(a.values());
     pypp::print(a.items());
+    for (const auto &[k, v] : a.items()) {
+        pypp::print(pypp::PyStr(std::format("{}: {}", k, v)));
+    }
     pypp::PyDict<int, pypp::PyList<int>> d = {{0, pypp::PyList({1, 2, 3})},
                                               {1, pypp::PyList({4, 5, 6})}};
     pypp::print(d);
