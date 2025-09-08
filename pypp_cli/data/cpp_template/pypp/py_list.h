@@ -117,6 +117,13 @@ template <typename T> class PyList {
     // Reverse
     void reverse() { std::reverse(data.begin(), data.end()); }
 
+    // copy
+    PyList<T> copy() const {
+        PyList<T> new_list;
+        new_list.data = data;
+        return new_list;
+    }
+
     // Size
     int len() const { return data.size(); }
 

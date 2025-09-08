@@ -205,6 +205,19 @@
             }
         },
         {
+            "label": "Copy C++",
+            "type": "shell",
+            "command": "${workspaceFolder}/.venv/Scripts/python.exe -m pypp_cli.util_scripts.copy_cpp_template_files_from_other_project",
+            "problemMatcher": [],
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "dedicated",
+                "showReuseMessage": false
+            }
+        },
+        {
             "label": "Build lib",
             "type": "shell",
             "command": "${workspaceFolder}/.venv/Scripts/python.exe -m hatchling build",
