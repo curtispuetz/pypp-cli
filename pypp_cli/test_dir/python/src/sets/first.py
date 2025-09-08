@@ -58,6 +58,9 @@ def set_fn():
     # issuperset
     print(str({1, 2, 3}.issuperset({1, 2})))
     print(str({1, 4, 3}.issuperset({1, 2})))
+    # isdisjoint
+    print({1, 2}.isdisjoint({3, 4}))
+    print({1, 2}.isdisjoint({2, 3}))
     # equality
     print(str({1, 2} == {1, 2}))
     print(str({1, 2} == {1, 2, 3}))
