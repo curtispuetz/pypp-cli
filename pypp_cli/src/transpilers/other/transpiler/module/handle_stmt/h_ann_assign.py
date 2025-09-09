@@ -1,5 +1,4 @@
 import ast
-from typing import Callable
 
 from pypp_cli.src.transpilers.other.transpiler.deps import Deps
 from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_comp import (

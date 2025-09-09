@@ -55,7 +55,6 @@ from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_yield import
 from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_yield_from import (
     handle_yield_from,
 )
-from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_if import handle_if
 
 
 def handle_expr(node: ast.expr, d: Deps) -> str:
