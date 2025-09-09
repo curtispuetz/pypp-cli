@@ -21,7 +21,7 @@ void tuples_fn() {
     pypp::print(pypp::to_pystr(a.count(2)));
     pypp::print(pypp::to_pystr(a.index(1.2)));
     int b = a.get<0>();
-    pypp::print(pypp::to_pystr(b));
+    pypp::print(b);
     pypp::print(pypp::to_pystr(pypp::PyTup(1, 2) == pypp::PyTup(1, 2)));
     pypp::print(pypp::to_pystr(pypp::PyTup(1, 2) != pypp::PyTup(1, 2)));
     pypp::print(pypp::to_pystr(pypp::PyTup(1, 2) < pypp::PyTup(1, 2)));
