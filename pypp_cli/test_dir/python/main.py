@@ -40,7 +40,7 @@ from sets.exceptions import set_exceptions_fn
 from strings.exceptions import string_exceptions_fn
 from tuples.exceptions import tuple_exceptions_fn
 from file_io.first import file_io_fn
-from strings.escape_characters import string_esc_chars_fn
+from strings.special_characters import string_esc_chars_fn
 from strings.f_strings import f_strings_fn
 from ranges.first import ranges_fn
 from slices.first import slices_fn
