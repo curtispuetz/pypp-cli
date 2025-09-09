@@ -21,25 +21,25 @@ def tuples_fn():
     print("TUPLE RESULTS:")
     a: tuple[int, float, str] = (1, 1.2, "a")
     # count
-    print(str(a.count(2)))
+    print(a.count(2))
     # index
-    print(str(a.index(1.2)))
+    print(a.index(1.2))
     # print(a.index(1.1))  # Throws error
     # access
     b: int = tg(a, 0)
     print(b)
     # comparisons
-    print(str((1, 2) == (1, 2)))
-    print(str((1, 2) != (1, 2)))
-    print(str((1, 2) < (1, 2)))
-    print(str((1, 2) <= (1, 2)))
-    print(str((1, 2) > (1, 2)))
-    print(str((1, 2) >= (1, 2)))
+    print((1, 2) == (1, 2))
+    print((1, 2) != (1, 2))
+    print((1, 2) < (1, 2))
+    print((1, 2) <= (1, 2))
+    print((1, 2) > (1, 2))
+    print((1, 2) >= (1, 2))
     # printing
     print((1, 2))
     print((1, 2, "a"))
     # length
-    print(str(len((1, 2))))
+    print(len((1, 2)))
     # inline passing
     _inline_tuple((1.2, "z"))
     # unpacking elements
@@ -61,3 +61,9 @@ def tuples_fn():
         "below will be [1, 2, 3] for Python, but [] for C++ because the list was moved:"
     )
     print(c)
+    # operations
+    e: tuple[int, int] = (1, 2)
+    if 1 in e:
+        print("1 in tuple")
+    if 3 not in e:
+        print("3 not in tuple")
