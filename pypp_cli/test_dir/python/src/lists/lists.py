@@ -85,10 +85,8 @@ def list_fn():
     print(c[len(c) - 2 : 5])
     print(c[len(c) - 4 : len(c) - 1])
     print(c[5:1:-1])
-    # slice setting. Note: This is not supported in the transpiled C++ right now, and
-    #  no error is thrown either!
+    # slice assignment is not supported, and a value error is raised if attempted.
     # c[1:4] = [-2, -2, -2, -2]
-    # print(c)
     # list of strings
     e: list[str] = ["a", "b"]
     print(e)
