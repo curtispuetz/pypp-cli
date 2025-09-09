@@ -27,7 +27,7 @@ def tuples_fn():
     # print(a.index(1.1))  # Throws error
     # access
     b: int = tg(a, 0)
-    print(str(b))
+    print(b)
     # comparisons
     print(str((1, 2) == (1, 2)))
     print(str((1, 2) != (1, 2)))
