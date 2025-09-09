@@ -1,4 +1,4 @@
-from pypp_python import Uni, ug, isinst, is_none, print_address, Valu, mov
+from pypp_python import Uni, ug, isinst, is_none, print_address, Valu, mov, Ref, auto
 
 
 class ClassWithUnion:
@@ -35,3 +35,9 @@ def pypp_union_fn():
     e: Uni[int, float] = Uni(3.14)
     f: ClassWithUnionByValue = ClassWithUnionByValue(mov(e))
     print_address(f)
+    # inline
+    g: ClassWithUnionByValue = ClassWithUnionByValue(Uni[int, float](7))
+    print(Ref(g))
+    # with auto
+    h: auto = Uni[int, float](2.71)
+    print(Ref(h))

@@ -15,6 +15,8 @@ void set_fn() {
     pypp::print(a);
     pypp::PySet<int> c = pypp::PySet<int>();
     pypp::print(c);
+    auto c0 = pypp::PySet<double>();
+    pypp::print(c0);
     a.add(4);
     pypp::print(a);
     int add_val = 4;

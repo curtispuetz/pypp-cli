@@ -29,6 +29,10 @@ void pypp_union_fn() {
     pypp::Uni<int, double> e(3.14);
     ClassWithUnionByValue f = ClassWithUnionByValue(std::move(e));
     pypp::print(&f);
+    ClassWithUnionByValue g = ClassWithUnionByValue(pypp::Uni<int, double>(7));
+    pypp::print(&g);
+    auto h = pypp::Uni<int, double>(2.71);
+    pypp::print(&h);
 }
 
 } // namespace me
