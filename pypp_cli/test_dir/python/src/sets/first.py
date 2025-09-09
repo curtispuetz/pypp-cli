@@ -1,4 +1,5 @@
-from pypp_python import mov, Valu
+from enum import auto
+from pypp_python import mov, Valu, auto
 
 
 def _inline_set(s: Valu(set[float])):
@@ -13,6 +14,8 @@ def set_fn():
     # initialize empty
     c: set[int] = set[int]()
     print(c)
+    c0: auto = set[float]()
+    print(c0)
     # adding
     a.add(4)
     print(a)
