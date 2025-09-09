@@ -29,7 +29,7 @@ from pypp_cli.src.transpilers.other.transpiler.maps.call.default_dict_map_fn imp
 
 
 def _default_dict(_node: ast.Call, _d) -> str:
-    raise Exception(
+    raise ValueError(
         "defaultdict must be called with type info "
         "(i.e. defaultdict[KeyType, ValueType])"
     )

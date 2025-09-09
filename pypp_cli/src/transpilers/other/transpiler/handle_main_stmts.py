@@ -7,9 +7,9 @@ from pypp_cli.src.transpilers.other.transpiler.deps import Deps
 def handle_main_stmts(stmts: list[ast.stmt], d: Deps) -> str:
     main_stmt = stmts[-1]
     if not _is_proper_main(main_stmt):
-        raise Exception(
-            "A correctly defined main guard as the last stmt in a root python file is "
-            "required"
+        raise ValueError(
+            "A correctly defined main block (i.e. 'if __name__ == \"__main__\":') as "
+            "the last stmt in a main file is required"
         )
     before_main = d.handle_stmts(stmts[:-1])
     assert isinstance(main_stmt, ast.If), "shouldn't happen"
