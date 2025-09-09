@@ -3,6 +3,8 @@
 #include "py_str.h"
 #include <string>
 
+// TODO: rename this to just 'str', since it is wrapped in the pypp namespace
+// now.
 namespace pypp {
 
 template <typename T> inline PyStr to_pystr(const T &value) {

@@ -76,6 +76,15 @@ void string_ops() {
         list_of_chars.append(std::move(ch));
     }
     pypp::print(list_of_chars);
+    pypp::PyStr m = pypp::PyStr("abc");
+    if (m.contains(pypp::PyStr("a"))) {
+        pypp::print(pypp::PyStr(std::format("a in {}", m)));
+    }
+    if (!m.contains(pypp::PyStr("d"))) {
+        pypp::print(pypp::PyStr(std::format("d not in {}", m)));
+    }
+    pypp::print(m.max());
+    pypp::print(m.min());
 }
 
 } // namespace me
