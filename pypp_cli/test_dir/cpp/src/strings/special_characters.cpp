@@ -1,4 +1,4 @@
-#include "strings/escape_characters.h"
+#include "strings/special_characters.h"
 #include "py_str.h"
 #include "pypp_util/print.h"
 
@@ -21,6 +21,23 @@ void string_esc_chars_fn() {
                 l1);
     pypp::PyStr m = pypp::PyStr("abcd\\\\");
     pypp::print(m);
+    pypp::PyStr n = pypp::PyStr(
+        "with escaping quotes: '' \"hello\" and backslash \\ and newline \n");
+    pypp::print(n);
+    pypp::PyStr n0 = pypp::PyStr("with escaping quotes: '' \"hello\"");
+    pypp::print(n0);
+    pypp::PyStr n1 = pypp::PyStr("with escaping quotes: ' \"hello\"");
+    pypp::print(n1);
+    pypp::PyStr o = pypp::PyStr(std::format(
+        "with escaping {} quotes: '' \"hello\" and backslash \\ and newline \n",
+        1));
+    pypp::print(o);
+    pypp::PyStr p = pypp::PyStr(std::format(
+        "with quotes {} again with ' a single quoted f-string \"hello\"", 2));
+    pypp::print(p);
+    pypp::PyStr q = pypp::PyStr(
+        "escaping special chars: \\n, \\t, \\r, \\b, \\f, \\\\, '\"");
+    pypp::print(q);
 }
 
 } // namespace me

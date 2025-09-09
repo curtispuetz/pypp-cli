@@ -2,6 +2,9 @@ import ast
 
 from pypp_cli.src.transpilers.other.transpiler.d_types import QInc
 from pypp_cli.src.transpilers.other.transpiler.deps import Deps
+from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_constant import (
+    SPECIAL_CHAR_MAP,
+)
 
 
 def handle_joined_string(node: ast.JoinedStr, d: Deps) -> str:
@@ -16,7 +19,7 @@ def handle_joined_string(node: ast.JoinedStr, d: Deps) -> str:
             assert isinstance(n, ast.FormattedValue), "Shouldn't happen"
             std_format_first_arg.append("{}")
             std_format_args.append(handle_formatted_value(n, d))
-    first_arg_str: str = "".join(std_format_first_arg)
+    first_arg_str: str = "".join(std_format_first_arg).translate(SPECIAL_CHAR_MAP)
     args_str: str = ", ".join(std_format_args)
     return f'pypp::PyStr(std::format("{first_arg_str}", {args_str}))'
 
