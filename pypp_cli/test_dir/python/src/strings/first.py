@@ -86,3 +86,10 @@ def string_ops():
         ch: str = c
         list_of_chars.append(mov(ch))
     print(list_of_chars)
+    m: str = "abc"
+    if "a" in m:
+        print(f"a in {m}")
+    if "d" not in m:
+        print(f"d not in {m}")
+    print(max(m))
+    print(min(m))

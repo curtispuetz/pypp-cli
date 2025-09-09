@@ -4,6 +4,7 @@
 #include <cctype>
 #include <iostream>
 #include <sstream>
+#include <utility>
 
 namespace pypp {
 PyStr::PyStr(std::string &&str) : s(std::move(str)) {}
@@ -124,6 +125,20 @@ PyStr PyStr::join(const PyList<PyStr> &parts) {
 }
 
 int PyStr::len() const { return s.length(); }
+
+PyStr PyStr::min() const {
+    if (s.empty()) {
+        throw PyppValueError("min() string argument is empty");
+    }
+    return PyStr(std::string(1, *std::min_element(s.begin(), s.end())));
+}
+
+PyStr PyStr::max() const {
+    if (s.empty()) {
+        throw PyppValueError("max() string argument is empty");
+    }
+    return PyStr(std::string(1, *std::max_element(s.begin(), s.end())));
+}
 
 std::string PyStr::repeat_string(const std::string &input, int rep) {
     if (rep <= 0)
