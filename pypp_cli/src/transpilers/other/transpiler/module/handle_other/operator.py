@@ -43,7 +43,7 @@ def handle_operator(node: ast.operator, d: Deps) -> tuple[str, str, str]:
     if isinstance(node, ast.FloorDiv):
         d.add_inc(QInc("pypp_util/floor_div.h"))
         return "pypp::py_floor_div(", ", ", ")"
-    raise Exception(f"operator type {node} is not handled")
+    raise ValueError(f"operator type {node} is not supported")
 
 
 def handle_operator_for_aug_assign(node: ast.operator) -> str:

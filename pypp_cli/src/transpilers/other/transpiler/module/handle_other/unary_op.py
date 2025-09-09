@@ -12,4 +12,4 @@ def handle_unaryop(_type: ast.unaryop) -> str:
         return "!"
     if isinstance(_type, ast.Invert):
         return "~"
-    raise Exception(f"unary op type {_type} is not handled")
+    raise Exception("Shouldn't happen")

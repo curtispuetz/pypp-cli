@@ -101,8 +101,8 @@ def create_all_data(paths: DoPyppPaths) -> AllData:
 def create_main_py_files(python_dir: Path) -> list[Path]:
     ret: list[Path] = calc_all_main_py_files(python_dir)
     if not ret:
-        raise Exception(
+        raise ValueError(
             f"No Python files (*.py) found in '{python_dir}'. These are the main "
-            f"files and at least one is needed."
+            f"files with a main block and at least one is needed."
         )
     return ret

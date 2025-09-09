@@ -18,12 +18,12 @@ def analyse_import_stmts(
         # ast.Import are ignored
         if isinstance(node, ast.ImportFrom):
             if node.module in py_imports.imp_from:
-                raise Exception(
+                raise ValueError(
                     f"Duplicate import from module not supported. "
                     f"module: {node.module}. In {file_path}"
                 )
             if node.module is None:
-                raise Exception("Relative imports not supported")
+                raise ValueError("Relative imports not supported")
             if node.module in modules_in_project or maps.import_.contains(node.module):
                 inc: QInc = _calc_q_inc(node.module)
                 for alias in node.names:

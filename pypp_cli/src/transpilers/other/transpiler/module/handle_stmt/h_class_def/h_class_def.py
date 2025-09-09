@@ -59,7 +59,7 @@ def _get_decorator_name(node: ast.ClassDef) -> str:
             "only @dataclass and @configclass decorators supported for classes"
         )
         if decorator.func.id not in {"dataclass", "configclass"}:
-            raise Exception(
+            raise ValueError(
                 "only @dataclass and @configclass decorators supported for classes"
             )
         assert len(decorator.args) == 0, (

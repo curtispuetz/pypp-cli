@@ -96,12 +96,23 @@ def handle_expr(node: ast.expr, d: Deps) -> str:
     if isinstance(node, ast.IfExp):
         return handle_if_exp(node, d)
     if isinstance(node, ast.Starred):
-        raise Exception(
+        # TODO: check if this still works.
+        raise ValueError(
             "Starred expressions are only supported if they are the only argument in a "
             "call"
         )
-    if isinstance(node, (ast.ListComp, ast.SetComp, ast.DictComp)):
-        raise Exception("Shouldn't happen. This should be called from ann_assign")
+    if isinstance(node, ast.ListComp):
+        raise ValueError(
+            "List comprehensions are only supported with assignment to a variable."
+        )
+    if isinstance(node, ast.SetComp):
+        raise ValueError(
+            "Set comprehensions are only supported with assignment to a variable."
+        )
+    if isinstance(node, ast.DictComp):
+        raise ValueError(
+            "Dict comprehensions are only supported with assignment to a variable."
+        )
     if isinstance(node, ast.GeneratorExp):
-        raise Exception("Generator expressions are not supported")
-    raise Exception(f"code expr type {node} not handled")
+        raise ValueError("Generator expressions are not supported")
+    raise ValueError(f"code expr type {node} not supported")
