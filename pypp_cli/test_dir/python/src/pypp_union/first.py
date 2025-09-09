@@ -40,4 +40,7 @@ def pypp_union_fn():
     print(Ref(g))
     # with auto
     h: auto = Uni[int, float](2.71)
-    print(Ref(h))
+    print(h)
+    # equality operators
+    print(a == Uni[int, float](3.14))
+    print(a != Uni[int, float](3.14))
