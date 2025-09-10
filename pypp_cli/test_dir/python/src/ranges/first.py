@@ -18,10 +18,9 @@ def ranges_fn():
     # single arg
     a: range = range(10)
     _iter_and_print(a)
-    # 2 args
-    _iter_and_print(range(10, 19))
-    # 3 args
-    _iter_and_print(_range_as_return())
+    # example 2
+    a0: range = _range_as_return()
+    _iter_and_print(a0)
     # show that if the range is used directory in the for loop then the traditional
     #  C++ for loop syntax is used.
     for i in range(10, 5, 1):
