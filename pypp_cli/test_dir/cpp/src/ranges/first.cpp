@@ -7,7 +7,7 @@
 #include <utility>
 
 namespace me {
-void _iter_and_print(pypp::PyRange arg1) {
+void _iter_and_print(pypp::PyRange &arg1) {
     pypp::PyList<int> a1({});
     for (const auto &i : arg1) {
         int y = i;
@@ -22,8 +22,8 @@ void ranges_fn() {
     pypp::print(pypp::PyStr("RANGE RESULTS:"));
     pypp::PyRange a = pypp::PyRange(10);
     _iter_and_print(a);
-    _iter_and_print(pypp::PyRange(10, 19));
-    _iter_and_print(_range_as_return());
+    pypp::PyRange a0 = _range_as_return();
+    _iter_and_print(a0);
     for (int i = 10; i < 5; i += 1) {
         pypp::print(i);
     }

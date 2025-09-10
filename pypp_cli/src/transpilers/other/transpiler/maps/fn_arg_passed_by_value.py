@@ -14,7 +14,6 @@ FN_ARG_PASSED_BY_VALUE_MAP: FnArgByValueMap = {
     "uint16_t": {PySpecificImpFrom("pypp_python", "uint16_t")},
     "uint32_t": {PySpecificImpFrom("pypp_python", "uint32_t")},
     "uint64_t": {PySpecificImpFrom("pypp_python", "uint64_t")},
-    "pypp::PyRange": {None},
 }
 
 
