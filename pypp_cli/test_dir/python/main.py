@@ -14,9 +14,11 @@ from file_io.test_is_here import test_is_here_fn
 from first import return_something
 from imports_test.first import imports_test_fn
 from imports_test.second import imports_test_fn2
+from inconsistent_behviour.reassigning_a_ref import reassigning_a_ref_fn
 from lambdas import lambdas_fn
 from lists.ownership import list_ownership_tests_fn
 from number_types.in_collections import number_types_in_collections_fn
+from pass_by_value import pass_by_value_test_fn
 from random_library.first import random_fn
 from second import return_friend
 from sets.operations import set_operations_fn
@@ -74,6 +76,7 @@ from triple_quote_strings import triple_quote_strings_fn
 from ternary_op import ternary_op_fn
 from lists.declaration import list_declaration_fn
 from lists.operations import list_operations_fn
+
 
 if __name__ == "__main__":
     print(return_something(1, 9))
@@ -158,3 +161,5 @@ if __name__ == "__main__":
     default_dict_operations_fn()
     default_dict_methods_fn()
     default_dict_create_with_defaults()
+    pass_by_value_test_fn()
+    reassigning_a_ref_fn()

@@ -45,7 +45,7 @@ def ref_vars_fn():
     arr2_ref: Ref(list[int]) = repeat(arr2)
     arr2_ref.append(42)
     print(arr2)  # should print [1, 2, 1, 2, 42]
-    # don't do this
+    # recommended to not do this.
     arr3: list[int] = [1, 2]
     arr_3_copy: list[int] = repeat(arr3)
     arr_3_copy.append(42)
