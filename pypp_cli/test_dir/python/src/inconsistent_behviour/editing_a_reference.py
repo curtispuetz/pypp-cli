@@ -11,13 +11,6 @@ def editing_a_reference_fn():
 
     # Here is another example of pretty much the same thing, (and again, its
     # inconsistent behavior). Here, you can just use c still. You don't need d.
-    # However, imagine if we didn't pass c in here and instead we called like a method
-    # and we wanted that one to append to some list and return the list? In this case,
-    # would we want to return the reference? We could, but its not going to be supported
-    # in pypp. Instead, that object that we want to reference should be injected here
-    # everywhere that we need it. So, we would editing the list by calling that function
-    # and we wouldn't need to return the list because we should already have that
-    # objects reference here.
     c: list[int] = [1, 2, 3]
     d: list[int] = update_and_return_new(c)
     d[-1] = 99
@@ -25,5 +18,6 @@ def editing_a_reference_fn():
 
 
 def update_and_return_new(l1: list[int]) -> list[int]:
+    # This should return-by-reference
     l1.append(4)
     return l1
