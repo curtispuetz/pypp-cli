@@ -34,9 +34,9 @@ class PerlinNoise:
         self,
         x: float,
         y: float,
-        octaves: int = 1,
-        persistence: float = 0.5,
-        lacunarity: float = 2.0,
+        octaves: int,
+        persistence: float,
+        lacunarity: float,
     ) -> float:
         freq: float = 1.0
         amplitude: float = 1.0
