@@ -1,6 +1,5 @@
 #include "ref_vars.h"
 #include "py_dict.h"
-#include "py_list.h"
 #include "py_str.h"
 #include "pypp_util/print.h"
 
@@ -8,6 +7,13 @@ namespace me {
 pypp::PyList<int> &_get_list(pypp::PyList<int> &input_list) {
     return input_list;
 }
+
+pypp::PyList<int> &repeat(pypp::PyList<int> &a) {
+    a *= 2;
+    return a;
+}
+
+pypp::PyList<int> repeat_new(pypp::PyList<int> &a) { return a * 2; }
 
 void ref_vars_fn() {
     pypp::print(pypp::PyStr("REF VARS RESULTS:"));
@@ -33,6 +39,18 @@ void ref_vars_fn() {
     pypp::PyList<int> &g = _get_list(original_list);
     g.append(4);
     pypp::print(original_list);
+    pypp::PyList<int> arr2({1, 2});
+    pypp::PyList<int> &arr2_ref = repeat(arr2);
+    arr2_ref.append(42);
+    pypp::print(arr2);
+    pypp::PyList<int> arr3({1, 2});
+    pypp::PyList<int> arr_3_copy = repeat(arr3);
+    arr_3_copy.append(42);
+    pypp::print(arr3);
+    pypp::PyList<int> arr4({1, 2});
+    pypp::PyList<int> arr4_copy = repeat_new(arr4);
+    arr4_copy.append(42);
+    pypp::print(arr4);
 }
 
 } // namespace me
