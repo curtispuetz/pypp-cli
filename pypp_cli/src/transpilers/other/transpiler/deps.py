@@ -1,5 +1,6 @@
 import ast
 from dataclasses import dataclass
+from pathlib import Path
 from typing import Callable
 
 from pypp_cli.src.transpilers.other.transpiler.d_types import (
@@ -14,6 +15,7 @@ from pypp_cli.src.transpilers.other.transpiler.cpp_includes import CppIncludes
 
 @dataclass(slots=True)
 class Deps:
+    file_path: Path
     cpp_includes: CppIncludes
     ret_h_file: list[str]
     maps: Maps

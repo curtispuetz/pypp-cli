@@ -51,7 +51,7 @@ def calc_fn_arg_types(
     skip_first_arg: bool = False,
 ) -> dict[str, str]:
     ret = {}
-    _assert_args(node.args, node.name)
+    _assert_args(node.args, node.name, d)
     for i in range(skip_first_arg, len(node.args.args)):
         py_arg = node.args.args[i]
         arg_name: str = py_arg.arg
@@ -70,22 +70,26 @@ def calc_fn_str_with_body(fn_signature: str, body_str: str) -> str:
     return f"{fn_signature} " + "{" + body_str + "}\n\n"
 
 
-def _assert_args(args: ast.arguments, func_name: str):
+def _assert_args(args: ast.arguments, func_name: str, d: Deps):
     assert len(args.defaults) == 0, (
-        "default function/method arguments are not supported. function/method name: "
-        + func_name
+        f"default function/method arguments are not supported. "
+        f"{_error_str(func_name, d)}"
     )
     assert args.vararg is None, (
-        "A variable number of arguments (i.e. *args) is not supported. "
-        "function/method name: " + func_name
+        f"A variable amount of arguments (i.e. *args) is not supported. "
+        f"{_error_str(func_name, d)}"
     )
     assert args.kwarg is None, (
-        "Any number of keyword arguments (i.e. **kwargs) is not supported. "
-        "function/method name: " + func_name
+        f"A variable amount of keyword arguments (i.e. **kwargs) is not supported. "
+        f"{_error_str(func_name, d)}"
     )
     assert len(args.kwonlyargs) == 0, (
-        "keyword only arguments are not supported. function/method name: " + func_name
+        f"keyword only arguments are not supported. {_error_str(func_name, d)}"
     )
     assert len(args.kw_defaults) == 0, (
-        "keyword only arguments are not supported. function/method name: " + func_name
+        f"keyword only arguments are not supported. {_error_str(func_name, d)}"
     )
+
+
+def _error_str(func_name: str, d: Deps) -> str:
+    return f"function/method name: '{func_name}' in file: {d.file_path}"
