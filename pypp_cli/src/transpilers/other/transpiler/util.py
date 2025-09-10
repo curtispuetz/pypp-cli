@@ -22,6 +22,7 @@ def handle_imports_and_create_deps(
         module.body, maps, src_py_files, file_path
     )
     d: Deps = Deps(
+        file_path,
         CppIncludes(set(), set(), cpp_inc_map),
         [],
         maps,
