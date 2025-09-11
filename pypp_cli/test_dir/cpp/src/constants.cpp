@@ -3,11 +3,11 @@
 
 namespace me {
 const int _A = 2;
-struct _PseudoPyppName_PrivateConfig {
+struct __PseudoPyppName_PrivateConfig {
     int a = 1;
     int b = 2;
 };
-inline _PseudoPyppName_PrivateConfig _PrivateConfig;
+inline __PseudoPyppName_PrivateConfig _PrivateConfig;
 
 void constant_fn() {
     pypp::print(pypp::PyStr("CONSTANT RESULTS:"));

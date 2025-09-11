@@ -33,10 +33,10 @@ struct _DataClassA {
         : pseudo_custom_type(a_pseudo_custom_type) {}
 };
 
-struct _PseudoPyppName_ConfigClassA {
+struct __PseudoPyppName_ConfigClassA {
     PseudoCustomTypeCpp pseudo_custom_type = PseudoCustomTypeCpp(1);
 };
-inline _PseudoPyppName_ConfigClassA _ConfigClassA;
+inline __PseudoPyppName_ConfigClassA _ConfigClassA;
 
 void bridge_lib_test_0_fn() {
     pypp::print(pypp::PyStr("pypp BRIDGE LIB TEST 0 RESULTS:"));
