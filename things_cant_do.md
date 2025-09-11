@@ -75,3 +75,4 @@ or a factory function returning an object of the type and put the logic in there
 - name a method 'isinstance'
 - use the Uni type inline (i.e. Uni can only be assigned to a variable)
 - assign the result of a comprehension to a constant
+- define a class in a Py++ main file.
