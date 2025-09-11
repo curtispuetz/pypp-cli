@@ -33,6 +33,7 @@
 #include "inconsistent_behviour/editing_a_reference.h"
 #include "inconsistent_behviour/reassigning_a_ref.h"
 #include "interfaces/first.h"
+#include "interfaces/with_dataclasses.h"
 #include "lambdas.h"
 #include "lists/as_arg.h"
 #include "lists/comprehensions.h"
@@ -170,6 +171,7 @@ int main() {
         me::pass_by_value_test_fn();
         me::reassigning_a_ref_fn();
         me::pass_fn();
+        me::interface_with_dataclasses_fn();
         return 0;
     } catch (...) {
         pypp::handle_fatal_exception();

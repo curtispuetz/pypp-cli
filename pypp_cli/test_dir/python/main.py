@@ -15,6 +15,7 @@ from first import return_something
 from imports_test.first import imports_test_fn
 from imports_test.second import imports_test_fn2
 from inconsistent_behviour.reassigning_a_ref import reassigning_a_ref_fn
+from interfaces.with_dataclasses import interface_with_dataclasses_fn
 from lambdas import lambdas_fn
 from lists.ownership import list_ownership_tests_fn
 from number_types.in_collections import number_types_in_collections_fn
@@ -165,3 +166,4 @@ if __name__ == "__main__":
     pass_by_value_test_fn()
     reassigning_a_ref_fn()
     pass_fn()
+    interface_with_dataclasses_fn()
