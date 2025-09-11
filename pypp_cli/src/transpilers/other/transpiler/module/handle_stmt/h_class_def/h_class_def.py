@@ -86,7 +86,6 @@ def _do_configclass_assertions(node: ast.ClassDef) -> ast.expr | None:
 
 
 def _do_dataclass_assertions(node: ast.ClassDef) -> bool:
-    assert len(node.bases) == 0, "inheritance for dataclass is not supported"
     decorator = node.decorator_list[0]
     is_frozen: bool = False
     if isinstance(decorator, ast.Call):
