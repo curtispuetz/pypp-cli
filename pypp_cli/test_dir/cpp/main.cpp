@@ -80,6 +80,7 @@
 #include "tuples/exceptions.h"
 #include "tuples/first.h"
 #include "type_aliases.h"
+#include "using_pass.h"
 #include "yields/first.h"
 
 int main() {
@@ -168,6 +169,7 @@ int main() {
         me::default_dict_create_with_defaults();
         me::pass_by_value_test_fn();
         me::reassigning_a_ref_fn();
+        me::pass_fn();
         return 0;
     } catch (...) {
         pypp::handle_fatal_exception();

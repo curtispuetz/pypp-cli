@@ -76,6 +76,7 @@ from triple_quote_strings import triple_quote_strings_fn
 from ternary_op import ternary_op_fn
 from lists.declaration import list_declaration_fn
 from lists.operations import list_operations_fn
+from using_pass import pass_fn
 
 
 if __name__ == "__main__":
@@ -163,3 +164,4 @@ if __name__ == "__main__":
     default_dict_create_with_defaults()
     pass_by_value_test_fn()
     reassigning_a_ref_fn()
+    pass_fn()
