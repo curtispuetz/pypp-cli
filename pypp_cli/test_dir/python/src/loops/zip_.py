@@ -6,8 +6,10 @@ def zip_fn():
     # over two lists
     a: list[int] = []
     for x, z in zip([1, 2], [3, 4]):
-        a.append(mov(x))
-        a.append(mov(z))
+        xx: int = x
+        zz: int = z
+        a.append(mov(xx))
+        a.append(mov(zz))
     print(a)
     # over multiple different types. list, set, string, and dict items
     b: dict[float, int] = {1.1: 4, 2.2: 5}

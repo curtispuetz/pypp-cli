@@ -13,8 +13,10 @@ void zip_fn() {
     pypp::PyList<int> a({});
     for (const auto &[x, z] :
          pypp::PyZip(pypp::PyList({1, 2}), pypp::PyList({3, 4}))) {
-        a.append(std::move(x));
-        a.append(std::move(z));
+        int xx = x;
+        int zz = z;
+        a.append(std::move(xx));
+        a.append(std::move(zz));
     }
     pypp::print(a);
     pypp::PyDict<double, int> b = {{1.1, 4}, {2.2, 5}};

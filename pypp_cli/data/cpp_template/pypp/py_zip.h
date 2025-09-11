@@ -49,7 +49,12 @@ template <typename... Iterators> class py_zip_iterator {
     // Helper to get the reference type from an iterator (e.g., int& from
     // vector<int>::iterator)
     template <typename Iter>
-    using reference_t = typename std::iterator_traits<Iter>::reference;
+    using deref_t = std::add_const_t<
+        std::remove_reference_t<decltype(*std::declval<Iter>())>>;
+    // Helper to get the reference type from an iterator (e.g., int& from
+    // vector<int>::iterator)
+    template <typename Iter>
+    using reference_t = const typename std::iterator_traits<Iter>::value_type &;
 
   public:
     // --- C++ Standard Iterator Traits ---
@@ -60,7 +65,7 @@ template <typename... Iterators> class py_zip_iterator {
         std::tuple<typename std::iterator_traits<Iterators>::value_type...>;
     // The reference type is a std::tuple of references from the underlying
     // iterators
-    using reference = std::tuple<reference_t<Iterators>...>;
+    using reference = std::tuple<deref_t<Iterators>...>;
     using difference_type = std::ptrdiff_t;
     using pointer = void;
     // --- End of Traits ---
@@ -72,17 +77,8 @@ template <typename... Iterators> class py_zip_iterator {
     // Returns a std::tuple containing references to the elements from each
     // container.
     reference operator*() const {
-        // Use std::apply to unpack the tuple of iterators and pass them to a
-        // lambda
-        return std::apply(
-            // The lambda takes each iterator and dereferences it (*arg)
-            [](auto &&...args) {
-                // This creates the std::tuple on the fly: std::tuple<int&,
-                // std::string&,
-                // ...>
-                return reference(*args...);
-            },
-            _its);
+        return std::apply([](auto &&...args) { return reference((*args)...); },
+                          _its);
     }
 
     // Pre-increment operator (++it)
