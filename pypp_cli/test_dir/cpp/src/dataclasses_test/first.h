@@ -32,5 +32,10 @@ struct FrozenDataClassWithReference {
         : field1(a_field1), field2(std::move(a_field2)) {}
 };
 
+struct WithoutAnyFields {
+    WithoutAnyFields() {}
+    pypp::PyStr method();
+};
+
 void dataclass_fn();
 } // namespace me
