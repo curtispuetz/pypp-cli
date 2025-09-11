@@ -36,8 +36,7 @@ template <typename T> class py_enumerate_iterator {
     // Deduces the value type (e.g., int, std::string)
     using InnerValue = typename std::iterator_traits<InnerIterator>::value_type;
     // Deduces the reference type (e.g., int&, std::string&)
-    using InnerReference =
-        typename std::iterator_traits<InnerIterator>::reference;
+    using InnerReference = const InnerValue &;
 
   public:
     // --- C++ Standard Iterator Traits ---

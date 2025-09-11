@@ -13,7 +13,8 @@ void enumerate_fn() {
     pypp::PyList<int> a({});
     for (const auto &[i, val] : pypp::PyEnumerate(pypp::PyList({1, 2, 3}))) {
         a.append(i);
-        a.append(std::move(val));
+        int v = val;
+        a.append(std::move(v));
     }
     pypp::print(a);
     for (const auto &[i, val] : pypp::PyEnumerate(pypp::PySet({-1, -3}))) {
@@ -34,6 +35,14 @@ void enumerate_fn() {
         int y = val.get<0>();
         a.append(std::move(y));
     }
+    pypp::print(a);
+    pypp::PyList<int> b({10, 20, 30});
+    for (const auto &[i, val] : pypp::PyEnumerate(b)) {
+        a.append(i);
+        int v = val;
+        a.append(std::move(v));
+    }
+    pypp::print(b);
     pypp::print(a);
 }
 

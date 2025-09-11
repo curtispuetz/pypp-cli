@@ -144,7 +144,6 @@ template <typename T> class PyList {
     }
 
     // Operator []
-    // So modifications of operators are allowed?
     T &operator[](int index) {
         if (index < 0)
             index += data.size();
