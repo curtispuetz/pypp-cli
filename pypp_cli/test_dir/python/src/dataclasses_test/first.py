@@ -32,6 +32,12 @@ class FrozenDataClassWithReference:
     field2: int
 
 
+@dataclass
+class WithoutAnyFields:
+    def method(self) -> str:
+        return "method called"
+
+
 def dataclass_fn():
     print("DATACLASS RESULTS:")
     # basic
@@ -56,3 +62,5 @@ def dataclass_fn():
     i: str = "xyz"
     j: FrozenDataClass = FrozenDataClass(mov(i), 5)
     print(j.field1, j.field2)
+    k: WithoutAnyFields = WithoutAnyFields()
+    print(k.method())

@@ -90,7 +90,9 @@ def _calc_fields_and_constructor(
         return ""
     field_defs = _calc_field_definitions(fields_and_base_constructor_calls, is_frozen)
     c_il: str = _calc_constructor_initializer_list(fields_and_base_constructor_calls, d)
-    return f"{field_defs} {constructor_sig} : {c_il}" + "{}"
+    if c_il != "":
+        c_il = ": " + c_il
+    return f"{field_defs} {constructor_sig} {c_il}" + "{}"
 
 
 def _calc_method_signatures(methods: list[ClassMethod]) -> str:

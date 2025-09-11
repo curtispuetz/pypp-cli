@@ -7,6 +7,8 @@ struct _PrivateDataClass {
     _PrivateDataClass(int a_field1) : field1(std::move(a_field1)) {}
 };
 
+pypp::PyStr WithoutAnyFields::method() { return pypp::PyStr("method called"); }
+
 void dataclass_fn() {
     pypp::print(pypp::PyStr("DATACLASS RESULTS:"));
     FirstDataClass a = FirstDataClass(
@@ -26,6 +28,8 @@ void dataclass_fn() {
     pypp::PyStr i = pypp::PyStr("xyz");
     FrozenDataClass j = FrozenDataClass(std::move(i), 5);
     pypp::print(j.field1, j.field2);
+    WithoutAnyFields k = WithoutAnyFields();
+    pypp::print(k.method());
 }
 
 } // namespace me
