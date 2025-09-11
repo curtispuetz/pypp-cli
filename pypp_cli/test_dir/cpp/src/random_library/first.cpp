@@ -6,10 +6,9 @@
 namespace me {
 double _random_as_arg(pypp::random::Random &a) { return a.random(); }
 
-class _RandomWrapper {
-  public:
+struct _RandomWrapper {
     pypp::random::Random &_r;
-    _RandomWrapper(pypp::random::Random &a_r) : _r(a_r) {}
+    _RandomWrapper(pypp::random::Random &a__r) : _r(a__r) {}
     double mult(pypp::random::Random &b) { return _r.random() * b.random(); }
 };
 

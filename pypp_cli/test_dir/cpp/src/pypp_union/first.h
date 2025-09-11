@@ -4,15 +4,13 @@
 #include <utility>
 
 namespace me {
-class ClassWithUnion {
-  public:
+struct ClassWithUnion {
     pypp::Uni<int, double> &value;
     ClassWithUnion(pypp::Uni<int, double> &a_value) : value(a_value) {}
     int calc();
 };
 
-class ClassWithUnionByValue {
-  public:
+struct ClassWithUnionByValue {
     pypp::Uni<int, double> value;
     ClassWithUnionByValue(pypp::Uni<int, double> a_value)
         : value(std::move(a_value)) {}

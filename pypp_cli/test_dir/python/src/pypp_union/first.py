@@ -1,9 +1,10 @@
+from dataclasses import dataclass
 from pypp_python import Uni, ug, isinst, is_none, print_address, Valu, mov, Ref, auto
 
 
+@dataclass
 class ClassWithUnion:
-    def __init__(self, value: Uni[int, float]):
-        self.value = value
+    value: Uni[int, float]
 
     def calc(self) -> int:
         if isinst(self.value, int):
@@ -11,9 +12,9 @@ class ClassWithUnion:
         return 0
 
 
+@dataclass
 class ClassWithUnionByValue:
-    def __init__(self, value: Valu(Uni[int, float])):
-        self.value = value
+    value: Valu(Uni[int, float])
 
 
 def pypp_union_fn():

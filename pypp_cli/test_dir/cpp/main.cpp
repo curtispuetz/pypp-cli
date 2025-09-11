@@ -2,14 +2,12 @@
 #include "built_in_functions/dict_fn.h"
 #include "built_in_functions/list_fn.h"
 #include "built_in_functions/set_fn.h"
-#include "classes/first.h"
-#include "classes/inheritance.h"
-#include "classes/nested_dependencies.h"
 #include "constants.h"
 #include "cstdlib"
 #include "custom_libs/bridge_lib_test_0/first.h"
 #include "custom_libs/bridge_lib_test_1/first.h"
 #include "dataclasses_test/first.h"
+#include "dataclasses_test/nested_dependencies.h"
 #include "dataclasses_test/with_methods.h"
 #include "default_dict/create_with_defaults.h"
 #include "default_dict/first.h"
@@ -132,8 +130,6 @@ int main() {
         me::dict_fn();
         me::dataclass_fn();
         me::dataclass_with_methods_fn();
-        me::classes_fn();
-        me::class_inheritance_fn();
         me::interfaces_fn();
         me::operations_fn();
         me::fn_as_vars_fn();
@@ -153,7 +149,7 @@ int main() {
         me::bridge_lib_test_1_fn();
         me::list_ownership_tests_fn();
         me::list_fn();
-        me::class_nested_dependencies_fn();
+        me::dataclass_nested_dependencies_fn();
         me::triple_quote_strings_fn();
         me::number_types_in_collections_fn();
         me::test_is_here_fn();
