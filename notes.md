@@ -31,4 +31,9 @@ to the header file in the transpiled C++ (this is the little nuance).
 - When setting a default dict variable you must specify it as auto.
 - pypp_time must be imported exactly like this 'import pypp_python.stl.pypp_time as pypp_time'
 - Feature requests:
+    - templates (i.e. not having to write the same function for different types)
+    - default arguments for functions/methods
+    - default arguments for class instantiation
     - set operations like "|", "^", "&", etc.
+    - dict operations like "|"
+    - static methods (this could probably really help with the issue of function naming conflict. But... I wish there was a better solution for function naming conflicts so that static methods wouldn't be necessary to fix it.)
