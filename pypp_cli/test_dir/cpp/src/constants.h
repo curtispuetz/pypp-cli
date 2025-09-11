@@ -13,17 +13,17 @@ inline const pypp::PyList<int> C({1, 2, 3});
 inline const pypp::PyDict<int, int> D = {{0, 1}};
 inline const pypp::PySet<int> E({1, 2, 3});
 inline const std::function<int(int)> G = [](auto x) { return x + 1; };
-struct _PseudoPyppNameMyConfig {
+struct __PseudoPyppNameMyConfig {
     int a = 1;
     pypp::PyStr b = pypp::PyStr("2");
 };
-inline _PseudoPyppNameMyConfig MyConfig;
+inline __PseudoPyppNameMyConfig MyConfig;
 
-struct _PseudoPyppNameMyConfig2 {
+struct __PseudoPyppNameMyConfig2 {
     pypp::PyStr a = pypp::PyStr("a");
     pypp::PyStr b = pypp::PyStr("b");
 };
-inline _PseudoPyppNameMyConfig2 MyConfig2;
+inline __PseudoPyppNameMyConfig2 MyConfig2;
 
 void constant_fn();
 inline const int F = 3;
