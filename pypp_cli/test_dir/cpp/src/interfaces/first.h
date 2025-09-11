@@ -10,14 +10,14 @@ class InterfaceClass {
     virtual ~InterfaceClass() {}
 };
 
-class Impl1 : public InterfaceClass {
-  public:
+struct Impl1 : public InterfaceClass {
+    Impl1() {}
     void speak(int a);
     pypp::PyStr talk();
 };
 
-class Impl2 : public InterfaceClass {
-  public:
+struct Impl2 : public InterfaceClass {
+    Impl2() {}
     void speak(int a);
     pypp::PyStr talk();
 };

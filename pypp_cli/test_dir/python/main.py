@@ -2,9 +2,9 @@ from args_test import args_test_fn
 from built_in_functions.dict_fn import built_in_dict_fn
 from built_in_functions.list_fn import built_in_list_fn
 from built_in_functions.set_fn import built_in_set_fn
-from classes.nested_dependencies import class_nested_dependencies_fn
 from custom_libs.bridge_lib_test_0.first import bridge_lib_test_0_fn
 from custom_libs.bridge_lib_test_1.first import bridge_lib_test_1_fn
+from dataclasses_test.nested_dependencies import dataclass_nested_dependencies_fn
 from default_dict.create_with_defaults import default_dict_create_with_defaults
 from default_dict.methods import default_dict_methods_fn
 from default_dict.operations import default_dict_operations_fn
@@ -64,8 +64,6 @@ from sets.of_tuples import set_of_tuples_fn
 from ref_vars import ref_vars_fn
 from dataclasses_test.first import dataclass_fn
 from dataclasses_test.with_methods import dataclass_with_methods_fn
-from classes.first import classes_fn
-from classes.inheritance import class_inheritance_fn
 from interfaces.first import interfaces_fn
 from operations import operations_fn
 from fn_as_vars.first import fn_as_vars_fn
@@ -126,8 +124,6 @@ if __name__ == "__main__":
     dict_fn()
     dataclass_fn()
     dataclass_with_methods_fn()
-    classes_fn()
-    class_inheritance_fn()
     interfaces_fn()
     operations_fn()
     fn_as_vars_fn()
@@ -148,7 +144,7 @@ if __name__ == "__main__":
     bridge_lib_test_1_fn()
     list_ownership_tests_fn()
     list_fn()
-    class_nested_dependencies_fn()
+    dataclass_nested_dependencies_fn()
     triple_quote_strings_fn()
     number_types_in_collections_fn()
     test_is_here_fn()

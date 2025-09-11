@@ -22,17 +22,12 @@ def _factory() -> PseudoCustomType:
     return PseudoCustomType(100)
 
 
+@dataclass(frozen=True, slots=True)
 class _ClassA:
-    def __init__(self, pseudo_custom_type: PseudoCustomType):
-        self._pseudo_custom_type = pseudo_custom_type
+    _pseudo_custom_type: PseudoCustomType
 
     def get_a(self) -> int:
         return self._pseudo_custom_type.get_a()
-
-
-@dataclass(frozen=True, slots=True)
-class _DataClassA:
-    pseudo_custom_type: PseudoCustomType
 
 
 @configclass
@@ -50,8 +45,6 @@ def bridge_lib_test_0_fn():
     print(c.get_a())
     d: PseudoCustomType = _factory()
     print(d.get_a())
-    e: _DataClassA = _DataClassA(a)
-    print(e.pseudo_custom_type.get_a())
     print(_ConfigClassA.pseudo_custom_type.get_a())
     f: test_namespace.PseudoA = test_namespace.PseudoA(7)
     print(f.get_a())

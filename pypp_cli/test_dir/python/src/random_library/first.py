@@ -1,3 +1,4 @@
+from dataclasses import dataclass
 import random
 
 
@@ -5,9 +6,9 @@ def _random_as_arg(a: random.Random) -> float:
     return a.random()
 
 
+@dataclass
 class _RandomWrapper:
-    def __init__(self, r: random.Random) -> None:
-        self._r = r
+    _r: random.Random
 
     def mult(self, b: random.Random) -> float:
         return self._r.random() * b.random()

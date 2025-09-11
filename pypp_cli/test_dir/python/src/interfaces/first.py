@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from dataclasses import dataclass
 
 
 class _PrivateInterface(ABC):
@@ -17,6 +18,7 @@ class InterfaceClass(ABC):
         pass
 
 
+@dataclass
 class Impl1(InterfaceClass):
     def speak(self, a: int):
         print("number given:", a)
@@ -25,6 +27,7 @@ class Impl1(InterfaceClass):
         return "hello"
 
 
+@dataclass
 class Impl2(InterfaceClass):
     def speak(self, a: int):
         print("number given times 2:", 2 * a)

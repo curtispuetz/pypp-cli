@@ -19,18 +19,11 @@ void _as_arg(PseudoCustomTypeCpp &arg) { pypp::print(arg.get_a()); }
 
 PseudoCustomTypeCpp _factory() { return PseudoCustomTypeCpp(100); }
 
-class _ClassA {
-  public:
-    PseudoCustomTypeCpp &_pseudo_custom_type;
-    _ClassA(PseudoCustomTypeCpp &a_pseudo_custom_type)
-        : _pseudo_custom_type(a_pseudo_custom_type) {}
+struct _ClassA {
+    const PseudoCustomTypeCpp &_pseudo_custom_type;
+    _ClassA(PseudoCustomTypeCpp &a__pseudo_custom_type)
+        : _pseudo_custom_type(a__pseudo_custom_type) {}
     int get_a() { return _pseudo_custom_type.get_a(); }
-};
-
-struct _DataClassA {
-    const PseudoCustomTypeCpp &pseudo_custom_type;
-    _DataClassA(PseudoCustomTypeCpp &a_pseudo_custom_type)
-        : pseudo_custom_type(a_pseudo_custom_type) {}
 };
 
 struct __PseudoPyppName_ConfigClassA {
@@ -48,8 +41,6 @@ void bridge_lib_test_0_fn() {
     pypp::print(c.get_a());
     PseudoCustomTypeCpp d = _factory();
     pypp::print(d.get_a());
-    _DataClassA e = _DataClassA(a);
-    pypp::print(e.pseudo_custom_type.get_a());
     pypp::print(_ConfigClassA.pseudo_custom_type.get_a());
     test_namespace::PseudoACpp f = test_namespace::PseudoACpp(7);
     pypp::print(f.get_a());

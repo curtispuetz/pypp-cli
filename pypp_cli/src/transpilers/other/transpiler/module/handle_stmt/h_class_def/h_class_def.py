@@ -1,9 +1,7 @@
 import ast
+from multiprocessing import Value
 
 from pypp_cli.src.transpilers.other.transpiler.deps import Deps
-from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_class_def.for_class.for_class import (  # noqa: E501
-    handle_class_def_for_class,
-)
 from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_class_def.for_configclass.for_configclass import (  # noqa: E501
     handle_class_def_for_configclass,
 )
@@ -37,7 +35,11 @@ def handle_class_def(node: ast.ClassDef, d: Deps) -> str:
         # This is a struct, which is a special case of a class.
         # Note: structs are not supported yet.
         return handle_class_def_for_interface(node, d)
-    return handle_class_def_for_class(node, d)
+    raise ValueError(
+        "class definition without a @dataclass, @configclass, or @exception decorator "
+        "or not an interface inheriting from ABC is not supported. In file: "
+        + str(d.file_path)
+    )
 
 
 def _is_interface_def(node: ast.ClassDef) -> bool:

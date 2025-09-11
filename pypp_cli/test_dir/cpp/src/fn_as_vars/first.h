@@ -4,8 +4,8 @@
 #include <utility>
 
 namespace me {
-class TestClass {
-  public:
+struct TestClass {
+    TestClass() {}
     void t(std::function<void()> &fn);
 };
 

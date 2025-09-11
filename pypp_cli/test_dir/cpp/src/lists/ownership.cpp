@@ -5,10 +5,9 @@
 #include <utility>
 
 namespace me {
-class _PrivateClass {
-  public:
+struct _PrivateClass {
     int _v;
-    _PrivateClass(int a_v) : _v(std::move(a_v)) {}
+    _PrivateClass(int a__v) : _v(std::move(a__v)) {}
     int m() { return _v; }
 };
 

@@ -37,3 +37,5 @@ to the header file in the transpiled C++ (this is the little nuance).
     - set operations like "|", "^", "&", etc.
     - dict operations like "|"
     - static methods (this could probably really help with the issue of function naming conflict. But... I wish there was a better solution for function naming conflicts so that static methods wouldn't be necessary to fix it.)
+    - inheritance
+    - better transpiler error messages that tell me where in my code the issue occured.

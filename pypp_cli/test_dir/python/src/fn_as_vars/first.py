@@ -28,6 +28,7 @@ def _test_fn6(fn: Valu(Callable[[int, int], str])):
     print(fn(1, 2))
 
 
+@dataclass
 class TestClass:
     def t(self, fn: Callable[[], None]):
         fn()

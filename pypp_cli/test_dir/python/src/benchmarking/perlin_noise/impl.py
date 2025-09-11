@@ -1,3 +1,4 @@
+from dataclasses import dataclass
 import math
 import random
 
@@ -25,10 +26,10 @@ GRADIENTS: list[tuple[int, int]] = [
 ]
 
 
+@dataclass(frozen=True, slots=True)
 class PerlinNoise:
-    def __init__(self, permutation_table_size: int, permuted_list: Valu(list[int])):
-        self._p_len = permutation_table_size
-        self._p = permuted_list
+    _p_len: int
+    _p: Valu(list[int])
 
     def calc(
         self,

@@ -1,9 +1,10 @@
+from dataclasses import dataclass
 from pypp_python import print_address, mov
 
 
+@dataclass
 class _PrivateClass:
-    def __init__(self, v: int):
-        self._v = v
+    _v: int
 
     def m(self) -> int:
         return self._v

@@ -10,13 +10,11 @@ inline const pypp::PyList<pypp::PyTup<int, int>>
     GRADIENTS({pypp::PyTup(1, 0), pypp::PyTup(-1, 0), pypp::PyTup(0, 1),
                pypp::PyTup(0, -1), pypp::PyTup(1, 1), pypp::PyTup(-1, 1),
                pypp::PyTup(1, -1), pypp::PyTup(-1, -1)});
-class PerlinNoise {
-  public:
-    int _p_len;
-    pypp::PyList<int> _p;
-    PerlinNoise(int a_permutation_table_size, pypp::PyList<int> a_permuted_list)
-        : _p_len(std::move(a_permutation_table_size)),
-          _p(std::move(a_permuted_list)) {}
+struct PerlinNoise {
+    const int _p_len;
+    const pypp::PyList<int> _p;
+    PerlinNoise(int a__p_len, pypp::PyList<int> a__p)
+        : _p_len(std::move(a__p_len)), _p(std::move(a__p)) {}
     double calc(double x, double y, int octaves, double persistence,
                 double lacunarity);
     double _calc_one_octave(double x, double y);
