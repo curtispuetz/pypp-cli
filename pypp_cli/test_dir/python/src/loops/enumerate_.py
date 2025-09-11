@@ -8,7 +8,8 @@ def enumerate_fn():
     for i, val in enumerate([1, 2, 3]):
         # Note: you don't need to use mov with the enumerate counter.
         a.append(i)
-        a.append(mov(val))
+        v: int = val
+        a.append(mov(v))
     print(a)
     # Note: a second argument to enumerate is not supported and will result in a C++
     # compilation error.
@@ -33,4 +34,11 @@ def enumerate_fn():
         #  copy first because the data is owned by the dict.
         y: int = tg(val, 0)
         a.append(mov(y))
+    print(a)
+    b: list[int] = [10, 20, 30]
+    for i, val in enumerate(b):
+        a.append(i)
+        v: int = val
+        a.append(mov(v))
+    print(b)
     print(a)
