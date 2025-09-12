@@ -4,6 +4,8 @@ from pypp_cli.src.transpilers.other.transpiler.deps import Deps
 from pypp_cli.src.transpilers.other.transpiler.maps.d_types import MappingFnStr
 from pypp_cli.src.transpilers.other.other.fn_str import calc_funcs_in_str
 
+# TODO: fix the bug where classes cannot be written in main files
+
 
 def is_imported(required_imports: set[PySpecificImport | None], d: Deps) -> bool:
     for required_import in required_imports:

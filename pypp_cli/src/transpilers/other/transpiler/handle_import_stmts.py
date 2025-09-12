@@ -24,7 +24,7 @@ def analyse_import_stmts(
                 )
             if node.module is None:
                 raise ValueError(
-                    "Relative imports not supported. Problem in {file_path}"
+                    "Import with just a '.' not supported. Problem in {file_path}"
                 )
             if node.module in modules_in_project or maps.import_.contains(node.module):
                 inc: QInc = _calc_q_inc(node.module)

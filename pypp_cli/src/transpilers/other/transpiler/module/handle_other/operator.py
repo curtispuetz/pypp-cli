@@ -1,9 +1,11 @@
-# ast docs: operator = Add | Sub | Mult | MatMult | Div | Mod | Pow | LShift
-#                  | RShift | BitOr | BitXor | BitAnd | FloorDiv
 import ast
 
 from pypp_cli.src.transpilers.other.transpiler.d_types import QInc, AngInc
 from pypp_cli.src.transpilers.other.transpiler.deps import Deps
+
+
+# ast docs: operator = Add | Sub | Mult | MatMult | Div | Mod | Pow | LShift
+#                  | RShift | BitOr | BitXor | BitAnd | FloorDiv
 
 
 def _handle_operator(node: ast.operator, d: Deps) -> tuple[str, str, str] | None:
