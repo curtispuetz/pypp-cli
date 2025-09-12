@@ -18,6 +18,9 @@ from pypp_cli.src.transpilers.other.transpiler.module.mapping.util import (
     calc_string_fn,
     find_map_entry,
 )
+from pypp_cli.src.transpilers.other.transpiler.module.util.check_primitive_type import (
+    is_primitive_type,
+)
 
 
 def handle_call(node: ast.Call, d: Deps) -> str:
@@ -27,7 +30,13 @@ def handle_call(node: ast.Call, d: Deps) -> str:
     if caller_str == "Ref" and d.is_imported(PySpecificImpFrom("pypp_python", "Ref")):
         if len(node.args) != 1:
             d.value_err("Ref() must have exactly one argument.", node)
-        return f"&{d.handle_expr(node.args[0])}"
+        cpp_type: str = d.handle_expr(node.args[0])
+        if is_primitive_type(cpp_type, d):
+            d.value_err(
+                "Wrapping a primitive type in `Ref()` is not supported",
+                node,
+            )
+        return f"&{cpp_type}"
     for k, v in d.maps.call.items():
         e = find_map_entry(v, d)
         if e is None:
