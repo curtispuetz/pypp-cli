@@ -83,6 +83,9 @@ void string_ops() {
     }
     pypp::print(m.max());
     pypp::print(m.min());
+    pypp::PyStr raw_s = pypp::PyStr(
+        "this \\n is a raw string with a \\t tab and a \\\\ backslash");
+    pypp::print(raw_s);
 }
 
 } // namespace me
