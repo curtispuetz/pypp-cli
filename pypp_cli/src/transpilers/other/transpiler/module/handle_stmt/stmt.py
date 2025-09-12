@@ -84,8 +84,9 @@ def handle_stmt(node: ast.stmt, d: Deps) -> str:
     if isinstance(node, ast.Pass):
         return ""
     if isinstance(node, (ast.ImportFrom, ast.Import)):
-        raise ValueError(
+        d.value_err(
             "import statements are only supported at the top of the file before any "
-            "other code."
+            "other code.",
+            node,
         )
-    raise ValueError(f"code stmt type {node} not supported")
+    d.value_err(f"code stmt type {node} not supported", node)

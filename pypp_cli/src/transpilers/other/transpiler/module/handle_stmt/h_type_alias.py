@@ -9,7 +9,8 @@ def handle_type_alias(node: ast.TypeAlias, d: Deps) -> str:
     d.set_inc_in_h(not name_starts_with_underscore)
     value: str = d.handle_expr(node.value)
     d.set_inc_in_h(False)
-    assert len(node.type_params) == 0, "type parameters for type alias not supported"
+    if len(node.type_params) != 0:
+        d.value_err("type parameters for type aliases is not supported", node)
     res: str = f"using {name} = {value};"
     if name_starts_with_underscore:
         return res

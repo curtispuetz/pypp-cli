@@ -4,31 +4,41 @@ from pypp_cli.src.transpilers.other.transpiler.d_types import QInc
 from pypp_cli.src.transpilers.other.transpiler.deps import Deps
 
 
+_ERR_STR: str = (
+    "With statement can only be used as 'with open(arg1, optional_arg2) as name1'"
+)
+
+
 def handle_with_item(nodes: list[ast.withitem], d: Deps) -> str:
-    error_str: str = (
-        "With statement can only be used as 'with open(arg1, ?optional_arg2) as name1'"
-    )
-    node, args = _assert_with_item_is_open(nodes, error_str)
+    node, args = _assert_with_item_is_open(nodes, d)
     args_str = d.handle_exprs(args)
-    variable_name = _assert_variable_name(node, error_str)
+    variable_name = _get_var_name(node, d)
     d.add_inc(QInc("pypp_text_io.h"))
     return f"pypp::PyTextIO {variable_name}({args_str});"
 
 
 def _assert_with_item_is_open(
-    nodes: list[ast.withitem], error_str: str
+    nodes: list[ast.withitem], d: Deps
 ) -> tuple[ast.withitem, list[ast.expr]]:
-    assert len(nodes) == 1, error_str
+    if len(nodes) != 1:
+        d.value_err_no_ast(_ERR_STR)
     node = nodes[0]
-    assert isinstance(node.context_expr, ast.Call), error_str
-    assert isinstance(node.context_expr.func, ast.Name), error_str
-    assert node.context_expr.func.id == "open", error_str
-    assert len(node.context_expr.args) in {1, 2}, "open() expected 1 or 2 arguments"
+    if not isinstance(node.context_expr, ast.Call):
+        d.value_err(_ERR_STR, node)
+    elif not isinstance(node.context_expr.func, ast.Name):
+        d.value_err(_ERR_STR, node)
+    elif not node.context_expr.func.id == "open":
+        d.value_err(_ERR_STR, node)
+    elif len(node.context_expr.args) not in {1, 2}:
+        d.value_err("open() expected 1 or 2 arguments", node)
     return node, node.context_expr.args
 
 
-def _assert_variable_name(node: ast.withitem, error_str: str) -> str:
-    assert node.optional_vars is not None, error_str
-    assert isinstance(node.optional_vars, ast.Name), error_str
-    assert isinstance(node.optional_vars.id, str), error_str
+def _get_var_name(node: ast.withitem, d: Deps) -> str:
+    if node.optional_vars is None:
+        d.value_err(_ERR_STR, node)
+    elif not isinstance(node.optional_vars, ast.Name):
+        d.value_err(_ERR_STR, node)
+    elif not isinstance(node.optional_vars.id, str):
+        d.value_err(_ERR_STR, node)
     return node.optional_vars.id

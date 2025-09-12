@@ -7,12 +7,11 @@ from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_tuple import
 
 
 def handle_assign(node: ast.Assign, d: Deps):
-    assert len(node.targets) == 1, (
-        "More than one target for an assignment is not supported"
-    )
+    if len(node.targets) != 1:
+        d.value_err("Multiple assignment targets are not supported", node)
     target = node.targets[0]
     if isinstance(target, ast.Subscript) and isinstance(target.slice, ast.Slice):
-        raise ValueError("Slice assignment is not supported")
+        d.value_err("Slice assignment is not supported", node)
     if isinstance(target, ast.Tuple):
         ts = handle_tuple_inner_args(target, d)
         target_str: str = f"auto [{ts}]"

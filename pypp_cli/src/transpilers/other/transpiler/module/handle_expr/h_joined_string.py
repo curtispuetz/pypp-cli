@@ -25,6 +25,10 @@ def handle_joined_string(node: ast.JoinedStr, d: Deps) -> str:
 
 
 def handle_formatted_value(node: ast.FormattedValue, d: Deps) -> str:
-    assert node.conversion == -1, "formatting with f strings not supported"
-    assert node.format_spec is None, "Nested f-stream feature not supported"
+    # TODO: understand better what is supported in Py++ for joined strings and what
+    # is not
+    if node.conversion != -1:
+        d.value_err("formatting with f strings not supported", node)
+    if node.format_spec is not None:
+        d.value_err("Nested f-stream feature not supported", node)
     return d.handle_expr(node.value)

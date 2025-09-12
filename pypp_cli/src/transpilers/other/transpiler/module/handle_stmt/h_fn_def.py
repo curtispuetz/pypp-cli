@@ -12,7 +12,10 @@ from pypp_cli.src.transpilers.other.transpiler.module.util.calc_fn_signature imp
 
 
 def handle_fn_def(node: ast.FunctionDef, d: Deps) -> str:
-    assert len(node.decorator_list) == 0, "function decorators are not supported"
+    if len(node.decorator_list) != 0:
+        d.value_err_no_ast(
+            f"function decorators are not supported. Problem function: {node.name}"
+        )
     fn_name = node.name
     fn_name_doesnt_start_with_underscore: bool = not fn_name.startswith("_")
     d.set_inc_in_h(fn_name_doesnt_start_with_underscore)

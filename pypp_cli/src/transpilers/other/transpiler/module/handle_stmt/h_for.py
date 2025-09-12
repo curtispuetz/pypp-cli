@@ -9,8 +9,10 @@ from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_tuple import
 
 
 def handle_for(node: ast.For, d: Deps) -> str:
-    assert len(node.orelse) == 0, "For loop else not supported"
-    assert node.type_comment is None, "For loop type comment not supported"
+    if len(node.orelse) != 0:
+        d.value_err_no_ast("For loop else not supported")
+    if node.type_comment is not None:
+        d.value_err_no_ast("For loop type comment not supported")
     body_str = d.handle_stmts(node.body)
     if isinstance(node.target, ast.Tuple):
         target_str = "[" + handle_tuple_inner_args(node.target, d) + "]"

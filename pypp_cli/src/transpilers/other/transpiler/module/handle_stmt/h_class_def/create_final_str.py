@@ -15,7 +15,7 @@ from pypp_cli.src.transpilers.other.transpiler.module.util.calc_fn_signature imp
 def create_final_str_for_class_def(
     node: ast.ClassDef,
     d: Deps,
-    fields_and_base_constructor_calls: list[ClassField | str],
+    fields_and_base_constructor_calls: list[ClassField],
     methods: list[ClassMethod],
     constructor_sig: str,
     name_starts_with_underscore: bool,
@@ -80,7 +80,7 @@ def _calc_base_classes(node: ast.ClassDef, d: Deps) -> list[str]:
 
 
 def _calc_fields_and_constructor(
-    fields_and_base_constructor_calls: list[ClassField | str],
+    fields: list[ClassField],
     constructor_sig: str,
     d: Deps,
     is_frozen: bool,
@@ -88,8 +88,8 @@ def _calc_fields_and_constructor(
     if constructor_sig == "":
         # There can't be any fields if there is no constructor.
         return ""
-    field_defs = _calc_field_definitions(fields_and_base_constructor_calls, is_frozen)
-    c_il: str = _calc_constructor_initializer_list(fields_and_base_constructor_calls, d)
+    field_defs = _calc_field_definitions(fields, is_frozen)
+    c_il: str = _calc_constructor_initializer_list(fields, d)
     if c_il != "":
         c_il = ": " + c_il
     return f"{field_defs} {constructor_sig} {c_il}" + "{}"
@@ -124,13 +124,10 @@ def _add_namespace(method: ClassMethod, class_name: str) -> str:
 
 
 def _calc_constructor_initializer_list(
-    fields_and_base_constructor_calls: list[ClassField | str], d: Deps
+    fields_and_base_constructor_calls: list[ClassField], d: Deps
 ) -> str:
     ret: list[str] = []
     for field in fields_and_base_constructor_calls:
-        if isinstance(field, str):
-            ret.append(field)
-            continue
         if field.ref:
             ret.append(f"{field.target_str}({ARG_PREFIX}{field.target_other_name})")
         else:
@@ -141,11 +138,9 @@ def _calc_constructor_initializer_list(
     return ", ".join(ret)
 
 
-def _calc_field_definitions(fields: list[ClassField | str], is_frozen: bool) -> str:
+def _calc_field_definitions(fields: list[ClassField], is_frozen: bool) -> str:
     ret: list[str] = []
     const_str = "const " if is_frozen else ""
     for field in fields:
-        if isinstance(field, str):
-            continue
         ret.append(f"{const_str}{field.type_cpp}{field.ref} {field.target_str};")
     return " ".join(ret)

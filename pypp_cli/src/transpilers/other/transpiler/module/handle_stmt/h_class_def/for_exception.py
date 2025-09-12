@@ -7,23 +7,35 @@ from pypp_cli.src.transpilers.other.transpiler.module.mapping.exceptions import 
 )
 
 
+_ERR_MSG = "exception class body must only contain 'pass' statement"
+
+
 def handle_class_def_for_exception(
     node: ast.ClassDef,
     d: Deps,
 ) -> str:
-    err_msg = "exception class body must only contain 'pass' statement"
-    assert len(node.body) == 1, err_msg
+    class_name = node.name
+    err_msg = f"exception class '{class_name}' body must only contain 'pass' statement"
+    if len(node.body) != 1:
+        d.value_err_no_ast(err_msg)
     item = node.body[0]
-    assert isinstance(item, ast.Pass), err_msg
-    assert len(node.bases) == 1, "exception class must have exactly one base class"
+    if not isinstance(item, ast.Pass):
+        d.value_err_no_ast(err_msg)
+    if len(node.bases) != 1:
+        d.value_err_no_ast(
+            f"exception class '{class_name}' must have exactly one base class"
+        )
     base = node.bases[0]
-    assert isinstance(base, ast.Name), "exception class base must be a Name"
+    if not isinstance(base, ast.Name):
+        d.value_err(
+            f"exception class '{class_name}' base class must just be a name", base
+        )
     name_doesnt_start_with_underscore: bool = not node.name.startswith("_")
     d.set_inc_in_h(name_doesnt_start_with_underscore)
     base_name = lookup_cpp_exception_type(base.id, d)
     d.add_inc(QInc("py_str.h"))
     d.set_inc_in_h(False)
-    class_name = node.name
+
     ret = (
         f"class {class_name} : public {base_name}"
         + "{ public: explicit "

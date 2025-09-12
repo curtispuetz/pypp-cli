@@ -21,10 +21,12 @@ from pypp_cli.src.transpilers.other.transpiler.module.mapping.util import (
 
 
 def handle_call(node: ast.Call, d: Deps) -> str:
-    assert len(node.keywords) == 0, "keywords for a call are not supported."
+    if len(node.keywords) != 0:
+        d.value_err("keywords for a call are not supported", node)
     caller_str: str = d.handle_expr(node.func)
     if caller_str == "Ref" and d.is_imported(PySpecificImpFrom("pypp_python", "Ref")):
-        assert len(node.args) == 1, "Ref() must have exactly one argument."
+        if len(node.args) != 1:
+            d.value_err("Ref() must have exactly one argument.", node)
         return f"&{d.handle_expr(node.args[0])}"
     for k, v in d.maps.call.items():
         e = find_map_entry(v, d)
@@ -71,8 +73,9 @@ def _handle_call_with_starred_arg(
     if len(node.args) == 1:
         first_arg = node.args[0]
         if isinstance(first_arg, ast.Starred):
-            assert len(node.args) == 1, (
-                "Only one argument is allowed when using a starred argument."
-            )
+            if len(node.args) != 1:
+                d.value_err(
+                    "Only one argument is allowed when using a starred argument.", node
+                )
             return handle_call_with_starred_arg(first_arg, d, caller_str)
     return None

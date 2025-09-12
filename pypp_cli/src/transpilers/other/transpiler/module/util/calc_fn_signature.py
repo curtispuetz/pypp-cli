@@ -51,13 +51,15 @@ def calc_fn_arg_types(
     skip_first_arg: bool = False,
 ) -> dict[str, str]:
     ret = {}
-    _assert_args(node.args, node.name, d)
+    _assert_args(node.args, d)
     for i in range(skip_first_arg, len(node.args.args)):
         py_arg = node.args.args[i]
         arg_name: str = py_arg.arg
-        assert py_arg.annotation is not None, (
-            f"function argument {arg_name} must have type annotation"
-        )
+        if py_arg.annotation is None:
+            d.value_err(
+                f"function argument '{arg_name}' must have type annotation",
+                py_arg,
+            )
         cpp_arg_type: str | None = calc_callable_type(py_arg.annotation, d)
         if cpp_arg_type is None:
             cpp_arg_type = d.handle_expr(py_arg.annotation)
@@ -70,26 +72,20 @@ def calc_fn_str_with_body(fn_signature: str, body_str: str) -> str:
     return f"{fn_signature} " + "{" + body_str + "}\n\n"
 
 
-def _assert_args(args: ast.arguments, func_name: str, d: Deps):
-    assert len(args.defaults) == 0, (
-        f"default function/method arguments are not supported. "
-        f"{_error_str(func_name, d)}"
-    )
-    assert args.vararg is None, (
-        f"A variable amount of arguments (i.e. *args) is not supported. "
-        f"{_error_str(func_name, d)}"
-    )
-    assert args.kwarg is None, (
-        f"A variable amount of keyword arguments (i.e. **kwargs) is not supported. "
-        f"{_error_str(func_name, d)}"
-    )
-    assert len(args.kwonlyargs) == 0, (
-        f"keyword only arguments are not supported. {_error_str(func_name, d)}"
-    )
-    assert len(args.kw_defaults) == 0, (
-        f"keyword only arguments are not supported. {_error_str(func_name, d)}"
-    )
-
-
-def _error_str(func_name: str, d: Deps) -> str:
-    return f"function/method name: '{func_name}' in file: {d.file_path}"
+def _assert_args(args: ast.arguments, d: Deps):
+    if len(args.defaults) != 0:
+        d.value_err("default function/method arguments are not supported", args)
+    if args.vararg is not None:
+        args.vararg.arg
+        d.value_err(
+            f"A variable amount of arguments '*{args.vararg.arg}' is not supported",
+            args,
+        )
+    if args.kwarg is not None:
+        d.value_err(
+            f"A variable amount of keyword arguments '**{args.kwarg.arg}' is not "
+            f"supported",
+            args,
+        )
+    if len(args.kwonlyargs) != 0 or len(args.kw_defaults) != 0:
+        d.value_err("keyword only arguments are not supported", args)

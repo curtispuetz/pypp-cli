@@ -10,8 +10,10 @@ from pypp_cli.src.transpilers.other.transpiler.module.util.inner_strings import 
 
 
 def handle_raise(node: ast.Raise, d: Deps) -> str:
-    assert node.cause is None, "exception cause not supported"
-    assert node.exc is not None, "raising without exception type is not supported"
+    if node.cause is not None:
+        d.value_err("exception cause (i.e. raise ... from ...) not supported", node)
+    if node.exc is None:
+        d.value_err("raising without exception type is not supported", node)
     exe_str = d.handle_expr(node.exc)
     inside_str = calc_inside_rd(exe_str)
     python_exception_type = exe_str.split("(", 1)[0]
