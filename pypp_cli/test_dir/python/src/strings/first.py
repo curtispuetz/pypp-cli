@@ -93,3 +93,6 @@ def string_ops():
         print(f"d not in {m}")
     print(max(m))
     print(min(m))
+    # raw string
+    raw_s: str = r"this \n is a raw string with a \t tab and a \\ backslash"
+    print(raw_s)
