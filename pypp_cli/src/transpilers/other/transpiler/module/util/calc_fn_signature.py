@@ -32,6 +32,12 @@ def calc_fn_signature(
             cpp_ret_type = f"pypp::Generator<{calc_inside_sq(cpp_ret_type)}>"
         elif cpp_ret_type.startswith("&"):
             cpp_ret_type = cpp_ret_type[1:] + "&"
+        elif cpp_ret_type.startswith("Valu(") and cpp_ret_type.endswith(")"):
+            d.value_err(
+                "Wrapping a return type in `Valu()` is not supported since it has no "
+                "meaning. Remove the `Valu()`.",
+                node.returns,
+            )
     cpp_args_str = _calc_cpp_args_str(node, d, skip_first_arg)
     return f"{cpp_ret_type} {fn_name}({cpp_args_str})"
 
