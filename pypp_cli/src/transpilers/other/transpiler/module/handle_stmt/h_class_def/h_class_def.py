@@ -1,5 +1,4 @@
 import ast
-from multiprocessing import Value
 
 from pypp_cli.src.transpilers.other.transpiler.deps import Deps
 from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_class_def.for_configclass.for_configclass import (  # noqa: E501

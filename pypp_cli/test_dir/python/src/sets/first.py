@@ -1,4 +1,3 @@
-from enum import auto
 from pypp_python import mov, Valu, auto
 
 
