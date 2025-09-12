@@ -12,7 +12,7 @@ from pypp_cli.src.transpilers.other.transpiler.maps.call.call import (
     CALL_MAP,
 )
 from pypp_cli.src.transpilers.other.transpiler.maps.fn_arg_passed_by_value import (
-    FN_ARG_PASSED_BY_VALUE_MAP,
+    PRIMITIVE_TYPES,
     fn_arg_passed_by_value_warning_msg,
 )
 from pypp_cli.src.transpilers.other.transpiler.maps.util.calc_import_map import (
@@ -71,7 +71,7 @@ class MapsCltr:
                 ATTR_MAP, ATTR_CALC_ENTRY_FN_MAP, "attr_map", "attr"
             ),
             self._cltr2.calc_map_2(
-                FN_ARG_PASSED_BY_VALUE_MAP,
+                PRIMITIVE_TYPES,
                 "always_pass_by_value",
                 fn_arg_passed_by_value_warning_msg,
             ),

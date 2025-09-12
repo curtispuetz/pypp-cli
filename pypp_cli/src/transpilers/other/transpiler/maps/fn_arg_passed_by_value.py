@@ -1,7 +1,7 @@
 from pypp_cli.src.transpilers.other.transpiler.d_types import PySpecificImpFrom
 from pypp_cli.src.transpilers.other.transpiler.maps.d_types import FnArgByValueMap
 
-FN_ARG_PASSED_BY_VALUE_MAP: FnArgByValueMap = {
+PRIMITIVE_TYPES: FnArgByValueMap = {
     "int": {None},
     "double": {None},  # python float
     "bool": {None},
