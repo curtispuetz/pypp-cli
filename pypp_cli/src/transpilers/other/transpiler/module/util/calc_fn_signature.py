@@ -2,8 +2,8 @@ import ast
 
 from pypp_cli.src.transpilers.other.transpiler.d_types import QInc
 from pypp_cli.src.transpilers.other.transpiler.deps import Deps
-from pypp_cli.src.transpilers.other.transpiler.module.mapping.fn_arg import (
-    lookup_cpp_fn_arg,
+from pypp_cli.src.transpilers.other.transpiler.module.mapping.cpp_type import (
+    lookup_cpp_type,
 )
 from pypp_cli.src.transpilers.other.transpiler.module.util.calc_callable_type import (
     calc_callable_type,
@@ -69,8 +69,7 @@ def calc_fn_arg_types(
         cpp_arg_type: str | None = calc_callable_type(py_arg.annotation, d)
         if cpp_arg_type is None:
             cpp_arg_type = d.handle_expr(py_arg.annotation)
-        cpp_arg = lookup_cpp_fn_arg(cpp_arg_type, d)
-        ret[arg_name] = cpp_arg
+        ret[arg_name] = lookup_cpp_type(cpp_arg_type, d)
     return ret
 
 
