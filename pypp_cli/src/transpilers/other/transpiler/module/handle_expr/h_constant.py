@@ -28,4 +28,4 @@ def handle_constant(node: ast.Constant, d: Deps) -> str:
         return str(node.value)
     if node.value is None:
         return "std::monostate"
-    raise ValueError(f"constant type {node.value} not supported")
+    d.value_err(f"constant type {node.value} not supported", node)

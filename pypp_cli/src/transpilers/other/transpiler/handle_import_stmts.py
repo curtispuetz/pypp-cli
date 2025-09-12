@@ -23,11 +23,15 @@ def analyse_import_stmts(
                     f"module: {node.module}. In {file_path}"
                 )
             if node.module is None:
-                raise ValueError("Relative imports not supported")
+                raise ValueError(
+                    "Relative imports not supported. Problem in {file_path}"
+                )
             if node.module in modules_in_project or maps.import_.contains(node.module):
                 inc: QInc = _calc_q_inc(node.module)
                 for alias in node.names:
-                    assert alias.asname is None, "'as' is not supported in import from"
+                    assert alias.asname is None, (
+                        f"'as' is not supported in import from. In {file_path}"
+                    )
                     cpp_inc_map[alias.name] = inc
             if node.module in modules_in_project:
                 for alias in node.names:
@@ -38,11 +42,11 @@ def analyse_import_stmts(
                 if name.name in modules_in_project:
                     raise ValueError(
                         "Import is not supported for project imports "
-                        "(only ImportFrom is supported)"
+                        "(only ImportFrom is supported). In {file_path}"
                     )
                 if maps.import_.contains(name.name):
                     assert name.asname is not None, (
-                        f"import 'as' required for {name.name}"
+                        f"import 'as' required for {name.name}. In {file_path}"
                     )
                     cpp_inc_map[name.asname] = _calc_q_inc(name.name)
                 py_imports.imp.add(PyImport(name.name, name.asname))

@@ -28,11 +28,12 @@ from pypp_cli.src.transpilers.other.transpiler.maps.call.default_dict_map_fn imp
 )
 
 
-def _default_dict(_node: ast.Call, _d) -> str:
-    raise ValueError(
+def _default_dict(_node: ast.Call, d) -> str:
+    d.value_err_no_ast(
         "defaultdict must be called with type info "
         "(i.e. defaultdict[KeyType, ValueType])"
     )
+    return "Shouldn't happen"
 
 
 def _tuple_get(node: ast.Call, d) -> str:

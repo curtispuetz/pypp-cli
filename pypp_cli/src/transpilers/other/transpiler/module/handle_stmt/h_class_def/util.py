@@ -30,10 +30,13 @@ def calc_method(
     d: Deps,
     name_doesnt_start_with_underscore: bool,
 ) -> ClassMethod:
-    assert not (node.name.startswith("__") and node.name.endswith("__")), (
-        f"magic method {node.name} for a class is not supported"
-    )
-    assert node.args.args[0].arg == "self", "first arg must be self"
+    if node.name.startswith("__") and node.name.endswith("__"):
+        d.value_err_no_ast(f"magic method '{node.name}' for a class is not supported")
+    if node.args.args[0].arg != "self":
+        d.value_err_no_ast(
+            "first argument of a method must be 'self'. Problem method: " + node.name
+        )
+
     fn_signature = calc_fn_signature(
         node,
         d,

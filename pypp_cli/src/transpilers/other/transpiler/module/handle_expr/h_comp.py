@@ -14,12 +14,13 @@ def handle_comp(
 ) -> str:
     # It should be converted to a for loop.
     # The list comprehension must be assigned to something.
-    assert len(node.generators) == 1, (
-        "multiple loops not supported in list comprehensions"
-    )
+    if len(node.generators) != 1:
+        d.value_err("multiple loops not supported in list comprehensions", node)
     gen_node = node.generators[0]
-    assert len(gen_node.ifs) == 0, "ifs not supported in list comprehensions"
-    assert not gen_node.is_async, "async not supported in list comprehensions"
+    if len(gen_node.ifs) != 0:
+        d.value_err("ifs not supported in list comprehensions", node)
+    if gen_node.is_async:
+        d.value_err("async not supported in list comprehensions", node)
     logic_exp_node: ast.stmt
     if isinstance(node, ast.DictComp):
         # a[3] = "d"

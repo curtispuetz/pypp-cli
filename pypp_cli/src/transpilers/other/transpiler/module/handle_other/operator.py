@@ -6,7 +6,7 @@ from pypp_cli.src.transpilers.other.transpiler.d_types import QInc, AngInc
 from pypp_cli.src.transpilers.other.transpiler.deps import Deps
 
 
-def _handle_operator(node: ast.operator) -> tuple[str, str, str] | None:
+def _handle_operator(node: ast.operator, d: Deps) -> tuple[str, str, str] | None:
     if isinstance(node, ast.Add):
         return "", "+", ""
     if isinstance(node, ast.Sub):
@@ -29,12 +29,12 @@ def _handle_operator(node: ast.operator) -> tuple[str, str, str] | None:
         return "", "&", ""
     if isinstance(node, ast.MatMult):
         # MatMult is not supported because its mostly just used for numpy arrays.
-        raise ValueError("Matrix mult operator (i.e. @) not supported")
+        d.value_err_no_ast("Matrix mult operator (i.e. @) not supported")
     return None
 
 
 def handle_operator(node: ast.operator, d: Deps) -> tuple[str, str, str]:
-    res = _handle_operator(node)
+    res = _handle_operator(node, d)
     if res is not None:
         return res
     if isinstance(node, ast.Pow):
@@ -46,9 +46,11 @@ def handle_operator(node: ast.operator, d: Deps) -> tuple[str, str, str]:
     raise ValueError(f"operator type {node} is not supported")
 
 
-def handle_operator_for_aug_assign(node: ast.operator) -> str:
-    assert not isinstance(node, ast.FloorDiv), "//= not supported"
-    assert not isinstance(node, ast.Pow), "**= not supported"
-    res = _handle_operator(node)
+def handle_operator_for_aug_assign(node: ast.operator, d: Deps) -> str:
+    if isinstance(node, ast.FloorDiv):
+        d.value_err_no_ast("//= not supported")
+    if isinstance(node, ast.Pow):
+        d.value_err_no_ast("**= not supported")
+    res = _handle_operator(node, d)
     assert res is not None, "shouldn't happen"
     return res[1]

@@ -41,10 +41,12 @@ def handle_class_def_for_configclass(
 def _calc_ann_assigns(node: ast.ClassDef, d: Deps) -> str:
     ret: list[str] = []
     for ann_assign in node.body:
-        assert isinstance(ann_assign, ast.AnnAssign), (
-            "configclass without dtype arg should only have assignments with "
-            "annotations in body"
-        )
+        if not isinstance(ann_assign, ast.AnnAssign):
+            d.value_err(
+                "A configclass without 'dtype' arg should only have assignments with "
+                "annotations in the class body",
+                ann_assign,
+            )
         ret.append(
             handle_general_ann_assign(ann_assign, d, d.handle_expr(ann_assign.target))
         )
@@ -59,9 +61,11 @@ def _calc_assigns(
     dtype_str: str = d.handle_expr(dtype)
     ret: list[str] = []
     for assign in node.body:
-        assert isinstance(assign, ast.Assign), (
-            "configclass dtype arg should only have assignments without annotations "
-            "in body"
-        )
+        if not isinstance(assign, ast.Assign):
+            d.value_err(
+                "A configclass with 'dtype' arg should only have assignments without "
+                "annotations in the class body",
+                assign,
+            )
         ret.append(f"{dtype_str} " + handle_assign(assign, d))
     return " ".join(ret)

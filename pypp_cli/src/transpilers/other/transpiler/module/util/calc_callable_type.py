@@ -26,10 +26,11 @@ def calc_callable_type(node: ast.expr, d: Deps) -> str | None:
 
 def _calc_callable_type(node: ast.Subscript, d: Deps) -> str:
     d.add_inc(AngInc("functional"))
-    assert isinstance(node.slice, ast.Tuple), "2 arguments required for Callable"
-    assert len(node.slice.elts) == 2, "2 arguments required for Callable"
+    if not isinstance(node.slice, ast.Tuple) or len(node.slice.elts) != 2:
+        d.value_err("2 arguments required for Callable", node)
     arg_types = node.slice.elts[0]
-    assert isinstance(arg_types, ast.List), "First argument for Callable must be a List"
+    if not isinstance(arg_types, ast.List):
+        d.value_err("First argument for Callable must be a List", node)
     arg_types_cpp = d.handle_exprs(arg_types.elts)
     ret_type = node.slice.elts[1]
     ret_type_cpp = d.handle_expr(ret_type)

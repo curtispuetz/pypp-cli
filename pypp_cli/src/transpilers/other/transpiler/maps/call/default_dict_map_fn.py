@@ -15,7 +15,8 @@ def _calc_type_for_special_default_dict(arg1: ast.expr) -> str | None:
 
 
 def good_default_dict(node: ast.Call, d, caller_str: str) -> str:
-    assert len(node.args) > 0, "defaultdict should have at least one argument"
+    if len(node.args) == 0:
+        d.value_err("defaultdict must be called with at least one argument", node)
     value_type = _calc_type_for_special_default_dict(node.args[0])
     if value_type is not None:
         arg = ""

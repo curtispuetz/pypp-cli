@@ -16,7 +16,6 @@ from pypp_cli.src.transpilers.other.transpiler.module.mapping.util import (
 
 
 def handle_attribute(node: ast.Attribute, d: Deps):
-    assert isinstance(node.attr, str), "Not supported"
     attr_str: str = node.attr
     if attr_str == "union":  # This is for the set.union method.
         attr_str += "_"
