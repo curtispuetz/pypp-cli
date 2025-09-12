@@ -8,6 +8,8 @@ def find_added_and_deleted_libs(
     #  for the bridge library, but not all bridge libraries have such a directory.
     libs_dir: Path = cpp_dir / "libs"
     if not libs_dir.is_dir():
+        print("Found bridge libraries:", bridge_libs)
+        print("New pure libraries:", pure_libs)
         return bridge_libs, pure_libs, []
     bridge_libs_set = set(bridge_libs)
     pure_libs_set = set(pure_libs)

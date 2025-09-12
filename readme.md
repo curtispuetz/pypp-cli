@@ -466,9 +466,7 @@ And add this JSON file that should be named call_map.json:
 {
   "replace_dot_with_double_colon": {
     "pypp_time.": {
-      "cpp_includes": {
-        "quote_include": "my_bridge_lib.h"
-      },
+      "quote_includes": ["my_bridge_lib.h"], 
       "required_py_import": {
         "module": "my_bridge_lib",
         "name": "pypp_time"

@@ -21,16 +21,12 @@ _ERROR_STR = (
 # TODO: stop using "cpp_include" and use two lists "angle_includes" and "quote_includes"
 def calc_cpp_includes(obj: dict) -> list[CppInclude]:
     ret: list[CppInclude] = []
-    if "cpp_includes" in obj:
-        for inc_type, inc_str in obj["cpp_includes"].items():
-            if inc_type == "quote_include":
-                ret.append(QInc(inc_str))
-            elif inc_type == "angle_include":
-                ret.append(AngInc(inc_str))
-            else:
-                raise ValueError(
-                    f"invalid type in cpp_includes object: {inc_type}. {_ERROR_STR}"
-                )
+    if "quote_includes" in obj:
+        for inc_str in obj["quote_includes"]:
+            ret.append(QInc(inc_str))
+    if "angle_includes" in obj:
+        for inc_str in obj["angle_includes"]:
+            ret.append(AngInc(inc_str))
     return ret
 
 
