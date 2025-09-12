@@ -7,8 +7,8 @@ from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_class_def.ut
     ClassField,
     calc_class_field,
 )
-from pypp_cli.src.transpilers.other.transpiler.module.mapping.fn_arg import (
-    lookup_cpp_fn_arg,
+from pypp_cli.src.transpilers.other.transpiler.module.mapping.cpp_type import (
+    lookup_cpp_type,
 )
 
 
@@ -44,5 +44,5 @@ def _calc_field(node: ast.AnnAssign, d: Deps) -> ClassField:
         d.value_err("default values for dataclass attributes are not supported", node)
     type_cpp: str = d.handle_expr(node.annotation)
     target_str: str = d.handle_expr(node.target)
-    type_str = lookup_cpp_fn_arg(type_cpp, d)
+    type_str = lookup_cpp_type(type_cpp, d)
     return calc_class_field(type_str, target_str, target_str)
