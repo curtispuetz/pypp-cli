@@ -25,7 +25,7 @@ void set_fn() {
     pypp::print(a);
     a.remove(3);
     pypp::print(a);
-    pypp::print(pypp::to_pystr(a.contains(1)));
+    pypp::print(pypp::str(a.contains(1)));
     pypp::PySet<int> b({1, 5});
     pypp::print(a.union_(b));
     pypp::print(a.intersection(b));
@@ -41,21 +41,21 @@ void set_fn() {
     pypp::print(a);
     a.difference_update(pypp::PySet({6}));
     pypp::print(a);
-    pypp::print(pypp::to_pystr(b.len()));
+    pypp::print(pypp::str(b.len()));
     pypp::print(
-        pypp::to_pystr(pypp::PySet({1, 2}).issubset(pypp::PySet({1, 2, 3}))));
+        pypp::str(pypp::PySet({1, 2}).issubset(pypp::PySet({1, 2, 3}))));
     pypp::print(
-        pypp::to_pystr(pypp::PySet({1, 4}).issubset(pypp::PySet({1, 2, 3}))));
+        pypp::str(pypp::PySet({1, 4}).issubset(pypp::PySet({1, 2, 3}))));
     pypp::print(
-        pypp::to_pystr(pypp::PySet({1, 2, 3}).issuperset(pypp::PySet({1, 2}))));
+        pypp::str(pypp::PySet({1, 2, 3}).issuperset(pypp::PySet({1, 2}))));
     pypp::print(
-        pypp::to_pystr(pypp::PySet({1, 4, 3}).issuperset(pypp::PySet({1, 2}))));
+        pypp::str(pypp::PySet({1, 4, 3}).issuperset(pypp::PySet({1, 2}))));
     pypp::print(pypp::PySet({1, 2}).isdisjoint(pypp::PySet({3, 4})));
     pypp::print(pypp::PySet({1, 2}).isdisjoint(pypp::PySet({2, 3})));
-    pypp::print(pypp::to_pystr(pypp::PySet({1, 2}) == pypp::PySet({1, 2})));
-    pypp::print(pypp::to_pystr(pypp::PySet({1, 2}) == pypp::PySet({1, 2, 3})));
-    pypp::print(pypp::to_pystr(pypp::PySet({1, 2}) != pypp::PySet({1, 2, 3})));
-    pypp::print(pypp::to_pystr(pypp::PySet({1, 2}) != pypp::PySet({1, 2})));
+    pypp::print(pypp::str(pypp::PySet({1, 2}) == pypp::PySet({1, 2})));
+    pypp::print(pypp::str(pypp::PySet({1, 2}) == pypp::PySet({1, 2, 3})));
+    pypp::print(pypp::str(pypp::PySet({1, 2}) != pypp::PySet({1, 2, 3})));
+    pypp::print(pypp::str(pypp::PySet({1, 2}) != pypp::PySet({1, 2})));
     a.clear();
     pypp::print(a);
     pypp::print(b.pop());

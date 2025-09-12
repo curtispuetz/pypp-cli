@@ -23,7 +23,7 @@ void throw_fn() {
         throw pypp::PyppTypeError(pypp::PyStr("test"));
     } catch (const pypp::PyppTypeError &pypp_e) {
         std::string e = pypp_e.what();
-        pypp::print(pypp::PyStr("type error caught: ") + pypp::to_pystr(e));
+        pypp::print(pypp::PyStr("type error caught: ") + pypp::str(e));
     }
     try {
         throw pypp::PyppTypeError(pypp::PyStr("test"));

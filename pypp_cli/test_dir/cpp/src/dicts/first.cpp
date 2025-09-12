@@ -65,8 +65,8 @@ void dict_fn() {
     pop_val = a.pop(10, pypp::PyStr("default value"));
     pypp::print(pop_val);
     pypp::print(a);
-    pypp::print(pypp::to_pystr(a.len()));
-    pypp::print(pypp::to_pystr(a.contains(5)));
+    pypp::print(pypp::str(a.len()));
+    pypp::print(pypp::str(a.contains(5)));
     pypp::PyDict<int, pypp::PyStr> a_copy = a.copy();
     a.pop(0);
     pypp::print(a_copy);

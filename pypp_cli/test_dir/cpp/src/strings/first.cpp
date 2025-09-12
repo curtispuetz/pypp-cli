@@ -11,7 +11,7 @@ void string_ops() {
     pypp::print(pypp::PyStr("STRING RESULTS:"));
     pypp::PyStr s = pypp::PyStr("  abd  ");
     pypp::print(s);
-    pypp::print(pypp::to_pystr(s.len()));
+    pypp::print(pypp::str(s.len()));
     pypp::print(s[2]);
     pypp::print(s[pypp::py_slice(2, 4, 1)]);
     pypp::print(s[pypp::py_slice(0, 4, 1)]);
@@ -29,14 +29,12 @@ void string_ops() {
     pypp::print(pypp::PyStr("AB") * 5);
     pypp::print(pypp::PyStr("ab").upper());
     pypp::print(pypp::PyStr("AB").lower());
-    pypp::print(pypp::to_pystr(pypp::PyStr("abcdefg").find(pypp::PyStr("b"))));
-    pypp::print(pypp::to_pystr(pypp::PyStr("abcbc").index(pypp::PyStr("bc"))));
-    pypp::print(pypp::to_pystr(pypp::PyStr("abab").rindex(pypp::PyStr("ab"))));
-    pypp::print(pypp::to_pystr(pypp::PyStr("ababab").count(pypp::PyStr("ab"))));
-    pypp::print(
-        pypp::to_pystr(pypp::PyStr("abab").startswith(pypp::PyStr("ab"))));
-    pypp::print(
-        pypp::to_pystr(pypp::PyStr("abab").endswith(pypp::PyStr("ab"))));
+    pypp::print(pypp::str(pypp::PyStr("abcdefg").find(pypp::PyStr("b"))));
+    pypp::print(pypp::str(pypp::PyStr("abcbc").index(pypp::PyStr("bc"))));
+    pypp::print(pypp::str(pypp::PyStr("abab").rindex(pypp::PyStr("ab"))));
+    pypp::print(pypp::str(pypp::PyStr("ababab").count(pypp::PyStr("ab"))));
+    pypp::print(pypp::str(pypp::PyStr("abab").startswith(pypp::PyStr("ab"))));
+    pypp::print(pypp::str(pypp::PyStr("abab").endswith(pypp::PyStr("ab"))));
     pypp::print(
         pypp::PyStr("abcdab").replace(pypp::PyStr("ab"), pypp::PyStr("xy")));
     pypp::print(
@@ -44,12 +42,12 @@ void string_ops() {
     pypp::print(s.strip());
     pypp::print(s.lstrip());
     pypp::print(s.rstrip());
-    pypp::print(pypp::to_pystr(pypp::PyStr("a") == pypp::PyStr("a")));
-    pypp::print(pypp::to_pystr(pypp::PyStr("a") > pypp::PyStr("a")));
-    pypp::print(pypp::to_pystr(pypp::PyStr("a") >= pypp::PyStr("a")));
-    pypp::print(pypp::to_pystr(pypp::PyStr("a") < pypp::PyStr("a")));
-    pypp::print(pypp::to_pystr(pypp::PyStr("a") <= pypp::PyStr("a")));
-    pypp::print(pypp::to_pystr(pypp::PyStr("a") != pypp::PyStr("a")));
+    pypp::print(pypp::str(pypp::PyStr("a") == pypp::PyStr("a")));
+    pypp::print(pypp::str(pypp::PyStr("a") > pypp::PyStr("a")));
+    pypp::print(pypp::str(pypp::PyStr("a") >= pypp::PyStr("a")));
+    pypp::print(pypp::str(pypp::PyStr("a") < pypp::PyStr("a")));
+    pypp::print(pypp::str(pypp::PyStr("a") <= pypp::PyStr("a")));
+    pypp::print(pypp::str(pypp::PyStr("a") != pypp::PyStr("a")));
     pypp::print(s);
     s += pypp::PyStr("n");
     s += pypp::PyStr("");
