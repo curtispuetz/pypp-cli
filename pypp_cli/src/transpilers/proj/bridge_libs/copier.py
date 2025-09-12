@@ -14,15 +14,17 @@ def copy_all_lib_cpp_files(
 ):
     copier = _CppLibCopier(cpp_dir, site_packages_dir)
     copier.copy_all_bridge_lib_cpp_files(bridge_libs)
+    copier.raise_if_no_src = True
     copier.copy_all_pure_lib_cpp_files(pure_libs)
     if len(bridge_libs) > 0 or len(pure_libs) > 0:
         print("Copied C++ lib files to cpp project directory for new libraries")
 
 
-@dataclass(frozen=True, slots=True)
+@dataclass(slots=True)
 class _CppLibCopier:
     _cpp_dir: Path
     _site_packages_dir: Path
+    raise_if_no_src: bool = False
 
     def copy_all_bridge_lib_cpp_files(self, libs: list[str]):
         self._copy_all(libs, calc_library_cpp_data_dir)
@@ -48,3 +50,16 @@ class _CppLibCopier:
             shutil.rmtree(dest_dir)
         if src_dir.exists():
             shutil.copytree(src_dir, dest_dir)
+        elif self.raise_if_no_src:
+            # Pure library case
+            raise FileNotFoundError(
+                f"Could not find C++ source directory {src_dir} for library "
+                f"{library_name}"
+            )
+        else:
+            # bridge library case
+            # write a .txt file that says 'empty'
+            dest_dir.mkdir(parents=True, exist_ok=True)
+            (dest_dir / "empty.txt").write_text(
+                f"No C++ source files for library {library_name}"
+            )

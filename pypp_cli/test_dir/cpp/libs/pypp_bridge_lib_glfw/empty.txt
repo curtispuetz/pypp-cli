@@ -1,0 +1,1 @@
+No C++ source files for library pypp_bridge_lib_glfw
