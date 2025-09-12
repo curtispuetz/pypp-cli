@@ -2,9 +2,6 @@ import ast
 
 from pypp_cli.src.transpilers.other.transpiler.d_types import QInc
 from pypp_cli.src.transpilers.other.transpiler.deps import Deps
-from pypp_cli.src.transpilers.other.transpiler.maps.fn_arg_passed_by_value import (
-    PRIMITIVE_TYPES,
-)
 from pypp_cli.src.transpilers.other.transpiler.module.mapping.fn_arg import (
     lookup_cpp_fn_arg,
 )

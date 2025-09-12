@@ -1,6 +1,5 @@
 from pypp_cli.src.transpilers.other.transpiler.deps import Deps
-from pypp_cli.src.transpilers.other.transpiler.maps.d_types import FnArgByValueMapValue
-from pypp_cli.src.transpilers.other.transpiler.module.mapping.util import is_one
+from pypp_cli.src.transpilers.other.transpiler.module.mapping.util import is_map_entry
 from pypp_cli.src.transpilers.other.transpiler.module.util.check_primitive_type import (
     is_primitive_type,
 )
@@ -13,8 +12,7 @@ from pypp_cli.src.transpilers.other.transpiler.module.util.inner_strings import 
 def lookup_cpp_fn_arg(cpp_arg_type: str, d: Deps) -> str:
     is_pass_by_ref, cpp_arg_type = _is_pass_by_ref(cpp_arg_type, d)
     if cpp_arg_type in d.maps.fn_arg_passed_by_value:
-        r: FnArgByValueMapValue = d.maps.fn_arg_passed_by_value[cpp_arg_type]
-        if is_one(r, d):
+        if is_map_entry(d.maps.fn_arg_passed_by_value[cpp_arg_type], d):
             return cpp_arg_type
     pass_by_ref_str = "&" if is_pass_by_ref else ""
     before_and_after = cpp_arg_type.split("<", 1)

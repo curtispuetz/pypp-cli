@@ -5,7 +5,7 @@ from pypp_cli.src.transpilers.other.transpiler.maps.d_types import MappingFnStr
 from pypp_cli.src.transpilers.other.other.fn_str import calc_funcs_in_str
 
 
-def is_one(r: set[PySpecificImport | None], d: Deps) -> bool:
+def is_map_entry(r: set[PySpecificImport | None], d: Deps) -> bool:
     for required_import in r:
         if required_import is None or d.is_imported(required_import):
             return True
