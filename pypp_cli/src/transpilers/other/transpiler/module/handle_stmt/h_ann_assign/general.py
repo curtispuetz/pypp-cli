@@ -10,6 +10,12 @@ from pypp_cli.src.transpilers.other.transpiler.maps.d_types import (
 from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_comp import (
     handle_comp,
 )
+from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_ann_assign.direct_initializers import (  # noqa: E501
+    calc_value_str_for_direct_init,
+)
+from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_ann_assign.list_init_fns import (  # noqa: E501
+    calc_value_str_for_list_init_fns,
+)
 from pypp_cli.src.transpilers.other.transpiler.module.mapping.util import (
     calc_string_fn,
     find_map_entry,
@@ -20,15 +26,6 @@ from pypp_cli.src.transpilers.other.transpiler.module.util.calc_callable_type im
 from pypp_cli.src.transpilers.other.transpiler.module.util.inner_strings import (
     calc_inside_rd,
 )
-
-
-LIST_INIT_FNS = {"int_list", "float_list", "str_list"}
-
-# TODO: refactor
-DIRECT_INITIALIZERS: dict[str, type] = {
-    "pypp::PyList": ast.List,
-    "pypp::PySet": ast.Set,
-}
 
 
 def handle_general_ann_assign(
@@ -44,26 +41,25 @@ def handle_general_ann_assign(
         return f"{type_cpp} {target_str};"
     if isinstance(node.value, (ast.ListComp, ast.SetComp, ast.DictComp)):
         return f"{type_cpp} {target_str}; " + handle_comp(node.value, d, target_str)
-    direct_initialize: bool = False
-    value_str: str = ""
-    if isinstance(node.value, ast.Call) and isinstance(node.value.func, ast.Name):
-        if node.value.func.id in LIST_INIT_FNS:
-            direct_initialize = True
-            value_str = d.handle_exprs(node.value.args)
-    if value_str == "":
-        value_str = d.handle_expr(node.value)
-
-    i: int = value_str.find("(")
-    if i != -1:
-        func_name = value_str[:i]
-        if func_name in DIRECT_INITIALIZERS and isinstance(
-            node.value, DIRECT_INITIALIZERS[func_name]
-        ):
-            direct_initialize = True
-            value_str = calc_inside_rd(value_str)
+    value_str, direct_initialize = _calc_value_str(node, node.value, d)
     return _calc_final_str(
         d, value_str, const_str, type_cpp, target_str, direct_initialize
     )
+
+
+def _calc_value_str(node: ast.AnnAssign, value: ast.expr, d: Deps) -> tuple[str, bool]:
+    value_str: str | None = calc_value_str_for_list_init_fns(node, d)
+    if value_str is None:
+        value_str = d.handle_expr(value)
+        direct_initialize = False
+    else:
+        direct_initialize = True
+
+    new_value_str = calc_value_str_for_direct_init(node, value_str)
+    if new_value_str is not None:
+        direct_initialize = True
+        value_str = new_value_str
+    return value_str, direct_initialize
 
 
 def _calc_final_str(
