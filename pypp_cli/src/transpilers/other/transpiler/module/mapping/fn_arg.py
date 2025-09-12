@@ -6,6 +6,7 @@ from pypp_cli.src.transpilers.other.transpiler.module.util.inner_strings import 
 )
 
 
+# TODO: rename this, because it is used for class fields too.
 def lookup_cpp_fn_arg(cpp_arg_type: str, d: Deps) -> str:
     is_pass_by_ref, cpp_arg_type = _is_pass_by_ref(cpp_arg_type)
     if cpp_arg_type in d.maps.fn_arg_passed_by_value:
