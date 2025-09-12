@@ -23,6 +23,10 @@ void augment_operations_fn() {
     pypp::print(a);
     a &= 6;
     pypp::print(a);
+    a |= 2;
+    pypp::print(a);
+    a ^= 5;
+    pypp::print(a);
 }
 
 } // namespace me
