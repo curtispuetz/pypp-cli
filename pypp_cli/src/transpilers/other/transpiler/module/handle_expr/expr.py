@@ -95,10 +95,8 @@ def handle_expr(node: ast.expr, d: Deps) -> str:
     if isinstance(node, ast.IfExp):
         return handle_if_exp(node, d)
     if isinstance(node, ast.Starred):
-        # TODO: check if this still works.
         d.value_err(
-            "Starred expressions are only supported if they are the only argument in a "
-            "call",
+            "Starred expressions are not supported",
             node,
         )
     if isinstance(node, ast.ListComp):
