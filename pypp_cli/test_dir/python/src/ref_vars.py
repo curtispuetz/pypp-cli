@@ -57,3 +57,9 @@ def ref_vars_fn():
     arr4_copy: list[int] = repeat_new(arr4)
     arr4_copy.append(42)
     print(arr4)  # should print [1, 2] for both C++ and Python
+
+    # just a reference to a list
+    arr5: list[int] = [1, 2]
+    arr5_ref: Ref(list[int]) = arr5
+    arr5_ref.append(42)
+    print(arr5)  # should print [1, 2, 42] for both C++ and Python
