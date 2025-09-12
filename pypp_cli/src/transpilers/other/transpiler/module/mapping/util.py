@@ -5,17 +5,17 @@ from pypp_cli.src.transpilers.other.transpiler.maps.d_types import MappingFnStr
 from pypp_cli.src.transpilers.other.other.fn_str import calc_funcs_in_str
 
 
-def is_map_entry(r: set[PySpecificImport | None], d: Deps) -> bool:
-    for required_import in r:
+def is_map_entry(required_imports: set[PySpecificImport | None], d: Deps) -> bool:
+    for required_import in required_imports:
         if required_import is None or d.is_imported(required_import):
             return True
     return False
 
 
-def find_map_entry[T](v: dict[PySpecificImport | None, T], d: Deps) -> T | None:
-    for required_import, map_info in v.items():
+def find_map_entry[T](map: dict[PySpecificImport | None, T], d: Deps) -> T | None:
+    for required_import, map_entry in map.items():
         if required_import is None or d.is_imported(required_import):
-            return map_info
+            return map_entry
     return None
 
 
