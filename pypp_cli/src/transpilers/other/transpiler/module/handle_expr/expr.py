@@ -7,6 +7,9 @@ from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_attribute im
 from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_bin_op import (
     handle_bin_op,
 )
+from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_bool_op import (
+    handle_bool_op,
+)
 from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_call.h_call import (
     handle_call,
 )
@@ -68,6 +71,8 @@ def handle_expr(node: ast.expr, d: Deps) -> str:
         return handle_call(node, d)
     if isinstance(node, ast.Subscript):
         return handle_subscript(node, d)
+    if isinstance(node, ast.BoolOp):
+        return handle_bool_op(node, d)
     if isinstance(node, ast.List):
         return handle_list(node, d)
     if isinstance(node, ast.Attribute):

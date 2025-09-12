@@ -83,3 +83,15 @@ def operations_fn():
     print(f"not in string: {x}")
     print("printing reference:")
     print(Ref(x))
+    # and
+    y: bool = True and False
+    print(f"and: {y}")
+    # or
+    z: bool = True or False
+    print(f"or: {z}")
+    if (y and z) or (y or z):
+        print("1st")
+    if x or (y and z):
+        print("2nd")
+    if (x or y) and z:
+        print("3rd")
