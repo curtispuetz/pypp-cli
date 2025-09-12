@@ -1,4 +1,5 @@
 #include "args_test.h"
+#include "augment_operations.h"
 #include "built_in_functions/dict_fn.h"
 #include "built_in_functions/list_fn.h"
 #include "built_in_functions/number_conversions.h"
@@ -170,6 +171,7 @@ int main() {
         me::pass_fn();
         me::interface_with_dataclasses_fn();
         me::number_conversions_fn();
+        me::augment_operations_fn();
         return 0;
     } catch (...) {
         pypp::handle_fatal_exception();

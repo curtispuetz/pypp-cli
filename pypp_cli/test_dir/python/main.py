@@ -1,4 +1,5 @@
 from args_test import args_test_fn
+from augment_operations import augment_operations_fn
 from built_in_functions.dict_fn import built_in_dict_fn
 from built_in_functions.list_fn import built_in_list_fn
 from built_in_functions.number_conversions import number_conversions_fn
@@ -165,3 +166,4 @@ if __name__ == "__main__":
     pass_fn()
     interface_with_dataclasses_fn()
     number_conversions_fn()
+    augment_operations_fn()
