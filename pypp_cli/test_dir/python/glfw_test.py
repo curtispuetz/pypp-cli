@@ -1,5 +1,5 @@
 import glfw
-from pypp_bridge_lib_glfw.d_types import GLFWwindowPtr
+from pypp_bridge_lib_glfw import GLFWwindowPtr
 from pypp_python import to_c_string, NULL
 
 
