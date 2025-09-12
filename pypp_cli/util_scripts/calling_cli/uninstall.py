@@ -1,14 +1,22 @@
-from pypp_cli.util_scripts.calling_cli.util import run_cli
+import subprocess
+
+from pypp_cli.util_scripts.calling_cli.util import calc_test_dir_python_executable
 
 if __name__ == "__main__":
-    # TODO later: Fix because this command is deleted
-    run_cli(
+    libs = [
+        "pypp_bridge_library_test_0",
+        "pypp_bridge_library_test_1",
+        # "pypp_pure_library_test_0",
+        "pypp_bridge_lib_glfw",
+        "pypp_bridge_lib_opengl",
+    ]
+    subprocess.check_call(
         [
+            calc_test_dir_python_executable(),
+            "-m",
+            "pip",
             "uninstall",
-            # "pypp_bridge_library_test_0",
-            # "pypp_bridge_library_test_1",
-            # "pypp_pure_library_test_0",
-            # "pypp_bridge_lib_glfw",
-            "pypp_bridge_lib_opengl",
+            "-y",
+            *libs,
         ]
     )

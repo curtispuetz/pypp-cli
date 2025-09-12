@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 import sys
 
@@ -11,3 +12,7 @@ def run_cli(args, test_dir: Path | None = None):
     if test_dir is None:
         test_dir = dirname.parent.parent / "test_dir"
     main_cli(test_dir)
+
+
+def calc_test_dir_python_executable() -> str:
+    return os.path.join(dirname, "../../test_dir/python/.venv/Scripts/python.exe")

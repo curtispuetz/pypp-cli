@@ -1,25 +1,8 @@
 from typing import Callable
 
+from pypp_cli.src.other.library.json_validations import validate_is_list_of_strings
 
-_Q_AND_A: set[str] = {"quote_include", "angle_include"}
 _N_M_AND_AN: set[str] = {"name", "module", "as_name"}
-
-
-def _validate_cpp_includes(key_chain: list[str], v: object, S: str):
-    assert isinstance(v, dict), (
-        f"Entry for {'.'.join(key_chain)} in {S} must be a JSON object"
-    )
-    for kcc, vcc in v.items():
-        assert isinstance(kcc, str), (
-            f"Key in entry for {'.'.join(key_chain)} in {S} must be a string"
-        )
-        if kcc not in _Q_AND_A:
-            raise AssertionError(
-                f"Unexpected key {kcc} in entry for {'.'.join(key_chain)} in {S}"
-            )
-        assert isinstance(vcc, str), (
-            f"Entry for {'.'.join(key_chain + [kcc])} in {S} must be a string"
-        )
 
 
 def validate_required_py_import(key_chain: list[str], v: object, S: str):
@@ -46,6 +29,7 @@ def validate_required_py_import(key_chain: list[str], v: object, S: str):
 
 
 VALIDATE_BASIC_INFO: dict[str, Callable[[list[str], object, str], None]] = {
-    "cpp_includes": _validate_cpp_includes,
+    "quote_includes": validate_is_list_of_strings,
+    "angle_includes": validate_is_list_of_strings,
     "required_py_import": validate_required_py_import,
 }
