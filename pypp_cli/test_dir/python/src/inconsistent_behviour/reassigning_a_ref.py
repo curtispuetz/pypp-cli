@@ -13,6 +13,7 @@ from pypp_python import Ref
 
 def modifying_a_ref(l: list[int]):
     l = [-1, 3]
+    print(l)
 
 
 def reassigning_a_ref_fn():
