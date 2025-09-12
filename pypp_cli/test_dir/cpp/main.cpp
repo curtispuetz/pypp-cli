@@ -1,6 +1,7 @@
 #include "args_test.h"
 #include "built_in_functions/dict_fn.h"
 #include "built_in_functions/list_fn.h"
+#include "built_in_functions/number_conversions.h"
 #include "built_in_functions/set_fn.h"
 #include "constants.h"
 #include "cstdlib"
@@ -168,6 +169,7 @@ int main() {
         me::reassigning_a_ref_fn();
         me::pass_fn();
         me::interface_with_dataclasses_fn();
+        me::number_conversions_fn();
         return 0;
     } catch (...) {
         pypp::handle_fatal_exception();
