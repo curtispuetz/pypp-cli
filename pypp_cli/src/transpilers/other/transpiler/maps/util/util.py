@@ -18,7 +18,6 @@ _ERROR_STR = (
 )
 
 
-# TODO: stop using "cpp_include" and use two lists "angle_includes" and "quote_includes"
 def calc_cpp_includes(obj: dict) -> list[CppInclude]:
     ret: list[CppInclude] = []
     if "quote_includes" in obj:

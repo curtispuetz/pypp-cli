@@ -55,21 +55,25 @@ class Deps:
 
     def value_err(self, msg: str, ast_node):
         raise ValueError(
-            f"{msg} \n The problem AST node:\n{ast.dump(ast_node, indent=4)}"
-            f"\nIn file:\n{self.file_path}"
+            f"{msg} \n The problem code "
+            f"(AST format https://docs.python.org/3/library/ast.html):"
+            f"\n\n{ast.dump(ast_node, indent=4)}"
+            f"\n\nOriginating from file:\n{self.file_path}"
         )
 
     def value_err_no_ast(self, msg: str):
-        raise ValueError(f"{msg} \nIn file:\n{self.file_path}")
+        raise ValueError(f"{msg} \nOriginating from file:\n{self.file_path}")
 
     def value_err_class_name(self, msg: str, class_name: str, ast_node):
         raise ValueError(
             f"{msg}. Problem class: {class_name}\n "
-            f"The problem AST node:\n{ast.dump(ast_node, indent=4)}"
-            f"\nIn file:\n{self.file_path}"
+            f"The problem code "
+            f"(AST format https://docs.python.org/3/library/ast.html):"
+            f"\n\n{ast.dump(ast_node, indent=4)}"
+            f"\n\nOriginating from file:\n{self.file_path}"
         )
 
     def value_err_class_name_no_ast(self, msg: str, class_name: str):
         raise ValueError(
-            f"{msg}. Problem class: {class_name}\nIn file:\n{self.file_path}"
+            f"{msg}. Problem class: {class_name}\nOriginating from file:\n{self.file_path}"
         )
