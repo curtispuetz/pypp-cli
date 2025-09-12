@@ -14,13 +14,13 @@ void dict_exceptions_fn() {
         a.pop(-1);
     } catch (const pypp::PyppKeyError &pypp_e) {
         std::string e = pypp_e.what();
-        pypp::print(pypp::PyStr("key error: ") + pypp::to_pystr(e));
+        pypp::print(pypp::PyStr("key error: ") + pypp::str(e));
     }
     try {
         a.dg(-1);
     } catch (const pypp::PyppKeyError &pypp_e) {
         std::string e = pypp_e.what();
-        pypp::print(pypp::PyStr("key error: ") + pypp::to_pystr(e));
+        pypp::print(pypp::PyStr("key error: ") + pypp::str(e));
     }
 }
 

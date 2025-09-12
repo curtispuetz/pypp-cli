@@ -217,9 +217,6 @@ template <typename K, typename V> class PyDict {
         return it->second;
     }
 
-    // TODO: confirm if I can assign DictKeys and DictValues to variables and
-    // pass them around.
-
     // update(other_dict)
     void update(PyDict<K, V> &&other) {
         for (auto &[key, value] : other.data)

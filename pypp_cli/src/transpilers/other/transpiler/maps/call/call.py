@@ -112,9 +112,7 @@ CALL_MAP: CallMap = {
         None: ToStringEntry("pypp::dict", [QInc("pypp_util/create/dict.h")])
     },
     "pypp::PySet": {None: ToStringEntry("pypp::set", [QInc("pypp_util/create/set.h")])},
-    "pypp::PyStr": {
-        None: ToStringEntry("pypp::to_pystr", [QInc("pypp_util/to_py_str.h")])
-    },
+    "pypp::PyStr": {None: ToStringEntry("pypp::str", [QInc("pypp_util/to_py_str.h")])},
     "pypp::PySlice": {
         None: ToStringEntry("pypp::py_slice", [QInc("slice/creators.h")])
     },

@@ -14,7 +14,7 @@ void set_exceptions_fn() {
         a.remove(3);
     } catch (const pypp::PyppKeyError &pypp_e) {
         std::string e = pypp_e.what();
-        pypp::print(pypp::PyStr("key error: ") + pypp::to_pystr(e));
+        pypp::print(pypp::PyStr("key error: ") + pypp::str(e));
     }
 }
 
