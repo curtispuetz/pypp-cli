@@ -2,6 +2,9 @@ import ast
 
 from pypp_cli.src.transpilers.other.transpiler.d_types import QInc
 from pypp_cli.src.transpilers.other.transpiler.deps import Deps
+from pypp_cli.src.transpilers.other.transpiler.maps.fn_arg_passed_by_value import (
+    PRIMITIVE_TYPES,
+)
 from pypp_cli.src.transpilers.other.transpiler.module.mapping.fn_arg import (
     lookup_cpp_fn_arg,
 )
@@ -28,9 +31,26 @@ def calc_fn_signature(
             d.add_inc(QInc("pypp_util/generator.h"))
             cpp_ret_type = f"pypp::Generator<{calc_inside_sq(cpp_ret_type)}>"
         elif cpp_ret_type.startswith("&"):
-            cpp_ret_type = cpp_ret_type[1:] + "&"
+            true_type: str = cpp_ret_type[1:]
+            if _is_primitive_type(true_type, d):
+                d.value_err(
+                    "Returning a reference to a primitive type is not supported",
+                    node.returns,
+                )
+            cpp_ret_type = true_type + "&"
     cpp_args_str = _calc_cpp_args_str(node, d, skip_first_arg)
     return f"{cpp_ret_type} {fn_name}({cpp_args_str})"
+
+
+def _is_primitive_type(type_cpp: str, d: Deps) -> bool:
+    for k, v in PRIMITIVE_TYPES.items():
+        if type_cpp == k:
+            for imp in v:
+                if imp is None:
+                    return True
+                if d.is_imported(imp):
+                    return True
+    return False
 
 
 def _calc_cpp_args_str(
