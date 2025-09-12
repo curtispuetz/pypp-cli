@@ -19,6 +19,7 @@
 #include "dicts/exceptions.h"
 #include "dicts/first.h"
 #include "dicts/operations.h"
+#include "empty_return.h"
 #include "exceptions/assert_.h"
 #include "exceptions/custom_exceptions.h"
 #include "exceptions/throw_.h"
@@ -172,6 +173,7 @@ int main() {
         me::interface_with_dataclasses_fn();
         me::number_conversions_fn();
         me::augment_operations_fn();
+        me::empty_return_fn();
         return 0;
     } catch (...) {
         pypp::handle_fatal_exception();
