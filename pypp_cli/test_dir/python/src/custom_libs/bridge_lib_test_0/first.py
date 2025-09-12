@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 
 from pypp_bridge_library_test_0.pseudo_custom_type import PseudoCustomType
-from pypp_python import configclass, print_address
+from pypp_python import configclass, Ref
 from pypp_bridge_library_test_0 import test_namespace
 from pypp_bridge_library_test_0.name_only_call import name_only_call_fn
 from pypp_bridge_library_test_0.include_only_call import include_only_call_fn
@@ -62,4 +62,4 @@ def bridge_lib_test_0_fn():
     print(m2.pseudo_fn_b())
     custom_print("aloha")
     k: PseudoCustomList[int] = PseudoCustomList([1, 2, 3])
-    print_address(k)
+    print(Ref(k))

@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from pypp_python import print_address, mov
+from pypp_python import Ref, mov
 
 
 @dataclass
@@ -30,4 +30,4 @@ def list_ownership_tests_fn():
     a.append(mov(b))
     print(a)
     c: list[_PrivateClass] = _calc_obj_list()
-    print_address(c)
+    print(Ref(c))
