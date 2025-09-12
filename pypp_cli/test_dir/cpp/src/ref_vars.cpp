@@ -51,6 +51,10 @@ void ref_vars_fn() {
     pypp::PyList<int> arr4_copy = repeat_new(arr4);
     arr4_copy.append(42);
     pypp::print(arr4);
+    pypp::PyList<int> arr5({1, 2});
+    pypp::PyList<int> &arr5_ref = arr5;
+    arr5_ref.append(42);
+    pypp::print(arr5);
 }
 
 } // namespace me
