@@ -19,5 +19,9 @@ def handle_compare(node: ast.Compare, d: Deps) -> str:
         return f"{right_str}.contains({left_str})"
     if isinstance(op, ast.NotIn):
         return f"!{right_str}.contains({left_str})"
+    if isinstance(op, ast.Is):
+        return f"&{left_str} == &{right_str}"
+    if isinstance(op, ast.IsNot):
+        return f"&{left_str} != &{right_str}"
     op_str = handle_cmpop(op)
     return f"{left_str} {op_str} {right_str}"
