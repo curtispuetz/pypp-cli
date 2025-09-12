@@ -11,6 +11,7 @@ from default_dict.create_with_defaults import default_dict_create_with_defaults
 from default_dict.methods import default_dict_methods_fn
 from default_dict.operations import default_dict_operations_fn
 from dicts.operations import dict_operations_fn
+from empty_return import empty_return_fn
 from exceptions.custom_exceptions import custom_exception_fn
 from file_io.test_is_here import test_is_here_fn
 from first import return_something
@@ -167,3 +168,4 @@ if __name__ == "__main__":
     interface_with_dataclasses_fn()
     number_conversions_fn()
     augment_operations_fn()
+    empty_return_fn()
