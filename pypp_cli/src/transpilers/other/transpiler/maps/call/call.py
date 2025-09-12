@@ -105,6 +105,56 @@ CALL_MAP: CallMap = {
     },
     "pypp::PySet": {None: ToStringEntry("pypp::set", [QInc("pypp_util/create/set.h")])},
     "pypp::PyStr": {None: ToStringEntry("pypp::str", [QInc("pypp_util/to_py_str.h")])},
+    "bool": {None: ToStringEntry("pypp::bool_", [QInc("pypp_util/create/others.h")])},
+    "int": {None: ToStringEntry("pypp::int_", [QInc("pypp_util/create/others.h")])},
+    "to_float32": {
+        PySpecificImpFrom("pypp_python", "float32"): ToStringEntry(
+            "pypp::to_float32", [QInc("pypp_util/create/others.h")]
+        )
+    },
+    "double": {
+        None: ToStringEntry("pypp::float_", [QInc("pypp_util/create/others.h")])
+    },
+    "to_int8_t": {
+        PySpecificImpFrom("pypp_python", "to_int8_t"): ToStringEntry(
+            "pypp::to_int8_t", [QInc("pypp_util/create/cstdint.h")]
+        )
+    },
+    "to_int16_t": {
+        PySpecificImpFrom("pypp_python", "to_int16_t"): ToStringEntry(
+            "pypp::to_int16_t", [QInc("pypp_util/create/cstdint.h")]
+        )
+    },
+    "to_int32_t": {
+        PySpecificImpFrom("pypp_python", "to_int32_t"): ToStringEntry(
+            "pypp::to_int32_t", [QInc("pypp_util/create/cstdint.h")]
+        )
+    },
+    "to_int64_t": {
+        PySpecificImpFrom("pypp_python", "to_int64_t"): ToStringEntry(
+            "pypp::to_int64_t", [QInc("pypp_util/create/cstdint.h")]
+        )
+    },
+    "to_uint8_t": {
+        PySpecificImpFrom("pypp_python", "to_uint8_t"): ToStringEntry(
+            "pypp::to_uint8_t", [QInc("pypp_util/create/cstdint.h")]
+        )
+    },
+    "to_uint16_t": {
+        PySpecificImpFrom("pypp_python", "to_uint16_t"): ToStringEntry(
+            "pypp::to_uint16_t", [QInc("pypp_util/create/cstdint.h")]
+        )
+    },
+    "to_uint32_t": {
+        PySpecificImpFrom("pypp_python", "to_uint32_t"): ToStringEntry(
+            "pypp::to_uint32_t", [QInc("pypp_util/create/cstdint.h")]
+        )
+    },
+    "to_uint64_t": {
+        PySpecificImpFrom("pypp_python", "to_uint64_t"): ToStringEntry(
+            "pypp::to_uint64_t", [QInc("pypp_util/create/cstdint.h")]
+        )
+    },
     "pypp::PySlice": {
         None: ToStringEntry("pypp::py_slice", [QInc("slice/creators.h")])
     },
