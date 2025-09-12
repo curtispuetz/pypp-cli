@@ -44,10 +44,10 @@ def operations_fn():
     t1: list[int] = [1, 2]
     t2: Ref(list[int]) = t1
     m: bool = t1 is t2
-    print(f"is: {m}")
+    print(f"same objects: {m}")
     # is not
     n: bool = t1 is not t2
-    print(f"is not: {n}")
+    print(f"different objects: {n}")
     # in list
     o: bool = 5 in [1, 5]
     print(f"in: {o}")

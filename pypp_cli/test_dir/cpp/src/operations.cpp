@@ -37,10 +37,10 @@ void operations_fn() {
     pypp::print(pypp::PyStr(std::format("invert: {}", l1)));
     pypp::PyList<int> t1({1, 2});
     pypp::PyList<int> &t2 = t1;
-    bool m = t1 == t2;
-    pypp::print(pypp::PyStr(std::format("is: {}", m)));
-    bool n = t1 != t2;
-    pypp::print(pypp::PyStr(std::format("is not: {}", n)));
+    bool m = &t1 == &t2;
+    pypp::print(pypp::PyStr(std::format("same objects: {}", m)));
+    bool n = &t1 != &t2;
+    pypp::print(pypp::PyStr(std::format("different objects: {}", n)));
     bool o = pypp::PyList({1, 5}).contains(5);
     pypp::print(pypp::PyStr(std::format("in: {}", o)));
     bool p = pypp::PySet({1, 5}).contains(5);

@@ -16,10 +16,6 @@ def handle_cmpop(_type: ast.cmpop) -> str:
         return ">"
     if isinstance(_type, ast.GtE):
         return ">="
-    # TODO: is this correct for Is and IsNot? It is the same as eq and noteq?
-    if isinstance(_type, ast.Is):
-        return "=="
-    if isinstance(_type, ast.IsNot):
-        return "!="
-    # NOTE: all types are handled (In and NotIn are handled before the function call)
+    # NOTE: all types are handled (In, NotIn, Is, IsNot are handled before the
+    #  function call)
     raise Exception("Shouldn't happen")
