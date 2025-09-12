@@ -31,11 +31,11 @@ class Deps:
     def handle_expr(self, node: ast.expr) -> str:
         return self._handle_expr_fn(node, self)
 
-    def handle_exprs(self, exprs: list[ast.expr]):
+    def handle_exprs(self, exprs: list[ast.expr], join_str: str = ", ") -> str:
         ret: list[str] = []
         for node in exprs:
             ret.append(self.handle_expr(node))
-        return ", ".join(ret)  # Note: is it always going to join like this?
+        return join_str.join(ret)
 
     def handle_stmts(self, stmts: list[ast.stmt]) -> str:
         ret: list[str] = []

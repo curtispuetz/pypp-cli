@@ -65,6 +65,19 @@ void operations_fn() {
     pypp::print(pypp::PyStr(std::format("not in string: {}", x)));
     pypp::print(pypp::PyStr("printing reference:"));
     pypp::print(&x);
+    bool y = (true && false);
+    pypp::print(pypp::PyStr(std::format("and: {}", y)));
+    bool z = (true || false);
+    pypp::print(pypp::PyStr(std::format("or: {}", z)));
+    if (((y && z) || (y || z))) {
+        pypp::print(pypp::PyStr("1st"));
+    }
+    if ((x || (y && z))) {
+        pypp::print(pypp::PyStr("2nd"));
+    }
+    if (((x || y) && z)) {
+        pypp::print(pypp::PyStr("3rd"));
+    }
 }
 
 } // namespace me
