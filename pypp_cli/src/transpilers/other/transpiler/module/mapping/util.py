@@ -6,20 +6,16 @@ from pypp_cli.src.transpilers.other.other.fn_str import calc_funcs_in_str
 
 
 def is_one(r: set[PySpecificImport | None], d: Deps) -> bool:
-    if None in r:
-        return True
     for required_import in r:
-        if required_import is not None and d.is_imported(required_import):
+        if required_import is None or d.is_imported(required_import):
             return True
     return False
 
 
 def find_map_entry[T](v: dict[PySpecificImport | None, T], d: Deps) -> T | None:
     for required_import, map_info in v.items():
-        if required_import is not None and d.is_imported(required_import):
+        if required_import is None or d.is_imported(required_import):
             return map_info
-    if None in v:
-        return v[None]
     return None
 
 
