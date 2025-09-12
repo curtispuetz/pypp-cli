@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from pypp_python import Uni, ug, isinst, is_none, print_address, Valu, mov, Ref, auto
+from pypp_python import Uni, ug, isinst, is_none, Valu, mov, Ref, auto
 
 
 @dataclass
@@ -35,7 +35,7 @@ def pypp_union_fn():
     # passing union with mov
     e: Uni[int, float] = Uni(3.14)
     f: ClassWithUnionByValue = ClassWithUnionByValue(mov(e))
-    print_address(f)
+    print(Ref(f))
     # inline
     g: ClassWithUnionByValue = ClassWithUnionByValue(Uni[int, float](7))
     print(Ref(g))

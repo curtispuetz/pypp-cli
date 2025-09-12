@@ -84,14 +84,6 @@ def _pypp_time(node: ast.Call, d, caller_str: str) -> str:
 
 CALL_MAP: CallMap = {
     "print": {None: ToStringEntry("pypp::print", [QInc("pypp_util/print.h")])},
-    # TODO: This can be deleted now that I can use print(Ref(a))
-    "print_address": {
-        PySpecificImpFrom("pypp_python", "print_address"): LeftAndRightEntry(
-            "pypp::print(&",
-            ")",
-            [QInc("pypp_util/print.h")],
-        )
-    },
     "len": {None: LeftAndRightEntry("", ".len()", [])},
     "min": {None: LeftAndRightEntry("", ".min()", [])},
     "max": {None: LeftAndRightEntry("", ".max()", [])},

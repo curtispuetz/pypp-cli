@@ -1,7 +1,7 @@
 from collections import defaultdict
 from dataclasses import dataclass
 
-from pypp_python import print_address, Valu, auto
+from pypp_python import Ref, Valu, auto
 
 
 def _dict_factory() -> dict[int, int]:
@@ -84,6 +84,6 @@ def default_dict_fn():
     ac: auto = defaultdict[int, _CustomType](lambda: _CustomType(42))
     ad: _CustomType = ac[0]
     print(ad.val)
-    print_address(ad)
+    print(Ref(ad))
     # as an argument
     _default_dict_as_arg(defaultdict[int, int](int))
