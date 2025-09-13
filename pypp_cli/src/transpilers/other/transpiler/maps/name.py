@@ -3,6 +3,9 @@ from pypp_cli.src.transpilers.other.transpiler.d_types import (
     AngInc,
     QInc,
 )
+from pypp_cli.src.transpilers.other.transpiler.maps.call.exceptions import (
+    EXCEPTION_NAME_MAP,
+)
 from pypp_cli.src.transpilers.other.transpiler.maps.d_types import (
     ToStringEntry,
     NameMap,
@@ -80,4 +83,5 @@ NAME_MAP: NameMap = {
             "pypp::Uni", [QInc("pypp_union.h")]
         )
     },
+    **EXCEPTION_NAME_MAP,
 }

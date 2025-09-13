@@ -13,6 +13,7 @@ from default_dict.operations import default_dict_operations_fn
 from dicts.operations import dict_operations_fn
 from empty_return import empty_return_fn
 from exceptions.custom_exceptions import custom_exception_fn
+from exceptions.test_all import test_all_exceptions_fn
 from file_io.test_is_here import test_is_here_fn
 from first import return_something
 from imports_test.first import imports_test_fn
@@ -169,3 +170,4 @@ if __name__ == "__main__":
     number_conversions_fn()
     augment_operations_fn()
     empty_return_fn()
+    test_all_exceptions_fn()

@@ -17,8 +17,8 @@ def _handle_exception_handler(node: ast.ExceptHandler, d: Deps) -> str:
     if node.type is not None:
         if not isinstance(node.type, ast.Name):
             d.value_err("Can only catch one exception type at a time", node.type)
-        assert isinstance(node.type.id, str), "Shouldn't happen"
-        exc_str = f"const {lookup_cpp_exception_type(node.type.id, d)}&"
+        name_str = d.handle_expr(node.type)
+        exc_str = f"const {lookup_cpp_exception_type(name_str, d)}&"
         if node.name is not None:
             assert isinstance(node.name, str), "Shouldn't happen"
             exc_str += f" pypp_{node.name}"
