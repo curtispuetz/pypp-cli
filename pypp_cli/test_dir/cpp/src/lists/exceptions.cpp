@@ -12,33 +12,33 @@ void list_exceptions_fn() {
     pypp::PyList<int> a({});
     try {
         a.pop();
-    } catch (const pypp::IndexError &pypp_e) {
-        std::string e = pypp_e.what();
+    } catch (const pypp::IndexError &pypp_pseudo_name_e) {
+        std::string e = pypp_pseudo_name_e.msg_;
         pypp::print(pypp::PyStr("index error: ") + pypp::str(e));
     }
     pypp::PyList<int> b({1, 2, 3});
     try {
         b.pop(3);
-    } catch (const pypp::IndexError &pypp_e) {
-        std::string e = pypp_e.what();
+    } catch (const pypp::IndexError &pypp_pseudo_name_e) {
+        std::string e = pypp_pseudo_name_e.msg_;
         pypp::print(pypp::PyStr("index error: ") + pypp::str(e));
     }
     try {
         b.remove(4);
-    } catch (const pypp::ValueError &pypp_e) {
-        std::string e = pypp_e.what();
+    } catch (const pypp::ValueError &pypp_pseudo_name_e) {
+        std::string e = pypp_pseudo_name_e.msg_;
         pypp::print(pypp::PyStr("value error: ") + pypp::str(e));
     }
     try {
         b.index(4);
-    } catch (const pypp::ValueError &pypp_e) {
-        std::string e = pypp_e.what();
+    } catch (const pypp::ValueError &pypp_pseudo_name_e) {
+        std::string e = pypp_pseudo_name_e.msg_;
         pypp::print(pypp::PyStr("value error: ") + pypp::str(e));
     }
     try {
         b[3];
-    } catch (const pypp::IndexError &pypp_e) {
-        std::string e = pypp_e.what();
+    } catch (const pypp::IndexError &pypp_pseudo_name_e) {
+        std::string e = pypp_pseudo_name_e.msg_;
         pypp::print(pypp::PyStr("index error: ") + pypp::str(e));
     }
 }

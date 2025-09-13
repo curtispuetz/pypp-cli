@@ -9,7 +9,7 @@ void handle_fatal_exception() {
     try {
         throw; // Re-throw current exception
     } catch (const Exception &e) {
-        std::cerr << "\nUnhandled exception: \n" << e.what() << std::endl;
+        std::cerr << "\nUnhandled exception: \n" << e.msg_ << std::endl;
     } catch (...) {
         std::cerr << "Unhandled unknown exception." << std::endl;
     }
