@@ -7,6 +7,8 @@
 #include <functional>
 
 namespace me {
+inline int a = 2;
+inline pypp::PyStr b = pypp::PyStr("b");
 inline const int A = 1;
 inline const pypp::PyStr B = pypp::PyStr("B");
 inline const pypp::PyList<int> C({1, 2, 3});
@@ -26,5 +28,4 @@ struct __PseudoPyppNameMyConfig2 {
 inline __PseudoPyppNameMyConfig2 MyConfig2;
 
 void constant_fn();
-inline const int F = 3;
 } // namespace me

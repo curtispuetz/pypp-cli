@@ -178,6 +178,7 @@ int main() {
         me::empty_return_fn();
         me::test_all_exceptions_fn();
         me::shutil_exceptions_fn();
+        pypp::print(me::A, me::B, me::C, me::D, me::E, me::a, me::b);
         return 0;
     } catch (...) {
         pypp::handle_fatal_exception();

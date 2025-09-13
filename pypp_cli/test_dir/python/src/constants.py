@@ -2,6 +2,9 @@ from typing import Callable
 
 from pypp_python import configclass
 
+a: int = 2
+b: str = "b"
+
 A: int = 1
 B: str = "B"
 C: list[int] = [1, 2, 3]
