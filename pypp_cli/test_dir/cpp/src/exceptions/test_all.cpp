@@ -2,6 +2,7 @@
 #include "exceptions/common.h"
 #include "exceptions/custom_exceptions.h"
 #include "exceptions/exception.h"
+#include "exceptions/filesystem.h"
 #include "py_list.h"
 #include "py_str.h"
 #include "pypp_util/print.h"
@@ -13,7 +14,17 @@ void test_all_exceptions_fn() {
     pypp::print(pypp::PyStr("ALL EXCEPTIONS TEST RESULTS:"));
     pypp::PyList<pypp::Exception> exceptions(
         {pypp::Exception(pypp::PyStr("test")),
-         pypp::ValueError(pypp::PyStr("test"))});
+         pypp::ValueError(pypp::PyStr("test")),
+         pypp::IndexError(pypp::PyStr("test")),
+         pypp::KeyError(pypp::PyStr("test")),
+         pypp::AssertionError(pypp::PyStr("test")),
+         pypp::RuntimeError(pypp::PyStr("test")),
+         pypp::NotImplementedError(pypp::PyStr("test")),
+         pypp::OSError(pypp::PyStr("test")),
+         pypp::FileNotFoundError(pypp::PyStr("test")),
+         pypp::NotADirectoryError(pypp::PyStr("test")),
+         pypp::PermissionError(pypp::PyStr("test")),
+         pypp::FileExistsError(pypp::PyStr("test"))});
     for (const auto &exc : exceptions) {
         try {
             throw exc;
