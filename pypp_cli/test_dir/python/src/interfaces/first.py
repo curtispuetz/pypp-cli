@@ -8,6 +8,12 @@ class _PrivateInterface(ABC):
         pass
 
 
+@dataclass
+class _PrivateImpl(_PrivateInterface):
+    def a(self):
+        print("private impl")
+
+
 class InterfaceClass(ABC):
     @abstractmethod
     def speak(self, a: int):
@@ -41,6 +47,10 @@ def _fn_that_accepts_interface(i: InterfaceClass):
     print(i.talk())
 
 
+def _fn_that_accepts_private_interface(i: _PrivateInterface):
+    i.a()
+
+
 def interfaces_fn():
     print("INTERFACES RESULTS:")
     # basic
@@ -53,3 +63,7 @@ def interfaces_fn():
     # passing either type somewhere
     _fn_that_accepts_interface(a)
     _fn_that_accepts_interface(b)
+    # private
+    p: _PrivateImpl = _PrivateImpl()
+    p.a()
+    _fn_that_accepts_private_interface(p)
