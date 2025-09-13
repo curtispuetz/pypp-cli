@@ -28,7 +28,7 @@ class ClassMethod:
 def calc_method(
     node: ast.FunctionDef,
     d: Deps,
-    name_doesnt_start_with_underscore: bool,
+    is_def_in_header: bool,
 ) -> ClassMethod:
     if node.name.startswith("__") and node.name.endswith("__"):
         d.value_err_no_ast(f"magic method '{node.name}' for a class is not supported")
@@ -43,9 +43,11 @@ def calc_method(
         node.name,
         skip_first_arg=True,  # because it is self
     )
+
     d.set_inc_in_h(False)
     body_str: str = d.handle_stmts(node.body)
-    d.set_inc_in_h(name_doesnt_start_with_underscore)
+    d.set_inc_in_h(is_def_in_header)
+
     return ClassMethod(fn_signature, body_str, node.name)
 
 

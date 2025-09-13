@@ -31,7 +31,7 @@ def create_final_str_for_class_def(
         is_frozen,
     )
     base_classes: list[str] = _calc_base_classes(node, d)
-    if name_starts_with_underscore:
+    if name_starts_with_underscore or d.is_main_file:
         full_methods: str = _calc_full_methods(methods)
         return _calc_final_str(
             class_name, fields_and_constructor + full_methods, is_struct, base_classes
