@@ -7,9 +7,10 @@ def test_all_exceptions_fn():
     exceptions: list[Exception] = [
         Exception("test"),
         ValueError("test"),
+        AssertionError("test"),
+        LookupError("test"),
         IndexError("test"),
         KeyError("test"),
-        AssertionError("test"),
         RuntimeError("test"),
         NotImplementedError("test"),
         OSError("test"),
