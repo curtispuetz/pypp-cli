@@ -1,3 +1,10 @@
+def _test_bare_raise():
+    try:
+        raise TypeError("test")
+    except TypeError:
+        raise
+
+
 def throw_fn():
     print("EXCEPTION RESULTS:")
     # raising an exception and catching all
@@ -29,3 +36,8 @@ def throw_fn():
         raise TypeError("test")
     except:
         print("catching all")
+
+    try:
+        _test_bare_raise()
+    except TypeError:
+        print("bare raise")
