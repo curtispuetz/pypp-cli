@@ -34,7 +34,7 @@ class MainFileTranspiler:
         py_main_file: Path = self._py_src_dir / file
         py_ast: ast.Module = calc_ast(py_main_file)
         import_end, d = handle_imports_and_create_deps(
-            py_ast, self._maps, self._src_py_files, py_main_file
+            py_ast, self._maps, self._src_py_files, py_main_file, is_main_file=True
         )
         d.add_inc(QInc("cstdlib"))
         cpp_code_minus_includes: str = handle_main_stmts(py_ast.body[import_end:], d)

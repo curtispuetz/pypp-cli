@@ -19,7 +19,7 @@ def handle_class_def_for_configclass(
     dtype: ast.expr | None,
 ):
     instance_name: str = node.name
-    is_all_header: bool = not instance_name.startswith("_")
+    is_all_header: bool = not d.is_main_file and not instance_name.startswith("_")
 
     d.set_inc_in_h(is_all_header)
     body_str: str

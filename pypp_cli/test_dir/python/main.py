@@ -82,9 +82,41 @@ from ternary_op import ternary_op_fn
 from lists.declaration import list_declaration_fn
 from lists.operations import list_operations_fn
 from using_pass import pass_fn
+from pypp_python import configclass, exception
+from abc import ABC, abstractmethod
+
+
+# Show that functions, all the class types, type aliaes, and ann assigns work in
+# Py++ main files.
+def private_fn() -> int:
+    return 1
+
+
+type int_alias = int
+A_CONST: int = 2
+
+
+@configclass(dtype=int)
+class AConfigClass:
+    x = 0
+    y = 1
+
+
+@exception
+class MyCustom(Exception):
+    pass
+
+
+class MyCInterface(ABC):
+    @abstractmethod
+    def a(self):
+        pass
 
 
 if __name__ == "__main__":
+    print(A_CONST)
+    print(AConfigClass.x)
+    print(private_fn())
     print(return_something(1, 9))
     print(return_friend())
     print(using_inline_string())

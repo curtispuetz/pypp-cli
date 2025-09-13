@@ -22,7 +22,11 @@ from pypp_cli.src.transpilers.other.transpiler.cpp_includes import CppIncludes
 
 
 def handle_imports_and_create_deps(
-    module: ast.Module, maps: Maps, src_py_files: list[Path], file_path: Path
+    module: ast.Module,
+    maps: Maps,
+    src_py_files: list[Path],
+    file_path: Path,
+    is_main_file: bool = False,
 ) -> tuple[int, Deps]:
     cpp_inc_map, import_end, py_imports, user_namespace = analyse_import_stmts(
         module.body, maps, src_py_files, file_path
@@ -38,6 +42,7 @@ def handle_imports_and_create_deps(
         handle_ann_assign,
         handle_type_alias,
         user_namespace,
+        is_main_file=is_main_file,
     )
 
     return import_end, d

@@ -27,6 +27,7 @@ class Deps:
     user_namespace: set[str]
     _include_in_header: bool = False
     inside_except_block: bool = False
+    is_main_file: bool = False
 
     def set_inc_in_h(self, include: bool):
         self._include_in_header = include
