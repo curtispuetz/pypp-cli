@@ -88,35 +88,35 @@ from abc import ABC, abstractmethod
 
 # Show that functions, all the class types, type aliaes, and ann assigns work in
 # Py++ main files.
-def private_fn() -> int:
+def _private_fn() -> int:
     return 1
 
 
-type int_alias = int
-A_CONST: int = 2
+type _int_alias = int
+_A_CONST: int = 2
 
 
 @configclass(dtype=int)
-class AConfigClass:
+class _AConfigClass:
     x = 0
     y = 1
 
 
 @exception
-class MyCustom(Exception):
+class _MyCustom(Exception):
     pass
 
 
-class MyCInterface(ABC):
+class _MyCInterface(ABC):
     @abstractmethod
     def a(self):
         pass
 
 
 if __name__ == "__main__":
-    print(A_CONST)
-    print(AConfigClass.x)
-    print(private_fn())
+    print(_A_CONST)
+    print(_AConfigClass.x)
+    print(_private_fn())
     print(return_something(1, 9))
     print(return_friend())
     print(using_inline_string())
