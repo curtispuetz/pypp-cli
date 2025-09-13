@@ -67,7 +67,7 @@ class Deps:
 
     def value_err_class_name(self, msg: str, class_name: str, ast_node):
         raise ValueError(
-            f"{msg}. Problem class: {class_name}\n\n"
+            f"{msg}. Problem class: '{class_name}'\n\n"
             f"The problem code "
             f"(AST format https://docs.python.org/3/library/ast.html):"
             f"\n{ast.dump(ast_node, indent=4)}"
@@ -76,6 +76,6 @@ class Deps:
 
     def value_err_class_name_no_ast(self, msg: str, class_name: str):
         raise ValueError(
-            f"{msg}. Problem class: {class_name}\n\n"
+            f"{msg}. Problem class: '{class_name}'\n\n"
             f"Originating from file:\n{self.file_path}"
         )
