@@ -1,34 +1,18 @@
 #pragma once
-#include <exception>
-#include <py_str.h>
 
+#include <string>
+
+// TODO later: I think I should just not inherit from std::exception, because
+// then I don't need to define the what() method. Then In my code, I should
+// catch all exceptions and throw my own exceptions
 namespace pypp {
-class Exception : public std::exception {
+class PyStr;
+class Exception {
   public:
-    explicit Exception(const PyStr &msg) : msg_(PyStr("Exception: ") + msg) {}
-
-    const char *what() const noexcept override { return msg_.str().c_str(); }
+    explicit Exception(const PyStr &msg);
+    const char *what() const noexcept;
 
   protected:
-    PyStr msg_;
+    std::string msg_;
 };
-
-class NameError : public Exception {
-  public:
-    explicit NameError(const PyStr &msg)
-        : Exception(PyStr("NameError: ") + msg) {}
-};
-
-class ImportError : public Exception {
-  public:
-    explicit ImportError(const PyStr &msg)
-        : Exception(PyStr("ImportError: ") + msg) {}
-};
-
-class StopIteration : public Exception {
-  public:
-    explicit StopIteration(const PyStr &msg = PyStr("Iteration stopped"))
-        : Exception(PyStr("StopIteration: ") + msg) {}
-};
-
 } // namespace pypp

@@ -1,4 +1,5 @@
 #include "exceptions/test_all.h"
+#include "exceptions/common.h"
 #include "exceptions/custom_exceptions.h"
 #include "exceptions/exception.h"
 #include "py_list.h"
@@ -12,9 +13,7 @@ void test_all_exceptions_fn() {
     pypp::print(pypp::PyStr("ALL EXCEPTIONS TEST RESULTS:"));
     pypp::PyList<pypp::Exception> exceptions(
         {pypp::Exception(pypp::PyStr("test")),
-         pypp::NameError(pypp::PyStr("test")),
-         pypp::ImportError(pypp::PyStr("test")),
-         pypp::StopIteration(pypp::PyStr("test"))});
+         pypp::ValueError(pypp::PyStr("test"))});
     for (const auto &exc : exceptions) {
         try {
             throw exc;

@@ -1,5 +1,5 @@
 #pragma once
 
 namespace me {
-void class_nested_dependencies_fn();
+void text_io_exceptions_fn();
 } // namespace me

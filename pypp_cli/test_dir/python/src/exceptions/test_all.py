@@ -4,12 +4,7 @@ from exceptions.custom_exceptions import ChildException
 def test_all_exceptions_fn():
     print("ALL EXCEPTIONS TEST RESULTS:")
     # TODO: add the others. But first they all need to inherit from Exception
-    exceptions: list[Exception] = [
-        Exception("test"),
-        NameError("test"),
-        ImportError("test"),
-        StopIteration("test"),
-    ]
+    exceptions: list[Exception] = [Exception("test"), ValueError("test")]
     for exc in exceptions:
         try:
             raise exc

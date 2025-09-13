@@ -1,8 +1,9 @@
 #pragma once
+
 #include "py_list.h"
 #include <algorithm>
+#include <exceptions/common.h>
 #include <random>
-#include <stdexcept>
 #include <vector>
 
 namespace pypp {
@@ -38,7 +39,7 @@ template <typename T> void Random::shuffle(PyList<T> &v) {
 
 template <typename T> T Random::choice(const PyList<T> &v) {
     if (v.len() == 0)
-        throw std::runtime_error("Cannot choose from empty list");
+        throw IndexError("Cannot choose from an empty sequence");
     std::uniform_int_distribution<size_t> dist(0, v.len() - 1);
     return v[dist(rng)];
 }

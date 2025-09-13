@@ -1,7 +1,7 @@
 #pragma once
 
+#include "exceptions/common.h"
 #include "exceptions/exception.h"
-#include "exceptions/stdexcept.h"
 #include "py_str.h"
 
 namespace me {

@@ -1,6 +1,6 @@
 #pragma once
 
-#include <exceptions/stdexcept.h>
+#include <exceptions/common.h>
 #include <format>
 #include <ostream>
 #include <sstream>
