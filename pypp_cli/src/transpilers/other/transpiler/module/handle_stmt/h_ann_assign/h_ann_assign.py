@@ -9,6 +9,7 @@ from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_ann_assign.g
 # - If the ann assign is at module level and does not start with an underscore, then it
 # goes in the header file with `inline` prefix.
 # - If the ann assign is ALL_CAPS, then it gets a `const` prefix
+# - If the ann assign is in a Py++ main file, then it just goes in the main file.
 
 
 def handle_ann_assign(

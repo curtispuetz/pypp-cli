@@ -7,7 +7,7 @@
 #include <string>
 
 namespace me {
-double _random_as_arg(pypp::random::Random &a) { return a.random(); }
+static double _random_as_arg(pypp::random::Random &a) { return a.random(); }
 
 struct _RandomWrapper {
     pypp::random::Random &_r;

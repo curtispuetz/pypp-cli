@@ -8,9 +8,9 @@
 #include <utility>
 
 namespace me {
-pypp::PyDict<int, int> _dict_factory() { return {{1, 2}, {3, 4}}; }
+static pypp::PyDict<int, int> _dict_factory() { return {{1, 2}, {3, 4}}; }
 
-void _default_dict_as_arg(pypp::PyDefaultDict<int, int> a) {
+static void _default_dict_as_arg(pypp::PyDefaultDict<int, int> a) {
     pypp::print(a[0]);
 }
 

@@ -7,9 +7,9 @@
 #include <utility>
 
 namespace me {
-void _inline_dict(pypp::PyDict<int, int> d) { pypp::print(d); }
+static void _inline_dict(pypp::PyDict<int, int> d) { pypp::print(d); }
 
-pypp::PyDict<int, int> _get_dict() { return {{0, 1}, {1, 2}}; }
+static pypp::PyDict<int, int> _get_dict() { return {{0, 1}, {1, 2}}; }
 
 void dict_fn() {
     pypp::print(pypp::PyStr("DICT RESULTS:"));

@@ -3,7 +3,7 @@
 #include "pypp_util/print.h"
 
 namespace me {
-void _void_fn() {
+static void _void_fn() {
     for (int i = 0; i < 3; i += 1) {
         if (i == 1) {
             pypp::print(pypp::PyStr("finished"));

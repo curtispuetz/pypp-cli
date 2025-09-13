@@ -4,19 +4,19 @@
 #include "pypp_util/print.h"
 
 namespace me {
-pypp::PyStr _test_fn(int a, int b) {
+static pypp::PyStr _test_fn(int a, int b) {
     return pypp::PyStr(std::format("{} {}", a, b));
 }
 
-void _test_fn2(std::function<double()> &fn) { pypp::print(fn()); }
+static void _test_fn2(std::function<double()> &fn) { pypp::print(fn()); }
 
-double _test_fn3() { return 2.71; }
+static double _test_fn3() { return 2.71; }
 
-void _test_fn4(int a) { pypp::print(a); }
+static void _test_fn4(int a) { pypp::print(a); }
 
-void _test_fn5() { pypp::print(pypp::PyStr("test fn5 called")); }
+static void _test_fn5() { pypp::print(pypp::PyStr("test fn5 called")); }
 
-void _test_fn6(std::function<pypp::PyStr(int, int)> fn) {
+static void _test_fn6(std::function<pypp::PyStr(int, int)> fn) {
     pypp::print(fn(1, 2));
 }
 

@@ -7,7 +7,7 @@
 #include "pypp_util/print.h"
 
 namespace me {
-pypp::PyDict<int, int> _dict_factory_2() { return {{1, 2}, {3, 4}}; }
+static pypp::PyDict<int, int> _dict_factory_2() { return {{1, 2}, {3, 4}}; }
 
 void default_dict_create_with_defaults() {
     pypp::print(pypp::PyStr("DEFAULT DICT CREATION WITH DEFAULTS RESULTS:"));

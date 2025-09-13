@@ -3,9 +3,11 @@
 #include <cmath>
 
 namespace me {
-double _fade(double t) { return ((t * t) * t) * ((t * ((t * 6) - 15)) + 10); }
+static double _fade(double t) {
+    return ((t * t) * t) * ((t * ((t * 6) - 15)) + 10);
+}
 
-double _lerp(double t, double y_1, double y_2) {
+static double _lerp(double t, double y_1, double y_2) {
     return y_1 + (t * (y_2 - y_1));
 }
 

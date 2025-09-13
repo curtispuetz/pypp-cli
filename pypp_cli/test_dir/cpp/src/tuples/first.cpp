@@ -5,13 +5,15 @@
 #include "pypp_util/print.h"
 
 namespace me {
-void _inline_tuple(pypp::PyTup<double, pypp::PyStr> tup) { pypp::print(tup); }
+static void _inline_tuple(pypp::PyTup<double, pypp::PyStr> tup) {
+    pypp::print(tup);
+}
 
-pypp::PyTup<int, double> _get_tup() { return pypp::PyTup(1, 2.0); }
+static pypp::PyTup<int, double> _get_tup() { return pypp::PyTup(1, 2.0); }
 
-void _argument_unpacking(int a, double b) { pypp::print(a, b); }
+static void _argument_unpacking(int a, double b) { pypp::print(a, b); }
 
-void _arg_unpacking_fail(int a, int b, int c) { pypp::print(a, b, c); }
+static void _arg_unpacking_fail(int a, int b, int c) { pypp::print(a, b, c); }
 
 void tuples_fn() {
     pypp::print(pypp::PyStr("TUPLE RESULTS:"));
