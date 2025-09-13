@@ -1,6 +1,8 @@
 import ast
 from pathlib import Path
 
+from pypp_cli.src.config import SHOULDNT_HAPPEN
+
 # Config
 target_module = "transpilers.other.transpiler"
 
@@ -28,7 +30,7 @@ py_files = calc_all_py_files_ignoring(proj_root_dir, target_dir)
 for py_file in py_files:
     py_code: str = (proj_root_dir / py_file).read_text()
     ast_tree = ast.parse(py_code)
-    assert isinstance(ast_tree, ast.Module), "Shouldn't happen"
+    assert isinstance(ast_tree, ast.Module), SHOULDNT_HAPPEN
     for stmt in ast_tree.body:
         if isinstance(stmt, ast.Import):
             continue

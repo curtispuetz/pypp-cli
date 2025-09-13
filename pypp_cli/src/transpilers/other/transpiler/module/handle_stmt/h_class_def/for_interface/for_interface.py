@@ -1,5 +1,6 @@
 import ast
 
+from pypp_cli.src.config import SHOULDNT_HAPPEN
 from pypp_cli.src.transpilers.other.transpiler.deps import Deps
 from pypp_cli.src.transpilers.other.transpiler.module.util.calc_fn_signature import (
     calc_fn_signature,
@@ -26,7 +27,7 @@ def _calc_methods(node: ast.ClassDef, d: Deps) -> list[str]:
     ret: list[str] = []
     for item in node.body:
         # Shouldn't happen because Because this was already checked
-        assert isinstance(item, ast.FunctionDef), "Shouldn't happen"
+        assert isinstance(item, ast.FunctionDef), SHOULDNT_HAPPEN
         fn_signature = calc_fn_signature(
             item,
             d,

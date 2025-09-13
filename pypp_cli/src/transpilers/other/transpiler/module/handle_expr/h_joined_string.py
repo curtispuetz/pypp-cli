@@ -1,5 +1,6 @@
 import ast
 
+from pypp_cli.src.config import SHOULDNT_HAPPEN
 from pypp_cli.src.transpilers.other.transpiler.d_types import QInc
 from pypp_cli.src.transpilers.other.transpiler.deps import Deps
 from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_constant import (
@@ -13,10 +14,10 @@ def handle_joined_string(node: ast.JoinedStr, d: Deps) -> str:
     std_format_first_arg: list[str] = []
     for n in node.values:
         if isinstance(n, ast.Constant):
-            assert isinstance(n.value, str), "Shouldn't happen"
+            assert isinstance(n.value, str), SHOULDNT_HAPPEN
             std_format_first_arg.append(n.value)
         else:
-            assert isinstance(n, ast.FormattedValue), "Shouldn't happen"
+            assert isinstance(n, ast.FormattedValue), SHOULDNT_HAPPEN
             std_format_first_arg.append("{}")
             std_format_args.append(handle_formatted_value(n, d))
     first_arg_str: str = "".join(std_format_first_arg).translate(SPECIAL_CHAR_MAP)

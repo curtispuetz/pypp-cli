@@ -36,8 +36,6 @@ def random_fn():
         a.choice(empty_list)  # should throw
     except IndexError as ex:
         print(f"Caught random.Random.choice exception: {ex}")
-    # TODO: what does it print in Python and C++ with the seed number?
-    # Python: [0.052, 1, [1, 3, 2], 3]
     print("Expected: [0.052, 1, [1, 3, 2], 3] for Python:")
     print("Excepted: [0.713, 8, [2, 1, 3], 3] for C++:")
     print(f"[{b}, {e}, {f}, {g}]")

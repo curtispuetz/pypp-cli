@@ -2,8 +2,6 @@ from dataclasses import dataclass
 
 from pypp_python import mov, Valu
 
-# TODO: test inheritance.
-
 
 @dataclass
 class FirstDataClass:

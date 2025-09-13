@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from pathlib import Path
 
+from pypp_cli.src.config import SHOULDNT_HAPPEN
 from pypp_cli.src.formatter.format import pypp_format
 from pypp_cli.src.other.pypp_paths.do_pure import (
     DoPurePyppPaths,
@@ -19,7 +20,7 @@ def pypp_do_pure_lib(tasks: list[str], target_dir: Path) -> None:
     )
     task_methods = {"transpile": do_helper.transpile, "format": do_helper.format}
     for task in tasks:
-        assert task in task_methods, "Shouldn't happen"
+        assert task in task_methods, SHOULDNT_HAPPEN
         task_methods[task]()
 
 
