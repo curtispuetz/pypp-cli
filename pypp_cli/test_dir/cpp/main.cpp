@@ -22,6 +22,7 @@
 #include "empty_return.h"
 #include "exceptions/assert_.h"
 #include "exceptions/custom_exceptions.h"
+#include "exceptions/test_all.h"
 #include "exceptions/throw_.h"
 #include "file_io/first.h"
 #include "file_io/test_is_here.h"
@@ -174,6 +175,7 @@ int main() {
         me::number_conversions_fn();
         me::augment_operations_fn();
         me::empty_return_fn();
+        me::test_all_exceptions_fn();
         return 0;
     } catch (...) {
         pypp::handle_fatal_exception();

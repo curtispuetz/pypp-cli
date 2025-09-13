@@ -1,30 +1,17 @@
-from pypp_cli.src.transpilers.other.transpiler.d_types import QInc
 from pypp_cli.src.transpilers.other.transpiler.deps import Deps
-
-_PY_TO_CPP_INCLUDE_MAP: dict[str, QInc] = {
-    "Exception": QInc("exceptions/exception.h"),
-    "NameError": QInc("exceptions/exception.h"),
-    "ImportError": QInc("exceptions/exception.h"),
-    "StopIteration": QInc("exceptions/exception.h"),
-    "RuntimeError": QInc("exceptions/stdexcept.h"),
-    "ValueError": QInc("exceptions/stdexcept.h"),
-    "TypeError": QInc("exceptions/stdexcept.h"),
-    "IndexError": QInc("exceptions/stdexcept.h"),
-    "KeyError": QInc("exceptions/stdexcept.h"),
-    "AssertionError": QInc("exceptions/stdexcept.h"),
-    "NotImplementedError": QInc("exceptions/stdexcept.h"),
-    "AttributeError": QInc("exceptions/stdexcept.h"),
-    "ZeroDivisionError": QInc("exceptions/stdexcept.h"),
-    "OSError": QInc("exceptions/system_error.h"),
-    "SystemError": QInc("exceptions/system_error.h"),
-    "FileNotFoundError": QInc("exceptions/filesystem.h"),
-    "IOError": QInc("exceptions/ios.h"),
-    "MemoryError": QInc("exceptions/new.h"),
-}
+from pypp_cli.src.transpilers.other.transpiler.maps.call.exceptions import (
+    EXCEPTION_NAME_MAP,
+)
+from pypp_cli.src.transpilers.other.transpiler.maps.d_types import (
+    ToStringEntry,
+)
 
 
 def lookup_cpp_exception_type(exception: str, d: Deps) -> str:
-    if exception not in _PY_TO_CPP_INCLUDE_MAP:
+    if exception not in EXCEPTION_NAME_MAP:
         return exception
-    d.add_inc(_PY_TO_CPP_INCLUDE_MAP[exception])
-    return "pypp::" + exception
+    # Note: will always be none
+    data = EXCEPTION_NAME_MAP[exception][None]
+    assert isinstance(data, ToStringEntry), "shouldn't happen"
+    d.add_incs(data.includes)
+    return data.to

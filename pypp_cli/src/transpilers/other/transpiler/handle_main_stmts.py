@@ -23,6 +23,8 @@ def handle_main_stmts(stmts: list[ast.stmt], d: Deps) -> str:
     )
 
 
+# TODO: search for all usages of .id and make sure you are actually calling the
+#  handle_name() function for all these cases.
 def _is_proper_main(node: ast.stmt) -> bool:
     if not isinstance(node, ast.If):
         return False
