@@ -40,7 +40,7 @@ template <typename... Args> class PyTup {
     static constexpr std::size_t index_impl(const std::tuple<Args...> &tup,
                                             const T &value) {
         if constexpr (I == sizeof...(Args)) {
-            throw PyppValueError("tuple.index(x): x not in tuple");
+            throw ValueError("tuple.index(x): x not in tuple");
         } else {
             // Check if types are compatible before comparison
             if constexpr (std::is_same_v<
@@ -98,7 +98,7 @@ template <typename... Args> class PyTup {
         // NOTE: I think this is actually unnessary because if it is true it
         // results in a compile-time error anyway.
         if (I >= sizeof...(Args)) {
-            throw PyppIndexError("tuple index out of range");
+            throw IndexError("tuple index out of range");
         }
         return std::get<I>(data);
     }
@@ -106,7 +106,7 @@ template <typename... Args> class PyTup {
     // TODO later: delete this because I think I don't need it.
     template <std::size_t I> const auto &get() const {
         if (I >= sizeof...(Args)) {
-            throw PyppIndexError("tuple index out of range");
+            throw IndexError("tuple index out of range");
         }
         return std::get<I>(data);
     }

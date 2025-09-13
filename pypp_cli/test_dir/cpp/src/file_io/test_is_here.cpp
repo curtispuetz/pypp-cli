@@ -13,7 +13,7 @@ void test_is_here_fn() {
     if (pypp::os::path::isfile(file)) {
         pypp::print(pypp::PyStr("test_is_here.txt file exists"));
     } else {
-        throw pypp::PyppException(
+        throw pypp::Exception(
             pypp::PyStr("test_is_here.txt file does not exist"));
     }
 }

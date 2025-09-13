@@ -9,8 +9,8 @@
 namespace me {
 void _test_bare_raise() {
     try {
-        throw pypp::PyppTypeError(pypp::PyStr("test"));
-    } catch (const pypp::PyppTypeError &) {
+        throw pypp::TypeError(pypp::PyStr("test"));
+    } catch (const pypp::TypeError &) {
         throw;
     }
 }
@@ -18,38 +18,38 @@ void _test_bare_raise() {
 void throw_fn() {
     pypp::print(pypp::PyStr("EXCEPTION RESULTS:"));
     try {
-        throw pypp::PyppException(pypp::PyStr("test"));
-    } catch (const pypp::PyppException &) {
+        throw pypp::Exception(pypp::PyStr("test"));
+    } catch (const pypp::Exception &) {
         pypp::print(pypp::PyStr("exception happened"));
     }
     try {
-        throw pypp::PyppTypeError(pypp::PyStr("test"));
-    } catch (const pypp::PyppTypeError &) {
+        throw pypp::TypeError(pypp::PyStr("test"));
+    } catch (const pypp::TypeError &) {
         pypp::print(pypp::PyStr("type error caught"));
     }
     try {
-        throw pypp::PyppTypeError(pypp::PyStr("test"));
-    } catch (const pypp::PyppTypeError &pypp_e) {
+        throw pypp::TypeError(pypp::PyStr("test"));
+    } catch (const pypp::TypeError &pypp_e) {
         std::string e = pypp_e.what();
         pypp::print(pypp::PyStr("type error caught: ") + pypp::str(e));
     }
     try {
-        throw pypp::PyppTypeError(pypp::PyStr("test"));
-    } catch (const pypp::PyppTypeError &) {
+        throw pypp::TypeError(pypp::PyStr("test"));
+    } catch (const pypp::TypeError &) {
         pypp::print(pypp::PyStr("type error caught"));
-    } catch (const pypp::PyppValueError &) {
+    } catch (const pypp::ValueError &) {
         pypp::print(pypp::PyStr("value error caught"));
-    } catch (const pypp::PyppException &) {
+    } catch (const pypp::Exception &) {
         pypp::print(pypp::PyStr("other error caught"));
     }
     try {
-        throw pypp::PyppTypeError(pypp::PyStr("test"));
+        throw pypp::TypeError(pypp::PyStr("test"));
     } catch (...) {
         pypp::print(pypp::PyStr("catching all"));
     }
     try {
         _test_bare_raise();
-    } catch (const pypp::PyppTypeError &) {
+    } catch (const pypp::TypeError &) {
         pypp::print(pypp::PyStr("bare raise"));
     }
 }

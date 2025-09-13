@@ -4,15 +4,15 @@
 
 namespace pypp {
 class PyStr;
-class PyppOSError : public std::system_error {
+class OSError : public std::system_error {
   public:
-    PyppOSError(const PyStr &msg, std::error_code ec);
-    PyppOSError(const std::string &msg, std::error_code ec);
+    OSError(const PyStr &msg, std::error_code ec);
+    OSError(const std::string &msg, std::error_code ec);
 };
 
-class PyppSystemError : public std::system_error {
+class SystemError : public std::system_error {
   public:
-    PyppSystemError(const PyStr &msg, std::error_code ec);
-    PyppSystemError(const std::string &msg, std::error_code ec);
+    SystemError(const PyStr &msg, std::error_code ec);
+    SystemError(const std::string &msg, std::error_code ec);
 };
 } // namespace pypp

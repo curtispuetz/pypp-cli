@@ -2,16 +2,16 @@
 #include <py_str.h>
 
 namespace pypp {
-PyppOSError::PyppOSError(const PyStr &msg, std::error_code ec)
-    : std::system_error(ec, "PyppOsError: " + msg.str()) {}
+OSError::OSError(const PyStr &msg, std::error_code ec)
+    : std::system_error(ec, "OsError: " + msg.str()) {}
 
-PyppOSError::PyppOSError(const std::string &msg, std::error_code ec)
-    : std::system_error(ec, "PyppOsError: " + msg) {}
+OSError::OSError(const std::string &msg, std::error_code ec)
+    : std::system_error(ec, "OsError: " + msg) {}
 
-PyppSystemError::PyppSystemError(const PyStr &msg, std::error_code ec)
-    : std::system_error(ec, "PyppSystemError: " + msg.str()) {}
+SystemError::SystemError(const PyStr &msg, std::error_code ec)
+    : std::system_error(ec, "SystemError: " + msg.str()) {}
 
-PyppSystemError::PyppSystemError(const std::string &msg, std::error_code ec)
-    : std::system_error(ec, "PyppSystemError: " + msg) {}
+SystemError::SystemError(const std::string &msg, std::error_code ec)
+    : std::system_error(ec, "SystemError: " + msg) {}
 
 } // namespace pypp

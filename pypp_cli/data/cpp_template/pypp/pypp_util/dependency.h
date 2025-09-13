@@ -3,6 +3,7 @@
 #include <functional>
 #include <variant>
 
+// TODO: delete this. I don't use it.
 namespace pypp {
 
 // A generic wrapper that can either own or reference a dependency

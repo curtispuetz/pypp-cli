@@ -13,7 +13,7 @@ void tuple_exceptions_fn() {
         pypp::PyTup(2, 2.2, pypp::PyStr("b"));
     try {
         a.index(1);
-    } catch (const pypp::PyppValueError &pypp_e) {
+    } catch (const pypp::ValueError &pypp_e) {
         std::string e = pypp_e.what();
         pypp::print(pypp::PyStr("value error: ") + pypp::str(e));
     }

@@ -11,25 +11,25 @@ void string_exceptions_fn() {
     pypp::PyStr s = pypp::PyStr("test");
     try {
         s.index(pypp::PyStr("a"));
-    } catch (const pypp::PyppValueError &pypp_e) {
+    } catch (const pypp::ValueError &pypp_e) {
         std::string e = pypp_e.what();
         pypp::print(pypp::PyStr("value error: ") + pypp::str(e));
     }
     try {
         s.rindex(pypp::PyStr("a"));
-    } catch (const pypp::PyppValueError &pypp_e) {
+    } catch (const pypp::ValueError &pypp_e) {
         std::string e = pypp_e.what();
         pypp::print(pypp::PyStr("value error: ") + pypp::str(e));
     }
     try {
         s[9];
-    } catch (const pypp::PyppIndexError &pypp_e) {
+    } catch (const pypp::IndexError &pypp_e) {
         std::string e = pypp_e.what();
         pypp::print(pypp::PyStr("index error: ") + pypp::str(e));
     }
     try {
         s[-9];
-    } catch (const pypp::PyppIndexError &pypp_e) {
+    } catch (const pypp::IndexError &pypp_e) {
         std::string e = pypp_e.what();
         pypp::print(pypp::PyStr("index error: ") + pypp::str(e));
     }

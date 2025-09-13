@@ -1,7 +1,7 @@
 from pypp_cli.src.transpilers.other.transpiler.d_types import QInc
 from pypp_cli.src.transpilers.other.transpiler.deps import Deps
 
-PY_TO_CPP_INCLUDE_MAP: dict[str, QInc] = {
+_PY_TO_CPP_INCLUDE_MAP: dict[str, QInc] = {
     "Exception": QInc("exceptions/exception.h"),
     "NameError": QInc("exceptions/exception.h"),
     "ImportError": QInc("exceptions/exception.h"),
@@ -24,7 +24,7 @@ PY_TO_CPP_INCLUDE_MAP: dict[str, QInc] = {
 
 
 def lookup_cpp_exception_type(exception: str, d: Deps) -> str:
-    if exception not in PY_TO_CPP_INCLUDE_MAP:
+    if exception not in _PY_TO_CPP_INCLUDE_MAP:
         return exception
-    d.add_inc(PY_TO_CPP_INCLUDE_MAP[exception])
-    return "pypp::Pypp" + exception
+    d.add_inc(_PY_TO_CPP_INCLUDE_MAP[exception])
+    return "pypp::" + exception

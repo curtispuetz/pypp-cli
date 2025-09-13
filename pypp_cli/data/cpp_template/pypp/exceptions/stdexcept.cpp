@@ -3,49 +3,49 @@
 
 namespace pypp {
 
-PyppRuntimeError::PyppRuntimeError(const PyStr &msg)
-    : std::runtime_error("PyppRuntimeError: " + msg.str()) {}
-PyppRuntimeError::PyppRuntimeError(const std::string &msg)
-    : std::runtime_error("PyppRuntimeError: " + msg) {}
+RuntimeError::RuntimeError(const PyStr &msg)
+    : std::runtime_error("RuntimeError: " + msg.str()) {}
+RuntimeError::RuntimeError(const std::string &msg)
+    : std::runtime_error("RuntimeError: " + msg) {}
 
-PyppValueError::PyppValueError(const PyStr &msg)
-    : std::invalid_argument("PyppValueError: " + msg.str()) {}
-PyppValueError::PyppValueError(const std::string &msg)
-    : std::invalid_argument("PyppValueError: " + msg) {}
+ValueError::ValueError(const PyStr &msg)
+    : std::invalid_argument("ValueError: " + msg.str()) {}
+ValueError::ValueError(const std::string &msg)
+    : std::invalid_argument("ValueError: " + msg) {}
 
-PyppTypeError::PyppTypeError(const PyStr &msg)
-    : std::invalid_argument("PyppTypeError: " + msg.str()) {}
-PyppTypeError::PyppTypeError(const std::string &msg)
-    : std::invalid_argument("PyppTypeError: " + msg) {}
+TypeError::TypeError(const PyStr &msg)
+    : std::invalid_argument("TypeError: " + msg.str()) {}
+TypeError::TypeError(const std::string &msg)
+    : std::invalid_argument("TypeError: " + msg) {}
 
-PyppIndexError::PyppIndexError(const PyStr &msg)
-    : std::out_of_range("PyppIndexError: " + msg.str()) {}
-PyppIndexError::PyppIndexError(const std::string &msg)
-    : std::out_of_range("PyppIndexError: " + msg) {}
+IndexError::IndexError(const PyStr &msg)
+    : std::out_of_range("IndexError: " + msg.str()) {}
+IndexError::IndexError(const std::string &msg)
+    : std::out_of_range("IndexError: " + msg) {}
 
-PyppKeyError::PyppKeyError(const PyStr &msg)
-    : std::out_of_range("PyppKeyError: " + msg.str()) {}
-PyppKeyError::PyppKeyError(const std::string &msg)
-    : std::out_of_range("PyppKeyError: " + msg) {}
+KeyError::KeyError(const PyStr &msg)
+    : std::out_of_range("KeyError: " + msg.str()) {}
+KeyError::KeyError(const std::string &msg)
+    : std::out_of_range("KeyError: " + msg) {}
 
-PyppZeroDivisionError::PyppZeroDivisionError(const PyStr &msg)
-    : std::domain_error("PyppZeroDivisionError: " + msg.str()) {}
-PyppZeroDivisionError::PyppZeroDivisionError(const std::string &msg)
-    : std::domain_error("PyppZeroDivisionError: " + msg) {}
+ZeroDivisionError::ZeroDivisionError(const PyStr &msg)
+    : std::domain_error("ZeroDivisionError: " + msg.str()) {}
+ZeroDivisionError::ZeroDivisionError(const std::string &msg)
+    : std::domain_error("ZeroDivisionError: " + msg) {}
 
-PyppAssertionError::PyppAssertionError(const PyStr &msg)
-    : std::logic_error("PyppAssertionError: " + msg.str()) {}
-PyppAssertionError::PyppAssertionError(const std::string &msg)
-    : std::logic_error("PyppAssertionError: " + msg) {}
+AssertionError::AssertionError(const PyStr &msg)
+    : std::logic_error("AssertionError: " + msg.str()) {}
+AssertionError::AssertionError(const std::string &msg)
+    : std::logic_error("AssertionError: " + msg) {}
 
-PyppNotImplementedError::PyppNotImplementedError(const PyStr &msg)
-    : std::logic_error("PyppNotImplementedError: " + msg.str()) {}
-PyppNotImplementedError::PyppNotImplementedError(const std::string &msg)
-    : std::logic_error("PyppNotImplementedError: " + msg) {}
+NotImplementedError::NotImplementedError(const PyStr &msg)
+    : std::logic_error("NotImplementedError: " + msg.str()) {}
+NotImplementedError::NotImplementedError(const std::string &msg)
+    : std::logic_error("NotImplementedError: " + msg) {}
 
-PyppAttributeError::PyppAttributeError(const PyStr &msg)
-    : std::logic_error("PyppAttributeError: " + msg.str()) {}
-PyppAttributeError::PyppAttributeError(const std::string &msg)
-    : std::logic_error("PyppAttributeError: " + msg) {}
+AttributeError::AttributeError(const PyStr &msg)
+    : std::logic_error("AttributeError: " + msg.str()) {}
+AttributeError::AttributeError(const std::string &msg)
+    : std::logic_error("AttributeError: " + msg) {}
 
 } // namespace pypp

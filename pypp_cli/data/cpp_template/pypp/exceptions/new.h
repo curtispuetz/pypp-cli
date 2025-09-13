@@ -2,10 +2,10 @@
 #include <new>
 
 namespace pypp {
-class PyppMemoryError : public std::bad_alloc {
+class MemoryError : public std::bad_alloc {
   public:
     const char *what() const noexcept override {
-        return "PyppMemoryError: failed to allocate memory";
+        return "MemoryError: failed to allocate memory";
     }
 };
 

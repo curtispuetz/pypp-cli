@@ -12,13 +12,13 @@ void dict_exceptions_fn() {
     pypp::PyDict<int, int> a = {{0, 1}, {1, 2}};
     try {
         a.pop(-1);
-    } catch (const pypp::PyppKeyError &pypp_e) {
+    } catch (const pypp::KeyError &pypp_e) {
         std::string e = pypp_e.what();
         pypp::print(pypp::PyStr("key error: ") + pypp::str(e));
     }
     try {
         a.dg(-1);
-    } catch (const pypp::PyppKeyError &pypp_e) {
+    } catch (const pypp::KeyError &pypp_e) {
         std::string e = pypp_e.what();
         pypp::print(pypp::PyStr("key error: ") + pypp::str(e));
     }

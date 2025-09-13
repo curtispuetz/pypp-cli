@@ -37,7 +37,7 @@ PyStr get_executable_dir() {
             std::filesystem::path(real_path_name).parent_path().string());
     }
 #endif
-    throw PyppRuntimeError("Could not determine executable directory");
+    throw RuntimeError("Could not determine executable directory");
 }
 
 } // namespace platform

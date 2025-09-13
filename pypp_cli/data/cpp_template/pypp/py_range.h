@@ -62,7 +62,7 @@ struct PyRange {
     PyRange(int start, int stop, int step = 1)
         : m_start(start), m_stop(stop), m_step(step) {
         if (step == 0) {
-            throw PyppValueError("range() arg 3 must not be zero");
+            throw ValueError("range() arg 3 must not be zero");
         }
         // For a valid range, if step is positive, start should be less than
         // stop. If step is negative, start should be greater than stop. If

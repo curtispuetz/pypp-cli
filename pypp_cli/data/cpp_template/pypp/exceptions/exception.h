@@ -3,10 +3,9 @@
 #include <py_str.h>
 
 namespace pypp {
-class PyppException : public std::exception {
+class Exception : public std::exception {
   public:
-    explicit PyppException(const PyStr &msg)
-        : msg_(PyStr("PyppException: ") + msg) {}
+    explicit Exception(const PyStr &msg) : msg_(PyStr("Exception: ") + msg) {}
 
     const char *what() const noexcept override { return msg_.str().c_str(); }
 
@@ -14,22 +13,22 @@ class PyppException : public std::exception {
     PyStr msg_;
 };
 
-class PyppNameError : public PyppException {
+class NameError : public Exception {
   public:
-    explicit PyppNameError(const PyStr &msg)
-        : PyppException(PyStr("PyppNameError: ") + msg) {}
+    explicit NameError(const PyStr &msg)
+        : Exception(PyStr("NameError: ") + msg) {}
 };
 
-class PyppImportError : public PyppException {
+class ImportError : public Exception {
   public:
-    explicit PyppImportError(const PyStr &msg)
-        : PyppException(PyStr("PyppImportError: ") + msg) {}
+    explicit ImportError(const PyStr &msg)
+        : Exception(PyStr("ImportError: ") + msg) {}
 };
 
-class PyppStopIteration : public PyppException {
+class StopIteration : public Exception {
   public:
-    explicit PyppStopIteration(const PyStr &msg = PyStr("Iteration stopped"))
-        : PyppException(PyStr("PyppStopIteration: ") + msg) {}
+    explicit StopIteration(const PyStr &msg = PyStr("Iteration stopped"))
+        : Exception(PyStr("StopIteration: ") + msg) {}
 };
 
 } // namespace pypp
