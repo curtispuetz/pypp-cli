@@ -5,7 +5,6 @@ from pypp_cli.src.transpilers.other.transpiler.maps.d_types import (
 )
 
 
-# TODO now: got to delete some of these
 EXCEPTION_NAME_MAP: NameMap = {
     "Exception": {
         None: ToStringEntry("pypp::Exception", [QInc("exceptions/exception.h")])
@@ -13,18 +12,21 @@ EXCEPTION_NAME_MAP: NameMap = {
     "ValueError": {
         None: ToStringEntry("pypp::ValueError", [QInc("exceptions/common.h")])
     },
-    "KeyError": {None: ToStringEntry("pypp::KeyError", [QInc("exceptions/common.h")])},
+    "AssertionError": {
+        None: ToStringEntry("pypp::AssertionError", [QInc("exceptions/common.h")])
+    },
+    "LookupError": {
+        None: ToStringEntry("pypp::LookupError", [QInc("exceptions/common.h")])
+    },
     "IndexError": {
         None: ToStringEntry("pypp::IndexError", [QInc("exceptions/common.h")])
     },
-    "NotImplementedError": {
-        None: ToStringEntry("pypp::NotImplementedError", [QInc("exceptions/common.h")])
-    },
+    "KeyError": {None: ToStringEntry("pypp::KeyError", [QInc("exceptions/common.h")])},
     "RuntimeError": {
         None: ToStringEntry("pypp::RuntimeError", [QInc("exceptions/common.h")])
     },
-    "AssertionError": {
-        None: ToStringEntry("pypp::AssertionError", [QInc("exceptions/common.h")])
+    "NotImplementedError": {
+        None: ToStringEntry("pypp::NotImplementedError", [QInc("exceptions/common.h")])
     },
     "OSError": {
         None: ToStringEntry("pypp::OSError", [QInc("exceptions/filesystem.h")])

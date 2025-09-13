@@ -15,9 +15,10 @@ void test_all_exceptions_fn() {
     pypp::PyList<pypp::Exception> exceptions(
         {pypp::Exception(pypp::PyStr("test")),
          pypp::ValueError(pypp::PyStr("test")),
+         pypp::AssertionError(pypp::PyStr("test")),
+         pypp::LookupError(pypp::PyStr("test")),
          pypp::IndexError(pypp::PyStr("test")),
          pypp::KeyError(pypp::PyStr("test")),
-         pypp::AssertionError(pypp::PyStr("test")),
          pypp::RuntimeError(pypp::PyStr("test")),
          pypp::NotImplementedError(pypp::PyStr("test")),
          pypp::OSError(pypp::PyStr("test")),

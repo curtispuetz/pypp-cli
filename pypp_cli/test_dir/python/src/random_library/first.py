@@ -24,7 +24,6 @@ def random_fn():
     c: _RandomWrapper = _RandomWrapper(a)
     d: float = c.mult(a)
     print(d)
-    # TODO now: test more of the functions
     e: int = a.randint(1, 10)
     print(e)
     f: list[int] = [1, 2, 3]
