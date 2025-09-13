@@ -25,6 +25,13 @@ void custom_exception_fn() {
         std::string e = pypp_e.what();
         pypp::print(pypp::PyStr("child exception caught: ") + pypp::str(e));
     }
+    try {
+        throw CustomValueError(
+            pypp::PyStr("This is a custom value error message."));
+    } catch (const pypp::PyppValueError &pypp_e) {
+        std::string e = pypp_e.what();
+        pypp::print(pypp::PyStr("custom value error caught: ") + pypp::str(e));
+    }
 }
 
 } // namespace me
