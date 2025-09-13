@@ -1,5 +1,5 @@
 #include "py_str.h"
-#include "exceptions/stdexcept.h"
+#include "exceptions/common.h"
 #include <algorithm>
 #include <cctype>
 #include <iostream>
@@ -93,12 +93,14 @@ PyStr PyStr::rstrip() const {
     return (end == std::string::npos) ? PyStr("") : PyStr(s.substr(0, end + 1));
 }
 
-PyList<PyStr> PyStr::split(const PyStr &sep) const {
+PyList<PyStr> PyStr::split(const PyStr &sep, int maxsplit) const {
     PyList<PyStr> result;
     size_t start = 0, end;
     while ((end = s.find(sep.str(), start)) != std::string::npos) {
         result.append(PyStr(s.substr(start, end - start)));
         start = end + sep.len();
+        if (maxsplit != -1 && result.len() >= maxsplit)
+            break;
     }
     result.append(PyStr(s.substr(start)));
     return result;

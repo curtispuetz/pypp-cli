@@ -1,7 +1,7 @@
 def _test_bare_raise():
     try:
-        raise TypeError("test")
-    except TypeError:
+        raise IndexError("test")
+    except IndexError:
         raise
 
 
@@ -14,18 +14,18 @@ def throw_fn():
         print("exception happened")
     # raise an exception and catch specific
     try:
-        raise TypeError("test")
-    except TypeError:
+        raise IndexError("test")
+    except IndexError:
         print("type error caught")
     # raise an exception and catch specific with the catch value
     try:
-        raise TypeError("test")
-    except TypeError as e:
+        raise IndexError("test")
+    except IndexError as e:
         print("type error caught: " + str(e))
     # catch multiple types
     try:
-        raise TypeError("test")
-    except TypeError:
+        raise IndexError("test")
+    except IndexError:
         print("type error caught")
     except ValueError:
         print("value error caught")
@@ -33,11 +33,11 @@ def throw_fn():
         print("other error caught")
     # all in one
     try:
-        raise TypeError("test")
+        raise IndexError("test")
     except:
         print("catching all")
 
     try:
         _test_bare_raise()
-    except TypeError:
+    except IndexError:
         print("bare raise")

@@ -1,6 +1,6 @@
 #include "cstdlib"
+#include "exceptions/common.h"
 #include "exceptions/exception.h"
-#include "exceptions/stdexcept.h"
 #include "py_list.h"
 #include "py_str.h"
 #include "pypp_bridge_lib_opengl/custom.h"

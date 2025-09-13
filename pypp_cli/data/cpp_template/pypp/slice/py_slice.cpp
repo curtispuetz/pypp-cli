@@ -1,5 +1,5 @@
 #include "slice/py_slice.h"
-#include "exceptions/stdexcept.h"
+#include "exceptions/common.h"
 #include "pypp_util/floor_div.h"
 #include "slice/index_calculator.h"
 

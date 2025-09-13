@@ -1,20 +1,19 @@
 #include "pypp_text_io.h"
+#include "exceptions/common.h"
 #include <iostream>
 #include <sstream>
-#include <stdexcept>
 #include <string>
 
 namespace pypp {
 void PyTextIO::check_file_open() const {
     if (!file_stream.is_open()) {
-        throw std::runtime_error("File not open: " + filename_.str());
+        throw RuntimeError("File not open: " + filename_.str());
     }
 }
 
 void PyTextIO::check_file_open_for_writing() const {
     if (!file_stream.is_open()) {
-        throw std::runtime_error("File not open for writing: " +
-                                 filename_.str());
+        throw RuntimeError("File not open for writing: " + filename_.str());
     }
 }
 
@@ -35,13 +34,13 @@ void PyTextIO::open_file(const PyStr &filename, const PyStr &mode) {
     } else if (mode.str() == "a+") {
         cpp_mode = std::ios_base::in | std::ios_base::out | std::ios_base::app;
     } else {
-        throw std::runtime_error("Unsupported file mode: " + mode.str());
+        throw RuntimeError("Unsupported file mode: " + mode.str());
     }
 
     file_stream.open(filename.str(), cpp_mode);
     if (!file_stream.is_open()) {
-        throw std::runtime_error("Could not open file: " + filename.str() +
-                                 " with mode " + mode.str());
+        throw RuntimeError("Could not open file: " + filename.str() +
+                           " with mode " + mode.str());
     }
 }
 
@@ -100,7 +99,7 @@ void PyTextIO::write(const PyStr &content) {
     check_file_open_for_writing();
     file_stream << content.str();
     if (file_stream.fail()) {
-        throw std::runtime_error("Error writing to file: " + filename_.str());
+        throw RuntimeError("Error writing to file: " + filename_.str());
     }
 }
 
@@ -110,8 +109,7 @@ void PyTextIO::writelines(const PyList<PyStr> &lines) {
         file_stream << line.str();
     }
     if (file_stream.fail()) {
-        throw std::runtime_error("Error writing lines to file: " +
-                                 filename_.str());
+        throw RuntimeError("Error writing lines to file: " + filename_.str());
     }
 }
 

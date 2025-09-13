@@ -11,7 +11,7 @@
 #include <vector>
 #endif
 
-#include <exceptions/stdexcept.h> // Only needed in the implementation
+#include <exceptions/common.h> // Only needed in the implementation
 namespace pypp {
 namespace platform {
 

@@ -126,7 +126,7 @@ class PyStr {
     PyStr strip() const;
     PyStr lstrip() const;
     PyStr rstrip() const;
-    PyList<PyStr> split(const PyStr &sep = PyStr(" ")) const;
+    PyList<PyStr> split(const PyStr &sep = PyStr(" "), int maxsplit = -1) const;
     PyStr join(const PyList<PyStr> &parts);
     int len() const;
     PyStr min() const;

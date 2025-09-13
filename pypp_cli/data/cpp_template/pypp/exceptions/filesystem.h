@@ -1,20 +1,38 @@
 #pragma once
-#include <filesystem>
-#include <string>
+
+#include "exceptions/exception.h"
 
 namespace pypp {
-class FileNotFoundError : public std::filesystem::filesystem_error {
+class PyStr;
+
+class OSError : public Exception {
   public:
-    FileNotFoundError(const std::string &msg, const std::filesystem::path &path)
-        : std::filesystem::filesystem_error("FileNotFoundError: " + msg, path,
-                                            std::error_code()) {}
+    OSError(const PyStr &msg);
 };
 
-class FileSystemError : public std::filesystem::filesystem_error {
+class FileNotFoundError : public OSError {
   public:
-    FileSystemError(const std::string &msg, const std::filesystem::path &path)
-        : std::filesystem::filesystem_error("FileSystemError: " + msg, path,
-                                            std::error_code()) {}
+    FileNotFoundError(const PyStr &msg);
+};
+
+class FileSystemError : public OSError {
+  public:
+    FileSystemError(const PyStr &msg);
+};
+
+class NotADirectoryError : public OSError {
+  public:
+    NotADirectoryError(const PyStr &msg);
+};
+
+class PermissionError : public OSError {
+  public:
+    PermissionError(const PyStr &msg);
+};
+
+class FileExistsError : public OSError {
+  public:
+    FileExistsError(const PyStr &msg);
 };
 
 } // namespace pypp
