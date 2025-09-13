@@ -4,7 +4,7 @@
 #include "pypp_util/print.h"
 
 namespace me {
-pypp::PyList<int> &_get_list(pypp::PyList<int> &input_list) {
+static pypp::PyList<int> &_get_list(pypp::PyList<int> &input_list) {
     return input_list;
 }
 

@@ -11,12 +11,12 @@ struct _PrivateClass {
     int m() { return _v; }
 };
 
-pypp::PyList<pypp::PyStr> _calc_list() {
+static pypp::PyList<pypp::PyStr> _calc_list() {
     pypp::PyStr a = pypp::PyStr("a");
     return pypp::PyList({a, pypp::PyStr("b"), pypp::PyStr("c")});
 }
 
-pypp::PyList<_PrivateClass> _calc_obj_list() {
+static pypp::PyList<_PrivateClass> _calc_obj_list() {
     _PrivateClass a = _PrivateClass(1);
     return pypp::PyList({a, _PrivateClass(2), _PrivateClass(3)});
 }

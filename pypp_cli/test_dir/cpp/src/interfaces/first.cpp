@@ -18,7 +18,7 @@ void Impl2::speak(int a) {
 
 pypp::PyStr Impl2::talk() { return pypp::PyStr("hello there"); }
 
-void _fn_that_accepts_interface(InterfaceClass &i) {
+static void _fn_that_accepts_interface(InterfaceClass &i) {
     i.speak(2);
     pypp::print(i.talk());
 }

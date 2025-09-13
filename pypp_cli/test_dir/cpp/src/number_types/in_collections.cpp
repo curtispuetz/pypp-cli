@@ -7,7 +7,7 @@
 #include <cstdint>
 
 namespace me {
-void _lists() {
+static void _lists() {
     pypp::PyList<int8_t> a({1, 2, 3, 4});
     pypp::print(a);
     pypp::PyList<int16_t> b({5, 6, 7, 8});
@@ -28,7 +28,7 @@ void _lists() {
     pypp::print(i);
 }
 
-void _sets() {
+static void _sets() {
     pypp::PySet<int8_t> a({1, 2, 3, 4});
     pypp::print(a);
     pypp::PySet<int16_t> b({5, 6, 7, 8});
@@ -49,7 +49,7 @@ void _sets() {
     pypp::print(i);
 }
 
-void _dicts() {
+static void _dicts() {
     pypp::PyDict<int8_t, pypp::PyStr> a = {{1, pypp::PyStr("a")},
                                            {2, pypp::PyStr("b")}};
     pypp::print(a);
@@ -83,17 +83,17 @@ void _dicts() {
     pypp::print(k);
 }
 
-pypp::PyList<uint16_t> _list_factory() {
+static pypp::PyList<uint16_t> _list_factory() {
     pypp::PyList<uint16_t> ret({1, 2, 3, 4});
     return ret;
 }
 
-pypp::PySet<uint16_t> _set_factory() {
+static pypp::PySet<uint16_t> _set_factory() {
     pypp::PySet<uint16_t> ret({1, 2, 3, 4});
     return ret;
 }
 
-pypp::PyDict<uint16_t, pypp::PyStr> _dict_factory() {
+static pypp::PyDict<uint16_t, pypp::PyStr> _dict_factory() {
     return {{1, pypp::PyStr("a")}, {2, pypp::PyStr("b")}};
 }
 

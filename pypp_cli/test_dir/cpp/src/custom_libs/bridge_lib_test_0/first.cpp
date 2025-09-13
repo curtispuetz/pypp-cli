@@ -15,9 +15,9 @@
 #include <iostream>
 
 namespace me {
-void _as_arg(PseudoCustomTypeCpp &arg) { pypp::print(arg.get_a()); }
+static void _as_arg(PseudoCustomTypeCpp &arg) { pypp::print(arg.get_a()); }
 
-PseudoCustomTypeCpp _factory() { return PseudoCustomTypeCpp(100); }
+static PseudoCustomTypeCpp _factory() { return PseudoCustomTypeCpp(100); }
 
 struct _ClassA {
     const PseudoCustomTypeCpp &_pseudo_custom_type;

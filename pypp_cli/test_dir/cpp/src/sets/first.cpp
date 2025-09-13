@@ -7,7 +7,7 @@
 #include <utility>
 
 namespace me {
-void _inline_set(pypp::PySet<double> s) { pypp::print(s); }
+static void _inline_set(pypp::PySet<double> s) { pypp::print(s); }
 
 void set_fn() {
     pypp::print(pypp::PyStr("SET RESULTS:"));

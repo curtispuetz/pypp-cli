@@ -7,7 +7,7 @@
 #include <string>
 
 namespace me {
-void _test_bare_raise() {
+static void _test_bare_raise() {
     try {
         throw pypp::IndexError(pypp::PyStr("test"));
     } catch (const pypp::IndexError &) {

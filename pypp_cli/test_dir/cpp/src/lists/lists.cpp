@@ -7,7 +7,7 @@
 #include <utility>
 
 namespace me {
-void _test_fn(pypp::PyList<pypp::PyStr> arg1) { pypp::print(arg1); }
+static void _test_fn(pypp::PyList<pypp::PyStr> arg1) { pypp::print(arg1); }
 
 void list_fn() {
     pypp::print(pypp::PyStr("LIST RESULTS:"));
