@@ -1,5 +1,6 @@
 #pragma once
 
+#include "py_str.h"
 #include <iostream>
 
 namespace pypp {
