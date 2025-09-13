@@ -34,6 +34,11 @@ void throw_fn() {
     } catch (const pypp::PyppException &) {
         pypp::print(pypp::PyStr("other error caught"));
     }
+    try {
+        throw pypp::PyppTypeError(pypp::PyStr("test"));
+    } catch (...) {
+        pypp::print(pypp::PyStr("catching all"));
+    }
 }
 
 } // namespace me
