@@ -2,7 +2,6 @@
 
 #include <cstdint>
 
-// TODO: catch errors and throw pypp exceptions
 namespace pypp {
 
 template <typename T> inline int8_t to_int8_t(const T &value) {
