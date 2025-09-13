@@ -1,9 +1,12 @@
 #include "built_in_functions/number_conversions.h"
+#include "exceptions/common.h"
 #include "py_str.h"
 #include "pypp_util/create/cstdint.h"
 #include "pypp_util/create/others.h"
 #include "pypp_util/print.h"
+#include "pypp_util/to_py_str.h"
 #include <cstdint>
+#include <string>
 
 namespace me {
 void number_conversions_fn() {
@@ -37,6 +40,24 @@ void number_conversions_fn() {
                     "uint8_t: {}, uint16_t: {}, uint32_t: {}, uint64_t: {}",
                     a_int8_t, a_int16_t, a_int32_t, a_int64_t, a_uint8_t,
                     a_uint16_t, a_uint32_t, a_uint64_t)));
+    try {
+        pypp::int_(pypp::PyStr("abc"));
+    } catch (const pypp::ValueError &pypp_pseudo_name_e) {
+        std::string e = pypp_pseudo_name_e.msg_;
+        pypp::print(pypp::PyStr("Caught: ") + pypp::str(e));
+    }
+    try {
+        pypp::float_(pypp::PyStr("abc"));
+    } catch (const pypp::ValueError &pypp_pseudo_name_e) {
+        std::string e = pypp_pseudo_name_e.msg_;
+        pypp::print(pypp::PyStr("Caught: ") + pypp::str(e));
+    }
+    try {
+        pypp::to_float32(pypp::PyStr("abc"));
+    } catch (const pypp::ValueError &pypp_pseudo_name_e) {
+        std::string e = pypp_pseudo_name_e.msg_;
+        pypp::print(pypp::PyStr("Caught: ") + pypp::str(e));
+    }
 }
 
 } // namespace me
