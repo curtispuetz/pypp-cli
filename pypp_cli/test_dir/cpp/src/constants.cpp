@@ -11,6 +11,7 @@ inline __PseudoPyppName_PrivateConfig _PrivateConfig;
 
 void constant_fn() {
     pypp::print(pypp::PyStr("CONSTANT RESULTS:"));
+    const int F = 3;
     const int _F = 4;
     pypp::print(F);
     pypp::print(_F);

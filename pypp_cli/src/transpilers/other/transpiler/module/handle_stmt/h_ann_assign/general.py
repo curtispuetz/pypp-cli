@@ -32,7 +32,7 @@ def handle_general_ann_assign(
     node: ast.AnnAssign,
     d: Deps,
     target_str: str,
-    const_str: str = "",
+    prefix_str: str = "",
 ) -> str:
     type_cpp: str | None = calc_callable_type(node.annotation, d)
     if type_cpp is None:
@@ -43,7 +43,7 @@ def handle_general_ann_assign(
         return f"{type_cpp} {target_str}; " + handle_comp(node.value, d, target_str)
     value_str, direct_initialize = _calc_value_str(node, node.value, d)
     return _calc_final_str(
-        d, value_str, const_str, type_cpp, target_str, direct_initialize
+        d, value_str, prefix_str, type_cpp, target_str, direct_initialize
     )
 
 
@@ -65,19 +65,19 @@ def _calc_value_str(node: ast.AnnAssign, value: ast.expr, d: Deps) -> tuple[str,
 def _calc_final_str(
     d: Deps,
     value_str: str,
-    const_str: str,
+    prefix_str: str,
     type_cpp: str,
     target_str: str,
     direct_initialize: bool,
 ):
     result_from_maps = _calc_result_from_maps_if_any(d, value_str, type_cpp, target_str)
     if result_from_maps is not None:
-        return f"{const_str}{result_from_maps};"
+        return f"{prefix_str}{result_from_maps};"
     if type_cpp.startswith("&"):
         type_cpp = type_cpp[1:] + "&"
     if direct_initialize:
-        return f"{const_str}{type_cpp} {target_str}({value_str});"
-    return f"{const_str}{type_cpp} {target_str} = {value_str};"
+        return f"{prefix_str}{type_cpp} {target_str}({value_str});"
+    return f"{prefix_str}{type_cpp} {target_str} = {value_str};"
 
 
 def _calc_result_from_maps_if_any(

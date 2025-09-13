@@ -22,6 +22,7 @@ class Deps:
     _py_imports: PyImports
     _handle_expr_fn: Callable[[ast.expr, "Deps"], str]
     _handle_stmt: Callable[[ast.stmt, "Deps"], str]
+    _handle_ann_assign: Callable[[ast.AnnAssign, "Deps", bool], str]
     user_namespace: set[str]
     _include_in_header: bool = False
     inside_except_block: bool = False
@@ -42,6 +43,15 @@ class Deps:
         ret: list[str] = []
         for node in stmts:
             ret.append(self._handle_stmt(node, self))
+        return " ".join(ret)
+
+    def handle_stmts_for_module(self, stmts: list[ast.stmt]) -> str:
+        ret: list[str] = []
+        for node in stmts:
+            if isinstance(node, ast.AnnAssign):
+                ret.append(self._handle_ann_assign(node, self, True))
+            else:
+                ret.append(self._handle_stmt(node, self))
         return " ".join(ret)
 
     def add_inc(self, inc: CppInclude):

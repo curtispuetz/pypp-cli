@@ -1,3 +1,4 @@
+from dataclasses import dataclass
 from args_test import args_test_fn
 from augment_operations import augment_operations_fn
 from built_in_functions.dict_fn import built_in_dict_fn
@@ -74,7 +75,7 @@ from operations import operations_fn
 from fn_as_vars.first import fn_as_vars_fn
 from default_dict.first import default_dict_fn
 from pypp_union.first import pypp_union_fn
-from constants import constant_fn
+from constants import constant_fn, A, B, C, D, E, a, b
 from number_types.number_types import number_types_fn
 from triple_quote_strings import triple_quote_strings_fn
 from ternary_op import ternary_op_fn
@@ -173,3 +174,4 @@ if __name__ == "__main__":
     empty_return_fn()
     test_all_exceptions_fn()
     shutil_exceptions_fn()
+    print(A, B, C, D, E, a, b)
