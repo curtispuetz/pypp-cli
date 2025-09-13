@@ -39,10 +39,7 @@ class _PrivateConfig:
 # inside function
 def constant_fn():
     print("CONSTANT RESULTS:")
-    # Show the nuance of how if you define a constant at a non-module level and
-    # without starting with an underscore, the constant is actually extracted to the
-    # header file in the transpiled C++. If the name starts with an underscore this is
-    # not the case.
+    # Define a constant not at the module level
     F: int = 3
     _F: int = 4
     print(F)

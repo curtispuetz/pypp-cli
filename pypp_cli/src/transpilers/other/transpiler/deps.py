@@ -23,6 +23,7 @@ class Deps:
     _handle_expr_fn: Callable[[ast.expr, "Deps"], str]
     _handle_stmt: Callable[[ast.stmt, "Deps"], str]
     _handle_ann_assign: Callable[[ast.AnnAssign, "Deps", bool], str]
+    _handle_type_alias: Callable[[ast.TypeAlias, "Deps", bool], str]
     user_namespace: set[str]
     _include_in_header: bool = False
     inside_except_block: bool = False
@@ -50,6 +51,8 @@ class Deps:
         for node in stmts:
             if isinstance(node, ast.AnnAssign):
                 ret.append(self._handle_ann_assign(node, self, True))
+            elif isinstance(node, ast.TypeAlias):
+                ret.append(self._handle_type_alias(node, self, True))
             else:
                 ret.append(self._handle_stmt(node, self))
         return " ".join(ret)

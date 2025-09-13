@@ -13,13 +13,11 @@ def type_aliases_fn():
     # Using the private type alias
     private_data: _PrivateType = (42, ["example", "data"], 3.14)
     print(f"Private data: {private_data}")
-    # Show the nuance of how if you define a type alias at a non-module level and
-    # without starting with an underscore, the type alias is actually extracted to the
-    # header file in the transpiled C++. If the name starts with an underscore this is
-    # not the case.
+    # defining a type alias not at the module level (not recommended by pylance)
     type L = list[int]
     a: L = [1, 2, 3]
     print(a)
+    # Note: for now, you cannot specify a type alias in a class
 
 
 def process_matrix(m: Matrix) -> int:
