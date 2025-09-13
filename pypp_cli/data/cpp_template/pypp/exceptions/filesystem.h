@@ -3,19 +3,17 @@
 #include <string>
 
 namespace pypp {
-class PyppFileNotFoundError : public std::filesystem::filesystem_error {
+class FileNotFoundError : public std::filesystem::filesystem_error {
   public:
-    PyppFileNotFoundError(const std::string &msg,
-                          const std::filesystem::path &path)
-        : std::filesystem::filesystem_error("PyppFileNotFoundError: " + msg,
-                                            path, std::error_code()) {}
+    FileNotFoundError(const std::string &msg, const std::filesystem::path &path)
+        : std::filesystem::filesystem_error("FileNotFoundError: " + msg, path,
+                                            std::error_code()) {}
 };
 
-class PyppFileSystemError : public std::filesystem::filesystem_error {
+class FileSystemError : public std::filesystem::filesystem_error {
   public:
-    PyppFileSystemError(const std::string &msg,
-                        const std::filesystem::path &path)
-        : std::filesystem::filesystem_error("PyppFileSystemError: " + msg, path,
+    FileSystemError(const std::string &msg, const std::filesystem::path &path)
+        : std::filesystem::filesystem_error("FileSystemError: " + msg, path,
                                             std::error_code()) {}
 };
 

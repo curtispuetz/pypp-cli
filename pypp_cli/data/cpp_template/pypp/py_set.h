@@ -28,7 +28,7 @@ template <typename T> class PySet {
     void remove(const T &value) {
         auto it = data.find(value);
         if (it == data.end()) {
-            throw PyppKeyError("set.remove(x): x not in set");
+            throw KeyError("set.remove(x): x not in set");
         }
         data.erase(it);
     }
@@ -39,7 +39,7 @@ template <typename T> class PySet {
     // pop
     T pop() {
         if (data.empty()) {
-            throw PyppKeyError("pop from an empty set");
+            throw KeyError("pop from an empty set");
         }
         auto it = data.begin();
         T value = *it;
@@ -169,7 +169,7 @@ template <typename T> class PySet {
     // min
     T min() const {
         if (data.empty()) {
-            throw PyppValueError("min() set argument is empty");
+            throw ValueError("min() set argument is empty");
         }
         return *std::min_element(data.begin(), data.end());
     }
@@ -177,7 +177,7 @@ template <typename T> class PySet {
     // max
     T max() const {
         if (data.empty()) {
-            throw PyppValueError("max() set argument is empty");
+            throw ValueError("max() set argument is empty");
         }
         return *std::max_element(data.begin(), data.end());
     }

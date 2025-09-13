@@ -3,9 +3,9 @@
 
 namespace pypp {
 
-PyppIOError::PyppIOError(const PyStr &msg)
-    : std::ios_base::failure("PyppIOError: " + msg.str()) {}
+IOError::IOError(const PyStr &msg)
+    : std::ios_base::failure("IOError: " + msg.str()) {}
 
-PyppIOError::PyppIOError(const std::string &msg)
-    : std::ios_base::failure("PyppIOError: " + msg) {}
+IOError::IOError(const std::string &msg)
+    : std::ios_base::failure("IOError: " + msg) {}
 } // namespace pypp

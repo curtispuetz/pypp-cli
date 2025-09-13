@@ -6,7 +6,7 @@
 namespace pypp {
 inline void assert(bool condition, const PyStr msg) {
     if (!condition) {
-        throw PyppAssertionError(msg);
+        throw AssertionError(msg);
     }
 }
 } // namespace pypp

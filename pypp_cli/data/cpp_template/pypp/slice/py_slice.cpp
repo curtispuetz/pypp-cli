@@ -7,13 +7,13 @@ namespace pypp {
 PySlice::PySlice(std::optional<int> start, std::optional<int> stop, int step)
     : _start(start), _stop(stop), _step(step) {
     if (step == 0) {
-        throw PyppValueError("PySlice step cannot be zero");
+        throw ValueError("PySlice step cannot be zero");
     }
     if (start.has_value() && start.value() < 0) {
-        throw PyppValueError("PySlice start cannot be less than zero");
+        throw ValueError("PySlice start cannot be less than zero");
     }
     if (stop.has_value() && stop.value() < 0) {
-        throw PyppValueError("PySlice stop cannot be less than zero");
+        throw ValueError("PySlice stop cannot be less than zero");
     }
 }
 

@@ -4,10 +4,10 @@
 #include <string>
 
 namespace me {
-class _PrivateCustomException : public pypp::PyppException {
+class _PrivateCustomException : public pypp::Exception {
   public:
     explicit _PrivateCustomException(const pypp::PyStr &msg)
-        : pypp::PyppException(pypp::PyStr("_PrivateCustomException: ") + msg) {}
+        : pypp::Exception(pypp::PyStr("_PrivateCustomException: ") + msg) {}
 };
 
 void custom_exception_fn() {
@@ -28,7 +28,7 @@ void custom_exception_fn() {
     try {
         throw CustomValueError(
             pypp::PyStr("This is a custom value error message."));
-    } catch (const pypp::PyppValueError &pypp_e) {
+    } catch (const pypp::ValueError &pypp_e) {
         std::string e = pypp_e.what();
         pypp::print(pypp::PyStr("custom value error caught: ") + pypp::str(e));
     }

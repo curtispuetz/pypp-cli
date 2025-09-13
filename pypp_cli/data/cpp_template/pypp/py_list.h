@@ -35,7 +35,7 @@ template <typename T> class PyList {
     using value_type = T;
     // Constructors
     PyList() = default;
-    // This one is only used internally and not by users of Pypp.
+    // This one is only used internally and not by users of Py++.
     PyList(const std::vector<T> &&vec) : data(std::move(vec)) {}
     PyList(std::initializer_list<T> init) : data(init) {}
     PyList(const int size, const T &value) : data(size, value) {}
@@ -48,7 +48,7 @@ template <typename T> class PyList {
     // Pop
     T pop(int index = -1) {
         if (data.empty()) {
-            throw PyppIndexError("pop from empty list");
+            throw IndexError("pop from empty list");
         }
         if (index == -1) {
             T ret = std::move(data[data.size() - 1]);
@@ -58,7 +58,7 @@ template <typename T> class PyList {
         if (index < 0)
             index += data.size();
         if (index < 0 || index >= static_cast<int>(data.size())) {
-            throw PyppIndexError("list.pop(x): x out of range");
+            throw IndexError("list.pop(x): x out of range");
         }
         T value = std::move(data[index]);
         data.erase(data.begin() + index);
@@ -87,7 +87,7 @@ template <typename T> class PyList {
     void remove(const T &value) {
         auto it = std::find(data.begin(), data.end(), value);
         if (it == data.end()) {
-            throw PyppValueError("list.remove(x): x not in list");
+            throw ValueError("list.remove(x): x not in list");
         }
         data.erase(it);
     }
@@ -104,7 +104,7 @@ template <typename T> class PyList {
     int index(const T &value) const {
         auto it = std::find(data.begin(), data.end(), value);
         if (it == data.end()) {
-            throw PyppValueError("list.index(x): x not in list");
+            throw ValueError("list.index(x): x not in list");
         }
         return it - data.begin();
     }
@@ -130,7 +130,7 @@ template <typename T> class PyList {
     // min
     T min() const {
         if (data.empty()) {
-            throw PyppValueError("min() iterable argument is empty");
+            throw ValueError("min() iterable argument is empty");
         }
         return *std::min_element(data.begin(), data.end());
     }
@@ -138,7 +138,7 @@ template <typename T> class PyList {
     // max
     T max() const {
         if (data.empty()) {
-            throw PyppValueError("max() iterable argument is empty");
+            throw ValueError("max() iterable argument is empty");
         }
         return *std::max_element(data.begin(), data.end());
     }
@@ -148,7 +148,7 @@ template <typename T> class PyList {
         if (index < 0)
             index += data.size();
         if (index < 0 || index >= static_cast<int>(data.size())) {
-            throw PyppIndexError("list index out of range");
+            throw IndexError("list index out of range");
         }
         return data[index];
     }
@@ -158,7 +158,7 @@ template <typename T> class PyList {
         if (index < 0)
             index += data.size();
         if (index < 0 || index >= data.size()) {
-            throw PyppIndexError("list index out of range");
+            throw IndexError("list index out of range");
         }
         return data[index];
     }

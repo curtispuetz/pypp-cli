@@ -32,14 +32,14 @@ int PyStr::find(const PyStr &sub) const {
 int PyStr::index(const PyStr &sub) const {
     int pos = find(sub);
     if (pos == -1)
-        throw PyppValueError("substring not found");
+        throw ValueError("substring not found");
     return pos;
 }
 
 int PyStr::rindex(const PyStr &sub) const {
     size_t pos = s.rfind(sub.str());
     if (pos == std::string::npos)
-        throw PyppValueError("substring not found");
+        throw ValueError("substring not found");
     return static_cast<int>(pos);
 }
 
@@ -128,14 +128,14 @@ int PyStr::len() const { return s.length(); }
 
 PyStr PyStr::min() const {
     if (s.empty()) {
-        throw PyppValueError("min() string argument is empty");
+        throw ValueError("min() string argument is empty");
     }
     return PyStr(std::string(1, *std::min_element(s.begin(), s.end())));
 }
 
 PyStr PyStr::max() const {
     if (s.empty()) {
-        throw PyppValueError("max() string argument is empty");
+        throw ValueError("max() string argument is empty");
     }
     return PyStr(std::string(1, *std::max_element(s.begin(), s.end())));
 }
@@ -169,12 +169,12 @@ void PyStr::operator*=(const int rep) { s = repeat_string(s, rep); }
 
 PyStr PyStr::operator[](int i) const {
     if (i > static_cast<int>(s.length()) - 1) {
-        throw PyppIndexError("string index out of range");
+        throw IndexError("string index out of range");
     }
     if (i < 0) {
         i += s.length();
         if (i < 0)
-            throw PyppIndexError("string index out of range");
+            throw IndexError("string index out of range");
     }
     return PyStr(std::string(1, s.at(i)));
 }

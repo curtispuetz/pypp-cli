@@ -22,8 +22,8 @@ void fn_with_loop_that_uses_pass() {
 
 void fn_with_try_except_finally_that_uses_pass() {
     try {
-        throw pypp::PyppValueError(pypp::PyStr("An error occurred"));
-    } catch (const pypp::PyppValueError &) {
+        throw pypp::ValueError(pypp::PyStr("An error occurred"));
+    } catch (const pypp::ValueError &) {
     }
 }
 

@@ -21,9 +21,8 @@ GLuint compile_shader(pypp::PyStr &source, GLenum shader_type) {
     gl_shader_source(shader, source);
     glCompileShader(shader);
     if (!gl_get_shader_iv(shader, GL_COMPILE_STATUS)) {
-        throw pypp::PyppRuntimeError(
-            pypp::PyStr("Shader compilation failed: ") +
-            gl_get_shader_info_log(shader));
+        throw pypp::RuntimeError(pypp::PyStr("Shader compilation failed: ") +
+                                 gl_get_shader_info_log(shader));
     }
     return shader;
 }
@@ -37,8 +36,8 @@ GLuint create_shader_program() {
     glAttachShader(program, fragment_shader);
     glLinkProgram(program);
     if (!gl_get_program_iv(program, GL_LINK_STATUS)) {
-        throw pypp::PyppRuntimeError(pypp::PyStr("Program linking failed: ") +
-                                     gl_get_program_info_log(program));
+        throw pypp::RuntimeError(pypp::PyStr("Program linking failed: ") +
+                                 gl_get_program_info_log(program));
     }
     glDeleteShader(vertex_shader);
     glDeleteShader(fragment_shader);
@@ -47,7 +46,7 @@ GLuint create_shader_program() {
 
 void opengl_test() {
     if (!glfwInit()) {
-        throw pypp::PyppException(pypp::PyStr("Failed to initialize GLFW"));
+        throw pypp::Exception(pypp::PyStr("Failed to initialize GLFW"));
     }
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
@@ -56,11 +55,11 @@ void opengl_test() {
         800, 600, pypp::PyStr("PyOpenGL Triangle").str().c_str(), NULL, NULL);
     if (!window) {
         glfwTerminate();
-        throw pypp::PyppException(pypp::PyStr("Failed to create GLFW window"));
+        throw pypp::Exception(pypp::PyStr("Failed to create GLFW window"));
     }
     glfwMakeContextCurrent(window);
     if (!gladLoadGL(glfwGetProcAddress)) {
-        throw pypp::PyppException(pypp::PyStr("Failed to initialize GLAD"));
+        throw pypp::Exception(pypp::PyStr("Failed to initialize GLAD"));
     }
     pypp::PyList<float> vertices({-0.5, -0.5, 0.0, 1.0, 0.0, 0.0, 0.5, -0.5,
                                   0.0, 0.0, 1.0, 0.0, 0.0, 0.5, 0.0, 0.0, 0.0,

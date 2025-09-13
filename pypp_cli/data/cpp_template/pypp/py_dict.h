@@ -200,7 +200,7 @@ template <typename K, typename V> class PyDict {
     V &dg(const K &key) {
         auto it = data.find(key);
         if (it == data.end())
-            throw PyppKeyError("dict[x]: x not in dict");
+            throw KeyError("dict[x]: x not in dict");
         return it->second;
     }
 
@@ -230,7 +230,7 @@ template <typename K, typename V> class PyDict {
             data.erase(it);
             return value;
         }
-        throw PyppKeyError("dict.pop(x): x not in dict");
+        throw KeyError("dict.pop(x): x not in dict");
     }
 
     V pop(const K &key, const V &default_value) {
@@ -255,7 +255,7 @@ template <typename K, typename V> class PyDict {
 
     K min() const {
         if (data.empty()) {
-            throw PyppValueError("min() dict argument is empty");
+            throw ValueError("min() dict argument is empty");
         }
         auto it = std::min_element(
             data.begin(), data.end(),
@@ -265,7 +265,7 @@ template <typename K, typename V> class PyDict {
 
     K max() const {
         if (data.empty()) {
-            throw PyppValueError("max() dict argument is empty");
+            throw ValueError("max() dict argument is empty");
         }
         auto it = std::max_element(
             data.begin(), data.end(),

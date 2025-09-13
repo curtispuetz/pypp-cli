@@ -1,4 +1,5 @@
 #include "benchmarking/perlin_noise/impl.h"
+#include "pypp_util/create/others.h"
 #include <cmath>
 
 namespace me {
@@ -47,8 +48,8 @@ pypp::PyTup<int, int> PerlinNoise::_gradient_vector(int x, int y) {
 pypp::PyTup<pypp::PyTup<int, int>, pypp::PyTup<int, int>, pypp::PyTup<int, int>,
             pypp::PyTup<int, int>, double, double>
 PerlinNoise::_calc_grad_vecs_and_relative_position(double x, double y) {
-    int x0 = int(std::floor(x));
-    int y0 = int(std::floor(y));
+    int x0 = pypp::int_(std::floor(x));
+    int y0 = pypp::int_(std::floor(y));
     int x1 = x0 + 1;
     int y1 = y0 + 1;
     double u = x - x0;

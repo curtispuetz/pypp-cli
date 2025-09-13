@@ -5,10 +5,10 @@
 #include "py_str.h"
 
 namespace me {
-class CustomException : public pypp::PyppException {
+class CustomException : public pypp::Exception {
   public:
     explicit CustomException(const pypp::PyStr &msg)
-        : pypp::PyppException(pypp::PyStr("CustomException: ") + msg) {}
+        : pypp::Exception(pypp::PyStr("CustomException: ") + msg) {}
 };
 
 class ChildException : public CustomException {
@@ -17,10 +17,10 @@ class ChildException : public CustomException {
         : CustomException(pypp::PyStr("ChildException: ") + msg) {}
 };
 
-class CustomValueError : public pypp::PyppValueError {
+class CustomValueError : public pypp::ValueError {
   public:
     explicit CustomValueError(const pypp::PyStr &msg)
-        : pypp::PyppValueError(pypp::PyStr("CustomValueError: ") + msg) {}
+        : pypp::ValueError(pypp::PyStr("CustomValueError: ") + msg) {}
 };
 
 void custom_exception_fn();
