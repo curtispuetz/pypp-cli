@@ -12,8 +12,8 @@ void set_exceptions_fn() {
     pypp::PySet<int> a({1, 2});
     try {
         a.remove(3);
-    } catch (const pypp::KeyError &pypp_e) {
-        std::string e = pypp_e.what();
+    } catch (const pypp::KeyError &pypp_pseudo_name_e) {
+        std::string e = pypp_pseudo_name_e.msg_;
         pypp::print(pypp::PyStr("key error: ") + pypp::str(e));
     }
 }

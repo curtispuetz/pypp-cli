@@ -13,15 +13,15 @@ void shutil_exceptions_fn() {
     try {
         pypp::shutil::rmtree(
             pypp::pypp_get_resources(pypp::PyStr("test_doesn't_exist")));
-    } catch (const pypp::FileNotFoundError &pypp_e) {
-        std::string e = pypp_e.what();
+    } catch (const pypp::FileNotFoundError &pypp_pseudo_name_e) {
+        std::string e = pypp_pseudo_name_e.msg_;
         pypp::print(pypp::PyStr("caught FileNotFoundError: "), e);
     }
     try {
         pypp::shutil::rmtree(
             pypp::pypp_get_resources(pypp::PyStr("test_is_here.txt")));
-    } catch (const pypp::NotADirectoryError &pypp_e) {
-        std::string e = pypp_e.what();
+    } catch (const pypp::NotADirectoryError &pypp_pseudo_name_e) {
+        std::string e = pypp_pseudo_name_e.msg_;
         pypp::print(pypp::PyStr("caught NotADirectoryError: ") + pypp::str(e));
     }
 }

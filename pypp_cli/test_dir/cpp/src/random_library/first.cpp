@@ -35,8 +35,8 @@ void random_fn() {
     try {
         pypp::PyList<int> empty_list({});
         a.choice(empty_list);
-    } catch (const pypp::IndexError &pypp_ex) {
-        std::string ex = pypp_ex.what();
+    } catch (const pypp::IndexError &pypp_pseudo_name_ex) {
+        std::string ex = pypp_pseudo_name_ex.msg_;
         pypp::print(pypp::PyStr(
             std::format("Caught random.Random.choice exception: {}", ex)));
     }

@@ -29,8 +29,8 @@ void throw_fn() {
     }
     try {
         throw pypp::IndexError(pypp::PyStr("test"));
-    } catch (const pypp::IndexError &pypp_e) {
-        std::string e = pypp_e.what();
+    } catch (const pypp::IndexError &pypp_pseudo_name_e) {
+        std::string e = pypp_pseudo_name_e.msg_;
         pypp::print(pypp::PyStr("type error caught: ") + pypp::str(e));
     }
     try {

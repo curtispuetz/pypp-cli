@@ -10,9 +10,7 @@ class PyStr;
 class Exception {
   public:
     explicit Exception(const PyStr &msg);
-    const char *what() const noexcept;
 
-  protected:
     std::string msg_;
 };
 } // namespace pypp

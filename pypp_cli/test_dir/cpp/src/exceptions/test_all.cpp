@@ -29,15 +29,15 @@ void test_all_exceptions_fn() {
     for (const auto &exc : exceptions) {
         try {
             throw exc;
-        } catch (const pypp::Exception &pypp_e) {
-            std::string e = pypp_e.what();
+        } catch (const pypp::Exception &pypp_pseudo_name_e) {
+            std::string e = pypp_pseudo_name_e.msg_;
             pypp::print(pypp::PyStr("caught exception: ") + pypp::str(e));
         }
     }
     try {
         throw me::ChildException(pypp::PyStr("test"));
-    } catch (const me::ChildException &pypp_e) {
-        std::string e = pypp_e.what();
+    } catch (const me::ChildException &pypp_pseudo_name_e) {
+        std::string e = pypp_pseudo_name_e.msg_;
         pypp::print(pypp::PyStr("caught exception: ") + pypp::str(e));
     }
 }

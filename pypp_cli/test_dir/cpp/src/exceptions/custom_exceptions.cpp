@@ -15,21 +15,21 @@ void custom_exception_fn() {
     try {
         throw CustomException(
             pypp::PyStr("This is a custom exception message."));
-    } catch (const CustomException &pypp_e) {
-        std::string e = pypp_e.what();
+    } catch (const CustomException &pypp_pseudo_name_e) {
+        std::string e = pypp_pseudo_name_e.msg_;
         pypp::print(pypp::PyStr("custom exception caught: ") + pypp::str(e));
     }
     try {
         throw ChildException(pypp::PyStr("This is a child exception message."));
-    } catch (const ChildException &pypp_e) {
-        std::string e = pypp_e.what();
+    } catch (const ChildException &pypp_pseudo_name_e) {
+        std::string e = pypp_pseudo_name_e.msg_;
         pypp::print(pypp::PyStr("child exception caught: ") + pypp::str(e));
     }
     try {
         throw CustomValueError(
             pypp::PyStr("This is a custom value error message."));
-    } catch (const pypp::ValueError &pypp_e) {
-        std::string e = pypp_e.what();
+    } catch (const pypp::ValueError &pypp_pseudo_name_e) {
+        std::string e = pypp_pseudo_name_e.msg_;
         pypp::print(pypp::PyStr("custom value error caught: ") + pypp::str(e));
     }
 }
