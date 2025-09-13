@@ -6,6 +6,10 @@ from pypp_cli.src.transpilers.other.transpiler.module.mapping.exceptions import 
     lookup_cpp_exception_type,
 )
 
+# Underscore rules:
+# - If the exception class doesn't start with an underscore, then it goes in the header
+# file. Otherwise, it goes in the main file.
+
 
 _ERR_MSG = "exception class body must only contain 'pass' statement"
 
@@ -30,8 +34,10 @@ def handle_class_def_for_exception(
         d.value_err(
             f"exception class '{class_name}' base class must just be a name", base
         )
-    name_doesnt_start_with_underscore: bool = not node.name.startswith("_")
-    d.set_inc_in_h(name_doesnt_start_with_underscore)
+
+    is_all_header: bool = not node.name.startswith("_")
+
+    d.set_inc_in_h(is_all_header)
     base_name = lookup_cpp_exception_type(base.id, d)
     d.add_inc(QInc("py_str.h"))
     d.set_inc_in_h(False)
@@ -43,7 +49,7 @@ def handle_class_def_for_exception(
         + f'pypp::PyStr("{class_name}: ") + msg)'
         + "{} };\n\n"
     )
-    if name_doesnt_start_with_underscore:
+    if is_all_header:
         d.ret_h_file.append(ret)
         return ""
     return ret
