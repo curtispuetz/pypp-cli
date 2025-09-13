@@ -14,7 +14,7 @@ def create_python_hello_world(proj_dir: Path):
     hello_world.write_text(
         "\n".join(
             [
-                "# src file example",
+                "# Py++ src file example",
                 "",
                 "def hello_world_fn() -> str:",
                 '    return "Hello, World!"',
