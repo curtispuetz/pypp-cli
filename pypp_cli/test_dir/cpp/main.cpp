@@ -88,20 +88,20 @@
 #include "using_pass.h"
 #include "yields/first.h"
 
-int private_fn() { return 1; }
+static int _private_fn() { return 1; }
 
-using int_alias = int;
-const int A_CONST = 2;
-struct __PseudoPyppNameAConfigClass {
+using _int_alias = int;
+const int _A_CONST = 2;
+struct __PseudoPyppName_AConfigClass {
     int x = 0;
     int y = 1;
 };
-inline __PseudoPyppNameAConfigClass AConfigClass;
+inline __PseudoPyppName_AConfigClass _AConfigClass;
 
-class MyCustom : public pypp::Exception {
+class _MyCustom : public pypp::Exception {
   public:
-    explicit MyCustom(const pypp::PyStr &msg)
-        : pypp::Exception(pypp::PyStr("MyCustom: ") + msg) {}
+    explicit _MyCustom(const pypp::PyStr &msg)
+        : pypp::Exception(pypp::PyStr("_MyCustom: ") + msg) {}
 };
 
 class _MyCInterface {
@@ -112,9 +112,9 @@ class _MyCInterface {
 
 int main() {
     try {
-        pypp::print(A_CONST);
-        pypp::print(AConfigClass.x);
-        pypp::print(private_fn());
+        pypp::print(_A_CONST);
+        pypp::print(_AConfigClass.x);
+        pypp::print(_private_fn());
         pypp::print(me::return_something(1, 9));
         pypp::print(me::return_friend());
         pypp::print(me::using_inline_string());
