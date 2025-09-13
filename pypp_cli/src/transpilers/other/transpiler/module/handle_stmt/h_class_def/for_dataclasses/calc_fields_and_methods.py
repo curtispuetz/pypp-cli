@@ -15,7 +15,7 @@ from pypp_cli.src.transpilers.other.transpiler.module.mapping.cpp_type import (
 def calc_fields_and_methods_for_dataclass(
     node: ast.ClassDef,
     d: Deps,
-    name_doesnt_start_with_underscore: bool,
+    is_def_in_header: bool,
 ) -> tuple[list[ClassField], list[ClassMethod]]:
     fields: list[ClassField] = []
     methods: list[ClassMethod] = []
@@ -27,7 +27,7 @@ def calc_fields_and_methods_for_dataclass(
                 calc_method(
                     item,
                     d,
-                    name_doesnt_start_with_underscore,
+                    is_def_in_header,
                 )
             )
         else:

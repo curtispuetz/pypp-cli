@@ -82,7 +82,7 @@ from ternary_op import ternary_op_fn
 from lists.declaration import list_declaration_fn
 from lists.operations import list_operations_fn
 from using_pass import pass_fn
-from pypp_python import configclass, exception
+from pypp_python import configclass, exception, Valu
 from abc import ABC, abstractmethod
 
 
@@ -113,9 +113,18 @@ class _MyCInterface(ABC):
         pass
 
 
+@dataclass
+class MyDataClassInMain:
+    my_list: Valu(list[int])
+
+    def calc_something(self) -> list[int]:
+        return self.my_list * 4
+
+
 if __name__ == "__main__":
     print(_A_CONST)
     print(_AConfigClass.x)
+    print(MyDataClassInMain([1, 2, 3]).calc_something())
     print(_private_fn())
     print(return_something(1, 9))
     print(return_friend())

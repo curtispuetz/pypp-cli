@@ -87,6 +87,7 @@
 #include "type_aliases.h"
 #include "using_pass.h"
 #include "yields/first.h"
+#include <utility>
 
 static int _private_fn() { return 1; }
 
@@ -110,10 +111,19 @@ class _MyCInterface {
     virtual ~_MyCInterface() {}
 };
 
+struct MyDataClassInMain {
+    pypp::PyList<int> my_list;
+    MyDataClassInMain(pypp::PyList<int> a_my_list)
+        : my_list(std::move(a_my_list)) {}
+    pypp::PyList<int> calc_something() { return my_list * 4; }
+};
+
 int main() {
     try {
         pypp::print(_A_CONST);
         pypp::print(_AConfigClass.x);
+        pypp::print(
+            MyDataClassInMain(pypp::PyList({1, 2, 3})).calc_something());
         pypp::print(_private_fn());
         pypp::print(me::return_something(1, 9));
         pypp::print(me::return_friend());
