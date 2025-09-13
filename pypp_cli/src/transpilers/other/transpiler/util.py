@@ -8,6 +8,9 @@ from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.expr import (
 from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_ann_assign.h_ann_assign import (  # noqa: E501
     handle_ann_assign,
 )
+from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_type_alias import (
+    handle_type_alias,
+)
 from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.stmt import (
     handle_stmt,
 )
@@ -33,6 +36,7 @@ def handle_imports_and_create_deps(
         handle_expr,
         handle_stmt,
         handle_ann_assign,
+        handle_type_alias,
         user_namespace,
     )
 

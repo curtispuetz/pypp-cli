@@ -15,6 +15,7 @@ void type_aliases_fn() {
     _PrivateType private_data = pypp::PyTup(
         42, pypp::PyList({pypp::PyStr("example"), pypp::PyStr("data")}), 3.14);
     pypp::print(pypp::PyStr(std::format("Private data: {}", private_data)));
+    using L = pypp::PyList<int>;
     L a({1, 2, 3});
     pypp::print(a);
 }
