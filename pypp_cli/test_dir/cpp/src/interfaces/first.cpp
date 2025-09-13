@@ -8,6 +8,11 @@ class _PrivateInterface {
     virtual ~_PrivateInterface() {}
 };
 
+struct _PrivateImpl : public _PrivateInterface {
+    _PrivateImpl() {}
+    void a() { pypp::print(pypp::PyStr("private impl")); }
+};
+
 void Impl1::speak(int a) { pypp::print(pypp::PyStr("number given:"), a); }
 
 pypp::PyStr Impl1::talk() { return pypp::PyStr("hello"); }
@@ -23,6 +28,8 @@ static void _fn_that_accepts_interface(InterfaceClass &i) {
     pypp::print(i.talk());
 }
 
+static void _fn_that_accepts_private_interface(_PrivateInterface &i) { i.a(); }
+
 void interfaces_fn() {
     pypp::print(pypp::PyStr("INTERFACES RESULTS:"));
     Impl1 a = Impl1();
@@ -32,6 +39,9 @@ void interfaces_fn() {
     b.speak(43);
     _fn_that_accepts_interface(a);
     _fn_that_accepts_interface(b);
+    _PrivateImpl p = _PrivateImpl();
+    p.a();
+    _fn_that_accepts_private_interface(p);
 }
 
 } // namespace me
