@@ -1,3 +1,4 @@
+from pypp_cli.src.config import SHOULDNT_HAPPEN
 from pypp_cli.src.transpilers.other.transpiler.deps import Deps
 from pypp_cli.src.transpilers.other.transpiler.maps.call.exceptions import (
     EXCEPTION_NAME_MAP,
@@ -12,6 +13,6 @@ def lookup_cpp_exception_type(exception: str, d: Deps) -> str:
         return exception
     # Note: will always be none
     data = EXCEPTION_NAME_MAP[exception][None]
-    assert isinstance(data, ToStringEntry), "shouldn't happen"
+    assert isinstance(data, ToStringEntry), SHOULDNT_HAPPEN
     d.add_incs(data.includes)
     return data.to

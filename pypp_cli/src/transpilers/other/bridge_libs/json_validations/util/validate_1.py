@@ -1,4 +1,5 @@
 from typing import Callable
+from pypp_cli.src.config import SHOULDNT_HAPPEN
 from pypp_cli.src.transpilers.other.bridge_libs.json_validations.util.basic_info import (  # noqa: E501
     VALIDATE_BASIC_INFO,
 )
@@ -10,7 +11,7 @@ from pypp_cli.src.other.library.json_validations import (
 
 def _validate_is_single_mapping_fn(key_chain: list[str], v: object, S: str):
     validate_is_list_of_strings(key_chain, v, S)
-    assert isinstance(v, list), "shouldn't happen"
+    assert isinstance(v, list), SHOULDNT_HAPPEN
     funcs = calc_funcs_in_str("\n".join(v))
     assert len(funcs) == 1, (
         f"Expected exactly one function in mapping_function in {S}. Instead got "

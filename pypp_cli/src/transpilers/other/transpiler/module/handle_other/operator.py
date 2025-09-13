@@ -1,5 +1,6 @@
 import ast
 
+from pypp_cli.src.config import SHOULDNT_HAPPEN
 from pypp_cli.src.transpilers.other.transpiler.d_types import QInc, AngInc
 from pypp_cli.src.transpilers.other.transpiler.deps import Deps
 
@@ -54,5 +55,5 @@ def handle_operator_for_aug_assign(node: ast.operator, d: Deps) -> str:
     if isinstance(node, ast.Pow):
         d.value_err_no_ast("**= not supported")
     res = _handle_operator(node, d)
-    assert res is not None, "shouldn't happen"
+    assert res is not None, SHOULDNT_HAPPEN
     return res[1]

@@ -1,5 +1,6 @@
 import ast
 
+from pypp_cli.src.config import SHOULDNT_HAPPEN
 from pypp_cli.src.transpilers.other.transpiler.d_types import AngInc
 from pypp_cli.src.transpilers.other.transpiler.deps import Deps
 from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_class_def.util import (  # noqa: E501
@@ -119,7 +120,7 @@ def _calc_method_implementations(methods: list[ClassMethod], class_name: str) ->
 
 def _add_namespace(method: ClassMethod, class_name: str) -> str:
     m = method.fn_signature.find(method.name)
-    assert m != -1, "shouldn't happen"
+    assert m != -1, SHOULDNT_HAPPEN
     return method.fn_signature[:m] + class_name + "::" + method.fn_signature[m:]
 
 

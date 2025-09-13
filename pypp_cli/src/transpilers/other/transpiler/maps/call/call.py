@@ -1,6 +1,7 @@
 import ast
 from typing import Callable
 
+from pypp_cli.src.config import SHOULDNT_HAPPEN
 from pypp_cli.src.transpilers.other.transpiler.d_types import (
     QInc,
     PySpecificImpFrom,
@@ -33,7 +34,7 @@ def _default_dict(_node: ast.Call, d) -> str:
         "defaultdict must be called with type info "
         "(i.e. defaultdict[KeyType, ValueType])"
     )
-    return "Shouldn't happen"
+    return SHOULDNT_HAPPEN
 
 
 def _tuple_get(node: ast.Call, d) -> str:

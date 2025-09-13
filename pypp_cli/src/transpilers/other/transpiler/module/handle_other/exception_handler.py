@@ -1,5 +1,6 @@
 import ast
 
+from pypp_cli.src.config import SHOULDNT_HAPPEN
 from pypp_cli.src.transpilers.other.transpiler.d_types import AngInc
 from pypp_cli.src.transpilers.other.transpiler.deps import Deps
 from pypp_cli.src.transpilers.other.transpiler.module.mapping.exceptions import (
@@ -20,7 +21,7 @@ def _handle_exception_handler(node: ast.ExceptHandler, d: Deps) -> str:
         name_str = d.handle_expr(node.type)
         exc_str = f"const {lookup_cpp_exception_type(name_str, d)}&"
         if node.name is not None:
-            assert isinstance(node.name, str), "Shouldn't happen"
+            assert isinstance(node.name, str), SHOULDNT_HAPPEN
             exc_str += f" pypp_pseudo_name_{node.name}"
             d.add_inc(AngInc("string"))
             body_str = (

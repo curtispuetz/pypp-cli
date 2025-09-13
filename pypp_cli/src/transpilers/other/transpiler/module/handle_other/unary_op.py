@@ -1,5 +1,7 @@
 import ast
 
+from pypp_cli.src.config import SHOULDNT_HAPPEN
+
 # ast docs: unaryop = Invert | Not | UAdd | USub
 
 
@@ -12,4 +14,4 @@ def handle_unaryop(_type: ast.unaryop) -> str:
         return "!"
     if isinstance(_type, ast.Invert):
         return "~"
-    raise Exception("Shouldn't happen")
+    raise Exception(SHOULDNT_HAPPEN)

@@ -1,6 +1,7 @@
 import ast
 from dataclasses import dataclass
 
+from pypp_cli.src.config import SHOULDNT_HAPPEN
 from pypp_cli.src.transpilers.other.transpiler.d_types import QInc
 from pypp_cli.src.transpilers.other.transpiler.deps import Deps
 from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_tuple import (
@@ -57,4 +58,4 @@ def _calc_iter_args(s: str) -> _IterArgs:
     if len(arr) == 1:
         # stop was supplied
         return _IterArgs(0, arr[0], 1)
-    raise AssertionError("Shouldn't happen")
+    raise AssertionError(SHOULDNT_HAPPEN)

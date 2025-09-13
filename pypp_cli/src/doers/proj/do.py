@@ -2,6 +2,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from pypp_cli.src.builder.build import pypp_build
+from pypp_cli.src.config import SHOULDNT_HAPPEN
 from pypp_cli.src.formatter.format import pypp_format
 from pypp_cli.src.runner.run import pypp_run
 from pypp_cli.src.transpilers.proj.transpile import pypp_transpile
@@ -17,7 +18,7 @@ def pypp_do(tasks: list[str], target_dir: Path, exe_name: str) -> None:
         "run": do_helper.run,
     }
     for task in tasks:
-        assert task in task_methods, "Shouldn't happen"
+        assert task in task_methods, SHOULDNT_HAPPEN
         task_methods[task]()
 
 

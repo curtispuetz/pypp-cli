@@ -1,5 +1,6 @@
 import ast
 
+from pypp_cli.src.config import SHOULDNT_HAPPEN
 from pypp_cli.src.transpilers.other.transpiler.d_types import QInc
 from pypp_cli.src.transpilers.other.transpiler.deps import Deps
 
@@ -12,7 +13,7 @@ def handle_main_stmts(stmts: list[ast.stmt], d: Deps) -> str:
             "the last stmt in a main file is required"
         )
     before_main = d.handle_stmts(stmts[:-1])
-    assert isinstance(main_stmt, ast.If), "shouldn't happen"
+    assert isinstance(main_stmt, ast.If), SHOULDNT_HAPPEN
     inside_main = d.handle_stmts(main_stmt.body + [ast.Return(ast.Constant(0))])
     d.add_inc(QInc("pypp_util/main_error_handler.h"))
     return (
