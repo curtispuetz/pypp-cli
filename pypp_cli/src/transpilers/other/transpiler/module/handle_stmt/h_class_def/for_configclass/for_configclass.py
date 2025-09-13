@@ -8,6 +8,10 @@ from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_assign impor
     handle_assign,
 )
 
+# Underscore rules:
+# - If the config class doesn't start with an underscore, then it goes in the header
+# file. Otherwise, it goes in the main file.
+
 
 def handle_class_def_for_configclass(
     node: ast.ClassDef,
@@ -15,27 +19,29 @@ def handle_class_def_for_configclass(
     dtype: ast.expr | None,
 ):
     instance_name: str = node.name
-    name_doesnt_start_with_underscore: bool = not instance_name.startswith("_")
-    d.set_inc_in_h(name_doesnt_start_with_underscore)
+    is_all_header: bool = not instance_name.startswith("_")
+
+    d.set_inc_in_h(is_all_header)
     body_str: str
     if dtype is None:
         body_str = _calc_ann_assigns(node, d)
     else:
         body_str = _calc_assigns(node, d, dtype)
     d.set_inc_in_h(False)
+
     # This is a secret name that won't be used other than to create the instance.
     class_name = f"__PseudoPyppName{instance_name}"
-    result: str = (
+    res: str = (
         f"struct {class_name} "
         + "{"
         + body_str
         + "}; "
         + f"inline {class_name} {instance_name};\n\n"
     )
-    if name_doesnt_start_with_underscore:
-        d.ret_h_file.append(result)
+    if is_all_header:
+        d.ret_h_file.append(res)
         return ""
-    return result
+    return res
 
 
 def _calc_ann_assigns(node: ast.ClassDef, d: Deps) -> str:
