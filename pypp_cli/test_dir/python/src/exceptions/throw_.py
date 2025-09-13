@@ -24,3 +24,8 @@ def throw_fn():
         print("value error caught")
     except Exception:
         print("other error caught")
+    # all in one
+    try:
+        raise TypeError("test")
+    except:
+        print("catching all")
