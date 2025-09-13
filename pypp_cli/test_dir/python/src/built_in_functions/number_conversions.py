@@ -59,3 +59,17 @@ def number_conversions_fn():
         f"int64_t: {a_int64_t}, uint8_t: {a_uint8_t}, uint16_t: {a_uint16_t}, "
         f"uint32_t: {a_uint32_t}, uint64_t: {a_uint64_t}"
     )
+
+    # exceptions
+    try:
+        int("abc")
+    except ValueError as e:
+        print("Caught: " + str(e))
+    try:
+        float("abc")
+    except ValueError as e:
+        print("Caught: " + str(e))
+    try:
+        to_float32("abc")
+    except ValueError as e:
+        print("Caught: " + str(e))
