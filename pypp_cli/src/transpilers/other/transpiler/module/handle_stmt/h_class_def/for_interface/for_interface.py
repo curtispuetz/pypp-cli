@@ -14,7 +14,7 @@ from pypp_cli.src.transpilers.other.transpiler.module.util.calc_fn_signature imp
 def handle_class_def_for_interface(node: ast.ClassDef, d: Deps) -> str:
     # Note: interfaces are not supported yet.
     class_name: str = node.name
-    is_all_header: bool = not class_name.startswith("_")
+    is_all_header: bool = not d.is_main_file and not class_name.startswith("_")
 
     d.set_inc_in_h(is_all_header)
     body_list = _calc_methods(node, d)

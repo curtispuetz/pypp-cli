@@ -35,7 +35,7 @@ def handle_class_def_for_exception(
             f"exception class '{class_name}' base class must just be a name", base
         )
 
-    is_all_header: bool = not node.name.startswith("_")
+    is_all_header: bool = not d.is_main_file and not node.name.startswith("_")
 
     d.set_inc_in_h(is_all_header)
     base_name = lookup_cpp_exception_type(base.id, d)

@@ -19,6 +19,7 @@ def handle_class_def_for_dataclass(
 ) -> str:
     name_starts_with_underscore: bool = node.name.startswith("_")
     name_doesnt_start_with_underscore: bool = not name_starts_with_underscore
+
     d.set_inc_in_h(name_doesnt_start_with_underscore)
     fields, methods = calc_fields_and_methods_for_dataclass(
         node, d, name_doesnt_start_with_underscore
@@ -35,4 +36,5 @@ def handle_class_def_for_dataclass(
         is_frozen,
     )
     d.set_inc_in_h(False)
+
     return ret

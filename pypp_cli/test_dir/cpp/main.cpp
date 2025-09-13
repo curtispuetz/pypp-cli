@@ -22,6 +22,7 @@
 #include "empty_return.h"
 #include "exceptions/assert_.h"
 #include "exceptions/custom_exceptions.h"
+#include "exceptions/exception.h"
 #include "exceptions/test_all.h"
 #include "exceptions/throw_.h"
 #include "file_io/first.h"
@@ -87,8 +88,33 @@
 #include "using_pass.h"
 #include "yields/first.h"
 
+int private_fn() { return 1; }
+
+using int_alias = int;
+const int A_CONST = 2;
+struct __PseudoPyppNameAConfigClass {
+    int x = 0;
+    int y = 1;
+};
+inline __PseudoPyppNameAConfigClass AConfigClass;
+
+class MyCustom : public pypp::Exception {
+  public:
+    explicit MyCustom(const pypp::PyStr &msg)
+        : pypp::Exception(pypp::PyStr("MyCustom: ") + msg) {}
+};
+
+class _MyCInterface {
+  public:
+    virtual void a() = 0;
+    virtual ~_MyCInterface() {}
+};
+
 int main() {
     try {
+        pypp::print(A_CONST);
+        pypp::print(AConfigClass.x);
+        pypp::print(private_fn());
         pypp::print(me::return_something(1, 9));
         pypp::print(me::return_friend());
         pypp::print(me::using_inline_string());
