@@ -34,9 +34,6 @@ EXCEPTION_NAME_MAP: NameMap = {
             "pypp::FileNotFoundError", [QInc("exceptions/filesystem.h")]
         )
     },
-    "FileSystemError": {
-        None: ToStringEntry("pypp::FileSystemError", [QInc("exceptions/filesystem.h")])
-    },
     "NotADirectoryError": {
         None: ToStringEntry(
             "pypp::NotADirectoryError", [QInc("exceptions/filesystem.h")]

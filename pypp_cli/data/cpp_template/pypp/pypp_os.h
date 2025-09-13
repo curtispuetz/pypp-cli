@@ -1,6 +1,5 @@
 #pragma once
 
-#include "exceptions/filesystem.h"
 #include "py_list.h"
 #include "py_str.h"
 #include "py_tuple.h"

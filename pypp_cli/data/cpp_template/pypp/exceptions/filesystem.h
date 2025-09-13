@@ -15,11 +15,6 @@ class FileNotFoundError : public OSError {
     FileNotFoundError(const PyStr &msg);
 };
 
-class FileSystemError : public OSError {
-  public:
-    FileSystemError(const PyStr &msg);
-};
-
 class NotADirectoryError : public OSError {
   public:
     NotADirectoryError(const PyStr &msg);

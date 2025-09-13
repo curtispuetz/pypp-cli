@@ -1,5 +1,7 @@
 #include "pypp_os.h"
 
+#include "exceptions/filesystem.h"
+
 namespace pypp {
 namespace os {
 
