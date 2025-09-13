@@ -7,6 +7,14 @@
 #include <string>
 
 namespace me {
+void _test_bare_raise() {
+    try {
+        throw pypp::PyppTypeError(pypp::PyStr("test"));
+    } catch (const pypp::PyppTypeError &) {
+        throw;
+    }
+}
+
 void throw_fn() {
     pypp::print(pypp::PyStr("EXCEPTION RESULTS:"));
     try {
@@ -38,6 +46,11 @@ void throw_fn() {
         throw pypp::PyppTypeError(pypp::PyStr("test"));
     } catch (...) {
         pypp::print(pypp::PyStr("catching all"));
+    }
+    try {
+        _test_bare_raise();
+    } catch (const pypp::PyppTypeError &) {
+        pypp::print(pypp::PyStr("bare raise"));
     }
 }
 
