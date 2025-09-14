@@ -16,3 +16,5 @@ def pseudo_fn(integers: list[int], strings: list[str]):
     # with reversed()
     for integer in reversed(integers):
         print(integer)
+    for c in "abcdefg":
+        print(c)

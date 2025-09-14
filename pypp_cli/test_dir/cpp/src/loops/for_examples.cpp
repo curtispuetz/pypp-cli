@@ -25,6 +25,9 @@ void pseudo_fn(pypp::PyList<int> &integers,
     for (const auto &integer : pypp::PyReversed(integers)) {
         pypp::print(integer);
     }
+    for (const auto &c : pypp::PyStr("abcdefg")) {
+        pypp::print(c);
+    }
 }
 
 } // namespace me
