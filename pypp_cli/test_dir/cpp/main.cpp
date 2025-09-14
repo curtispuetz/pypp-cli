@@ -18,6 +18,7 @@
 #include "dicts/comprehensions.h"
 #include "dicts/exceptions.h"
 #include "dicts/first.h"
+#include "dicts/looping.h"
 #include "dicts/operations.h"
 #include "empty_return.h"
 #include "exceptions/assert_.h"
@@ -215,6 +216,7 @@ int main() {
         me::test_all_exceptions_fn();
         me::shutil_exceptions_fn();
         pypp::print(me::A, me::B, me::C, me::D, me::E, me::a, me::b);
+        me::dict_looping_fn();
         return 0;
     } catch (...) {
         pypp::handle_fatal_exception();

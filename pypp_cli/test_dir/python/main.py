@@ -11,6 +11,7 @@ from dataclasses_test.nested_dependencies import dataclass_nested_dependencies_f
 from default_dict.create_with_defaults import default_dict_create_with_defaults
 from default_dict.methods import default_dict_methods_fn
 from default_dict.operations import default_dict_operations_fn
+from dicts.looping import dict_looping_fn
 from dicts.operations import dict_operations_fn
 from empty_return import empty_return_fn
 from exceptions.custom_exceptions import custom_exception_fn
@@ -216,3 +217,4 @@ if __name__ == "__main__":
     test_all_exceptions_fn()
     shutil_exceptions_fn()
     print(A, B, C, D, E, a, b)
+    dict_looping_fn()
