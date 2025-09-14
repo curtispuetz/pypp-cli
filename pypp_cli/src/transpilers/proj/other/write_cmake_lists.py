@@ -25,11 +25,12 @@ class CMakeListsWriter:
     _bridge_json_path_cltr: BridgeJsonPathCltr
     _main_py_files: list[Path]
     _bridge_libs: list[str]
+    _cmake_minimum_required_version: str
 
     def write(self, ignored_main_file_stems: set[str]):
         add_lines, link_libs = self._calc_add_lines_and_link_libs_from_libraries()
         cmake_lines = [
-            "cmake_minimum_required(VERSION 4.0)",
+            f"cmake_minimum_required(VERSION {self._cmake_minimum_required_version})",
             "set(CMAKE_CXX_COMPILER clang++)",
             "set(CMAKE_C_COMPILER clang)",
             "project(pypp LANGUAGES C CXX)",

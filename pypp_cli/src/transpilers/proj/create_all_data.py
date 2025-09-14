@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from pathlib import Path
 
+from pypp_cli.src.config import ProjInfo
 from pypp_cli.src.other.pypp_paths.do import DoPyppPaths
 from pypp_cli.src.transpilers.other.other.bridge_json_path_cltr import (
     BridgeJsonPathCltr,
@@ -22,7 +23,6 @@ from pypp_cli.src.transpilers.proj.file_change_cltr import (
 )
 from pypp_cli.src.transpilers.proj.other.initalize_cpp import CppProjectInitializer
 from pypp_cli.src.transpilers.proj.other.load_proj_info import load_proj_info
-from pypp_cli.src.transpilers.proj.other.load_proj_info import ProjInfo
 from pypp_cli.src.transpilers.proj.other.file_loader import (
     TimestampsSaver,
     calc_all_main_py_files,
@@ -83,6 +83,7 @@ def create_all_data(paths: DoPyppPaths) -> AllData:
             bridge_json_path_cltr,
             main_py_files,
             bridge_libs,
+            proj_info.cmake_minimum_required_version,
         ),
         MainAndSrcTranspiler(
             paths.cpp_dir,

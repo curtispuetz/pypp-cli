@@ -1,23 +1,20 @@
-from dataclasses import dataclass
 import json
 from pathlib import Path
 
+from pypp_cli.src.config import PURE_PROJ_INFO_DEFAULTS, PureProjInfo
 from pypp_cli.src.other.library.json_validations import (
     validate_is_list_of_strings,
 )
-
-
-@dataclass(frozen=True, slots=True)
-class PureProjInfo:
-    lib_dir_name: str
-    ignored_files: list[str]
 
 
 def load_pure_proj_info(proj_info_file: Path) -> PureProjInfo:
     with open(proj_info_file, "r") as f:
         data = json.load(f)
     _validate_pure_proj_info(data)
-    return PureProjInfo(data["lib_dir_name"], data.get("ignore_files", []))
+    return PureProjInfo(
+        data["lib_dir_name"],
+        data.get("ignore_files", PURE_PROJ_INFO_DEFAULTS.ignored_files),
+    )
 
 
 def _validate_pure_proj_info(proj_info: object):

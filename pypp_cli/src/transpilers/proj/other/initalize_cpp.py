@@ -1,11 +1,11 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, asdict
 import json
 from pathlib import Path
 import shutil
 from importlib.resources import files, as_file
 
+from pypp_cli.src.config import ProjInfo
 from pypp_cli.src.other.library.file_actions import rm_dirs_and_files
-from pypp_cli.src.transpilers.proj.other.load_proj_info import ProjInfo
 
 
 @dataclass(frozen=True, slots=True)
@@ -33,13 +33,10 @@ class CppProjectInitializer:
         self._set_cpp_dir_not_dirty_in_json()
 
     def _set_cpp_dir_not_dirty_in_json(self):
+        self._proj_info.cpp_dir_is_dirty = False
         with open(self._proj_info_file, "w") as file:
             json.dump(
-                {
-                    "cpp_dir_is_dirty": False,
-                    "ignore_src_files": self._proj_info.ignored_src_files,
-                    "ignore_main_files": self._proj_info.ignored_main_files,
-                },
+                asdict(self._proj_info),
                 file,
                 indent=4,
             )
