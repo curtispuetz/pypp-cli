@@ -118,6 +118,7 @@ template <typename K, typename V> class PyDictValues {
     }
 };
 
+// ...existing code...
 // PyDictItems
 template <typename K, typename V> class PyDictItems {
     using MapType = std::unordered_map<K, V>;
@@ -132,13 +133,14 @@ template <typename K, typename V> class PyDictItems {
 
       public:
         using iterator_category = std::forward_iterator_tag;
-        using value_type = PyTup<const K &, const V &>;
+        using value_type = std::pair<const K, V>;
         using difference_type = std::ptrdiff_t;
-        using pointer = void;
-        using reference = PyTup<const K &, const V &>;
+        using pointer = const value_type *;
+        using reference = const value_type &;
 
         iterator(ItType i) : it(i) {}
-        reference operator*() const { return {it->first, it->second}; }
+        reference operator*() const { return *it; }
+        pointer operator->() const { return &(*it); }
         iterator &operator++() {
             ++it;
             return *this;
@@ -155,6 +157,7 @@ template <typename K, typename V> class PyDictItems {
     iterator begin() const { return iterator(map.begin()); }
     iterator end() const { return iterator(map.end()); }
 
+    // Optionally update the print function if needed
     friend std::ostream &operator<<(std::ostream &os,
                                     const PyDictItems &items) {
         os << "dict_items([";
@@ -163,9 +166,9 @@ template <typename K, typename V> class PyDictItems {
             if (!first)
                 os << ", ";
             os << "(";
-            print_py_value(os, kv.template get<0>());
+            print_py_value(os, kv.first);
             os << ", ";
-            print_py_value(os, kv.template get<1>());
+            print_py_value(os, kv.second);
             os << ")";
             first = false;
         }

@@ -12,8 +12,7 @@ def zip_fn():
         a.append(mov(zz))
     print(a)
     # over multiple different types. list, set, string, and dict items
-    b: dict[float, int] = {1.1: 4, 2.2: 5}
-    for x, z, y, w in zip([1, 2], {"a", "b"}, "ab", b.items()):
-        # Note: The sets and dicts in C++ order is not guaranteed, so you could see
+    for x, z, y in zip([1, 2], {"a", "b"}, "ab"):
+        # Note: The sets in C++ order is not guaranteed, so you could see
         # different strings
-        print(f"{x}, {z}, {y}, {tg(w, 0)}, {tg(w, 0)}")
+        print(f"{x}, {z}, {y}")

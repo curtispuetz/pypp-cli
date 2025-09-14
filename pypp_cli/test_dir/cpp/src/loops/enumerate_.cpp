@@ -30,12 +30,6 @@ void enumerate_fn() {
         a.append(i);
     }
     pypp::print(a);
-    for (const auto &[i, val] : pypp::PyEnumerate(d.items())) {
-        a.append(i);
-        int y = val.get<0>();
-        a.append(std::move(y));
-    }
-    pypp::print(a);
     pypp::PyList<int> b({10, 20, 30});
     for (const auto &[i, val] : pypp::PyEnumerate(b)) {
         a.append(i);

@@ -11,7 +11,7 @@ void editing_a_reference_fn() {
     pypp::print(pypp::PyStr(std::format("inconsistent behavior: {}", a)));
     pypp::PyList<int> c({1, 2, 3});
     pypp::PyList<int> d = update_and_return_new(c);
-    d[-1] = 99;
+    d[3] = 99;
     pypp::print(pypp::PyStr(std::format("inconsistent behavior: {}", c)));
 }
 

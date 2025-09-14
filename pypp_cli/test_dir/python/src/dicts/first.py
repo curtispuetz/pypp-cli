@@ -40,7 +40,9 @@ def dict_fn():
     x_val: str = "z"
     a[mov(x_key)] = mov(x_val)
     print(a)
-    val = a.setdefault(mov(x_key), mov(x_val))
+    x_key_2: int = 100
+    x_val_2: str = "y"
+    val = a.setdefault(mov(x_key_2), mov(x_val_2))
     print(val)
     # keys
     print(a.keys())
@@ -49,6 +51,7 @@ def dict_fn():
     # items
     print(a.items())
     # iterate over items
+    print("iterating over items:")
     for k, v in a.items():
         print(f"{k}: {v}")
     # dict with list as value
