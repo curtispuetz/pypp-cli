@@ -1,0 +1,14 @@
+# Personal notes
+- Feature requests:
+    - templates (i.e. not having to write the same function for different types)
+    - default arguments for functions/methods
+    - default arguments for class instantiation
+    - calling with keywords (i.e. calling `my_function(my_arg=3)`)
+    - set operations like "|", "^", "&", etc.
+    - dict operations like "|"
+    - static methods (this could probably really help with the issue of function naming conflict. But... I wish there was a better solution for function naming conflicts so that static methods wouldn't be necessary to fix it.)
+    - inheritance
+    - support for `sum()`
+    - match-case statements
+- Bugs:
+    - you cannot iterate over a map and reassign the value as performant in Py++ as you can in C++ with an std::unordered_map. Because in Py++ there is extra hash lookups, it can be maybe 20%? slower in terms of speed. Not going to be a big deal for most programs, but still a bug.
