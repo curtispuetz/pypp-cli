@@ -1,5 +1,6 @@
 {
     "cpp_dir_is_dirty": false,
     "ignore_src_files": [],
-    "ignore_main_files": []
+    "ignore_main_files": [],
+    "cmake_minimum_required_version": "4.0"
 }

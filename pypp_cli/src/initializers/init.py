@@ -1,8 +1,9 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, asdict
 import json
 from pathlib import Path
 
 
+from pypp_cli.src.config import PROJ_INFO_DEFAULTS
 from pypp_cli.src.other.pypp_paths.init import InitPyppPaths, create_init_pypp_paths
 
 
@@ -62,6 +63,5 @@ class _PyppInitHelper:
         )
 
     def _create_proj_json_file(self):
-        data = {"cpp_dir_is_dirty": True}
         with open(self._paths.proj_info_file, "w") as file:
-            json.dump(data, file, indent=4)
+            json.dump(asdict(PROJ_INFO_DEFAULTS), file, indent=4)
