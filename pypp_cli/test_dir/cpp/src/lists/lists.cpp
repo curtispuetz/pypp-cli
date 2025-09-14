@@ -17,6 +17,8 @@ void list_fn() {
     pypp::print(a);
     a.append(11);
     pypp::print(a);
+    pypp::print(
+        pypp::PyStr(std::format("lg with negative index: {}", a.lg(-1))));
     int b = a[1];
     pypp::print(pypp::str(b));
     b = 20;

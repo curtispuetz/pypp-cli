@@ -1,4 +1,4 @@
-from pypp_python import mov, Valu, Ref, list_reserve
+from pypp_python import mov, Valu, Ref, list_reserve, lg
 
 
 def _test_fn(arg1: Valu(list[str])):
@@ -16,9 +16,8 @@ def list_fn():
     # Append
     a.append(11)
     print(a)
-    # Accessing - indices
-    # TODO: does not work anymore. Add a built-in function `lg` that works for this.
-    # print(str(a[-1]))
+    # Accessing negative indices
+    print(f"lg with negative index: {lg(a, -1)}")
     # Showing reassigning a reference behaviour
     # BIG NOTE: you shouldn't do this in pypp. This results in inconsistent behavior
     #  between the Python and C++ executions. In python when you reassign the original
