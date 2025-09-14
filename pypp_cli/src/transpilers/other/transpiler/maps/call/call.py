@@ -37,32 +37,31 @@ def _default_dict(_node: ast.Call, d) -> str:
     return SHOULDNT_HAPPEN
 
 
+def _2_arg_helper(node: ast.Call, d, name: str, middle: str, end: str) -> str:
+    assert len(node.args) == 2, f"{name} should have 2 arguments"
+    arg1 = d.handle_expr(node.args[0])
+    arg2 = d.handle_expr(node.args[1])
+    return f"{arg1}.{middle}{arg2}{end}"
+
+
 def _tuple_get(node: ast.Call, d) -> str:
-    assert len(node.args) == 2, "tg should have 2 arguments"
-    tuple_arg = d.handle_expr(node.args[0])
-    index_arg = d.handle_expr(node.args[1])
-    return f"{tuple_arg}.get<{index_arg}>()"
+    return _2_arg_helper(node, d, "tg", "get<", ">()")
 
 
 def _dict_get(node: ast.Call, d) -> str:
-    assert len(node.args) == 2, "dg should have 2 arguments"
-    dict_arg = d.handle_expr(node.args[0])
-    index_arg = d.handle_expr(node.args[1])
-    return f"{dict_arg}.dg({index_arg})"
+    return _2_arg_helper(node, d, "dg", "dg(", ")")
+
+
+def _list_get(node: ast.Call, d) -> str:
+    return _2_arg_helper(node, d, "lg", "lg(", ")")
 
 
 def _union_get(node: ast.Call, d) -> str:
-    assert len(node.args) == 2, "ug should have 2 arguments"
-    union_arg = d.handle_expr(node.args[0])
-    type_arg = d.handle_expr(node.args[1])
-    return f"{union_arg}.ug<{type_arg}>()"
+    return _2_arg_helper(node, d, "ug", "ug<", ">()")
 
 
 def _union_isinst(node: ast.Call, d) -> str:
-    assert len(node.args) == 2, "isinst should have 2 arguments"
-    obj_arg = d.handle_expr(node.args[0])
-    type_arg = d.handle_expr(node.args[1])
-    return f"{obj_arg}.isinst<{type_arg}>()"
+    return _2_arg_helper(node, d, "isinst", "isinst<", ">()")
 
 
 def _union_is_none(node: ast.Call, d) -> str:
@@ -72,10 +71,7 @@ def _union_is_none(node: ast.Call, d) -> str:
 
 
 def _list_reserve(node: ast.Call, d) -> str:
-    assert len(node.args) == 2, "list_reserve should have 2 arguments"
-    list_arg = d.handle_expr(node.args[0])
-    size_arg = d.handle_expr(node.args[1])
-    return f"{list_arg}.reserve({size_arg})"
+    return _2_arg_helper(node, d, "list_reserve", "reserve(", ")")
 
 
 def _pypp_time(node: ast.Call, d, caller_str: str) -> str:
@@ -181,6 +177,7 @@ CALL_MAP: CallMap = {
     },
     "tg": {PySpecificImpFrom("pypp_python", "tg"): CustomMappingEntry(_tuple_get, [])},
     "dg": {PySpecificImpFrom("pypp_python", "dg"): CustomMappingEntry(_dict_get, [])},
+    "lg": {PySpecificImpFrom("pypp_python", "lg"): CustomMappingEntry(_list_get, [])},
     "ug": {PySpecificImpFrom("pypp_python", "ug"): CustomMappingEntry(_union_get, [])},
     "isinst": {
         PySpecificImpFrom("pypp_python", "isinst"): CustomMappingEntry(
