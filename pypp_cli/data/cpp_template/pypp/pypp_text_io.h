@@ -15,6 +15,10 @@ class PyTextIO {
     void check_file_open_for_writing() const;
     void open_file(const PyStr &filename, const PyStr &mode);
 
+    bool good() const;
+    bool eof() const;
+    bool fail() const;
+
   public:
     PyTextIO(const PyStr &filename, const PyStr &mode = PyStr("r"));
     ~PyTextIO();
@@ -24,10 +28,6 @@ class PyTextIO {
     PyList<PyStr> readlines();
     void write(const PyStr &content);
     void writelines(const PyList<PyStr> &lines);
-
-    bool good() const;
-    bool eof() const;
-    bool fail() const;
 };
 
 // --- Example Usage ---

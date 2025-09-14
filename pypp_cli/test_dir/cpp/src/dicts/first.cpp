@@ -37,11 +37,14 @@ void dict_fn() {
     pypp::PyStr x_val = pypp::PyStr("z");
     a[std::move(x_key)] = std::move(x_val);
     pypp::print(a);
-    val = a.setdefault(std::move(x_key), std::move(x_val));
+    int x_key_2 = 100;
+    pypp::PyStr x_val_2 = pypp::PyStr("y");
+    val = a.setdefault(std::move(x_key_2), std::move(x_val_2));
     pypp::print(val);
     pypp::print(a.keys());
     pypp::print(a.values());
     pypp::print(a.items());
+    pypp::print(pypp::PyStr("iterating over items:"));
     for (const auto &[k, v] : a.items()) {
         pypp::print(pypp::PyStr(std::format("{}: {}", k, v)));
     }

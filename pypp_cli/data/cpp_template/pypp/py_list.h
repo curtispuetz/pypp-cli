@@ -57,7 +57,7 @@ template <typename T> class PyList {
         }
         if (index < 0)
             index += data.size();
-        if (index < 0 || index >= static_cast<int>(data.size())) {
+        if (index < 0 || index >= len()) {
             throw IndexError("list.pop(x): x out of range");
         }
         T value = std::move(data[index]);
@@ -143,30 +143,23 @@ template <typename T> class PyList {
         return *std::max_element(data.begin(), data.end());
     }
 
-    // Operator []
-    T &operator[](int index) {
+    // lg (list get)
+    T &lg(int index) {
         if (index < 0)
             index += data.size();
-        if (index < 0 || index >= static_cast<int>(data.size())) {
+        if (index < 0 || index >= len()) {
             throw IndexError("list index out of range");
         }
         return data[index];
     }
 
-    // TODO later: delete this because I think I don't need it.
-    const T &operator[](int index) const {
-        if (index < 0)
-            index += data.size();
-        if (index < 0 || index >= data.size()) {
-            throw IndexError("list index out of range");
-        }
-        return data[index];
-    }
+    // Operator []
+    T &operator[](int index) { return data[index]; }
+    const T &operator[](int index) const { return data[index]; }
 
     PyList<T> operator[](const PySlice &sl) const {
         PyList<T> result;
-        PyTup<int, int, int> indices =
-            sl.indices(static_cast<int>(data.size()));
+        PyTup<int, int, int> indices = sl.indices(len());
         int start = indices.get<0>();
         int stop = indices.get<1>();
         int step = indices.get<2>();

@@ -7,6 +7,7 @@
 #include <iostream>
 #include <sstream>
 #include <unordered_set>
+#include <utility>
 
 namespace pypp {
 template <typename T> class PySet {
@@ -22,7 +23,7 @@ template <typename T> class PySet {
     template <typename Iter> PySet(Iter begin, Iter end) : data(begin, end) {}
 
     // Add an element
-    void add(T &&value) { data.insert(value); }
+    void add(T &&value) { data.insert(std::move(value)); }
 
     // Remove an element (raises if not found)
     void remove(const T &value) {

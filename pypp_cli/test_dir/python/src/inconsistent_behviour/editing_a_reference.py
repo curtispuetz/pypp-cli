@@ -13,7 +13,7 @@ def editing_a_reference_fn():
     # inconsistent behavior). Here, you can just use c still. You don't need d.
     c: list[int] = [1, 2, 3]
     d: list[int] = update_and_return_new(c)
-    d[-1] = 99
+    d[3] = 99
     print(f"inconsistent behavior: {c}")
 
 

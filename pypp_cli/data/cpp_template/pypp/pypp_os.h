@@ -13,12 +13,9 @@ namespace os {
 namespace fs = std::filesystem;
 
 void makedirs(const PyStr &p);
-void remove(const PyStr &p);
-
 void mkdir(const PyStr &p);
-
+void remove(const PyStr &p);
 void rmdir(const PyStr &p);
-
 void rename(const PyStr &src, const PyStr &dst);
 
 PyList<PyStr> listdir(const PyStr &p);
@@ -33,17 +30,11 @@ template <typename... Args> PyStr join(const PyStr &base, const Args &...args) {
 }
 
 bool exists(const PyStr &p);
-
 bool isdir(const PyStr &p);
-
 bool isfile(const PyStr &p);
-
 PyStr dirname(const PyStr &p);
-
 PyStr basename(const PyStr &p);
-
 PyTup<PyStr, PyStr> split(const PyStr &p);
-
 PyStr abspath(const PyStr &p);
 
 } // namespace path

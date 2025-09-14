@@ -1,5 +1,4 @@
 #include "loops/zip_.h"
-#include "py_dict.h"
 #include "py_list.h"
 #include "py_set.h"
 #include "py_str.h"
@@ -19,13 +18,11 @@ void zip_fn() {
         a.append(std::move(zz));
     }
     pypp::print(a);
-    pypp::PyDict<double, int> b = {{1.1, 4}, {2.2, 5}};
-    for (const auto &[x, z, y, w] :
+    for (const auto &[x, z, y] :
          pypp::PyZip(pypp::PyList({1, 2}),
                      pypp::PySet({pypp::PyStr("a"), pypp::PyStr("b")}),
-                     pypp::PyStr("ab"), b.items())) {
-        pypp::print(pypp::PyStr(std::format("{}, {}, {}, {}, {}", x, z, y,
-                                            w.get<0>(), w.get<0>())));
+                     pypp::PyStr("ab"))) {
+        pypp::print(pypp::PyStr(std::format("{}, {}, {}", x, z, y)));
     }
 }
 
