@@ -13,11 +13,7 @@ def _calc_exe_path(root_dir: Path, exe_name: str) -> Path:
 def pypp_run(cpp_build_release_dir: Path, exe_name: str):
     exe_path = _calc_exe_path(cpp_build_release_dir, exe_name)
     if not exe_path.is_file():
-        exe_path = _calc_exe_path(cpp_build_release_dir / "Release", exe_name)
-        if not exe_path.is_file():
-            raise FileNotFoundError(
-                f"Executable '{exe_name}' not found in cpp build dir"
-            )
+        raise FileNotFoundError(f"Executable '{exe_name}' not found in cpp build dir")
 
     print("running generated executable...")
     subprocess.check_call([str(exe_path)])
