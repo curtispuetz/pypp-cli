@@ -1,11 +1,11 @@
 import os
 import shutil
-from pypp_python import pypp_get_resource_dir
+from pypp_python import res_dir
 
 
 def shutil_exceptions_fn():
     print("SHUTIL EXCEPTIONS RESULTS:")
-    resources_dir: str = pypp_get_resource_dir()
+    resources_dir: str = res_dir()
     try:
         shutil.rmtree(os.path.join(resources_dir, "test_doesn't_exist"))
     except FileNotFoundError as e:

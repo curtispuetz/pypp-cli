@@ -11,7 +11,7 @@
 namespace me {
 void shutil_exceptions_fn() {
     pypp::print(pypp::PyStr("SHUTIL EXCEPTIONS RESULTS:"));
-    pypp::PyStr resources_dir = pypp::pypp_get_resource_dir();
+    pypp::PyStr resources_dir = pypp::res_dir();
     try {
         pypp::shutil::rmtree(pypp::os::path::join(
             resources_dir, pypp::PyStr("test_doesn't_exist")));

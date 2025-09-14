@@ -10,7 +10,7 @@
 namespace me {
 void file_io_fn() {
     pypp::print(pypp::PyStr("FILE IO RESULTS:"));
-    pypp::PyStr resources_dir = pypp::pypp_get_resource_dir();
+    pypp::PyStr resources_dir = pypp::res_dir();
     pypp::PyStr test_dir =
         pypp::os::path::join(resources_dir, pypp::PyStr("test_dir"));
     pypp::print(test_dir);
