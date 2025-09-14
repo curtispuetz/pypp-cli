@@ -1,13 +1,13 @@
-from pypp_python import pypp_time, auto
+from pypp_python import time, auto
 
 
 def time_library_fn():
     print("TIME LIBRARY RESULTS (depends on time of execution):")
-    a: auto = pypp_time.start()
-    pypp_time.sleep(0.01)
-    b: float = pypp_time.end(a)
+    a: auto = time.start()
+    time.sleep(0.01)
+    b: float = time.end(a)
     print(f"time.time() elapsed time: {b}")
-    c: auto = pypp_time.perf_counter_start()
-    pypp_time.sleep(0.01)
-    d: float = pypp_time.perf_counter_end(c)
+    c: auto = time.perf_counter_start()
+    time.sleep(0.01)
+    d: float = time.perf_counter_end(c)
     print(f"performance time elapsed time: {d}")

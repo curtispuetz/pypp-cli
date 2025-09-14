@@ -208,8 +208,8 @@ CALL_MAP: CallMap = {
             [QInc("pypp_shutil.h")], True
         )
     },
-    "pypp_time.": {
-        PySpecificImpFrom("pypp_python", "pypp_time"): CustomMappingStartsWithEntry(
+    "time.": {
+        PySpecificImpFrom("pypp_python", "time"): CustomMappingStartsWithEntry(
             _pypp_time, [QInc("pypp_time.h")]
         )
     },
