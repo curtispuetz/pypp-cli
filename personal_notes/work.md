@@ -1,3 +1,5 @@
+# Personal TODO list
+
 #### Legend
 - AAGP = at a good point
 - MDN = maybe don't need
@@ -55,4 +57,4 @@
 - strategy for pure-libraries. C
 - strategy for testing bridge- and pure- libraries. AAGP
   - Solution: just build them and install them to your project for testing for now.
-- implement opengl bridge-library
+- implement opengl bridge-library. AAGP
