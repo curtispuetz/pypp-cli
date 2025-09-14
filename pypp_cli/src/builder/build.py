@@ -16,10 +16,10 @@ def pypp_build(cpp_dir: Path):
         raise RuntimeError(
             "cmake not found. To use pypp, install cmake and ensure it is in your PATH."
         )
-    # cmake -S . -B build
-    # TODO: add "-DCMAKE_BUILD_TYPE=Release". I need to fix the PyDictItems bug though
-    # before I can do that. It returns by value too.
-    subprocess.check_call(["cmake", "-S", ".", "-B", "build"], cwd=cpp_dir)
+    # cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+    subprocess.check_call(
+        ["cmake", "-S", ".", "-B", "build", "-DCMAKE_BUILD_TYPE=Release"], cwd=cpp_dir
+    )
     # cmake --build build --config Release
     subprocess.check_call(
         ["cmake", "--build", "build", "--config", "Release"],
