@@ -8,7 +8,7 @@
 namespace me {
 void test_is_here_fn() {
     pypp::print(pypp::PyStr("FILE IO TEST IS HERE RESULTS:"));
-    pypp::PyStr resources_dir = pypp::pypp_get_resource_dir();
+    pypp::PyStr resources_dir = pypp::res_dir();
     pypp::PyStr file =
         pypp::os::path::join(resources_dir, pypp::PyStr("test_is_here.txt"));
     if (pypp::os::path::isfile(file)) {

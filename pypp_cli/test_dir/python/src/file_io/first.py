@@ -1,12 +1,12 @@
-from pypp_python import pypp_get_resource_dir
+from pypp_python import res_dir
 import os
 import shutil
 
 
 def file_io_fn():
     print("FILE IO RESULTS:")
-    # pypp_get_resource_dir
-    resources_dir: str = pypp_get_resource_dir()
+    # res_dir
+    resources_dir: str = res_dir()
     test_dir: str = os.path.join(resources_dir, "test_dir")
     print(test_dir)
     # os.path.join

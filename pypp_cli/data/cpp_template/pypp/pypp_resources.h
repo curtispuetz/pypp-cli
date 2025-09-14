@@ -3,5 +3,5 @@
 #include "py_str.h"
 
 namespace pypp {
-PyStr pypp_get_resource_dir();
+PyStr res_dir();
 } // namespace pypp

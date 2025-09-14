@@ -164,9 +164,9 @@ CALL_MAP: CallMap = {
             "std::move", [AngInc("utility")]
         )
     },
-    "pypp_get_resource_dir": {
-        PySpecificImpFrom("pypp_python", "pypp_get_resource_dir"): ToStringEntry(
-            "pypp::pypp_get_resource_dir", [QInc("pypp_resources.h")]
+    "res_dir": {
+        PySpecificImpFrom("pypp_python", "res_dir"): ToStringEntry(
+            "pypp::res_dir", [QInc("pypp_resources.h")]
         )
     },
     "int_pow": {
