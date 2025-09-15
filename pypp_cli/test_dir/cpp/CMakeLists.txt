@@ -25,6 +25,7 @@ FetchContent_MakeAvailable(glad)
 glad_add_library(glad_gl_core_43 STATIC REPRODUCIBLE LOADER API gl:core=4.3)
 
 set(SRC_FILES
+other_src/first.cpp
 src/args_test.cpp
 src/augment_operations.cpp
 src/constants.cpp
