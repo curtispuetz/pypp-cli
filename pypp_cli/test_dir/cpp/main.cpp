@@ -1,5 +1,6 @@
 #include "args_test.h"
 #include "augment_operations.h"
+#include "benchmarking.h"
 #include "built_in_functions/dict_fn.h"
 #include "built_in_functions/list_fn.h"
 #include "built_in_functions/number_conversions.h"
@@ -217,6 +218,7 @@ int main() {
         me::shutil_exceptions_fn();
         pypp::print(me::A, me::B, me::C, me::D, me::E, me::a, me::b);
         me::dict_looping_fn();
+        me::perlin_noise_fn();
         return 0;
     } catch (...) {
         pypp::handle_fatal_exception();

@@ -1,4 +1,3 @@
-from multiprocessing.managers import ValueProxy
 from pypp_python import exception
 
 

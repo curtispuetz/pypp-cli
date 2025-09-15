@@ -34,7 +34,7 @@ def throw_fn():
     # all in one
     try:
         raise IndexError("test")
-    except:
+    except:  # noqa: E722
         print("catching all")
 
     try:
