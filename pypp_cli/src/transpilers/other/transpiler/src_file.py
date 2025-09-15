@@ -1,8 +1,13 @@
+from pypp_cli.src.transpilers.other.transpiler.handle_init_file import (
+    calc_h_code_for_init_file,
+)
 from pypp_cli.src.transpilers.other.transpiler.maps.maps import Maps
 from pypp_cli.src.transpilers.other.transpiler.util import (
     handle_imports_and_create_deps,
 )
-from pypp_cli.src.transpilers.other.transpiler.calc_includes import calc_includes
+from pypp_cli.src.transpilers.other.transpiler.calc_includes import (
+    calc_includes,
+)
 from pypp_cli.src.transpilers.other.transpiler.calc_ast_tree import calc_ast
 from pypp_cli.src.transpilers.other.transpiler.results import TranspileResults
 
@@ -28,6 +33,9 @@ class SrcFileTranspiler:
     def _calc_cpp_and_h_code(self, file: Path) -> tuple[str, str, Path]:
         py_src_file: Path = self._py_src_dir / file
         py_ast: ast.Module = calc_ast(py_src_file)
+        if file.stem == "__init__":
+            return "", *calc_h_code_for_init_file(py_ast, file)
+
         h_file: Path = file.with_suffix(".h")
         import_end, d = handle_imports_and_create_deps(
             py_ast, self._maps, self._src_py_files, py_src_file

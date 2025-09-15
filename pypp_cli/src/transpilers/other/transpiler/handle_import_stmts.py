@@ -6,6 +6,7 @@ from pypp_cli.src.transpilers.other.transpiler.maps.maps import Maps
 from pypp_cli.src.transpilers.other.transpiler.cpp_includes import IncMap
 
 
+# TODO: simplify this code.
 def analyse_import_stmts(
     stmts: list[ast.stmt], maps: Maps, src_py_files: list[Path], file_path: Path
 ) -> tuple[IncMap, int, PyImports, set[str]]:
@@ -15,7 +16,6 @@ def analyse_import_stmts(
     py_imports = PyImports({}, set())
     user_namespace: set[str] = set()
     for i, node in enumerate(stmts):
-        # ast.Import are ignored
         if isinstance(node, ast.ImportFrom):
             if node.module in py_imports.imp_from:
                 raise ValueError(
@@ -58,9 +58,13 @@ def analyse_import_stmts(
 def _calc_all_modules_for_project(src_py_files: list[Path]) -> set[str]:
     ret: set[str] = set()
     for p in src_py_files:
-        ret.add(p.as_posix()[:-3].replace("/", "."))
+        if p.stem == "__init__":
+            ret.add(p.parent.as_posix().replace("/", "."))
+        else:
+            ret.add(p.as_posix()[:-3].replace("/", "."))
     return ret
 
 
+# TODO: extract this function.
 def _calc_q_inc(name: str) -> QInc:
     return QInc(name.replace(".", "/") + ".h")

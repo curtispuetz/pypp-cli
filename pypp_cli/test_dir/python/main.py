@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from args_test import args_test_fn
 from augment_operations import augment_operations_fn
+from benchmarking import perlin_noise_fn
 from built_in_functions.dict_fn import built_in_dict_fn
 from built_in_functions.list_fn import built_in_list_fn
 from built_in_functions.number_conversions import number_conversions_fn
@@ -218,3 +219,4 @@ if __name__ == "__main__":
     shutil_exceptions_fn()
     print(A, B, C, D, E, a, b)
     dict_looping_fn()
+    perlin_noise_fn()
