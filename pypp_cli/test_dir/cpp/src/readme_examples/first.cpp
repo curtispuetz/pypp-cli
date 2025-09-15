@@ -1,4 +1,4 @@
-#include "readme_examples/first.h"
+#include "src/readme_examples/first.h"
 #include "py_str.h"
 #include "pypp_assert.h"
 

@@ -15,15 +15,15 @@ class PyFileChanges:
 def calc_py_file_changes(
     prev_timestamps: dict[str, float],
     root_dir: Path,
-    ignore_files: list[str],
+    ignored_files: list[str],
     py_files: list[Path],
 ) -> PyFileChanges:
     fct = _FileChangeTracker(prev_timestamps, _find_deleted_files(prev_timestamps))
-    return fct.calc_py_file_changes(root_dir, ignore_files, py_files)
+    return fct.calc_py_file_changes(root_dir, ignored_files, py_files)
 
 
-def _should_ignore_file(rel_path_posix: str, ignore_src_files: list[str]) -> bool:
-    for pattern in ignore_src_files:
+def _should_ignore_file(rel_path_posix: str, ignored_files: list[str]) -> bool:
+    for pattern in ignored_files:
         if fnmatch(rel_path_posix, pattern):
             return True
     return False
@@ -42,6 +42,7 @@ class _FileChangeTracker:
     _curr_timestamps: dict[str, float] = field(default_factory=dict)
     _changed_files: list[Path] = field(default_factory=list)
     _new_files: list[Path] = field(default_factory=list)
+    # TODO now: I think this one can be deleted
     _ignored_file_stems: set[str] = field(default_factory=set)
 
     def _check_file_change(self, filepath: Path, rel_path: Path, rel_path_posix: str):
@@ -55,12 +56,12 @@ class _FileChangeTracker:
             self._new_files.append(rel_path)
 
     def calc_py_file_changes(
-        self, root_dir: Path, ignore_files: list[str], py_files: list[Path]
+        self, root_dir: Path, ignored_files: list[str], py_files: list[Path]
     ) -> PyFileChanges:
         for rel_path in py_files:
             abs_path: Path = root_dir / rel_path
             rel_path_posix: str = rel_path.as_posix()
-            if not _should_ignore_file(rel_path_posix, ignore_files):
+            if not _should_ignore_file(rel_path_posix, ignored_files):
                 self._check_file_change(abs_path, rel_path, rel_path_posix)
             else:
                 self._ignored_file_stems.add(abs_path.stem)

@@ -1,4 +1,4 @@
-#include "interfaces/with_dataclasses.h"
+#include "src/interfaces/with_dataclasses.h"
 #include "pypp_util/print.h"
 
 namespace me {

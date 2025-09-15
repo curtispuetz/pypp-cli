@@ -1,4 +1,4 @@
-#include "lambdas.h"
+#include "src/lambdas.h"
 #include "py_str.h"
 #include "pypp_util/floor_div.h"
 #include "pypp_util/print.h"

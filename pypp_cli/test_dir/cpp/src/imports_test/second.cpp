@@ -1,7 +1,7 @@
-#include "imports_test/second.h"
-#include "constants.h"
+#include "src/imports_test/second.h"
 #include "py_str.h"
 #include "pypp_util/print.h"
+#include "src/constants.h"
 
 namespace me {
 void imports_test_fn2() {

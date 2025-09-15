@@ -4,7 +4,7 @@ from pathlib import Path
 
 @dataclass(frozen=True, slots=True)
 class CppAndHFileDeleter:
-    _cpp_src_dir: Path
+    _cpp_dir: Path
 
     def delete_files(self, file_lists: list[list[Path]]) -> int:
         files_deleted: int = 0
@@ -17,8 +17,8 @@ class CppAndHFileDeleter:
         files_deleted: int = 0
         cpp_file: Path = filepath.with_suffix(".cpp")
         h_file: Path = filepath.with_suffix(".h")
-        cpp_full_path: Path = self._cpp_src_dir / cpp_file
-        h_full_path: Path = self._cpp_src_dir / h_file
+        cpp_full_path: Path = self._cpp_dir / cpp_file
+        h_full_path: Path = self._cpp_dir / h_file
         if cpp_full_path.exists():
             cpp_full_path.unlink()
             files_deleted += 1

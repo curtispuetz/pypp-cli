@@ -1,4 +1,4 @@
-#include "if_elif_else/if_elif_else.h"
+#include "src/if_elif_else/if_elif_else.h"
 
 namespace me {
 pypp::PyStr if_elif_else_fn(int a, int b) {

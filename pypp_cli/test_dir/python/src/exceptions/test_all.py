@@ -1,4 +1,4 @@
-from exceptions.custom_exceptions import ChildException
+from src.exceptions.custom_exceptions import ChildException
 
 
 def test_all_exceptions_fn():

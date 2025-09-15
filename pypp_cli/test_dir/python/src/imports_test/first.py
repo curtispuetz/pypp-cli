@@ -1,4 +1,4 @@
-from constants import C, MyConfig2
+from src.constants import C, MyConfig2
 
 
 def imports_test_fn():

@@ -1,9 +1,9 @@
-#include "benchmarking/perlin_noise/caller.h"
-#include "benchmarking/perlin_noise/impl.h"
+#include "src/benchmarking/perlin_noise/caller.h"
 #include "py_str.h"
 #include "pypp_random.h"
 #include "pypp_time.h"
 #include "pypp_util/print.h"
+#include "src/benchmarking/perlin_noise/impl.h"
 
 namespace me {
 void perlin_noise_fn() {

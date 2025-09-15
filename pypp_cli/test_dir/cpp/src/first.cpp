@@ -1,4 +1,4 @@
-#include "first.h"
+#include "src/first.h"
 
 namespace me {
 pypp::PyStr return_something(int a, int b) {

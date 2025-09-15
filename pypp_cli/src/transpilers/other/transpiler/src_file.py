@@ -8,7 +8,6 @@ from pypp_cli.src.transpilers.other.transpiler.util import (
 from pypp_cli.src.transpilers.other.transpiler.calc_includes import (
     calc_includes,
 )
-from pypp_cli.src.transpilers.other.transpiler.calc_ast_tree import calc_ast
 from pypp_cli.src.transpilers.other.transpiler.results import TranspileResults
 
 
@@ -19,26 +18,25 @@ from pathlib import Path
 
 @dataclass(frozen=True, slots=True)
 class SrcFileTranspiler:
-    _py_src_dir: Path
     _cpp_dest_dir: Path
     _src_py_files: list[Path]
     _maps: Maps
     _r: TranspileResults
 
-    def transpile(self, file: Path):
-        cpp_code, h_code, h_file = self._calc_cpp_and_h_code(file)
+    def transpile(self, file: Path, file_path: Path, py_ast: ast.Module):
+        cpp_code, h_code, h_file = self._calc_cpp_and_h_code(file, file_path, py_ast)
         self._write_cpp_file(file, cpp_code)
         self._write_h_file(h_file, h_code)
 
-    def _calc_cpp_and_h_code(self, file: Path) -> tuple[str, str, Path]:
-        py_src_file: Path = self._py_src_dir / file
-        py_ast: ast.Module = calc_ast(py_src_file)
+    def _calc_cpp_and_h_code(
+        self, file: Path, file_path: Path, py_ast: ast.Module
+    ) -> tuple[str, str, Path]:
         if file.stem == "__init__":
             return "", *calc_h_code_for_init_file(py_ast, file)
 
         h_file: Path = file.with_suffix(".h")
         import_end, d = handle_imports_and_create_deps(
-            py_ast, self._maps, self._src_py_files, py_src_file
+            py_ast, self._maps, self._src_py_files, file_path
         )
         cpp_code_minus_include: str = d.handle_stmts_for_module(
             py_ast.body[import_end:]

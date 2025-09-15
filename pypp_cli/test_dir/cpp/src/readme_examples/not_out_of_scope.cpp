@@ -1,4 +1,4 @@
-#include "readme_examples/not_out_of_scope.h"
+#include "src/readme_examples/not_out_of_scope.h"
 
 namespace me {
 int var_not_out_of_scope(bool condition) {
