@@ -22,7 +22,6 @@ class _PyppInitHelper:
     ):
         self._create_main_folders()
         self._create_python_main_file()
-        self._create_python_src_file()
         self._create_proj_json_file()
 
     def _create_main_folders(
@@ -30,7 +29,6 @@ class _PyppInitHelper:
     ):
         self._paths.cpp_dir.mkdir(parents=True, exist_ok=True)
         self._paths.python_dir.mkdir(parents=True, exist_ok=True)
-        self._paths.python_src_dir.mkdir(parents=True, exist_ok=True)
         self._paths.resources_dir.mkdir(parents=True, exist_ok=True)
         self._paths.pypp_files_dir.mkdir(parents=True, exist_ok=True)
 
@@ -41,23 +39,8 @@ class _PyppInitHelper:
                 [
                     "# Py++ main file example",
                     "",
-                    "from hello_world import first_fn",
-                    "",
                     "if __name__ == '__main__':",
-                    "    first_fn()",
-                ]
-            )
-        )
-
-    def _create_python_src_file(self):
-        src_py_path = self._paths.python_src_dir / "hello_world.py"
-        src_py_path.write_text(
-            "\n".join(
-                [
-                    "# Py++ src file example",
-                    "",
-                    "def first_fn():",
-                    "    print('Hello, World!')",
+                    "    print('Hello from Py++ project!')",
                 ]
             )
         )

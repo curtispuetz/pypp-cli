@@ -13,8 +13,7 @@ def load_proj_info(proj_info_file: Path) -> ProjInfo:
     _validate_proj_info(proj_info)
     return ProjInfo(
         proj_info["cpp_dir_is_dirty"],
-        proj_info.get("ignore_src_files", PROJ_INFO_DEFAULTS.ignored_src_files),
-        proj_info.get("ignore_main_files", PROJ_INFO_DEFAULTS.ignored_main_files),
+        proj_info.get("ignored_files", PROJ_INFO_DEFAULTS.ignored_files),
         proj_info.get(
             "cmake_minimum_required_version",
             PROJ_INFO_DEFAULTS.cmake_minimum_required_version,

@@ -10,15 +10,13 @@ SHOULDNT_HAPPEN: str = (
 @dataclass(slots=True)
 class ProjInfo:
     cpp_dir_is_dirty: bool
-    ignored_src_files: list[str]
-    ignored_main_files: list[str]
+    ignored_files: list[str]
     cmake_minimum_required_version: str
 
 
 PROJ_INFO_DEFAULTS = ProjInfo(
     cpp_dir_is_dirty=True,
-    ignored_src_files=[],
-    ignored_main_files=[],
+    ignored_files=[],
     cmake_minimum_required_version="4.0",
 )
 

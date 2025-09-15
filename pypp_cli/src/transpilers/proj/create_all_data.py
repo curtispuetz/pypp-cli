@@ -6,6 +6,7 @@ from pypp_cli.src.other.pypp_paths.do import DoPyppPaths
 from pypp_cli.src.transpilers.other.other.bridge_json_path_cltr import (
     BridgeJsonPathCltr,
 )
+from pypp_cli.src.transpilers.other.other.file_tracker import PyFilesTracker
 from pypp_cli.src.transpilers.proj.bridge_libs.copier import (
     copy_all_lib_cpp_files,
 )
@@ -43,12 +44,12 @@ class AllData:
     main_and_src_transpiler: MainAndSrcTranspiler
     cpp_and_h_file_deleter: CppAndHFileDeleter
     timestamps_saver: TimestampsSaver
+    py_files_tracker: PyFilesTracker
 
 
 def create_all_data(paths: DoPyppPaths) -> AllData:
     proj_info: ProjInfo = load_proj_info(paths.proj_info_file)
-    main_py_files = create_main_py_files(paths.python_dir)
-    src_py_files = calc_all_py_files(paths.python_src_dir)
+    py_files = calc_all_py_files(paths.python_dir)
     bridge_json_path_cltr = BridgeJsonPathCltr(paths.site_packages_dir)
 
     bridge_libs, pure_libs = find_libs(paths.site_packages_dir)
@@ -65,40 +66,42 @@ def create_all_data(paths: DoPyppPaths) -> AllData:
 
     prev_timestamps = load_previous_timestamps(paths.timestamps_file)
 
+    py_files_tracker = PyFilesTracker(
+        py_files, {Path(f) for f in prev_timestamps.main_files}
+    )
+
     return AllData(
         CppProjectInitializer(
             paths.cpp_dir, paths.timestamps_file, paths.proj_info_file, proj_info
         ),
         FileChangeCltr(
             paths.python_dir,
-            paths.python_src_dir,
-            proj_info.ignored_src_files,
-            proj_info.ignored_main_files,
-            main_py_files,
-            src_py_files,
+            proj_info.ignored_files,
+            py_files,
             prev_timestamps,
         ),
         CMakeListsWriter(
             paths.cpp_dir,
             bridge_json_path_cltr,
-            main_py_files,
             bridge_libs,
             proj_info.cmake_minimum_required_version,
+            py_files_tracker,
         ),
         MainAndSrcTranspiler(
             paths.cpp_dir,
             paths.python_dir,
-            paths.cpp_src_dir,
-            paths.python_src_dir,
             bridge_libs,
-            src_py_files,
+            py_files,
             bridge_json_path_cltr,
+            py_files_tracker,
         ),
-        CppAndHFileDeleter(paths.cpp_src_dir),
-        TimestampsSaver(paths.timestamps_file),
+        CppAndHFileDeleter(paths.cpp_dir),
+        TimestampsSaver(paths.timestamps_file, py_files_tracker),
+        py_files_tracker,
     )
 
 
+# TODO now: delete this and calc_all_main_py_files
 def create_main_py_files(python_dir: Path) -> list[Path]:
     ret: list[Path] = calc_all_main_py_files(python_dir)
     if not ret:

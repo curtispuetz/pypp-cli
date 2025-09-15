@@ -1,4 +1,4 @@
-#include "ternary_op.h"
+#include "src/ternary_op.h"
 #include "py_str.h"
 #include "pypp_util/print.h"
 

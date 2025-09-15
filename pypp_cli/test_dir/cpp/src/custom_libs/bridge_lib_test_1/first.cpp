@@ -1,4 +1,4 @@
-#include "custom_libs/bridge_lib_test_1/first.h"
+#include "src/custom_libs/bridge_lib_test_1/first.h"
 #include "py_str.h"
 #include "pypp_bridge_library_test_1/first.h"
 #include "pypp_bridge_library_test_1/first_folder/third.h"

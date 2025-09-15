@@ -2,7 +2,7 @@ import random
 
 from pypp_python import auto, time
 
-from benchmarking.perlin_noise.impl import PerlinNoise, create_perlin_noise
+from src.benchmarking.perlin_noise.impl import PerlinNoise, create_perlin_noise
 
 
 def perlin_noise_fn():

@@ -1,4 +1,4 @@
-#include "readme_examples/return_by_reference.h"
+#include "src/readme_examples/return_by_reference.h"
 
 namespace me {
 pypp::PyList<int> &return_by_reference_fn(pypp::PyList<int> &a,

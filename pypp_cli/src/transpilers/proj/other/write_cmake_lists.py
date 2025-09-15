@@ -1,3 +1,4 @@
+from ast import main
 from dataclasses import dataclass
 import json
 from pathlib import Path
@@ -5,6 +6,7 @@ from pathlib import Path
 from pypp_cli.src.transpilers.other.other.bridge_json_path_cltr import (
     BridgeJsonPathCltr,
 )
+from pypp_cli.src.transpilers.other.other.file_tracker import PyFilesTracker
 
 
 def _calc_link_libs_lines(link_libs: list[str]) -> list[str]:
@@ -23,11 +25,12 @@ def _calc_link_libs_lines(link_libs: list[str]) -> list[str]:
 class CMakeListsWriter:
     _cpp_dir: Path
     _bridge_json_path_cltr: BridgeJsonPathCltr
-    _main_py_files: list[Path]
     _bridge_libs: list[str]
     _cmake_minimum_required_version: str
+    _py_files_tracker: PyFilesTracker
 
-    def write(self, ignored_main_file_stems: set[str]):
+    def write(self):
+        main_files, src_files = self._calc_main_and_src_files()
         add_lines, link_libs = self._calc_add_lines_and_link_libs_from_libraries()
         cmake_lines = [
             f"cmake_minimum_required(VERSION {self._cmake_minimum_required_version})",
@@ -40,7 +43,9 @@ class CMakeListsWriter:
             "",
             *add_lines,
             "",
-            "file(GLOB_RECURSE SRC_FILES src/*.cpp)",
+            "set(SRC_FILES",
+            *src_files,
+            ")",
             "file(GLOB_RECURSE pypp_FILES pypp/*.cpp)",
             "file(GLOB_RECURSE LIB_FILES libs/*.cpp)",
             "",
@@ -52,7 +57,7 @@ class CMakeListsWriter:
             ")",
             "target_include_directories(",
             "    pypp_common PUBLIC",
-            "    ${CMAKE_SOURCE_DIR}/src",
+            "    ${CMAKE_SOURCE_DIR}",
             "    ${CMAKE_SOURCE_DIR}/pypp",
             "    ${CMAKE_SOURCE_DIR}/libs",
             ")",
@@ -60,15 +65,11 @@ class CMakeListsWriter:
             "",
         ]
 
-        for py_file in self._main_py_files:
+        for py_file in main_files:
             exe_name = py_file.stem
-            main_cpp = f"{exe_name}.cpp"
-            if exe_name not in ignored_main_file_stems:
-                cmake_lines.append(f"add_executable({exe_name} {main_cpp})")
-                cmake_lines.append(
-                    f"target_link_libraries({exe_name} PRIVATE pypp_common)"
-                )
-                cmake_lines.append("")
+            cmake_lines.append(f"add_executable({exe_name} {exe_name}.cpp)")
+            cmake_lines.append(f"target_link_libraries({exe_name} PRIVATE pypp_common)")
+            cmake_lines.append("")
 
         cmake_content = "\n".join(cmake_lines)
 
@@ -76,6 +77,21 @@ class CMakeListsWriter:
         cmake_path.write_text(cmake_content)
 
         print("CMakeLists.txt generated to cpp project directory")
+
+    def _calc_main_and_src_files(self) -> tuple[list[Path], list[str]]:
+        main_files: list[Path] = []
+        src_files: list[str] = []
+        for f in self._py_files_tracker.all_files:
+            if f.name == "__init__.py":
+                continue
+            if f in self._py_files_tracker.main_files:
+                main_files.append(f)
+            else:
+                # replace stem with cpp
+                cpp_file: Path = f.with_suffix(".cpp")
+                if (self._cpp_dir / cpp_file).exists():
+                    src_files.append(cpp_file.as_posix())
+        return main_files, src_files
 
     def _calc_add_lines_and_link_libs_from_libraries(
         self,

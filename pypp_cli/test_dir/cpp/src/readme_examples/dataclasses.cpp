@@ -1,4 +1,4 @@
-#include "readme_examples/dataclasses.h"
+#include "src/readme_examples/dataclasses.h"
 
 namespace me {
 pypp::PyStr Greeter::greet() {

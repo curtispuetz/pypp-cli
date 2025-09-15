@@ -1,4 +1,4 @@
-#include "third.h"
+#include "src/third.h"
 
 namespace me {
 pypp::PyStr using_inline_string() {
