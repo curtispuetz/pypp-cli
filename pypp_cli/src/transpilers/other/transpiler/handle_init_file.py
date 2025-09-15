@@ -30,7 +30,7 @@ def calc_h_code_for_init_file(py_ast: ast.Module, file: Path) -> tuple[str, Path
                 f"Found:\n{ast.dump(stmt, indent=4)}"
             )
         add_include_to_res(
-            QInc(f"{h_file_name}/{stmt.module.replace('.', '/')}.h"), res
+            QInc(f"{h_file_name.as_posix()}/{stmt.module.replace('.', '/')}.h"), res
         )
     return "".join(res), h_file
 
