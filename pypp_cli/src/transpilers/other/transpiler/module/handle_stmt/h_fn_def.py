@@ -3,7 +3,7 @@ from dataclasses import dataclass
 
 from pypp_cli.src.transpilers.other.transpiler.deps import Deps
 from pypp_cli.src.transpilers.other.transpiler.module.util.calc_fn_signature import (
-    calc_fn_signature,
+    FnSignatureCalculator,
     calc_fn_str_with_body,
 )
 
@@ -16,6 +16,7 @@ from pypp_cli.src.transpilers.other.transpiler.module.util.calc_fn_signature imp
 @dataclass(frozen=True, slots=True)
 class FnDefHandler:
     _d: Deps
+    _fn_signature_calculator: FnSignatureCalculator
 
     def handle(self, node: ast.FunctionDef) -> str:
         if len(node.decorator_list) != 0:
@@ -26,7 +27,7 @@ class FnDefHandler:
         is_header_defined: bool = not fn_name.startswith("_")
 
         self._d.set_inc_in_h(is_header_defined)
-        fn_signature: str = calc_fn_signature(node, self._d, fn_name)
+        fn_signature: str = self._fn_signature_calculator.calc(node, fn_name)
         self._d.set_inc_in_h(False)
 
         if is_header_defined:

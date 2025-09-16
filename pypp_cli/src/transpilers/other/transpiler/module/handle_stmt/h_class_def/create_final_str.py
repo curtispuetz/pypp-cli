@@ -1,99 +1,106 @@
 import ast
+from dataclasses import dataclass
 
 from pypp_cli.src.config import SHOULDNT_HAPPEN
 from pypp_cli.src.transpilers.other.transpiler.d_types import AngInc
 from pypp_cli.src.transpilers.other.transpiler.deps import Deps
-from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_class_def.util import (  # noqa: E501
-    ClassMethod,
-    ClassField,
-    ARG_PREFIX,
-)
+from .util import ClassMethod, ClassField, ARG_PREFIX
 from pypp_cli.src.transpilers.other.transpiler.module.util.calc_fn_signature import (
     calc_fn_str_with_body,
 )
 
 
-def create_final_str_for_class_def(
-    node: ast.ClassDef,
-    d: Deps,
-    fields_and_base_constructor_calls: list[ClassField],
-    methods: list[ClassMethod],
-    constructor_sig: str,
-    name_starts_with_underscore: bool,
-    is_struct: bool,
-    is_frozen: bool = False,
-):
-    class_name: str = node.name
-    fields_and_constructor: str = _calc_fields_and_constructor(
-        fields_and_base_constructor_calls,
-        constructor_sig,
-        d,
-        is_frozen,
-    )
-    base_classes: list[str] = _calc_base_classes(node, d)
-    if name_starts_with_underscore or d.is_main_file:
-        full_methods: str = _calc_full_methods(methods)
-        return _calc_final_str(
-            class_name, fields_and_constructor + full_methods, is_struct, base_classes
+@dataclass(frozen=True, slots=True)
+class DataclassFinalStrCreator:
+    _d: Deps
+
+    def create(
+        self,
+        node: ast.ClassDef,
+        fields_and_base_constructor_calls: list[ClassField],
+        methods: list[ClassMethod],
+        constructor_sig: str,
+        name_starts_with_underscore: bool,
+        is_struct: bool,
+        is_frozen: bool = False,
+    ) -> str:
+        class_name: str = node.name
+        fields_and_constructor: str = self._calc_fields_and_constructor(
+            fields_and_base_constructor_calls,
+            constructor_sig,
+            is_frozen,
         )
-    if len(methods) == 0:
-        d.ret_h_file.append(
-            _calc_final_str(class_name, fields_and_constructor, is_struct, base_classes)
+        base_classes: list[str] = self._calc_base_classes(node)
+        if name_starts_with_underscore or self._d.is_main_file:
+            full_methods: str = _calc_full_methods(methods)
+            return _calc_final_str(
+                class_name,
+                fields_and_constructor + full_methods,
+                is_struct,
+                base_classes,
+            )
+        if len(methods) == 0:
+            self._d.ret_h_file.append(
+                _calc_final_str(
+                    class_name, fields_and_constructor, is_struct, base_classes
+                )
+            )
+            # Nothing goes in the cpp file in this case.
+            return ""
+        method_signatures: str = _calc_method_signatures(methods)
+        method_impls: str = _calc_method_implementations(methods, class_name)
+        self._d.ret_h_file.append(
+            _calc_final_str(
+                class_name,
+                fields_and_constructor + method_signatures,
+                is_struct,
+                base_classes,
+            )
         )
-        # Nothing goes in the cpp file in this case.
-        return ""
-    method_signatures: str = _calc_method_signatures(methods)
-    method_impls: str = _calc_method_implementations(methods, class_name)
-    d.ret_h_file.append(
-        _calc_final_str(
-            class_name,
-            fields_and_constructor + method_signatures,
-            is_struct,
-            base_classes,
-        )
-    )
-    return method_impls
+        return method_impls
+
+    def _calc_base_classes(self, node: ast.ClassDef) -> list[str]:
+        ret: list[str] = []
+        for base in node.bases:
+            ret.append(self._d.handle_expr(base))
+        return ret
+
+    def _calc_fields_and_constructor(
+        self,
+        fields: list[ClassField],
+        constructor_sig: str,
+        is_frozen: bool,
+    ):
+        if constructor_sig == "":
+            # There can't be any fields if there is no constructor.
+            return ""
+        field_defs = _calc_field_definitions(fields, is_frozen)
+        c_il: str = self._calc_constructor_initializer_list(fields)
+        if c_il != "":
+            c_il = ": " + c_il
+        return f"{field_defs} {constructor_sig} {c_il}" + "{}"
+
+    def _calc_constructor_initializer_list(
+        self, fields_and_base_constructor_calls: list[ClassField]
+    ) -> str:
+        ret: list[str] = []
+        for field in fields_and_base_constructor_calls:
+            if field.ref:
+                ret.append(f"{field.target_str}({ARG_PREFIX}{field.target_other_name})")
+            else:
+                self._d.add_inc(AngInc("utility"))
+                ret.append(
+                    f"{field.target_str}(std::move({ARG_PREFIX}{field.target_other_name}))"
+                )
+        return ", ".join(ret)
 
 
-def _calc_final_str(
-    class_name: str, body_str: str, is_struct: bool, base_classes: list[str]
-) -> str:
-    bc: list[str] = []
-    for base in base_classes:
-        bc.append(f"public {base}")
-    base_classes_str = ", ".join(bc)
-    if base_classes_str != "":
-        base_classes_str = ": " + base_classes_str
-    if is_struct:
-        s = "struct"
-        public = ""
-    else:
-        s = "class"
-        public = "public:"
-    return f"{s} {class_name} {base_classes_str}" + "{" + public + body_str + "};\n\n"
-
-
-def _calc_base_classes(node: ast.ClassDef, d: Deps) -> list[str]:
+def _calc_field_definitions(fields: list[ClassField], is_frozen: bool) -> str:
     ret: list[str] = []
-    for base in node.bases:
-        ret.append(d.handle_expr(base))
-    return ret
-
-
-def _calc_fields_and_constructor(
-    fields: list[ClassField],
-    constructor_sig: str,
-    d: Deps,
-    is_frozen: bool,
-):
-    if constructor_sig == "":
-        # There can't be any fields if there is no constructor.
-        return ""
-    field_defs = _calc_field_definitions(fields, is_frozen)
-    c_il: str = _calc_constructor_initializer_list(fields, d)
-    if c_il != "":
-        c_il = ": " + c_il
-    return f"{field_defs} {constructor_sig} {c_il}" + "{}"
+    const_str = "const " if is_frozen else ""
+    for field in fields:
+        ret.append(f"{const_str}{field.type_cpp}{field.ref} {field.target_str};")
+    return " ".join(ret)
 
 
 def _calc_method_signatures(methods: list[ClassMethod]) -> str:
@@ -124,24 +131,19 @@ def _add_namespace(method: ClassMethod, class_name: str) -> str:
     return method.fn_signature[:m] + class_name + "::" + method.fn_signature[m:]
 
 
-def _calc_constructor_initializer_list(
-    fields_and_base_constructor_calls: list[ClassField], d: Deps
+def _calc_final_str(
+    class_name: str, body_str: str, is_struct: bool, base_classes: list[str]
 ) -> str:
-    ret: list[str] = []
-    for field in fields_and_base_constructor_calls:
-        if field.ref:
-            ret.append(f"{field.target_str}({ARG_PREFIX}{field.target_other_name})")
-        else:
-            d.add_inc(AngInc("utility"))
-            ret.append(
-                f"{field.target_str}(std::move({ARG_PREFIX}{field.target_other_name}))"
-            )
-    return ", ".join(ret)
-
-
-def _calc_field_definitions(fields: list[ClassField], is_frozen: bool) -> str:
-    ret: list[str] = []
-    const_str = "const " if is_frozen else ""
-    for field in fields:
-        ret.append(f"{const_str}{field.type_cpp}{field.ref} {field.target_str};")
-    return " ".join(ret)
+    bc: list[str] = []
+    for base in base_classes:
+        bc.append(f"public {base}")
+    base_classes_str = ", ".join(bc)
+    if base_classes_str != "":
+        base_classes_str = ": " + base_classes_str
+    if is_struct:
+        s = "struct"
+        public = ""
+    else:
+        s = "class"
+        public = "public:"
+    return f"{s} {class_name} {base_classes_str}" + "{" + public + body_str + "};\n\n"

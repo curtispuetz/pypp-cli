@@ -21,7 +21,7 @@ from pypp_cli.src.transpilers.other.transpiler.module.mapping.util import (
     find_map_entry,
 )
 from pypp_cli.src.transpilers.other.transpiler.module.util.calc_callable_type import (
-    calc_callable_type,
+    CallableTypeCalculator,
 )
 from pypp_cli.src.transpilers.other.transpiler.module.util.inner_strings import (
     calc_inside_rd,
@@ -33,9 +33,10 @@ from dataclasses import dataclass
 class GeneralAnnAssignHandler:
     _d: Deps
     _comp_handler: CompHandler
+    _callable_type_calculator: CallableTypeCalculator
 
     def handle(self, node: ast.AnnAssign, target_str: str, prefix_str: str = "") -> str:
-        type_cpp: str | None = calc_callable_type(node.annotation, self._d)
+        type_cpp: str | None = self._callable_type_calculator.calc(node.annotation)
         if type_cpp is None:
             type_cpp = self._d.handle_expr(node.annotation)
         if node.value is None:
