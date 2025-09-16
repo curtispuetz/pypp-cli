@@ -33,13 +33,12 @@ class MainAndSrcTranspiler:
                 self._src_py_files,
                 self._py_files_tracker,
             )
-            t.transpile_all_changed_files(
+            results = t.transpile_all_changed_files(
                 changes.new_files,
                 changes.changed_files,
                 self._python_dir,
                 self._cpp_dir,
             )
-            r = t.get_results()
-            r.print(files_deleted)
-            return r.files_added_or_modified
+            results.print(files_deleted)
+            return results.files_added_or_modified
         return []
