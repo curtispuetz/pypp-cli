@@ -1,14 +1,13 @@
 from pathlib import Path
 import argparse
 
-from pypp_cli.src.doers.proj.do import pypp_do
+from pypp_cli.src.doer.do import pypp_do
 from pypp_cli.src.initializers.init import pypp_init
 from pypp_cli.src.initializers.init_bridge_library import pypp_init_bridge_lib
 from pypp_cli.src.initializers.init_pure_library import (
     pypp_init_pure_lib,
 )
 from pypp_cli.src.other.pypp_paths.util import calc_proj_info_path
-from pypp_cli.src.doers.pure_lib.do_pure_lib import pypp_do_pure_lib
 from pypp_cli.src.timestamps_deleter.delete_timestamps import pypp_delete_timestamps
 
 
@@ -42,18 +41,6 @@ def main_cli(absolute_dir: Path | None = None) -> None:
         help="The name of the executable to run "
         "(required if 'run' is one of the tasks).",
         required=False,
-    )
-    parser_do_pure_lib = subparsers.add_parser(
-        "do_pure_lib", help="transpile and format a pure library"
-    )
-    parser_do_pure_lib.add_argument(
-        "tasks",
-        help="Transpile your python code to C++ and format the generated C++ code."
-        "You can choose only transpile or transpile and format. "
-        "For example, 'transpile format' will do both, and 'transpile' will only "
-        "transpile.",
-        choices=["transpile", "format"],
-        nargs="+",
     )
     parser_init_bridge = subparsers.add_parser(
         "init_bridge_lib",
@@ -93,8 +80,6 @@ def main_cli(absolute_dir: Path | None = None) -> None:
                 "argument --exe_name/-e is required when 'run' is one of the tasks."
             )
         pypp_do(args.tasks, absolute_dir, args.exe_name)
-    if args.mode == "do_pure_lib":
-        pypp_do_pure_lib(args.tasks, absolute_dir)
     elif args.mode == "delete_timestamps":
         pypp_delete_timestamps(absolute_dir)
 
