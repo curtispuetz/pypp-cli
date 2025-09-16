@@ -1,13 +1,7 @@
-from pypp_cli.src.transpilers.other.transpiler.util.src_files.handle_init_file import (
-    calc_h_code_for_init_file,
-)
+from .handle_init_file import calc_h_code_for_init_file
 from pypp_cli.src.transpilers.other.transpiler.maps.maps import Maps
-from pypp_cli.src.transpilers.other.transpiler.util.create_all_data.create_all_data import (
-    create_all_transpiler_data,
-)
-from pypp_cli.src.transpilers.other.transpiler.util.src_files.calc_includes import (
-    calc_includes,
-)
+from ...util.create_all_data.create_all_data import create_all_transpiler_data
+from .calc_includes import calc_includes
 from pypp_cli.src.transpilers.other.transpiler.util.results import TranspileResults
 
 
