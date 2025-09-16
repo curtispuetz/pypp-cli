@@ -13,14 +13,13 @@ from pypp_cli.src.transpilers.other.transpiler.maps.maps import Maps
 from pypp_cli.src.transpilers.other.transpiler.cpp_includes import CppIncludes
 
 
-@dataclass(slots=True)
+@dataclass
 class Deps:
     file_path: Path
     cpp_includes: CppIncludes
     ret_h_file: list[str]
     maps: Maps
     _py_imports: PyImports
-    _handle_expr_fn: Callable[[ast.expr, "Deps"], str]
     _handle_stmt: Callable[[ast.stmt, "Deps"], str]
     _handle_ann_assign: Callable[[ast.AnnAssign, "Deps", bool], str]
     _handle_type_alias: Callable[[ast.TypeAlias, "Deps", bool], str]
@@ -29,11 +28,14 @@ class Deps:
     inside_except_block: bool = False
     is_main_file: bool = False
 
+    def set_expr_handler(self, expr_handler: "ExprHandler"):
+        self._expr_handler = expr_handler
+
     def set_inc_in_h(self, include: bool):
         self._include_in_header = include
 
     def handle_expr(self, node: ast.expr) -> str:
-        return self._handle_expr_fn(node, self)
+        return self._expr_handler.handle(node)
 
     def handle_exprs(self, exprs: list[ast.expr], join_str: str = ", ") -> str:
         ret: list[str] = []

@@ -1,4 +1,5 @@
 import ast
+from dataclasses import dataclass
 
 from pypp_cli.src.transpilers.other.transpiler.deps import Deps
 from pypp_cli.src.transpilers.other.transpiler.maps.d_types import (
@@ -15,43 +16,47 @@ from pypp_cli.src.transpilers.other.transpiler.module.mapping.util import (
 )
 
 
-def handle_attribute(node: ast.Attribute, d: Deps):
-    attr_str: str = node.attr
-    if attr_str == "union":  # This is for the set.union method.
-        attr_str += "_"
-    value_str = d.handle_expr(node.value)
-    if value_str == "self":
-        return attr_str
-    res = f"{value_str}.{attr_str}"
-    for k, v in d.maps.attr.items():
-        e = find_map_entry(v, d)
-        if e is None:
-            continue
-        if isinstance(e, ToStringEntry):
-            if res == k:
-                d.add_incs(e.includes)
-                return e.to
-        elif isinstance(e, CustomMappingEntry):
-            if res == k:
-                d.add_incs(e.includes)
-                return e.mapping_fn(node, d)
-        elif isinstance(e, CustomMappingFromLibEntry):
-            if res.startswith(k):
-                d.add_incs(e.includes)
-                return calc_string_fn(e)(node, d)
-        elif isinstance(e, CustomMappingStartsWithEntry):
-            if res.startswith(k):
-                d.add_incs(e.includes)
-                return e.mapping_fn(node, d, res)
-        elif isinstance(e, CustomMappingStartsWithFromLibEntry):
-            if res.startswith(k):
-                d.add_incs(e.includes)
-                return calc_string_fn(e)(node, d, res)
-        elif isinstance(e, ReplaceDotWithDoubleColonEntry):
-            if res.startswith(k):
-                d.add_incs(e.includes)
-                res = res.replace(".", "::")
-                if e.add_pypp_namespace:
-                    res = "pypp::" + res
-                return res
-    return res
+@dataclass(frozen=True, slots=True)
+class AttributeHandler:
+    _d: Deps
+
+    def handle(self, node: ast.Attribute) -> str:
+        attr_str: str = node.attr
+        if attr_str == "union":  # This is for the set.union method.
+            attr_str += "_"
+        value_str = self._d.handle_expr(node.value)
+        if value_str == "self":
+            return attr_str
+        res = f"{value_str}.{attr_str}"
+        for k, v in self._d.maps.attr.items():
+            e = find_map_entry(v, self._d)
+            if e is None:
+                continue
+            if isinstance(e, ToStringEntry):
+                if res == k:
+                    self._d.add_incs(e.includes)
+                    return e.to
+            elif isinstance(e, CustomMappingEntry):
+                if res == k:
+                    self._d.add_incs(e.includes)
+                    return e.mapping_fn(node, self._d)
+            elif isinstance(e, CustomMappingFromLibEntry):
+                if res.startswith(k):
+                    self._d.add_incs(e.includes)
+                    return calc_string_fn(e)(node, self._d)
+            elif isinstance(e, CustomMappingStartsWithEntry):
+                if res.startswith(k):
+                    self._d.add_incs(e.includes)
+                    return e.mapping_fn(node, self._d, res)
+            elif isinstance(e, CustomMappingStartsWithFromLibEntry):
+                if res.startswith(k):
+                    self._d.add_incs(e.includes)
+                    return calc_string_fn(e)(node, self._d, res)
+            elif isinstance(e, ReplaceDotWithDoubleColonEntry):
+                if res.startswith(k):
+                    self._d.add_incs(e.includes)
+                    res = res.replace(".", "::")
+                    if e.add_pypp_namespace:
+                        res = "pypp::" + res
+                    return res
+        return res

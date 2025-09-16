@@ -1,10 +1,23 @@
 import ast
+from dataclasses import dataclass
 from typing import cast
 
 from pypp_cli.src.transpilers.other.transpiler.deps import Deps
 from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_for import (
     handle_for,
 )
+
+
+@dataclass(frozen=True, slots=True)
+class CompHandler:
+    _d: Deps
+
+    def handle(
+        self,
+        node: ast.ListComp | ast.SetComp | ast.DictComp,
+        target_str: str,
+    ) -> str:
+        return handle_comp(node, self._d, target_str)
 
 
 def handle_comp(
