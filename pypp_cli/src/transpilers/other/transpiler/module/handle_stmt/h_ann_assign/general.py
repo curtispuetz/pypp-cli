@@ -7,25 +7,12 @@ from pypp_cli.src.transpilers.other.transpiler.maps.d_types import (
     CustomMappingStartsWithEntry,
     CustomMappingStartsWithFromLibEntry,
 )
-from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_comp import (
-    CompHandler,
-)
-from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_ann_assign.direct_initializers import (  # noqa: E501
-    calc_value_str_for_direct_init,
-)
-from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_ann_assign.list_init_fns import (  # noqa: E501
-    calc_value_str_for_list_init_fns,
-)
-from pypp_cli.src.transpilers.other.transpiler.module.mapping.util import (
-    calc_string_fn,
-    find_map_entry,
-)
-from pypp_cli.src.transpilers.other.transpiler.module.util.calc_callable_type import (
-    CallableTypeCalculator,
-)
-from pypp_cli.src.transpilers.other.transpiler.module.util.inner_strings import (
-    calc_inside_rd,
-)
+from ...handle_expr.h_comp import CompHandler
+from .direct_initializers import calc_value_str_for_direct_init
+from .list_init_fns import calc_value_str_for_list_init_fns
+from ...mapping.util import calc_string_fn, find_map_entry
+from ...util.calc_callable_type import CallableTypeCalculator
+from ...util.inner_strings import calc_inside_rd
 from dataclasses import dataclass
 
 

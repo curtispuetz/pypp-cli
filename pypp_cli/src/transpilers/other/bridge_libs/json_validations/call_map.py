@@ -1,10 +1,8 @@
 from typing import Callable
 
 
-from pypp_cli.src.transpilers.other.bridge_libs.json_validations.util.basic_info import (  # noqa: E501
-    VALIDATE_BASIC_INFO,
-)
-from pypp_cli.src.transpilers.other.bridge_libs.json_validations.util.validate_1 import (  # noqa: E501
+from .util.basic_info import VALIDATE_BASIC_INFO
+from .util.validate_1 import (
     BASE_VALIDATE_ENTRY_MAP,
     validate_1,
     validate_replace_dot_with_double_colon,

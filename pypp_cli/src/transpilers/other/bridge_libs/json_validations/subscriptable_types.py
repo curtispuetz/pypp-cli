@@ -1,6 +1,4 @@
-from pypp_cli.src.transpilers.other.bridge_libs.json_validations.util.validate_2 import (  # noqa: E501
-    validate_2,
-)
+from .util.validate_2 import validate_2
 
 
 _S = "subscriptable_types.json"
