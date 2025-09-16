@@ -16,7 +16,7 @@ from pypp_cli.src.transpilers.library.transpiler.transpiler import Transpiler
 def create_transpiler(
     bridge_json_path_cltr: BridgeJsonPathCltr,
     bridge_libs: list[str],
-    src_py_files: list[Path],
+    py_files: list[Path],
     py_files_tracker: PyFilesTracker,
 ) -> Transpiler:
     maps_cltr = MapsCltr(
@@ -24,4 +24,4 @@ def create_transpiler(
         MapCltr2(bridge_libs, bridge_json_path_cltr),
         ImportMapCltr(bridge_libs, bridge_json_path_cltr),
     )
-    return Transpiler(src_py_files, maps_cltr.calc_maps(), py_files_tracker)
+    return Transpiler(py_files, maps_cltr.calc_maps(), py_files_tracker)

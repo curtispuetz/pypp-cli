@@ -162,12 +162,12 @@ from ...module.handle_stmt.stmt import (
 def create_all_transpiler_data(
     module: ast.Module,
     maps: Maps,
-    src_py_files: list[Path],
+    py_files: list[Path],
     file_path: Path,
     is_main_file: bool = False,
 ) -> tuple[int, Deps]:
     cpp_inc_map, import_end, py_imports, user_namespace = analyse_import_stmts(
-        module.body, maps, src_py_files, file_path
+        module.body, maps, py_files, file_path
     )
 
     d: Deps = Deps(
