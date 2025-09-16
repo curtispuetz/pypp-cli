@@ -1,12 +1,12 @@
 import ast
 from pypp_cli.src.transpilers.other.transpiler.deps import Deps
+from pypp_cli.src.transpilers.other.transpiler.module.mapping.cpp_type import (
+    CppTypeCalculator,
+)
 from .class_field_calculator import calc_class_field
 from .method_calculator import ClassMethod, MethodCalculator
 from .class_field_calculator import (
     ClassField,
-)
-from pypp_cli.src.transpilers.other.transpiler.module.mapping.cpp_type import (
-    lookup_cpp_type,
 )
 from dataclasses import dataclass
 
@@ -15,6 +15,7 @@ from dataclasses import dataclass
 class FieldsAndMethodsCalculator:
     _d: Deps
     _method_calculator: MethodCalculator
+    _cpp_type_calculator: CppTypeCalculator
 
     def calc(
         self, node: ast.ClassDef, is_def_in_header: bool
@@ -46,5 +47,5 @@ class FieldsAndMethodsCalculator:
             )
         type_cpp: str = self._d.handle_expr(node.annotation)
         target_str: str = self._d.handle_expr(node.target)
-        type_str = lookup_cpp_type(type_cpp, self._d)
+        type_str = self._cpp_type_calculator.calc(type_cpp)
         return calc_class_field(type_str, target_str, target_str)
