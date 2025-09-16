@@ -1,15 +1,13 @@
 from pypp_cli.src.transpilers.other.transpiler.maps.maps import Maps
-from pypp_cli.src.transpilers.other.transpiler.create_all_data import (
+from pypp_cli.src.transpilers.other.transpiler.util.create_all_data.create_all_data import (
     create_all_transpiler_data,
 )
 from pypp_cli.src.transpilers.other.transpiler.d_types import QInc
-from pypp_cli.src.transpilers.other.transpiler.calc_includes import (
+from pypp_cli.src.transpilers.other.transpiler.util.main_files.calc_includes import (
     calc_includes_for_main_file,
 )
-from pypp_cli.src.transpilers.other.transpiler.handle_main_stmts import (
-    handle_main_stmts,
-)
-from pypp_cli.src.transpilers.other.transpiler.results import TranspileResults
+from .handle_main_stmts import handle_main_stmts
+from pypp_cli.src.transpilers.other.transpiler.util.results import TranspileResults
 
 
 import ast
