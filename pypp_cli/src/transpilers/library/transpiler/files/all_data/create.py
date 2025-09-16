@@ -166,7 +166,7 @@ def create_all_transpiler_data(
     file_path: Path,
     is_main_file: bool = False,
 ) -> tuple[int, Deps]:
-    cpp_inc_map, import_end, py_imports, user_namespace = analyse_import_stmts(
+    cpp_inc_map, import_end, module_py_imports, user_namespace = analyse_import_stmts(
         module.body, maps, py_modules, file_path
     )
 
@@ -175,7 +175,7 @@ def create_all_transpiler_data(
         CppIncludes(set(), set(), cpp_inc_map),
         [],
         maps,
-        py_imports,
+        module_py_imports,
         user_namespace,
         is_main_file=is_main_file,
     )

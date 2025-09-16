@@ -32,10 +32,8 @@ class PyImport:
 type PySpecificImport = Union[PySpecificImpFrom, PyImport]
 
 
-# TODO: because of the name of this it is hard to know what it does. It sounds
-#  like it should just be a collection of `PyImport` above. But it isn't
 @dataclass(frozen=True, slots=True)
-class PyImports:
+class ModulePyImports:
     # key: module name, value: list of names imported from that module
     imp_from: dict[str, list[str]]
     imp: set[PyImport]

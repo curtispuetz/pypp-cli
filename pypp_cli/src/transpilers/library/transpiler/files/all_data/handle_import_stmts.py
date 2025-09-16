@@ -2,7 +2,7 @@ import ast
 from pathlib import Path
 
 from pypp_cli.src.transpilers.library.transpiler.d_types import (
-    PyImports,
+    ModulePyImports,
     PyImport,
     QInc,
 )
@@ -16,14 +16,14 @@ def analyse_import_stmts(
     maps: Maps,
     py_modules: set[str],
     file_path: Path,
-) -> tuple[IncMap, int, PyImports, set[str]]:
+) -> tuple[IncMap, int, ModulePyImports, set[str]]:
     i = 0
     cpp_inc_map: IncMap = {}
-    py_imports = PyImports({}, set())
+    module_py_imports = ModulePyImports({}, set())
     user_namespace: set[str] = set()
     for i, node in enumerate(stmts):
         if isinstance(node, ast.ImportFrom):
-            if node.module in py_imports.imp_from:
+            if node.module in module_py_imports.imp_from:
                 raise ValueError(
                     f"Duplicate import from module not supported. "
                     f"module: {node.module}. In {file_path}"
@@ -42,7 +42,7 @@ def analyse_import_stmts(
             if node.module in py_modules:
                 for alias in node.names:
                     user_namespace.add(alias.name)
-            py_imports.imp_from[node.module] = [n.name for n in node.names]
+            module_py_imports.imp_from[node.module] = [n.name for n in node.names]
         elif isinstance(node, ast.Import):
             for name in node.names:
                 if name.name in py_modules:
@@ -55,10 +55,10 @@ def analyse_import_stmts(
                         f"import 'as' required for {name.name}. In {file_path}"
                     )
                     cpp_inc_map[name.asname] = _calc_q_inc(name.name)
-                py_imports.imp.add(PyImport(name.name, name.asname))
+                module_py_imports.imp.add(PyImport(name.name, name.asname))
         else:
             break
-    return cpp_inc_map, i, py_imports, user_namespace
+    return cpp_inc_map, i, module_py_imports, user_namespace
 
 
 # TODO: extract this function.
