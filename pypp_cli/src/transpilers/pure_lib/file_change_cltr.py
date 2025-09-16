@@ -7,9 +7,6 @@ from pypp_cli.src.transpilers.other.other.file_changes.cltr import (
 from pypp_cli.src.transpilers.proj.file_change_cltr import (
     NO_FILE_CHANGES_DETECTED,
 )
-from pypp_cli.src.transpilers.other.other.print_results import (
-    print_files_changed_results,
-)
 
 
 @dataclass(frozen=True, slots=True)
@@ -30,10 +27,5 @@ class PureFileChangeCltr:
         if not (ret.changed_files or ret.new_files or ret.deleted_files):
             print(NO_FILE_CHANGES_DETECTED)
         else:
-            print_files_changed_results(
-                len(ret.changed_files),
-                len(ret.new_files),
-                len(ret.deleted_files),
-                list(ret.ignored_file_stems),
-            )
+            ret.print_results()
         return ret

@@ -4,12 +4,7 @@ from pypp_cli.src.transpilers.other.other.file_changes.cltr import (
     calc_py_file_changes,
     PyFileChanges,
 )
-from pypp_cli.src.transpilers.other.other.print_results import (
-    print_files_changed_results,
-)
-from pypp_cli.src.transpilers.proj.other.file_loader import (
-    TimeStampsFile,
-)
+from pypp_cli.src.transpilers.proj.other.file_loader import TimeStampsFile
 
 
 @dataclass(frozen=True, slots=True)
@@ -30,12 +25,7 @@ class FileChangeCltr:
         if not (changes.changed_files or changes.new_files or changes.deleted_files):
             print(NO_FILE_CHANGES_DETECTED)
         else:
-            print_files_changed_results(
-                len(changes.changed_files),
-                len(changes.new_files),
-                len(changes.deleted_files),
-                list(changes.ignored_file_stems),
-            )
+            changes.print_results()
         return changes
 
 

@@ -11,6 +11,14 @@ class PyFileChanges:
     ignored_file_stems: set[str]
     new_timestamps: dict[str, float]
 
+    def print_results(self):
+        print(
+            f"Analysed file changes. changed files: {len(self.changed_files)}, "
+            f"new files: {len(self.new_files)}, "
+            f"deleted files: {len(self.deleted_files)}, "
+            f"ignored files: {list(self.ignored_file_stems)}"
+        )
+
 
 def calc_py_file_changes(
     prev_timestamps: dict[str, float],
