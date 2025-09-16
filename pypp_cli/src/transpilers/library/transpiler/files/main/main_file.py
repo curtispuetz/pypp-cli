@@ -1,5 +1,5 @@
 from pypp_cli.src.transpilers.library.transpiler.maps.maps import Maps
-from ...util.create_all_data.create_all_data import (
+from pypp_cli.src.transpilers.library.transpiler.files.all_data.create import (
     create_all_transpiler_data,
 )
 from pypp_cli.src.transpilers.library.transpiler.d_types import QInc

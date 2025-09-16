@@ -1,6 +1,6 @@
 from .handle_init_file import calc_h_code_for_init_file
 from pypp_cli.src.transpilers.library.transpiler.maps.maps import Maps
-from ...util.create_all_data.create_all_data import create_all_transpiler_data
+from pypp_cli.src.transpilers.library.transpiler.files.all_data.create import create_all_transpiler_data
 from .calc_includes import calc_includes
 from pypp_cli.src.transpilers.library.transpiler.util.results import TranspileResults
 
