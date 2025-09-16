@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from pypp_cli.src.transpilers.other.other.bridge_json_path_cltr import (
+from pypp_cli.src.transpilers.other.bridge_libs.path_cltr import (
     BridgeJsonPathCltr,
 )
 from pypp_cli.src.transpilers.other.transpiler.d_types import (

@@ -1,7 +1,7 @@
 from pathlib import Path
 import shutil
 
-from pypp_cli.src.transpilers.proj.bridge_libs.util import calc_cpp_libs_dir
+from pypp_cli.src.transpilers.proj.all_data.bridge_libs.util import calc_cpp_libs_dir
 
 
 def delete_all_cpp_lib_files(cpp_dir: Path, lib_names: list[str]):

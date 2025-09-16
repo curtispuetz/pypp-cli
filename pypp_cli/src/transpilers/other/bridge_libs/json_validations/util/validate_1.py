@@ -1,7 +1,7 @@
 from typing import Callable
 from pypp_cli.src.config import SHOULDNT_HAPPEN
 from .basic_info import VALIDATE_BASIC_INFO
-from pypp_cli.src.transpilers.other.other.fn_str import calc_funcs_in_str
+from pypp_cli.src.transpilers.other.fn_str import calc_funcs_in_str
 from pypp_cli.src.other.library.json_validations import (
     validate_is_list_of_strings,
 )

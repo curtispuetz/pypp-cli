@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from pypp_cli.src.transpilers.proj.create_all_data import (
+from pypp_cli.src.transpilers.proj.all_data.create import (
     AllData,
     create_all_data,
 )

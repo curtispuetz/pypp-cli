@@ -3,36 +3,36 @@ from pathlib import Path
 
 from pypp_cli.src.config import ProjInfo
 from pypp_cli.src.other.pypp_paths.do import DoPyppPaths
-from pypp_cli.src.transpilers.other.other.bridge_json_path_cltr import (
+from pypp_cli.src.transpilers.other.bridge_libs.path_cltr import (
     BridgeJsonPathCltr,
 )
-from pypp_cli.src.transpilers.other.other.file_tracker import PyFilesTracker
-from pypp_cli.src.transpilers.proj.bridge_libs.copier import (
+from pypp_cli.src.transpilers.other.file_tracker import PyFilesTracker
+from pypp_cli.src.transpilers.proj.all_data.bridge_libs.copier import (
     copy_all_lib_cpp_files,
 )
-from pypp_cli.src.transpilers.proj.bridge_libs.deleter import delete_all_cpp_lib_files
+from pypp_cli.src.transpilers.proj.all_data.bridge_libs.deleter import delete_all_cpp_lib_files
 from pypp_cli.src.transpilers.other.bridge_libs.finder import (
     find_libs,
 )
-from pypp_cli.src.transpilers.proj.bridge_libs.finder import (
+from pypp_cli.src.transpilers.proj.all_data.bridge_libs.finder import (
     find_added_and_deleted_libs,
 )
 from pypp_cli.src.transpilers.other.bridge_libs.verifier import verify_all_bridge_libs
-from pypp_cli.src.transpilers.other.other.deleter import CppAndHFileDeleter
-from pypp_cli.src.transpilers.proj.file_change_cltr import (
+from pypp_cli.src.transpilers.other.deleter import CppAndHFileDeleter
+from pypp_cli.src.transpilers.proj.all_data.file_change_cltr import (
     FileChangeCltr,
 )
-from pypp_cli.src.transpilers.proj.other.initalize_cpp import CppProjectInitializer
-from pypp_cli.src.transpilers.proj.other.load_proj_info import load_proj_info
-from pypp_cli.src.transpilers.proj.other.file_loader import (
+from pypp_cli.src.transpilers.proj.all_data.initalize_cpp import CppProjectInitializer
+from pypp_cli.src.transpilers.proj.all_data.load_proj_info import load_proj_info
+from pypp_cli.src.transpilers.proj.all_data.file_loader import (
     TimestampsSaver,
     load_previous_timestamps,
 )
-from pypp_cli.src.transpilers.other.other.file_changes.file_loader import (
+from pypp_cli.src.transpilers.other.file_changes.file_loader import (
     calc_all_py_files,
 )
-from pypp_cli.src.transpilers.proj.transpiler import MainAndSrcTranspiler
-from pypp_cli.src.transpilers.proj.other.write_cmake_lists import CMakeListsWriter
+from pypp_cli.src.transpilers.proj.all_data.transpiler import MainAndSrcTranspiler
+from pypp_cli.src.transpilers.proj.all_data.write_cmake_lists import CMakeListsWriter
 
 
 @dataclass(frozen=True, slots=True)

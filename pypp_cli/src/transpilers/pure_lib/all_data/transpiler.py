@@ -1,13 +1,13 @@
 from dataclasses import dataclass
 from pathlib import Path
 
-from pypp_cli.src.transpilers.other.other.bridge_json_path_cltr import (
+from pypp_cli.src.transpilers.other.bridge_libs.path_cltr import (
     BridgeJsonPathCltr,
 )
 from pypp_cli.src.transpilers.other.transpiler.create import (
     create_transpiler,
 )
-from pypp_cli.src.transpilers.other.other.file_changes.cltr import PyFileChanges
+from pypp_cli.src.transpilers.other.file_changes.cltr import PyFileChanges
 
 
 @dataclass(frozen=True, slots=True)

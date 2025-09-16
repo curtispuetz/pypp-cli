@@ -1,9 +1,9 @@
 from pathlib import Path
 
-from pypp_cli.src.transpilers.other.other.bridge_json_path_cltr import (
+from pypp_cli.src.transpilers.other.bridge_libs.path_cltr import (
     BridgeJsonPathCltr,
 )
-from pypp_cli.src.transpilers.other.other.file_tracker import PyFilesTracker
+from pypp_cli.src.transpilers.other.file_tracker import PyFilesTracker
 from pypp_cli.src.transpilers.other.transpiler.maps.maps import MapsCltr
 from pypp_cli.src.transpilers.other.transpiler.maps.util.calc_import_map import (
     ImportMapCltr,

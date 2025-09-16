@@ -1,10 +1,10 @@
 from dataclasses import dataclass
 from pathlib import Path
-from pypp_cli.src.transpilers.other.other.file_changes.cltr import (
+from pypp_cli.src.transpilers.other.file_changes.cltr import (
     calc_py_file_changes,
     PyFileChanges,
 )
-from pypp_cli.src.transpilers.proj.other.file_loader import TimeStampsFile
+from pypp_cli.src.transpilers.proj.all_data.file_loader import TimeStampsFile
 
 
 @dataclass(frozen=True, slots=True)
