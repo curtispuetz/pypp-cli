@@ -1,5 +1,4 @@
 import ast
-
 from pypp_cli.src.transpilers.other.transpiler.deps import Deps
 from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_class_def.util import (  # noqa: E501
     ClassMethod,
@@ -10,39 +9,43 @@ from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_class_def.ut
 from pypp_cli.src.transpilers.other.transpiler.module.mapping.cpp_type import (
     lookup_cpp_type,
 )
+from dataclasses import dataclass
 
 
-def calc_fields_and_methods_for_dataclass(
-    node: ast.ClassDef,
-    d: Deps,
-    is_def_in_header: bool,
-) -> tuple[list[ClassField], list[ClassMethod]]:
-    fields: list[ClassField] = []
-    methods: list[ClassMethod] = []
-    for item in node.body:
-        if isinstance(item, ast.AnnAssign):
-            fields.append(_calc_field(item, d))
-        elif isinstance(item, ast.FunctionDef):
-            methods.append(
-                calc_method(
-                    item,
-                    d,
-                    is_def_in_header,
+@dataclass(frozen=True, slots=True)
+class FieldsAndMethodsCalculator:
+    _d: Deps
+
+    def calc(
+        self, node: ast.ClassDef, is_def_in_header: bool
+    ) -> tuple[list[ClassField], list[ClassMethod]]:
+        fields: list[ClassField] = []
+        methods: list[ClassMethod] = []
+        for item in node.body:
+            if isinstance(item, ast.AnnAssign):
+                fields.append(self._calc_field(item))
+            elif isinstance(item, ast.FunctionDef):
+                methods.append(
+                    calc_method(
+                        item,
+                        self._d,
+                        is_def_in_header,
+                    )
                 )
-            )
-        else:
-            d.value_err(
-                f"only field definitions and methods are supported in a dataclass. "
-                f"Problem class: {node.name}",
-                item,
-            )
-    return fields, methods
+            else:
+                self._d.value_err(
+                    f"only field definitions and methods are supported in a dataclass. "
+                    f"Problem class: {node.name}",
+                    item,
+                )
+        return fields, methods
 
-
-def _calc_field(node: ast.AnnAssign, d: Deps) -> ClassField:
-    if node.value is not None:
-        d.value_err("default values for dataclass attributes are not supported", node)
-    type_cpp: str = d.handle_expr(node.annotation)
-    target_str: str = d.handle_expr(node.target)
-    type_str = lookup_cpp_type(type_cpp, d)
-    return calc_class_field(type_str, target_str, target_str)
+    def _calc_field(self, node: ast.AnnAssign) -> ClassField:
+        if node.value is not None:
+            self._d.value_err(
+                "default values for dataclass attributes are not supported", node
+            )
+        type_cpp: str = self._d.handle_expr(node.annotation)
+        target_str: str = self._d.handle_expr(node.target)
+        type_str = lookup_cpp_type(type_cpp, self._d)
+        return calc_class_field(type_str, target_str, target_str)

@@ -91,6 +91,9 @@ from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_aug_assign i
 from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_class_def.for_configclass.for_configclass import (
     ConfigClassHandler,
 )
+from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_class_def.for_dataclasses.calc_fields_and_methods import (
+    FieldsAndMethodsCalculator,
+)
 from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_class_def.for_dataclasses.for_dataclasses import (
     DataclassHandler,
 )
@@ -219,7 +222,8 @@ def handle_imports_and_create_deps(
         d, assign_handler, general_ann_assign_handler
     )
     exception_class_handler = ExceptionClassHandler(d)
-    dataclass_handler = DataclassHandler(d)
+    fields_and_methods_calculator = FieldsAndMethodsCalculator(d)
+    dataclass_handler = DataclassHandler(d, fields_and_methods_calculator)
     class_def_handler = ClassDefHandler(
         d,
         config_class_handler,
