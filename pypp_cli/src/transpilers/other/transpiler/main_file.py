@@ -1,6 +1,6 @@
 from pypp_cli.src.transpilers.other.transpiler.maps.maps import Maps
-from pypp_cli.src.transpilers.other.transpiler.util import (
-    handle_imports_and_create_deps,
+from pypp_cli.src.transpilers.other.transpiler.create_all_data import (
+    create_all_transpiler_data,
 )
 from pypp_cli.src.transpilers.other.transpiler.d_types import QInc
 from pypp_cli.src.transpilers.other.transpiler.calc_includes import (
@@ -29,7 +29,7 @@ class MainFileTranspiler:
         self._write_cpp_file(file, main_cpp_code)
 
     def _calc_cpp_code(self, file_path: Path, py_ast: ast.Module) -> str:
-        import_end, d = handle_imports_and_create_deps(
+        import_end, d = create_all_transpiler_data(
             py_ast, self._maps, self._src_py_files, file_path, is_main_file=True
         )
         d.add_inc(QInc("cstdlib"))
