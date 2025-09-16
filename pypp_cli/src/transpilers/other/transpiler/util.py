@@ -2,89 +2,38 @@ import ast
 from pathlib import Path
 
 from pypp_cli.src.transpilers.other.transpiler.deps import Deps
-from .module.handle_expr.expr import (
-    ExprHandler,
-)
-from .module.handle_expr.h_attribute import (
-    AttributeHandler,
-)
-from .module.handle_expr.h_bin_op import (
-    BinOpHandler,
-)
-from .module.handle_expr.h_bool_op import (
-    BoolOpHandler,
-)
-from .module.handle_expr.h_call.h_call import (
-    CallHandler,
-)
-from .module.handle_expr.h_comp import (
-    CompHandler,
-)
-from .module.handle_expr.h_compare import (
-    CompareHandler,
-)
-from .module.handle_expr.h_constant import (
-    ConstantHandler,
-)
-from .module.handle_expr.h_dict import (
-    DictHandler,
-)
-from .module.handle_expr.h_if_exp import (
-    IfExpHandler,
-)
-from .module.handle_expr.h_joined_string import (
-    JoinedStringHandler,
-)
-from .module.handle_expr.h_lambda import (
-    LambdaHandler,
-)
-from .module.handle_expr.h_list import (
-    ListHandler,
-)
-from .module.handle_expr.h_name import (
-    NameHandler,
-)
-from .module.handle_expr.h_set import (
-    SetHandler,
-)
-from .module.handle_expr.h_slice import (
-    SliceHandler,
-)
-from .module.handle_expr.h_subscript import (
-    SubscriptHandler,
-)
-from .module.handle_expr.h_tuple import (
-    TupleHandler,
-)
-from .module.handle_expr.h_unary_op import (
-    UnaryOpHandler,
-)
-from .module.handle_expr.h_yield import (
-    YieldHandler,
-)
-from .module.handle_expr.h_yield_from import (
-    YieldFromHandler,
-)
+from .module.handle_other.exception_handler import ExceptionHandlersHandler
+from .module.handle_expr.expr import ExprHandler
+from .module.handle_expr.h_attribute import AttributeHandler
+from .module.handle_expr.h_bin_op import BinOpHandler
+from .module.handle_expr.h_bool_op import BoolOpHandler
+from .module.handle_expr.h_call.h_call import CallHandler
+from .module.handle_expr.h_comp import CompHandler
+from .module.handle_expr.h_compare import CompareHandler
+from .module.handle_expr.h_constant import ConstantHandler
+from .module.handle_expr.h_dict import DictHandler
+from .module.handle_expr.h_if_exp import IfExpHandler
+from .module.handle_expr.h_joined_string import JoinedStringHandler
+from .module.handle_expr.h_lambda import LambdaHandler
+from .module.handle_expr.h_list import ListHandler
+from .module.handle_expr.h_name import NameHandler
+from .module.handle_expr.h_set import SetHandler
+from .module.handle_expr.h_slice import SliceHandler
+from .module.handle_expr.h_subscript import SubscriptHandler
+from .module.handle_expr.h_tuple import TupleHandler
+from .module.handle_expr.h_unary_op import UnaryOpHandler
+from .module.handle_expr.h_yield import YieldHandler
+from .module.handle_expr.h_yield_from import YieldFromHandler
 from pypp_cli.src.transpilers.other.transpiler.maps.maps import Maps
 from pypp_cli.src.transpilers.other.transpiler.handle_import_stmts import (
     analyse_import_stmts,
 )
 from pypp_cli.src.transpilers.other.transpiler.cpp_includes import CppIncludes
-from .module.handle_stmt.h_ann_assign.general import (
-    GeneralAnnAssignHandler,
-)
-from .module.handle_stmt.h_ann_assign.h_ann_assign import (
-    AnnAssignHandler,
-)
-from .module.handle_stmt.h_assert import (
-    AssertHandler,
-)
-from .module.handle_stmt.h_assign import (
-    AssignHandler,
-)
-from .module.handle_stmt.h_aug_assign import (
-    AugAssignHandler,
-)
+from .module.handle_stmt.h_ann_assign.general import GeneralAnnAssignHandler
+from .module.handle_stmt.h_ann_assign.h_ann_assign import AnnAssignHandler
+from .module.handle_stmt.h_assert import AssertHandler
+from .module.handle_stmt.h_assign import AssignHandler
+from .module.handle_stmt.h_aug_assign import AugAssignHandler
 from .module.handle_stmt.h_class_def.for_configclass.for_configclass import (
     ConfigClassHandler,
 )
@@ -94,46 +43,20 @@ from .module.handle_stmt.h_class_def.for_dataclasses.calc_fields_and_methods imp
 from .module.handle_stmt.h_class_def.for_dataclasses.for_dataclasses import (
     DataclassHandler,
 )
-from .module.handle_stmt.h_class_def.for_exception import (
-    ExceptionClassHandler,
-)
-from .module.handle_stmt.h_class_def.for_interface.for_interface import (
-    InterfaceHandler,
-)
-from .module.handle_stmt.h_class_def.h_class_def import (
-    ClassDefHandler,
-)
-from .module.handle_stmt.h_expr import (
-    ExprStmtHandler,
-)
-from .module.handle_stmt.h_fn_def import (
-    FnDefHandler,
-)
-from .module.handle_stmt.h_for import (
-    ForHandler,
-)
+from .module.handle_stmt.h_class_def.for_exception import ExceptionClassHandler
+from .module.handle_stmt.h_class_def.for_interface.for_interface import InterfaceHandler
+from .module.handle_stmt.h_class_def.h_class_def import ClassDefHandler
+from .module.handle_stmt.h_expr import ExprStmtHandler
+from .module.handle_stmt.h_fn_def import FnDefHandler
+from .module.handle_stmt.h_for import ForHandler
 from .module.handle_stmt.h_if import IfHandler
-from .module.handle_stmt.h_raise import (
-    RaiseHandler,
-)
-from .module.handle_stmt.h_return import (
-    ReturnHandler,
-)
-from .module.handle_stmt.h_try import (
-    TryHandler,
-)
-from .module.handle_stmt.h_type_alias import (
-    TypeAliasHandler,
-)
-from .module.handle_stmt.h_while import (
-    WhileHandler,
-)
-from .module.handle_stmt.h_with import (
-    WithHandler,
-)
-from .module.handle_stmt.stmt import (
-    StmtHandler,
-)
+from .module.handle_stmt.h_raise import RaiseHandler
+from .module.handle_stmt.h_return import ReturnHandler
+from .module.handle_stmt.h_try import TryHandler
+from .module.handle_stmt.h_type_alias import TypeAliasHandler
+from .module.handle_stmt.h_while import WhileHandler
+from .module.handle_stmt.h_with import WithHandler
+from .module.handle_stmt.stmt import StmtHandler
 
 
 def handle_imports_and_create_deps(
@@ -207,7 +130,8 @@ def handle_imports_and_create_deps(
     if_handler = IfHandler(d)
     raise_handler = RaiseHandler(d)
     return_handler = ReturnHandler(d)
-    try_handler = TryHandler(d)
+    exception_handlers_handler = ExceptionHandlersHandler(d)
+    try_handler = TryHandler(d, exception_handlers_handler)
     type_alias_handler = TypeAliasHandler(d)
     while_handler = WhileHandler(d)
     with_handler = WithHandler(d)
