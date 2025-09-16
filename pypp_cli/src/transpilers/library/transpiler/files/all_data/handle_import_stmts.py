@@ -12,9 +12,11 @@ from pypp_cli.src.transpilers.library.transpiler.cpp_includes import IncMap
 
 # TODO: simplify this code.
 def analyse_import_stmts(
-    stmts: list[ast.stmt], maps: Maps, py_files: list[Path], file_path: Path
+    stmts: list[ast.stmt],
+    maps: Maps,
+    py_modules: set[str],
+    file_path: Path,
 ) -> tuple[IncMap, int, PyImports, set[str]]:
-    modules_in_project: set[str] = _calc_all_modules_for_project(py_files)
     i = 0
     cpp_inc_map: IncMap = {}
     py_imports = PyImports({}, set())
@@ -30,20 +32,20 @@ def analyse_import_stmts(
                 raise ValueError(
                     "Import with just a '.' not supported. Problem in {file_path}"
                 )
-            if node.module in modules_in_project or maps.import_.contains(node.module):
+            if node.module in py_modules or maps.import_.contains(node.module):
                 inc: QInc = _calc_q_inc(node.module)
                 for alias in node.names:
                     assert alias.asname is None, (
                         f"'as' is not supported in import from. In {file_path}"
                     )
                     cpp_inc_map[alias.name] = inc
-            if node.module in modules_in_project:
+            if node.module in py_modules:
                 for alias in node.names:
                     user_namespace.add(alias.name)
             py_imports.imp_from[node.module] = [n.name for n in node.names]
         elif isinstance(node, ast.Import):
             for name in node.names:
-                if name.name in modules_in_project:
+                if name.name in py_modules:
                     raise ValueError(
                         "Import is not supported for project imports "
                         "(only ImportFrom is supported). In {file_path}"
@@ -57,16 +59,6 @@ def analyse_import_stmts(
         else:
             break
     return cpp_inc_map, i, py_imports, user_namespace
-
-
-def _calc_all_modules_for_project(src_py_files: list[Path]) -> set[str]:
-    ret: set[str] = set()
-    for p in src_py_files:
-        if p.stem == "__init__":
-            ret.add(p.parent.as_posix().replace("/", "."))
-        else:
-            ret.add(p.as_posix()[:-3].replace("/", "."))
-    return ret
 
 
 # TODO: extract this function.
