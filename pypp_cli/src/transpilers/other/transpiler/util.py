@@ -5,6 +5,9 @@ from pypp_cli.src.transpilers.other.transpiler.deps import Deps
 from pypp_cli.src.transpilers.other.transpiler.module.handle_other.operator import (
     OperatorHandler,
 )
+from pypp_cli.src.transpilers.other.transpiler.module.handle_other.with_item import (
+    WithItemHandler,
+)
 from .module.handle_other.exception_handler import ExceptionHandlersHandler
 from .module.handle_expr.expr import ExprHandler
 from .module.handle_expr.h_attribute import AttributeHandler
@@ -138,7 +141,8 @@ def handle_imports_and_create_deps(
     try_handler = TryHandler(d, exception_handlers_handler)
     type_alias_handler = TypeAliasHandler(d)
     while_handler = WhileHandler(d)
-    with_handler = WithHandler(d)
+    with_item_handler = WithItemHandler(d)
+    with_handler = WithHandler(d, with_item_handler)
     comp_handler = CompHandler(d, for_handler)
     general_ann_assign_handler = GeneralAnnAssignHandler(d, comp_handler)
     ann_assign_handler = AnnAssignHandler(d, general_ann_assign_handler)
