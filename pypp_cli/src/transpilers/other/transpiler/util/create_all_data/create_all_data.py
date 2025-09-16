@@ -37,9 +37,7 @@ from ...module.handle_expr.h_unary_op import UnaryOpHandler
 from ...module.handle_expr.h_yield import YieldHandler
 from ...module.handle_expr.h_yield_from import YieldFromHandler
 from pypp_cli.src.transpilers.other.transpiler.maps.maps import Maps
-from pypp_cli.src.transpilers.other.transpiler.util.create_all_data.handle_import_stmts import (
-    analyse_import_stmts,
-)
+from .handle_import_stmts import analyse_import_stmts
 from pypp_cli.src.transpilers.other.transpiler.cpp_includes import CppIncludes
 from ...module.handle_stmt.h_ann_assign.general import GeneralAnnAssignHandler
 from ...module.handle_stmt.h_ann_assign.h_ann_assign import AnnAssignHandler

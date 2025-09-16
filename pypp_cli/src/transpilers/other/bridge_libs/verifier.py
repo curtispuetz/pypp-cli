@@ -31,15 +31,6 @@ from .json_validations.subscriptable_types import (
 )
 
 
-def verify_all_bridge_libs(
-    bridge_libs: list[str], bridge_json_path_cltr: BridgeJsonPathCltr
-):
-    for bridge_lib in bridge_libs:
-        _verify_bridge_json_files(bridge_json_path_cltr, bridge_lib)
-    if len(bridge_libs) > 0:
-        print("Verified all JSONS for new bridge-libraries")
-
-
 BRIDGE_JSON_VALIDATION: dict[str, Callable[[object], None]] = {
     "name_map": validate_name_map,
     "ann_assign_map": validate_ann_assign_map,
@@ -52,11 +43,14 @@ BRIDGE_JSON_VALIDATION: dict[str, Callable[[object], None]] = {
 }
 
 
-def _verify_bridge_json_files(
-    bridge_json_path_cltr: BridgeJsonPathCltr, library_name: str
+def verify_all_bridge_libs(
+    bridge_libs: list[str], bridge_json_path_cltr: BridgeJsonPathCltr
 ):
-    verifier = _BridgeJsonVerifier(bridge_json_path_cltr, library_name)
-    verifier.verify_bridge_jsons()
+    for bridge_lib in bridge_libs:
+        verifier = _BridgeJsonVerifier(bridge_json_path_cltr, bridge_lib)
+        verifier.verify_bridge_jsons()
+    if len(bridge_libs) > 0:
+        print("Verified all JSONS for new bridge-libraries")
 
 
 @dataclass(frozen=True, slots=True)
