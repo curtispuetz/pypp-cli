@@ -82,7 +82,6 @@ def transpile_all_changed_files(
         ret.py_files_transpiled += 1
         file_path: Path = python_dir / file
         py_ast: ast.Module = calc_ast(file_path)
-        assert len(py_ast.body) > 0, f"File {file_path} is empty"
         if _is_proper_main_block(py_ast.body[-1]):
             py_files_tracker.main_files.add(file)
             main_file_transpiler.transpile(file, file_path, py_ast)
