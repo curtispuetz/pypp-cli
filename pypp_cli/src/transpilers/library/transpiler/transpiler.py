@@ -4,8 +4,8 @@ from pathlib import Path
 from pypp_cli.src.transpilers.library.file_tracker import PyFilesTracker
 from .util.calc_ast_tree import calc_ast
 from .maps.maps import Maps
-from .util.main_files.main_file import MainFileTranspiler
-from .util.src_files.src_file import SrcFileTranspiler
+from pypp_cli.src.transpilers.library.transpiler.files.main.main_file import MainFileTranspiler
+from pypp_cli.src.transpilers.library.transpiler.files.src.src_file import SrcFileTranspiler
 from .util.results import TranspileResults
 
 

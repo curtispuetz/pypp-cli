@@ -1,8 +1,8 @@
-from pypp_cli.src.transpilers.library.transpiler.util.calc_includes import (
+from pypp_cli.src.transpilers.library.transpiler.files.util.calc_includes import (
     final_result,
 )
 from pypp_cli.src.transpilers.library.transpiler.cpp_includes import CppIncludes
-from pypp_cli.src.transpilers.library.transpiler.util.calc_includes import (
+from pypp_cli.src.transpilers.library.transpiler.files.util.calc_includes import (
     add_include_to_res,
 )
 

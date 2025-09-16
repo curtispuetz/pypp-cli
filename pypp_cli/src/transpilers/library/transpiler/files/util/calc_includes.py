@@ -1,4 +1,4 @@
-from ...transpiler.d_types import AngInc, CppInclude
+from pypp_cli.src.transpilers.library.transpiler.d_types import AngInc, CppInclude
 
 
 def add_include_to_res(imp: CppInclude, ret: list[str]):

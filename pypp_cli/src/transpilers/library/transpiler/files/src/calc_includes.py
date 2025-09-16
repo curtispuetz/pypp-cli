@@ -1,6 +1,6 @@
-from ...util.calc_includes import final_result
+from pypp_cli.src.transpilers.library.transpiler.files.util.calc_includes import final_result
 from pypp_cli.src.transpilers.library.transpiler.cpp_includes import CppIncludes
-from ...util.calc_includes import add_include_to_res
+from pypp_cli.src.transpilers.library.transpiler.files.util.calc_includes import add_include_to_res
 
 
 def calc_includes(cpp_includes: CppIncludes) -> tuple[str, str]:
