@@ -31,7 +31,7 @@ class MainAndSrcTranspiler:
                 self._bridge_json_path_cltr,
                 self._bridge_libs,
                 self._src_py_files,
-                self._py_files_tracker
+                self._py_files_tracker,
             )
             t.transpile_all_changed_files(
                 changes.new_files,
