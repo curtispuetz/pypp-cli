@@ -4,9 +4,6 @@ from pypp_cli.src.transpilers.other.transpiler.deps import Deps
 from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_class_def.create_final_str import (  # noqa: E501
     create_final_str_for_class_def,
 )
-from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_class_def.for_dataclasses.calc_fields_and_methods import (  # noqa: E501
-    calc_fields_and_methods_for_dataclass,
-)
 from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_class_def.for_dataclasses.calc_constructor_sig import (  # noqa: E501
     calc_constructor_signature_for_dataclass,
 )
@@ -14,10 +11,15 @@ from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_class_def.fo
 
 from dataclasses import dataclass
 
+from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_class_def.for_dataclasses.calc_fields_and_methods import (
+    FieldsAndMethodsCalculator,
+)
+
 
 @dataclass(frozen=True, slots=True)
 class DataclassHandler:
     _d: Deps
+    _fields_and_methods_calculator: FieldsAndMethodsCalculator
 
     def handle(self, node: ast.ClassDef, is_frozen: bool) -> str:
         is_def_in_header: bool = not self._d.is_main_file and not node.name.startswith(
@@ -25,8 +27,8 @@ class DataclassHandler:
         )
 
         self._d.set_inc_in_h(is_def_in_header)
-        fields, methods = calc_fields_and_methods_for_dataclass(
-            node, self._d, is_def_in_header
+        fields, methods = self._fields_and_methods_calculator.calc(
+            node, is_def_in_header
         )
         constructor_sig = calc_constructor_signature_for_dataclass(fields, node.name)
         ret = create_final_str_for_class_def(
