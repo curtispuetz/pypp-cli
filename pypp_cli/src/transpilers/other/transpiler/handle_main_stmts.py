@@ -7,12 +7,8 @@ from pypp_cli.src.transpilers.other.transpiler.deps import Deps
 
 def handle_main_stmts(stmts: list[ast.stmt], d: Deps) -> str:
     main_stmt = stmts[-1]
-    if not _is_proper_main(main_stmt):
-        raise ValueError(
-            "A correctly defined main block (i.e. 'if __name__ == \"__main__\":') as "
-            "the last stmt in a main file is required"
-        )
     before_main = d.handle_stmts(stmts[:-1])
+    # Shouldnt happen because I already check this
     assert isinstance(main_stmt, ast.If), SHOULDNT_HAPPEN
     inside_main = d.handle_stmts(main_stmt.body + [ast.Return(ast.Constant(0))])
     d.add_inc(QInc("pypp_util/main_error_handler.h"))
@@ -22,28 +18,3 @@ def handle_main_stmts(stmts: list[ast.stmt], d: Deps) -> str:
         + inside_main
         + "} catch (...) { pypp::handle_fatal_exception(); return EXIT_FAILURE;} }"
     )
-
-
-def _is_proper_main(node: ast.stmt) -> bool:
-    if not isinstance(node, ast.If):
-        return False
-    if len(node.orelse) != 0:
-        return False
-    if not isinstance(node.test, ast.Compare):
-        return False
-    if not isinstance(node.test.left, ast.Name):
-        return False
-    if node.test.left.id != "__name__":
-        return False
-    if len(node.test.ops) != 1:
-        return False
-    if not isinstance(node.test.ops[0], ast.Eq):
-        return False
-    if len(node.test.comparators) != 1:
-        return False
-    comp = node.test.comparators[0]
-    if not isinstance(comp, ast.Constant):
-        return False
-    if comp.value != "__main__":
-        return False
-    return True

@@ -42,7 +42,6 @@ class _FileChangeTracker:
     _curr_timestamps: dict[str, float] = field(default_factory=dict)
     _changed_files: list[Path] = field(default_factory=list)
     _new_files: list[Path] = field(default_factory=list)
-    # TODO now: I think this one can be deleted
     _ignored_file_stems: set[str] = field(default_factory=set)
 
     def _check_file_change(self, filepath: Path, rel_path: Path, rel_path_posix: str):

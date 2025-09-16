@@ -11,14 +11,6 @@ class TimeStampsFile:
     timestamps: dict[str, float]
 
 
-def calc_all_main_py_files(python_dir: Path) -> list[Path]:
-    ret: list[Path] = []
-    for path in python_dir.glob("*.py"):
-        if path.is_file():
-            ret.append(path.relative_to(python_dir))
-    return ret
-
-
 def load_previous_timestamps(timestamps_file: Path) -> TimeStampsFile:
     if timestamps_file.exists():
         with open(timestamps_file, "r") as f:
