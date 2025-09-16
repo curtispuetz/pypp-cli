@@ -2,6 +2,9 @@ import ast
 from pathlib import Path
 
 from pypp_cli.src.transpilers.other.transpiler.deps import Deps
+from pypp_cli.src.transpilers.other.transpiler.module.handle_other.operator import (
+    OperatorHandler,
+)
 from .module.handle_other.exception_handler import ExceptionHandlersHandler
 from .module.handle_expr.expr import ExprHandler
 from .module.handle_expr.h_attribute import AttributeHandler
@@ -80,7 +83,8 @@ def handle_imports_and_create_deps(
         is_main_file=is_main_file,
     )
     attribute_handler = AttributeHandler(d)
-    bin_op_handler = BinOpHandler(d)
+    operator_handler = OperatorHandler(d)
+    bin_op_handler = BinOpHandler(d, operator_handler)
     bool_op_handler = BoolOpHandler(d)
     call_handler = CallHandler(d)
     compare_handler = CompareHandler(d)
@@ -123,7 +127,7 @@ def handle_imports_and_create_deps(
 
     assert_handler = AssertHandler(d)
     assign_handler = AssignHandler(d)
-    aug_assign_handler = AugAssignHandler(d)
+    aug_assign_handler = AugAssignHandler(d, operator_handler)
     expr_stmt_handler = ExprStmtHandler(d)
     fn_def_handler = FnDefHandler(d)
     for_handler = ForHandler(d)
