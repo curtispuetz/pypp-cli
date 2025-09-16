@@ -7,7 +7,6 @@ from pypp_cli.src.transpilers.other.transpiler.d_types import (
     CppInclude,
     PyImports,
     PySpecificImport,
-    is_imported,
 )
 from pypp_cli.src.transpilers.other.transpiler.maps.maps import Maps
 from pypp_cli.src.transpilers.other.transpiler.cpp_includes import CppIncludes
@@ -89,7 +88,7 @@ class Deps:
             self.add_inc(inc)
 
     def is_imported(self, imp: PySpecificImport) -> bool:
-        return is_imported(self._py_imports, imp)
+        return self._py_imports.is_imported(imp)
 
     def value_err(self, msg: str, ast_node):
         raise ValueError(

@@ -1,8 +1,13 @@
 import ast
 from pathlib import Path
 
-from pypp_cli.src.transpilers.other.transpiler.calc_includes import add_include_to_res
+from pypp_cli.src.transpilers.other.transpiler.util.calc_includes import (
+    add_include_to_res,
+)
 from pypp_cli.src.transpilers.other.transpiler.d_types import QInc
+
+
+# TODO: make class
 
 
 def calc_h_code_for_init_file(py_ast: ast.Module, file: Path) -> tuple[str, Path]:

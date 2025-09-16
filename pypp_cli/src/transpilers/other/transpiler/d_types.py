@@ -32,15 +32,16 @@ class PyImport:
 type PySpecificImport = Union[PySpecificImpFrom, PyImport]
 
 
+# TODO: because of the name of this it is hard to know what it does. It sounds
+#  like it should just be a collection of `PyImport` above. But it isn't
 @dataclass(frozen=True, slots=True)
 class PyImports:
     # key: module name, value: list of names imported from that module
     imp_from: dict[str, list[str]]
     imp: set[PyImport]
 
-
-def is_imported(py_imports: PyImports, imp: PySpecificImport) -> bool:
-    if isinstance(imp, PyImport):
-        return imp in py_imports.imp
-    # PySpecificImpFrom
-    return imp.frm in py_imports.imp_from and imp.name in py_imports.imp_from[imp.frm]
+    def is_imported(self, imp: PySpecificImport) -> bool:
+        if isinstance(imp, PyImport):
+            return imp in self.imp
+        # PySpecificImpFrom
+        return imp.frm in self.imp_from and imp.name in self.imp_from[imp.frm]

@@ -1,14 +1,12 @@
 import ast
 from dataclasses import dataclass, field
 from pathlib import Path
-from pypp_cli.src.transpilers.other.other.file_tracker import PyFilesTracker
-from pypp_cli.src.transpilers.other.transpiler.calc_ast_tree import calc_ast
-from pypp_cli.src.transpilers.other.transpiler.maps.maps import Maps
-from pypp_cli.src.transpilers.other.transpiler.main_file import (
-    MainFileTranspiler,
-)
-from pypp_cli.src.transpilers.other.transpiler.results import TranspileResults
-from pypp_cli.src.transpilers.other.transpiler.src_file import SrcFileTranspiler
+from ..other.file_tracker import PyFilesTracker
+from .util.calc_ast_tree import calc_ast
+from .maps.maps import Maps
+from .util.main_files.main_file import MainFileTranspiler
+from .util.src_files.src_file import SrcFileTranspiler
+from .util.results import TranspileResults
 
 
 def _is_proper_main_block(node: ast.stmt) -> bool:
