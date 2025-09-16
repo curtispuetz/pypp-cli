@@ -5,10 +5,10 @@ from pypp_cli.src.transpilers.library.bridge_libs.path_cltr import (
     BridgeJsonPathCltr,
 )
 from pypp_cli.src.transpilers.library.file_tracker import PyFilesTracker
-from pypp_cli.src.transpilers.library.transpiler.create import (
-    create_transpiler,
-)
 from pypp_cli.src.transpilers.library.file_changes.cltr import PyFileChanges
+from pypp_cli.src.transpilers.library.transpiler.transpiler import (
+    transpile_all_changed_files,
+)
 
 
 @dataclass(frozen=True, slots=True)
@@ -27,17 +27,15 @@ class MainAndSrcTranspiler:
     ) -> list[Path]:
         self._cpp_dir.mkdir(parents=True, exist_ok=True)
         if len(changes.new_files) > 0 or len(changes.changed_files) > 0:
-            t = create_transpiler(
+            results = transpile_all_changed_files(
                 self._bridge_json_path_cltr,
                 self._bridge_libs,
                 self._py_files,
                 self._py_files_tracker,
-            )
-            results = t.transpile_all_changed_files(
-                changes.new_files,
-                changes.changed_files,
                 self._python_dir,
                 self._cpp_dir,
+                changes.new_files,
+                changes.changed_files,
             )
             results.print(files_deleted)
             return results.files_added_or_modified
