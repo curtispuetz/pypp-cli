@@ -12,11 +12,11 @@ class TranspileResults:
     def print(self, files_deleted: int):
         print(
             f"Py++ transpile finished. "
-            f"files deleted: {files_deleted}, "
             f"py files transpiled: "
             f"{self.py_files_transpiled}, "
             f"header files written: "
             f"{self.h_files_written},"
             f" cpp files written: "
-            f"{self.cpp_files_written}"
+            f"{self.cpp_files_written}, "
+            f"header and cpp files deleted: {files_deleted}"
         )
