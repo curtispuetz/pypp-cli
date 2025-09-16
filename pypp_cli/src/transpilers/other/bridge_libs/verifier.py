@@ -5,28 +5,28 @@ from typing import Callable
 from pypp_cli.src.transpilers.other.other.bridge_json_path_cltr import (
     BridgeJsonPathCltr,
 )
-from pypp_cli.src.transpilers.other.bridge_libs.json_validations.always_pass_by_value import (  # noqa: E501
+from .json_validations.always_pass_by_value import (
     validate_always_pass_by_value,
 )
-from pypp_cli.src.transpilers.other.bridge_libs.json_validations.ann_assign_map import (  # noqa: E501
+from .json_validations.ann_assign_map import (
     validate_ann_assign_map,
 )
-from pypp_cli.src.transpilers.other.bridge_libs.json_validations.attr_map import (
+from .json_validations.attr_map import (
     validate_attr_map,
 )
-from pypp_cli.src.transpilers.other.bridge_libs.json_validations.call_map import (
+from .json_validations.call_map import (
     validate_call_map,
 )
-from pypp_cli.src.transpilers.other.bridge_libs.json_validations.cmake_lists import (
+from .json_validations.cmake_lists import (
     validate_cmake_lists,
 )
-from pypp_cli.src.transpilers.other.bridge_libs.json_validations.import_map import (
+from .json_validations.import_map import (
     validate_import_map,
 )
-from pypp_cli.src.transpilers.other.bridge_libs.json_validations.name_map import (
+from .json_validations.name_map import (
     validate_name_map,
 )
-from pypp_cli.src.transpilers.other.bridge_libs.json_validations.subscriptable_types import (  # noqa: E501
+from .json_validations.subscriptable_types import (
     validate_subscriptable_types,
 )
 

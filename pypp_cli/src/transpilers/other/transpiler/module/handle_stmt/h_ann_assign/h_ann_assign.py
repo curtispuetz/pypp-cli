@@ -1,9 +1,7 @@
 import ast
 
 from pypp_cli.src.transpilers.other.transpiler.deps import Deps
-from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_ann_assign.general import (  # noqa: E501
-    GeneralAnnAssignHandler,
-)
+from .general import GeneralAnnAssignHandler
 from dataclasses import dataclass
 
 

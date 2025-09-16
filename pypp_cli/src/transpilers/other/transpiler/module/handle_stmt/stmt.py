@@ -2,51 +2,21 @@ import ast
 from dataclasses import dataclass
 
 from pypp_cli.src.transpilers.other.transpiler.deps import Deps
-from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_ann_assign.h_ann_assign import (  # noqa: E501
-    AnnAssignHandler,
-)
-from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_assert import (
-    AssertHandler,
-)
-from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_assign import (
-    AssignHandler,
-)
-from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_aug_assign import (
-    AugAssignHandler,
-)
-from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_class_def.h_class_def import (  # noqa: E501
-    ClassDefHandler,
-)
-from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_expr import (
-    ExprStmtHandler,
-)
-from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_fn_def import (
-    FnDefHandler,
-)
-from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_for import (
-    ForHandler,
-)
-from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_if import (
-    IfHandler,
-)
-from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_raise import (
-    RaiseHandler,
-)
-from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_return import (
-    ReturnHandler,
-)
-from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_try import (
-    TryHandler,
-)
-from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_type_alias import (
-    TypeAliasHandler,
-)
-from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_while import (
-    WhileHandler,
-)
-from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_with import (
-    WithHandler,
-)
+from .h_ann_assign.h_ann_assign import AnnAssignHandler
+from .h_assert import AssertHandler
+from .h_assign import AssignHandler
+from .h_aug_assign import AugAssignHandler
+from .h_class_def.h_class_def import ClassDefHandler
+from .h_expr import ExprStmtHandler
+from .h_fn_def import FnDefHandler
+from .h_for import ForHandler
+from .h_if import IfHandler
+from .h_raise import RaiseHandler
+from .h_return import ReturnHandler
+from .h_try import TryHandler
+from .h_type_alias import TypeAliasHandler
+from .h_while import WhileHandler
+from .h_with import WithHandler
 
 
 @dataclass(frozen=True, slots=True)

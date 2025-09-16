@@ -2,63 +2,25 @@ import ast
 from dataclasses import dataclass
 
 from pypp_cli.src.transpilers.other.transpiler.deps import Deps
-from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_attribute import (
-    AttributeHandler,
-)
-from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_bin_op import (
-    BinOpHandler,
-)
-from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_bool_op import (
-    BoolOpHandler,
-)
-from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_call.h_call import (
-    CallHandler,
-)
-from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_compare import (
-    CompareHandler,
-)
-from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_constant import (
-    ConstantHandler,
-)
-from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_dict import (
-    DictHandler,
-)
-from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_if_exp import (
-    IfExpHandler,
-)
-from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_joined_string import (  # noqa: E501
-    JoinedStringHandler,
-)
-from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_lambda import (
-    LambdaHandler,
-)
-from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_list import (
-    ListHandler,
-)
-from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_name import (
-    NameHandler,
-)
-from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_set import (
-    SetHandler,
-)
-from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_subscript import (
-    SubscriptHandler,
-)
-from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_tuple import (
-    TupleHandler,
-)
-from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_unary_op import (
-    UnaryOpHandler,
-)
-from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_slice import (
-    SliceHandler,
-)
-from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_yield import (
-    YieldHandler,
-)
-from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_yield_from import (
-    YieldFromHandler,
-)
+from .h_attribute import AttributeHandler
+from .h_bin_op import BinOpHandler
+from .h_bool_op import BoolOpHandler
+from .h_call.h_call import CallHandler
+from .h_compare import CompareHandler
+from .h_constant import ConstantHandler
+from .h_dict import DictHandler
+from .h_if_exp import IfExpHandler
+from .h_joined_string import JoinedStringHandler
+from .h_lambda import LambdaHandler
+from .h_list import ListHandler
+from .h_name import NameHandler
+from .h_set import SetHandler
+from .h_subscript import SubscriptHandler
+from .h_tuple import TupleHandler
+from .h_unary_op import UnaryOpHandler
+from .h_slice import SliceHandler
+from .h_yield import YieldHandler
+from .h_yield_from import YieldFromHandler
 
 
 @dataclass(frozen=True, slots=True)

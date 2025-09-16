@@ -1,6 +1,4 @@
-from pypp_cli.src.transpilers.other.bridge_libs.json_validations.util.basic_info import (  # noqa: E501
-    validate_required_py_import,
-)
+from .basic_info import validate_required_py_import
 
 
 def validate_2(o: object, S: str):
