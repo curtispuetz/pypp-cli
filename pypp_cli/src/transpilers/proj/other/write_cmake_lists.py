@@ -1,4 +1,3 @@
-from ast import main
 from dataclasses import dataclass
 import json
 from pathlib import Path
