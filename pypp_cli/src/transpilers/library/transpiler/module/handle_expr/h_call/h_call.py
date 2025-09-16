@@ -19,7 +19,7 @@ from pypp_cli.src.transpilers.library.transpiler.module.mapping.util import (
     calc_string_fn,
     find_map_entry,
 )
-from pypp_cli.src.transpilers.library.transpiler.module.util.check_primitive_type import (
+from pypp_cli.src.transpilers.library.transpiler.module.util.check_primitive_type import (  # noqa: E501
     is_primitive_type,
 )
 
