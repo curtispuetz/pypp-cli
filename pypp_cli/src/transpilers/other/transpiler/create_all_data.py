@@ -71,7 +71,7 @@ from .module.handle_stmt.h_with import WithHandler
 from .module.handle_stmt.stmt import StmtHandler
 
 
-def handle_imports_and_create_deps(
+def create_all_transpiler_data(
     module: ast.Module,
     maps: Maps,
     src_py_files: list[Path],
@@ -204,28 +204,3 @@ def handle_imports_and_create_deps(
     d.set_type_alias_handler(type_alias_handler)
 
     return import_end, d
-
-
-def is_proper_main_block(node: ast.stmt) -> bool:
-    if not isinstance(node, ast.If):
-        return False
-    if len(node.orelse) != 0:
-        return False
-    if not isinstance(node.test, ast.Compare):
-        return False
-    if not isinstance(node.test.left, ast.Name):
-        return False
-    if node.test.left.id != "__name__":
-        return False
-    if len(node.test.ops) != 1:
-        return False
-    if not isinstance(node.test.ops[0], ast.Eq):
-        return False
-    if len(node.test.comparators) != 1:
-        return False
-    comp = node.test.comparators[0]
-    if not isinstance(comp, ast.Constant):
-        return False
-    if comp.value != "__main__":
-        return False
-    return True

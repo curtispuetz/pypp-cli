@@ -9,7 +9,31 @@ from pypp_cli.src.transpilers.other.transpiler.main_file import (
 )
 from pypp_cli.src.transpilers.other.transpiler.results import TranspileResults
 from pypp_cli.src.transpilers.other.transpiler.src_file import SrcFileTranspiler
-from pypp_cli.src.transpilers.other.transpiler.util import is_proper_main_block
+
+
+def _is_proper_main_block(node: ast.stmt) -> bool:
+    if not isinstance(node, ast.If):
+        return False
+    if len(node.orelse) != 0:
+        return False
+    if not isinstance(node.test, ast.Compare):
+        return False
+    if not isinstance(node.test.left, ast.Name):
+        return False
+    if node.test.left.id != "__name__":
+        return False
+    if len(node.test.ops) != 1:
+        return False
+    if not isinstance(node.test.ops[0], ast.Eq):
+        return False
+    if len(node.test.comparators) != 1:
+        return False
+    comp = node.test.comparators[0]
+    if not isinstance(comp, ast.Constant):
+        return False
+    if comp.value != "__main__":
+        return False
+    return True
 
 
 @dataclass(frozen=True, slots=True)
@@ -37,7 +61,7 @@ class Transpiler:
             file_path: Path = python_dir / file
             py_ast: ast.Module = calc_ast(file_path)
             assert len(py_ast.body) > 0, f"File {file_path} is empty"
-            if is_proper_main_block(py_ast.body[-1]):
+            if _is_proper_main_block(py_ast.body[-1]):
                 self._py_file_tracker.main_files.add(file)
                 main_file_transpiler.transpile(file, file_path, py_ast)
             else:

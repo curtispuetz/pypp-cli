@@ -2,8 +2,8 @@ from pypp_cli.src.transpilers.other.transpiler.handle_init_file import (
     calc_h_code_for_init_file,
 )
 from pypp_cli.src.transpilers.other.transpiler.maps.maps import Maps
-from pypp_cli.src.transpilers.other.transpiler.util import (
-    handle_imports_and_create_deps,
+from pypp_cli.src.transpilers.other.transpiler.create_all_data import (
+    create_all_transpiler_data,
 )
 from pypp_cli.src.transpilers.other.transpiler.calc_includes import (
     calc_includes,
@@ -35,7 +35,7 @@ class SrcFileTranspiler:
             return "", *calc_h_code_for_init_file(py_ast, file)
 
         h_file: Path = file.with_suffix(".h")
-        import_end, d = handle_imports_and_create_deps(
+        import_end, d = create_all_transpiler_data(
             py_ast, self._maps, self._src_py_files, file_path
         )
         cpp_code_minus_include: str = d.handle_stmts_for_module(
