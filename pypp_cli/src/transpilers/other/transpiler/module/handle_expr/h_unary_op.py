@@ -1,4 +1,5 @@
 import ast
+from dataclasses import dataclass
 
 from pypp_cli.src.transpilers.other.transpiler.deps import Deps
 from pypp_cli.src.transpilers.other.transpiler.module.handle_other.unary_op import (
@@ -6,7 +7,11 @@ from pypp_cli.src.transpilers.other.transpiler.module.handle_other.unary_op impo
 )
 
 
-def handle_unary_op(node: ast.UnaryOp, d: Deps) -> str:
-    op_str = handle_unaryop(node.op)
-    value = d.handle_expr(node.operand)
-    return op_str + value
+@dataclass(frozen=True, slots=True)
+class UnaryOpHandler:
+    _d: Deps
+
+    def handle(self, node: ast.UnaryOp) -> str:
+        op_str = handle_unaryop(node.op)
+        value = self._d.handle_expr(node.operand)
+        return op_str + value

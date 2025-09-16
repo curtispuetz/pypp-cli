@@ -1,124 +1,148 @@
 import ast
+from dataclasses import dataclass
 
 from pypp_cli.src.transpilers.other.transpiler.deps import Deps
 from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_attribute import (
-    handle_attribute,
+    AttributeHandler,
 )
 from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_bin_op import (
-    handle_bin_op,
+    BinOpHandler,
 )
 from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_bool_op import (
-    handle_bool_op,
+    BoolOpHandler,
 )
 from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_call.h_call import (
-    handle_call,
+    CallHandler,
 )
 from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_compare import (
-    handle_compare,
+    CompareHandler,
 )
 from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_constant import (
-    handle_constant,
+    ConstantHandler,
 )
 from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_dict import (
-    handle_dict,
+    DictHandler,
 )
 from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_if_exp import (
-    handle_if_exp,
+    IfExpHandler,
 )
 from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_joined_string import (  # noqa: E501
-    handle_joined_string,
+    JoinedStringHandler,
 )
 from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_lambda import (
-    handle_lambda,
+    LambdaHandler,
 )
 from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_list import (
-    handle_list,
+    ListHandler,
 )
 from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_name import (
-    handle_name,
+    NameHandler,
 )
 from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_set import (
-    handle_set,
+    SetHandler,
 )
 from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_subscript import (
-    handle_subscript,
+    SubscriptHandler,
 )
 from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_tuple import (
-    handle_tuple,
+    TupleHandler,
 )
 from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_unary_op import (
-    handle_unary_op,
+    UnaryOpHandler,
 )
 from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_slice import (
-    handle_slice,
+    SliceHandler,
 )
 from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_yield import (
-    handle_yield,
+    YieldHandler,
 )
 from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_yield_from import (
-    handle_yield_from,
+    YieldFromHandler,
 )
 
 
-def handle_expr(node: ast.expr, d: Deps) -> str:
-    if isinstance(node, ast.Compare):
-        return handle_compare(node, d)
-    if isinstance(node, ast.Name):
-        return handle_name(node, d)
-    if isinstance(node, ast.Constant):
-        return handle_constant(node, d)
-    if isinstance(node, ast.Call):
-        return handle_call(node, d)
-    if isinstance(node, ast.Subscript):
-        return handle_subscript(node, d)
-    if isinstance(node, ast.BoolOp):
-        return handle_bool_op(node, d)
-    if isinstance(node, ast.List):
-        return handle_list(node, d)
-    if isinstance(node, ast.Attribute):
-        return handle_attribute(node, d)
-    if isinstance(node, ast.UnaryOp):
-        return handle_unary_op(node, d)
-    if isinstance(node, ast.Slice):
-        return handle_slice(node, d)
-    if isinstance(node, ast.BinOp):
-        return handle_bin_op(node, d)
-    if isinstance(node, ast.Tuple):
-        return handle_tuple(node, d)
-    if isinstance(node, ast.Dict):
-        return handle_dict(node, d)
-    if isinstance(node, ast.Set):
-        return handle_set(node, d)
-    if isinstance(node, ast.JoinedStr):
-        return handle_joined_string(node, d)
-    if isinstance(node, ast.Lambda):
-        return handle_lambda(node, d)
-    if isinstance(node, ast.Yield):
-        return handle_yield(node, d)
-    if isinstance(node, ast.YieldFrom):
-        return handle_yield_from(node, d)
-    if isinstance(node, ast.IfExp):
-        return handle_if_exp(node, d)
-    if isinstance(node, ast.Starred):
-        d.value_err(
-            "Starred expressions are not supported",
-            node,
-        )
-    if isinstance(node, ast.ListComp):
-        d.value_err(
-            "List comprehensions are only supported with assignment to a variable.",
-            node,
-        )
-    if isinstance(node, ast.SetComp):
-        d.value_err(
-            "Set comprehensions are only supported with assignment to a variable.",
-            node,
-        )
-    if isinstance(node, ast.DictComp):
-        d.value_err(
-            "Dict comprehensions are only supported with assignment to a variable.",
-            node,
-        )
-    if isinstance(node, ast.GeneratorExp):
-        d.value_err("Generator expressions are not supported", node)
-    d.value_err(f"code expr type {node} not supported", node)
+@dataclass(frozen=True, slots=True)
+class ExprHandler:
+    _d: Deps
+    _attribute: AttributeHandler
+    _bin_op: BinOpHandler
+    _bool_op: BoolOpHandler
+    _call: CallHandler
+    _compare: CompareHandler
+    _constant: ConstantHandler
+    _dict_handler: DictHandler
+    _if_exp: IfExpHandler
+    _joined_string: JoinedStringHandler
+    _lambda: LambdaHandler
+    _list: ListHandler
+    _name: NameHandler
+    _set: SetHandler
+    _slice: SliceHandler
+    _subscript: SubscriptHandler
+    _tuple: TupleHandler
+    _unary_op: UnaryOpHandler
+    _yield: YieldHandler
+    _yield_from: YieldFromHandler
+
+    def handle(self, node: ast.expr) -> str:
+        if isinstance(node, ast.Compare):
+            return self._compare.handle(node)
+        if isinstance(node, ast.Name):
+            return self._name.handle(node)
+        if isinstance(node, ast.Constant):
+            return self._constant.handle(node)
+        if isinstance(node, ast.Call):
+            return self._call.handle(node)
+        if isinstance(node, ast.Subscript):
+            return self._subscript.handle(node)
+        if isinstance(node, ast.BoolOp):
+            return self._bool_op.handle(node)
+        if isinstance(node, ast.List):
+            return self._list.handle(node)
+        if isinstance(node, ast.Attribute):
+            return self._attribute.handle(node)
+        if isinstance(node, ast.UnaryOp):
+            return self._unary_op.handle(node)
+        if isinstance(node, ast.Slice):
+            return self._slice.handle(node)
+        if isinstance(node, ast.BinOp):
+            return self._bin_op.handle(node)
+        if isinstance(node, ast.Tuple):
+            return self._tuple.handle(node)
+        if isinstance(node, ast.Dict):
+            return self._dict_handler.handle(node)
+        if isinstance(node, ast.Set):
+            return self._set.handle(node)
+        if isinstance(node, ast.JoinedStr):
+            return self._joined_string.handle(node)
+        if isinstance(node, ast.Lambda):
+            return self._lambda.handle(node)
+        if isinstance(node, ast.Yield):
+            return self._yield.handle(node)
+        if isinstance(node, ast.YieldFrom):
+            return self._yield_from.handle(node)
+        if isinstance(node, ast.IfExp):
+            return self._if_exp.handle(node)
+        if isinstance(node, ast.Starred):
+            self._d.value_err(
+                "Starred expressions are not supported",
+                node,
+            )
+        if isinstance(node, ast.ListComp):
+            self._d.value_err(
+                "List comprehensions are only supported with assignment to a variable.",
+                node,
+            )
+        if isinstance(node, ast.SetComp):
+            self._d.value_err(
+                "Set comprehensions are only supported with assignment to a variable.",
+                node,
+            )
+        if isinstance(node, ast.DictComp):
+            self._d.value_err(
+                "Dict comprehensions are only supported with assignment to a variable.",
+                node,
+            )
+        if isinstance(node, ast.GeneratorExp):
+            self._d.value_err("Generator expressions are not supported", node)
+        self._d.value_err(f"code expr type {node} not supported", node)

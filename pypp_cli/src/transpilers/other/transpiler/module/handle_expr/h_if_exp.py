@@ -1,10 +1,15 @@
 import ast
+from dataclasses import dataclass
 
 from pypp_cli.src.transpilers.other.transpiler.deps import Deps
 
 
-def handle_if_exp(node: ast.IfExp, d: Deps) -> str:
-    test = d.handle_expr(node.test)
-    body = d.handle_expr(node.body)
-    orelse = d.handle_expr(node.orelse)
-    return f"({test}) ? {body} : {orelse}"
+@dataclass(frozen=True, slots=True)
+class IfExpHandler:
+    _d: Deps
+
+    def handle(self, node: ast.IfExp) -> str:
+        test = self._d.handle_expr(node.test)
+        body = self._d.handle_expr(node.body)
+        orelse = self._d.handle_expr(node.orelse)
+        return f"({test}) ? {body} : {orelse}"
