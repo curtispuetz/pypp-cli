@@ -1,7 +1,5 @@
-from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_class_def.util import (  # noqa: E501
-    ClassField,
-    ARG_PREFIX,
-)
+from .class_field_calculator import ClassField
+from .constants import ARG_PREFIX
 
 
 def calc_constructor_signature_for_dataclass(

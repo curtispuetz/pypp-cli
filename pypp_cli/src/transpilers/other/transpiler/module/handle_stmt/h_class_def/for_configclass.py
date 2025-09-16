@@ -1,8 +1,8 @@
 import ast
 from pypp_cli.src.transpilers.other.transpiler.deps import Deps
 from dataclasses import dataclass
-from ....handle_stmt.h_ann_assign.general import GeneralAnnAssignHandler
-from ....handle_stmt.h_assign import AssignHandler
+from ..h_ann_assign.general import GeneralAnnAssignHandler
+from ..h_assign import AssignHandler
 
 # Underscore rules:
 # - If the config class doesn't start with an underscore, then it goes in the header

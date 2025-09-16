@@ -1,10 +1,9 @@
 import ast
 from pypp_cli.src.transpilers.other.transpiler.deps import Deps
-from ...h_class_def.util import (
-    ClassMethod,
+from .class_field_calculator import calc_class_field
+from .method_calculator import ClassMethod, MethodCalculator
+from .class_field_calculator import (
     ClassField,
-    MethodCalculator,
-    calc_class_field,
 )
 from pypp_cli.src.transpilers.other.transpiler.module.mapping.cpp_type import (
     lookup_cpp_type,
