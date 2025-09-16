@@ -1,5 +1,5 @@
 import ast
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from pathlib import Path
 from pypp_cli.src.transpilers.library.file_tracker import PyFilesTracker
 from .util.calc_ast_tree import calc_ast
@@ -43,7 +43,6 @@ class Transpiler:
     _src_py_files: list[Path]
     _maps: Maps
     _py_file_tracker: PyFilesTracker
-    _r: TranspileResults = field(default_factory=lambda: TranspileResults([], 0, 0, 0))
 
     def transpile_all_changed_files(
         self,
@@ -51,15 +50,16 @@ class Transpiler:
         changed_files: list[Path],
         python_dir: Path,
         cpp_dir: Path,
-    ):
+    ) -> TranspileResults:
+        ret: TranspileResults = TranspileResults([], 0, 0, 0)
         main_file_transpiler = MainFileTranspiler(
-            cpp_dir, self._src_py_files, self._maps, self._r
+            cpp_dir, self._src_py_files, self._maps, ret
         )
         src_file_transpiler = SrcFileTranspiler(
-            cpp_dir, self._src_py_files, self._maps, self._r
+            cpp_dir, self._src_py_files, self._maps, ret
         )
         for file in new_files + changed_files:
-            self._r.py_files_transpiled += 1
+            ret.py_files_transpiled += 1
             file_path: Path = python_dir / file
             py_ast: ast.Module = calc_ast(file_path)
             assert len(py_ast.body) > 0, f"File {file_path} is empty"
@@ -68,6 +68,4 @@ class Transpiler:
                 main_file_transpiler.transpile(file, file_path, py_ast)
             else:
                 src_file_transpiler.transpile(file, file_path, py_ast)
-
-    def get_results(self) -> TranspileResults:
-        return self._r
+        return ret

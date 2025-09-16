@@ -20,16 +20,16 @@ class PureLibTranspiler:
 
     def transpile(self, changes: PyFileChanges, files_deleted: int):
         if len(changes.new_files) > 0 or len(changes.changed_files) > 0:
-            transpiler = create_transpiler(
+            # TODO: fix this.
+            t = create_transpiler(
                 self._bridge_json_path_cltr, self._bridge_libs, self._py_files
             )
-            transpiler.transpile_all_changed_files(
+            results = t.transpile_all_changed_files(
                 changes.new_files,
                 changes.changed_files,
                 self._python_dir,
                 self._cpp_dir,
             )
-            r = transpiler.get_results()
-            r.print(files_deleted)
-            return r.files_added_or_modified
+            results.print(files_deleted)
+            return results.files_added_or_modified
         return []
