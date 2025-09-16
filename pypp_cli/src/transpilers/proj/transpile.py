@@ -25,8 +25,6 @@ def pypp_transpile(paths: DoPyppPaths) -> list[Path]:
 
     ret = a.main_and_src_transpiler.transpile(changes, files_deleted)
 
-    # TODO now: find out the main files that were changed. This should be able to
-    #  come out of the transpiler results.
     a.cmake_lists_writer.write()
 
     a.timestamps_saver.save(changes.new_timestamps)

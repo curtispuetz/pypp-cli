@@ -9,6 +9,7 @@ from pypp_cli.src.transpilers.other.transpiler.main_file import (
 )
 from pypp_cli.src.transpilers.other.transpiler.results import TranspileResults
 from pypp_cli.src.transpilers.other.transpiler.src_file import SrcFileTranspiler
+from pypp_cli.src.transpilers.other.transpiler.util import is_proper_main_block
 
 
 @dataclass(frozen=True, slots=True)
@@ -36,7 +37,7 @@ class Transpiler:
             file_path: Path = python_dir / file
             py_ast: ast.Module = calc_ast(file_path)
             assert len(py_ast.body) > 0, f"File {file_path} is empty"
-            if self._is_main_block(py_ast.body[-1]):
+            if is_proper_main_block(py_ast.body[-1]):
                 self._py_file_tracker.main_files.add(file)
                 main_file_transpiler.transpile(file, file_path, py_ast)
             else:
@@ -44,14 +45,3 @@ class Transpiler:
 
     def get_results(self) -> TranspileResults:
         return self._r
-
-    def _is_main_block(self, stmt: ast.stmt) -> bool:
-        # TODO: put other details is this check?
-        if isinstance(stmt, ast.If):
-            if (
-                isinstance(stmt.test, ast.Compare)
-                and isinstance(stmt.test.left, ast.Name)
-                and stmt.test.left.id == "__name__"
-            ):
-                return True
-        return False

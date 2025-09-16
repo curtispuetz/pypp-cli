@@ -26,7 +26,6 @@ from pypp_cli.src.transpilers.proj.other.initalize_cpp import CppProjectInitiali
 from pypp_cli.src.transpilers.proj.other.load_proj_info import load_proj_info
 from pypp_cli.src.transpilers.proj.other.file_loader import (
     TimestampsSaver,
-    calc_all_main_py_files,
     load_previous_timestamps,
 )
 from pypp_cli.src.transpilers.other.other.file_changes.file_loader import (
@@ -99,14 +98,3 @@ def create_all_data(paths: DoPyppPaths) -> AllData:
         TimestampsSaver(paths.timestamps_file, py_files_tracker),
         py_files_tracker,
     )
-
-
-# TODO now: delete this and calc_all_main_py_files
-def create_main_py_files(python_dir: Path) -> list[Path]:
-    ret: list[Path] = calc_all_main_py_files(python_dir)
-    if not ret:
-        raise ValueError(
-            f"No Python files (*.py) found in '{python_dir}'. These are the main "
-            f"files with a main block and at least one is needed."
-        )
-    return ret
