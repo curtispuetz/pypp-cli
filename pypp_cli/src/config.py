@@ -19,12 +19,3 @@ PROJ_INFO_DEFAULTS = ProjInfo(
     ignored_files=[],
     cmake_minimum_required_version="4.0",
 )
-
-
-@dataclass(frozen=True, slots=True)
-class PureProjInfo:
-    lib_dir_name: str
-    ignored_files: list[str]
-
-
-PURE_PROJ_INFO_DEFAULTS = PureProjInfo(lib_dir_name="easter_egg", ignored_files=[])
