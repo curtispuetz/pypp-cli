@@ -1,10 +1,5 @@
+from .single_file import MainSingleFileTranspiler
 from pypp_cli.src.transpilers.library.transpiler.maps.maps import Maps
-from pypp_cli.src.transpilers.library.transpiler.files.all_data.create import (
-    create_all_transpiler_data,
-)
-from pypp_cli.src.transpilers.library.transpiler.d_types import QInc
-from .calc_includes import calc_includes_for_main_file
-from .handle_main_stmts import handle_main_stmts
 from pypp_cli.src.transpilers.library.transpiler.util.results import TranspileResults
 
 
@@ -21,20 +16,13 @@ class MainFileTranspiler:
     _r: TranspileResults
 
     def transpile(self, file: Path, file_path: Path, py_ast: ast.Module):
-        main_cpp_code = self._calc_cpp_code(file_path, py_ast)
-        self._write_cpp_file(file, main_cpp_code)
-
-    def _calc_cpp_code(self, file_path: Path, py_ast: ast.Module) -> str:
-        import_end, d = create_all_transpiler_data(
-            py_ast, self._maps, self._py_modules, file_path, is_main_file=True
+        sf_transpiler = MainSingleFileTranspiler(
+            self._cpp_dest_dir,
+            self._py_modules,
+            self._maps,
+            self._r,
+            file,
+            file_path,
+            py_ast,
         )
-        d.add_inc(QInc("cstdlib"))
-        cpp_code_minus_includes: str = handle_main_stmts(py_ast.body[import_end:], d)
-        return calc_includes_for_main_file(d.cpp_includes) + cpp_code_minus_includes
-
-    def _write_cpp_file(self, file: Path, code: str):
-        cpp_file_rel: Path = file.with_suffix(".cpp")
-        cpp_file: Path = self._cpp_dest_dir / cpp_file_rel
-        cpp_file.write_text(code)
-        self._r.cpp_files_written += 1
-        self._r.files_added_or_modified.append(cpp_file)
+        sf_transpiler.transpile()
