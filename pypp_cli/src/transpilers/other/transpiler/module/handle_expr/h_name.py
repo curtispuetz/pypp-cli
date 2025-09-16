@@ -25,7 +25,8 @@ class NameHandler:
             self._d.add_inc(self._d.cpp_includes.include_map[node.id])
         name: str = node.id
         if name in self._d.user_namespace:
-            # In this case there is no need to check the maps, because it wont be in there.
+            # In this case there is no need to check the maps, because it wont be in
+            # there.
             return "me::" + name
 
         for k, v in self._d.maps.name.items():

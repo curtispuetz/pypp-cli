@@ -1,71 +1,68 @@
 import ast
-from dataclasses import dataclass
-from logging import Handler, config
 from pathlib import Path
 
 from pypp_cli.src.transpilers.other.transpiler.deps import Deps
-from pypp_cli.src.transpilers.other.transpiler.maps import ann_assign
-from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.expr import (
+from .module.handle_expr.expr import (
     ExprHandler,
 )
-from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_attribute import (
+from .module.handle_expr.h_attribute import (
     AttributeHandler,
 )
-from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_bin_op import (
+from .module.handle_expr.h_bin_op import (
     BinOpHandler,
 )
-from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_bool_op import (
+from .module.handle_expr.h_bool_op import (
     BoolOpHandler,
 )
-from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_call.h_call import (
+from .module.handle_expr.h_call.h_call import (
     CallHandler,
 )
-from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_comp import (
+from .module.handle_expr.h_comp import (
     CompHandler,
 )
-from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_compare import (
+from .module.handle_expr.h_compare import (
     CompareHandler,
 )
-from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_constant import (
+from .module.handle_expr.h_constant import (
     ConstantHandler,
 )
-from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_dict import (
+from .module.handle_expr.h_dict import (
     DictHandler,
 )
-from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_if_exp import (
+from .module.handle_expr.h_if_exp import (
     IfExpHandler,
 )
-from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_joined_string import (
+from .module.handle_expr.h_joined_string import (
     JoinedStringHandler,
 )
-from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_lambda import (
+from .module.handle_expr.h_lambda import (
     LambdaHandler,
 )
-from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_list import (
+from .module.handle_expr.h_list import (
     ListHandler,
 )
-from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_name import (
+from .module.handle_expr.h_name import (
     NameHandler,
 )
-from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_set import (
+from .module.handle_expr.h_set import (
     SetHandler,
 )
-from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_slice import (
+from .module.handle_expr.h_slice import (
     SliceHandler,
 )
-from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_subscript import (
+from .module.handle_expr.h_subscript import (
     SubscriptHandler,
 )
-from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_tuple import (
+from .module.handle_expr.h_tuple import (
     TupleHandler,
 )
-from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_unary_op import (
+from .module.handle_expr.h_unary_op import (
     UnaryOpHandler,
 )
-from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_yield import (
+from .module.handle_expr.h_yield import (
     YieldHandler,
 )
-from pypp_cli.src.transpilers.other.transpiler.module.handle_expr.h_yield_from import (
+from .module.handle_expr.h_yield_from import (
     YieldFromHandler,
 )
 from pypp_cli.src.transpilers.other.transpiler.maps.maps import Maps
@@ -73,68 +70,68 @@ from pypp_cli.src.transpilers.other.transpiler.handle_import_stmts import (
     analyse_import_stmts,
 )
 from pypp_cli.src.transpilers.other.transpiler.cpp_includes import CppIncludes
-from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_ann_assign.general import (
+from .module.handle_stmt.h_ann_assign.general import (
     GeneralAnnAssignHandler,
 )
-from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_ann_assign.h_ann_assign import (
+from .module.handle_stmt.h_ann_assign.h_ann_assign import (
     AnnAssignHandler,
 )
-from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_assert import (
+from .module.handle_stmt.h_assert import (
     AssertHandler,
 )
-from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_assign import (
+from .module.handle_stmt.h_assign import (
     AssignHandler,
 )
-from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_aug_assign import (
+from .module.handle_stmt.h_aug_assign import (
     AugAssignHandler,
 )
-from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_class_def.for_configclass.for_configclass import (
+from .module.handle_stmt.h_class_def.for_configclass.for_configclass import (
     ConfigClassHandler,
 )
-from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_class_def.for_dataclasses.calc_fields_and_methods import (
+from .module.handle_stmt.h_class_def.for_dataclasses.calc_fields_and_methods import (
     FieldsAndMethodsCalculator,
 )
-from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_class_def.for_dataclasses.for_dataclasses import (
+from .module.handle_stmt.h_class_def.for_dataclasses.for_dataclasses import (
     DataclassHandler,
 )
-from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_class_def.for_exception import (
+from .module.handle_stmt.h_class_def.for_exception import (
     ExceptionClassHandler,
 )
-from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_class_def.for_interface.for_interface import (
+from .module.handle_stmt.h_class_def.for_interface.for_interface import (
     InterfaceHandler,
 )
-from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_class_def.h_class_def import (
+from .module.handle_stmt.h_class_def.h_class_def import (
     ClassDefHandler,
 )
-from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_expr import (
+from .module.handle_stmt.h_expr import (
     ExprStmtHandler,
 )
-from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_fn_def import (
+from .module.handle_stmt.h_fn_def import (
     FnDefHandler,
 )
-from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_for import (
+from .module.handle_stmt.h_for import (
     ForHandler,
 )
-from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_if import IfHandler
-from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_raise import (
+from .module.handle_stmt.h_if import IfHandler
+from .module.handle_stmt.h_raise import (
     RaiseHandler,
 )
-from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_return import (
+from .module.handle_stmt.h_return import (
     ReturnHandler,
 )
-from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_try import (
+from .module.handle_stmt.h_try import (
     TryHandler,
 )
-from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_type_alias import (
+from .module.handle_stmt.h_type_alias import (
     TypeAliasHandler,
 )
-from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_while import (
+from .module.handle_stmt.h_while import (
     WhileHandler,
 )
-from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_with import (
+from .module.handle_stmt.h_with import (
     WithHandler,
 )
-from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.stmt import (
+from .module.handle_stmt.stmt import (
     StmtHandler,
 )
 

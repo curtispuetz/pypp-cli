@@ -1,21 +1,10 @@
 import ast
-
 from pypp_cli.src.transpilers.other.transpiler.deps import Deps
-from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_class_def.for_configclass.for_configclass import (
-    ConfigClassHandler,
-)
-from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_class_def.for_dataclasses.for_dataclasses import (
-    DataclassHandler,
-)
-from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_class_def.for_exception import (
-    ExceptionClassHandler,
-)
-
+from .for_configclass.for_configclass import ConfigClassHandler
+from .for_dataclasses.for_dataclasses import DataclassHandler
+from .for_exception import ExceptionClassHandler
 from dataclasses import dataclass
-
-from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_class_def.for_interface.for_interface import (
-    InterfaceHandler,
-)
+from .for_interface.for_interface import InterfaceHandler
 
 
 @dataclass(frozen=True, slots=True)
@@ -149,8 +138,8 @@ class ClassDefHandler:
         return frozen
 
     def _do_interface_assertions(self, node: ast.ClassDef) -> None:
-        # assert that only methods/functions are defined in node.body and that each of them
-        # has an 'abstractmethod' decorator
+        # assert that only methods/functions are defined in node.body and that each of
+        # them has an 'abstractmethod' decorator
         for item in node.body:
             if not isinstance(item, ast.FunctionDef):
                 self._d.value_err_class_name(

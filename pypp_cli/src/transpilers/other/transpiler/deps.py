@@ -1,7 +1,7 @@
+from __future__ import annotations
 import ast
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Callable
 
 from pypp_cli.src.transpilers.other.transpiler.d_types import (
     CppInclude,
@@ -11,6 +11,21 @@ from pypp_cli.src.transpilers.other.transpiler.d_types import (
 )
 from pypp_cli.src.transpilers.other.transpiler.maps.maps import Maps
 from pypp_cli.src.transpilers.other.transpiler.cpp_includes import CppIncludes
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from .module.handle_expr.expr import (
+        ExprHandler,
+    )
+    from .module.handle_stmt.h_ann_assign.h_ann_assign import (
+        AnnAssignHandler,
+    )
+    from .module.handle_stmt.h_type_alias import (
+        TypeAliasHandler,
+    )
+    from .module.handle_stmt.stmt import (
+        StmtHandler,
+    )
 
 
 @dataclass
