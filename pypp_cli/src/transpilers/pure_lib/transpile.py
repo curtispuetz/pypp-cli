@@ -1,6 +1,6 @@
 import json
 from pathlib import Path
-from pypp_cli.src.transpilers.pure_lib.create_all_data import create_pure_all_data
+from pypp_cli.src.transpilers.pure_lib.all_data.create import create_pure_all_data
 from pypp_cli.src.other.pypp_paths.do_pure import DoPurePyppPaths
 
 

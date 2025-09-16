@@ -2,7 +2,7 @@ import types
 from pypp_cli.src.transpilers.other.transpiler.d_types import PySpecificImport
 from pypp_cli.src.transpilers.other.transpiler.deps import Deps
 from pypp_cli.src.transpilers.other.transpiler.maps.d_types import MappingFnStr
-from pypp_cli.src.transpilers.other.other.fn_str import calc_funcs_in_str
+from pypp_cli.src.transpilers.other.fn_str import calc_funcs_in_str
 
 
 def is_imported(required_imports: set[PySpecificImport | None], d: Deps) -> bool:

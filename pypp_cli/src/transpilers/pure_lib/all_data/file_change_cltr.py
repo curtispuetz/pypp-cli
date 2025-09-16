@@ -1,10 +1,10 @@
 from dataclasses import dataclass
 from pathlib import Path
-from pypp_cli.src.transpilers.other.other.file_changes.cltr import (
+from pypp_cli.src.transpilers.other.file_changes.cltr import (
     PyFileChanges,
     calc_py_file_changes,
 )
-from pypp_cli.src.transpilers.proj.file_change_cltr import (
+from pypp_cli.src.transpilers.proj.all_data.file_change_cltr import (
     NO_FILE_CHANGES_DETECTED,
 )
 

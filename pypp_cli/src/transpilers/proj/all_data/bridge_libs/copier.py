@@ -3,7 +3,7 @@ from pathlib import Path
 import shutil
 from typing import Callable
 
-from pypp_cli.src.transpilers.proj.bridge_libs.util import (
+from pypp_cli.src.transpilers.proj.all_data.bridge_libs.util import (
     calc_cpp_libs_dir,
     calc_library_cpp_data_dir,
 )
