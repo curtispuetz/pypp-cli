@@ -12,6 +12,8 @@ from pypp_cli.src.transpilers.other.transpiler.module.util.inner_strings import 
     calc_inside_sq,
 )
 
+# TODO: make class
+
 
 def calc_fn_signature(
     node: ast.FunctionDef,

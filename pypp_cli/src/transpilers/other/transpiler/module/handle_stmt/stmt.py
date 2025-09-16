@@ -1,92 +1,114 @@
 import ast
+from dataclasses import dataclass
 
 from pypp_cli.src.transpilers.other.transpiler.deps import Deps
 from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_ann_assign.h_ann_assign import (  # noqa: E501
-    handle_ann_assign,
+    AnnAssignHandler,
 )
 from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_assert import (
-    handle_assert,
+    AssertHandler,
 )
 from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_assign import (
-    handle_assign,
+    AssignHandler,
 )
 from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_aug_assign import (
-    handle_aug_assign,
+    AugAssignHandler,
 )
 from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_class_def.h_class_def import (  # noqa: E501
-    handle_class_def,
+    ClassDefHandler,
 )
 from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_expr import (
-    handle_stmt_expr,
+    ExprStmtHandler,
 )
 from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_fn_def import (
-    handle_fn_def,
+    FnDefHandler,
 )
 from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_for import (
-    handle_for,
+    ForHandler,
 )
-from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_if import handle_if
+from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_if import (
+    IfHandler,
+)
 from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_raise import (
-    handle_raise,
+    RaiseHandler,
 )
 from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_return import (
-    handle_return,
+    ReturnHandler,
 )
 from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_try import (
-    handle_try,
+    TryHandler,
 )
 from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_type_alias import (
-    handle_type_alias,
+    TypeAliasHandler,
 )
 from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_while import (
-    handle_while,
+    WhileHandler,
 )
 from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_with import (
-    handle_with,
+    WithHandler,
 )
 
 
-def handle_stmt(node: ast.stmt, d: Deps) -> str:
-    if isinstance(node, ast.FunctionDef):
-        return handle_fn_def(node, d)
-    if isinstance(node, ast.ClassDef):
-        return handle_class_def(node, d)
-    if isinstance(node, ast.If):
-        return handle_if(node, d)
-    if isinstance(node, ast.AnnAssign):
-        return handle_ann_assign(node, d)
-    if isinstance(node, ast.Return):
-        return handle_return(node, d)
-    if isinstance(node, ast.Assign):
-        return handle_assign(node, d)
-    if isinstance(node, ast.Expr):
-        return handle_stmt_expr(node, d)
-    if isinstance(node, ast.AugAssign):
-        return handle_aug_assign(node, d)
-    if isinstance(node, ast.For):
-        return handle_for(node, d)
-    if isinstance(node, ast.While):
-        return handle_while(node, d)
-    if isinstance(node, ast.Break):
-        return "break;"
-    if isinstance(node, ast.Continue):
-        return "continue;"
-    if isinstance(node, ast.Raise):
-        return handle_raise(node, d)
-    if isinstance(node, ast.Try):
-        return handle_try(node, d)
-    if isinstance(node, ast.With):
-        return handle_with(node, d)
-    if isinstance(node, ast.Assert):
-        return handle_assert(node, d)
-    if isinstance(node, ast.TypeAlias):
-        return handle_type_alias(node, d)
-    if isinstance(node, ast.Pass):
-        return ""
-    if isinstance(node, (ast.ImportFrom, ast.Import)):
-        d.value_err(
-            "import statements are only supported at the top of the file before any "
-            "other code.",
-            node,
-        )
-    d.value_err(f"code stmt type {node} not supported", node)
+@dataclass(frozen=True, slots=True)
+class StmtHandler:
+    _d: Deps
+    assert_handler: AssertHandler
+    assign: AssignHandler
+    aug_assign: AugAssignHandler
+    expr_stmt: ExprStmtHandler
+    fn_def: FnDefHandler
+    for_handler: ForHandler
+    if_handler: IfHandler
+    raise_handler: RaiseHandler
+    return_handler: ReturnHandler
+    try_handler: TryHandler
+    type_alias_handler: TypeAliasHandler
+    while_handler: WhileHandler
+    with_handler: WithHandler
+    ann_assign_handler: AnnAssignHandler
+    class_def_handler: ClassDefHandler
+
+    def handle(self, node: ast.stmt) -> str:
+        if isinstance(node, ast.FunctionDef):
+            return self.fn_def.handle(node)
+        if isinstance(node, ast.ClassDef):
+            return self.class_def_handler.handle(node)
+        if isinstance(node, ast.If):
+            return self.if_handler.handle(node)
+        if isinstance(node, ast.AnnAssign):
+            return self.ann_assign_handler.handle(node)
+        if isinstance(node, ast.Return):
+            return self.return_handler.handle(node)
+        if isinstance(node, ast.Assign):
+            return self.assign.handle(node)
+        if isinstance(node, ast.Expr):
+            return self.expr_stmt.handle(node)
+        if isinstance(node, ast.AugAssign):
+            return self.aug_assign.handle(node)
+        if isinstance(node, ast.For):
+            return self.for_handler.handle(node)
+        if isinstance(node, ast.While):
+            return self.while_handler.handle(node)
+        if isinstance(node, ast.Break):
+            return "break;"
+        if isinstance(node, ast.Continue):
+            return "continue;"
+        if isinstance(node, ast.Raise):
+            return self.raise_handler.handle(node)
+        if isinstance(node, ast.Try):
+            return self.try_handler.handle(node)
+        if isinstance(node, ast.With):
+            return self.with_handler.handle(node)
+        if isinstance(node, ast.Assert):
+            return self.assert_handler.handle(node)
+        if isinstance(node, ast.TypeAlias):
+            return self.type_alias_handler.handle(node)
+        if isinstance(node, ast.Pass):
+            return ""
+        if isinstance(node, (ast.ImportFrom, ast.Import)):
+            self._d.value_err(
+                "import statements are only supported at the top of the file before "
+                "any other code.",
+                node,
+            )
+        self._d.value_err(f"code stmt type {node} not supported", node)

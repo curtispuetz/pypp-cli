@@ -20,9 +20,6 @@ class Deps:
     ret_h_file: list[str]
     maps: Maps
     _py_imports: PyImports
-    _handle_stmt: Callable[[ast.stmt, "Deps"], str]
-    _handle_ann_assign: Callable[[ast.AnnAssign, "Deps", bool], str]
-    _handle_type_alias: Callable[[ast.TypeAlias, "Deps", bool], str]
     user_namespace: set[str]
     _include_in_header: bool = False
     inside_except_block: bool = False
@@ -30,6 +27,15 @@ class Deps:
 
     def set_expr_handler(self, expr_handler: "ExprHandler"):
         self._expr_handler = expr_handler
+
+    def set_stmt_handler(self, stmt_handler: "StmtHandler"):
+        self._stmt_handler = stmt_handler
+
+    def set_ann_assign_handler(self, handler: "AnnAssignHandler"):
+        self._ann_assign_handler = handler
+
+    def set_type_alias_handler(self, handler: "TypeAliasHandler"):
+        self._type_alias_handler = handler
 
     def set_inc_in_h(self, include: bool):
         self._include_in_header = include
@@ -46,18 +52,18 @@ class Deps:
     def handle_stmts(self, stmts: list[ast.stmt]) -> str:
         ret: list[str] = []
         for node in stmts:
-            ret.append(self._handle_stmt(node, self))
+            ret.append(self._stmt_handler.handle(node))
         return " ".join(ret)
 
     def handle_stmts_for_module(self, stmts: list[ast.stmt]) -> str:
         ret: list[str] = []
         for node in stmts:
             if isinstance(node, ast.AnnAssign):
-                ret.append(self._handle_ann_assign(node, self, True))
+                ret.append(self._ann_assign_handler.handle(node, True))
             elif isinstance(node, ast.TypeAlias):
-                ret.append(self._handle_type_alias(node, self, True))
+                ret.append(self._type_alias_handler.handle(node, True))
             else:
-                ret.append(self._handle_stmt(node, self))
+                ret.append(self._stmt_handler.handle(node))
         return " ".join(ret)
 
     def add_inc(self, inc: CppInclude):
