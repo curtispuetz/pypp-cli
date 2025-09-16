@@ -15,12 +15,12 @@ class DoPyppPaths:
 
 
 def create_do_pypp_paths(target_dir: Path) -> DoPyppPaths:
-    cpp_dir = target_dir / "cpp"
+    pypp_dir = target_dir / ".pypp"
+    cpp_dir = pypp_dir / "cpp"
     cpp_build_release_dir = cpp_dir / "build"
-    python_dir = target_dir / "python"
-    pypp_files_dir = target_dir / "pypp_files"
-    timestamps_file = pypp_files_dir / "file_timestamps.json"
-    proj_info_file = pypp_files_dir / "proj_info.json"
+    python_dir = target_dir
+    timestamps_file = pypp_dir / "file_timestamps.json"
+    proj_info_file = pypp_dir / "proj_info.json"
     site_packages_dir = calc_sitepackages_dir(python_dir)
 
     return DoPyppPaths(

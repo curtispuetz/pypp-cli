@@ -12,12 +12,12 @@ class InitPyppPaths:
 
 
 def create_init_pypp_paths(target_dir: Path) -> InitPyppPaths:
-    python_dir = target_dir / "python"
-    pypp_files_dir = target_dir / "pypp_files"
+    python_dir = target_dir
+    pypp_files_dir = target_dir / ".pypp"
     return InitPyppPaths(
         python_dir,
-        target_dir / "cpp",
-        target_dir / "resources",
+        pypp_files_dir / "cpp",
+        pypp_files_dir / "resources",
         pypp_files_dir,
         pypp_files_dir / "proj_info.json",
     )

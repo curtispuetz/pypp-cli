@@ -24,6 +24,8 @@ class CppProjectInitializer:
             )
 
     def _initialize(self):
+        if not self._cpp_dir.exists():
+            self._cpp_dir.mkdir(parents=True)
         rm_dirs_and_files(self._cpp_dir, {"libs"})
         self._copy_cpp_template_to_cpp_dir()
         # Need to remove the timestamps file because all the C++ files need to be
