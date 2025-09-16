@@ -1,13 +1,8 @@
 import ast
 from pypp_cli.src.transpilers.other.transpiler.deps import Deps
 from dataclasses import dataclass
-
-from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_ann_assign.general import (
-    GeneralAnnAssignHandler,
-)
-from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_assign import (
-    AssignHandler,
-)
+from ....handle_stmt.h_ann_assign.general import GeneralAnnAssignHandler
+from ....handle_stmt.h_assign import AssignHandler
 
 # Underscore rules:
 # - If the config class doesn't start with an underscore, then it goes in the header
@@ -53,8 +48,8 @@ class ConfigClassHandler:
         for ann_assign in node.body:
             if not isinstance(ann_assign, ast.AnnAssign):
                 self._d.value_err(
-                    "A configclass without 'dtype' arg should only have assignments with "
-                    "annotations in the class body",
+                    "A configclass without 'dtype' arg should only have assignments "
+                    "with annotations in the class body",
                     ann_assign,
                 )
             ret.append(
@@ -74,8 +69,8 @@ class ConfigClassHandler:
         for assign in node.body:
             if not isinstance(assign, ast.Assign):
                 self._d.value_err(
-                    "A configclass with 'dtype' arg should only have assignments without "
-                    "annotations in the class body",
+                    "A configclass with 'dtype' arg should only have assignments "
+                    "without annotations in the class body",
                     assign,
                 )
             ret.append(f"{dtype_str} " + self._assign_handler.handle(assign))

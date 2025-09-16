@@ -9,8 +9,8 @@ class YieldFromHandler:
     _d: Deps
 
     def handle(self, node: ast.YieldFrom) -> str:
-        # Note: I don't need to add the dependency of "pypp_util/generator.h" because that
-        #  is already done when the function with yield is defined.
+        # Note: I don't need to add the dependency of "pypp_util/generator.h" because
+        # that is already done when the function with yield is defined.
         if node.value is None:
             self._d.value_err("'yield from' without value not supported", node)
         # Note: Imports will never be in header.
