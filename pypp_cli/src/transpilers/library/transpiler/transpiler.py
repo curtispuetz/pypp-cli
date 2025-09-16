@@ -40,7 +40,7 @@ def _is_proper_main_block(node: ast.stmt) -> bool:
 
 @dataclass(frozen=True, slots=True)
 class Transpiler:
-    _py_files: list[Path]
+    _py_modules: set[str]
     _maps: Maps
     _py_file_tracker: PyFilesTracker
 
@@ -53,10 +53,10 @@ class Transpiler:
     ) -> TranspileResults:
         ret: TranspileResults = TranspileResults([], 0, 0, 0)
         main_file_transpiler = MainFileTranspiler(
-            cpp_dir, self._py_files, self._maps, ret
+            cpp_dir, self._py_modules, self._maps, ret
         )
         src_file_transpiler = SrcFileTranspiler(
-            cpp_dir, self._py_files, self._maps, ret
+            cpp_dir, self._py_modules, self._maps, ret
         )
         for file in new_files + changed_files:
             ret.py_files_transpiled += 1

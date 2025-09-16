@@ -15,7 +15,7 @@ from pathlib import Path
 @dataclass(frozen=True, slots=True)
 class SrcFileTranspiler:
     _cpp_dest_dir: Path
-    _py_files: list[Path]
+    _py_modules: set[str]
     _maps: Maps
     _r: TranspileResults
 
@@ -32,7 +32,7 @@ class SrcFileTranspiler:
 
         h_file: Path = file.with_suffix(".h")
         import_end, d = create_all_transpiler_data(
-            py_ast, self._maps, self._py_files, file_path
+            py_ast, self._maps, self._py_modules, file_path
         )
         cpp_code_minus_include: str = d.handle_stmts_for_module(
             py_ast.body[import_end:]

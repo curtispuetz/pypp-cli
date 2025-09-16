@@ -24,4 +24,15 @@ def create_transpiler(
         MapCltr2(bridge_libs, bridge_json_path_cltr),
         ImportMapCltr(bridge_libs, bridge_json_path_cltr),
     )
-    return Transpiler(py_files, maps_cltr.calc_maps(), py_files_tracker)
+    py_modules = _calc_all_modules_for_project(py_files)
+    return Transpiler(py_modules, maps_cltr.calc_maps(), py_files_tracker)
+
+
+def _calc_all_modules_for_project(py_files: list[Path]) -> set[str]:
+    ret: set[str] = set()
+    for p in py_files:
+        if p.stem == "__init__":
+            ret.add(p.parent.as_posix().replace("/", "."))
+        else:
+            ret.add(p.as_posix()[:-3].replace("/", "."))
+    return ret
