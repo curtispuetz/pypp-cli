@@ -15,4 +15,4 @@ def run_cli(args, test_dir: Path | None = None):
 
 
 def calc_test_dir_python_executable() -> str:
-    return os.path.join(dirname, "../../test_dir/python/.venv/Scripts/python.exe")
+    return os.path.join(dirname, "../../test_dir/.venv/Scripts/python.exe")
