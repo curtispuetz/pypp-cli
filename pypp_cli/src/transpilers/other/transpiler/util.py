@@ -3,8 +3,12 @@ from pathlib import Path
 from pypp_cli.src.transpilers.other.transpiler.deps import Deps
 from .module.handle_other.operator import OperatorHandler
 from .module.handle_other.with_item import WithItemHandler
-from .module.handle_stmt.h_class_def.create_final_str import DataclassFinalStrCreator
-from .module.handle_stmt.h_class_def.util import MethodCalculator
+from .module.handle_stmt.h_class_def.for_dataclasses.create_final_str import (
+    DataclassFinalStrCreator,
+)
+from .module.handle_stmt.h_class_def.for_dataclasses.method_calculator import (
+    MethodCalculator,
+)
 from .module.util.calc_callable_type import CallableTypeCalculator
 from .module.util.calc_fn_signature import FnSignatureCalculator
 from .module.handle_other.exception_handler import ExceptionHandlersHandler
@@ -39,7 +43,7 @@ from .module.handle_stmt.h_ann_assign.h_ann_assign import AnnAssignHandler
 from .module.handle_stmt.h_assert import AssertHandler
 from .module.handle_stmt.h_assign import AssignHandler
 from .module.handle_stmt.h_aug_assign import AugAssignHandler
-from .module.handle_stmt.h_class_def.for_configclass.for_configclass import (
+from .module.handle_stmt.h_class_def.for_configclass import (
     ConfigClassHandler,
 )
 from .module.handle_stmt.h_class_def.for_dataclasses.calc_fields_and_methods import (
@@ -49,7 +53,7 @@ from .module.handle_stmt.h_class_def.for_dataclasses.for_dataclasses import (
     DataclassHandler,
 )
 from .module.handle_stmt.h_class_def.for_exception import ExceptionClassHandler
-from .module.handle_stmt.h_class_def.for_interface.for_interface import InterfaceHandler
+from .module.handle_stmt.h_class_def.for_interface import InterfaceHandler
 from .module.handle_stmt.h_class_def.h_class_def import ClassDefHandler
 from .module.handle_stmt.h_expr import ExprStmtHandler
 from .module.handle_stmt.h_fn_def import FnDefHandler

@@ -1,6 +1,6 @@
 import ast
 from pypp_cli.src.transpilers.other.transpiler.deps import Deps
-from ...h_class_def.create_final_str import DataclassFinalStrCreator
+from .create_final_str import DataclassFinalStrCreator
 from .calc_constructor_sig import calc_constructor_signature_for_dataclass
 from dataclasses import dataclass
 from .calc_fields_and_methods import FieldsAndMethodsCalculator

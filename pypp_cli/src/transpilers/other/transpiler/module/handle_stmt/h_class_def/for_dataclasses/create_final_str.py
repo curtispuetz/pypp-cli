@@ -4,7 +4,9 @@ from dataclasses import dataclass
 from pypp_cli.src.config import SHOULDNT_HAPPEN
 from pypp_cli.src.transpilers.other.transpiler.d_types import AngInc
 from pypp_cli.src.transpilers.other.transpiler.deps import Deps
-from .util import ClassMethod, ClassField, ARG_PREFIX
+from .class_field_calculator import ClassField
+from .method_calculator import ClassMethod
+from .constants import ARG_PREFIX
 from pypp_cli.src.transpilers.other.transpiler.module.util.calc_fn_signature import (
     calc_fn_str_with_body,
 )

@@ -1,10 +1,10 @@
 import ast
 from pypp_cli.src.transpilers.other.transpiler.deps import Deps
-from .for_configclass.for_configclass import ConfigClassHandler
+from .for_configclass import ConfigClassHandler
 from .for_dataclasses.for_dataclasses import DataclassHandler
 from .for_exception import ExceptionClassHandler
 from dataclasses import dataclass
-from .for_interface.for_interface import InterfaceHandler
+from .for_interface import InterfaceHandler
 
 
 @dataclass(frozen=True, slots=True)
