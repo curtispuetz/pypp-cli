@@ -12,9 +12,9 @@ from pypp_cli.src.transpilers.library.transpiler.cpp_includes import IncMap
 
 # TODO: simplify this code.
 def analyse_import_stmts(
-    stmts: list[ast.stmt], maps: Maps, src_py_files: list[Path], file_path: Path
+    stmts: list[ast.stmt], maps: Maps, py_files: list[Path], file_path: Path
 ) -> tuple[IncMap, int, PyImports, set[str]]:
-    modules_in_project: set[str] = _calc_all_modules_for_project(src_py_files)
+    modules_in_project: set[str] = _calc_all_modules_for_project(py_files)
     i = 0
     cpp_inc_map: IncMap = {}
     py_imports = PyImports({}, set())

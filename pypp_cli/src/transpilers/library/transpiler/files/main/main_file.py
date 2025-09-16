@@ -16,7 +16,7 @@ from pathlib import Path
 @dataclass(frozen=True, slots=True)
 class MainFileTranspiler:
     _cpp_dest_dir: Path
-    _src_py_files: list[Path]
+    _py_files: list[Path]
     _maps: Maps
     _r: TranspileResults
 
@@ -26,7 +26,7 @@ class MainFileTranspiler:
 
     def _calc_cpp_code(self, file_path: Path, py_ast: ast.Module) -> str:
         import_end, d = create_all_transpiler_data(
-            py_ast, self._maps, self._src_py_files, file_path, is_main_file=True
+            py_ast, self._maps, self._py_files, file_path, is_main_file=True
         )
         d.add_inc(QInc("cstdlib"))
         cpp_code_minus_includes: str = handle_main_stmts(py_ast.body[import_end:], d)
