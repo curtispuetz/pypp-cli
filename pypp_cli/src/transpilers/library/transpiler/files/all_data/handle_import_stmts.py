@@ -18,8 +18,14 @@ def analyse_import_stmts(
     file_path: Path,
 ) -> tuple[IncMap, int, ModulePyImports, set[str]]:
     i = 0
+    # This one contains a map of import name to the required CppInclude, so that when
+    # I find the name is used in the file, I add the CppInclude.
     cpp_inc_map: IncMap = {}
+    # This one is a data structure containing all the python imports in the file. I use
+    # it when I need to check if something is imported or not.
     module_py_imports = ModulePyImports({}, set())
+    # This one is a set of names that are imported from the users project itself. I use
+    # this to know if I should add the "me" namespace or not.
     user_namespace: set[str] = set()
     for i, node in enumerate(stmts):
         if isinstance(node, ast.ImportFrom):
