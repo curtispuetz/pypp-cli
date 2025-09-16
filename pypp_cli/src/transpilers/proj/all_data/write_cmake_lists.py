@@ -2,10 +2,10 @@ from dataclasses import dataclass
 import json
 from pathlib import Path
 
-from pypp_cli.src.transpilers.other.bridge_libs.path_cltr import (
+from pypp_cli.src.transpilers.library.bridge_libs.path_cltr import (
     BridgeJsonPathCltr,
 )
-from pypp_cli.src.transpilers.other.file_tracker import PyFilesTracker
+from pypp_cli.src.transpilers.library.file_tracker import PyFilesTracker
 
 
 def _calc_link_libs_lines(link_libs: list[str]) -> list[str]:
