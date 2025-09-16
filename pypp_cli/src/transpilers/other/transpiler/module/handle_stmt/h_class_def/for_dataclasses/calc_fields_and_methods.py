@@ -1,9 +1,9 @@
 import ast
 from pypp_cli.src.transpilers.other.transpiler.deps import Deps
-from pypp_cli.src.transpilers.other.transpiler.module.handle_stmt.h_class_def.util import (  # noqa: E501
+from ...h_class_def.util import (
     ClassMethod,
-    calc_method,
     ClassField,
+    MethodCalculator,
     calc_class_field,
 )
 from pypp_cli.src.transpilers.other.transpiler.module.mapping.cpp_type import (
@@ -15,6 +15,7 @@ from dataclasses import dataclass
 @dataclass(frozen=True, slots=True)
 class FieldsAndMethodsCalculator:
     _d: Deps
+    _method_calculator: MethodCalculator
 
     def calc(
         self, node: ast.ClassDef, is_def_in_header: bool
@@ -26,9 +27,8 @@ class FieldsAndMethodsCalculator:
                 fields.append(self._calc_field(item))
             elif isinstance(item, ast.FunctionDef):
                 methods.append(
-                    calc_method(
+                    self._method_calculator.calc(
                         item,
-                        self._d,
                         is_def_in_header,
                     )
                 )

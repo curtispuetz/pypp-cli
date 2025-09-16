@@ -2,10 +2,11 @@ import ast
 
 from pypp_cli.src.config import SHOULDNT_HAPPEN
 from pypp_cli.src.transpilers.other.transpiler.deps import Deps
-from pypp_cli.src.transpilers.other.transpiler.module.util.calc_fn_signature import (
-    calc_fn_signature,
-)
 from dataclasses import dataclass
+
+from pypp_cli.src.transpilers.other.transpiler.module.util.calc_fn_signature import (
+    FnSignatureCalculator,
+)
 
 
 # Underscore rules:
@@ -16,6 +17,7 @@ from dataclasses import dataclass
 @dataclass(frozen=True, slots=True)
 class InterfaceHandler:
     _d: Deps
+    _fn_signature_calculator: FnSignatureCalculator
 
     def handle(self, node: ast.ClassDef) -> str:
         # Note: interfaces are not supported yet.
@@ -41,9 +43,8 @@ class InterfaceHandler:
         for item in node.body:
             # Shouldn't happen because Because this was already checked
             assert isinstance(item, ast.FunctionDef), SHOULDNT_HAPPEN
-            fn_signature = calc_fn_signature(
+            fn_signature = self._fn_signature_calculator.calc(
                 item,
-                self._d,
                 item.name,
                 skip_first_arg=True,  # because it is self
             )

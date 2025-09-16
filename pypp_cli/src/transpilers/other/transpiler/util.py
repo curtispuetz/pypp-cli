@@ -1,13 +1,12 @@
 import ast
 from pathlib import Path
-
 from pypp_cli.src.transpilers.other.transpiler.deps import Deps
-from pypp_cli.src.transpilers.other.transpiler.module.handle_other.operator import (
-    OperatorHandler,
-)
-from pypp_cli.src.transpilers.other.transpiler.module.handle_other.with_item import (
-    WithItemHandler,
-)
+from .module.handle_other.operator import OperatorHandler
+from .module.handle_other.with_item import WithItemHandler
+from .module.handle_stmt.h_class_def.create_final_str import DataclassFinalStrCreator
+from .module.handle_stmt.h_class_def.util import MethodCalculator
+from .module.util.calc_callable_type import CallableTypeCalculator
+from .module.util.calc_fn_signature import FnSignatureCalculator
 from .module.handle_other.exception_handler import ExceptionHandlersHandler
 from .module.handle_expr.expr import ExprHandler
 from .module.handle_expr.h_attribute import AttributeHandler
@@ -132,7 +131,9 @@ def handle_imports_and_create_deps(
     assign_handler = AssignHandler(d)
     aug_assign_handler = AugAssignHandler(d, operator_handler)
     expr_stmt_handler = ExprStmtHandler(d)
-    fn_def_handler = FnDefHandler(d)
+    callable_type_calculator = CallableTypeCalculator(d)
+    fn_signature_calculator = FnSignatureCalculator(d, callable_type_calculator)
+    fn_def_handler = FnDefHandler(d, fn_signature_calculator)
     for_handler = ForHandler(d)
     if_handler = IfHandler(d)
     raise_handler = RaiseHandler(d)
@@ -144,15 +145,21 @@ def handle_imports_and_create_deps(
     with_item_handler = WithItemHandler(d)
     with_handler = WithHandler(d, with_item_handler)
     comp_handler = CompHandler(d, for_handler)
-    general_ann_assign_handler = GeneralAnnAssignHandler(d, comp_handler)
+    general_ann_assign_handler = GeneralAnnAssignHandler(
+        d, comp_handler, callable_type_calculator
+    )
     ann_assign_handler = AnnAssignHandler(d, general_ann_assign_handler)
-    interface_handler = InterfaceHandler(d)
+    interface_handler = InterfaceHandler(d, fn_signature_calculator)
     config_class_handler = ConfigClassHandler(
         d, assign_handler, general_ann_assign_handler
     )
     exception_class_handler = ExceptionClassHandler(d)
-    fields_and_methods_calculator = FieldsAndMethodsCalculator(d)
-    dataclass_handler = DataclassHandler(d, fields_and_methods_calculator)
+    method_calculator = MethodCalculator(d, fn_signature_calculator)
+    fields_and_methods_calculator = FieldsAndMethodsCalculator(d, method_calculator)
+    dataclass_final_str_creator = DataclassFinalStrCreator(d)
+    dataclass_handler = DataclassHandler(
+        d, fields_and_methods_calculator, dataclass_final_str_creator
+    )
     class_def_handler = ClassDefHandler(
         d,
         config_class_handler,
