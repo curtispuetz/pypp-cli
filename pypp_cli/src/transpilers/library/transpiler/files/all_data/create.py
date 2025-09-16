@@ -1,72 +1,162 @@
 import ast
 from pathlib import Path
 from pypp_cli.src.transpilers.library.transpiler.deps import Deps
-from pypp_cli.src.transpilers.library.transpiler.module.mapping.cpp_type import (
+from module.mapping.cpp_type import (
     CppTypeCalculator,
 )
-from pypp_cli.src.transpilers.library.transpiler.module.handle_other.operator import OperatorHandler
-from pypp_cli.src.transpilers.library.transpiler.module.handle_other.with_item import WithItemHandler
-from pypp_cli.src.transpilers.library.transpiler.module.handle_stmt.h_class_def.for_dataclasses.create_final_str import (
+from module.handle_other.operator import (
+    OperatorHandler,
+)
+from module.handle_other.with_item import (
+    WithItemHandler,
+)
+from module.handle_stmt.h_class_def.for_dataclasses.create_final_str import (
     DataclassFinalStrCreator,
 )
-from pypp_cli.src.transpilers.library.transpiler.module.handle_stmt.h_class_def.for_dataclasses.method_calculator import (
+from module.handle_stmt.h_class_def.for_dataclasses.method_calculator import (
     MethodCalculator,
 )
-from pypp_cli.src.transpilers.library.transpiler.module.util.calc_callable_type import CallableTypeCalculator
-from pypp_cli.src.transpilers.library.transpiler.module.util.calc_fn_signature import FnSignatureCalculator
-from pypp_cli.src.transpilers.library.transpiler.module.handle_other.exception_handler import ExceptionHandlersHandler
-from pypp_cli.src.transpilers.library.transpiler.module.handle_expr.expr import ExprHandler
-from pypp_cli.src.transpilers.library.transpiler.module.handle_expr.h_attribute import AttributeHandler
-from pypp_cli.src.transpilers.library.transpiler.module.handle_expr.h_bin_op import BinOpHandler
-from pypp_cli.src.transpilers.library.transpiler.module.handle_expr.h_bool_op import BoolOpHandler
-from pypp_cli.src.transpilers.library.transpiler.module.handle_expr.h_call.h_call import CallHandler
-from pypp_cli.src.transpilers.library.transpiler.module.handle_expr.h_comp import CompHandler
-from pypp_cli.src.transpilers.library.transpiler.module.handle_expr.h_compare import CompareHandler
-from pypp_cli.src.transpilers.library.transpiler.module.handle_expr.h_constant import ConstantHandler
-from pypp_cli.src.transpilers.library.transpiler.module.handle_expr.h_dict import DictHandler
-from pypp_cli.src.transpilers.library.transpiler.module.handle_expr.h_if_exp import IfExpHandler
-from pypp_cli.src.transpilers.library.transpiler.module.handle_expr.h_joined_string import JoinedStringHandler
-from pypp_cli.src.transpilers.library.transpiler.module.handle_expr.h_lambda import LambdaHandler
-from pypp_cli.src.transpilers.library.transpiler.module.handle_expr.h_list import ListHandler
-from pypp_cli.src.transpilers.library.transpiler.module.handle_expr.h_name import NameHandler
-from pypp_cli.src.transpilers.library.transpiler.module.handle_expr.h_set import SetHandler
-from pypp_cli.src.transpilers.library.transpiler.module.handle_expr.h_slice import SliceHandler
-from pypp_cli.src.transpilers.library.transpiler.module.handle_expr.h_subscript import SubscriptHandler
-from pypp_cli.src.transpilers.library.transpiler.module.handle_expr.h_tuple import TupleHandler
-from pypp_cli.src.transpilers.library.transpiler.module.handle_expr.h_unary_op import UnaryOpHandler
-from pypp_cli.src.transpilers.library.transpiler.module.handle_expr.h_yield import YieldHandler
-from pypp_cli.src.transpilers.library.transpiler.module.handle_expr.h_yield_from import YieldFromHandler
+from module.util.calc_callable_type import (
+    CallableTypeCalculator,
+)
+from module.util.calc_fn_signature import (
+    FnSignatureCalculator,
+)
+from module.handle_other.exception_handler import (
+    ExceptionHandlersHandler,
+)
+from module.handle_expr.expr import (
+    ExprHandler,
+)
+from module.handle_expr.h_attribute import (
+    AttributeHandler,
+)
+from module.handle_expr.h_bin_op import (
+    BinOpHandler,
+)
+from module.handle_expr.h_bool_op import (
+    BoolOpHandler,
+)
+from module.handle_expr.h_call.h_call import (
+    CallHandler,
+)
+from module.handle_expr.h_comp import (
+    CompHandler,
+)
+from module.handle_expr.h_compare import (
+    CompareHandler,
+)
+from module.handle_expr.h_constant import (
+    ConstantHandler,
+)
+from module.handle_expr.h_dict import (
+    DictHandler,
+)
+from module.handle_expr.h_if_exp import (
+    IfExpHandler,
+)
+from module.handle_expr.h_joined_string import (
+    JoinedStringHandler,
+)
+from module.handle_expr.h_lambda import (
+    LambdaHandler,
+)
+from module.handle_expr.h_list import (
+    ListHandler,
+)
+from module.handle_expr.h_name import (
+    NameHandler,
+)
+from module.handle_expr.h_set import (
+    SetHandler,
+)
+from module.handle_expr.h_slice import (
+    SliceHandler,
+)
+from module.handle_expr.h_subscript import (
+    SubscriptHandler,
+)
+from module.handle_expr.h_tuple import (
+    TupleHandler,
+)
+from module.handle_expr.h_unary_op import (
+    UnaryOpHandler,
+)
+from module.handle_expr.h_yield import (
+    YieldHandler,
+)
+from module.handle_expr.h_yield_from import (
+    YieldFromHandler,
+)
 from pypp_cli.src.transpilers.library.transpiler.maps.maps import Maps
 from .handle_import_stmts import analyse_import_stmts
 from pypp_cli.src.transpilers.library.transpiler.cpp_includes import CppIncludes
-from pypp_cli.src.transpilers.library.transpiler.module.handle_stmt.h_ann_assign.general import GeneralAnnAssignHandler
-from pypp_cli.src.transpilers.library.transpiler.module.handle_stmt.h_ann_assign.h_ann_assign import AnnAssignHandler
-from pypp_cli.src.transpilers.library.transpiler.module.handle_stmt.h_assert import AssertHandler
-from pypp_cli.src.transpilers.library.transpiler.module.handle_stmt.h_assign import AssignHandler
-from pypp_cli.src.transpilers.library.transpiler.module.handle_stmt.h_aug_assign import AugAssignHandler
-from pypp_cli.src.transpilers.library.transpiler.module.handle_stmt.h_class_def.for_configclass import (
+from module.handle_stmt.h_ann_assign.general import (
+    GeneralAnnAssignHandler,
+)
+from module.handle_stmt.h_ann_assign.h_ann_assign import (
+    AnnAssignHandler,
+)
+from module.handle_stmt.h_assert import (
+    AssertHandler,
+)
+from module.handle_stmt.h_assign import (
+    AssignHandler,
+)
+from module.handle_stmt.h_aug_assign import (
+    AugAssignHandler,
+)
+from module.handle_stmt.h_class_def.for_configclass import (
     ConfigClassHandler,
 )
-from pypp_cli.src.transpilers.library.transpiler.module.handle_stmt.h_class_def.for_dataclasses.calc_fields_and_methods import (
+from module.handle_stmt.h_class_def.for_dataclasses.calc_fields_and_methods import (
     FieldsAndMethodsCalculator,
 )
-from pypp_cli.src.transpilers.library.transpiler.module.handle_stmt.h_class_def.for_dataclasses.for_dataclasses import (
+from module.handle_stmt.h_class_def.for_dataclasses.for_dataclasses import (
     DataclassHandler,
 )
-from pypp_cli.src.transpilers.library.transpiler.module.handle_stmt.h_class_def.for_exception import ExceptionClassHandler
-from pypp_cli.src.transpilers.library.transpiler.module.handle_stmt.h_class_def.for_interface import InterfaceHandler
-from pypp_cli.src.transpilers.library.transpiler.module.handle_stmt.h_class_def.h_class_def import ClassDefHandler
-from pypp_cli.src.transpilers.library.transpiler.module.handle_stmt.h_expr import ExprStmtHandler
-from pypp_cli.src.transpilers.library.transpiler.module.handle_stmt.h_fn_def import FnDefHandler
-from pypp_cli.src.transpilers.library.transpiler.module.handle_stmt.h_for import ForHandler
-from pypp_cli.src.transpilers.library.transpiler.module.handle_stmt.h_if import IfHandler
-from pypp_cli.src.transpilers.library.transpiler.module.handle_stmt.h_raise import RaiseHandler
-from pypp_cli.src.transpilers.library.transpiler.module.handle_stmt.h_return import ReturnHandler
-from pypp_cli.src.transpilers.library.transpiler.module.handle_stmt.h_try import TryHandler
-from pypp_cli.src.transpilers.library.transpiler.module.handle_stmt.h_type_alias import TypeAliasHandler
-from pypp_cli.src.transpilers.library.transpiler.module.handle_stmt.h_while import WhileHandler
-from pypp_cli.src.transpilers.library.transpiler.module.handle_stmt.h_with import WithHandler
-from pypp_cli.src.transpilers.library.transpiler.module.handle_stmt.stmt import StmtHandler
+from module.handle_stmt.h_class_def.for_exception import (
+    ExceptionClassHandler,
+)
+from module.handle_stmt.h_class_def.for_interface import (
+    InterfaceHandler,
+)
+from module.handle_stmt.h_class_def.h_class_def import (
+    ClassDefHandler,
+)
+from module.handle_stmt.h_expr import (
+    ExprStmtHandler,
+)
+from module.handle_stmt.h_fn_def import (
+    FnDefHandler,
+)
+from module.handle_stmt.h_for import (
+    ForHandler,
+)
+from module.handle_stmt.h_if import (
+    IfHandler,
+)
+from module.handle_stmt.h_raise import (
+    RaiseHandler,
+)
+from module.handle_stmt.h_return import (
+    ReturnHandler,
+)
+from module.handle_stmt.h_try import (
+    TryHandler,
+)
+from module.handle_stmt.h_type_alias import (
+    TypeAliasHandler,
+)
+from module.handle_stmt.h_while import (
+    WhileHandler,
+)
+from module.handle_stmt.h_with import (
+    WithHandler,
+)
+from module.handle_stmt.stmt import (
+    StmtHandler,
+)
 
 
 def create_all_transpiler_data(
