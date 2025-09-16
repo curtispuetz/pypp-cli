@@ -1,6 +1,9 @@
 import ast
 from pathlib import Path
 from pypp_cli.src.transpilers.other.transpiler.deps import Deps
+from pypp_cli.src.transpilers.other.transpiler.module.mapping.cpp_type import (
+    CppTypeCalculator,
+)
 from .module.handle_other.operator import OperatorHandler
 from .module.handle_other.with_item import WithItemHandler
 from .module.handle_stmt.h_class_def.for_dataclasses.create_final_str import (
@@ -136,7 +139,10 @@ def handle_imports_and_create_deps(
     aug_assign_handler = AugAssignHandler(d, operator_handler)
     expr_stmt_handler = ExprStmtHandler(d)
     callable_type_calculator = CallableTypeCalculator(d)
-    fn_signature_calculator = FnSignatureCalculator(d, callable_type_calculator)
+    cpp_type_calculator = CppTypeCalculator(d)
+    fn_signature_calculator = FnSignatureCalculator(
+        d, callable_type_calculator, cpp_type_calculator
+    )
     fn_def_handler = FnDefHandler(d, fn_signature_calculator)
     for_handler = ForHandler(d)
     if_handler = IfHandler(d)
@@ -159,7 +165,9 @@ def handle_imports_and_create_deps(
     )
     exception_class_handler = ExceptionClassHandler(d)
     method_calculator = MethodCalculator(d, fn_signature_calculator)
-    fields_and_methods_calculator = FieldsAndMethodsCalculator(d, method_calculator)
+    fields_and_methods_calculator = FieldsAndMethodsCalculator(
+        d, method_calculator, cpp_type_calculator
+    )
     dataclass_final_str_creator = DataclassFinalStrCreator(d)
     dataclass_handler = DataclassHandler(
         d, fields_and_methods_calculator, dataclass_final_str_creator

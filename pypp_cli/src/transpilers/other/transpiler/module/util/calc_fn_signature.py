@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from pypp_cli.src.transpilers.other.transpiler.d_types import QInc
 from pypp_cli.src.transpilers.other.transpiler.deps import Deps
 from pypp_cli.src.transpilers.other.transpiler.module.mapping.cpp_type import (
-    lookup_cpp_type,
+    CppTypeCalculator,
 )
 from pypp_cli.src.transpilers.other.transpiler.module.util.calc_callable_type import (
     CallableTypeCalculator,
@@ -22,6 +22,7 @@ def calc_fn_str_with_body(fn_signature: str, body_str: str) -> str:
 class FnSignatureCalculator:
     _d: Deps
     _callable_type_calculator: CallableTypeCalculator
+    _cpp_type_calculator: CppTypeCalculator
 
     def calc(
         self, node: ast.FunctionDef, fn_name: str, skip_first_arg: bool = False
@@ -76,7 +77,7 @@ class FnSignatureCalculator:
             )
             if cpp_arg_type is None:
                 cpp_arg_type = self._d.handle_expr(py_arg.annotation)
-            ret[arg_name] = lookup_cpp_type(cpp_arg_type, self._d)
+            ret[arg_name] = self._cpp_type_calculator.calc(cpp_arg_type)
         return ret
 
     def _assert_args(self, args: ast.arguments):
