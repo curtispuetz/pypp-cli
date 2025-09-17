@@ -14,6 +14,7 @@
 #include "src/constants.h"
 #include "src/custom_libs/bridge_lib_test_0/first.h"
 #include "src/custom_libs/bridge_lib_test_1/first.h"
+#include "src/custom_libs/pure_lib_test_0/first.h"
 #include "src/dataclasses_test/first.h"
 #include "src/dataclasses_test/nested_dependencies.h"
 #include "src/dataclasses_test/with_methods.h"
@@ -218,6 +219,7 @@ int main() {
         me::shutil_exceptions_fn();
         pypp::print(me::A, me::B, me::C, me::D, me::E, me::a, me::b);
         me::dict_looping_fn();
+        me::pure_lib_test_0_fn();
         me::perlin_noise_fn();
         return 0;
     } catch (...) {
