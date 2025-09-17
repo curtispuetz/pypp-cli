@@ -12,6 +12,7 @@ from pathlib import Path
 class MainFileTranspiler:
     _cpp_dest_dir: Path
     _py_modules: set[str]
+    _lib_namespaces: dict[str, str]
     _maps: Maps
     _r: TranspileResults
 
@@ -19,6 +20,7 @@ class MainFileTranspiler:
         sf_transpiler = MainSingleFileTranspiler(
             self._cpp_dest_dir,
             self._py_modules,
+            self._lib_namespaces,
             self._maps,
             self._r,
             file,

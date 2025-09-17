@@ -3,13 +3,9 @@ import json
 from pathlib import Path
 
 from pypp_cli.src.transpilers.library.transpiler.maps.util.util import MapCltrAlgo
-
-
-def _calc_module_beginning(module: str) -> str:
-    f = module.find(".")
-    if f == -1:
-        return module
-    return module[:f]
+from pypp_cli.src.transpilers.library.transpiler.util.modules import (
+    calc_module_beginning,
+)
 
 
 @dataclass(frozen=True, slots=True)
@@ -21,7 +17,7 @@ class ImportMap:
     def contains(self, module: str) -> bool:
         if module in self._direct_to_cpp_include:
             return True
-        key = _calc_module_beginning(module)
+        key = calc_module_beginning(module)
         if key in self._ignore:
             if module not in self._ignore[key]:
                 return True

@@ -1,4 +1,5 @@
 import ast
+from collections import defaultdict
 from pathlib import Path
 
 from pypp_cli.src.transpilers.library.transpiler.d_types import (
@@ -8,6 +9,9 @@ from pypp_cli.src.transpilers.library.transpiler.d_types import (
 )
 from pypp_cli.src.transpilers.library.transpiler.maps.maps import Maps
 from pypp_cli.src.transpilers.library.transpiler.cpp_includes import IncMap
+from pypp_cli.src.transpilers.library.transpiler.util.modules import (
+    calc_module_beginning,
+)
 
 
 # TODO: simplify this code.
@@ -15,8 +19,9 @@ def analyse_import_stmts(
     stmts: list[ast.stmt],
     maps: Maps,
     py_modules: set[str],
+    lib_namespaces: dict[str, str],
     file_path: Path,
-) -> tuple[IncMap, int, ModulePyImports, set[str]]:
+) -> tuple[IncMap, int, ModulePyImports, dict[str, str]]:
     i = 0
     # This one contains a map of import name to the required CppInclude, so that when
     # I find the name is used in the file, I add the CppInclude.
@@ -26,7 +31,8 @@ def analyse_import_stmts(
     module_py_imports = ModulePyImports({}, set())
     # This one is a set of names that are imported from the users project itself. I use
     # this to know if I should add the "me" namespace or not.
-    user_namespace: set[str] = set()
+    # This one is not a set of names to the namespace they belong to.
+    namespaces: dict[str, str] = {}
     for i, node in enumerate(stmts):
         if isinstance(node, ast.ImportFrom):
             if node.module in module_py_imports.imp_from:
@@ -47,7 +53,11 @@ def analyse_import_stmts(
                     cpp_inc_map[alias.name] = inc
             if node.module in py_modules:
                 for alias in node.names:
-                    user_namespace.add(alias.name)
+                    namespaces[alias.name] = "me"
+            lib = calc_module_beginning(node.module)
+            if lib in lib_namespaces:
+                for alias in node.names:
+                    namespaces[alias.name] = lib_namespaces[lib]
             module_py_imports.imp_from[node.module] = [n.name for n in node.names]
         elif isinstance(node, ast.Import):
             for name in node.names:
@@ -64,7 +74,7 @@ def analyse_import_stmts(
                 module_py_imports.imp.add(PyImport(name.name, name.asname))
         else:
             break
-    return cpp_inc_map, i, module_py_imports, user_namespace
+    return cpp_inc_map, i, module_py_imports, namespaces
 
 
 # TODO: extract this function.

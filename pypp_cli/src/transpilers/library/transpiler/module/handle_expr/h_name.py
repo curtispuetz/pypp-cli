@@ -24,10 +24,10 @@ class NameHandler:
         if node.id in self._d.cpp_includes.include_map:
             self._d.add_inc(self._d.cpp_includes.include_map[node.id])
         name: str = node.id
-        if name in self._d.user_namespace:
+        if name in self._d.namespaces:
             # In this case there is no need to check the maps, because it wont be in
             # there.
-            return "me::" + name
+            return f"{self._d.namespaces[name]}::{name}"
 
         for k, v in self._d.maps.name.items():
             e = find_map_entry(v, self._d)

@@ -15,6 +15,7 @@ class SrcFileTranspiler:
     _namespace: str | None
     _cpp_dest_dir: Path
     _py_modules: set[str]
+    _lib_namespaces: dict[str, str]
     _maps: Maps
     _r: TranspileResults
 
@@ -23,6 +24,7 @@ class SrcFileTranspiler:
             self._namespace,
             self._cpp_dest_dir,
             self._py_modules,
+            self._lib_namespaces,
             self._maps,
             self._r,
             file,
