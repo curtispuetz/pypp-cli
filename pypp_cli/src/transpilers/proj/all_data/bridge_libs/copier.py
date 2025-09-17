@@ -32,7 +32,8 @@ class _CppLibCopier:
         else:
             # bridge library case
             # write a .txt file that says 'empty'
-            dest_dir.mkdir(parents=True, exist_ok=True)
-            (dest_dir / "empty.txt").write_text(
+            d = dest_dir / library_name
+            d.mkdir(parents=True, exist_ok=True)
+            (d / "empty.txt").write_text(
                 f"No C++ source files for library {library_name}"
             )
