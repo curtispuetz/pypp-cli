@@ -26,7 +26,6 @@ class _Finder:
     libs: PyppLibs
 
     def find(self) -> tuple[set[str], list[str]]:
-        print("the libs: ", self.libs)
         libs_dir: Path = self.cpp_dir / "libs"
         if not libs_dir.is_dir():
             new = list(self.libs.keys())

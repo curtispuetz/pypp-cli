@@ -16,8 +16,5 @@ def find_libs(site_packages_dir: Path) -> PyppLibs:
                 has_bridge_jsons = (
                     True if (pypp_dir / "bridge_jsons").is_dir() else False
                 )
-                assert (pypp_dir / "cpp").is_dir(), (
-                    f"Library {entry.name} has no cpp directory in `pypp_data` folder"
-                )
                 ret[entry.name] = has_bridge_jsons
     return ret
