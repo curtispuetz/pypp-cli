@@ -36,6 +36,7 @@ class SrcSingleFileTranspiler:
 
         h_file: Path = self._file.with_suffix(".h")
         import_end, d = create_all_transpiler_data(
+            self._namespace,
             self._py_ast,
             self._maps,
             self._py_modules,
@@ -62,6 +63,7 @@ class SrcSingleFileTranspiler:
 
     def _wrap_namespace(self, code: str) -> str:
         if self._namespace is not None:
+            # TODO: remove the comment of namespace in the end
             return (
                 f"namespace {self._namespace} {{\n{code}\n}} "
                 f"// namespace {self._namespace}"

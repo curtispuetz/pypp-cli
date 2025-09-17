@@ -2,6 +2,6 @@
 
 #include "py_str.h"
 
-namespace me {
+namespace pure_test_0 {
 pypp::PyStr hello_world_fn();
-} // namespace me
+} // namespace pure_test_0
