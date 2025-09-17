@@ -19,7 +19,9 @@ from pypp_cli.src.transpilers.library.bridge_libs.finder import (
 from pypp_cli.src.transpilers.proj.all_data.bridge_libs.finder import (
     find_added_and_deleted_libs,
 )
-from pypp_cli.src.transpilers.library.bridge_libs.verifier import verify_all_bridge_libs
+from pypp_cli.src.transpilers.library.bridge_libs.verifier import (
+    verify_all_bridge_jsons,
+)
 from pypp_cli.src.transpilers.library.deleter import CppAndHFileDeleter
 from pypp_cli.src.transpilers.proj.all_data.file_change_cltr import (
     FileChangeCltr,
@@ -53,15 +55,11 @@ def create_all_data(paths: DoPyppPaths) -> AllData:
     py_files = calc_all_py_files(paths.python_dir)
     bridge_json_path_cltr = BridgeJsonPathCltr(paths.site_packages_dir)
 
-    bridge_libs, pure_libs = find_libs(paths.site_packages_dir)
-    new_bridge_libs, new_pure_libs, deleted_libs = find_added_and_deleted_libs(
-        paths.cpp_dir, bridge_libs, pure_libs
-    )
+    libs = find_libs(paths.site_packages_dir)
+    new_libs, deleted_libs = find_added_and_deleted_libs(paths.cpp_dir, libs)
     delete_all_cpp_lib_files(paths.cpp_dir, deleted_libs)
-    verify_all_bridge_libs(new_bridge_libs, bridge_json_path_cltr)
-    copy_all_lib_cpp_files(
-        paths.cpp_dir, paths.site_packages_dir, new_bridge_libs, new_pure_libs
-    )
+    verify_all_bridge_jsons(libs, new_libs, bridge_json_path_cltr)
+    copy_all_lib_cpp_files(paths.cpp_dir, paths.site_packages_dir, new_libs)
     # Note: not removing timestamps file here because users can just do that themselves
     # if they want that.
 
@@ -84,14 +82,14 @@ def create_all_data(paths: DoPyppPaths) -> AllData:
         CMakeListsWriter(
             paths.cpp_dir,
             bridge_json_path_cltr,
-            bridge_libs,
+            libs,
             proj_info.cmake_minimum_required_version,
             py_files_tracker,
         ),
         MainAndSrcTranspiler(
             paths.cpp_dir,
             paths.python_dir,
-            bridge_libs,
+            libs,
             py_files,
             bridge_json_path_cltr,
             py_files_tracker,

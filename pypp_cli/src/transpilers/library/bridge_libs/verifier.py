@@ -2,6 +2,7 @@ from dataclasses import dataclass
 import json
 from pathlib import Path
 from typing import Callable
+from pypp_cli.src.transpilers.library.bridge_libs.finder import PyppLibs
 from pypp_cli.src.transpilers.library.bridge_libs.path_cltr import (
     BridgeJsonPathCltr,
 )
@@ -27,14 +28,17 @@ BRIDGE_JSON_VALIDATION: dict[str, Callable[[object], None]] = {
 }
 
 
-def verify_all_bridge_libs(
-    bridge_libs: list[str], bridge_json_path_cltr: BridgeJsonPathCltr
+def verify_all_bridge_jsons(
+    libs: PyppLibs, new_libs: set[str], bridge_json_path_cltr: BridgeJsonPathCltr
 ):
-    for bridge_lib in bridge_libs:
-        verifier = _BridgeJsonVerifier(bridge_json_path_cltr, bridge_lib)
-        verifier.verify_bridge_jsons()
-    if len(bridge_libs) > 0:
-        print("Verified all JSONS for new bridge-libraries")
+    did_something: bool = False
+    for lib, has_bridge_jsons in libs.items():
+        if has_bridge_jsons and lib in new_libs:
+            did_something = True
+            verifier = _BridgeJsonVerifier(bridge_json_path_cltr, lib)
+            verifier.verify_bridge_jsons()
+    if did_something:
+        print("Verified all bridge JSON files in new libraries")
 
 
 @dataclass(frozen=True, slots=True)

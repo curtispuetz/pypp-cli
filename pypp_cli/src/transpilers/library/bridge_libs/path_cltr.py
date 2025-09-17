@@ -10,7 +10,7 @@ class BridgeJsonPathCltr:
         return (
             self._site_packages_dir
             / library_name
-            / "pypp_data"
+            / ".pypp"
             / "bridge_jsons"
             / f"{json_file_name}.json"
         )

@@ -22,26 +22,29 @@ class MapCltr2(MapCltrAlgo):
         warning_fn: Callable[[str, str], str],
     ) -> dict[str, set[PySpecificImport | None]]:
         ret = default_map.copy()
-        for bridge_lib in self._bridge_libs:
+        for lib, has_bridge_jsons in self._libs.items():
+            if not has_bridge_jsons:
+                continue
             json_path: Path = self._bridge_json_path_cltr.calc_bridge_json(
-                bridge_lib, json_file_name
+                lib, json_file_name
             )
-            if json_path.is_file():
-                with open(json_path, "r") as f:
-                    m: dict = json.load(f)
-                for _type, obj in m.items():
-                    required_import = calc_required_py_import(obj)
-                    if _type in ret:
-                        if required_import in ret[_type]:
-                            print(
-                                f"warning: {
-                                    warning_fn(
-                                        bridge_lib,
-                                        f'{_type}{calc_imp_str(required_import)}',
-                                    )
-                                }"
-                            )
-                        ret[_type].add(required_import)
-                    else:
-                        ret[_type] = {required_import}
+            if not json_path.is_file():
+                continue
+            with open(json_path, "r") as f:
+                m: dict = json.load(f)
+            for _type, obj in m.items():
+                required_import = calc_required_py_import(obj)
+                if _type in ret:
+                    if required_import in ret[_type]:
+                        print(
+                            f"warning: {
+                                warning_fn(
+                                    lib,
+                                    f'{_type}{calc_imp_str(required_import)}',
+                                )
+                            }"
+                        )
+                    ret[_type].add(required_import)
+                else:
+                    ret[_type] = {required_import}
         return ret

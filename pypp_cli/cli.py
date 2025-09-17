@@ -70,7 +70,7 @@ def main_cli(absolute_dir: Path | None = None) -> None:
         pypp_init_pure_lib(args.library_name, absolute_dir)
     elif not calc_proj_info_path(absolute_dir).exists():
         parser.error(
-            "pypp_files/proj_info.json file not found. "
+            ".pypp/proj_info.json file not found. "
             "Ensure your Py++ project is properly initialized."
         )
 

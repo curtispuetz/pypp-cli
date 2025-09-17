@@ -61,38 +61,39 @@ class MapCltr1(MapCltrAlgo):
         self, base_map, calc_entry_fn_map, json_file_name: str, friendly_name: str
     ):
         ret = base_map.copy()
-        for bridge_lib in self._bridge_libs:
+        for lib, has_bridge_jsons in self._libs.items():
+            if not has_bridge_jsons:
+                continue
             json_path: Path = self._bridge_json_path_cltr.calc_bridge_json(
-                bridge_lib, json_file_name
+                lib, json_file_name
             )
-            if json_path.is_file():
-                with open(json_path, "r") as f:
-                    m: dict = json.load(f)
-                # Note: No assertions required here because the structure is
-                # (or will be)
-                # validated when the library is installed.
-                for mapping_type, mapping_vals in m.items():
-                    _assert_valid_mapping_type(
-                        calc_entry_fn_map,
-                        mapping_type,
-                        json_file_name,
-                        bridge_lib,
-                    )
-                    for k, v in mapping_vals.items():
-                        required_import = calc_required_py_import(v)
-                        if k in ret:
-                            if required_import in ret[k]:
-                                print(
-                                    f"warning: Py++ transpiler already maps the "
-                                    f"{friendly_name} "
-                                    f"'{k}{calc_imp_str(required_import)}'. Library "
-                                    f"{bridge_lib} is overriding this mapping."
-                                )
-                            ret[k][required_import] = calc_entry_fn_map[mapping_type](v)
-                        else:
-                            ret[k] = {
-                                required_import: calc_entry_fn_map[mapping_type](v)
-                            }
+            if not json_path.is_file():
+                continue
+            with open(json_path, "r") as f:
+                m: dict = json.load(f)
+            # Note: No assertions required here because the structure is
+            # (or will be)
+            # validated when the library is installed.
+            for mapping_type, mapping_vals in m.items():
+                _assert_valid_mapping_type(
+                    calc_entry_fn_map,
+                    mapping_type,
+                    json_file_name,
+                    lib,
+                )
+                for k, v in mapping_vals.items():
+                    required_import = calc_required_py_import(v)
+                    if k in ret:
+                        if required_import in ret[k]:
+                            print(
+                                f"warning: Py++ transpiler already maps the "
+                                f"{friendly_name} "
+                                f"'{k}{calc_imp_str(required_import)}'. Library "
+                                f"{lib} is overriding this mapping."
+                            )
+                        ret[k][required_import] = calc_entry_fn_map[mapping_type](v)
+                    else:
+                        ret[k] = {required_import: calc_entry_fn_map[mapping_type](v)}
         return ret
 
 
