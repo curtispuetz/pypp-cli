@@ -88,6 +88,7 @@ def create_all_data(transpile_deps: DoTranspileDeps) -> AllData:
             py_files_tracker,
         ),
         MainAndSrcTranspiler(
+            proj_info.namespace,
             paths.cpp_dir,
             paths.python_dir,
             libs,

@@ -10,6 +10,7 @@ SHOULDNT_HAPPEN: str = (
 
 class ProjInfo(BaseModel):
     cpp_dir_is_dirty: bool
+    namespace: Optional[str]
     override_cpp_write_dir: Optional[str]
     ignored_files: list[str]
     cmake_minimum_required_version: str
@@ -17,6 +18,7 @@ class ProjInfo(BaseModel):
 
 PROJ_INFO_DEFAULTS = ProjInfo(
     cpp_dir_is_dirty=True,
+    namespace="me",
     override_cpp_write_dir=None,
     ignored_files=[],
     cmake_minimum_required_version="4.0",

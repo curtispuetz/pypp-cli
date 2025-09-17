@@ -59,6 +59,7 @@ def _calc_all_modules_for_project(py_files: list[Path]) -> set[str]:
 
 
 def transpile_all_changed_files(
+    namespace: str | None,
     bridge_json_path_cltr: BridgeJsonPathCltr,
     libs: PyppLibs,
     py_files: list[Path],
@@ -77,7 +78,7 @@ def transpile_all_changed_files(
     py_modules = _calc_all_modules_for_project(py_files)
     ret: TranspileResults = TranspileResults([], 0, 0, 0)
     main_file_transpiler = MainFileTranspiler(cpp_dir, py_modules, maps, ret)
-    src_file_transpiler = SrcFileTranspiler(cpp_dir, py_modules, maps, ret)
+    src_file_transpiler = SrcFileTranspiler(namespace, cpp_dir, py_modules, maps, ret)
 
     for file in new_files + changed_files:
         ret.py_files_transpiled += 1

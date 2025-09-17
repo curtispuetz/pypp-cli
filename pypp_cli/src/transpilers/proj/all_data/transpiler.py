@@ -14,6 +14,7 @@ from pypp_cli.src.transpilers.library.transpiler.transpiler import (
 
 @dataclass(frozen=True, slots=True)
 class MainAndSrcTranspiler:
+    _namespace: str | None
     _cpp_dir: Path
     _python_dir: Path
     _libs: PyppLibs
@@ -29,6 +30,7 @@ class MainAndSrcTranspiler:
         self._cpp_dir.mkdir(parents=True, exist_ok=True)
         if len(changes.new_files) > 0 or len(changes.changed_files) > 0:
             results = transpile_all_changed_files(
+                self._namespace,
                 self._bridge_json_path_cltr,
                 self._libs,
                 self._py_files,
