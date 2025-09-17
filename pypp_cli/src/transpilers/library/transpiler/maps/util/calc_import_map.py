@@ -35,7 +35,8 @@ class ImportMapCltr(MapCltrAlgo):
         libraries: dict[str, set[str]] = {}
         for lib, has_bridge_jsons in self._libs.items():
             if not has_bridge_jsons:
-                continue
+                # In this case every import should be included.
+                libraries[lib] = set()
             json_path: Path = self._bridge_json_path_cltr.calc_bridge_json(
                 lib, "import_map"
             )

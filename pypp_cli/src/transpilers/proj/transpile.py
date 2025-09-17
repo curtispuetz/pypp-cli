@@ -1,11 +1,10 @@
 from pathlib import Path
 
-from pypp_cli.src.config import ProjInfo
 from pypp_cli.src.transpilers.proj.all_data.create import (
     AllData,
     create_all_data,
 )
-from pypp_cli.src.other.pypp_paths.do import DoPyppPaths, DoTranspileDeps
+from pypp_cli.src.other.pypp_paths.do import DoTranspileDeps
 
 
 def pypp_transpile(transpile_deps: DoTranspileDeps) -> list[Path]:

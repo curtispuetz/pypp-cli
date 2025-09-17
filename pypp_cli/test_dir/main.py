@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from pypp_python import configclass, exception, Valu
 from abc import ABC, abstractmethod
+from src.custom_libs.pure_lib_test_0.first import pure_lib_test_0_fn
 from src.args_test import args_test_fn
 from src.augment_operations import augment_operations_fn
 from src.benchmarking import perlin_noise_fn
@@ -219,4 +220,6 @@ if __name__ == "__main__":
     shutil_exceptions_fn()
     print(A, B, C, D, E, a, b)
     dict_looping_fn()
+    pure_lib_test_0_fn()
+
     perlin_noise_fn()

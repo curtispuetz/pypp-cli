@@ -1,4 +1,6 @@
 from pypp_python import time, auto
+# TODO: change import to `from pypp_python.stl import time`.
+# Add all other standard library imports as well.
 
 
 def time_library_fn():

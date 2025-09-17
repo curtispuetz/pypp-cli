@@ -119,6 +119,7 @@ src/tuples/first.cpp
 src/yields/first.cpp
 src/custom_libs/bridge_lib_test_0/first.cpp
 src/custom_libs/bridge_lib_test_1/first.cpp
+src/custom_libs/pure_lib_test_0/first.cpp
 src/benchmarking/perlin_noise/caller.cpp
 src/benchmarking/perlin_noise/impl.cpp
 )
