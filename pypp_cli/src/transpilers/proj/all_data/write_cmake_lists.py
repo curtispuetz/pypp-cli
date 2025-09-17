@@ -2,6 +2,7 @@ from dataclasses import dataclass
 import json
 from pathlib import Path
 
+from pypp_cli.src.transpilers.library.bridge_libs.finder import PyppLibs
 from pypp_cli.src.transpilers.library.bridge_libs.path_cltr import (
     BridgeJsonPathCltr,
 )
@@ -24,7 +25,7 @@ def _calc_link_libs_lines(link_libs: list[str]) -> list[str]:
 class CMakeListsWriter:
     _cpp_dir: Path
     _bridge_json_path_cltr: BridgeJsonPathCltr
-    _bridge_libs: list[str]
+    _libs: PyppLibs
     _cmake_minimum_required_version: str
     _py_files_tracker: PyFilesTracker
 
@@ -97,21 +98,24 @@ class CMakeListsWriter:
     ) -> tuple[list[str], list[str]]:
         add_lines: list[str] = []
         link_libs: list[str] = []
-        for bridge_lib in self._bridge_libs:
+        for lib, has_bridge_jsons in self._libs.items():
+            if not has_bridge_jsons:
+                continue
             cmake_lists: Path = self._bridge_json_path_cltr.calc_bridge_json(
-                bridge_lib, "cmake_lists"
+                lib, "cmake_lists"
             )
-            if cmake_lists.exists():
-                with open(cmake_lists, "r") as f:
-                    data = json.load(f)
-                # Note: the json should be validated already when the library is
-                # installed.
-                # TODO later: instead of just assuming the structure is correct,
-                #  I could now
-                #  easily just call the validation functions I have even though it
-                #  should
-                #  rarely be nessesary. Because it would be more safe and should be
-                #  super fast anyway.
-                add_lines.extend(data["add_lines"])
-                link_libs.extend(data["link_libraries"])
+            if not cmake_lists.exists():
+                continue
+            with open(cmake_lists, "r") as f:
+                data = json.load(f)
+            # Note: the json should be validated already when the library is
+            # installed.
+            # TODO later: instead of just assuming the structure is correct,
+            #  I could now
+            #  easily just call the validation functions I have even though it
+            #  should
+            #  rarely be nessesary. Because it would be more safe and should be
+            #  super fast anyway.
+            add_lines.extend(data["add_lines"])
+            link_libs.extend(data["link_libraries"])
         return add_lines, link_libs

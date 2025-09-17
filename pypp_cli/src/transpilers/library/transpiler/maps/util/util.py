@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from pypp_cli.src.transpilers.library.bridge_libs.finder import PyppLibs
 from pypp_cli.src.transpilers.library.bridge_libs.path_cltr import (
     BridgeJsonPathCltr,
 )
@@ -46,5 +47,5 @@ def calc_imp_str(imp: PySpecificImport | None) -> str:
 
 @dataclass(frozen=True, slots=True)
 class MapCltrAlgo:
-    _bridge_libs: list[str]
+    _libs: PyppLibs
     _bridge_json_path_cltr: BridgeJsonPathCltr

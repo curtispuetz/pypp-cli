@@ -15,7 +15,7 @@ def run_cli(args, test_dir: Path | None = None):
 
 
 def calc_test_dir() -> Path:
-    return dirname.parent.parent.parent.parent / "pure-library-test-0"
+    return dirname.parent.parent / "test_dir"
 
 
 def calc_test_dir_python_executable() -> str:

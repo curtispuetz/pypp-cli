@@ -1,18 +1,20 @@
 from pathlib import Path
 
+# value indicates if it has bridge jsons or not
+type PyppLibs = dict[str, bool]
 
-def find_libs(site_packages_dir: Path) -> tuple[list[str], list[str]]:
+
+def find_libs(site_packages_dir: Path) -> PyppLibs:
     if not site_packages_dir.is_dir():
-        return [], []
-    bridge = []
-    pure = []
+        return {}
+    ret: PyppLibs = {}
     for entry in site_packages_dir.iterdir():
         if entry.is_dir() and not entry.name.endswith(".dist-info"):
-            bridge_jsons_dir = entry / "pypp_data" / "bridge_jsons"
-            if bridge_jsons_dir.is_dir():
-                bridge.append(entry.name)
-            else:
-                pure_cpp_dir = entry / "pypp_cpp"
-                if pure_cpp_dir.is_dir():
-                    pure.append(entry.name)
-    return bridge, pure
+            pypp_dir = entry / ".pypp"
+            if pypp_dir.is_dir():
+                # found a Py++ library
+                has_bridge_jsons = (
+                    True if (pypp_dir / "bridge_jsons").is_dir() else False
+                )
+                ret[entry.name] = has_bridge_jsons
+    return ret
