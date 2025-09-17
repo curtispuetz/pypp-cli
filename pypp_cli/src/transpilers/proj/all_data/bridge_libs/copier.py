@@ -27,10 +27,8 @@ class _CppLibCopier:
     def _copy_cpp_lib_files_if_any(self, library_name: str):
         src_dir = calc_library_cpp_data_dir(self._site_packages_dir, library_name)
         dest_dir = calc_cpp_libs_dir(self._cpp_dir, library_name)
-        if dest_dir.exists():
-            shutil.rmtree(dest_dir)
         if src_dir.exists():
-            shutil.copytree(src_dir, dest_dir)
+            shutil.copytree(src_dir, dest_dir, dirs_exist_ok=True)
         else:
             # bridge library case
             # write a .txt file that says 'empty'
