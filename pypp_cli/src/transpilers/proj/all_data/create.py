@@ -34,6 +34,7 @@ from pypp_cli.src.transpilers.proj.all_data.file_loader import (
 from pypp_cli.src.transpilers.library.file_changes.file_loader import (
     calc_all_py_files,
 )
+from pypp_cli.src.transpilers.proj.all_data.metadata_saver import MetadataSaver
 from pypp_cli.src.transpilers.proj.all_data.transpiler import MainAndSrcTranspiler
 from pypp_cli.src.transpilers.proj.all_data.write_cmake_lists import CMakeListsWriter
 
@@ -46,6 +47,7 @@ class AllData:
     main_and_src_transpiler: MainAndSrcTranspiler
     cpp_and_h_file_deleter: CppAndHFileDeleter
     timestamps_saver: TimestampsSaver
+    metadata_saver: MetadataSaver
     py_files_tracker: PyFilesTracker
 
 
@@ -97,5 +99,8 @@ def create_all_data(transpile_deps: DoTranspileDeps) -> AllData:
         ),
         CppAndHFileDeleter(paths.cpp_dir),
         TimestampsSaver(paths.timestamps_file, py_files_tracker),
+        MetadataSaver(
+            proj_info.write_metadata_to_dir, proj_info.namespace, paths.python_dir
+        ),
         py_files_tracker,
     )

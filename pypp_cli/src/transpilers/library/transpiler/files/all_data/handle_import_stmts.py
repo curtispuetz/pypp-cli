@@ -1,5 +1,4 @@
 import ast
-from collections import defaultdict
 from pathlib import Path
 
 from pypp_cli.src.transpilers.library.transpiler.d_types import (
