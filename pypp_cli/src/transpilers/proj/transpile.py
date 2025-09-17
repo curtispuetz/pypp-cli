@@ -29,4 +29,6 @@ def pypp_transpile(transpile_deps: DoTranspileDeps) -> list[Path]:
 
     a.timestamps_saver.save(changes.new_timestamps)
 
+    a.metadata_saver.save_if_required()
+
     return ret
