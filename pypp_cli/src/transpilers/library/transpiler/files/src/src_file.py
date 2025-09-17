@@ -12,6 +12,7 @@ from pathlib import Path
 
 @dataclass(frozen=True, slots=True)
 class SrcFileTranspiler:
+    _namespace: str | None
     _cpp_dest_dir: Path
     _py_modules: set[str]
     _maps: Maps
@@ -19,6 +20,7 @@ class SrcFileTranspiler:
 
     def transpile(self, file: Path, file_path: Path, py_ast: ast.Module):
         sf_transpiler = SrcSingleFileTranspiler(
+            self._namespace,
             self._cpp_dest_dir,
             self._py_modules,
             self._maps,

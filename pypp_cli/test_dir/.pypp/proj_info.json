@@ -1,5 +1,6 @@
 {
     "cpp_dir_is_dirty": false,
+    "namespace": "me",
     "override_cpp_write_dir": null,
     "ignored_files": [],
     "cmake_minimum_required_version": "4.0"

@@ -15,6 +15,7 @@ from pypp_cli.src.transpilers.library.transpiler.util.results import TranspileRe
 
 @dataclass(frozen=True, slots=True)
 class SrcSingleFileTranspiler:
+    _namespace: str | None
     _cpp_dest_dir: Path
     _py_modules: set[str]
     _maps: Maps
@@ -41,12 +42,8 @@ class SrcSingleFileTranspiler:
         )
         h_includes, cpp_includes = calc_includes(d.cpp_includes)
         cpp_code = self._calc_cpp_code(cpp_code_minus_include, h_file, cpp_includes)
-        h_code: str = (
-            "#pragma once\n\n"
-            + h_includes
-            + "namespace me {"
-            + " ".join(d.ret_h_file)
-            + "} // namespace me"
+        h_code = f"#pragma once\n\n{h_includes}" + self._wrap_namespace(
+            " ".join(d.ret_h_file)
         )
         return cpp_code, h_code, h_file
 
@@ -55,13 +52,16 @@ class SrcSingleFileTranspiler:
     ) -> str:
         if cpp_code_minus_include.strip() != "":
             all_cpp_includes = f'#include "{h_file.as_posix()}"\n' + cpp_includes
-            return (
-                all_cpp_includes
-                + "namespace me {"
-                + cpp_code_minus_include
-                + "} // namespace me"
-            )
+            return all_cpp_includes + self._wrap_namespace(cpp_code_minus_include)
         return ""
+
+    def _wrap_namespace(self, code: str) -> str:
+        if self._namespace is not None:
+            return (
+                f"namespace {self._namespace} {{\n{code}\n}} "
+                f"// namespace {self._namespace}"
+            )
+        return code
 
     def _write_cpp_file(self, cpp_code: str):
         cpp_file: Path = self._file.with_suffix(".cpp")
