@@ -17,7 +17,7 @@ def _print_results(new: list[str], deleted: list[str]):
 
 
 def _print_new_libraries(new):
-    print("New pure libraries:", new)
+    print("New libraries:", new)
 
 
 @dataclass(frozen=True, slots=True)
@@ -26,6 +26,7 @@ class _Finder:
     libs: PyppLibs
 
     def find(self) -> tuple[set[str], list[str]]:
+        print("the libs: ", self.libs)
         libs_dir: Path = self.cpp_dir / "libs"
         if not libs_dir.is_dir():
             new = list(self.libs.keys())

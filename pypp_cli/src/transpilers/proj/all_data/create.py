@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from pypp_cli.src.config import ProjInfo
-from pypp_cli.src.other.pypp_paths.do import DoPyppPaths
+from pypp_cli.src.other.pypp_paths.do import DoPyppPaths, DoTranspileDeps
 from pypp_cli.src.transpilers.library.bridge_libs.path_cltr import (
     BridgeJsonPathCltr,
 )
@@ -50,8 +50,9 @@ class AllData:
     py_files_tracker: PyFilesTracker
 
 
-def create_all_data(paths: DoPyppPaths) -> AllData:
-    proj_info: ProjInfo = load_proj_info(paths.proj_info_file)
+def create_all_data(transpile_deps: DoTranspileDeps) -> AllData:
+    paths: DoPyppPaths = transpile_deps.paths
+    proj_info: ProjInfo = transpile_deps.proj_info
     py_files = calc_all_py_files(paths.python_dir)
     bridge_json_path_cltr = BridgeJsonPathCltr(paths.site_packages_dir)
 

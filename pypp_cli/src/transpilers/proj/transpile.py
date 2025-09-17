@@ -1,14 +1,15 @@
 from pathlib import Path
 
+from pypp_cli.src.config import ProjInfo
 from pypp_cli.src.transpilers.proj.all_data.create import (
     AllData,
     create_all_data,
 )
-from pypp_cli.src.other.pypp_paths.do import DoPyppPaths
+from pypp_cli.src.other.pypp_paths.do import DoPyppPaths, DoTranspileDeps
 
 
-def pypp_transpile(paths: DoPyppPaths) -> list[Path]:
-    a: AllData = create_all_data(paths)
+def pypp_transpile(transpile_deps: DoTranspileDeps) -> list[Path]:
+    a: AllData = create_all_data(transpile_deps)
 
     a.cpp_project_initializer.initialize_if_cpp_dir_is_dirty()
 

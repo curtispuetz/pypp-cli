@@ -1,4 +1,5 @@
-from dataclasses import dataclass
+from typing import Optional
+from pydantic import BaseModel
 
 
 SHOULDNT_HAPPEN: str = (
@@ -7,15 +8,16 @@ SHOULDNT_HAPPEN: str = (
 )
 
 
-@dataclass(slots=True)
-class ProjInfo:
+class ProjInfo(BaseModel):
     cpp_dir_is_dirty: bool
+    override_cpp_write_dir: Optional[str]
     ignored_files: list[str]
     cmake_minimum_required_version: str
 
 
 PROJ_INFO_DEFAULTS = ProjInfo(
     cpp_dir_is_dirty=True,
+    override_cpp_write_dir=None,
     ignored_files=[],
     cmake_minimum_required_version="4.0",
 )

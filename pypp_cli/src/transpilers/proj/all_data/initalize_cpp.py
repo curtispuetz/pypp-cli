@@ -1,4 +1,4 @@
-from dataclasses import dataclass, asdict
+from dataclasses import dataclass
 import json
 from pathlib import Path
 import shutil
@@ -38,7 +38,7 @@ class CppProjectInitializer:
         self._proj_info.cpp_dir_is_dirty = False
         with open(self._proj_info_file, "w") as file:
             json.dump(
-                asdict(self._proj_info),
+                self._proj_info.model_dump(),
                 file,
                 indent=4,
             )
