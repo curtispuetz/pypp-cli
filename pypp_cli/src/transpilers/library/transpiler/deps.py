@@ -34,7 +34,7 @@ class Deps:
     ret_h_file: list[str]
     maps: Maps
     _module_py_imports: ModulePyImports
-    user_namespace: set[str]
+    namespaces: dict[str, str]
     _include_in_header: bool = False
     inside_except_block: bool = False
     is_main_file: bool = False

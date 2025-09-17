@@ -6,7 +6,7 @@
 namespace me {
 void pure_lib_test_0_fn() {
     pypp::print(pypp::PyStr("PURE LIB TEST 0 RESULTS:"));
-    first_fn();
+    plt0::first_fn();
 }
 
 } // namespace me

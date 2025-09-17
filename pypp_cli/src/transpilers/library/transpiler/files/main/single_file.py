@@ -18,6 +18,7 @@ from pypp_cli.src.transpilers.library.transpiler.util.results import TranspileRe
 class MainSingleFileTranspiler:
     _cpp_dest_dir: Path
     _py_modules: set[str]
+    _lib_namespaces: dict[str, str]
     _maps: Maps
     _r: TranspileResults
     _file: Path
@@ -33,6 +34,7 @@ class MainSingleFileTranspiler:
             self._py_ast,
             self._maps,
             self._py_modules,
+            self._lib_namespaces,
             self._file_path,
             is_main_file=True,
         )

@@ -77,8 +77,13 @@ def transpile_all_changed_files(
     maps = maps_cltr.calc_maps()
     py_modules = _calc_all_modules_for_project(py_files)
     ret: TranspileResults = TranspileResults([], 0, 0, 0)
-    main_file_transpiler = MainFileTranspiler(cpp_dir, py_modules, maps, ret)
-    src_file_transpiler = SrcFileTranspiler(namespace, cpp_dir, py_modules, maps, ret)
+    lib_namespaces = {"pypp_pure_library_test_0": "plt0"}
+    main_file_transpiler = MainFileTranspiler(
+        cpp_dir, py_modules, lib_namespaces, maps, ret
+    )
+    src_file_transpiler = SrcFileTranspiler(
+        namespace, cpp_dir, py_modules, lib_namespaces, maps, ret
+    )
 
     for file in new_files + changed_files:
         ret.py_files_transpiled += 1

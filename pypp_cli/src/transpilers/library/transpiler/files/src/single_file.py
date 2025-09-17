@@ -18,6 +18,7 @@ class SrcSingleFileTranspiler:
     _namespace: str | None
     _cpp_dest_dir: Path
     _py_modules: set[str]
+    _lib_namespaces: dict[str, str]
     _maps: Maps
     _r: TranspileResults
     _file: Path
@@ -35,7 +36,11 @@ class SrcSingleFileTranspiler:
 
         h_file: Path = self._file.with_suffix(".h")
         import_end, d = create_all_transpiler_data(
-            self._py_ast, self._maps, self._py_modules, self._file_path
+            self._py_ast,
+            self._maps,
+            self._py_modules,
+            self._lib_namespaces,
+            self._file_path,
         )
         cpp_code_minus_include: str = d.handle_stmts_for_module(
             self._py_ast.body[import_end:]
