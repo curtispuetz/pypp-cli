@@ -14,6 +14,7 @@ from pypp_cli.src.transpilers.proj.all_data.bridge_libs.deleter import (
     delete_all_cpp_lib_files,
 )
 from pypp_cli.src.transpilers.library.bridge_libs.finder import (
+    PyppLibsData,
     find_libs,
 )
 from pypp_cli.src.transpilers.proj.all_data.bridge_libs.finder import (
@@ -57,10 +58,10 @@ def create_all_data(transpile_deps: DoTranspileDeps) -> AllData:
     py_files = calc_all_py_files(paths.python_dir)
     bridge_json_path_cltr = BridgeJsonPathCltr(paths.site_packages_dir)
 
-    libs = find_libs(paths.site_packages_dir)
-    new_libs, deleted_libs = find_added_and_deleted_libs(paths.cpp_dir, libs)
+    libs_data: PyppLibsData = find_libs(paths.site_packages_dir)
+    new_libs, deleted_libs = find_added_and_deleted_libs(paths.cpp_dir, libs_data.libs)
     delete_all_cpp_lib_files(paths.cpp_dir, deleted_libs)
-    verify_all_bridge_jsons(libs, new_libs, bridge_json_path_cltr)
+    verify_all_bridge_jsons(libs_data.libs, new_libs, bridge_json_path_cltr)
     copy_all_lib_cpp_files(paths.cpp_dir, paths.site_packages_dir, new_libs)
     # Note: not removing timestamps file here because users can just do that themselves
     # if they want that.
@@ -84,7 +85,7 @@ def create_all_data(transpile_deps: DoTranspileDeps) -> AllData:
         CMakeListsWriter(
             paths.cpp_dir,
             bridge_json_path_cltr,
-            libs,
+            libs_data.libs,
             proj_info.cmake_minimum_required_version,
             py_files_tracker,
         ),
@@ -92,7 +93,7 @@ def create_all_data(transpile_deps: DoTranspileDeps) -> AllData:
             proj_info.namespace,
             paths.cpp_dir,
             paths.python_dir,
-            libs,
+            libs_data,
             py_files,
             bridge_json_path_cltr,
             py_files_tracker,

@@ -1,6 +1,6 @@
 import ast
 from pathlib import Path
-from pypp_cli.src.transpilers.library.bridge_libs.finder import PyppLibs
+from pypp_cli.src.transpilers.library.bridge_libs.finder import PyppLibsData
 from pypp_cli.src.transpilers.library.file_tracker import PyFilesTracker
 from .util.calc_ast_tree import calc_ast
 from pypp_cli.src.transpilers.library.transpiler.files.main.main_file import (
@@ -61,7 +61,7 @@ def _calc_all_modules_for_project(py_files: list[Path]) -> set[str]:
 def transpile_all_changed_files(
     namespace: str | None,
     bridge_json_path_cltr: BridgeJsonPathCltr,
-    libs: PyppLibs,
+    libs_data: PyppLibsData,
     py_files: list[Path],
     py_files_tracker: PyFilesTracker,
     python_dir: Path,
@@ -70,19 +70,18 @@ def transpile_all_changed_files(
     changed_files: list[Path],
 ) -> TranspileResults:
     maps_cltr = MapsCltr(
-        MapCltr1(libs, bridge_json_path_cltr),
-        MapCltr2(libs, bridge_json_path_cltr),
-        ImportMapCltr(libs, bridge_json_path_cltr),
+        MapCltr1(libs_data.libs, bridge_json_path_cltr),
+        MapCltr2(libs_data.libs, bridge_json_path_cltr),
+        ImportMapCltr(libs_data.libs, bridge_json_path_cltr),
     )
     maps = maps_cltr.calc_maps()
     py_modules = _calc_all_modules_for_project(py_files)
     ret: TranspileResults = TranspileResults([], 0, 0, 0)
-    lib_namespaces = {"pypp_pure_library_test_0": "plt0"}
     main_file_transpiler = MainFileTranspiler(
-        cpp_dir, py_modules, lib_namespaces, maps, ret
+        namespace, cpp_dir, py_modules, libs_data.namespaces, maps, ret
     )
     src_file_transpiler = SrcFileTranspiler(
-        namespace, cpp_dir, py_modules, lib_namespaces, maps, ret
+        namespace, cpp_dir, py_modules, libs_data.namespaces, maps, ret
     )
 
     for file in new_files + changed_files:

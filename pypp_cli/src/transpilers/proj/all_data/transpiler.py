@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from pathlib import Path
 
-from pypp_cli.src.transpilers.library.bridge_libs.finder import PyppLibs
+from pypp_cli.src.transpilers.library.bridge_libs.finder import PyppLibsData
 from pypp_cli.src.transpilers.library.bridge_libs.path_cltr import (
     BridgeJsonPathCltr,
 )
@@ -17,7 +17,7 @@ class MainAndSrcTranspiler:
     _namespace: str | None
     _cpp_dir: Path
     _python_dir: Path
-    _libs: PyppLibs
+    _libs_data: PyppLibsData
     _py_files: list[Path]
     _bridge_json_path_cltr: BridgeJsonPathCltr
     _py_files_tracker: PyFilesTracker
@@ -32,7 +32,7 @@ class MainAndSrcTranspiler:
             results = transpile_all_changed_files(
                 self._namespace,
                 self._bridge_json_path_cltr,
-                self._libs,
+                self._libs_data,
                 self._py_files,
                 self._py_files_tracker,
                 self._python_dir,

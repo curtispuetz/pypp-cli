@@ -10,6 +10,7 @@ from pathlib import Path
 
 @dataclass(frozen=True, slots=True)
 class MainFileTranspiler:
+    _namespace: str | None
     _cpp_dest_dir: Path
     _py_modules: set[str]
     _lib_namespaces: dict[str, str]
@@ -18,6 +19,7 @@ class MainFileTranspiler:
 
     def transpile(self, file: Path, file_path: Path, py_ast: ast.Module):
         sf_transpiler = MainSingleFileTranspiler(
+            self._namespace,
             self._cpp_dest_dir,
             self._py_modules,
             self._lib_namespaces,

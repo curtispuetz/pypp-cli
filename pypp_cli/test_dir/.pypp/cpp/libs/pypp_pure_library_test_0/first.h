@@ -1,5 +1,5 @@
 #pragma once
 
-namespace me {
+namespace pure_test_0 {
 void first_fn();
-} // namespace me
+} // namespace pure_test_0

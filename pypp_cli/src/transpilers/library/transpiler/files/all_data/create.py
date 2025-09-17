@@ -160,6 +160,7 @@ from ...module.handle_stmt.stmt import (
 
 
 def create_all_transpiler_data(
+    namespace: str | None,
     py_ast: ast.Module,
     maps: Maps,
     py_modules: set[str],
@@ -168,7 +169,7 @@ def create_all_transpiler_data(
     is_main_file: bool = False,
 ) -> tuple[int, Deps]:
     cpp_inc_map, import_end, module_py_imports, namespaces = analyse_import_stmts(
-        py_ast.body, maps, py_modules, lib_namespaces, file_path
+        py_ast.body, maps, py_modules, namespace, lib_namespaces, file_path
     )
 
     d: Deps = Deps(

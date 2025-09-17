@@ -18,6 +18,7 @@ def analyse_import_stmts(
     stmts: list[ast.stmt],
     maps: Maps,
     py_modules: set[str],
+    namespace: str | None,
     lib_namespaces: dict[str, str],
     file_path: Path,
 ) -> tuple[IncMap, int, ModulePyImports, dict[str, str]]:
@@ -28,8 +29,6 @@ def analyse_import_stmts(
     # This one is a data structure containing all the python imports in the file. I use
     # it when I need to check if something is imported or not.
     module_py_imports = ModulePyImports({}, set())
-    # This one is a set of names that are imported from the users project itself. I use
-    # this to know if I should add the "me" namespace or not.
     # This one is not a set of names to the namespace they belong to.
     namespaces: dict[str, str] = {}
     for i, node in enumerate(stmts):
@@ -52,7 +51,9 @@ def analyse_import_stmts(
                     cpp_inc_map[alias.name] = inc
             if node.module in py_modules:
                 for alias in node.names:
-                    namespaces[alias.name] = "me"
+                    namespaces[alias.name] = (
+                        namespace if namespace is not None else "me"
+                    )
             lib = calc_module_beginning(node.module)
             if lib in lib_namespaces:
                 for alias in node.names:

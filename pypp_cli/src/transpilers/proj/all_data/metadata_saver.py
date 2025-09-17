@@ -2,6 +2,8 @@ from dataclasses import dataclass
 import json
 from pathlib import Path
 
+from pypp_cli.src.config import ProjMetadata
+
 
 @dataclass(frozen=True, slots=True)
 class MetadataSaver:
@@ -15,8 +17,9 @@ class MetadataSaver:
                 "Namespace must be set to write metadata. Either set namespace or set "
                 "write_metadata_to_dir to null."
             )
+            metadata = ProjMetadata(namespace=self._namespace)
             metadata_file = (
                 self._python_dir / self._write_metadata_to_dir / "metadata.json"
             )
             with open(metadata_file, "w") as f:
-                json.dump({"namespace": self._namespace}, f, indent=2)
+                json.dump(metadata.model_dump(), f, indent=4)

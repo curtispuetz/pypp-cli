@@ -28,4 +28,4 @@ PROJ_INFO_DEFAULTS = ProjInfo(
 
 
 class ProjMetadata(BaseModel):
-    namespace: Optional[str]
+    namespace: str
