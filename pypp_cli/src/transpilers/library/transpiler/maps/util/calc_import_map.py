@@ -14,16 +14,16 @@ def _calc_module_beginning(module: str) -> str:
 
 @dataclass(frozen=True, slots=True)
 class ImportMap:
-    modules: set[str]
-    # The value is the ignored set
-    libraries: dict[str, set[str]]
+    _direct_to_cpp_include: set[str]
+    # The key is the library name and the value is the ignored set
+    _ignore: dict[str, set[str]]
 
-    def contains(self, name: str) -> bool:
-        if name in self.modules:
+    def contains(self, module: str) -> bool:
+        if module in self._direct_to_cpp_include:
             return True
-        key = _calc_module_beginning(name)
-        if key in self.libraries:
-            if name not in self.libraries[key]:
+        key = _calc_module_beginning(module)
+        if key in self._ignore:
+            if module not in self._ignore[key]:
                 return True
         return False
 
@@ -31,12 +31,12 @@ class ImportMap:
 @dataclass(frozen=True, slots=True)
 class ImportMapCltr(MapCltrAlgo):
     def calc_import_map(self) -> ImportMap:
-        modules: set[str] = set()
-        libraries: dict[str, set[str]] = {}
+        dtci: set[str] = set()
+        ignore: dict[str, set[str]] = {}
         for lib, has_bridge_jsons in self._libs.items():
             if not has_bridge_jsons:
                 # In this case every import should be included.
-                libraries[lib] = set()
+                ignore[lib] = set()
             json_path: Path = self._bridge_json_path_cltr.calc_bridge_json(
                 lib, "import_map"
             )
@@ -46,7 +46,7 @@ class ImportMapCltr(MapCltrAlgo):
                 # Note: Json should already be verified valid on library install.
                 r: dict[str, list[str]] = json.load(f)
                 if "direct_to_cpp_include" in r:
-                    modules.update(r["direct_to_cpp_include"])
+                    dtci.update(r["direct_to_cpp_include"])
                 else:
                     assert "ignore" in r, (
                         f"Invalid import_map.json from library "
@@ -55,7 +55,7 @@ class ImportMapCltr(MapCltrAlgo):
                         f"verified on install."
                     )
                     if len(r["ignore"]) == 0:
-                        libraries[lib] = set()
+                        ignore[lib] = set()
                     else:
-                        libraries[lib] = set(r["ignore"])
-        return ImportMap(modules, libraries)
+                        ignore[lib] = set(r["ignore"])
+        return ImportMap(dtci, ignore)
