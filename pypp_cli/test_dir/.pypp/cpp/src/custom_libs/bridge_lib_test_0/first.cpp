@@ -6,7 +6,6 @@
 #include "pypp_bridge_library_test_0/custom_mapping_starts_with_call.h"
 #include "pypp_bridge_library_test_0/include_only_call.h"
 #include "pypp_bridge_library_test_0/modules_to_cpp_inc.h"
-#include "pypp_bridge_library_test_0/modules_to_cpp_inc_2.h"
 #include "pypp_bridge_library_test_0/name_only_call.h"
 #include "pypp_bridge_library_test_0/pseudo_a.h"
 #include "pypp_bridge_library_test_0/pseudo_custom_type_cpp.h"
@@ -55,7 +54,6 @@ void bridge_lib_test_0_fn() {
     int j = dc_test::sub_namespace::test_fn();
     pypp::print(j);
     pypp::print(pseudo_fn_a());
-    pypp::print(m2::pseudo_fn_b());
     std::cout << "[Custom Print]: " << pypp::PyStr("aloha") << std::endl;
     PseudoCustomList<int> k(pypp::PyList({1, 2, 3}));
     pypp::print(&k);

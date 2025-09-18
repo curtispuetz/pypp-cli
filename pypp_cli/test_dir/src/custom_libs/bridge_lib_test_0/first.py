@@ -8,7 +8,6 @@ from pypp_bridge_library_test_0.include_only_call import include_only_call_fn
 from pypp_bridge_library_test_0.custom_mapping_call import tg_plus_one
 from pypp_bridge_library_test_0.custom_mapping_starts_with_call import PseudoGeneric
 from pypp_bridge_library_test_0.modules_to_cpp_inc import pseudo_fn_a
-import pypp_bridge_library_test_0.modules_to_cpp_inc_2 as m2
 import pypp_bridge_library_test_0.replace_with_double_colon_call as dc_test
 from pypp_bridge_library_test_0.custom_print import custom_print
 from pypp_bridge_library_test_0.custom_list import PseudoCustomList
@@ -59,7 +58,6 @@ def bridge_lib_test_0_fn():
     j: int = dc_test.sub_namespace.test_fn()
     print(j)
     print(pseudo_fn_a())
-    print(m2.pseudo_fn_b())
     custom_print("aloha")
     k: PseudoCustomList[int] = PseudoCustomList([1, 2, 3])
     print(Ref(k))

@@ -8,7 +8,6 @@ from pypp_cli.src.transpilers.library.bridge_libs.models import (
     AnnAssignModel,
     AttrModel,
     CallModel,
-    ImportModel,
     NameModel,
     SubscriptableTypeModel,
 )
@@ -22,7 +21,6 @@ from pypp_cli.src.transpilers.library.bridge_libs.path_cltr import (
 class BridgeJsonModels:
     name_map: NameModel | None = None
     ann_assign_map: AnnAssignModel | None = None
-    import_map: ImportModel | None = None
     call_map: CallModel | None = None
     attr_map: AttrModel | None = None
     always_pass_by_value: AlwaysPassByValueModel | None = None
@@ -50,7 +48,6 @@ class _BridgeJsonVerifier:
     def verify_bridge_jsons(self) -> BridgeJsonModels:
         name_map: NameModel | None = None
         ann_assign_map: AnnAssignModel | None = None
-        import_map: ImportModel | None = None
         call_map: CallModel | None = None
         attr_map: AttrModel | None = None
         always_pass_by_value: AlwaysPassByValueModel | None = None
@@ -58,7 +55,6 @@ class _BridgeJsonVerifier:
         for file_name in [
             "name_map",
             "ann_assign_map",
-            "import_map",
             "call_map",
             "attr_map",
             "always_pass_by_value",
@@ -75,8 +71,6 @@ class _BridgeJsonVerifier:
                         name_map = NameModel(**data)
                     elif file_name == "ann_assign_map":
                         ann_assign_map = AnnAssignModel(**data)
-                    elif file_name == "import_map":
-                        import_map = ImportModel(**data)
                     elif file_name == "call_map":
                         call_map = CallModel(**data)
                     elif file_name == "attr_map":
@@ -96,7 +90,6 @@ class _BridgeJsonVerifier:
         return BridgeJsonModels(
             name_map,
             ann_assign_map,
-            import_map,
             call_map,
             attr_map,
             always_pass_by_value,

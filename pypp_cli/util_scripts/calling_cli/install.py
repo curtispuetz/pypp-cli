@@ -7,8 +7,8 @@ if __name__ == "__main__":
         # r"C:\Users\puetz\PycharmProjects\bridge-library-test-1",
         # r"C:\Users\puetz\PycharmProjects\bridge-lib-glfw",
         # r"C:\Users\puetz\PycharmProjects\pure-library-test-0",
-        # r"C:\Users\puetz\PycharmProjects\bridge-lib-opengl",
-        r"C:\Users\puetz\PycharmProjects\pypp-python",
+        r"C:\Users\puetz\PycharmProjects\bridge-lib-opengl",
+        # r"C:\Users\puetz\PycharmProjects\pypp-python",
     ]
     subprocess.check_call(
         [
