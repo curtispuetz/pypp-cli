@@ -190,9 +190,13 @@ CALL_MAP: CallMap = {
             good_default_dict, []
         )
     },
-    "os.": {PyImport("os"): ReplaceDotWithDoubleColonEntry([QInc("pypp_os.h")], True)},
+    "os.": {
+        PySpecificImpFrom("pypp_python.stl", "os"): ReplaceDotWithDoubleColonEntry(
+            [QInc("pypp_os.h")], True
+        )
+    },
     "shutil.": {
-        PyImport("shutil"): ReplaceDotWithDoubleColonEntry(
+        PySpecificImpFrom("pypp_python.stl", "shutil"): ReplaceDotWithDoubleColonEntry(
             [QInc("pypp_shutil.h")], True
         )
     },

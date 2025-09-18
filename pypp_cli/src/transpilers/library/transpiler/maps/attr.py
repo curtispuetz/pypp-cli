@@ -1,6 +1,10 @@
 import ast
 
-from pypp_cli.src.transpilers.library.transpiler.d_types import AngInc, PyImport
+from pypp_cli.src.transpilers.library.transpiler.d_types import (
+    AngInc,
+    PyImport,
+    PySpecificImpFrom,
+)
 from pypp_cli.src.transpilers.library.transpiler.maps.d_types import (
     AttrMap,
     CustomMappingStartsWithEntry,
@@ -28,13 +32,13 @@ def _ctypes_custom_mapping(node: ast.Attribute, _d, res_str: str):
 
 ATTR_MAP: AttrMap = {
     "math.": {
-        PyImport("math"): CustomMappingStartsWithEntry(
+        PySpecificImpFrom("pypp_python.stl", "math"): CustomMappingStartsWithEntry(
             _math_custom_mapping,
             [],
         )
     },
     "ctypes.": {
-        PyImport("ctypes"): CustomMappingStartsWithEntry(
+        PySpecificImpFrom("pypp_python.stl", "ctypes"): CustomMappingStartsWithEntry(
             _ctypes_custom_mapping,
             [],
         )

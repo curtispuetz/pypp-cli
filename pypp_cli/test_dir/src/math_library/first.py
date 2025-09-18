@@ -1,4 +1,4 @@
-import math
+from pypp_python.stl import math
 
 
 def math_library_fn():
