@@ -21,6 +21,7 @@ def calc_h_code_for_init_file(py_ast: ast.Module, file: Path) -> tuple[str, Path
     return "".join(res), h_file
 
 
+# TODO: add support for `from . import something`. I think you need this sometimes.
 def _validate(stmt: ast.stmt) -> str:
     if not isinstance(stmt, ast.ImportFrom):
         raise ValueError(
