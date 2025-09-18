@@ -25,6 +25,7 @@ class MapCltr2(MapCltrAlgo):
         helper = MapCltr2Helper(
             self._libs,
             self._bridge_json_path_cltr,
+            self._proj_bridge_json_dir,
             default_map,
             json_file_name,
             warning_fn,
