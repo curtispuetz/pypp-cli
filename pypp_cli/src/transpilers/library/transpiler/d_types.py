@@ -13,6 +13,14 @@ class QInc:
     # Quotes Include
     val: str
 
+    @classmethod
+    def from_module(cls, module: str) -> "QInc":
+        return cls(header_from_module(module))
+
+
+def header_from_module(module: str) -> str:
+    return module.replace(".", "/") + ".h"
+
 
 CppInclude = Union[AngInc, QInc]
 
