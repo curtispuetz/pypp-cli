@@ -9,7 +9,6 @@
 #include "pypp_bridge_library_test_0/name_only_call.h"
 #include "pypp_bridge_library_test_0/pseudo_a.h"
 #include "pypp_bridge_library_test_0/pseudo_custom_type_cpp.h"
-#include "pypp_bridge_library_test_0/replace_with_double_colon_call.h"
 #include "pypp_util/print.h"
 #include <iostream>
 
@@ -51,8 +50,6 @@ void bridge_lib_test_0_fn() {
     h.print_value();
     PseudoGeneric<pypp::PyStr> i = PseudoGeneric<pypp::PyStr>::string_factory();
     i.print_value();
-    int j = dc_test::sub_namespace::test_fn();
-    pypp::print(j);
     pypp::print(pseudo_fn_a());
     std::cout << "[Custom Print]: " << pypp::PyStr("aloha") << std::endl;
     PseudoCustomList<int> k(pypp::PyList({1, 2, 3}));
