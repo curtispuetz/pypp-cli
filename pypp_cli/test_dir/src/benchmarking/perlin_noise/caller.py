@@ -1,14 +1,12 @@
-import random
-
 from pypp_python import auto
-from pypp_python.stl import time
+from pypp_python.stl import time, Random
 
 from src.benchmarking.perlin_noise.impl import PerlinNoise, create_perlin_noise
 
 
 def perlin_noise_fn():
     print("PERLIN NOISE RESULTS:")
-    rng: random.Random = random.Random(42)
+    rng: Random = Random(42)
     p: PerlinNoise = create_perlin_noise(512, rng)
     a: auto = time.perf_counter_start()
     for i in range(1000000):

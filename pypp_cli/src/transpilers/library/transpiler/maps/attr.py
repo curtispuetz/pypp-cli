@@ -1,10 +1,9 @@
 import ast
 
-from pypp_cli.src.transpilers.library.transpiler.d_types import AngInc, QInc, PyImport
+from pypp_cli.src.transpilers.library.transpiler.d_types import AngInc, PyImport
 from pypp_cli.src.transpilers.library.transpiler.maps.d_types import (
     AttrMap,
     CustomMappingStartsWithEntry,
-    ToStringEntry,
 )
 
 
@@ -28,12 +27,6 @@ def _ctypes_custom_mapping(node: ast.Attribute, _d, res_str: str):
 
 
 ATTR_MAP: AttrMap = {
-    "random.Random": {
-        PyImport("random"): ToStringEntry(
-            "pypp::random::Random",
-            [QInc("pypp_random.h")],
-        )
-    },
     "math.": {
         PyImport("math"): CustomMappingStartsWithEntry(
             _math_custom_mapping,
