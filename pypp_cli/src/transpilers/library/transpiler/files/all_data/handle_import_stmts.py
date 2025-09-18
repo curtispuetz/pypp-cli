@@ -43,7 +43,7 @@ def analyse_import_stmts(
                     "Import with just a '.' not supported. Problem in {file_path}"
                 )
             if node.module in py_modules or maps.import_.contains(node.module):
-                inc: QInc = _calc_q_inc(node.module)
+                inc: QInc = QInc.from_module(node.module)
                 for alias in node.names:
                     assert alias.asname is None, (
                         f"'as' is not supported in import from. In {file_path}"
@@ -70,13 +70,8 @@ def analyse_import_stmts(
                     assert name.asname is not None, (
                         f"import 'as' required for {name.name}. In {file_path}"
                     )
-                    cpp_inc_map[name.asname] = _calc_q_inc(name.name)
+                    cpp_inc_map[name.asname] = QInc.from_module(name.name)
                 module_py_imports.imp.add(PyImport(name.name, name.asname))
         else:
             break
     return cpp_inc_map, i, module_py_imports, namespaces
-
-
-# TODO: extract this function.
-def _calc_q_inc(name: str) -> QInc:
-    return QInc(name.replace(".", "/") + ".h")

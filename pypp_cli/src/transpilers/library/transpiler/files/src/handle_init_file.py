@@ -4,7 +4,7 @@ from pathlib import Path
 from pypp_cli.src.transpilers.library.transpiler.files.util.calc_includes import (
     add_include_to_res,
 )
-from pypp_cli.src.transpilers.library.transpiler.d_types import QInc
+from pypp_cli.src.transpilers.library.transpiler.d_types import QInc, header_from_module
 
 
 def calc_h_code_for_init_file(py_ast: ast.Module, file: Path) -> tuple[str, Path]:
@@ -16,7 +16,7 @@ def calc_h_code_for_init_file(py_ast: ast.Module, file: Path) -> tuple[str, Path
             continue
         module_name = _validate(stmt)
         add_include_to_res(
-            QInc(f"{h_file_name.as_posix()}/{module_name.replace('.', '/')}.h"), res
+            QInc(f"{h_file_name.as_posix()}/{header_from_module(module_name)}"), res
         )
     return "".join(res), h_file
 
