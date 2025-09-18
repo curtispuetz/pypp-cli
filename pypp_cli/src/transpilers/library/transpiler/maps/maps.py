@@ -15,10 +15,6 @@ from pypp_cli.src.transpilers.library.transpiler.maps.fn_arg_passed_by_value imp
     PRIMITIVE_TYPES,
     fn_arg_passed_by_value_warning_msg,
 )
-from pypp_cli.src.transpilers.library.transpiler.maps.util.calc_import_map import (
-    ImportMap,
-    ImportMapCltr,
-)
 from pypp_cli.src.transpilers.library.transpiler.maps.name import NAME_MAP
 from pypp_cli.src.transpilers.library.transpiler.maps.d_types import (
     AnnAssignsMap,
@@ -32,11 +28,19 @@ from pypp_cli.src.transpilers.library.transpiler.maps.subscriptable_types import
     SUBSCRIPTABLE_TYPE_MAP,
     subscriptable_type_warning_msg,
 )
-from pypp_cli.src.transpilers.library.transpiler.maps.util.calc_map_1 import (
+from pypp_cli.src.transpilers.library.transpiler.maps.util.imports.calc_map import (
+    ImportMap,
+)
+from pypp_cli.src.transpilers.library.transpiler.maps.util.imports.calc_map import (
+    ImportMapCltr,
+)
+from pypp_cli.src.transpilers.library.transpiler.maps.util.type_1.calc_map import (
     BASE_CALC_ENTRY_FN_MAP,
     MapCltr1,
 )
-from pypp_cli.src.transpilers.library.transpiler.maps.util.calc_map_2 import MapCltr2
+from pypp_cli.src.transpilers.library.transpiler.maps.util.type_2.calc_map import (
+    MapCltr2,
+)
 
 
 @dataclass(frozen=True, slots=True)
