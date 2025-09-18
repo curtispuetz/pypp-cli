@@ -63,11 +63,7 @@ class SrcSingleFileTranspiler:
 
     def _wrap_namespace(self, code: str) -> str:
         if self._namespace is not None:
-            # TODO: remove the comment of namespace in the end
-            return (
-                f"namespace {self._namespace} {{\n{code}\n}} "
-                f"// namespace {self._namespace}"
-            )
+            return f"namespace {self._namespace} {{\n{code}\n}}"
         return code
 
     def _write_cpp_file(self, cpp_code: str):

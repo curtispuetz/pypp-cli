@@ -2,4 +2,4 @@
 
 namespace me {
 void shutil_exceptions_fn();
-} // namespace me
+}
