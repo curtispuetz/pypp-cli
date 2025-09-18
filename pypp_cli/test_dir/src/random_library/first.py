@@ -1,6 +1,10 @@
 from dataclasses import dataclass
 import random
 
+# TODO: I could consider changing import random to from pypp_python.stl import random
+# as well as the other standard library things. I could also consider different
+# ways of importing things. Like from pypp_python.stl.random import Random.
+
 
 def _random_as_arg(a: random.Random) -> float:
     return a.random()
