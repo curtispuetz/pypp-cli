@@ -1,8 +1,8 @@
 from dataclasses import dataclass
 import math
-import random
 
 from pypp_python import Valu, mov, tg
+from pypp_python.stl import Random
 
 
 def _fade(t: float) -> float:
@@ -92,7 +92,7 @@ class PerlinNoise:
         )
 
 
-def create_perlin_noise(permutation_table_size: int, rng: random.Random) -> PerlinNoise:
+def create_perlin_noise(permutation_table_size: int, rng: Random) -> PerlinNoise:
     arr_to_shuffle: list[int] = [mov(i) for i in range(1, permutation_table_size + 1)]
     rng.shuffle(arr_to_shuffle)
     return PerlinNoise(permutation_table_size, mov(arr_to_shuffle))

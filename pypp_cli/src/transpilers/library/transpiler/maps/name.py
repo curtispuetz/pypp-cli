@@ -83,5 +83,10 @@ NAME_MAP: NameMap = {
             "pypp::Uni", [QInc("pypp_union.h")]
         )
     },
+    "Random": {
+        PySpecificImpFrom("pypp_python.stl", "Random"): ToStringEntry(
+            "pypp::random::Random", [QInc("pypp_random.h")]
+        )
+    },
     **EXCEPTION_NAME_MAP,
 }
