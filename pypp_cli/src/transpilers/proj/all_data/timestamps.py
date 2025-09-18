@@ -19,9 +19,6 @@ def load_previous_timestamps(timestamps_file: Path) -> TimeStampsFile:
     return TimeStampsFile([], {})
 
 
-# TODO: rename this file to timestamps or something
-
-
 @dataclass(frozen=True, slots=True)
 class TimestampsSaver:
     _timestamps_file: Path
