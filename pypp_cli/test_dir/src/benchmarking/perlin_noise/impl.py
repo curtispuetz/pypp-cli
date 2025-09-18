@@ -1,6 +1,5 @@
-from dataclasses import dataclass
 from pypp_python.stl import math, Random
-from pypp_python import Valu, mov, tg
+from pypp_python import Valu, mov, tg, dataclass
 
 
 def _fade(t: float) -> float:

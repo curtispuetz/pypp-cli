@@ -1,5 +1,4 @@
-from dataclasses import dataclass
-from pypp_python import configclass, exception, Valu
+from pypp_python import configclass, exception, Valu, dataclass
 from abc import ABC, abstractmethod
 from src.custom_libs.pure_lib_test_0.first import pure_lib_test_0_fn
 from src.args_test import args_test_fn

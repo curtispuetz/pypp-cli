@@ -1,5 +1,4 @@
-from pypp_python import Valu, mov
-from dataclasses import dataclass
+from pypp_python import Valu, mov, dataclass
 
 
 @dataclass(frozen=True, slots=True)
