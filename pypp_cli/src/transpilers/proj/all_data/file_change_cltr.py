@@ -4,7 +4,7 @@ from pypp_cli.src.transpilers.library.file_changes.cltr import (
     calc_py_file_changes,
     PyFileChanges,
 )
-from pypp_cli.src.transpilers.proj.all_data.file_loader import TimeStampsFile
+from pypp_cli.src.transpilers.proj.all_data.timestamps import TimeStampsFile
 
 
 @dataclass(frozen=True, slots=True)
