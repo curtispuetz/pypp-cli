@@ -1,5 +1,5 @@
 from pypp_python import res_dir
-import os
+from pypp_python.stl import os
 
 
 def test_is_here_fn():

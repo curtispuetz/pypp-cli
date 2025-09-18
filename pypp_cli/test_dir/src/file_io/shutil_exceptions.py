@@ -1,6 +1,5 @@
-import os
-import shutil
 from pypp_python import res_dir
+from pypp_python.stl import os, shutil
 
 
 def shutil_exceptions_fn():

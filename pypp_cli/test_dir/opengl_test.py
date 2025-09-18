@@ -13,10 +13,9 @@ from pypp_bridge_lib_opengl.custom import (
 )
 from pypp_bridge_lib_opengl.glad_loader import glad_load_gl
 import numpy as np
-import ctypes
-
 from pypp_bridge_lib_glfw import GLFWwindowPtr
 from pypp_python import to_c_string, NULL, float32
+from pypp_python.stl import ctypes
 
 # Vertex shader source
 vertex_shader_src: str = """
