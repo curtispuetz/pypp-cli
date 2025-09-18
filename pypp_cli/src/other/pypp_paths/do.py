@@ -11,6 +11,7 @@ class DoPyppPaths:
     proj_info_file: Path
     cpp_dir: Path
     cpp_build_release_dir: Path
+    cpp_libs_dir: Path
     python_dir: Path
     timestamps_file: Path
     site_packages_dir: Path
@@ -40,6 +41,7 @@ def create_do_pypp_paths(target_dir: Path) -> DoTranspileDeps:
             proj_info_file,
             cpp_dir,
             cpp_build_release_dir,
+            cpp_dir / "libs",
             python_dir,
             timestamps_file,
             site_packages_dir,

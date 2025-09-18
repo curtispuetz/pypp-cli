@@ -10,15 +10,12 @@ from pypp_cli.src.transpilers.library.file_tracker import PyFilesTracker
 from pypp_cli.src.transpilers.proj.all_data.bridge_libs.copier import (
     copy_all_lib_cpp_files,
 )
-from pypp_cli.src.transpilers.proj.all_data.bridge_libs.deleter import (
-    delete_all_cpp_lib_files,
-)
 from pypp_cli.src.transpilers.library.bridge_libs.finder import (
     PyppLibsData,
     find_libs,
 )
 from pypp_cli.src.transpilers.proj.all_data.bridge_libs.finder import (
-    find_added_and_deleted_libs,
+    find_new_libs,
 )
 from pypp_cli.src.transpilers.library.bridge_libs.verifier import (
     verify_all_bridge_jsons,
@@ -59,10 +56,11 @@ def create_all_data(transpile_deps: DoTranspileDeps) -> AllData:
     bridge_json_path_cltr = BridgeJsonPathCltr(paths.site_packages_dir)
 
     libs_data: PyppLibsData = find_libs(paths.site_packages_dir)
-    new_libs, deleted_libs = find_added_and_deleted_libs(paths.cpp_dir, libs_data.libs)
-    delete_all_cpp_lib_files(paths.cpp_dir, deleted_libs)
+    new_libs = find_new_libs(paths.cpp_dir, libs_data.libs)
+    # Note: not removing deleted libraries. I guess users will do that themselves.
+    # I could provide CLI commands to delete libraries.
     verify_all_bridge_jsons(libs_data.libs, new_libs, bridge_json_path_cltr)
-    copy_all_lib_cpp_files(paths.cpp_dir, paths.site_packages_dir, new_libs)
+    copy_all_lib_cpp_files(paths.cpp_libs_dir, paths.site_packages_dir, new_libs)
     # Note: not removing timestamps file here because users can just do that themselves
     # if they want that.
 
