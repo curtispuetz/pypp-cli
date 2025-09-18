@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from pypp_python import dataclass
 from pypp_python.stl import Random
 
 # TODO: I could consider changing import random to from pypp_python.stl import random

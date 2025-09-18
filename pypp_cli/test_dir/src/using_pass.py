@@ -1,5 +1,4 @@
-from pypp_python import auto, Valu
-from dataclasses import dataclass
+from pypp_python import auto, Valu, dataclass
 
 
 def fn_that_uses_pass():

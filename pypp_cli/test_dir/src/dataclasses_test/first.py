@@ -1,6 +1,4 @@
-from dataclasses import dataclass
-
-from pypp_python import mov, Valu
+from pypp_python import mov, Valu, dataclass
 
 
 @dataclass

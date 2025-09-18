@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from pypp_python import dataclass
 
 
 @dataclass

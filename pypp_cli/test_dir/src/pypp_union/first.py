@@ -1,5 +1,4 @@
-from dataclasses import dataclass
-from pypp_python import Uni, ug, isinst, is_none, Valu, mov, Ref, auto
+from pypp_python import Uni, ug, isinst, is_none, Valu, mov, Ref, auto, dataclass
 
 
 @dataclass

@@ -1,5 +1,4 @@
-from dataclasses import dataclass
-from pypp_python import Ref, mov
+from pypp_python import Ref, mov, dataclass
 
 
 @dataclass

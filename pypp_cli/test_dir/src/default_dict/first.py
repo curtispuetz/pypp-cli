@@ -1,7 +1,5 @@
 from collections import defaultdict
-from dataclasses import dataclass
-
-from pypp_python import Ref, Valu, auto
+from pypp_python import Ref, Valu, auto, dataclass
 
 
 def _dict_factory() -> dict[int, int]:
