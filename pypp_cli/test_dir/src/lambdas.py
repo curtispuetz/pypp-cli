@@ -1,4 +1,4 @@
-from typing import Callable
+from pypp_python import Callable
 
 
 def lambdas_fn():

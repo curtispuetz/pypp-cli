@@ -1,5 +1,4 @@
-from typing import Callable
-from pypp_python import Valu, dataclass
+from pypp_python import Valu, dataclass, Callable
 
 
 def _test_fn(a: int, b: int) -> str:

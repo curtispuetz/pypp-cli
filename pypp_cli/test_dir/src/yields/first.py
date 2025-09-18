@@ -1,6 +1,4 @@
-from typing import Iterator
-
-from pypp_python import mov
+from pypp_python import mov, Iterator
 
 
 def yield_123() -> Iterator[int]:
