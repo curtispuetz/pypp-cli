@@ -32,12 +32,6 @@ from pypp_cli.src.transpilers.library.transpiler.maps.subscriptable_types import
     SUBSCRIPTABLE_TYPE_MAP,
     subscriptable_type_warning_msg,
 )
-from pypp_cli.src.transpilers.library.transpiler.maps.util.imports.calc_map import (
-    ImportMap,
-)
-from pypp_cli.src.transpilers.library.transpiler.maps.util.imports.calc_map import (
-    ImportMapCltr,
-)
 from pypp_cli.src.transpilers.library.transpiler.maps.util.type_1.calc_map import (
     calc_custom_mapping_from_lib_entry,
     calc_custom_mapping_starts_with_from_lib_entry,
@@ -58,13 +52,11 @@ class Maps:
     attr: AttrMap
     fn_arg_passed_by_value: FnArgByValueMap
     subscriptable_type: SubscriptableTypeMap
-    import_: ImportMap
     ann_assign: AnnAssignsMap
 
 
 @dataclass(frozen=True, slots=True)
 class MapsCltr:
-    _import_cltr: ImportMapCltr
     _bridge_json_models: dict[str, BridgeJsonModels]
 
     def calc_maps(self) -> Maps:
@@ -97,9 +89,6 @@ class MapsCltr:
             attr_map,
             fn_arg_passed_by_value,
             subscriptable_type,
-            # TODO: remember that for the ImportMap, I need to take all libraries that
-            # are do not have bridge json files
-            self._import_cltr.calc_import_map(),
             ann_assign_map,
         )
 

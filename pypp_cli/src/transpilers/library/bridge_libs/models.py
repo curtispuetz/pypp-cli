@@ -13,6 +13,7 @@ class RequiredPyImportModel(BaseModel):
     name: str
     module: str | None = None
     as_name: str | None = None
+    model_config = {"extra": "forbid"}
 
 
 class ToStringValueModel(BaseModel):
@@ -20,6 +21,7 @@ class ToStringValueModel(BaseModel):
     quote_includes: QuoteIncludeModel | None = None
     angle_includes: AngleIncludeModel | None = None
     required_py_import: RequiredPyImportModel | None = None
+    model_config = {"extra": "forbid"}
 
 
 class LeftAndRightValueModel(BaseModel):
@@ -28,6 +30,7 @@ class LeftAndRightValueModel(BaseModel):
     quote_includes: QuoteIncludeModel | None = None
     angle_includes: AngleIncludeModel | None = None
     required_py_import: RequiredPyImportModel | None = None
+    model_config = {"extra": "forbid"}
 
 
 class CustomMappingValueModel(BaseModel):
@@ -35,12 +38,14 @@ class CustomMappingValueModel(BaseModel):
     quote_includes: QuoteIncludeModel | None = None
     angle_includes: AngleIncludeModel | None = None
     required_py_import: RequiredPyImportModel | None = None
+    model_config = {"extra": "forbid"}
 
 
 class ReplaceDotWithDoubleColonValueModel(BaseModel):
     quote_includes: QuoteIncludeModel | None = None
     angle_includes: AngleIncludeModel | None = None
     required_py_import: RequiredPyImportModel | None = None
+    model_config = {"extra": "forbid"}
 
 
 class ToStringModel(RootModel[dict[str, ToStringValueModel]]):
@@ -65,6 +70,7 @@ class NameModel(BaseModel):
     to_string: ToStringModel | None = None
     custom_mapping: CustomMappingModel | None = None
     custom_mapping_starts_with: CustomMappingModel | None = None
+    model_config = {"extra": "forbid"}
 
 
 class CallModel(BaseModel):
@@ -73,6 +79,7 @@ class CallModel(BaseModel):
     custom_mapping: CustomMappingModel | None = None
     custom_mapping_starts_with: CustomMappingModel | None = None
     replace_dot_with_double_colon: ReplaceDotWithDoubleColonModel | None = None
+    model_config = {"extra": "forbid"}
 
 
 class AttrModel(BaseModel):
@@ -80,15 +87,18 @@ class AttrModel(BaseModel):
     custom_mapping: CustomMappingModel | None = None
     custom_mapping_starts_with: CustomMappingModel | None = None
     replace_dot_with_double_colon: ReplaceDotWithDoubleColonModel | None = None
+    model_config = {"extra": "forbid"}
 
 
 class AnnAssignModel(BaseModel):
     custom_mapping: CustomMappingModel | None = None
     custom_mapping_starts_with: CustomMappingModel | None = None
+    model_config = {"extra": "forbid"}
 
 
 class AlwaysPassByValueValueModel(BaseModel):
     required_py_import: RequiredPyImportModel | None = None
+    model_config = {"extra": "forbid"}
 
 
 class AlwaysPassByValueModel(RootModel[dict[str, AlwaysPassByValueValueModel | None]]):
@@ -97,22 +107,25 @@ class AlwaysPassByValueModel(RootModel[dict[str, AlwaysPassByValueValueModel | N
 
 class SubscriptableTypeValueModel(BaseModel):
     required_py_import: RequiredPyImportModel | None = None
+    model_config = {"extra": "forbid"}
 
 
 class SubscriptableTypeModel(RootModel[dict[str, SubscriptableTypeValueModel | None]]):
     pass
 
 
-class ImportModel(BaseModel):
-    direct_to_cpp_include: list[str] | None = None
-    ignore: list[str] | None = None
-
-
 class CMakeListsModel(BaseModel):
     add_lines: list[str] | None = None
     link_libraries: list[str] | None = None
+    model_config = {"extra": "forbid"}
 
 
 if __name__ == "__main__":
-    data = {"name": "test", "module": "mod"}
-    RequiredPyImportModel(**data)
+    data = {
+        "a_name": {
+            "to": "a_to",
+            "quote_includes": ["a_quote_include"],
+        }
+    }
+    ToStringModel(**data)
+    print("ok")

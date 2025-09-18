@@ -6,7 +6,6 @@ from pypp_cli.src.transpilers.library.transpiler.d_types import (
     PyImport,
     QInc,
 )
-from pypp_cli.src.transpilers.library.transpiler.maps.maps import Maps
 from pypp_cli.src.transpilers.library.transpiler.cpp_includes import IncMap
 from pypp_cli.src.transpilers.library.transpiler.util.modules import (
     calc_module_beginning,
@@ -16,7 +15,6 @@ from pypp_cli.src.transpilers.library.transpiler.util.modules import (
 # TODO: simplify this code.
 def analyse_import_stmts(
     stmts: list[ast.stmt],
-    maps: Maps,
     py_modules: set[str],
     namespace: str | None,
     lib_namespaces: dict[str, str],
@@ -42,7 +40,7 @@ def analyse_import_stmts(
                 raise ValueError(
                     "Import with just a '.' not supported. Problem in {file_path}"
                 )
-            if node.module in py_modules or maps.import_.contains(node.module):
+            if node.module in py_modules or _is_pure_lib(node.module, lib_namespaces):
                 inc: QInc = QInc.from_module(node.module)
                 for alias in node.names:
                     assert alias.asname is None, (
@@ -66,12 +64,20 @@ def analyse_import_stmts(
                         "Import is not supported for project imports "
                         "(only ImportFrom is supported). In {file_path}"
                     )
-                if maps.import_.contains(name.name):
-                    assert name.asname is not None, (
-                        f"import 'as' required for {name.name}. In {file_path}"
-                    )
-                    cpp_inc_map[name.asname] = QInc.from_module(name.name)
+                # if maps.import_.contains(name.name):
+                #     assert name.asname is not None, (
+                #         f"import 'as' required for {name.name}. In {file_path}"
+                #     )
+                #     cpp_inc_map[name.asname] = QInc.from_module(name.name)
+                # TODO: consider banning PyImport entirely and only suporting ImportFrom
+                # I actually think this would be really good. We don't need to import
+                # anything from Python or anywhere else, that will just confuse things.
                 module_py_imports.imp.add(PyImport(name.name, name.asname))
         else:
             break
     return cpp_inc_map, i, module_py_imports, namespaces
+
+
+def _is_pure_lib(module: str, lib_namespaces: dict[str, str]) -> bool:
+    # For all pure libs, there is a key in the lib_namespaces dict.
+    return calc_module_beginning(module) in lib_namespaces

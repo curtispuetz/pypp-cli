@@ -13,13 +13,7 @@ from pypp_cli.src.transpilers.library.transpiler.files.src.src_file import (
 from .util.results import TranspileResults
 
 
-from pypp_cli.src.transpilers.library.bridge_libs.path_cltr import (
-    BridgeJsonPathCltr,
-)
 from pypp_cli.src.transpilers.library.transpiler.maps.maps import MapsCltr
-from pypp_cli.src.transpilers.library.transpiler.maps.util.imports.calc_map import (
-    ImportMapCltr,
-)
 
 
 def _is_proper_main_block(node: ast.stmt) -> bool:
@@ -59,9 +53,7 @@ def _calc_all_modules_for_project(py_files: list[Path]) -> set[str]:
 
 def transpile_all_changed_files(
     namespace: str | None,
-    bridge_json_path_cltr: BridgeJsonPathCltr,
     bridge_json_models: dict[str, BridgeJsonModels],
-    proj_bridge_json_dir: Path,
     libs_data: PyppLibsData,
     py_files: list[Path],
     py_files_tracker: PyFilesTracker,
@@ -71,7 +63,6 @@ def transpile_all_changed_files(
     changed_files: list[Path],
 ) -> TranspileResults:
     maps_cltr = MapsCltr(
-        ImportMapCltr(libs_data.libs, bridge_json_path_cltr, proj_bridge_json_dir),
         bridge_json_models,
     )
     maps = maps_cltr.calc_maps()

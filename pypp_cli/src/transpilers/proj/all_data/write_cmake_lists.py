@@ -98,6 +98,7 @@ class CMakeListsWriter:
     ) -> tuple[list[str], list[str]]:
         add_lines: list[str] = []
         link_libs: list[str] = []
+        # TODO: use a pydantic model for cmake_lists.json.
         for lib, has_bridge_jsons in self._libs.items():
             if not has_bridge_jsons:
                 continue

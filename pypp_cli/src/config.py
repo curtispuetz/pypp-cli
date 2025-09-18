@@ -10,7 +10,7 @@ SHOULDNT_HAPPEN: str = (
 
 class ProjInfo(BaseModel):
     cpp_dir_is_dirty: bool
-    namespace: Optional[str]
+    namespace: str
     override_cpp_write_dir: Optional[str]
     write_metadata_to_dir: Optional[str]
     ignored_files: list[str]
