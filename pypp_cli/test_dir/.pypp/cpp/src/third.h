@@ -4,4 +4,4 @@
 
 namespace me {
 pypp::PyStr using_inline_string();
-} // namespace me
+}

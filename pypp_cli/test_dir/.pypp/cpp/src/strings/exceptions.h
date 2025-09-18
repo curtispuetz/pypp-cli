@@ -2,4 +2,4 @@
 
 namespace me {
 void string_exceptions_fn();
-} // namespace me
+}

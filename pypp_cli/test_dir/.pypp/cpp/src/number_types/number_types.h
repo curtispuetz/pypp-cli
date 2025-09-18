@@ -2,4 +2,4 @@
 
 namespace me {
 void number_types_fn();
-} // namespace me
+}

@@ -4,4 +4,4 @@
 
 namespace me {
 pypp::PyStr return_friend();
-} // namespace me
+}
