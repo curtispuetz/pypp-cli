@@ -59,7 +59,7 @@ def create_all_data(transpile_deps: DoTranspileDeps) -> AllData:
     new_libs = find_new_libs(paths.cpp_dir, libs_data.libs)
     # Note: not removing deleted libraries. I guess users will do that themselves.
     # I could provide CLI commands to delete libraries.
-    verify_all_bridge_jsons(libs_data.libs, new_libs, bridge_json_path_cltr)
+    bridge_json_models = verify_all_bridge_jsons(libs_data.libs, bridge_json_path_cltr)
     copy_all_lib_cpp_files(paths.cpp_libs_dir, paths.site_packages_dir, new_libs)
     # Note: not removing timestamps file here because users can just do that themselves
     # if they want that.
@@ -94,6 +94,7 @@ def create_all_data(transpile_deps: DoTranspileDeps) -> AllData:
             libs_data,
             py_files,
             bridge_json_path_cltr,
+            bridge_json_models,
             paths.proj_bridge_json_dir,
             py_files_tracker,
         ),

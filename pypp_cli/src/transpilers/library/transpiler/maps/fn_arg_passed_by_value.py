@@ -17,10 +17,8 @@ PRIMITIVE_TYPES: FnArgByValueMap = {
 }
 
 
-def fn_arg_passed_by_value_warning_msg(
-    installed_library: str, full_type_str: str
-) -> str:
+def fn_arg_passed_by_value_warning_msg(lib: str, full_type_str: str) -> str:
     return (
         f"Py++ transpiler already passes the type {full_type_str} by value always. "
-        f"Library {installed_library} is potentially changing this behavior."
+        f"Library {lib} is potentially changing this behavior."
     )

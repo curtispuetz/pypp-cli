@@ -1,6 +1,7 @@
 import ast
 from pathlib import Path
 from pypp_cli.src.transpilers.library.bridge_libs.finder import PyppLibsData
+from pypp_cli.src.transpilers.library.bridge_libs.verifier import BridgeJsonModels
 from pypp_cli.src.transpilers.library.file_tracker import PyFilesTracker
 from .util.calc_ast_tree import calc_ast
 from pypp_cli.src.transpilers.library.transpiler.files.main.main_file import (
@@ -18,12 +19,6 @@ from pypp_cli.src.transpilers.library.bridge_libs.path_cltr import (
 from pypp_cli.src.transpilers.library.transpiler.maps.maps import MapsCltr
 from pypp_cli.src.transpilers.library.transpiler.maps.util.imports.calc_map import (
     ImportMapCltr,
-)
-from pypp_cli.src.transpilers.library.transpiler.maps.util.type_1.calc_map import (
-    MapCltr1,
-)
-from pypp_cli.src.transpilers.library.transpiler.maps.util.type_2.calc_map import (
-    MapCltr2,
 )
 
 
@@ -65,6 +60,7 @@ def _calc_all_modules_for_project(py_files: list[Path]) -> set[str]:
 def transpile_all_changed_files(
     namespace: str | None,
     bridge_json_path_cltr: BridgeJsonPathCltr,
+    bridge_json_models: dict[str, BridgeJsonModels],
     proj_bridge_json_dir: Path,
     libs_data: PyppLibsData,
     py_files: list[Path],
@@ -75,9 +71,8 @@ def transpile_all_changed_files(
     changed_files: list[Path],
 ) -> TranspileResults:
     maps_cltr = MapsCltr(
-        MapCltr1(libs_data.libs, bridge_json_path_cltr, proj_bridge_json_dir),
-        MapCltr2(libs_data.libs, bridge_json_path_cltr, proj_bridge_json_dir),
         ImportMapCltr(libs_data.libs, bridge_json_path_cltr, proj_bridge_json_dir),
+        bridge_json_models,
     )
     maps = maps_cltr.calc_maps()
     py_modules = _calc_all_modules_for_project(py_files)
