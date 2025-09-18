@@ -162,7 +162,7 @@ CALL_MAP: CallMap = {
         )
     },
     "pypp::PyDefaultDict": {
-        PySpecificImpFrom("collections", "defaultdict"): CustomMappingEntry(
+        PySpecificImpFrom("pypp_python", "defaultdict"): CustomMappingEntry(
             _default_dict, []
         )
     },
@@ -186,7 +186,7 @@ CALL_MAP: CallMap = {
         )
     },
     "pypp::PyDefaultDict<": {
-        PySpecificImpFrom("collections", "defaultdict"): CustomMappingStartsWithEntry(
+        PySpecificImpFrom("pypp_python", "defaultdict"): CustomMappingStartsWithEntry(
             good_default_dict, []
         )
     },

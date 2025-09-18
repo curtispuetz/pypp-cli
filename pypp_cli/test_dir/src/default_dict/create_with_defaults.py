@@ -1,5 +1,4 @@
-from collections import defaultdict
-from pypp_python import auto
+from pypp_python import auto, defaultdict
 
 
 def _dict_factory_2() -> dict[int, int]:

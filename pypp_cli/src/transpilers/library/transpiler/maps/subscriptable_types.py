@@ -8,7 +8,7 @@ SUBSCRIPTABLE_TYPE_MAP: SubscriptableTypeMap = {
     "pypp::PyDict": {None},
     "pypp::PyTup": {None},
     "pypp::PySet": {None},
-    "pypp::PyDefaultDict": {PySpecificImpFrom("collections", "defaultdict")},
+    "pypp::PyDefaultDict": {PySpecificImpFrom("pypp_python", "defaultdict")},
     "pypp::Uni": {PySpecificImpFrom("pypp_python", "Uni")},
 }
 

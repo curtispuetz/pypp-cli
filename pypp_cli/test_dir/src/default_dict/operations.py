@@ -1,5 +1,4 @@
-from collections import defaultdict
-from pypp_python import auto
+from pypp_python import auto, defaultdict
 
 
 def default_dict_operations_fn():
