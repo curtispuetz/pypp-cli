@@ -21,7 +21,6 @@ def calc_h_code_for_init_file(py_ast: ast.Module, file: Path) -> tuple[str, Path
     return "".join(res), h_file
 
 
-# TODO: add support for `from . import something`. I think you need this sometimes.
 def _validate(stmt: ast.stmt) -> str:
     if not isinstance(stmt, ast.ImportFrom):
         raise ValueError(
@@ -30,6 +29,8 @@ def _validate(stmt: ast.stmt) -> str:
             f"Found:\n{ast.dump(stmt, indent=4)}"
         )
     if stmt.module is None:
+        # You can't do `from . import something` because this is importing from a
+        # module, and C++ doesn't have that concept.
         raise ValueError(
             f"Only ImportFrom statements with a module are supported in "
             f"__init__.py files. Found:\n{ast.dump(stmt, indent=4)}"
