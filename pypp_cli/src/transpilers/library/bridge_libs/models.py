@@ -22,6 +22,14 @@ class ToStringValueModel(BaseModel):
     required_py_import: RequiredPyImportModel | None = None
 
 
+class LeftAndRightValueModel(BaseModel):
+    left: str
+    right: str
+    quote_includes: QuoteIncludeModel | None = None
+    angle_includes: AngleIncludeModel | None = None
+    required_py_import: RequiredPyImportModel | None = None
+
+
 class CustomMappingValueModel(BaseModel):
     mapping_function: list[str]
     quote_includes: QuoteIncludeModel | None = None
@@ -36,6 +44,10 @@ class ReplaceDotWithDoubleColonValueModel(BaseModel):
 
 
 class ToStringModel(RootModel[dict[str, ToStringValueModel]]):
+    pass
+
+
+class LeftAndRightModel(RootModel[dict[str, LeftAndRightValueModel]]):
     pass
 
 
@@ -56,6 +68,7 @@ class NameModel(BaseModel):
 
 
 class CallModel(BaseModel):
+    left_and_right: LeftAndRightModel | None = None
     to_string: ToStringModel | None = None
     custom_mapping: CustomMappingModel | None = None
     custom_mapping_starts_with: CustomMappingModel | None = None
@@ -98,18 +111,6 @@ class ImportModel(BaseModel):
 class CMakeListsModel(BaseModel):
     add_lines: list[str] | None = None
     link_libraries: list[str] | None = None
-
-
-BRIDGE_JSON_MODELS: dict[str, type] = {
-    "name_map": NameModel,
-    "ann_assign_map": AnnAssignModel,
-    "import_map": ImportModel,
-    "call_map": CallModel,
-    "attr_map": AttrModel,
-    "subscriptable_types": SubscriptableTypeModel,
-    "always_pass_by_value": AlwaysPassByValueModel,
-    "cmake_lists": CMakeListsModel,
-}
 
 
 if __name__ == "__main__":

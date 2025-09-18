@@ -1,16 +1,10 @@
 import ast
-from typing import Callable
 
 from pypp_cli.src.transpilers.library.transpiler.d_types import AngInc, QInc, PyImport
 from pypp_cli.src.transpilers.library.transpiler.maps.d_types import (
     AttrMap,
-    AttrMapEntry,
     CustomMappingStartsWithEntry,
     ToStringEntry,
-)
-from pypp_cli.src.transpilers.library.transpiler.maps.util.type_1.calc_map import (
-    BASE_CALC_ENTRY_FN_MAP,
-    calc_replace_dot_with_double_colon_entry,
 )
 
 
@@ -52,9 +46,4 @@ ATTR_MAP: AttrMap = {
             [],
         )
     },
-}
-
-ATTR_CALC_ENTRY_FN_MAP: dict[str, Callable[[dict], AttrMapEntry]] = {
-    **BASE_CALC_ENTRY_FN_MAP,
-    "replace_dot_with_double_colon": calc_replace_dot_with_double_colon_entry,
 }

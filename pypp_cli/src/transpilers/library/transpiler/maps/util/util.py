@@ -1,6 +1,11 @@
 from dataclasses import dataclass
 from pathlib import Path
 from pypp_cli.src.transpilers.library.bridge_libs.finder import PyppLibs
+from pypp_cli.src.transpilers.library.bridge_libs.models import (
+    AngleIncludeModel,
+    QuoteIncludeModel,
+    RequiredPyImportModel,
+)
 from pypp_cli.src.transpilers.library.bridge_libs.path_cltr import (
     BridgeJsonPathCltr,
 )
@@ -14,25 +19,28 @@ from pypp_cli.src.transpilers.library.transpiler.d_types import (
 )
 
 
-def calc_cpp_includes(obj: dict) -> list[CppInclude]:
+def calc_cpp_include(
+    quote: QuoteIncludeModel | None, angle: AngleIncludeModel | None
+) -> list[CppInclude]:
     ret: list[CppInclude] = []
-    if "quote_includes" in obj:
-        for inc_str in obj["quote_includes"]:
+    if quote is not None:
+        for inc_str in quote.root:
             ret.append(QInc(inc_str))
-    if "angle_includes" in obj:
-        for inc_str in obj["angle_includes"]:
+    if angle is not None:
+        for inc_str in angle.root:
             ret.append(AngInc(inc_str))
     return ret
 
 
-def calc_required_py_import(obj: dict | None) -> PySpecificImport | None:
-    if obj is not None and "required_py_import" in obj:
-        req = obj["required_py_import"]
-        if "module" in req:
-            return PySpecificImpFrom(req["module"], req["name"])
-        if "as_name" in req:
-            return PyImport(req["name"], req["as_name"])
-        return PyImport(req["name"])
+def calc_required_py_import(
+    d: RequiredPyImportModel | None,
+) -> PySpecificImport | None:
+    if d is not None:
+        if d.module is not None:
+            return PySpecificImpFrom(d.module, d.name)
+        if d.as_name is not None:
+            return PyImport(d.name, d.as_name)
+        return PyImport(d.name)
     return None
 
 

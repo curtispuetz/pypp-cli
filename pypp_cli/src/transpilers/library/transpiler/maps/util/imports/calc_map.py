@@ -24,6 +24,8 @@ class ImportMap:
         return False
 
 
+# TODO: delete this feature. It is complicated and less features is better at the
+# beginning. Less to document and less to understand.
 @dataclass(frozen=True, slots=True)
 class ImportMapCltr(MapCltrAlgo):
     def calc_import_map(self) -> ImportMap:
