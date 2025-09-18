@@ -1,4 +1,4 @@
-from abc import ABC, abstractmethod
+from pypp_python.interfaces import ABC, abstractmethod
 from pypp_python import dataclass
 
 

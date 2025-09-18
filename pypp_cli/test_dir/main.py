@@ -1,5 +1,5 @@
 from pypp_python import configclass, exception, Valu, dataclass
-from abc import ABC, abstractmethod
+from pypp_python.interfaces import ABC, abstractmethod
 from src.custom_libs.pure_lib_test_0.first import pure_lib_test_0_fn
 from src.args_test import args_test_fn
 from src.augment_operations import augment_operations_fn
