@@ -32,6 +32,8 @@ class FnSignatureCalculator:
             cpp_ret_type = "void"
         else:
             cpp_ret_type = self._d.handle_expr(node.returns)
+            # TODO: It might be better to check imports for Iterator, Callable,
+            # dataclass, ABC, abstractmethod, Valu, Ref, mov, etc.
             if cpp_ret_type.startswith("Iterator[") and cpp_ret_type.endswith("]"):
                 self._d.add_inc(QInc("pypp_util/generator.h"))
                 cpp_ret_type = f"pypp::Generator<{calc_inside_sq(cpp_ret_type)}>"
