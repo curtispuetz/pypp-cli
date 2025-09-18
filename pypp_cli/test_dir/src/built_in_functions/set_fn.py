@@ -1,5 +1,4 @@
-from collections import defaultdict
-from pypp_python import auto
+from pypp_python import auto, defaultdict
 
 
 def built_in_set_fn():

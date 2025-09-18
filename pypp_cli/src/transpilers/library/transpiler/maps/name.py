@@ -67,7 +67,7 @@ NAME_MAP: NameMap = {
     "list": {None: ToStringEntry("pypp::PyList", [QInc("py_list.h")])},
     "dict": {None: ToStringEntry("pypp::PyDict", [QInc("py_dict.h")])},
     "defaultdict": {
-        PySpecificImpFrom("collections", "defaultdict"): ToStringEntry(
+        PySpecificImpFrom("pypp_python", "defaultdict"): ToStringEntry(
             "pypp::PyDefaultDict", [QInc("py_dict_default.h")]
         )
     },
