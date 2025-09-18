@@ -27,7 +27,7 @@ class ImportMap:
 @dataclass(frozen=True, slots=True)
 class ImportMapCltr(MapCltrAlgo):
     def calc_import_map(self) -> ImportMap:
-        dtci: set[str] = set()
+        dtc_include: set[str] = set()
         ignore: dict[str, set[str]] = {}
         for lib, has_bridge_jsons in self._libs.items():
             if not has_bridge_jsons:
@@ -38,20 +38,28 @@ class ImportMapCltr(MapCltrAlgo):
             )
             if not json_path.is_file():
                 continue
-            with open(json_path, "r") as f:
-                # Note: Json should already be verified valid on library install.
-                r: dict[str, list[str]] = json.load(f)
-                if "direct_to_cpp_include" in r:
-                    dtci.update(r["direct_to_cpp_include"])
-                else:
-                    assert "ignore" in r, (
-                        f"Invalid import_map.json from library "
-                        f"'{lib}'. "
-                        f"This should not happen because the library should be "
-                        f"verified on install."
-                    )
-                    if len(r["ignore"]) == 0:
-                        ignore[lib] = set()
-                    else:
-                        ignore[lib] = set(r["ignore"])
-        return ImportMap(dtci, ignore)
+            self._calc_for_lib(json_path, lib, dtc_include, ignore)
+        return ImportMap(dtc_include, ignore)
+
+    def _calc_for_lib(
+        self,
+        json_path: Path,
+        lib: str,
+        dtc_include: set[str],
+        ignore: dict[str, set[str]],
+    ):
+        with open(json_path, "r") as f:
+            r: dict[str, list[str]] = json.load(f)
+        if "direct_to_cpp_include" in r:
+            dtc_include.update(r["direct_to_cpp_include"])
+        else:
+            assert "ignore" in r, (
+                f"Invalid import_map.json from library "
+                f"'{lib}'. "
+                f"This should not happen because the library should be "
+                f"verified on install."
+            )
+            if len(r["ignore"]) == 0:
+                ignore[lib] = set()
+            else:
+                ignore[lib] = set(r["ignore"])

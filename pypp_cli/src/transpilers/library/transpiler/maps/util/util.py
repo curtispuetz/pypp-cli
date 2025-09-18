@@ -13,12 +13,6 @@ from pypp_cli.src.transpilers.library.transpiler.d_types import (
 )
 
 
-_ERROR_STR = (
-    "This shouldn't happen because the json schema should have been validated "
-    "on library install"
-)
-
-
 def calc_cpp_includes(obj: dict) -> list[CppInclude]:
     ret: list[CppInclude] = []
     if "quote_includes" in obj:

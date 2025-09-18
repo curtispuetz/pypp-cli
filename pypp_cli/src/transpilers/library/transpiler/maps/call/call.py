@@ -20,7 +20,7 @@ from pypp_cli.src.transpilers.library.transpiler.maps.d_types import (
     CustomMappingStartsWithEntry,
     ReplaceDotWithDoubleColonEntry,
 )
-from pypp_cli.src.transpilers.library.transpiler.maps.util.calc_map_1 import (
+from pypp_cli.src.transpilers.library.transpiler.maps.util.type_1.calc_map import (
     BASE_CALC_ENTRY_FN_MAP,
     calc_replace_dot_with_double_colon_entry,
 )

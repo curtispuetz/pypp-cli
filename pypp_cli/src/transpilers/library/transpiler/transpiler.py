@@ -16,11 +16,15 @@ from pypp_cli.src.transpilers.library.bridge_libs.path_cltr import (
     BridgeJsonPathCltr,
 )
 from pypp_cli.src.transpilers.library.transpiler.maps.maps import MapsCltr
-from pypp_cli.src.transpilers.library.transpiler.maps.util.calc_import_map import (
+from pypp_cli.src.transpilers.library.transpiler.maps.util.imports.calc_map import (
     ImportMapCltr,
 )
-from pypp_cli.src.transpilers.library.transpiler.maps.util.calc_map_1 import MapCltr1
-from pypp_cli.src.transpilers.library.transpiler.maps.util.calc_map_2 import MapCltr2
+from pypp_cli.src.transpilers.library.transpiler.maps.util.type_1.calc_map import (
+    MapCltr1,
+)
+from pypp_cli.src.transpilers.library.transpiler.maps.util.type_2.calc_map import (
+    MapCltr2,
+)
 
 
 def _is_proper_main_block(node: ast.stmt) -> bool:
