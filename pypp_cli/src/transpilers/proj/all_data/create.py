@@ -96,6 +96,7 @@ def create_all_data(transpile_deps: DoTranspileDeps) -> AllData:
             libs_data,
             py_files,
             bridge_json_path_cltr,
+            paths.proj_bridge_json_dir,
             py_files_tracker,
         ),
         CppAndHFileDeleter(paths.cpp_dir),

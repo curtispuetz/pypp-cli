@@ -65,6 +65,7 @@ def _calc_all_modules_for_project(py_files: list[Path]) -> set[str]:
 def transpile_all_changed_files(
     namespace: str | None,
     bridge_json_path_cltr: BridgeJsonPathCltr,
+    proj_bridge_json_dir: Path,
     libs_data: PyppLibsData,
     py_files: list[Path],
     py_files_tracker: PyFilesTracker,
@@ -74,9 +75,9 @@ def transpile_all_changed_files(
     changed_files: list[Path],
 ) -> TranspileResults:
     maps_cltr = MapsCltr(
-        MapCltr1(libs_data.libs, bridge_json_path_cltr),
-        MapCltr2(libs_data.libs, bridge_json_path_cltr),
-        ImportMapCltr(libs_data.libs, bridge_json_path_cltr),
+        MapCltr1(libs_data.libs, bridge_json_path_cltr, proj_bridge_json_dir),
+        MapCltr2(libs_data.libs, bridge_json_path_cltr, proj_bridge_json_dir),
+        ImportMapCltr(libs_data.libs, bridge_json_path_cltr, proj_bridge_json_dir),
     )
     maps = maps_cltr.calc_maps()
     py_modules = _calc_all_modules_for_project(py_files)

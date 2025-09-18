@@ -69,6 +69,7 @@ class MapCltr1[T](MapCltrAlgo):
         helper = MapCltr1Helper(
             self._libs,
             self._bridge_json_path_cltr,
+            self._proj_bridge_json_dir,
             base_map,
             calc_entry_fn_map,
             json_file_name,

@@ -14,6 +14,7 @@ class DoPyppPaths:
     python_dir: Path
     timestamps_file: Path
     site_packages_dir: Path
+    proj_bridge_json_dir: Path
 
 
 @dataclass(frozen=True, slots=True)
@@ -42,6 +43,7 @@ def create_do_pypp_paths(target_dir: Path) -> DoTranspileDeps:
             python_dir,
             timestamps_file,
             site_packages_dir,
+            pypp_dir / "bridge_jsons",
         ),
         proj_info,
     )
