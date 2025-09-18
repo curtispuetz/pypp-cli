@@ -1,6 +1,7 @@
 import random
 
-from pypp_python import auto, time
+from pypp_python import auto
+from pypp_python.stl import time
 
 from src.benchmarking.perlin_noise.impl import PerlinNoise, create_perlin_noise
 
