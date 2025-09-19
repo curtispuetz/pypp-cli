@@ -113,7 +113,11 @@ class MapsCltr:
         if model.custom_mapping_starts_with is not None:
             self._add_mapping_entries_1(
                 model.custom_mapping_starts_with.root,
-                calc_custom_mapping_starts_with_from_lib_entry,
+                partial(
+                    calc_custom_mapping_starts_with_from_lib_entry,
+                    self._transpiler_config_models,
+                    lib,
+                ),
                 lib,
                 ret,
             )
@@ -140,7 +144,11 @@ class MapsCltr:
         if model.custom_mapping_starts_with is not None:
             self._add_mapping_entries_1(
                 model.custom_mapping_starts_with.root,
-                calc_custom_mapping_starts_with_from_lib_entry,
+                partial(
+                    calc_custom_mapping_starts_with_from_lib_entry,
+                    self._transpiler_config_models,
+                    lib,
+                ),
                 lib,
                 ret,
             )
@@ -167,7 +175,11 @@ class MapsCltr:
         if model.custom_mapping_starts_with is not None:
             self._add_mapping_entries_1(
                 model.custom_mapping_starts_with.root,
-                calc_custom_mapping_starts_with_from_lib_entry,
+                partial(
+                    calc_custom_mapping_starts_with_from_lib_entry,
+                    self._transpiler_config_models,
+                    lib,
+                ),
                 lib,
                 ret,
             )
@@ -189,7 +201,11 @@ class MapsCltr:
         if model.custom_mapping_starts_with is not None:
             self._add_mapping_entries_1(
                 model.custom_mapping_starts_with.root,
-                calc_custom_mapping_starts_with_from_lib_entry,
+                partial(
+                    calc_custom_mapping_starts_with_from_lib_entry,
+                    self._transpiler_config_models,
+                    lib,
+                ),
                 lib,
                 ret,
             )
