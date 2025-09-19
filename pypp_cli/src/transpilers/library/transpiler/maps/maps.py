@@ -211,6 +211,8 @@ class MapsCltr:
         )
 
     def _add_mapping_entries_2(self, mapping_root, warning_msg, lib, ret):
+        # note: We don't need type hints here. If there is a problem with this
+        # code, it runs each transpile, so errors will throw.
         for k, v in mapping_root.items():
             required_import = (
                 calc_required_py_import(v.required_py_import) if v is not None else None
@@ -223,6 +225,8 @@ class MapsCltr:
                 ret[k] = {required_import}
 
     def _add_mapping_entries_1(self, mapping_root, entry_func, lib, ret):
+        # note: We don't need type hints here. If there is a problem with this
+        # code, it runs each transpile, so errors will throw.
         for name, value in mapping_root.items():
             required_import = calc_required_py_import(value.required_py_import)
             entry = entry_func(value)
