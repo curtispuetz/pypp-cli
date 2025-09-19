@@ -1,6 +1,6 @@
 import subprocess
 
-from pypp_cli.util_scripts.calling_cli.util import calc_test_dir_python_executable
+from util_scripts.calling_cli.util import calc_test_dir_python_executable
 
 if __name__ == "__main__":
     libs = [
