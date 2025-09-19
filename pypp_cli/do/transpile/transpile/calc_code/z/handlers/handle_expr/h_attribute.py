@@ -7,7 +7,6 @@ from pypp_cli.do.transpile.transpile.z_i.maps.d_types import (
     CustomMappingFromLibEntry,
     CustomMappingStartsWithEntry,
     CustomMappingStartsWithFromLibEntry,
-    ReplaceDotWithDoubleColonEntry,
     ToStringEntry,
 )
 from pypp_cli.do.transpile.transpile.calc_code.z.handlers.mapping.util import (
@@ -52,11 +51,4 @@ class AttributeHandler:
                 if res.startswith(k):
                     self._d.add_incs(e.includes)
                     return calc_string_fn(e)(node, self._d, res)
-            elif isinstance(e, ReplaceDotWithDoubleColonEntry):
-                if res.startswith(k):
-                    self._d.add_incs(e.includes)
-                    res = res.replace(".", "::")
-                    if e.add_pypp_namespace:
-                        res = "pypp::" + res
-                    return res
         return res

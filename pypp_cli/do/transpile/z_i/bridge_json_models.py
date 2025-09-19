@@ -61,12 +61,6 @@ class CustomMappingModel(RootModel[dict[str, CustomMappingValueModel]]):
     pass
 
 
-class ReplaceDotWithDoubleColonModel(
-    RootModel[dict[str, ReplaceDotWithDoubleColonValueModel]]
-):
-    pass
-
-
 class NameModel(BaseModel):
     to_string: ToStringModel | None = None
     custom_mapping: CustomMappingModel | None = None
@@ -79,7 +73,6 @@ class CallModel(BaseModel):
     to_string: ToStringModel | None = None
     custom_mapping: CustomMappingModel | None = None
     custom_mapping_starts_with: CustomMappingModel | None = None
-    replace_dot_with_double_colon: ReplaceDotWithDoubleColonModel | None = None
     model_config = {"extra": "forbid"}
 
 
@@ -87,7 +80,6 @@ class AttrModel(BaseModel):
     to_string: ToStringModel | None = None
     custom_mapping: CustomMappingModel | None = None
     custom_mapping_starts_with: CustomMappingModel | None = None
-    replace_dot_with_double_colon: ReplaceDotWithDoubleColonModel | None = None
     model_config = {"extra": "forbid"}
 
 

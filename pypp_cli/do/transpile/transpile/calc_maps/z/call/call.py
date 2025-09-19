@@ -12,7 +12,6 @@ from pypp_cli.do.transpile.transpile.z_i.maps.d_types import (
     ToStringEntry,
     CustomMappingEntry,
     CustomMappingStartsWithEntry,
-    ReplaceDotWithDoubleColonEntry,
 )
 from pypp_cli.do.transpile.transpile.calc_maps.z.call.default_dict_map_fn import (
     good_default_dict,
@@ -67,6 +66,11 @@ def _list_reserve(node: ast.Call, d) -> str:
 def _pypp_time(node: ast.Call, d, caller_str: str) -> str:
     fn: str = caller_str[caller_str.rfind(".") + 1 :]
     return f"pypp::time::{fn}({d.handle_exprs(node.args)})"
+
+
+def _replace_dot_with_double_colon(node: ast.Call, d, caller_str: str) -> str:
+    caller_str = caller_str.replace(".", "::")
+    return f"pypp::{caller_str}({d.handle_exprs(node.args)})"
 
 
 CALL_MAP: CallMap = {
@@ -190,13 +194,13 @@ CALL_MAP: CallMap = {
         )
     },
     "os.": {
-        PySpecificImpFrom("pypp_python.stl", "os"): ReplaceDotWithDoubleColonEntry(
-            [QInc("pypp_os.h")], True
+        PySpecificImpFrom("pypp_python.stl", "os"): CustomMappingStartsWithEntry(
+            _replace_dot_with_double_colon, [QInc("pypp_os.h")]
         )
     },
     "shutil.": {
-        PySpecificImpFrom("pypp_python.stl", "shutil"): ReplaceDotWithDoubleColonEntry(
-            [QInc("pypp_shutil.h")], True
+        PySpecificImpFrom("pypp_python.stl", "shutil"): CustomMappingStartsWithEntry(
+            _replace_dot_with_double_colon, [QInc("pypp_shutil.h")]
         )
     },
     "time.": {
