@@ -1,7 +1,7 @@
 import ast
 from pathlib import Path
 from pypp_cli.src.transpilers.library.bridge_libs.finder import PyppLibsData
-from pypp_cli.src.transpilers.library.bridge_libs.verifier import BridgeJsonModels
+from pypp_cli.src.transpilers.library.bridge_libs.loader import BridgeJsonModels
 from pypp_cli.src.transpilers.library.file_tracker import PyFilesTracker
 from .util.calc_ast_tree import calc_ast
 from pypp_cli.src.transpilers.library.transpiler.files.main.main_file import (

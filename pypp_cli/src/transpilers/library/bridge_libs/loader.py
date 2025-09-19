@@ -27,25 +27,22 @@ class BridgeJsonModels:
     subscriptable_types: SubscriptableTypeModel | None = None
 
 
-def verify_all_bridge_jsons(
+def load_all_bridge_jsons(
     libs: PyppLibs, bridge_json_path_cltr: BridgeJsonPathCltr
 ) -> dict[str, BridgeJsonModels]:
     ret = {}
     for lib in libs:
-        verifier = _BridgeJsonVerifier(bridge_json_path_cltr, lib)
-        ret[lib] = verifier.verify_bridge_jsons()
-    if len(libs) > 0:
-        print("Verified all bridge JSON files in libraries")
+        verifier = _BridgeJsonLoader(bridge_json_path_cltr, lib)
+        ret[lib] = verifier.load()
     return ret
 
 
-# TODO: rename to "loader"
 @dataclass(frozen=True, slots=True)
-class _BridgeJsonVerifier:
+class _BridgeJsonLoader:
     _bridge_json_path_cltr: BridgeJsonPathCltr
     _library_name: str
 
-    def verify_bridge_jsons(self) -> BridgeJsonModels:
+    def load(self) -> BridgeJsonModels:
         name_map: NameModel | None = None
         ann_assign_map: AnnAssignModel | None = None
         call_map: CallModel | None = None

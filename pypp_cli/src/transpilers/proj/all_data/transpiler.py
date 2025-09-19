@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from pypp_cli.src.transpilers.library.bridge_libs.finder import PyppLibsData
-from pypp_cli.src.transpilers.library.bridge_libs.verifier import BridgeJsonModels
+from pypp_cli.src.transpilers.library.bridge_libs.loader import BridgeJsonModels
 from pypp_cli.src.transpilers.library.file_tracker import PyFilesTracker
 from pypp_cli.src.transpilers.library.file_changes.cltr import PyFileChanges
 from pypp_cli.src.transpilers.library.transpiler.transpiler import (
