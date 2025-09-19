@@ -1,163 +1,69 @@
 import ast
 from pathlib import Path
 
-from pypp_cli.do.transpile.transpile.z_i.maps.d_types import Maps
-from pypp_cli.do.transpile.transpile.calc_code.z.deps import Deps
-from pypp_cli.do.transpile.transpile.calc_code.z.handlers.handle_expr.expr import (
-    ExprHandler,
-)
-from pypp_cli.do.transpile.transpile.calc_code.z.handlers.handle_expr.h_attribute import (
-    AttributeHandler,
-)
-from pypp_cli.do.transpile.transpile.calc_code.z.handlers.handle_expr.h_bin_op import (
-    BinOpHandler,
-)
-from pypp_cli.do.transpile.transpile.calc_code.z.handlers.handle_expr.h_bool_op import (
-    BoolOpHandler,
-)
-from pypp_cli.do.transpile.transpile.calc_code.z.handlers.handle_expr.h_call.h_call import (
-    CallHandler,
-)
-from pypp_cli.do.transpile.transpile.calc_code.z.handlers.handle_expr.h_comp import (
-    CompHandler,
-)
-from pypp_cli.do.transpile.transpile.calc_code.z.handlers.handle_expr.h_compare import (
-    CompareHandler,
-)
-from pypp_cli.do.transpile.transpile.calc_code.z.handlers.handle_expr.h_constant import (
-    ConstantHandler,
-)
-from pypp_cli.do.transpile.transpile.calc_code.z.handlers.handle_expr.h_dict import (
-    DictHandler,
-)
-from pypp_cli.do.transpile.transpile.calc_code.z.handlers.handle_expr.h_if_exp import (
-    IfExpHandler,
-)
-from pypp_cli.do.transpile.transpile.calc_code.z.handlers.handle_expr.h_joined_string import (
-    JoinedStringHandler,
-)
-from pypp_cli.do.transpile.transpile.calc_code.z.handlers.handle_expr.h_lambda import (
-    LambdaHandler,
-)
-from pypp_cli.do.transpile.transpile.calc_code.z.handlers.handle_expr.h_list import (
-    ListHandler,
-)
-from pypp_cli.do.transpile.transpile.calc_code.z.handlers.handle_expr.h_name import (
-    NameHandler,
-)
-from pypp_cli.do.transpile.transpile.calc_code.z.handlers.handle_expr.h_set import (
-    SetHandler,
-)
-from pypp_cli.do.transpile.transpile.calc_code.z.handlers.handle_expr.h_slice import (
-    SliceHandler,
-)
-from pypp_cli.do.transpile.transpile.calc_code.z.handlers.handle_expr.h_subscript import (
-    SubscriptHandler,
-)
-from pypp_cli.do.transpile.transpile.calc_code.z.handlers.handle_expr.h_tuple import (
-    TupleHandler,
-)
-from pypp_cli.do.transpile.transpile.calc_code.z.handlers.handle_expr.h_unary_op import (
-    UnaryOpHandler,
-)
-from pypp_cli.do.transpile.transpile.calc_code.z.handlers.handle_expr.h_yield import (
-    YieldHandler,
-)
-from pypp_cli.do.transpile.transpile.calc_code.z.handlers.handle_expr.h_yield_from import (
-    YieldFromHandler,
-)
-from pypp_cli.do.transpile.transpile.calc_code.z.handlers.handle_other.exception_handler import (
-    ExceptionHandlersHandler,
-)
-from pypp_cli.do.transpile.transpile.calc_code.z.handlers.handle_other.operator import (
-    OperatorHandler,
-)
-from pypp_cli.do.transpile.transpile.calc_code.z.handlers.handle_other.with_item import (
-    WithItemHandler,
-)
-from pypp_cli.do.transpile.transpile.calc_code.z.handlers.handle_stmt.h_ann_assign.general import (
-    GeneralAnnAssignHandler,
-)
-from pypp_cli.do.transpile.transpile.calc_code.z.handlers.handle_stmt.h_ann_assign.h_ann_assign import (
-    AnnAssignHandler,
-)
-from pypp_cli.do.transpile.transpile.calc_code.z.handlers.handle_stmt.h_assert import (
-    AssertHandler,
-)
-from pypp_cli.do.transpile.transpile.calc_code.z.handlers.handle_stmt.h_assign import (
-    AssignHandler,
-)
-from pypp_cli.do.transpile.transpile.calc_code.z.handlers.handle_stmt.h_aug_assign import (
-    AugAssignHandler,
-)
-from pypp_cli.do.transpile.transpile.calc_code.z.handlers.handle_stmt.h_class_def.for_configclass import (
-    ConfigClassHandler,
-)
-from pypp_cli.do.transpile.transpile.calc_code.z.handlers.handle_stmt.h_class_def.for_dataclasses.calc_fields_and_methods import (
+from ...z_i.maps.d_types import Maps
+from .deps import Deps
+from .handlers.handle_expr.expr import ExprHandler
+from .handlers.handle_expr.h_attribute import AttributeHandler
+from .handlers.handle_expr.h_bin_op import BinOpHandler
+from .handlers.handle_expr.h_bool_op import BoolOpHandler
+from .handlers.handle_expr.h_call.h_call import CallHandler
+from .handlers.handle_expr.h_comp import CompHandler
+from .handlers.handle_expr.h_compare import CompareHandler
+from .handlers.handle_expr.h_constant import ConstantHandler
+from .handlers.handle_expr.h_dict import DictHandler
+from .handlers.handle_expr.h_if_exp import IfExpHandler
+from .handlers.handle_expr.h_joined_string import JoinedStringHandler
+from .handlers.handle_expr.h_lambda import LambdaHandler
+from .handlers.handle_expr.h_list import ListHandler
+from .handlers.handle_expr.h_name import NameHandler
+from .handlers.handle_expr.h_set import SetHandler
+from .handlers.handle_expr.h_slice import SliceHandler
+from .handlers.handle_expr.h_subscript import SubscriptHandler
+from .handlers.handle_expr.h_tuple import TupleHandler
+from .handlers.handle_expr.h_unary_op import UnaryOpHandler
+from .handlers.handle_expr.h_yield import YieldHandler
+from .handlers.handle_expr.h_yield_from import YieldFromHandler
+from .handlers.handle_other.exception_handler import ExceptionHandlersHandler
+from .handlers.handle_other.operator import OperatorHandler
+from .handlers.handle_other.with_item import WithItemHandler
+from .handlers.handle_stmt.h_ann_assign.general import GeneralAnnAssignHandler
+from .handlers.handle_stmt.h_ann_assign.h_ann_assign import AnnAssignHandler
+from .handlers.handle_stmt.h_assert import AssertHandler
+from .handlers.handle_stmt.h_assign import AssignHandler
+from .handlers.handle_stmt.h_aug_assign import AugAssignHandler
+from .handlers.handle_stmt.h_class_def.for_configclass import ConfigClassHandler
+from .handlers.handle_stmt.h_class_def.for_dataclasses.calc_fields_and_methods import (
     FieldsAndMethodsCalculator,
 )
-from pypp_cli.do.transpile.transpile.calc_code.z.handlers.handle_stmt.h_class_def.for_dataclasses.create_final_str import (
+from .handlers.handle_stmt.h_class_def.for_dataclasses.create_final_str import (
     DataclassFinalStrCreator,
 )
-from pypp_cli.do.transpile.transpile.calc_code.z.handlers.handle_stmt.h_class_def.for_dataclasses.for_dataclasses import (
+from .handlers.handle_stmt.h_class_def.for_dataclasses.for_dataclasses import (
     DataclassHandler,
 )
-from pypp_cli.do.transpile.transpile.calc_code.z.handlers.handle_stmt.h_class_def.for_dataclasses.method_calculator import (
+from .handlers.handle_stmt.h_class_def.for_dataclasses.method_calculator import (
     MethodCalculator,
 )
-from pypp_cli.do.transpile.transpile.calc_code.z.handlers.handle_stmt.h_class_def.for_exception import (
-    ExceptionClassHandler,
-)
-from pypp_cli.do.transpile.transpile.calc_code.z.handlers.handle_stmt.h_class_def.for_interface import (
-    InterfaceHandler,
-)
-from pypp_cli.do.transpile.transpile.calc_code.z.handlers.handle_stmt.h_class_def.h_class_def import (
-    ClassDefHandler,
-)
-from pypp_cli.do.transpile.transpile.calc_code.z.handlers.handle_stmt.h_expr import (
-    ExprStmtHandler,
-)
-from pypp_cli.do.transpile.transpile.calc_code.z.handlers.handle_stmt.h_fn_def import (
-    FnDefHandler,
-)
-from pypp_cli.do.transpile.transpile.calc_code.z.handlers.handle_stmt.h_for import (
-    ForHandler,
-)
-from pypp_cli.do.transpile.transpile.calc_code.z.handlers.handle_stmt.h_if import (
-    IfHandler,
-)
-from pypp_cli.do.transpile.transpile.calc_code.z.handlers.handle_stmt.h_raise import (
-    RaiseHandler,
-)
-from pypp_cli.do.transpile.transpile.calc_code.z.handlers.handle_stmt.h_return import (
-    ReturnHandler,
-)
-from pypp_cli.do.transpile.transpile.calc_code.z.handlers.handle_stmt.h_try import (
-    TryHandler,
-)
-from pypp_cli.do.transpile.transpile.calc_code.z.handlers.handle_stmt.h_type_alias import (
-    TypeAliasHandler,
-)
-from pypp_cli.do.transpile.transpile.calc_code.z.handlers.handle_stmt.h_while import (
-    WhileHandler,
-)
-from pypp_cli.do.transpile.transpile.calc_code.z.handlers.handle_stmt.h_with import (
-    WithHandler,
-)
-from pypp_cli.do.transpile.transpile.calc_code.z.handlers.handle_stmt.stmt import (
-    StmtHandler,
-)
-from pypp_cli.do.transpile.transpile.calc_code.z.handlers.mapping.cpp_type import (
-    CppTypeCalculator,
-)
-from pypp_cli.do.transpile.transpile.calc_code.z.handlers.util.calc_callable_type import (
-    CallableTypeCalculator,
-)
-from pypp_cli.do.transpile.transpile.calc_code.z.handlers.util.calc_fn_signature import (
-    FnSignatureCalculator,
-)
-from pypp_cli.do.transpile.transpile.z.handle_import_stmts import analyse_import_stmts
-from pypp_cli.do.transpile.transpile.z_i.cpp_includes import CppIncludes
+from .handlers.handle_stmt.h_class_def.for_exception import ExceptionClassHandler
+from .handlers.handle_stmt.h_class_def.for_interface import InterfaceHandler
+from .handlers.handle_stmt.h_class_def.h_class_def import ClassDefHandler
+from .handlers.handle_stmt.h_expr import ExprStmtHandler
+from .handlers.handle_stmt.h_fn_def import FnDefHandler
+from .handlers.handle_stmt.h_for import ForHandler
+from .handlers.handle_stmt.h_if import IfHandler
+from .handlers.handle_stmt.h_raise import RaiseHandler
+from .handlers.handle_stmt.h_return import ReturnHandler
+from .handlers.handle_stmt.h_try import TryHandler
+from .handlers.handle_stmt.h_type_alias import TypeAliasHandler
+from .handlers.handle_stmt.h_while import WhileHandler
+from .handlers.handle_stmt.h_with import WithHandler
+from .handlers.handle_stmt.stmt import StmtHandler
+from .handlers.mapping.cpp_type import CppTypeCalculator
+from .handlers.util.calc_callable_type import CallableTypeCalculator
+from .handlers.util.calc_fn_signature import FnSignatureCalculator
+from ...z.handle_import_stmts import analyse_import_stmts
+from ...z_i.cpp_includes import CppIncludes
 
 
 def create_all_objects(

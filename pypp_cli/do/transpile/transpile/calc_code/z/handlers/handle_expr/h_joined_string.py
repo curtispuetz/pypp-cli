@@ -1,12 +1,10 @@
 import ast
 from dataclasses import dataclass
 
-from pypp_cli.do.z_i.config import SHOULDNT_HAPPEN
-from pypp_cli.do.transpile.transpile.z_i.d_types import QInc
-from pypp_cli.do.transpile.transpile.calc_code.z.deps import Deps
-from pypp_cli.do.transpile.transpile.calc_code.z.handlers.handle_expr.h_constant import (
-    SPECIAL_CHAR_MAP,
-)
+from .......z_i.config import SHOULDNT_HAPPEN
+from .....z_i.d_types import QInc
+from ...deps import Deps
+from .h_constant import SPECIAL_CHAR_MAP
 
 
 @dataclass(frozen=True, slots=True)

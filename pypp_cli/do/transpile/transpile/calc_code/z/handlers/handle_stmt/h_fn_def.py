@@ -1,11 +1,8 @@
 import ast
 from dataclasses import dataclass
 
-from pypp_cli.do.transpile.transpile.calc_code.z.deps import Deps
-from pypp_cli.do.transpile.transpile.calc_code.z.handlers.util.calc_fn_signature import (
-    FnSignatureCalculator,
-    calc_fn_str_with_body,
-)
+from ...deps import Deps
+from ..util.calc_fn_signature import FnSignatureCalculator, calc_fn_str_with_body
 
 
 # Underscore rules:

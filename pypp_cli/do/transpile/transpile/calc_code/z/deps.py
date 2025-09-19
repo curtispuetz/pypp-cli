@@ -13,18 +13,10 @@ from pypp_cli.do.transpile.transpile.z_i.cpp_includes import CppIncludes
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from pypp_cli.do.transpile.transpile.calc_code.z.handlers.handle_expr.expr import (
-        ExprHandler,
-    )
-    from pypp_cli.do.transpile.transpile.calc_code.z.handlers.handle_stmt.h_ann_assign.h_ann_assign import (
-        AnnAssignHandler,
-    )
-    from pypp_cli.do.transpile.transpile.calc_code.z.handlers.handle_stmt.h_type_alias import (
-        TypeAliasHandler,
-    )
-    from pypp_cli.do.transpile.transpile.calc_code.z.handlers.handle_stmt.stmt import (
-        StmtHandler,
-    )
+    from .handlers.handle_expr.expr import ExprHandler
+    from .handlers.handle_stmt.h_ann_assign.h_ann_assign import AnnAssignHandler
+    from .handlers.handle_stmt.h_type_alias import TypeAliasHandler
+    from .handlers.handle_stmt.stmt import StmtHandler
 
 
 @dataclass

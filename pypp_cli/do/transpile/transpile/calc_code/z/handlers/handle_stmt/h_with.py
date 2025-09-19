@@ -1,13 +1,8 @@
 import ast
-
-from pypp_cli.do.transpile.transpile.calc_code.z.deps import Deps
-
-
 from dataclasses import dataclass
 
-from pypp_cli.do.transpile.transpile.calc_code.z.handlers.handle_other.with_item import (
-    WithItemHandler,
-)
+from ...deps import Deps
+from ..handle_other.with_item import WithItemHandler
 
 
 @dataclass(frozen=True, slots=True)

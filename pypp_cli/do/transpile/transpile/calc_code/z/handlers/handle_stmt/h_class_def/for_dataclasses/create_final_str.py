@@ -7,9 +7,7 @@ from pypp_cli.do.transpile.transpile.calc_code.z.deps import Deps
 from .class_field_calculator import ClassField
 from .method_calculator import ClassMethod
 from .constants import ARG_PREFIX
-from pypp_cli.do.transpile.transpile.calc_code.z.handlers.util.calc_fn_signature import (
-    calc_fn_str_with_body,
-)
+from ....util.calc_fn_signature import calc_fn_str_with_body
 
 
 @dataclass(frozen=True, slots=True)
