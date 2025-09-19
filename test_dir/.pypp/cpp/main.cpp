@@ -7,7 +7,6 @@
 #include "src/args_test.h"
 #include "src/augment_operations.h"
 #include "src/benchmarking.h"
-#include "src/bridge_jsons_test.h"
 #include "src/built_in_functions/dict_fn.h"
 #include "src/built_in_functions/list_fn.h"
 #include "src/built_in_functions/number_conversions.h"
@@ -85,6 +84,7 @@
 #include "src/ternary_op.h"
 #include "src/third.h"
 #include "src/time_library/first.h"
+#include "src/transpiler_config_test.h"
 #include "src/triple_quote_strings.h"
 #include "src/tuples/exceptions.h"
 #include "src/tuples/first.h"
@@ -221,7 +221,7 @@ int main() {
         pypp::print(me::A, me::B, me::C, me::D, me::E, me::a, me::b);
         me::dict_looping_fn();
         me::pure_lib_test_0_fn();
-        me::bridge_jsons_test_fn();
+        me::transpiler_config_test_fn();
         me::perlin_noise_fn();
         return 0;
     } catch (...) {

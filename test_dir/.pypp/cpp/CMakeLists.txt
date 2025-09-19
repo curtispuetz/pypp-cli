@@ -29,7 +29,6 @@ set(SRC_FILES
 other_src/first.cpp
 src/args_test.cpp
 src/augment_operations.cpp
-src/bridge_jsons_test.cpp
 src/constants.cpp
 src/empty_return.cpp
 src/first.cpp
@@ -42,6 +41,7 @@ src/second.cpp
 src/subscriptable_types.cpp
 src/ternary_op.cpp
 src/third.cpp
+src/transpiler_config_test.cpp
 src/triple_quote_strings.cpp
 src/type_aliases.cpp
 src/using_pass.cpp

@@ -29,8 +29,8 @@ class AnnAssignOtherType:
     x: Valu(str)
 
 
-def bridge_jsons_test_fn():
-    print("BRIDGE JSONS TEST:")
+def transpiler_config_test_fn():
+    print("TRANSPILER CONFIG TEST:")
     crazy_name: str = "crazy"
     print(crazy_name)
     a_function_i_like()
