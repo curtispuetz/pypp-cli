@@ -61,7 +61,7 @@ def calc_custom_mapping_from_lib_entry(
     lib: str | None,
     d: CustomMappingValueModel,
 ) -> CustomMappingFromLibEntry:
-    s = _calc_mapping_fn_str(transpiler_config_models, lib, d)
+    s = transpiler_config_models[lib].mapping_functions[d.mapping_function]
     return CustomMappingFromLibEntry(
         s, _calc_cpp_include(d.quote_includes, d.angle_includes)
     )
@@ -72,20 +72,10 @@ def calc_custom_mapping_starts_with_from_lib_entry(
     lib: str | None,
     d: CustomMappingValueModel,
 ) -> CustomMappingStartsWithFromLibEntry:
-    s = _calc_mapping_fn_str(transpiler_config_models, lib, d)
+    s = transpiler_config_models[lib].mapping_functions[d.mapping_function]
     return CustomMappingStartsWithFromLibEntry(
         s, _calc_cpp_include(d.quote_includes, d.angle_includes)
     )
-
-
-def _calc_mapping_fn_str(
-    transpiler_config_models: TranspilerConfigModelsDict,
-    lib: str | None,
-    d: CustomMappingValueModel,
-):
-    if isinstance(d.mapping_function, str):
-        return transpiler_config_models[lib].mapping_functions[d.mapping_function]
-    return "\n".join(d.mapping_function)
 
 
 def calc_left_and_right_entry(obj: LeftAndRightValueModel) -> LeftAndRightEntry:
