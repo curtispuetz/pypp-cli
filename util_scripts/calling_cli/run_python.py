@@ -1,7 +1,7 @@
 import os
 import subprocess
 
-from pypp_cli.util_scripts.calling_cli.util import calc_test_dir_python_executable
+from util_scripts.calling_cli.util import calc_test_dir_python_executable
 
 dirname: str = os.path.dirname(__file__)
 if __name__ == "__main__":

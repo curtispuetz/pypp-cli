@@ -1,5 +1,7 @@
 import os
 
+# TODO later: probably delete this as I don't use it anymore
+
 dirname: str = os.path.dirname(__file__)
 src_dir = os.path.join(dirname, "..", "..", "..", "..", "Projects", "cpp_playground")
 cml = "CMakeLists.txt"
