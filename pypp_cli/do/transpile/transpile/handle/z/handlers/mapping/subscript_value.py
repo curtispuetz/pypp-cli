@@ -1,4 +1,4 @@
-from pypp_cli.do.transpile.transpile.handle.node import Deps
+from pypp_cli.do.transpile.transpile.handle.z.deps import Deps
 from pypp_cli.do.transpile.transpile.handle.z.handlers.mapping.util import (
     is_imported,
 )

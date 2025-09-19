@@ -1,6 +1,6 @@
 import ast
 
-from pypp_cli.do.transpile.transpile.handle.node import Deps
+from pypp_cli.do.transpile.transpile.handle.z.deps import Deps
 from .general import GeneralAnnAssignHandler
 from dataclasses import dataclass
 

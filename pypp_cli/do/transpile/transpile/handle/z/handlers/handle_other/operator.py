@@ -3,7 +3,7 @@ from dataclasses import dataclass
 
 from pypp_cli.do.z_i.config import SHOULDNT_HAPPEN
 from pypp_cli.do.transpile.transpile.z_i.d_types import QInc, AngInc
-from pypp_cli.do.transpile.transpile.handle.node import Deps
+from pypp_cli.do.transpile.transpile.handle.z.deps import Deps
 
 
 # ast docs: operator = Add | Sub | Mult | MatMult | Div | Mod | Pow | LShift

@@ -1,6 +1,6 @@
 import ast
 
-from pypp_cli.do.transpile.transpile.handle.node import Deps
+from pypp_cli.do.transpile.transpile.handle.z.deps import Deps
 
 
 _LIST_INIT_FNS = {"int_list", "float_list", "str_list"}

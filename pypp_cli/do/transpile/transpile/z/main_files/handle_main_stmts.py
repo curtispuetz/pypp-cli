@@ -2,7 +2,7 @@ import ast
 
 from pypp_cli.do.z_i.config import SHOULDNT_HAPPEN
 from pypp_cli.do.transpile.transpile.z_i.d_types import QInc
-from pypp_cli.do.transpile.transpile.handle.node import Deps
+from pypp_cli.do.transpile.transpile.handle.z.deps import Deps
 
 
 def handle_main_stmts(stmts: list[ast.stmt], d: Deps) -> str:

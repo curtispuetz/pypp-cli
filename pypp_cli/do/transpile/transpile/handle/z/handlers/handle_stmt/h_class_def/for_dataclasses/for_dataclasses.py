@@ -1,5 +1,5 @@
 import ast
-from pypp_cli.do.transpile.transpile.handle.node import Deps
+from pypp_cli.do.transpile.transpile.handle.z.deps import Deps
 from .create_final_str import DataclassFinalStrCreator
 from .calc_constructor_sig import calc_constructor_signature_for_dataclass
 from dataclasses import dataclass

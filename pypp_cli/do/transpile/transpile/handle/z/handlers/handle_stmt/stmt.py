@@ -1,7 +1,7 @@
 import ast
 from dataclasses import dataclass
 
-from pypp_cli.do.transpile.transpile.handle.node import Deps
+from pypp_cli.do.transpile.transpile.handle.z.deps import Deps
 from .h_ann_assign.h_ann_assign import AnnAssignHandler
 from .h_assert import AssertHandler
 from .h_assign import AssignHandler

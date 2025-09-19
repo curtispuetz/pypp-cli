@@ -1,7 +1,7 @@
 import ast
 from dataclasses import dataclass
 
-from pypp_cli.do.transpile.transpile.handle.node import Deps
+from pypp_cli.do.transpile.transpile.handle.z.deps import Deps
 from pypp_cli.do.transpile.transpile.handle.z.handlers.util.calc_fn_signature import (
     FnSignatureCalculator,
     calc_fn_str_with_body,

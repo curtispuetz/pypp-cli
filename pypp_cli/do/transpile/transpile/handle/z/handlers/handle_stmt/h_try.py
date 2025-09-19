@@ -1,6 +1,6 @@
 import ast
 
-from pypp_cli.do.transpile.transpile.handle.node import Deps
+from pypp_cli.do.transpile.transpile.handle.z.deps import Deps
 from dataclasses import dataclass
 
 from ..handle_other.exception_handler import ExceptionHandlersHandler

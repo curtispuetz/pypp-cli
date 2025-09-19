@@ -1,7 +1,7 @@
 import ast
 from dataclasses import dataclass
 
-from pypp_cli.do.transpile.transpile.handle.node import Deps
+from pypp_cli.do.transpile.transpile.handle.z.deps import Deps
 from pypp_cli.do.transpile.transpile.handle.z.handlers.handle_expr.h_tuple import (
     handle_tuple_inner_args,
 )
