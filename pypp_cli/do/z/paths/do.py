@@ -76,5 +76,3 @@ def _load_proj_info(proj_info_file: Path) -> ProjInfo:
         return ProjInfo(**proj_info)
     except ValidationError as e:
         raise ValueError(f"Issue found in proj_info.json file: {e}") from e
-
-

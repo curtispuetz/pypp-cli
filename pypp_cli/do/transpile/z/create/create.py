@@ -3,8 +3,10 @@ from pathlib import Path
 
 from pypp_cli.do.transpile.calc_file_changes.node import FileChangeCltr
 from pypp_cli.do.transpile.find_libs.node import find_libs
-from pypp_cli.do.transpile.timestamps.node import TimestampsSaver, \
-    load_previous_timestamps
+from pypp_cli.do.transpile.timestamps.node import (
+    TimestampsSaver,
+    load_previous_timestamps,
+)
 from pypp_cli.z_i.other.proj_info import ProjInfo
 from pypp_cli.do.z.paths.do import DoPyppPaths, DoTranspileDeps
 from pypp_cli.do.transpile.z.other.bridge_json_path_cltr import (

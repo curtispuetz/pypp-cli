@@ -3,7 +3,6 @@ from pathlib import Path
 import shutil
 
 
-
 def copy_all_lib_cpp_files(
     cpp_libs_dir: Path, site_packages_dir: Path, new_libs: set[str]
 ):
