@@ -86,6 +86,7 @@ def create_all_data(transpile_deps: DoTranspileDeps) -> AllData:
             libs_data.libs,
             proj_info.cmake_minimum_required_version,
             py_files_tracker,
+            bridge_json_models,
         ),
         MainAndSrcTranspiler(
             proj_info.namespace,

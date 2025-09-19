@@ -1,8 +1,8 @@
 from dataclasses import dataclass
-import json
 from pathlib import Path
 
 from pypp_cli.src.transpilers.library.bridge_libs.finder import PyppLibs
+from pypp_cli.src.transpilers.library.bridge_libs.loader import BridgeJsonModels
 from pypp_cli.src.transpilers.library.bridge_libs.path_cltr import (
     BridgeJsonPathCltr,
 )
@@ -28,6 +28,7 @@ class CMakeListsWriter:
     _libs: PyppLibs
     _cmake_minimum_required_version: str
     _py_files_tracker: PyFilesTracker
+    _bridge_json_models: dict[str, BridgeJsonModels]
 
     def write(self):
         main_files, src_files = self._calc_main_and_src_files()
@@ -98,25 +99,10 @@ class CMakeListsWriter:
     ) -> tuple[list[str], list[str]]:
         add_lines: list[str] = []
         link_libs: list[str] = []
-        # TODO: use a pydantic model for cmake_lists.json.
-        for lib, has_bridge_jsons in self._libs.items():
-            if not has_bridge_jsons:
-                continue
-            cmake_lists: Path = self._bridge_json_path_cltr.calc_bridge_json(
-                lib, "cmake_lists"
-            )
-            if not cmake_lists.exists():
-                continue
-            with open(cmake_lists, "r") as f:
-                data = json.load(f)
-            # Note: the json should be validated already when the library is
-            # installed.
-            # TODO later: instead of just assuming the structure is correct,
-            #  I could now
-            #  easily just call the validation functions I have even though it
-            #  should
-            #  rarely be nessesary. Because it would be more safe and should be
-            #  super fast anyway.
-            add_lines.extend(data["add_lines"])
-            link_libs.extend(data["link_libraries"])
+        for lib, models in self._bridge_json_models.items():
+            if models.cmake_lists is not None:
+                if models.cmake_lists.add_lines is not None:
+                    add_lines.extend(models.cmake_lists.add_lines)
+                if models.cmake_lists.link_libraries is not None:
+                    link_libs.extend(models.cmake_lists.link_libraries)
         return add_lines, link_libs
