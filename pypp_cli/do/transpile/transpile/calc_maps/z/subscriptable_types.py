@@ -15,8 +15,18 @@ SUBSCRIPTABLE_TYPE_MAP: SubscriptableTypeMap = {
 
 # TODO later: see if I can just detect this without the configuration. It should be
 # possible.
-def subscriptable_type_warning_msg(lib: str, full_type_str: str) -> str:
-    return (
-        f"Py++ transpiler already considers {full_type_str} a subscriptable type. "
+def subscriptable_type_warning_msg(lib: str, full_type_str: str):
+    print(
+        f"WARNING: Py++ transpiler already considers {full_type_str} a subscriptable "
+        f"type. "
         f"Library {lib} is potentially changing this behavior."
+    )
+
+
+def subscriptable_type_warning_msg_local(full_type_str: str):
+    print(
+        f"WARNING: Py++ transpiler already considers {full_type_str} a subscriptable "
+        f"type. "
+        f".pypp/bridge_jsons/subscriptable_types.json is potentially changing this "
+        f"behavior."
     )

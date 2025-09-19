@@ -1,0 +1,10 @@
+{
+    "to_string": {
+        "_ConfigClassA.a": {
+            "to": "_ConfigClassB.b",
+            "angle_includes": [
+                "string"
+            ]
+        }
+    }
+}

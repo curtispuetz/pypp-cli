@@ -1,3 +1,4 @@
+from dataclasses import dataclass
 from pydantic import BaseModel, RootModel
 
 
@@ -120,12 +121,15 @@ class CMakeListsModel(BaseModel):
     model_config = {"extra": "forbid"}
 
 
-if __name__ == "__main__":
-    data = {
-        "a_name": {
-            "to": "a_to",
-            "quote_includes": ["a_quote_include"],
-        }
-    }
-    ToStringModel(**data)
-    print("ok")
+@dataclass(frozen=True, slots=True)
+class BridgeJsonModels:
+    name_map: NameModel | None = None
+    ann_assign_map: AnnAssignModel | None = None
+    call_map: CallModel | None = None
+    attr_map: AttrModel | None = None
+    always_pass_by_value: AlwaysPassByValueModel | None = None
+    subscriptable_types: SubscriptableTypeModel | None = None
+    cmake_lists: CMakeListsModel | None = None
+
+
+type BridgeJsonModelsDict = dict[str | None, BridgeJsonModels]

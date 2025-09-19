@@ -23,11 +23,13 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(glad)
 glad_add_library(glad_gl_core_43 STATIC REPRODUCIBLE LOADER API gl:core=4.3)
+# hello world!
 
 set(SRC_FILES
 other_src/first.cpp
 src/args_test.cpp
 src/augment_operations.cpp
+src/bridge_jsons_test.cpp
 src/constants.cpp
 src/empty_return.cpp
 src/first.cpp

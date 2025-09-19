@@ -46,7 +46,9 @@ def create_all_data(transpile_deps: DoTranspileDeps) -> AllData:
     libs_data, new_libs = find_libs(paths.site_packages_dir, paths.cpp_dir)
     # Note: not removing deleted libraries. I guess users will do that themselves.
     # I could provide CLI commands to delete libraries.
-    bridge_json_models = load_all_bridge_jsons(libs_data.libs, paths.site_packages_dir)
+    bridge_json_models = load_all_bridge_jsons(
+        libs_data.libs, paths.site_packages_dir, paths.proj_bridge_json_dir
+    )
     copy_all_lib_cpp_files(paths.cpp_libs_dir, paths.site_packages_dir, new_libs)
     # Note: not removing timestamps file here because users can just do that themselves
     # if they want that.
