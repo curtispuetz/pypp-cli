@@ -1,5 +1,5 @@
 import types
-from pypp_cli.do.transpile.transpile.y.d_types import PySpecificImport
+from pypp_cli.do.transpile.transpile.y.d_types import AngInc, PySpecificImport, QInc
 from pypp_cli.do.transpile.transpile.calc_code.z.deps import Deps
 from pypp_cli.do.transpile.transpile.y.maps.d_types import MappingFnStr
 import ast
@@ -24,6 +24,6 @@ def calc_string_fn(info: MappingFnStr) -> types.FunctionType:
 
 
 def _calc_funcs_in_str(mapping_fn: str) -> list[types.FunctionType]:
-    namespace = {"ast": ast, "Deps": Deps}
+    namespace = {"ast": ast, "Deps": Deps, "QInc": QInc, "AngInc": AngInc}
     exec(mapping_fn, namespace)
     return [obj for obj in namespace.values() if isinstance(obj, types.FunctionType)]
