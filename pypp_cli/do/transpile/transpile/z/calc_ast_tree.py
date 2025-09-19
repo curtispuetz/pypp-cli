@@ -1,7 +1,7 @@
 import ast
 from pathlib import Path
 
-from pypp_cli.do.transpile.transpile.transpile.z.config import SHOULDNT_HAPPEN
+from pypp_cli.do.transpile.transpile.handle.z.config import SHOULDNT_HAPPEN
 
 
 def calc_ast(file: Path) -> ast.Module:

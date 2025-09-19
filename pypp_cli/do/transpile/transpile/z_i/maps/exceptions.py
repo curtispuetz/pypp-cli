@@ -1,4 +1,4 @@
-from pypp_cli.do.transpile.transpile.transpile.z.d_types import QInc
+from pypp_cli.do.transpile.transpile.handle.z.d_types import QInc
 from pypp_cli.do.transpile.transpile.z_i.maps.d_types import (
     NameMap,
     ToStringEntry,

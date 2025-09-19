@@ -9,7 +9,7 @@ from pypp_cli.do.transpile.load_bridge_json.z.models import (
     SubscriptableTypeModel,
 )
 from pypp_cli.do.transpile.load_bridge_json.node import BridgeJsonModels
-from pypp_cli.do.transpile.transpile.transpile.z.d_types import PySpecificImport
+from pypp_cli.do.transpile.transpile.handle.z.d_types import PySpecificImport
 from pypp_cli.do.transpile.transpile.calc_maps.z.ann_assign import ANN_ASSIGN_MAP
 from pypp_cli.do.transpile.transpile.calc_maps.z.attr import ATTR_MAP
 from pypp_cli.do.transpile.transpile.calc_maps.z.call.call import (

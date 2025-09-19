@@ -2,11 +2,11 @@ import ast
 from dataclasses import dataclass
 from pathlib import Path
 
-from pypp_cli.do.transpile.transpile.transpile.z.d_types import (
+from pypp_cli.do.transpile.transpile.handle.z.d_types import (
     ModulePyImports,
     QInc,
 )
-from pypp_cli.do.transpile.transpile.transpile.z.cpp_includes import IncMap
+from pypp_cli.do.transpile.transpile.handle.z.cpp_includes import IncMap
 
 
 type _Result = tuple[IncMap, int, ModulePyImports, dict[str, str]]
