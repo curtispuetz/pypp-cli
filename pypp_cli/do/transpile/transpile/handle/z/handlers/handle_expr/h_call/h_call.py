@@ -1,7 +1,7 @@
 import ast
 from dataclasses import dataclass
 
-from pypp_cli.do.transpile.transpile.handle.z.d_types import PySpecificImpFrom
+from pypp_cli.do.transpile.transpile.z_i.d_types import PySpecificImpFrom
 from pypp_cli.do.transpile.transpile.handle.node import Deps
 from pypp_cli.do.transpile.transpile.handle.z.handlers.handle_expr.h_starred import (
     handle_call_with_starred_arg,

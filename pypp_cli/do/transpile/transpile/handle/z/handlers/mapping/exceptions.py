@@ -1,4 +1,4 @@
-from pypp_cli.do.transpile.transpile.handle.z.config import SHOULDNT_HAPPEN
+from pypp_cli.do.z_i.config import SHOULDNT_HAPPEN
 from pypp_cli.do.transpile.transpile.handle.node import Deps
 from pypp_cli.do.transpile.transpile.z_i.maps.exceptions import (
     EXCEPTION_NAME_MAP,
