@@ -1,4 +1,4 @@
-from pypp_cli.src.transpilers.library.bridge_libs.models import (
+from pypp_cli.do.transpile.load_bridge_json.z.other.models import (
     AngleIncludeModel,
     CustomMappingValueModel,
     LeftAndRightValueModel,

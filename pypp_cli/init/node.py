@@ -2,8 +2,7 @@ from dataclasses import dataclass, asdict
 import json
 from pathlib import Path
 
-
-from pypp_cli.src.config import PROJ_INFO_DEFAULTS
+from pypp_cli.z_i.other.proj_info import ProjInfo
 from pypp_cli.init.z.paths.init import InitPyppPaths, create_init_pypp_paths
 
 
@@ -11,6 +10,17 @@ def pypp_init(target_dir: Path):
     pypp_init_helper = _PyppInitHelper(create_init_pypp_paths(target_dir))
     pypp_init_helper.create_project_structure()
     print("Py++ project init finished")
+
+
+PROJ_INFO_DEFAULTS = ProjInfo(
+    cpp_dir_is_dirty=True,
+    namespace="me",
+    override_cpp_write_dir=None,
+    write_metadata_to_dir=None,
+    ignored_files=[],
+    cmake_minimum_required_version="4.0",
+)
+
 
 
 @dataclass(frozen=True, slots=True)

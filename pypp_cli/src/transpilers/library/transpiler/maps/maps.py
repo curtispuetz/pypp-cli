@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from pypp_cli.src.transpilers.library.bridge_libs.models import (
+from pypp_cli.do.transpile.load_bridge_json.z.other.models import (
     AlwaysPassByValueModel,
     AnnAssignModel,
     AttrModel,
@@ -8,7 +8,7 @@ from pypp_cli.src.transpilers.library.bridge_libs.models import (
     NameModel,
     SubscriptableTypeModel,
 )
-from pypp_cli.src.transpilers.library.bridge_libs.loader import BridgeJsonModels
+from pypp_cli.do.transpile.load_bridge_json.node import BridgeJsonModels
 from pypp_cli.src.transpilers.library.transpiler.d_types import PySpecificImport
 from pypp_cli.src.transpilers.library.transpiler.maps.ann_assign import ANN_ASSIGN_MAP
 from pypp_cli.src.transpilers.library.transpiler.maps.attr import ATTR_MAP
