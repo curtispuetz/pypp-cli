@@ -35,7 +35,7 @@ class LeftAndRightValueModel(BaseModel):
 
 
 class CustomMappingValueModel(BaseModel):
-    mapping_function: list[str] | str
+    mapping_function: str
     quote_includes: QuoteIncludeModel | None = None
     angle_includes: AngleIncludeModel | None = None
     required_py_import: RequiredPyImportModel | None = None
