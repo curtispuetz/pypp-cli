@@ -22,7 +22,6 @@ PROJ_INFO_DEFAULTS = ProjInfo(
 )
 
 
-
 @dataclass(frozen=True, slots=True)
 class _PyppInitHelper:
     _paths: InitPyppPaths

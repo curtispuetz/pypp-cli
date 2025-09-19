@@ -2,14 +2,11 @@ import ast
 from dataclasses import dataclass
 from pathlib import Path
 
-from pypp_cli.src.transpilers.library.transpiler.d_types import (
+from pypp_cli.do.transpile.transpile.transpile.z.d_types import (
     ModulePyImports,
     QInc,
 )
-from pypp_cli.src.transpilers.library.transpiler.cpp_includes import IncMap
-from pypp_cli.src.transpilers.library.transpiler.util.modules import (
-    calc_module_beginning,
-)
+from pypp_cli.do.transpile.transpile.transpile.z.cpp_includes import IncMap
 
 
 type _Result = tuple[IncMap, int, ModulePyImports, dict[str, str]]
@@ -87,7 +84,7 @@ class _ImportStmtAnalyzer:
         if module in self._py_modules:
             for alias in names:
                 self._namespaces[alias.name] = self._namespace
-        lib = calc_module_beginning(module)
+        lib = _calc_module_beginning(module)
         if lib in self._lib_namespaces:
             for alias in names:
                 self._namespaces[alias.name] = self._lib_namespaces[lib]
@@ -101,4 +98,11 @@ class _ImportStmtAnalyzer:
 
     def _is_pure_lib(self, module: str) -> bool:
         # For all pure libs, there is a key in the _lib_namespaces dict.
-        return calc_module_beginning(module) in self._lib_namespaces
+        return _calc_module_beginning(module) in self._lib_namespaces
+
+
+def _calc_module_beginning(module: str) -> str:
+    f = module.find(".")
+    if f == -1:
+        return module
+    return module[:f]
