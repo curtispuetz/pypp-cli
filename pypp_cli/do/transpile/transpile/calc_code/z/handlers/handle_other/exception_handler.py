@@ -1,7 +1,7 @@
 import ast
 
-from pypp_cli.do.z_i.config import SHOULDNT_HAPPEN
-from pypp_cli.do.transpile.transpile.z_i.d_types import AngInc
+from pypp_cli.do.y.config import SHOULDNT_HAPPEN
+from pypp_cli.do.transpile.transpile.y.d_types import AngInc
 from pypp_cli.do.transpile.transpile.calc_code.z.deps import Deps
 from pypp_cli.do.transpile.transpile.calc_code.z.handlers.mapping.exceptions import (
     lookup_cpp_exception_type,

@@ -1,7 +1,7 @@
 import ast
 from dataclasses import dataclass
 
-from .....z_i.d_types import QInc
+from .....y.d_types import QInc
 from ...deps import Deps
 from ..mapping.cpp_type import CppTypeCalculator
 from .calc_callable_type import CallableTypeCalculator

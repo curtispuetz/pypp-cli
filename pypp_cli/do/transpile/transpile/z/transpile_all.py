@@ -1,10 +1,10 @@
 import ast
 from pathlib import Path
 from pypp_cli.do.transpile.find_libs.z.find_all_libs import PyppLibsData
-from pypp_cli.do.transpile.z_i.transpiler_config_models import (
+from pypp_cli.do.transpile.y.transpiler_config_models import (
     TranspilerConfigModelsDict,
 )
-from pypp_cli.do.transpile.z_i.py_file_tracker import PyFilesTracker
+from pypp_cli.do.transpile.y.py_file_tracker import PyFilesTracker
 from pypp_cli.do.transpile.transpile.z.calc_ast_tree import calc_ast
 from pypp_cli.do.transpile.transpile.z.main_files.transpiler import (
     MainFileTranspiler,

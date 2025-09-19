@@ -2,12 +2,12 @@
 
 - child node directories
 - z
-- z_i
+- y
 
 
 z directories contain implementation for that node.
 
-z_i directories contain common code used by child nodes.
+y directories contain common code used by child nodes.
 
 # node.py
 

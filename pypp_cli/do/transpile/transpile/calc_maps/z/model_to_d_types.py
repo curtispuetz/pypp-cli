@@ -1,4 +1,4 @@
-from pypp_cli.do.transpile.z_i.transpiler_config_models import (
+from pypp_cli.do.transpile.y.transpiler_config_models import (
     AngleIncludeModel,
     TranspilerConfigModelsDict,
     CustomMappingValueModel,
@@ -7,7 +7,7 @@ from pypp_cli.do.transpile.z_i.transpiler_config_models import (
     RequiredPyImportModel,
     ToStringValueModel,
 )
-from pypp_cli.do.transpile.transpile.z_i.d_types import (
+from pypp_cli.do.transpile.transpile.y.d_types import (
     AngInc,
     CppInclude,
     PyImport,
@@ -15,7 +15,7 @@ from pypp_cli.do.transpile.transpile.z_i.d_types import (
     PySpecificImport,
     QInc,
 )
-from pypp_cli.do.transpile.transpile.z_i.maps.d_types import (
+from pypp_cli.do.transpile.transpile.y.maps.d_types import (
     CustomMappingFromLibEntry,
     CustomMappingStartsWithFromLibEntry,
     LeftAndRightEntry,

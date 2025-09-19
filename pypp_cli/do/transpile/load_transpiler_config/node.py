@@ -7,12 +7,12 @@ from pypp_cli.do.transpile.load_transpiler_config.z.load_mapping_fns import (
 from pypp_cli.do.transpile.load_transpiler_config.z.load_models import (
     load_transpiler_config_models,
 )
-from pypp_cli.do.transpile.z_i.transpiler_config_models import (
+from pypp_cli.do.transpile.y.transpiler_config_models import (
     TranspilerConfigModelsAndMappingFunctions,
     TranspilerConfigModelsDict,
 )
 from pypp_cli.do.transpile.find_libs.z.find_all_libs import PyppLibs
-from pypp_cli.z_i.constants import TRANSPILER_CONFIG_DIR
+from pypp_cli.y.constants import TRANSPILER_CONFIG_DIR
 
 
 def load_transpiler_config(

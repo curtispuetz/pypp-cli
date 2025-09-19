@@ -1,6 +1,6 @@
 import json
 from pathlib import Path
-from pypp_cli.z_i.init_libs_helper import (
+from pypp_cli.y.init_libs_helper import (
     InitLibsHelper,
     create_python_hello_world,
 )

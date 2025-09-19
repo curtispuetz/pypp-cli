@@ -4,7 +4,7 @@ from pathlib import Path
 from pypp_cli.do.transpile.transpile.z.calc_includes import (
     add_include_to_res,
 )
-from pypp_cli.do.transpile.transpile.z_i.d_types import QInc, header_from_module
+from pypp_cli.do.transpile.transpile.y.d_types import QInc, header_from_module
 
 
 def calc_h_code_for_init_file(py_ast: ast.Module, file: Path) -> tuple[str, Path]:

@@ -5,8 +5,8 @@ from pathlib import Path
 
 from pydantic import ValidationError
 
-from pypp_cli.z_i.constants import TRANSPILER_CONFIG_DIR
-from pypp_cli.z_i.proj_info import ProjInfo
+from pypp_cli.y.constants import TRANSPILER_CONFIG_DIR
+from pypp_cli.y.proj_info import ProjInfo
 
 
 @dataclass(frozen=True, slots=True)

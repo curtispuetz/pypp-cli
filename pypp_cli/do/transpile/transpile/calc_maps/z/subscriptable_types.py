@@ -1,8 +1,8 @@
-from pypp_cli.do.transpile.transpile.z_i.d_types import PySpecificImpFrom
-from pypp_cli.do.transpile.transpile.z_i.maps.d_types import (
+from pypp_cli.do.transpile.transpile.y.d_types import PySpecificImpFrom
+from pypp_cli.do.transpile.transpile.y.maps.d_types import (
     SubscriptableTypeMap,
 )
-from pypp_cli.z_i.constants import TRANSPILER_CONFIG_DIR
+from pypp_cli.y.constants import TRANSPILER_CONFIG_DIR
 
 SUBSCRIPTABLE_TYPE_MAP: SubscriptableTypeMap = {
     "pypp::PyList": {None},

@@ -1,4 +1,4 @@
-from pypp_cli.z_i.constants import TRANSPILER_CONFIG_DIR
+from pypp_cli.y.constants import TRANSPILER_CONFIG_DIR
 
 
 def fn_arg_passed_by_value_warning_msg(lib: str, full_type_str: str):

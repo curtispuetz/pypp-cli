@@ -3,13 +3,13 @@ import ast
 from dataclasses import dataclass
 from pathlib import Path
 
-from pypp_cli.do.transpile.transpile.z_i.d_types import (
+from pypp_cli.do.transpile.transpile.y.d_types import (
     CppInclude,
     ModulePyImports,
     PySpecificImport,
 )
-from pypp_cli.do.transpile.transpile.z_i.maps.d_types import Maps
-from pypp_cli.do.transpile.transpile.z_i.cpp_includes import CppIncludes
+from pypp_cli.do.transpile.transpile.y.maps.d_types import Maps
+from pypp_cli.do.transpile.transpile.y.cpp_includes import CppIncludes
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
