@@ -30,11 +30,6 @@ def analyse_import_stmts(
     namespaces: dict[str, str] = {}
     for i, node in enumerate(stmts):
         if isinstance(node, ast.ImportFrom):
-            if node.module in module_py_imports.imp_from:
-                raise ValueError(
-                    f"Duplicate import from module not supported. "
-                    f"module: {node.module}. In {file_path}"
-                )
             if node.module is None:
                 raise ValueError(
                     "Import with just a '.' not supported. Problem in {file_path}"
@@ -55,7 +50,11 @@ def analyse_import_stmts(
             if lib in lib_namespaces:
                 for alias in node.names:
                     namespaces[alias.name] = lib_namespaces[lib]
-            module_py_imports.imp_from[node.module] = [n.name for n in node.names]
+            names = [n.name for n in node.names]
+            if node.module in module_py_imports.imp_from:
+                module_py_imports.imp_from[node.module].extend(names)
+            else:
+                module_py_imports.imp_from[node.module] = names
         elif isinstance(node, ast.Import):
             raise ValueError(
                 f"Import is not supported in Py++ "
