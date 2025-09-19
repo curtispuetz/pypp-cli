@@ -10,6 +10,7 @@ from pypp_cli.do.transpile.z_i.transpiler_config_models import (
     TranspilerConfigModelsDict,
 )
 from pypp_cli.do.transpile.find_libs.z.find_all_libs import PyppLibs
+from pypp_cli.z_i.constants import TRANSPILER_CONFIG_DIR
 
 
 def load_transpiler_config(
@@ -24,7 +25,7 @@ def load_transpiler_config(
             site_packages_dir
             / lib
             / "pypp_data"
-            / "bridge_jsons"
+            / TRANSPILER_CONFIG_DIR
             / "mapping_functions",
         )
     ret[None] = _load_val(
@@ -51,7 +52,7 @@ def _calc_transpiler_config_for_lib(
         site_packages_dir
         / lib
         / "pypp_data"
-        / "bridge_jsons"
+        / TRANSPILER_CONFIG_DIR
         / f"{json_file_name}.json"
     )
 

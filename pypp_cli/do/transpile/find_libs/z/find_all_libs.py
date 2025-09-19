@@ -4,6 +4,7 @@ from pathlib import Path
 
 from pydantic import ValidationError
 from pypp_cli.do.transpile.z_i.proj_metadata import ProjMetadata
+from pypp_cli.z_i.constants import TRANSPILER_CONFIG_DIR
 
 # value indicates if it has transpiler config or not
 type PyppLibs = dict[str, bool]
@@ -25,7 +26,7 @@ def find_all_libs(site_packages_dir: Path) -> PyppLibsData:
             if lib_pypp_data_dir.is_dir():
                 # found a Py++ library
                 has_transpiler_config = (
-                    True if (lib_pypp_data_dir / "bridge_jsons").is_dir() else False
+                    True if (lib_pypp_data_dir / TRANSPILER_CONFIG_DIR).is_dir() else False
                 )
                 metadata_json = lib_pypp_data_dir / "metadata.json"
                 if metadata_json.is_file():

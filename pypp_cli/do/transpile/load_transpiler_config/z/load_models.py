@@ -15,6 +15,7 @@ from pypp_cli.do.transpile.z_i.transpiler_config_models import (
     NameModel,
     SubscriptableTypeModel,
 )
+from pypp_cli.z_i.constants import TRANSPILER_CONFIG_DIR
 
 
 def load_transpiler_config_models[T](
@@ -71,7 +72,7 @@ class _TranspilerConfigModelLoader[T]:
                     if self._lib is None:
                         raise ValueError(
                             f"An issue was found in the project {file_name}.json file "
-                            f"in the .pypp/bridge_jsons directory.\n"
+                            f"in the .pypp/{TRANSPILER_CONFIG_DIR} directory.\n"
                             f"The pydantic validation error:"
                             f"\n\n{e}"
                         )
