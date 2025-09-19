@@ -114,7 +114,7 @@ class CMakeListsModel(BaseModel):
 
 
 @dataclass(frozen=True, slots=True)
-class BridgeJsonModels:
+class TranspilerConfigModels:
     name_map: NameModel | None = None
     ann_assign_map: AnnAssignModel | None = None
     call_map: CallModel | None = None
@@ -129,9 +129,9 @@ type MappingFunctions = dict[str, str]
 
 
 @dataclass(frozen=True, slots=True)
-class BridgeJsonModelsAndMappingFunctions:
-    models: BridgeJsonModels
+class TranspilerConfigModelsAndMappingFunctions:
+    models: TranspilerConfigModels
     mapping_functions: MappingFunctions
 
 
-type BridgeJsonModelsDict = dict[str | None, BridgeJsonModelsAndMappingFunctions]
+type TranspilerConfigModelsDict = dict[str | None, TranspilerConfigModelsAndMappingFunctions]

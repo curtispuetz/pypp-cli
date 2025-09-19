@@ -17,7 +17,7 @@ class DoPyppPaths:
     python_dir: Path
     timestamps_file: Path
     site_packages_dir: Path
-    proj_bridge_json_dir: Path
+    proj_transpiler_config_dir: Path
 
 
 @dataclass(frozen=True, slots=True)

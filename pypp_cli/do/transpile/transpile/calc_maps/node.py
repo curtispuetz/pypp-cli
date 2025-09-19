@@ -1,11 +1,11 @@
 from dataclasses import dataclass
 from functools import partial
 
-from pypp_cli.do.transpile.z_i.bridge_json_models import (
+from pypp_cli.do.transpile.z_i.transpiler_config_models import (
     AlwaysPassByValueModel,
     AnnAssignModel,
     AttrModel,
-    BridgeJsonModelsDict,
+    TranspilerConfigModelsDict,
     CallModel,
     NameModel,
     SubscriptableTypeModel,
@@ -48,7 +48,7 @@ from pypp_cli.do.transpile.transpile.calc_maps.z.model_to_d_types import (
 
 @dataclass(slots=True)
 class MapsCltr:
-    _bridge_json_models: BridgeJsonModelsDict
+    _transpiler_config_models: TranspilerConfigModelsDict
 
     def calc_maps(self) -> Maps:
         name_map: NameMap = NAME_MAP.copy()
@@ -57,7 +57,7 @@ class MapsCltr:
         fn_arg_passed_by_value: FnArgByValueMap = PRIMITIVE_TYPES.copy()
         subscriptable_type: SubscriptableTypeMap = SUBSCRIPTABLE_TYPE_MAP.copy()
         ann_assign_map: AnnAssignsMap = ANN_ASSIGN_MAP.copy()
-        for lib, m in self._bridge_json_models.items():
+        for lib, m in self._transpiler_config_models.items():
             if m.models.name_map is not None:
                 self._calc_name_map(lib, m.models.name_map, name_map)
             if m.models.call_map is not None:
@@ -102,7 +102,7 @@ class MapsCltr:
             self._add_mapping_entries_1(
                 model.custom_mapping.root,
                 partial(
-                    calc_custom_mapping_from_lib_entry, self._bridge_json_models, lib
+                    calc_custom_mapping_from_lib_entry, self._transpiler_config_models, lib
                 ),
                 lib,
                 ret,
@@ -127,7 +127,7 @@ class MapsCltr:
             self._add_mapping_entries_1(
                 model.custom_mapping.root,
                 partial(
-                    calc_custom_mapping_from_lib_entry, self._bridge_json_models, lib
+                    calc_custom_mapping_from_lib_entry, self._transpiler_config_models, lib
                 ),
                 lib,
                 ret,
@@ -152,7 +152,7 @@ class MapsCltr:
             self._add_mapping_entries_1(
                 model.custom_mapping.root,
                 partial(
-                    calc_custom_mapping_from_lib_entry, self._bridge_json_models, lib
+                    calc_custom_mapping_from_lib_entry, self._transpiler_config_models, lib
                 ),
                 lib,
                 ret,
@@ -172,7 +172,7 @@ class MapsCltr:
             self._add_mapping_entries_1(
                 model.custom_mapping.root,
                 partial(
-                    calc_custom_mapping_from_lib_entry, self._bridge_json_models, lib
+                    calc_custom_mapping_from_lib_entry, self._transpiler_config_models, lib
                 ),
                 lib,
                 ret,

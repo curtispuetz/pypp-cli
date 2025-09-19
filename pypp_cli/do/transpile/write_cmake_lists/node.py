@@ -2,8 +2,8 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from pypp_cli.do.transpile.find_libs.z.find_all_libs import PyppLibs
-from pypp_cli.do.transpile.z_i.bridge_json_models import (
-    BridgeJsonModelsDict,
+from pypp_cli.do.transpile.z_i.transpiler_config_models import (
+    TranspilerConfigModelsDict,
 )
 from pypp_cli.do.transpile.z_i.py_file_tracker import PyFilesTracker
 
@@ -26,7 +26,7 @@ class CMakeListsWriter:
     _libs: PyppLibs
     _cmake_minimum_required_version: str
     _py_files_tracker: PyFilesTracker
-    _bridge_json_models: BridgeJsonModelsDict
+    _transpiler_config_models: TranspilerConfigModelsDict
 
     def write(self):
         main_files, src_files = self._calc_main_and_src_files()
@@ -97,7 +97,7 @@ class CMakeListsWriter:
     ) -> tuple[list[str], list[str]]:
         add_lines: list[str] = []
         link_libs: list[str] = []
-        for v in self._bridge_json_models.values():
+        for v in self._transpiler_config_models.values():
             if v.models.cmake_lists is not None:
                 if v.models.cmake_lists.add_lines is not None:
                     add_lines.extend(v.models.cmake_lists.add_lines)

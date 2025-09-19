@@ -1,6 +1,6 @@
-from pypp_cli.do.transpile.z_i.bridge_json_models import (
+from pypp_cli.do.transpile.z_i.transpiler_config_models import (
     AngleIncludeModel,
-    BridgeJsonModelsDict,
+    TranspilerConfigModelsDict,
     CustomMappingValueModel,
     LeftAndRightValueModel,
     QuoteIncludeModel,
@@ -57,12 +57,12 @@ def calc_to_string_entry(d: ToStringValueModel) -> ToStringEntry:
 
 
 def calc_custom_mapping_from_lib_entry(
-    bridge_json_models: BridgeJsonModelsDict,
+    transpiler_config_models: TranspilerConfigModelsDict,
     lib: str | None,
     d: CustomMappingValueModel,
 ) -> CustomMappingFromLibEntry:
     if isinstance(d.mapping_function, str):
-        s = bridge_json_models[lib].mapping_functions[d.mapping_function]
+        s = transpiler_config_models[lib].mapping_functions[d.mapping_function]
     else:
         s = "\n".join(d.mapping_function)
     return CustomMappingFromLibEntry(

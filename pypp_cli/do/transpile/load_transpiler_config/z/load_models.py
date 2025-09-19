@@ -5,11 +5,11 @@ from typing import Callable
 
 from pydantic_core import ValidationError
 
-from pypp_cli.do.transpile.z_i.bridge_json_models import (
+from pypp_cli.do.transpile.z_i.transpiler_config_models import (
     AlwaysPassByValueModel,
     AnnAssignModel,
     AttrModel,
-    BridgeJsonModels,
+    TranspilerConfigModels,
     CMakeListsModel,
     CallModel,
     NameModel,
@@ -17,21 +17,21 @@ from pypp_cli.do.transpile.z_i.bridge_json_models import (
 )
 
 
-def load_bridge_json_models[T](
-    dir: Path,
+def load_transpiler_config_models[T](
+    _dir: Path,
     path_cltr: Callable[[Path, T, str], Path],
     lib: T,
-) -> BridgeJsonModels:
-    return BridgeJsonModelLoader(dir, path_cltr, lib).load_models()
+) -> TranspilerConfigModels:
+    return _TranspilerConfigModelLoader(_dir, path_cltr, lib).load_models()
 
 
 @dataclass(frozen=True, slots=True)
-class BridgeJsonModelLoader[T]:
+class _TranspilerConfigModelLoader[T]:
     _dir: Path
     _path_cltr: Callable[[Path, T, str], Path]
     _lib: T
 
-    def load_models(self) -> BridgeJsonModels:
+    def load_models(self) -> TranspilerConfigModels:
         name_map: NameModel | None = None
         ann_assign_map: AnnAssignModel | None = None
         call_map: CallModel | None = None
@@ -82,7 +82,7 @@ class BridgeJsonModelLoader[T]:
                         f"The pydantic validation error:"
                         f"\n\n{e}"
                     )
-        return BridgeJsonModels(
+        return TranspilerConfigModels(
             name_map,
             ann_assign_map,
             call_map,
