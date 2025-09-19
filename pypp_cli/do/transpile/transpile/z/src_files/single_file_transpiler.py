@@ -2,9 +2,7 @@ import ast
 from dataclasses import dataclass
 from pathlib import Path
 
-from pypp_cli.do.transpile.transpile.handle.node import (
-    create_all_transpiler_data,
-)
+from pypp_cli.do.transpile.transpile.handle.node import calc_code_for_src_file
 from pypp_cli.do.transpile.transpile.z.src_files.calc_includes import (
     calc_includes,
 )
@@ -37,7 +35,7 @@ class SrcSingleFileTranspiler:
             return "", *calc_h_code_for_init_file(self._py_ast, self._file)
 
         h_file: Path = self._file.with_suffix(".h")
-        import_end, d = create_all_transpiler_data(
+        cpp_code_minus_include, cpp_includes, h_file_code = calc_code_for_src_file(
             self._namespace,
             self._py_ast,
             self._maps,
@@ -45,13 +43,10 @@ class SrcSingleFileTranspiler:
             self._lib_namespaces,
             self._file_path,
         )
-        cpp_code_minus_include: str = d.handle_stmts_for_module(
-            self._py_ast.body[import_end:]
-        )
-        h_includes, cpp_includes = calc_includes(d.cpp_includes)
+        h_includes, cpp_includes = calc_includes(cpp_includes)
         cpp_code = self._calc_cpp_code(cpp_code_minus_include, h_file, cpp_includes)
         h_code = f"#pragma once\n\n{h_includes}" + self._wrap_namespace(
-            " ".join(d.ret_h_file)
+            " ".join(h_file_code)
         )
         return cpp_code, h_code, h_file
 
