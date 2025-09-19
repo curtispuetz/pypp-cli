@@ -1,1 +1,1 @@
-TRANSPILER_CONFIG_DIR: str = "bridge_jsons"
+TRANSPILER_CONFIG_DIR: str = "transpiler_config"
