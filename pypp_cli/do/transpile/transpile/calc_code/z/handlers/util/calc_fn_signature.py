@@ -26,7 +26,7 @@ class FnSignatureCalculator:
             cpp_ret_type = "void"
         else:
             cpp_ret_type = self._d.handle_expr(node.returns)
-            # TODO: It might be better to check imports for Iterator, Callable,
+            # TODO later: It might be better to check imports for Iterator, Callable,
             # dataclass, ABC, abstractmethod, Valu, Ref, mov, etc. Actually, mov
             # already has it, but the rest don't.
             if cpp_ret_type.startswith("Iterator[") and cpp_ret_type.endswith("]"):
