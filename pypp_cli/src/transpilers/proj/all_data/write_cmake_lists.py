@@ -3,9 +3,6 @@ from pathlib import Path
 
 from pypp_cli.src.transpilers.library.bridge_libs.finder import PyppLibs
 from pypp_cli.src.transpilers.library.bridge_libs.loader import BridgeJsonModels
-from pypp_cli.src.transpilers.library.bridge_libs.path_cltr import (
-    BridgeJsonPathCltr,
-)
 from pypp_cli.src.transpilers.library.file_tracker import PyFilesTracker
 
 
@@ -24,7 +21,6 @@ def _calc_link_libs_lines(link_libs: list[str]) -> list[str]:
 @dataclass(frozen=True, slots=True)
 class CMakeListsWriter:
     _cpp_dir: Path
-    _bridge_json_path_cltr: BridgeJsonPathCltr
     _libs: PyppLibs
     _cmake_minimum_required_version: str
     _py_files_tracker: PyFilesTracker
