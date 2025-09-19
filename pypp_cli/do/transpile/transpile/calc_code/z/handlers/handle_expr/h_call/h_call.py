@@ -13,7 +13,6 @@ from pypp_cli.do.transpile.transpile.z_i.maps.d_types import (
     CustomMappingStartsWithEntry,
     CustomMappingStartsWithFromLibEntry,
     LeftAndRightEntry,
-    ReplaceDotWithDoubleColonEntry,
 )
 from pypp_cli.do.transpile.transpile.calc_code.z.handlers.mapping.util import (
     calc_string_fn,
@@ -72,13 +71,6 @@ class CallHandler:
                 if caller_str.startswith(k):
                     self._d.add_incs(e.includes)
                     return calc_string_fn(e)(node, self._d, caller_str)
-            elif isinstance(e, ReplaceDotWithDoubleColonEntry):
-                if caller_str.startswith(k):
-                    self._d.add_incs(e.includes)
-                    caller_str = caller_str.replace(".", "::")
-                    if e.add_pypp_namespace:
-                        caller_str = "pypp::" + caller_str
-                    return f"{caller_str}({self._d.handle_exprs(node.args)})"
         return f"{caller_str}({self._d.handle_exprs(node.args)})"
 
 

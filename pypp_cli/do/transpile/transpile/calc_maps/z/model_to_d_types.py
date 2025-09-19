@@ -19,7 +19,6 @@ from pypp_cli.do.transpile.transpile.z_i.maps.d_types import (
     CustomMappingFromLibEntry,
     CustomMappingStartsWithFromLibEntry,
     LeftAndRightEntry,
-    ReplaceDotWithDoubleColonEntry,
     ToStringEntry,
 )
 
@@ -72,14 +71,6 @@ def calc_custom_mapping_starts_with_from_lib_entry(
     return CustomMappingStartsWithFromLibEntry(
         "\n".join(d.mapping_function),
         _calc_cpp_include(d.quote_includes, d.angle_includes),
-    )
-
-
-def calc_replace_dot_with_double_colon_entry(
-    d: ReplaceDotWithDoubleColonValueModel,
-) -> ReplaceDotWithDoubleColonEntry:
-    return ReplaceDotWithDoubleColonEntry(
-        _calc_cpp_include(d.quote_includes, d.angle_includes), False
     )
 
 

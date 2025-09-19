@@ -39,7 +39,6 @@ from pypp_cli.do.transpile.transpile.calc_maps.z.model_to_d_types import (
     calc_custom_mapping_from_lib_entry,
     calc_custom_mapping_starts_with_from_lib_entry,
     calc_left_and_right_entry,
-    calc_replace_dot_with_double_colon_entry,
     calc_to_string_entry,
     calc_imp_str,
     calc_required_py_import,
@@ -112,13 +111,6 @@ class MapsCltr:
                 lib,
                 ret,
             )
-        if model.replace_dot_with_double_colon is not None:
-            self._add_mapping_entries_1(
-                model.replace_dot_with_double_colon.root,
-                calc_replace_dot_with_double_colon_entry,
-                lib,
-                ret,
-            )
 
     def _calc_name_map(self, lib: str | None, model: NameModel, ret: NameMap):
         if model.to_string is not None:
@@ -162,13 +154,6 @@ class MapsCltr:
             self._add_mapping_entries_1(
                 model.custom_mapping_starts_with.root,
                 calc_custom_mapping_starts_with_from_lib_entry,
-                lib,
-                ret,
-            )
-        if model.replace_dot_with_double_colon is not None:
-            self._add_mapping_entries_1(
-                model.replace_dot_with_double_colon.root,
-                calc_replace_dot_with_double_colon_entry,
                 lib,
                 ret,
             )

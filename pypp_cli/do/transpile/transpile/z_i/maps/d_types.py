@@ -47,12 +47,6 @@ class CustomMappingStartsWithFromLibEntry(MappingFnStr):
     includes: list[CppInclude]
 
 
-@dataclass(frozen=True, slots=True)
-class ReplaceDotWithDoubleColonEntry:
-    includes: list[CppInclude]
-    add_pypp_namespace: bool
-
-
 type CallMapEntry = (
     LeftAndRightEntry
     | ToStringEntry
@@ -60,7 +54,6 @@ type CallMapEntry = (
     | CustomMappingFromLibEntry
     | CustomMappingStartsWithEntry
     | CustomMappingStartsWithFromLibEntry
-    | ReplaceDotWithDoubleColonEntry
 )
 
 type NameMapEntry = (
@@ -77,7 +70,6 @@ type AttrMapEntry = (
     | CustomMappingFromLibEntry
     | CustomMappingStartsWithEntry
     | CustomMappingStartsWithFromLibEntry
-    | ReplaceDotWithDoubleColonEntry
 )
 
 type AnnAssignMapEntry = (
