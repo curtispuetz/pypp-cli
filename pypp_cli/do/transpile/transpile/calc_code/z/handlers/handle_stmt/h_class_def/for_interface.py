@@ -3,10 +3,7 @@ import ast
 from pypp_cli.do.z_i.config import SHOULDNT_HAPPEN
 from pypp_cli.do.transpile.transpile.calc_code.z.deps import Deps
 from dataclasses import dataclass
-
-from pypp_cli.do.transpile.transpile.calc_code.z.handlers.util.calc_fn_signature import (
-    FnSignatureCalculator,
-)
+from ...util.calc_fn_signature import FnSignatureCalculator
 
 
 # Underscore rules:

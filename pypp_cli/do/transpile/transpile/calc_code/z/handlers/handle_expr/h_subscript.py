@@ -1,13 +1,9 @@
 import ast
 from dataclasses import dataclass
 
-from pypp_cli.do.transpile.transpile.calc_code.z.deps import Deps
-from pypp_cli.do.transpile.transpile.calc_code.z.handlers.handle_expr.h_tuple import (
-    handle_tuple_inner_args,
-)
-from pypp_cli.do.transpile.transpile.calc_code.z.handlers.mapping.subscript_value import (
-    lookup_cpp_subscript_value_type,
-)
+from ...deps import Deps
+from .h_tuple import handle_tuple_inner_args
+from ..mapping.subscript_value import lookup_cpp_subscript_value_type
 
 
 @dataclass(frozen=True, slots=True)

@@ -1,17 +1,11 @@
 import ast
 from dataclasses import dataclass
 
-from pypp_cli.do.transpile.transpile.z_i.d_types import QInc
-from pypp_cli.do.transpile.transpile.calc_code.z.deps import Deps
-from pypp_cli.do.transpile.transpile.calc_code.z.handlers.mapping.cpp_type import (
-    CppTypeCalculator,
-)
-from pypp_cli.do.transpile.transpile.calc_code.z.handlers.util.calc_callable_type import (
-    CallableTypeCalculator,
-)
-from pypp_cli.do.transpile.transpile.calc_code.z.handlers.util.inner_strings import (
-    calc_inside_sq,
-)
+from .....z_i.d_types import QInc
+from ...deps import Deps
+from ..mapping.cpp_type import CppTypeCalculator
+from .calc_callable_type import CallableTypeCalculator
+from .inner_strings import calc_inside_sq
 
 
 def calc_fn_str_with_body(fn_signature: str, body_str: str) -> str:

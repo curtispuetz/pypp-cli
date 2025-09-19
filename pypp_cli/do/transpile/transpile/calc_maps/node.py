@@ -25,7 +25,8 @@ from pypp_cli.do.transpile.transpile.z_i.maps.d_types import (
     CallMap,
     FnArgByValueMap,
     NameMap,
-    SubscriptableTypeMap, Maps,
+    SubscriptableTypeMap,
+    Maps,
 )
 from pypp_cli.do.transpile.transpile.calc_maps.z.name import NAME_MAP
 from pypp_cli.do.transpile.transpile.calc_maps.z.subscriptable_types import (
