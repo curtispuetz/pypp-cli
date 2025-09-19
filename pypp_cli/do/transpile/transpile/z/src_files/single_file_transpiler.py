@@ -2,7 +2,7 @@ import ast
 from dataclasses import dataclass
 from pathlib import Path
 
-from pypp_cli.do.transpile.transpile.handle.node import calc_code_for_src_file
+from pypp_cli.do.transpile.transpile.calc_code.node import calc_code_for_src_file
 from pypp_cli.do.transpile.transpile.z.src_files.calc_includes import (
     calc_includes,
 )
