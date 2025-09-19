@@ -1,18 +1,18 @@
-from pypp_cli.do.transpile.transpile.z.other.src_files.single_file_transpiler import (
-    SrcSingleFileTranspiler,
+from pypp_cli.do.transpile.transpile.z.main_files.single_file_transpiler import (
+    MainSingleFileTranspiler,
 )
-from pypp_cli.do.transpile.transpile.transpile.z.maps.maps import Maps
+from pypp_cli.do.transpile.transpile.calc_maps.node import Maps
 
 
 import ast
 from dataclasses import dataclass
 from pathlib import Path
 
-from pypp_cli.do.transpile.transpile.z_i.other.results import TranspileResults
+from pypp_cli.do.transpile.transpile.z.results import TranspileResults
 
 
 @dataclass(frozen=True, slots=True)
-class SrcFileTranspiler:
+class MainFileTranspiler:
     _namespace: str
     _cpp_dest_dir: Path
     _py_modules: set[str]
@@ -21,7 +21,7 @@ class SrcFileTranspiler:
     _r: TranspileResults
 
     def transpile(self, file: Path, file_path: Path, py_ast: ast.Module):
-        sf_transpiler = SrcSingleFileTranspiler(
+        sf_transpiler = MainSingleFileTranspiler(
             self._namespace,
             self._cpp_dest_dir,
             self._py_modules,

@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from pypp_cli.do.transpile.load_bridge_json.z.other.models import (
+from pypp_cli.do.transpile.load_bridge_json.z.models import (
     AlwaysPassByValueModel,
     AnnAssignModel,
     AttrModel,
@@ -10,16 +10,16 @@ from pypp_cli.do.transpile.load_bridge_json.z.other.models import (
 )
 from pypp_cli.do.transpile.load_bridge_json.node import BridgeJsonModels
 from pypp_cli.do.transpile.transpile.transpile.z.d_types import PySpecificImport
-from pypp_cli.do.transpile.transpile.transpile.z.maps.ann_assign import ANN_ASSIGN_MAP
-from pypp_cli.do.transpile.transpile.transpile.z.maps.attr import ATTR_MAP
-from pypp_cli.do.transpile.transpile.transpile.z.maps.call.call import (
+from pypp_cli.do.transpile.transpile.calc_maps.z.ann_assign import ANN_ASSIGN_MAP
+from pypp_cli.do.transpile.transpile.calc_maps.z.attr import ATTR_MAP
+from pypp_cli.do.transpile.transpile.calc_maps.z.call.call import (
     CALL_MAP,
 )
-from pypp_cli.do.transpile.transpile.transpile.z.maps.fn_arg_passed_by_value import (
-    PRIMITIVE_TYPES,
+from pypp_cli.do.transpile.transpile.calc_maps.z.fn_arg_passed_by_value import (
     fn_arg_passed_by_value_warning_msg,
 )
-from pypp_cli.do.transpile.transpile.transpile.z.maps.d_types import (
+from pypp_cli.do.transpile.transpile.z_i.maps.primitive_types import PRIMITIVE_TYPES
+from pypp_cli.do.transpile.transpile.z_i.maps.d_types import (
     AnnAssignsMap,
     AttrMap,
     CallMap,
@@ -27,12 +27,12 @@ from pypp_cli.do.transpile.transpile.transpile.z.maps.d_types import (
     NameMap,
     SubscriptableTypeMap,
 )
-from pypp_cli.do.transpile.transpile.transpile.z.maps.name import NAME_MAP
-from pypp_cli.do.transpile.transpile.transpile.z.maps.subscriptable_types import (
+from pypp_cli.do.transpile.transpile.calc_maps.z.name import NAME_MAP
+from pypp_cli.do.transpile.transpile.calc_maps.z.subscriptable_types import (
     SUBSCRIPTABLE_TYPE_MAP,
     subscriptable_type_warning_msg,
 )
-from pypp_cli.do.transpile.transpile.transpile.z.maps.model_to_d_types import (
+from pypp_cli.do.transpile.transpile.calc_maps.z.model_to_d_types import (
     calc_custom_mapping_from_lib_entry,
     calc_custom_mapping_starts_with_from_lib_entry,
     calc_left_and_right_entry,

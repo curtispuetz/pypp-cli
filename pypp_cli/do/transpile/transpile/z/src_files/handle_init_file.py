@@ -1,7 +1,7 @@
 import ast
 from pathlib import Path
 
-from pypp_cli.do.transpile.transpile.z_i.other.calc_includes import (
+from pypp_cli.do.transpile.transpile.z.calc_includes import (
     add_include_to_res,
 )
 from pypp_cli.do.transpile.transpile.transpile.z.d_types import QInc, header_from_module

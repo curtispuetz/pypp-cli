@@ -5,7 +5,7 @@ from pathlib import Path
 
 from pydantic import ValidationError
 
-from pypp_cli.z_i.other.proj_info import ProjInfo
+from pypp_cli.z_i.proj_info import ProjInfo
 
 
 @dataclass(frozen=True, slots=True)

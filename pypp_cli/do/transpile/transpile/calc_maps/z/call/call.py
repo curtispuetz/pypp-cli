@@ -6,7 +6,7 @@ from pypp_cli.do.transpile.transpile.transpile.z.d_types import (
     PySpecificImpFrom,
     AngInc,
 )
-from pypp_cli.do.transpile.transpile.transpile.z.maps.d_types import (
+from pypp_cli.do.transpile.transpile.z_i.maps.d_types import (
     LeftAndRightEntry,
     CallMap,
     ToStringEntry,
@@ -14,7 +14,7 @@ from pypp_cli.do.transpile.transpile.transpile.z.maps.d_types import (
     CustomMappingStartsWithEntry,
     ReplaceDotWithDoubleColonEntry,
 )
-from pypp_cli.do.transpile.transpile.transpile.z.maps.call.default_dict_map_fn import (
+from pypp_cli.do.transpile.transpile.calc_maps.z.call.default_dict_map_fn import (
     good_default_dict,
 )
 

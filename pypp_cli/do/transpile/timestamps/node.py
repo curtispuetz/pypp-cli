@@ -2,7 +2,7 @@ import json
 from dataclasses import dataclass, asdict
 from pathlib import Path
 
-from pypp_cli.do.transpile.z.other.py_file_tracker import PyFilesTracker
+from pypp_cli.do.transpile.z.py_file_tracker import PyFilesTracker
 
 
 @dataclass(frozen=True, slots=True)

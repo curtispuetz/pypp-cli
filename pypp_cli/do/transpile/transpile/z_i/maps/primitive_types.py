@@ -1,5 +1,5 @@
 from pypp_cli.do.transpile.transpile.transpile.z.d_types import PySpecificImpFrom
-from pypp_cli.do.transpile.transpile.transpile.z.maps.d_types import FnArgByValueMap
+from pypp_cli.do.transpile.transpile.z_i.maps.d_types import FnArgByValueMap
 
 PRIMITIVE_TYPES: FnArgByValueMap = {
     "int": {None},
@@ -15,10 +15,3 @@ PRIMITIVE_TYPES: FnArgByValueMap = {
     "uint32_t": {PySpecificImpFrom("pypp_python", "uint32_t")},
     "uint64_t": {PySpecificImpFrom("pypp_python", "uint64_t")},
 }
-
-
-def fn_arg_passed_by_value_warning_msg(lib: str, full_type_str: str) -> str:
-    return (
-        f"Py++ transpiler already passes the type {full_type_str} by value always. "
-        f"Library {lib} is potentially changing this behavior."
-    )

@@ -4,7 +4,7 @@ from pathlib import Path
 import shutil
 from importlib.resources import files, as_file
 
-from pypp_cli.z_i.other.proj_info import ProjInfo
+from pypp_cli.z_i.proj_info import ProjInfo
 from pypp_cli.library.file_actions import rm_dirs_and_files
 
 

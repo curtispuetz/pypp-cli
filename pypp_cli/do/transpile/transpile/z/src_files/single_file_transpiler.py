@@ -2,17 +2,17 @@ import ast
 from dataclasses import dataclass
 from pathlib import Path
 
-from pypp_cli.do.transpile.transpile.z_i.create.create import (
+from pypp_cli.do.transpile.transpile.z.create import (
     create_all_transpiler_data,
 )
-from pypp_cli.do.transpile.transpile.z.other.src_files.calc_includes import (
+from pypp_cli.do.transpile.transpile.z.src_files.calc_includes import (
     calc_includes,
 )
-from pypp_cli.do.transpile.transpile.z.other.src_files.handle_init_file import (
+from pypp_cli.do.transpile.transpile.z.src_files.handle_init_file import (
     calc_h_code_for_init_file,
 )
-from pypp_cli.do.transpile.transpile.transpile.z.maps.maps import Maps
-from pypp_cli.do.transpile.transpile.z_i.other.results import TranspileResults
+from pypp_cli.do.transpile.transpile.calc_maps.node import Maps
+from pypp_cli.do.transpile.transpile.z.results import TranspileResults
 
 
 @dataclass(frozen=True, slots=True)

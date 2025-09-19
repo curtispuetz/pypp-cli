@@ -1,7 +1,7 @@
 import types
 from pypp_cli.do.transpile.transpile.transpile.z.d_types import PySpecificImport
 from pypp_cli.do.transpile.transpile.transpile.node import Deps
-from pypp_cli.do.transpile.transpile.transpile.z.maps.d_types import MappingFnStr
+from pypp_cli.do.transpile.transpile.z_i.maps.d_types import MappingFnStr
 import ast
 
 

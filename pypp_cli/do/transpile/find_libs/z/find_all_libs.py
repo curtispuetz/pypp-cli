@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from pydantic import ValidationError
-from pypp_cli.do.transpile.z_i.other.proj_metadata import ProjMetadata
+from pypp_cli.do.transpile.z_i.proj_metadata import ProjMetadata
 
 # value indicates if it has bridge jsons or not
 type PyppLibs = dict[str, bool]

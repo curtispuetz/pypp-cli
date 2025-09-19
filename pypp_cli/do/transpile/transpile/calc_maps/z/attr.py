@@ -4,7 +4,7 @@ from pypp_cli.do.transpile.transpile.transpile.z.d_types import (
     AngInc,
     PySpecificImpFrom,
 )
-from pypp_cli.do.transpile.transpile.transpile.z.maps.d_types import (
+from pypp_cli.do.transpile.transpile.z_i.maps.d_types import (
     AttrMap,
     CustomMappingStartsWithEntry,
 )

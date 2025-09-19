@@ -3,10 +3,10 @@ from pypp_cli.do.transpile.transpile.transpile.z.d_types import (
     AngInc,
     QInc,
 )
-from pypp_cli.do.transpile.transpile.transpile.z.maps.call.exceptions import (
+from pypp_cli.do.transpile.transpile.z_i.maps.exceptions import (
     EXCEPTION_NAME_MAP,
 )
-from pypp_cli.do.transpile.transpile.transpile.z.maps.d_types import (
+from pypp_cli.do.transpile.transpile.z_i.maps.d_types import (
     ToStringEntry,
     NameMap,
 )

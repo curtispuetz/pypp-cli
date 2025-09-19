@@ -7,12 +7,12 @@ from pypp_cli.do.transpile.timestamps.node import (
     TimestampsSaver,
     load_previous_timestamps,
 )
-from pypp_cli.z_i.other.proj_info import ProjInfo
+from pypp_cli.z_i.proj_info import ProjInfo
 from pypp_cli.do.z.paths.do import DoPyppPaths, DoTranspileDeps
-from pypp_cli.do.transpile.z.other.bridge_json_path_cltr import (
+from pypp_cli.do.transpile.z.bridge_json_path_cltr import (
     BridgeJsonPathCltr,
 )
-from pypp_cli.do.transpile.z.other.py_file_tracker import PyFilesTracker
+from pypp_cli.do.transpile.z.py_file_tracker import PyFilesTracker
 from pypp_cli.do.transpile.copy_lib_cpp.node import (
     copy_all_lib_cpp_files,
 )
@@ -21,7 +21,7 @@ from pypp_cli.do.transpile.load_bridge_json.node import (
 )
 from pypp_cli.do.transpile.delete_cpp_files.node import CppAndHFileDeleter
 from pypp_cli.do.transpile.init_cpp_proj.node import CppProjectInitializer
-from pypp_cli.do.transpile.z.other.py_files_cltr import (
+from pypp_cli.do.transpile.z.py_files_cltr import (
     calc_all_py_files,
 )
 from pypp_cli.do.transpile.metadata.node import MetadataSaver

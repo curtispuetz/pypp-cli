@@ -6,7 +6,7 @@ from pypp_cli.do.transpile.transpile.transpile.node import Deps
 from pypp_cli.do.transpile.transpile.transpile.z.handlers.handle_expr.h_starred import (
     handle_call_with_starred_arg,
 )
-from pypp_cli.do.transpile.transpile.transpile.z.maps.d_types import (
+from pypp_cli.do.transpile.transpile.z_i.maps.d_types import (
     ToStringEntry,
     CustomMappingEntry,
     CustomMappingFromLibEntry,

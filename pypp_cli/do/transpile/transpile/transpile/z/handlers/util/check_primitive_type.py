@@ -1,7 +1,5 @@
 from pypp_cli.do.transpile.transpile.transpile.node import Deps
-from pypp_cli.do.transpile.transpile.transpile.z.maps.fn_arg_passed_by_value import (
-    PRIMITIVE_TYPES,
-)
+from pypp_cli.do.transpile.transpile.z_i.maps.primitive_types import PRIMITIVE_TYPES
 
 
 def is_primitive_type(type_cpp: str, d: Deps) -> bool:

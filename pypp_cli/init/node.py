@@ -2,7 +2,7 @@ from dataclasses import dataclass, asdict
 import json
 from pathlib import Path
 
-from pypp_cli.z_i.other.proj_info import ProjInfo
+from pypp_cli.z_i.proj_info import ProjInfo
 from pypp_cli.init.z.paths.init import InitPyppPaths, create_init_pypp_paths
 
 

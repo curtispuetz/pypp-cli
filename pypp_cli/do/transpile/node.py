@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from pypp_cli.do.transpile.z.create.create import (
+from pypp_cli.do.transpile.z.create import (
     AllData,
     create_all_data,
 )
