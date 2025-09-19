@@ -1,5 +1,5 @@
-from pypp_cli.do.transpile.transpile.z_i.d_types import PySpecificImpFrom
-from pypp_cli.do.transpile.transpile.z_i.maps.d_types import FnArgByValueMap
+from pypp_cli.do.transpile.transpile.y.d_types import PySpecificImpFrom
+from pypp_cli.do.transpile.transpile.y.maps.d_types import FnArgByValueMap
 
 PRIMITIVE_TYPES: FnArgByValueMap = {
     "int": {None},

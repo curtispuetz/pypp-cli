@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from functools import partial
 
-from pypp_cli.do.transpile.z_i.transpiler_config_models import (
+from pypp_cli.do.transpile.y.transpiler_config_models import (
     AlwaysPassByValueModel,
     AnnAssignModel,
     AttrModel,
@@ -10,7 +10,7 @@ from pypp_cli.do.transpile.z_i.transpiler_config_models import (
     NameModel,
     SubscriptableTypeModel,
 )
-from pypp_cli.do.transpile.transpile.z_i.d_types import PySpecificImport
+from pypp_cli.do.transpile.transpile.y.d_types import PySpecificImport
 from pypp_cli.do.transpile.transpile.calc_maps.z.ann_assign import ANN_ASSIGN_MAP
 from pypp_cli.do.transpile.transpile.calc_maps.z.attr import ATTR_MAP
 from pypp_cli.do.transpile.transpile.calc_maps.z.call.call import (
@@ -20,8 +20,8 @@ from pypp_cli.do.transpile.transpile.calc_maps.z.fn_arg_passed_by_value import (
     fn_arg_passed_by_value_warning_msg,
     fn_arg_passed_by_value_warning_msg_local,
 )
-from pypp_cli.do.transpile.transpile.z_i.maps.primitive_types import PRIMITIVE_TYPES
-from pypp_cli.do.transpile.transpile.z_i.maps.d_types import (
+from pypp_cli.do.transpile.transpile.y.maps.primitive_types import PRIMITIVE_TYPES
+from pypp_cli.do.transpile.transpile.y.maps.d_types import (
     AnnAssignsMap,
     AttrMap,
     CallMap,
@@ -44,7 +44,7 @@ from pypp_cli.do.transpile.transpile.calc_maps.z.model_to_d_types import (
     calc_imp_str,
     calc_required_py_import,
 )
-from pypp_cli.z_i.constants import TRANSPILER_CONFIG_DIR
+from pypp_cli.y.constants import TRANSPILER_CONFIG_DIR
 
 
 @dataclass(slots=True)

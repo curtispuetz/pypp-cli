@@ -5,7 +5,7 @@ from typing import Callable
 
 from pydantic_core import ValidationError
 
-from pypp_cli.do.transpile.z_i.transpiler_config_models import (
+from pypp_cli.do.transpile.y.transpiler_config_models import (
     AlwaysPassByValueModel,
     AnnAssignModel,
     AttrModel,
@@ -15,7 +15,7 @@ from pypp_cli.do.transpile.z_i.transpiler_config_models import (
     NameModel,
     SubscriptableTypeModel,
 )
-from pypp_cli.z_i.constants import TRANSPILER_CONFIG_DIR
+from pypp_cli.y.constants import TRANSPILER_CONFIG_DIR
 
 
 def load_transpiler_config_models[T](

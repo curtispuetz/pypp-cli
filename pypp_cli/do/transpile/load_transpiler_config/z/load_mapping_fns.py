@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from pypp_cli.do.transpile.z_i.transpiler_config_models import MappingFunctions
+from pypp_cli.do.transpile.y.transpiler_config_models import MappingFunctions
 
 
 def load_mapping_functions(mapping_fn_dir: Path) -> MappingFunctions:

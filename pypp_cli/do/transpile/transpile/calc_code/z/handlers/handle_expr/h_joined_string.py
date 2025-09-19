@@ -1,8 +1,8 @@
 import ast
 from dataclasses import dataclass
 
-from .......z_i.config import SHOULDNT_HAPPEN
-from .....z_i.d_types import QInc
+from .......y.config import SHOULDNT_HAPPEN
+from .....y.d_types import QInc
 from ...deps import Deps
 from .h_constant import SPECIAL_CHAR_MAP
 

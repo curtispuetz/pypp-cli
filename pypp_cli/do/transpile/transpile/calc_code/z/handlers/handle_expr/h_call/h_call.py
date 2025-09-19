@@ -1,12 +1,12 @@
 import ast
 from dataclasses import dataclass
 
-from pypp_cli.do.transpile.transpile.z_i.d_types import PySpecificImpFrom
+from pypp_cli.do.transpile.transpile.y.d_types import PySpecificImpFrom
 from pypp_cli.do.transpile.transpile.calc_code.z.deps import Deps
 from pypp_cli.do.transpile.transpile.calc_code.z.handlers.handle_expr.h_starred import (
     handle_call_with_starred_arg,
 )
-from pypp_cli.do.transpile.transpile.z_i.maps.d_types import (
+from pypp_cli.do.transpile.transpile.y.maps.d_types import (
     ToStringEntry,
     CustomMappingEntry,
     CustomMappingFromLibEntry,

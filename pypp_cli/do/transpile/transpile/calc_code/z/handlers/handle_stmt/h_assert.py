@@ -1,7 +1,7 @@
 import ast
 from dataclasses import dataclass
 
-from pypp_cli.do.transpile.transpile.z_i.d_types import QInc
+from pypp_cli.do.transpile.transpile.y.d_types import QInc
 from pypp_cli.do.transpile.transpile.calc_code.z.deps import Deps
 
 

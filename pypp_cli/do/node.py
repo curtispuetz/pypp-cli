@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from pypp_cli.do.build.node import pypp_build
-from pypp_cli.do.z_i.config import SHOULDNT_HAPPEN
+from pypp_cli.do.y.config import SHOULDNT_HAPPEN
 from pypp_cli.do.format.node import pypp_format
 from pypp_cli.do.run.node import pypp_run
 from pypp_cli.do.transpile.node import pypp_transpile

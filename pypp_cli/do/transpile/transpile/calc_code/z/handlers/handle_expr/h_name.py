@@ -3,7 +3,7 @@ from dataclasses import dataclass
 
 
 from pypp_cli.do.transpile.transpile.calc_code.z.deps import Deps
-from pypp_cli.do.transpile.transpile.z_i.maps.d_types import (
+from pypp_cli.do.transpile.transpile.y.maps.d_types import (
     CustomMappingEntry,
     CustomMappingFromLibEntry,
     CustomMappingStartsWithEntry,

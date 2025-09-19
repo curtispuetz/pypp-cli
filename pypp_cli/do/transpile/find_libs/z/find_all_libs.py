@@ -3,8 +3,8 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from pydantic import ValidationError
-from pypp_cli.do.transpile.z_i.proj_metadata import ProjMetadata
-from pypp_cli.z_i.constants import TRANSPILER_CONFIG_DIR
+from pypp_cli.do.transpile.y.proj_metadata import ProjMetadata
+from pypp_cli.y.constants import TRANSPILER_CONFIG_DIR
 
 # value indicates if it has transpiler config or not
 type PyppLibs = dict[str, bool]

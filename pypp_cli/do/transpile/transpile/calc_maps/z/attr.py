@@ -1,10 +1,10 @@
 import ast
 
-from pypp_cli.do.transpile.transpile.z_i.d_types import (
+from pypp_cli.do.transpile.transpile.y.d_types import (
     AngInc,
     PySpecificImpFrom,
 )
-from pypp_cli.do.transpile.transpile.z_i.maps.d_types import (
+from pypp_cli.do.transpile.transpile.y.maps.d_types import (
     AttrMap,
     CustomMappingStartsWithEntry,
 )

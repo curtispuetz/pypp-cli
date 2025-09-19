@@ -3,10 +3,10 @@ from pathlib import Path
 
 from pypp_cli.do.transpile.transpile.calc_code.z.create import create_all_objects
 from pypp_cli.do.transpile.transpile.calc_code.z.deps import Deps
-from pypp_cli.do.transpile.transpile.z_i.maps.d_types import Maps
-from pypp_cli.do.transpile.transpile.z_i.cpp_includes import CppIncludes
-from pypp_cli.do.transpile.transpile.z_i.d_types import QInc
-from pypp_cli.do.z_i.config import SHOULDNT_HAPPEN
+from pypp_cli.do.transpile.transpile.y.maps.d_types import Maps
+from pypp_cli.do.transpile.transpile.y.cpp_includes import CppIncludes
+from pypp_cli.do.transpile.transpile.y.d_types import QInc
+from pypp_cli.do.y.config import SHOULDNT_HAPPEN
 
 
 def _handle_main_stmts(stmts: list[ast.stmt], d: Deps) -> str:

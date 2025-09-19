@@ -1,6 +1,6 @@
 import ast
 
-from pypp_cli.do.z_i.config import SHOULDNT_HAPPEN
+from pypp_cli.do.y.config import SHOULDNT_HAPPEN
 
 # ast docs: boolop = And | Or
 

@@ -9,7 +9,7 @@ from pypp_cli.do.transpile.transpile.z.src_files.calc_includes import (
 from pypp_cli.do.transpile.transpile.z.src_files.handle_init_file import (
     calc_h_code_for_init_file,
 )
-from pypp_cli.do.transpile.transpile.z_i.maps.d_types import Maps
+from pypp_cli.do.transpile.transpile.y.maps.d_types import Maps
 from pypp_cli.do.transpile.transpile.z.results import TranspileResults
 
 

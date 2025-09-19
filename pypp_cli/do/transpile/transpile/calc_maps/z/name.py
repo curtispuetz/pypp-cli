@@ -1,12 +1,12 @@
-from pypp_cli.do.transpile.transpile.z_i.d_types import (
+from pypp_cli.do.transpile.transpile.y.d_types import (
     PySpecificImpFrom,
     AngInc,
     QInc,
 )
-from pypp_cli.do.transpile.transpile.z_i.maps.exceptions import (
+from pypp_cli.do.transpile.transpile.y.maps.exceptions import (
     EXCEPTION_NAME_MAP,
 )
-from pypp_cli.do.transpile.transpile.z_i.maps.d_types import (
+from pypp_cli.do.transpile.transpile.y.maps.d_types import (
     ToStringEntry,
     NameMap,
 )

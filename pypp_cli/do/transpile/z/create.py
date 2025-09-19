@@ -7,9 +7,9 @@ from pypp_cli.do.transpile.timestamps.node import (
     TimestampsSaver,
     load_previous_timestamps,
 )
-from pypp_cli.z_i.proj_info import ProjInfo
+from pypp_cli.y.proj_info import ProjInfo
 from pypp_cli.do.z.paths.do import DoPyppPaths, DoTranspileDeps
-from pypp_cli.do.transpile.z_i.py_file_tracker import PyFilesTracker
+from pypp_cli.do.transpile.y.py_file_tracker import PyFilesTracker
 from pypp_cli.do.transpile.copy_lib_cpp.node import (
     copy_all_lib_cpp_files,
 )
