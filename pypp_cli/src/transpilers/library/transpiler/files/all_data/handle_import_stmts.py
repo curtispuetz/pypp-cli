@@ -3,7 +3,6 @@ from pathlib import Path
 
 from pypp_cli.src.transpilers.library.transpiler.d_types import (
     ModulePyImports,
-    PyImport,
     QInc,
 )
 from pypp_cli.src.transpilers.library.transpiler.cpp_includes import IncMap
@@ -58,21 +57,10 @@ def analyse_import_stmts(
                     namespaces[alias.name] = lib_namespaces[lib]
             module_py_imports.imp_from[node.module] = [n.name for n in node.names]
         elif isinstance(node, ast.Import):
-            for name in node.names:
-                if name.name in py_modules:
-                    raise ValueError(
-                        "Import is not supported for project imports "
-                        "(only ImportFrom is supported). In {file_path}"
-                    )
-                # if maps.import_.contains(name.name):
-                #     assert name.asname is not None, (
-                #         f"import 'as' required for {name.name}. In {file_path}"
-                #     )
-                #     cpp_inc_map[name.asname] = QInc.from_module(name.name)
-                # TODO: consider banning PyImport entirely and only suporting ImportFrom
-                # I actually think this would be really good. We don't need to import
-                # anything from Python or anywhere else, that will just confuse things.
-                module_py_imports.imp.add(PyImport(name.name, name.asname))
+            raise ValueError(
+                f"Import is not supported in Py++ "
+                f"(only ImportFrom is supported).\nProblem file:\n{file_path}"
+            )
         else:
             break
     return cpp_inc_map, i, module_py_imports, namespaces
