@@ -32,14 +32,12 @@ from pypp_cli.src.transpilers.library.transpiler.maps.subscriptable_types import
     SUBSCRIPTABLE_TYPE_MAP,
     subscriptable_type_warning_msg,
 )
-from pypp_cli.src.transpilers.library.transpiler.maps.util.type_1.calc_map import (
+from pypp_cli.src.transpilers.library.transpiler.maps.model_to_d_types import (
     calc_custom_mapping_from_lib_entry,
     calc_custom_mapping_starts_with_from_lib_entry,
     calc_left_and_right_entry,
     calc_replace_dot_with_double_colon_entry,
     calc_to_string_entry,
-)
-from pypp_cli.src.transpilers.library.transpiler.maps.util.util import (
     calc_imp_str,
     calc_required_py_import,
 )
