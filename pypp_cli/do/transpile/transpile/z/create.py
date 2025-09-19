@@ -88,8 +88,8 @@ from pypp_cli.do.transpile.transpile.transpile.z.handlers.handle_expr.h_yield im
 from pypp_cli.do.transpile.transpile.transpile.z.handlers.handle_expr.h_yield_from import (
     YieldFromHandler,
 )
-from pypp_cli.do.transpile.transpile.transpile.z.maps.maps import Maps
-from pypp_cli.do.transpile.transpile.z_i.other.handle_import_stmts import (
+from pypp_cli.do.transpile.transpile.calc_maps.node import Maps
+from pypp_cli.do.transpile.transpile.z.handle_import_stmts import (
     analyse_import_stmts,
 )
 from pypp_cli.do.transpile.transpile.transpile.z.cpp_includes import CppIncludes

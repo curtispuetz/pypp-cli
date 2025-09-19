@@ -3,7 +3,7 @@ import json
 from pathlib import Path
 
 from pydantic import ValidationError
-from pypp_cli.do.transpile.load_bridge_json.z.other.models import (
+from pypp_cli.do.transpile.load_bridge_json.z.models import (
     AlwaysPassByValueModel,
     AnnAssignModel,
     AttrModel,
@@ -12,8 +12,8 @@ from pypp_cli.do.transpile.load_bridge_json.z.other.models import (
     NameModel,
     SubscriptableTypeModel,
 )
-from pypp_cli.do.transpile.find_libs.z.other.find_all_libs import PyppLibs
-from pypp_cli.do.transpile.z.other.bridge_json_path_cltr import (
+from pypp_cli.do.transpile.find_libs.z.find_all_libs import PyppLibs
+from pypp_cli.do.transpile.z.bridge_json_path_cltr import (
     BridgeJsonPathCltr,
 )
 

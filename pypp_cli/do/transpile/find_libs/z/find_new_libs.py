@@ -1,7 +1,7 @@
 from pathlib import Path
 from dataclasses import dataclass
 
-from pypp_cli.do.transpile.find_libs.z.other.find_all_libs import PyppLibs
+from pypp_cli.do.transpile.find_libs.z.find_all_libs import PyppLibs
 
 
 def find_new_libs(cpp_dir: Path, libs: PyppLibs) -> set[str]:

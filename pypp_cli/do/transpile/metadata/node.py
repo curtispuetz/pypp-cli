@@ -2,7 +2,7 @@ from dataclasses import dataclass
 import json
 from pathlib import Path
 
-from pypp_cli.do.transpile.z_i.other.proj_metadata import ProjMetadata
+from pypp_cli.do.transpile.z_i.proj_metadata import ProjMetadata
 
 
 @dataclass(frozen=True, slots=True)

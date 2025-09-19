@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from pathlib import Path
-from pypp_cli.do.transpile.calc_file_changes.z.other.cltr import (
+from pypp_cli.do.transpile.calc_file_changes.z.cltr import (
     calc_py_file_changes,
     PyFileChanges,
 )

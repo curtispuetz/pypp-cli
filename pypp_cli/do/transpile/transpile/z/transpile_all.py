@@ -1,18 +1,18 @@
 import ast
 from pathlib import Path
-from pypp_cli.do.transpile.find_libs.z.other.find_all_libs import PyppLibsData
+from pypp_cli.do.transpile.find_libs.z.find_all_libs import PyppLibsData
 from pypp_cli.do.transpile.load_bridge_json.node import BridgeJsonModels
-from pypp_cli.do.transpile.z.other.py_file_tracker import PyFilesTracker
-from pypp_cli.do.transpile.transpile.z.other.calc_ast_tree import calc_ast
-from pypp_cli.do.transpile.transpile.z.other.main_files.transpiler import (
+from pypp_cli.do.transpile.z.py_file_tracker import PyFilesTracker
+from pypp_cli.do.transpile.transpile.z.calc_ast_tree import calc_ast
+from pypp_cli.do.transpile.transpile.z.main_files.transpiler import (
     MainFileTranspiler,
 )
-from pypp_cli.do.transpile.transpile.z.other.src_files.transpiler import (
+from pypp_cli.do.transpile.transpile.z.src_files.transpiler import (
     SrcFileTranspiler,
 )
-from pypp_cli.do.transpile.transpile.z_i.other.results import TranspileResults
+from pypp_cli.do.transpile.transpile.z.results import TranspileResults
 
-from pypp_cli.do.transpile.transpile.transpile.z.maps.maps import MapsCltr
+from pypp_cli.do.transpile.transpile.calc_maps.node import MapsCltr
 
 
 def _is_proper_main_block(node: ast.stmt) -> bool:

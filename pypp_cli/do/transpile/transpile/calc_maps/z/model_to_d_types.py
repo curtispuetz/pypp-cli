@@ -1,4 +1,4 @@
-from pypp_cli.do.transpile.load_bridge_json.z.other.models import (
+from pypp_cli.do.transpile.load_bridge_json.z.models import (
     AngleIncludeModel,
     CustomMappingValueModel,
     LeftAndRightValueModel,
@@ -15,7 +15,7 @@ from pypp_cli.do.transpile.transpile.transpile.z.d_types import (
     PySpecificImport,
     QInc,
 )
-from pypp_cli.do.transpile.transpile.transpile.z.maps.d_types import (
+from pypp_cli.do.transpile.transpile.z_i.maps.d_types import (
     CustomMappingFromLibEntry,
     CustomMappingStartsWithFromLibEntry,
     LeftAndRightEntry,
@@ -24,7 +24,7 @@ from pypp_cli.do.transpile.transpile.transpile.z.maps.d_types import (
 )
 
 
-def calc_cpp_include(
+def _calc_cpp_include(
     quote: QuoteIncludeModel | None, angle: AngleIncludeModel | None
 ) -> list[CppInclude]:
     ret: list[CppInclude] = []
@@ -54,7 +54,7 @@ def calc_imp_str(imp: PySpecificImport | None) -> str:
 
 
 def calc_to_string_entry(d: ToStringValueModel) -> ToStringEntry:
-    return ToStringEntry(d.to, calc_cpp_include(d.quote_includes, d.angle_includes))
+    return ToStringEntry(d.to, _calc_cpp_include(d.quote_includes, d.angle_includes))
 
 
 def calc_custom_mapping_from_lib_entry(
@@ -62,7 +62,7 @@ def calc_custom_mapping_from_lib_entry(
 ) -> CustomMappingFromLibEntry:
     return CustomMappingFromLibEntry(
         "\n".join(d.mapping_function),
-        calc_cpp_include(d.quote_includes, d.angle_includes),
+        _calc_cpp_include(d.quote_includes, d.angle_includes),
     )
 
 
@@ -71,7 +71,7 @@ def calc_custom_mapping_starts_with_from_lib_entry(
 ) -> CustomMappingStartsWithFromLibEntry:
     return CustomMappingStartsWithFromLibEntry(
         "\n".join(d.mapping_function),
-        calc_cpp_include(d.quote_includes, d.angle_includes),
+        _calc_cpp_include(d.quote_includes, d.angle_includes),
     )
 
 
@@ -79,11 +79,11 @@ def calc_replace_dot_with_double_colon_entry(
     d: ReplaceDotWithDoubleColonValueModel,
 ) -> ReplaceDotWithDoubleColonEntry:
     return ReplaceDotWithDoubleColonEntry(
-        calc_cpp_include(d.quote_includes, d.angle_includes), False
+        _calc_cpp_include(d.quote_includes, d.angle_includes), False
     )
 
 
 def calc_left_and_right_entry(obj: LeftAndRightValueModel) -> LeftAndRightEntry:
     return LeftAndRightEntry(
-        obj.left, obj.right, calc_cpp_include(obj.quote_includes, obj.angle_includes)
+        obj.left, obj.right, _calc_cpp_include(obj.quote_includes, obj.angle_includes)
     )
