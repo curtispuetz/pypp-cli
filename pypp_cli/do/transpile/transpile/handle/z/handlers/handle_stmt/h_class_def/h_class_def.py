@@ -1,5 +1,5 @@
 import ast
-from pypp_cli.do.transpile.transpile.handle.node import Deps
+from pypp_cli.do.transpile.transpile.handle.z.deps import Deps
 from .for_configclass import ConfigClassHandler
 from .for_dataclasses.for_dataclasses import DataclassHandler
 from .for_exception import ExceptionClassHandler

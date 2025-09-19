@@ -3,7 +3,7 @@ from dataclasses import dataclass
 
 
 from pypp_cli.do.transpile.transpile.z_i.d_types import AngInc
-from pypp_cli.do.transpile.transpile.handle.node import Deps
+from pypp_cli.do.transpile.transpile.handle.z.deps import Deps
 
 
 def _is_callable_type(node: ast.Subscript) -> bool:

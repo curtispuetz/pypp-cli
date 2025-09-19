@@ -1,7 +1,7 @@
 import ast
 from dataclasses import dataclass
 
-from pypp_cli.do.transpile.transpile.handle.node import Deps
+from pypp_cli.do.transpile.transpile.handle.z.deps import Deps
 
 
 def _if_else_body(test_str: str, body_str: str) -> str:

@@ -3,7 +3,7 @@ from dataclasses import dataclass
 
 from pypp_cli.do.z_i.config import SHOULDNT_HAPPEN
 from pypp_cli.do.transpile.transpile.z_i.d_types import AngInc
-from pypp_cli.do.transpile.transpile.handle.node import Deps
+from pypp_cli.do.transpile.transpile.handle.z.deps import Deps
 from .class_field_calculator import ClassField
 from .method_calculator import ClassMethod
 from .constants import ARG_PREFIX

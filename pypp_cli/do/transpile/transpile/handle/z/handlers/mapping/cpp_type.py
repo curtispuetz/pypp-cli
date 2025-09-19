@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from pypp_cli.do.transpile.transpile.handle.node import Deps
+from pypp_cli.do.transpile.transpile.handle.z.deps import Deps
 from .util import is_imported
 from ..util.check_primitive_type import is_primitive_type
 from ..util.inner_strings import calc_inside_rd

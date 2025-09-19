@@ -2,7 +2,7 @@ import ast
 from dataclasses import dataclass
 
 from pypp_cli.do.transpile.transpile.z_i.d_types import QInc
-from pypp_cli.do.transpile.transpile.handle.node import Deps
+from pypp_cli.do.transpile.transpile.handle.z.deps import Deps
 
 
 @dataclass(frozen=True, slots=True)

@@ -1,6 +1,6 @@
 import ast
 
-from pypp_cli.do.transpile.transpile.handle.node import Deps
+from pypp_cli.do.transpile.transpile.handle.z.deps import Deps
 
 
 def handle_call_with_starred_arg(node: ast.Starred, d: Deps, func_name: str) -> str:

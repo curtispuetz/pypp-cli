@@ -2,7 +2,7 @@ import ast
 from dataclasses import dataclass
 from typing import cast
 
-from pypp_cli.do.transpile.transpile.handle.node import Deps
+from pypp_cli.do.transpile.transpile.handle.z.deps import Deps
 from pypp_cli.do.transpile.transpile.handle.z.handlers.handle_stmt.h_for import (
     ForHandler,
 )
