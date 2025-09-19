@@ -24,6 +24,12 @@ def calc_string_fn(info: MappingFnStr) -> types.FunctionType:
 
 
 def _calc_funcs_in_str(mapping_fn: str) -> list[types.FunctionType]:
-    namespace = {"ast": ast, "Deps": Deps, "QInc": QInc, "AngInc": AngInc}
+    namespace = {
+        "ast": ast,
+        "Deps": Deps,
+        "QInc": QInc,
+        "AngInc": AngInc,
+        "PyImp": PyImp,
+    }
     exec(mapping_fn, namespace)
     return [obj for obj in namespace.values() if isinstance(obj, types.FunctionType)]
