@@ -5,7 +5,6 @@ from pypp_cli.src.transpilers.library.transpiler.d_types import (
     QInc,
     PySpecificImpFrom,
     AngInc,
-    PyImport,
 )
 from pypp_cli.src.transpilers.library.transpiler.maps.d_types import (
     LeftAndRightEntry,

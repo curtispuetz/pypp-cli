@@ -1,6 +1,4 @@
-import glfw
-import OpenGL.GL as GL
-from pypp_bridge_lib_opengl.custom import (
+from pypp_bridge_lib_opengl import (
     gl_gen_buffer,
     gl_gen_vertex_array,
     gl_shader_source,
@@ -10,10 +8,11 @@ from pypp_bridge_lib_opengl.custom import (
     gl_get_program_info_log,
     gl_delete_buffer,
     gl_delete_vertex_array,
+    glad_load_gl,
+    np,
+    GL,
 )
-from pypp_bridge_lib_opengl.glad_loader import glad_load_gl
-import numpy as np
-from pypp_bridge_lib_glfw import GLFWwindowPtr
+from pypp_bridge_lib_glfw import GLFWwindowPtr, glfw
 from pypp_python import to_c_string, NULL, float32
 from pypp_python.stl import ctypes
 

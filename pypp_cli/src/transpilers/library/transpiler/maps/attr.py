@@ -2,7 +2,6 @@ import ast
 
 from pypp_cli.src.transpilers.library.transpiler.d_types import (
     AngInc,
-    PyImport,
     PySpecificImpFrom,
 )
 from pypp_cli.src.transpilers.library.transpiler.maps.d_types import (
