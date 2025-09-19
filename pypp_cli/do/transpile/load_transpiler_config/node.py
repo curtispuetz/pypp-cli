@@ -4,7 +4,9 @@ from typing import Callable
 from pypp_cli.do.transpile.load_transpiler_config.z.load_mapping_fns import (
     load_mapping_functions,
 )
-from pypp_cli.do.transpile.load_transpiler_config.z.load_models import load_transpiler_config_models
+from pypp_cli.do.transpile.load_transpiler_config.z.load_models import (
+    load_transpiler_config_models,
+)
 from pypp_cli.do.transpile.z_i.transpiler_config_models import (
     TranspilerConfigModelsAndMappingFunctions,
     TranspilerConfigModelsDict,

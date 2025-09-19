@@ -103,7 +103,9 @@ class MapsCltr:
             self._add_mapping_entries_1(
                 model.custom_mapping.root,
                 partial(
-                    calc_custom_mapping_from_lib_entry, self._transpiler_config_models, lib
+                    calc_custom_mapping_from_lib_entry,
+                    self._transpiler_config_models,
+                    lib,
                 ),
                 lib,
                 ret,
@@ -128,7 +130,9 @@ class MapsCltr:
             self._add_mapping_entries_1(
                 model.custom_mapping.root,
                 partial(
-                    calc_custom_mapping_from_lib_entry, self._transpiler_config_models, lib
+                    calc_custom_mapping_from_lib_entry,
+                    self._transpiler_config_models,
+                    lib,
                 ),
                 lib,
                 ret,
@@ -153,7 +157,9 @@ class MapsCltr:
             self._add_mapping_entries_1(
                 model.custom_mapping.root,
                 partial(
-                    calc_custom_mapping_from_lib_entry, self._transpiler_config_models, lib
+                    calc_custom_mapping_from_lib_entry,
+                    self._transpiler_config_models,
+                    lib,
                 ),
                 lib,
                 ret,
@@ -173,7 +179,9 @@ class MapsCltr:
             self._add_mapping_entries_1(
                 model.custom_mapping.root,
                 partial(
-                    calc_custom_mapping_from_lib_entry, self._transpiler_config_models, lib
+                    calc_custom_mapping_from_lib_entry,
+                    self._transpiler_config_models,
+                    lib,
                 ),
                 lib,
                 ret,

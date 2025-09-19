@@ -134,4 +134,6 @@ class TranspilerConfigModelsAndMappingFunctions:
     mapping_functions: MappingFunctions
 
 
-type TranspilerConfigModelsDict = dict[str | None, TranspilerConfigModelsAndMappingFunctions]
+type TranspilerConfigModelsDict = dict[
+    str | None, TranspilerConfigModelsAndMappingFunctions
+]
