@@ -2,12 +2,13 @@ import ast
 from pathlib import Path
 
 # Config
-target_module = "transpilers.other.transpiler"
+target_module = "do.transpile.transpile.handle"
 
 
 # Implementation
-full_target_module = "pypp_cli.src." + target_module
-proj_root_dir: Path = Path(r"/pypp_cli\src")
+full_target_module = "pypp_cli." + target_module
+proj_root_dir: Path = Path(r"../pypp_cli")
+assert proj_root_dir.is_dir(), "Change the path in the config"
 
 target_dir: Path = proj_root_dir
 for part in target_module.split("."):
@@ -15,6 +16,7 @@ for part in target_module.split("."):
 
 
 def calc_all_py_files_ignoring(root: Path, ignore: Path) -> list[Path]:
+    print("Calculating all .py files in", root, "ignoring", ignore)
     ret: list[Path] = []
     # TODO later: change to depth first search because that output is prefered.
     for path in root.rglob("*.py"):
