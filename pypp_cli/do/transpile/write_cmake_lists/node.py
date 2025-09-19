@@ -97,10 +97,10 @@ class CMakeListsWriter:
     ) -> tuple[list[str], list[str]]:
         add_lines: list[str] = []
         link_libs: list[str] = []
-        for models in self._bridge_json_models.values():
-            if models.cmake_lists is not None:
-                if models.cmake_lists.add_lines is not None:
-                    add_lines.extend(models.cmake_lists.add_lines)
-                if models.cmake_lists.link_libraries is not None:
-                    link_libs.extend(models.cmake_lists.link_libraries)
+        for v in self._bridge_json_models.values():
+            if v.models.cmake_lists is not None:
+                if v.models.cmake_lists.add_lines is not None:
+                    add_lines.extend(v.models.cmake_lists.add_lines)
+                if v.models.cmake_lists.link_libraries is not None:
+                    link_libs.extend(v.models.cmake_lists.link_libraries)
         return add_lines, link_libs

@@ -1,9 +1,9 @@
 from pypp_cli.do.transpile.z_i.bridge_json_models import (
     AngleIncludeModel,
+    BridgeJsonModelsDict,
     CustomMappingValueModel,
     LeftAndRightValueModel,
     QuoteIncludeModel,
-    ReplaceDotWithDoubleColonValueModel,
     RequiredPyImportModel,
     ToStringValueModel,
 )
@@ -57,11 +57,16 @@ def calc_to_string_entry(d: ToStringValueModel) -> ToStringEntry:
 
 
 def calc_custom_mapping_from_lib_entry(
+    bridge_json_models: BridgeJsonModelsDict,
+    lib: str | None,
     d: CustomMappingValueModel,
 ) -> CustomMappingFromLibEntry:
+    if isinstance(d.mapping_function, str):
+        s = bridge_json_models[lib].mapping_functions[d.mapping_function]
+    else:
+        s = "\n".join(d.mapping_function)
     return CustomMappingFromLibEntry(
-        "\n".join(d.mapping_function),
-        _calc_cpp_include(d.quote_includes, d.angle_includes),
+        s, _calc_cpp_include(d.quote_includes, d.angle_includes)
     )
 
 
