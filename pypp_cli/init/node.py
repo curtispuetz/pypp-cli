@@ -4,7 +4,7 @@ from pathlib import Path
 
 
 from pypp_cli.src.config import PROJ_INFO_DEFAULTS
-from pypp_cli.src.other.pypp_paths.init import InitPyppPaths, create_init_pypp_paths
+from pypp_cli.init.z.paths.init import InitPyppPaths, create_init_pypp_paths
 
 
 def pypp_init(target_dir: Path):

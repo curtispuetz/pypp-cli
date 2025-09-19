@@ -1,8 +1,8 @@
+import sys
 from dataclasses import dataclass
 from pathlib import Path
 
 from pypp_cli.src.config import ProjInfo
-from pypp_cli.src.other.pypp_paths.util import calc_sitepackages_dir
 from pypp_cli.src.transpilers.proj.all_data.load_proj_info import load_proj_info
 
 
@@ -35,7 +35,7 @@ def create_do_pypp_paths(target_dir: Path) -> DoTranspileDeps:
     cpp_build_release_dir = cpp_dir / "build"
     python_dir = target_dir
     timestamps_file = pypp_dir / "file_timestamps.json"
-    site_packages_dir = calc_sitepackages_dir(python_dir)
+    site_packages_dir = _calc_sitepackages_dir(python_dir)
     return DoTranspileDeps(
         DoPyppPaths(
             proj_info_file,
@@ -49,3 +49,19 @@ def create_do_pypp_paths(target_dir: Path) -> DoTranspileDeps:
         ),
         proj_info,
     )
+
+
+def _calc_sitepackages_dir(root_dir: Path) -> Path:
+    if sys.platform == "win32":
+        return root_dir / ".venv" / "Lib" / "site-packages"
+    lib_dir = root_dir / ".venv" / "lib"
+    python_dirs = [
+        d for d in lib_dir.iterdir() if d.is_dir() and d.name.startswith("python")
+    ]
+    if len(python_dirs) == 0:
+        raise FileNotFoundError(f"No python* directory found in {lib_dir}")
+    if len(python_dirs) > 1:
+        raise FileExistsError(
+            f"Multiple python* directories found in {lib_dir}: {python_dirs}"
+        )
+    return python_dirs[0] / "site-packages"

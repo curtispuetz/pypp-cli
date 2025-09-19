@@ -1,14 +1,13 @@
 from pathlib import Path
 import argparse
 
-from pypp_cli.src.doer.do import pypp_do
-from pypp_cli.src.initializers.init import pypp_init
-from pypp_cli.src.initializers.init_bridge_library import pypp_init_bridge_lib
-from pypp_cli.src.initializers.init_pure_library import (
+from pypp_cli.do.node import pypp_do
+from pypp_cli.init.node import pypp_init
+from pypp_cli.init_bridge_lib.node import pypp_init_bridge_lib
+from pypp_cli.init_pure_lib.node import (
     pypp_init_pure_lib,
 )
-from pypp_cli.src.other.pypp_paths.util import calc_proj_info_path
-from pypp_cli.src.timestamps_deleter.delete_timestamps import pypp_delete_timestamps
+from pypp_cli.delete_timestamps.node import pypp_delete_timestamps
 
 
 def main_cli(absolute_dir: Path | None = None) -> None:
@@ -68,7 +67,7 @@ def main_cli(absolute_dir: Path | None = None) -> None:
         pypp_init_bridge_lib(args.library_name, absolute_dir)
     elif args.mode == "init_pure_lib":
         pypp_init_pure_lib(args.library_name, absolute_dir)
-    elif not calc_proj_info_path(absolute_dir).exists():
+    elif not (absolute_dir / ".pypp" / "proj_info.json").exists():
         parser.error(
             ".pypp/proj_info.json file not found. "
             "Ensure your Py++ project is properly initialized."
