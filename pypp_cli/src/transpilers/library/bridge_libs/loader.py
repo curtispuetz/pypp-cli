@@ -7,6 +7,7 @@ from pypp_cli.src.transpilers.library.bridge_libs.models import (
     AlwaysPassByValueModel,
     AnnAssignModel,
     AttrModel,
+    CMakeListsModel,
     CallModel,
     NameModel,
     SubscriptableTypeModel,
@@ -25,6 +26,7 @@ class BridgeJsonModels:
     attr_map: AttrModel | None = None
     always_pass_by_value: AlwaysPassByValueModel | None = None
     subscriptable_types: SubscriptableTypeModel | None = None
+    cmake_lists: CMakeListsModel | None = None
 
 
 def load_all_bridge_jsons(
@@ -49,6 +51,7 @@ class _BridgeJsonLoader:
         attr_map: AttrModel | None = None
         always_pass_by_value: AlwaysPassByValueModel | None = None
         subscriptable_types: SubscriptableTypeModel | None = None
+        cmake_lists: CMakeListsModel | None = None
         for file_name in [
             "name_map",
             "ann_assign_map",
@@ -56,6 +59,7 @@ class _BridgeJsonLoader:
             "attr_map",
             "always_pass_by_value",
             "subscriptable_types",
+            "cmake_lists",
         ]:
             json_path: Path = self._bridge_json_path_cltr.calc_bridge_json(
                 self._library_name, file_name
@@ -76,6 +80,8 @@ class _BridgeJsonLoader:
                         always_pass_by_value = AlwaysPassByValueModel(**data)
                     elif file_name == "subscriptable_types":
                         subscriptable_types = SubscriptableTypeModel(**data)
+                    elif file_name == "cmake_lists":
+                        cmake_lists = CMakeListsModel(**data)
                 except ValidationError as e:
                     raise ValueError(
                         f"An issue was found in the {file_name}.json file in "
@@ -91,4 +97,5 @@ class _BridgeJsonLoader:
             attr_map,
             always_pass_by_value,
             subscriptable_types,
+            cmake_lists,
         )
