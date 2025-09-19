@@ -12,8 +12,7 @@ class AngleIncludeModel(RootModel[list[str]]):
 
 class RequiredPyImportModel(BaseModel):
     name: str
-    module: str | None = None
-    as_name: str | None = None
+    module: str
     model_config = {"extra": "forbid"}
 
 

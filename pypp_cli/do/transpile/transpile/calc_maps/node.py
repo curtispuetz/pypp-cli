@@ -10,7 +10,7 @@ from pypp_cli.do.transpile.y.transpiler_config_models import (
     NameModel,
     SubscriptableTypeModel,
 )
-from pypp_cli.do.transpile.transpile.y.d_types import PySpecificImport
+from pypp_cli.do.transpile.transpile.y.d_types import PyImp
 from pypp_cli.do.transpile.transpile.calc_maps.z.ann_assign import ANN_ASSIGN_MAP
 from pypp_cli.do.transpile.transpile.calc_maps.z.attr import ATTR_MAP
 from pypp_cli.do.transpile.transpile.calc_maps.z.call.call import (
@@ -268,7 +268,7 @@ class MapsCltr:
                 ret[name] = {required_import: entry}
 
     def _override_mapping_warning(
-        self, name: str, required_import: PySpecificImport | None, lib: str
+        self, name: str, required_import: PyImp | None, lib: str
     ):
         print(
             f"warning: Py++ transpiler already maps the name {name}"
@@ -277,9 +277,7 @@ class MapsCltr:
         )
 
     # Don't need this one for now
-    def _override_mapping_warning_local(
-        self, name: str, required_import: PySpecificImport | None
-    ):
+    def _override_mapping_warning_local(self, name: str, required_import: PyImp | None):
         print(
             f"warning: Py++ transpiler already maps the name {name}"
             f"{calc_imp_str(required_import)}."

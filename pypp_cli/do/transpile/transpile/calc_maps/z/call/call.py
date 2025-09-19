@@ -3,7 +3,7 @@ import ast
 from pypp_cli.do.y.config import SHOULDNT_HAPPEN
 from pypp_cli.do.transpile.transpile.y.d_types import (
     QInc,
-    PySpecificImpFrom,
+    PyImp,
     AngInc,
 )
 from pypp_cli.do.transpile.transpile.y.maps.d_types import (
@@ -79,14 +79,10 @@ CALL_MAP: CallMap = {
     "min": {None: LeftAndRightEntry("", ".min()", [])},
     "max": {None: LeftAndRightEntry("", ".max()", [])},
     "to_std_string": {
-        PySpecificImpFrom("pypp_python", "to_std_string"): LeftAndRightEntry(
-            "", ".str()", []
-        )
+        PyImp("pypp_python", "to_std_string"): LeftAndRightEntry("", ".str()", [])
     },
     "to_c_string": {
-        PySpecificImpFrom("pypp_python", "to_c_string"): LeftAndRightEntry(
-            "", ".str().c_str()", []
-        )
+        PyImp("pypp_python", "to_c_string"): LeftAndRightEntry("", ".str().c_str()", [])
     },
     "pypp::PyList": {
         None: ToStringEntry("pypp::list", [QInc("pypp_util/create/list.h")])
@@ -99,7 +95,7 @@ CALL_MAP: CallMap = {
     "bool": {None: ToStringEntry("pypp::bool_", [QInc("pypp_util/create/others.h")])},
     "int": {None: ToStringEntry("pypp::int_", [QInc("pypp_util/create/others.h")])},
     "to_float32": {
-        PySpecificImpFrom("pypp_python", "float32"): ToStringEntry(
+        PyImp("pypp_python", "float32"): ToStringEntry(
             "pypp::to_float32", [QInc("pypp_util/create/others.h")]
         )
     },
@@ -107,42 +103,42 @@ CALL_MAP: CallMap = {
         None: ToStringEntry("pypp::float_", [QInc("pypp_util/create/others.h")])
     },
     "to_int8_t": {
-        PySpecificImpFrom("pypp_python", "to_int8_t"): ToStringEntry(
+        PyImp("pypp_python", "to_int8_t"): ToStringEntry(
             "pypp::to_int8_t", [QInc("pypp_util/create/cstdint.h")]
         )
     },
     "to_int16_t": {
-        PySpecificImpFrom("pypp_python", "to_int16_t"): ToStringEntry(
+        PyImp("pypp_python", "to_int16_t"): ToStringEntry(
             "pypp::to_int16_t", [QInc("pypp_util/create/cstdint.h")]
         )
     },
     "to_int32_t": {
-        PySpecificImpFrom("pypp_python", "to_int32_t"): ToStringEntry(
+        PyImp("pypp_python", "to_int32_t"): ToStringEntry(
             "pypp::to_int32_t", [QInc("pypp_util/create/cstdint.h")]
         )
     },
     "to_int64_t": {
-        PySpecificImpFrom("pypp_python", "to_int64_t"): ToStringEntry(
+        PyImp("pypp_python", "to_int64_t"): ToStringEntry(
             "pypp::to_int64_t", [QInc("pypp_util/create/cstdint.h")]
         )
     },
     "to_uint8_t": {
-        PySpecificImpFrom("pypp_python", "to_uint8_t"): ToStringEntry(
+        PyImp("pypp_python", "to_uint8_t"): ToStringEntry(
             "pypp::to_uint8_t", [QInc("pypp_util/create/cstdint.h")]
         )
     },
     "to_uint16_t": {
-        PySpecificImpFrom("pypp_python", "to_uint16_t"): ToStringEntry(
+        PyImp("pypp_python", "to_uint16_t"): ToStringEntry(
             "pypp::to_uint16_t", [QInc("pypp_util/create/cstdint.h")]
         )
     },
     "to_uint32_t": {
-        PySpecificImpFrom("pypp_python", "to_uint32_t"): ToStringEntry(
+        PyImp("pypp_python", "to_uint32_t"): ToStringEntry(
             "pypp::to_uint32_t", [QInc("pypp_util/create/cstdint.h")]
         )
     },
     "to_uint64_t": {
-        PySpecificImpFrom("pypp_python", "to_uint64_t"): ToStringEntry(
+        PyImp("pypp_python", "to_uint64_t"): ToStringEntry(
             "pypp::to_uint64_t", [QInc("pypp_util/create/cstdint.h")]
         )
     },
@@ -150,61 +146,49 @@ CALL_MAP: CallMap = {
         None: ToStringEntry("pypp::py_slice", [QInc("slice/creators.h")])
     },
     "mov": {
-        PySpecificImpFrom("pypp_python", "mov"): ToStringEntry(
-            "std::move", [AngInc("utility")]
-        )
+        PyImp("pypp_python", "mov"): ToStringEntry("std::move", [AngInc("utility")])
     },
     "res_dir": {
-        PySpecificImpFrom("pypp_python", "res_dir"): ToStringEntry(
+        PyImp("pypp_python", "res_dir"): ToStringEntry(
             "pypp::res_dir", [QInc("pypp_resources.h")]
         )
     },
     "int_pow": {
-        PySpecificImpFrom("pypp_python", "int_pow"): ToStringEntry(
+        PyImp("pypp_python", "int_pow"): ToStringEntry(
             "pypp::int_pow", [QInc("pypp_util/math.h")]
         )
     },
     "pypp::PyDefaultDict": {
-        PySpecificImpFrom("pypp_python", "defaultdict"): CustomMappingEntry(
-            _default_dict, []
-        )
+        PyImp("pypp_python", "defaultdict"): CustomMappingEntry(_default_dict, [])
     },
-    "tg": {PySpecificImpFrom("pypp_python", "tg"): CustomMappingEntry(_tuple_get, [])},
-    "dg": {PySpecificImpFrom("pypp_python", "dg"): CustomMappingEntry(_dict_get, [])},
-    "lg": {PySpecificImpFrom("pypp_python", "lg"): CustomMappingEntry(_list_get, [])},
-    "ug": {PySpecificImpFrom("pypp_python", "ug"): CustomMappingEntry(_union_get, [])},
-    "isinst": {
-        PySpecificImpFrom("pypp_python", "isinst"): CustomMappingEntry(
-            _union_isinst, []
-        )
-    },
+    "tg": {PyImp("pypp_python", "tg"): CustomMappingEntry(_tuple_get, [])},
+    "dg": {PyImp("pypp_python", "dg"): CustomMappingEntry(_dict_get, [])},
+    "lg": {PyImp("pypp_python", "lg"): CustomMappingEntry(_list_get, [])},
+    "ug": {PyImp("pypp_python", "ug"): CustomMappingEntry(_union_get, [])},
+    "isinst": {PyImp("pypp_python", "isinst"): CustomMappingEntry(_union_isinst, [])},
     "is_none": {
-        PySpecificImpFrom("pypp_python", "is_none"): CustomMappingEntry(
-            _union_is_none, []
-        )
+        PyImp("pypp_python", "is_none"): CustomMappingEntry(_union_is_none, [])
     },
     "list_reserve": {
-        PySpecificImpFrom("pypp_python", "list_reserve"): CustomMappingEntry(
-            _list_reserve, []
-        )
+        PyImp("pypp_python", "list_reserve"): CustomMappingEntry(_list_reserve, [])
     },
     "pypp::PyDefaultDict<": {
-        PySpecificImpFrom("pypp_python", "defaultdict"): CustomMappingStartsWithEntry(
+        PyImp("pypp_python", "defaultdict"): CustomMappingStartsWithEntry(
             good_default_dict, []
         )
     },
     "os.": {
-        PySpecificImpFrom("pypp_python.stl", "os"): CustomMappingStartsWithEntry(
+        PyImp("pypp_python.stl", "os"): CustomMappingStartsWithEntry(
             _replace_dot_with_double_colon, [QInc("pypp_os.h")]
         )
     },
     "shutil.": {
-        PySpecificImpFrom("pypp_python.stl", "shutil"): CustomMappingStartsWithEntry(
+        PyImp("pypp_python.stl", "shutil"): CustomMappingStartsWithEntry(
             _replace_dot_with_double_colon, [QInc("pypp_shutil.h")]
         )
     },
     "time.": {
-        PySpecificImpFrom("pypp_python.stl", "time"): CustomMappingStartsWithEntry(
+        PyImp("pypp_python.stl", "time"): CustomMappingStartsWithEntry(
             _pypp_time, [QInc("pypp_time.h")]
         )
     },

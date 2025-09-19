@@ -1,4 +1,4 @@
-from pypp_cli.do.transpile.transpile.y.d_types import PySpecificImpFrom
+from pypp_cli.do.transpile.transpile.y.d_types import PyImp
 from pypp_cli.do.transpile.transpile.y.maps.d_types import (
     CustomMappingStartsWithEntry,
     AnnAssignsMap,
@@ -14,7 +14,5 @@ def _uni(
 
 
 ANN_ASSIGN_MAP: AnnAssignsMap = {
-    "pypp::Uni<": {
-        PySpecificImpFrom("pypp_python", "Uni"): CustomMappingStartsWithEntry(_uni, [])
-    },
+    "pypp::Uni<": {PyImp("pypp_python", "Uni"): CustomMappingStartsWithEntry(_uni, [])},
 }

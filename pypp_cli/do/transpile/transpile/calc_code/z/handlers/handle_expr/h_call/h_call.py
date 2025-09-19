@@ -1,7 +1,7 @@
 import ast
 from dataclasses import dataclass
 
-from pypp_cli.do.transpile.transpile.y.d_types import PySpecificImpFrom
+from pypp_cli.do.transpile.transpile.y.d_types import PyImp
 from pypp_cli.do.transpile.transpile.calc_code.z.deps import Deps
 from pypp_cli.do.transpile.transpile.calc_code.z.handlers.handle_expr.h_starred import (
     handle_call_with_starred_arg,
@@ -31,9 +31,7 @@ class CallHandler:
         if len(node.keywords) != 0:
             self._d.value_err("keywords for a call are not supported", node)
         caller_str: str = self._d.handle_expr(node.func)
-        if caller_str == "Ref" and self._d.is_imported(
-            PySpecificImpFrom("pypp_python", "Ref")
-        ):
+        if caller_str == "Ref" and self._d.is_imported(PyImp("pypp_python", "Ref")):
             if len(node.args) != 1:
                 self._d.value_err("Ref() must have exactly one argument.", node)
             cpp_type: str = self._d.handle_expr(node.args[0])

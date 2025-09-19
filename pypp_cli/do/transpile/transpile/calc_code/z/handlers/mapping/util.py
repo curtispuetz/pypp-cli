@@ -1,18 +1,18 @@
 import types
-from pypp_cli.do.transpile.transpile.y.d_types import AngInc, PySpecificImport, QInc
+from pypp_cli.do.transpile.transpile.y.d_types import AngInc, PyImp, QInc
 from pypp_cli.do.transpile.transpile.calc_code.z.deps import Deps
 from pypp_cli.do.transpile.transpile.y.maps.d_types import MappingFnStr
 import ast
 
 
-def is_imported(required_imports: set[PySpecificImport | None], d: Deps) -> bool:
+def is_imported(required_imports: set[PyImp | None], d: Deps) -> bool:
     for required_import in required_imports:
         if required_import is None or d.is_imported(required_import):
             return True
     return False
 
 
-def find_map_entry[T](_map: dict[PySpecificImport | None, T], d: Deps) -> T | None:
+def find_map_entry[T](_map: dict[PyImp | None, T], d: Deps) -> T | None:
     for required_import, map_entry in _map.items():
         if required_import is None or d.is_imported(required_import):
             return map_entry

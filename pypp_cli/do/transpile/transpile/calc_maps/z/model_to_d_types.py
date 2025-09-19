@@ -10,9 +10,7 @@ from pypp_cli.do.transpile.y.transpiler_config_models import (
 from pypp_cli.do.transpile.transpile.y.d_types import (
     AngInc,
     CppInclude,
-    PyImport,
-    PySpecificImpFrom,
-    PySpecificImport,
+    PyImp,
     QInc,
 )
 from pypp_cli.do.transpile.transpile.y.maps.d_types import (
@@ -38,17 +36,13 @@ def _calc_cpp_include(
 
 def calc_required_py_import(
     d: RequiredPyImportModel | None,
-) -> PySpecificImport | None:
+) -> PyImp | None:
     if d is not None:
-        if d.module is not None:
-            return PySpecificImpFrom(d.module, d.name)
-        if d.as_name is not None:
-            return PyImport(d.name, d.as_name)
-        return PyImport(d.name)
+        return PyImp(d.module, d.name)
     return None
 
 
-def calc_imp_str(imp: PySpecificImport | None) -> str:
+def calc_imp_str(imp: PyImp | None) -> str:
     return "" if imp is None else f" ({imp})"
 
 
