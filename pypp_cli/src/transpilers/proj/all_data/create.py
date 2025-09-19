@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from pypp_cli.src.config import ProjInfo
-from pypp_cli.src.other.pypp_paths.do import DoPyppPaths, DoTranspileDeps
+from pypp_cli.do.z.paths.do import DoPyppPaths, DoTranspileDeps
 from pypp_cli.src.transpilers.library.bridge_libs.path_cltr import (
     BridgeJsonPathCltr,
 )

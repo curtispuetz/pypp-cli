@@ -4,7 +4,7 @@ from pypp_cli.src.transpilers.proj.all_data.create import (
     AllData,
     create_all_data,
 )
-from pypp_cli.src.other.pypp_paths.do import DoTranspileDeps
+from pypp_cli.do.z.paths.do import DoTranspileDeps
 
 
 def pypp_transpile(transpile_deps: DoTranspileDeps) -> list[Path]:

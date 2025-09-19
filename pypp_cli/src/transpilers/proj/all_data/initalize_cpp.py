@@ -5,7 +5,7 @@ import shutil
 from importlib.resources import files, as_file
 
 from pypp_cli.src.config import ProjInfo
-from pypp_cli.src.other.library.file_actions import rm_dirs_and_files
+from pypp_cli.library.file_actions import rm_dirs_and_files
 
 
 @dataclass(frozen=True, slots=True)

@@ -1,10 +1,10 @@
 import json
 from pathlib import Path
-from pypp_cli.src.initializers.util.init_libs import (
+from pypp_cli.z_i.other.init_libs_helper import (
     InitLibsHelper,
     create_python_hello_world,
 )
-from pypp_cli.src.other.pypp_paths.init_bridge_library import (
+from pypp_cli.init_bridge_lib.z.paths.init_bridge_library import (
     create_init_bridge_lib_pypp_paths,
 )
 

@@ -1,5 +1,5 @@
 from pathlib import Path
-from pypp_cli.src.other.pypp_paths.delete_timestamps import create_timestamps_file
+from pypp_cli.delete_timestamps.z.paths.delete_timestamps import create_timestamps_file
 
 
 def pypp_delete_timestamps(target_dir: Path):
