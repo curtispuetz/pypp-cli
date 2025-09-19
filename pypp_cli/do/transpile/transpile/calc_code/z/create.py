@@ -1,7 +1,7 @@
 import ast
 from pathlib import Path
 
-from pypp_cli.do.transpile.transpile.calc_maps.node import Maps
+from pypp_cli.do.transpile.transpile.z_i.maps.d_types import Maps
 from pypp_cli.do.transpile.transpile.calc_code.z.deps import Deps
 from pypp_cli.do.transpile.transpile.calc_code.z.handlers.handle_expr.expr import (
     ExprHandler,

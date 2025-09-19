@@ -1,4 +1,4 @@
-from pypp_cli.do.transpile.transpile.calc_maps.node import Maps
+from pypp_cli.do.transpile.transpile.z_i.maps.d_types import Maps
 from pypp_cli.do.transpile.transpile.z.src_files.single_file_transpiler import (
     SrcSingleFileTranspiler,
 )
