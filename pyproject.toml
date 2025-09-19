@@ -20,9 +20,7 @@ pypp = "pypp_cli.cli:main_cli"
 
 [tool.hatch.build]
 include = [
-    "pypp_cli/cli.py",
-    "pypp_cli/data/**/*",
-    "pypp_cli/src/**/*"
+    "pypp_cli/**/*"
 ]
 
 
