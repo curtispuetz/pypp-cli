@@ -24,7 +24,7 @@ def analyse_import_stmts(
     cpp_inc_map: IncMap = {}
     # This one is a data structure containing all the python imports in the file. I use
     # it when I need to check if something is imported or not.
-    module_py_imports = ModulePyImports({}, set())
+    module_py_imports = ModulePyImports({})
     # This one is not a set of names to the namespace they belong to.
     namespaces: dict[str, str] = {}
     analyzer = _ImportStmtAnalyzer(
@@ -90,9 +90,9 @@ class _ImportStmtAnalyzer:
                 self._namespaces[alias.name] = self._lib_namespaces[lib]
 
     def _update_module_py_imports(self, module: str, names: list[ast.alias]):
-        name_strs = [n.name for n in names]
+        name_strs = {n.name for n in names}
         if module in self._module_py_imports.imp_from:
-            self._module_py_imports.imp_from[module].extend(name_strs)
+            self._module_py_imports.imp_from[module].update(name_strs)
         else:
             self._module_py_imports.imp_from[module] = name_strs
 

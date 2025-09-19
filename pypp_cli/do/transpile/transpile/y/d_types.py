@@ -26,28 +26,15 @@ CppInclude = Union[AngInc, QInc]
 
 
 @dataclass(frozen=True, slots=True)
-class PySpecificImpFrom:
+class PyImp:
     frm: str
     name: str
 
 
 @dataclass(frozen=True, slots=True)
-class PyImport:
-    name: str
-    as_name: str | None = None
-
-
-type PySpecificImport = Union[PySpecificImpFrom, PyImport]
-
-
-@dataclass(frozen=True, slots=True)
 class ModulePyImports:
-    # key: module name, value: list of names imported from that module
-    imp_from: dict[str, list[str]]
-    imp: set[PyImport]
+    # key: module name, value: set of names imported from that module
+    imp_from: dict[str, set[str]]
 
-    def is_imported(self, imp: PySpecificImport) -> bool:
-        if isinstance(imp, PyImport):
-            return imp in self.imp
-        # PySpecificImpFrom
+    def is_imported(self, imp: PyImp) -> bool:
         return imp.frm in self.imp_from and imp.name in self.imp_from[imp.frm]

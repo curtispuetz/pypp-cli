@@ -1,4 +1,4 @@
-from pypp_cli.do.transpile.transpile.y.d_types import PySpecificImpFrom
+from pypp_cli.do.transpile.transpile.y.d_types import PyImp
 from pypp_cli.do.transpile.transpile.y.maps.d_types import (
     SubscriptableTypeMap,
 )
@@ -9,8 +9,8 @@ SUBSCRIPTABLE_TYPE_MAP: SubscriptableTypeMap = {
     "pypp::PyDict": {None},
     "pypp::PyTup": {None},
     "pypp::PySet": {None},
-    "pypp::PyDefaultDict": {PySpecificImpFrom("pypp_python", "defaultdict")},
-    "pypp::Uni": {PySpecificImpFrom("pypp_python", "Uni")},
+    "pypp::PyDefaultDict": {PyImp("pypp_python", "defaultdict")},
+    "pypp::Uni": {PyImp("pypp_python", "Uni")},
 }
 
 

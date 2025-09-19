@@ -6,7 +6,7 @@ from pathlib import Path
 from pypp_cli.do.transpile.transpile.y.d_types import (
     CppInclude,
     ModulePyImports,
-    PySpecificImport,
+    PyImp,
 )
 from pypp_cli.do.transpile.transpile.y.maps.d_types import Maps
 from pypp_cli.do.transpile.transpile.y.cpp_includes import CppIncludes
@@ -79,7 +79,7 @@ class Deps:
         for inc in incs:
             self.add_inc(inc)
 
-    def is_imported(self, imp: PySpecificImport) -> bool:
+    def is_imported(self, imp: PyImp) -> bool:
         return self._module_py_imports.is_imported(imp)
 
     def value_err(self, msg: str, ast_node):

@@ -1,5 +1,5 @@
 from pypp_cli.do.transpile.transpile.y.d_types import (
-    PySpecificImpFrom,
+    PyImp,
     AngInc,
     QInc,
 )
@@ -17,57 +17,47 @@ NAME_MAP: NameMap = {
     # NOTE: technically I don't think this is necessary since int and int are the same
     "int": {None: ToStringEntry("int", [])},
     "float": {None: ToStringEntry("double", [])},
-    "float32": {
-        PySpecificImpFrom("pypp_python", "float32"): ToStringEntry("float", [])
-    },
+    "float32": {PyImp("pypp_python", "float32"): ToStringEntry("float", [])},
     "int8_t": {
-        PySpecificImpFrom("pypp_python", "int8_t"): ToStringEntry(
+        PyImp("pypp_python", "int8_t"): ToStringEntry(
             "int8_t",
             [AngInc("cstdint")],
         )
     },
     "int16_t": {
-        PySpecificImpFrom("pypp_python", "int16_t"): ToStringEntry(
+        PyImp("pypp_python", "int16_t"): ToStringEntry(
             "int16_t",
             [AngInc("cstdint")],
         )
     },
     "int32_t": {
-        PySpecificImpFrom("pypp_python", "int32_t"): ToStringEntry(
+        PyImp("pypp_python", "int32_t"): ToStringEntry(
             "int32_t",
             [AngInc("cstdint")],
         )
     },
     "int64_t": {
-        PySpecificImpFrom("pypp_python", "int64_t"): ToStringEntry(
+        PyImp("pypp_python", "int64_t"): ToStringEntry(
             "int64_t",
             [AngInc("cstdint")],
         )
     },
     "uint8_t": {
-        PySpecificImpFrom("pypp_python", "uint8_t"): ToStringEntry(
-            "uint8_t", [AngInc("cstdint")]
-        )
+        PyImp("pypp_python", "uint8_t"): ToStringEntry("uint8_t", [AngInc("cstdint")])
     },
     "uint16_t": {
-        PySpecificImpFrom("pypp_python", "uint16_t"): ToStringEntry(
-            "uint16_t", [AngInc("cstdint")]
-        )
+        PyImp("pypp_python", "uint16_t"): ToStringEntry("uint16_t", [AngInc("cstdint")])
     },
     "uint32_t": {
-        PySpecificImpFrom("pypp_python", "uint32_t"): ToStringEntry(
-            "uint32_t", [AngInc("cstdint")]
-        )
+        PyImp("pypp_python", "uint32_t"): ToStringEntry("uint32_t", [AngInc("cstdint")])
     },
     "uint64_t": {
-        PySpecificImpFrom("pypp_python", "uint64_t"): ToStringEntry(
-            "uint64_t", [AngInc("cstdint")]
-        )
+        PyImp("pypp_python", "uint64_t"): ToStringEntry("uint64_t", [AngInc("cstdint")])
     },
     "list": {None: ToStringEntry("pypp::PyList", [QInc("py_list.h")])},
     "dict": {None: ToStringEntry("pypp::PyDict", [QInc("py_dict.h")])},
     "defaultdict": {
-        PySpecificImpFrom("pypp_python", "defaultdict"): ToStringEntry(
+        PyImp("pypp_python", "defaultdict"): ToStringEntry(
             "pypp::PyDefaultDict", [QInc("py_dict_default.h")]
         )
     },
@@ -79,12 +69,10 @@ NAME_MAP: NameMap = {
     "zip": {None: ToStringEntry("pypp::PyZip", [QInc("py_zip.h")])},
     "reversed": {None: ToStringEntry("pypp::PyReversed", [QInc("py_reversed.h")])},
     "Uni": {
-        PySpecificImpFrom("pypp_python", "Uni"): ToStringEntry(
-            "pypp::Uni", [QInc("pypp_union.h")]
-        )
+        PyImp("pypp_python", "Uni"): ToStringEntry("pypp::Uni", [QInc("pypp_union.h")])
     },
     "Random": {
-        PySpecificImpFrom("pypp_python.stl", "Random"): ToStringEntry(
+        PyImp("pypp_python.stl", "Random"): ToStringEntry(
             "pypp::random::Random", [QInc("pypp_random.h")]
         )
     },

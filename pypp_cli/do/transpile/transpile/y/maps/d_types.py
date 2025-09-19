@@ -2,7 +2,7 @@ from typing import Callable
 from dataclasses import dataclass
 
 from pypp_cli.do.transpile.transpile.y.d_types import (
-    PySpecificImport,
+    PyImp,
     CppInclude,
 )
 
@@ -80,12 +80,12 @@ type AnnAssignMapEntry = (
 )
 
 
-type NameMapValue = dict[PySpecificImport | None, NameMapEntry]
-type CallMapValue = dict[PySpecificImport | None, CallMapEntry]
-type AttrMapValue = dict[PySpecificImport | None, AttrMapEntry]
-type AnnAssignMapValue = dict[PySpecificImport | None, AnnAssignMapEntry]
-type FnArgByValueMapValue = set[PySpecificImport | None]
-type SubscriptableTypeMapValue = set[PySpecificImport | None]
+type NameMapValue = dict[PyImp | None, NameMapEntry]
+type CallMapValue = dict[PyImp | None, CallMapEntry]
+type AttrMapValue = dict[PyImp | None, AttrMapEntry]
+type AnnAssignMapValue = dict[PyImp | None, AnnAssignMapEntry]
+type FnArgByValueMapValue = set[PyImp | None]
+type SubscriptableTypeMapValue = set[PyImp | None]
 type NameMap = dict[str, NameMapValue]
 type CallMap = dict[str, CallMapValue]
 type AttrMap = dict[str, AttrMapValue]
