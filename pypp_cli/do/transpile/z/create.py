@@ -9,9 +9,6 @@ from pypp_cli.do.transpile.timestamps.node import (
 )
 from pypp_cli.z_i.proj_info import ProjInfo
 from pypp_cli.do.z.paths.do import DoPyppPaths, DoTranspileDeps
-from pypp_cli.do.transpile.z.bridge_json_path_cltr import (
-    BridgeJsonPathCltr,
-)
 from pypp_cli.do.transpile.z.py_file_tracker import PyFilesTracker
 from pypp_cli.do.transpile.copy_lib_cpp.node import (
     copy_all_lib_cpp_files,
@@ -45,12 +42,11 @@ def create_all_data(transpile_deps: DoTranspileDeps) -> AllData:
     paths: DoPyppPaths = transpile_deps.paths
     proj_info: ProjInfo = transpile_deps.proj_info
     py_files = calc_all_py_files(paths.python_dir)
-    bridge_json_path_cltr = BridgeJsonPathCltr(paths.site_packages_dir)
 
     libs_data, new_libs = find_libs(paths.site_packages_dir, paths.cpp_dir)
     # Note: not removing deleted libraries. I guess users will do that themselves.
     # I could provide CLI commands to delete libraries.
-    bridge_json_models = load_all_bridge_jsons(libs_data.libs, bridge_json_path_cltr)
+    bridge_json_models = load_all_bridge_jsons(libs_data.libs, paths.site_packages_dir)
     copy_all_lib_cpp_files(paths.cpp_libs_dir, paths.site_packages_dir, new_libs)
     # Note: not removing timestamps file here because users can just do that themselves
     # if they want that.

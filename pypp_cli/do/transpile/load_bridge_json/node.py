@@ -13,9 +13,6 @@ from pypp_cli.do.transpile.load_bridge_json.z.models import (
     SubscriptableTypeModel,
 )
 from pypp_cli.do.transpile.find_libs.z.find_all_libs import PyppLibs
-from pypp_cli.do.transpile.z.bridge_json_path_cltr import (
-    BridgeJsonPathCltr,
-)
 
 
 @dataclass(frozen=True, slots=True)
@@ -30,18 +27,18 @@ class BridgeJsonModels:
 
 
 def load_all_bridge_jsons(
-    libs: PyppLibs, bridge_json_path_cltr: BridgeJsonPathCltr
+    libs: PyppLibs, site_packages_dir: Path
 ) -> dict[str, BridgeJsonModels]:
     ret = {}
     for lib in libs:
-        verifier = _BridgeJsonLoader(bridge_json_path_cltr, lib)
+        verifier = _BridgeJsonLoader(site_packages_dir, lib)
         ret[lib] = verifier.load()
     return ret
 
 
 @dataclass(frozen=True, slots=True)
 class _BridgeJsonLoader:
-    _bridge_json_path_cltr: BridgeJsonPathCltr
+    _site_packages_dir: Path
     _library_name: str
 
     def load(self) -> BridgeJsonModels:
@@ -61,9 +58,7 @@ class _BridgeJsonLoader:
             "subscriptable_types",
             "cmake_lists",
         ]:
-            json_path: Path = self._bridge_json_path_cltr.calc_bridge_json(
-                self._library_name, file_name
-            )
+            json_path: Path = self._calc_bridge_json(self._library_name, file_name)
             if json_path.exists():
                 with open(json_path, "r") as f:
                     data = json.load(f)
@@ -98,4 +93,13 @@ class _BridgeJsonLoader:
             always_pass_by_value,
             subscriptable_types,
             cmake_lists,
+        )
+
+    def _calc_bridge_json(self, library_name: str, json_file_name: str) -> Path:
+        return (
+            self._site_packages_dir
+            / library_name
+            / "pypp_data"
+            / "bridge_jsons"
+            / f"{json_file_name}.json"
         )
