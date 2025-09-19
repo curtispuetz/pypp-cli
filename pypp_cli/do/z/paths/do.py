@@ -5,6 +5,7 @@ from pathlib import Path
 
 from pydantic import ValidationError
 
+from pypp_cli.z_i.constants import TRANSPILER_CONFIG_DIR
 from pypp_cli.z_i.proj_info import ProjInfo
 
 
@@ -47,7 +48,7 @@ def create_do_pypp_paths(target_dir: Path) -> DoTranspileDeps:
             python_dir,
             timestamps_file,
             site_packages_dir,
-            pypp_dir / "bridge_jsons",
+            pypp_dir / TRANSPILER_CONFIG_DIR,
         ),
         proj_info,
     )

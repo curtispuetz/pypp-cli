@@ -1,0 +1,1 @@
+TRANSPILER_CONFIG_DIR: str = "bridge_jsons"

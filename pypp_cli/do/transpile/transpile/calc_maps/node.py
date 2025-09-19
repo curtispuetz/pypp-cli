@@ -44,6 +44,7 @@ from pypp_cli.do.transpile.transpile.calc_maps.z.model_to_d_types import (
     calc_imp_str,
     calc_required_py_import,
 )
+from pypp_cli.z_i.constants import TRANSPILER_CONFIG_DIR
 
 
 @dataclass(slots=True)
@@ -258,5 +259,6 @@ class MapsCltr:
         print(
             f"warning: Py++ transpiler already maps the name {name}"
             f"{calc_imp_str(required_import)}."
-            f"The .pypp/bridge_jsons/name_map.json is overriding this mapping."
+            f"The .pypp/{TRANSPILER_CONFIG_DIR}/name_map.json is overriding this "
+            f"mapping."
         )
