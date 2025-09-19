@@ -12,7 +12,7 @@ from pypp_cli.src.transpilers.library.transpiler.transpiler import (
 
 @dataclass(frozen=True, slots=True)
 class MainAndSrcTranspiler:
-    _namespace: str | None
+    _namespace: str
     _cpp_dir: Path
     _python_dir: Path
     _libs_data: PyppLibsData
