@@ -1,4 +1,4 @@
-#include "src/bridge_jsons_test.h"
+#include "src/transpiler_config_test.h"
 #include "pypp_util/print.h"
 #include <string>
 #include <vector>
@@ -20,8 +20,8 @@ struct __PseudoPyppName_ConfigClassB {
 };
 inline __PseudoPyppName_ConfigClassB _ConfigClassB;
 
-void bridge_jsons_test_fn() {
-    pypp::print(pypp::PyStr("BRIDGE JSONS TEST:"));
+void transpiler_config_test_fn() {
+    pypp::print(pypp::PyStr("TRANSPILER CONFIG TEST:"));
     pypp::PyStr crazy_name_extra = pypp::PyStr("crazy");
     pypp::print(crazy_name_extra);
     a_function_i_like_extra();

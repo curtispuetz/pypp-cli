@@ -16,5 +16,5 @@ struct AnnAssignOtherType {
     AnnAssignOtherType(pypp::PyStr a_x) : x(std::move(a_x)) {}
 };
 
-void bridge_jsons_test_fn();
+void transpiler_config_test_fn();
 } // namespace me

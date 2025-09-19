@@ -1,6 +1,6 @@
 from pypp_python import configclass, exception, Valu, dataclass
 from pypp_python.interfaces import ABC, abstractmethod
-from src.bridge_jsons_test import bridge_jsons_test_fn
+from src.transpiler_config_test import transpiler_config_test_fn
 from src.custom_libs.pure_lib_test_0.first import pure_lib_test_0_fn
 from src.args_test import args_test_fn
 from src.augment_operations import augment_operations_fn
@@ -221,6 +221,6 @@ if __name__ == "__main__":
     print(A, B, C, D, E, a, b)
     dict_looping_fn()
     pure_lib_test_0_fn()
-    bridge_jsons_test_fn()
+    transpiler_config_test_fn()
 
     perlin_noise_fn()
