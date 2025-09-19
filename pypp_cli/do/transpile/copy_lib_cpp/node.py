@@ -27,7 +27,6 @@ class _CppLibCopier:
         if src_dir.exists():
             shutil.copytree(src_dir, dest_dir, dirs_exist_ok=True)
         else:
-            # bridge library case
             # write a .txt file that says 'empty'
             d = dest_dir / library_name
             d.mkdir(parents=True, exist_ok=True)

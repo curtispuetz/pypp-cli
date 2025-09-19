@@ -13,8 +13,8 @@ from pypp_cli.do.transpile.z_i.py_file_tracker import PyFilesTracker
 from pypp_cli.do.transpile.copy_lib_cpp.node import (
     copy_all_lib_cpp_files,
 )
-from pypp_cli.do.transpile.load_bridge_json.node import (
-    load_all_bridge_jsons,
+from pypp_cli.do.transpile.load_transpiler_config.node import (
+    load_transpiler_config,
 )
 from pypp_cli.do.transpile.delete_cpp_files.node import CppAndHFileDeleter
 from pypp_cli.do.transpile.init_cpp_proj.node import CppProjectInitializer
@@ -46,8 +46,8 @@ def create_all_data(transpile_deps: DoTranspileDeps) -> AllData:
     libs_data, new_libs = find_libs(paths.site_packages_dir, paths.cpp_dir)
     # Note: not removing deleted libraries. I guess users will do that themselves.
     # I could provide CLI commands to delete libraries.
-    bridge_json_models = load_all_bridge_jsons(
-        libs_data.libs, paths.site_packages_dir, paths.proj_bridge_json_dir
+    transpiler_config_models = load_transpiler_config(
+        libs_data.libs, paths.site_packages_dir, paths.proj_transpiler_config_dir
     )
     copy_all_lib_cpp_files(paths.cpp_libs_dir, paths.site_packages_dir, new_libs)
     # Note: not removing timestamps file here because users can just do that themselves
@@ -74,7 +74,7 @@ def create_all_data(transpile_deps: DoTranspileDeps) -> AllData:
             libs_data.libs,
             proj_info.cmake_minimum_required_version,
             py_files_tracker,
-            bridge_json_models,
+            transpiler_config_models,
         ),
         MainAndSrcTranspiler(
             proj_info.namespace,
@@ -82,7 +82,7 @@ def create_all_data(transpile_deps: DoTranspileDeps) -> AllData:
             paths.python_dir,
             libs_data,
             py_files,
-            bridge_json_models,
+            transpiler_config_models,
             py_files_tracker,
         ),
         CppAndHFileDeleter(paths.cpp_dir),

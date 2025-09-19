@@ -1,8 +1,8 @@
 import ast
 from pathlib import Path
 from pypp_cli.do.transpile.find_libs.z.find_all_libs import PyppLibsData
-from pypp_cli.do.transpile.z_i.bridge_json_models import (
-    BridgeJsonModelsDict,
+from pypp_cli.do.transpile.z_i.transpiler_config_models import (
+    TranspilerConfigModelsDict,
 )
 from pypp_cli.do.transpile.z_i.py_file_tracker import PyFilesTracker
 from pypp_cli.do.transpile.transpile.z.calc_ast_tree import calc_ast
@@ -54,7 +54,7 @@ def _calc_all_modules_for_project(py_files: list[Path]) -> set[str]:
 
 def transpile_all_changed_files(
     namespace: str,
-    bridge_json_models: BridgeJsonModelsDict,
+    transpiler_config_models: TranspilerConfigModelsDict,
     libs_data: PyppLibsData,
     py_files: list[Path],
     py_files_tracker: PyFilesTracker,
@@ -63,7 +63,7 @@ def transpile_all_changed_files(
     new_files: list[Path],
     changed_files: list[Path],
 ) -> TranspileResults:
-    maps_cltr = MapsCltr(bridge_json_models)
+    maps_cltr = MapsCltr(transpiler_config_models)
     maps = maps_cltr.calc_maps()
     py_modules = _calc_all_modules_for_project(py_files)
     ret: TranspileResults = TranspileResults([], 0, 0, 0)
