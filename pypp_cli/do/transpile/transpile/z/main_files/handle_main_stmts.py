@@ -1,8 +1,8 @@
 import ast
 
-from pypp_cli.do.transpile.transpile.transpile.z.config import SHOULDNT_HAPPEN
-from pypp_cli.do.transpile.transpile.transpile.z.d_types import QInc
-from pypp_cli.do.transpile.transpile.transpile.node import Deps
+from pypp_cli.do.transpile.transpile.handle.z.config import SHOULDNT_HAPPEN
+from pypp_cli.do.transpile.transpile.handle.z.d_types import QInc
+from pypp_cli.do.transpile.transpile.handle.node import Deps
 
 
 def handle_main_stmts(stmts: list[ast.stmt], d: Deps) -> str:

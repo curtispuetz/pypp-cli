@@ -1,7 +1,7 @@
 import ast
 
-from pypp_cli.do.transpile.transpile.transpile.z.config import SHOULDNT_HAPPEN
-from pypp_cli.do.transpile.transpile.transpile.z.d_types import (
+from pypp_cli.do.transpile.transpile.handle.z.config import SHOULDNT_HAPPEN
+from pypp_cli.do.transpile.transpile.handle.z.d_types import (
     QInc,
     PySpecificImpFrom,
     AngInc,
