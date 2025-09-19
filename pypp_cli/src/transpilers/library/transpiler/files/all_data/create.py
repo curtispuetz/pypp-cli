@@ -160,7 +160,7 @@ from ...module.handle_stmt.stmt import (
 
 
 def create_all_transpiler_data(
-    namespace: str | None,
+    namespace: str,
     py_ast: ast.Module,
     maps: Maps,
     py_modules: set[str],

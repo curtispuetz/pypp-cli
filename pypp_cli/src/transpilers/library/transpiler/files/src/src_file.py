@@ -12,7 +12,7 @@ from pathlib import Path
 
 @dataclass(frozen=True, slots=True)
 class SrcFileTranspiler:
-    _namespace: str | None
+    _namespace: str
     _cpp_dest_dir: Path
     _py_modules: set[str]
     _lib_namespaces: dict[str, str]

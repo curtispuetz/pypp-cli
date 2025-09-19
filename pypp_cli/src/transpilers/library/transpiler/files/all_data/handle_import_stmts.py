@@ -18,7 +18,7 @@ type _Result = tuple[IncMap, int, ModulePyImports, dict[str, str]]
 def analyse_import_stmts(
     stmts: list[ast.stmt],
     py_modules: set[str],
-    namespace: str | None,
+    namespace: str,
     lib_namespaces: dict[str, str],
     file_path: Path,
 ) -> _Result:
@@ -47,8 +47,7 @@ def analyse_import_stmts(
 class _ImportStmtAnalyzer:
     _stmts: list[ast.stmt]
     _py_modules: set[str]
-    # TODO: namespace is not longer str | None, it is always str now.
-    _namespace: str | None
+    _namespace: str
     _lib_namespaces: dict[str, str]
     _file_path: Path
     _cpp_inc_map: IncMap
@@ -87,9 +86,7 @@ class _ImportStmtAnalyzer:
     def _update_namespaces(self, module: str, names: list[ast.alias]):
         if module in self._py_modules:
             for alias in names:
-                self._namespaces[alias.name] = (
-                    self._namespace if self._namespace is not None else "me"
-                )
+                self._namespaces[alias.name] = self._namespace
         lib = calc_module_beginning(module)
         if lib in self._lib_namespaces:
             for alias in names:

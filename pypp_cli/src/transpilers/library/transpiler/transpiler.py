@@ -52,7 +52,7 @@ def _calc_all_modules_for_project(py_files: list[Path]) -> set[str]:
 
 
 def transpile_all_changed_files(
-    namespace: str | None,
+    namespace: str,
     bridge_json_models: dict[str, BridgeJsonModels],
     libs_data: PyppLibsData,
     py_files: list[Path],

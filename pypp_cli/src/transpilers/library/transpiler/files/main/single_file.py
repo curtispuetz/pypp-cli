@@ -16,7 +16,7 @@ from pypp_cli.src.transpilers.library.transpiler.util.results import TranspileRe
 
 @dataclass(frozen=True, slots=True)
 class MainSingleFileTranspiler:
-    _namespace: str | None
+    _namespace: str
     _cpp_dest_dir: Path
     _py_modules: set[str]
     _lib_namespaces: dict[str, str]

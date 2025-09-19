@@ -10,7 +10,7 @@ from pathlib import Path
 
 @dataclass(frozen=True, slots=True)
 class MainFileTranspiler:
-    _namespace: str | None
+    _namespace: str
     _cpp_dest_dir: Path
     _py_modules: set[str]
     _lib_namespaces: dict[str, str]
