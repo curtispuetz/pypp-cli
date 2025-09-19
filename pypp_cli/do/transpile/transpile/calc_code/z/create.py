@@ -123,7 +123,9 @@ from pypp_cli.do.transpile.transpile.calc_code.z.handlers.handle_stmt.h_fn_def i
 from pypp_cli.do.transpile.transpile.calc_code.z.handlers.handle_stmt.h_for import (
     ForHandler,
 )
-from pypp_cli.do.transpile.transpile.calc_code.z.handlers.handle_stmt.h_if import IfHandler
+from pypp_cli.do.transpile.transpile.calc_code.z.handlers.handle_stmt.h_if import (
+    IfHandler,
+)
 from pypp_cli.do.transpile.transpile.calc_code.z.handlers.handle_stmt.h_raise import (
     RaiseHandler,
 )
