@@ -100,3 +100,13 @@ type AttrMap = dict[str, AttrMapValue]
 type AnnAssignsMap = dict[str, AnnAssignMapValue]
 type FnArgByValueMap = dict[str, FnArgByValueMapValue]
 type SubscriptableTypeMap = dict[str, SubscriptableTypeMapValue]
+
+
+@dataclass(frozen=True, slots=True)
+class Maps:
+    name: NameMap
+    call: CallMap
+    attr: AttrMap
+    fn_arg_passed_by_value: FnArgByValueMap
+    subscriptable_type: SubscriptableTypeMap
+    ann_assign: AnnAssignsMap

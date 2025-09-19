@@ -8,7 +8,7 @@ from pypp_cli.do.transpile.transpile.z_i.d_types import (
     ModulePyImports,
     PySpecificImport,
 )
-from pypp_cli.do.transpile.transpile.calc_maps.node import Maps
+from pypp_cli.do.transpile.transpile.z_i.maps.d_types import Maps
 from pypp_cli.do.transpile.transpile.z_i.cpp_includes import CppIncludes
 from typing import TYPE_CHECKING
 

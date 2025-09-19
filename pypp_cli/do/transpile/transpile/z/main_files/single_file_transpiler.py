@@ -7,7 +7,7 @@ from pypp_cli.do.transpile.transpile.z.results import TranspileResults
 from pypp_cli.do.transpile.transpile.z.main_files.calc_includes import (
     calc_includes_for_main_file,
 )
-from pypp_cli.do.transpile.transpile.calc_maps.node import Maps
+from pypp_cli.do.transpile.transpile.z_i.maps.d_types import Maps
 
 
 @dataclass(frozen=True, slots=True)

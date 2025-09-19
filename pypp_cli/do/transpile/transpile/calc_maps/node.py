@@ -25,7 +25,7 @@ from pypp_cli.do.transpile.transpile.z_i.maps.d_types import (
     CallMap,
     FnArgByValueMap,
     NameMap,
-    SubscriptableTypeMap,
+    SubscriptableTypeMap, Maps,
 )
 from pypp_cli.do.transpile.transpile.calc_maps.z.name import NAME_MAP
 from pypp_cli.do.transpile.transpile.calc_maps.z.subscriptable_types import (
@@ -41,16 +41,6 @@ from pypp_cli.do.transpile.transpile.calc_maps.z.model_to_d_types import (
     calc_imp_str,
     calc_required_py_import,
 )
-
-
-@dataclass(frozen=True, slots=True)
-class Maps:
-    name: NameMap
-    call: CallMap
-    attr: AttrMap
-    fn_arg_passed_by_value: FnArgByValueMap
-    subscriptable_type: SubscriptableTypeMap
-    ann_assign: AnnAssignsMap
 
 
 @dataclass(frozen=True, slots=True)
