@@ -1,6 +1,6 @@
 import ast
 
-from pypp_cli.do.transpile.transpile.handle.z.d_types import QInc
+from pypp_cli.do.transpile.transpile.z_i.d_types import QInc
 from pypp_cli.do.transpile.transpile.handle.node import Deps
 from pypp_cli.do.transpile.transpile.handle.z.handlers.mapping.exceptions import (
     lookup_cpp_exception_type,

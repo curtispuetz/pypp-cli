@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from pypp_cli.do.transpile.transpile.z.results import TranspileResults
-from pypp_cli.do.transpile.transpile.handle.z.d_types import QInc
+from pypp_cli.do.transpile.transpile.z_i.d_types import QInc
 from pypp_cli.do.transpile.transpile.z.create import (
     create_all_transpiler_data,
 )

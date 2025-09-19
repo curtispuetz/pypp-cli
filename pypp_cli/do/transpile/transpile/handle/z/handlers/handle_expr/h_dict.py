@@ -1,7 +1,7 @@
 import ast
 from dataclasses import dataclass
 
-from pypp_cli.do.transpile.transpile.handle.z.config import SHOULDNT_HAPPEN
+from pypp_cli.do.z_i.config import SHOULDNT_HAPPEN
 from pypp_cli.do.transpile.transpile.handle.node import Deps
 
 
