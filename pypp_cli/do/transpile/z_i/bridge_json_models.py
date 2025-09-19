@@ -35,7 +35,7 @@ class LeftAndRightValueModel(BaseModel):
 
 
 class CustomMappingValueModel(BaseModel):
-    mapping_function: list[str]
+    mapping_function: list[str] | str
     quote_includes: QuoteIncludeModel | None = None
     angle_includes: AngleIncludeModel | None = None
     required_py_import: RequiredPyImportModel | None = None
@@ -124,4 +124,14 @@ class BridgeJsonModels:
     cmake_lists: CMakeListsModel | None = None
 
 
-type BridgeJsonModelsDict = dict[str | None, BridgeJsonModels]
+# key is file name and value is the code
+type MappingFunctions = dict[str, str]
+
+
+@dataclass(frozen=True, slots=True)
+class BridgeJsonModelsAndMappingFunctions:
+    models: BridgeJsonModels
+    mapping_functions: MappingFunctions
+
+
+type BridgeJsonModelsDict = dict[str | None, BridgeJsonModelsAndMappingFunctions]

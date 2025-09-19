@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from functools import partial
 
 from pypp_cli.do.transpile.z_i.bridge_json_models import (
     AlwaysPassByValueModel,
@@ -45,7 +46,7 @@ from pypp_cli.do.transpile.transpile.calc_maps.z.model_to_d_types import (
 )
 
 
-@dataclass(frozen=True, slots=True)
+@dataclass(slots=True)
 class MapsCltr:
     _bridge_json_models: BridgeJsonModelsDict
 
@@ -57,21 +58,21 @@ class MapsCltr:
         subscriptable_type: SubscriptableTypeMap = SUBSCRIPTABLE_TYPE_MAP.copy()
         ann_assign_map: AnnAssignsMap = ANN_ASSIGN_MAP.copy()
         for lib, m in self._bridge_json_models.items():
-            if m.name_map is not None:
-                self._calc_name_map(lib, m.name_map, name_map)
-            if m.call_map is not None:
-                self._calc_call_map(lib, m.call_map, call_map)
-            if m.attr_map is not None:
-                self._calc_attr_map(lib, m.attr_map, attr_map)
-            if m.ann_assign_map is not None:
-                self._calc_ann_assign_map(lib, m.ann_assign_map, ann_assign_map)
-            if m.always_pass_by_value is not None:
+            if m.models.name_map is not None:
+                self._calc_name_map(lib, m.models.name_map, name_map)
+            if m.models.call_map is not None:
+                self._calc_call_map(lib, m.models.call_map, call_map)
+            if m.models.attr_map is not None:
+                self._calc_attr_map(lib, m.models.attr_map, attr_map)
+            if m.models.ann_assign_map is not None:
+                self._calc_ann_assign_map(lib, m.models.ann_assign_map, ann_assign_map)
+            if m.models.always_pass_by_value is not None:
                 self._calc_fn_arg_passed_by_value(
-                    lib, m.always_pass_by_value, fn_arg_passed_by_value
+                    lib, m.models.always_pass_by_value, fn_arg_passed_by_value
                 )
-            if m.subscriptable_types is not None:
+            if m.models.subscriptable_types is not None:
                 self._calc_subscriptable_type_map(
-                    lib, m.subscriptable_types, subscriptable_type
+                    lib, m.models.subscriptable_types, subscriptable_type
                 )
         return Maps(
             name_map,
@@ -100,7 +101,9 @@ class MapsCltr:
         if model.custom_mapping is not None:
             self._add_mapping_entries_1(
                 model.custom_mapping.root,
-                calc_custom_mapping_from_lib_entry,
+                partial(
+                    calc_custom_mapping_from_lib_entry, self._bridge_json_models, lib
+                ),
                 lib,
                 ret,
             )
@@ -123,7 +126,9 @@ class MapsCltr:
         if model.custom_mapping is not None:
             self._add_mapping_entries_1(
                 model.custom_mapping.root,
-                calc_custom_mapping_from_lib_entry,
+                partial(
+                    calc_custom_mapping_from_lib_entry, self._bridge_json_models, lib
+                ),
                 lib,
                 ret,
             )
@@ -146,7 +151,9 @@ class MapsCltr:
         if model.custom_mapping is not None:
             self._add_mapping_entries_1(
                 model.custom_mapping.root,
-                calc_custom_mapping_from_lib_entry,
+                partial(
+                    calc_custom_mapping_from_lib_entry, self._bridge_json_models, lib
+                ),
                 lib,
                 ret,
             )
@@ -164,7 +171,9 @@ class MapsCltr:
         if model.custom_mapping is not None:
             self._add_mapping_entries_1(
                 model.custom_mapping.root,
-                calc_custom_mapping_from_lib_entry,
+                partial(
+                    calc_custom_mapping_from_lib_entry, self._bridge_json_models, lib
+                ),
                 lib,
                 ret,
             )
