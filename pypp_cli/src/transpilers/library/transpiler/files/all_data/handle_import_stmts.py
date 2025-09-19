@@ -1,4 +1,5 @@
 import ast
+from dataclasses import dataclass
 from pathlib import Path
 
 from pypp_cli.src.transpilers.library.transpiler.d_types import (
@@ -11,15 +12,16 @@ from pypp_cli.src.transpilers.library.transpiler.util.modules import (
 )
 
 
-# TODO: simplify this code.
+type _Result = tuple[IncMap, int, ModulePyImports, dict[str, str]]
+
+
 def analyse_import_stmts(
     stmts: list[ast.stmt],
     py_modules: set[str],
     namespace: str | None,
     lib_namespaces: dict[str, str],
     file_path: Path,
-) -> tuple[IncMap, int, ModulePyImports, dict[str, str]]:
-    i = 0
+) -> _Result:
     # This one contains a map of import name to the required CppInclude, so that when
     # I find the name is used in the file, I add the CppInclude.
     cpp_inc_map: IncMap = {}
@@ -28,43 +30,78 @@ def analyse_import_stmts(
     module_py_imports = ModulePyImports({}, set())
     # This one is not a set of names to the namespace they belong to.
     namespaces: dict[str, str] = {}
-    for i, node in enumerate(stmts):
-        if isinstance(node, ast.ImportFrom):
-            if node.module is None:
+    analyzer = _ImportStmtAnalyzer(
+        stmts,
+        py_modules,
+        namespace,
+        lib_namespaces,
+        file_path,
+        cpp_inc_map,
+        module_py_imports,
+        namespaces,
+    )
+    return analyzer.analyse()
+
+
+@dataclass
+class _ImportStmtAnalyzer:
+    _stmts: list[ast.stmt]
+    _py_modules: set[str]
+    # TODO: namespace is not longer str | None, it is always str now.
+    _namespace: str | None
+    _lib_namespaces: dict[str, str]
+    _file_path: Path
+    _cpp_inc_map: IncMap
+    _module_py_imports: ModulePyImports
+    _namespaces: dict[str, str]
+
+    def analyse(self) -> _Result:
+        i = 0
+        for i, node in enumerate(self._stmts):
+            if isinstance(node, ast.ImportFrom):
+                if node.module is None:
+                    raise ValueError(
+                        "Import with just a '.' not supported. Problem in {file_path}"
+                    )
+                self._update_cpp_inc_map(node.module, node.names)
+                self._update_namespaces(node.module, node.names)
+                self._update_module_py_imports(node.module, node.names)
+            elif isinstance(node, ast.Import):
                 raise ValueError(
-                    "Import with just a '.' not supported. Problem in {file_path}"
+                    f"Import is not supported in Py++ "
+                    f"(only ImportFrom is supported).\nProblem file:\n{self._file_path}"
                 )
-            if node.module in py_modules or _is_pure_lib(node.module, lib_namespaces):
-                inc: QInc = QInc.from_module(node.module)
-                for alias in node.names:
-                    assert alias.asname is None, (
-                        f"'as' is not supported in import from. In {file_path}"
-                    )
-                    cpp_inc_map[alias.name] = inc
-            if node.module in py_modules:
-                for alias in node.names:
-                    namespaces[alias.name] = (
-                        namespace if namespace is not None else "me"
-                    )
-            lib = calc_module_beginning(node.module)
-            if lib in lib_namespaces:
-                for alias in node.names:
-                    namespaces[alias.name] = lib_namespaces[lib]
-            names = [n.name for n in node.names]
-            if node.module in module_py_imports.imp_from:
-                module_py_imports.imp_from[node.module].extend(names)
             else:
-                module_py_imports.imp_from[node.module] = names
-        elif isinstance(node, ast.Import):
-            raise ValueError(
-                f"Import is not supported in Py++ "
-                f"(only ImportFrom is supported).\nProblem file:\n{file_path}"
-            )
+                break
+        return self._cpp_inc_map, i, self._module_py_imports, self._namespaces
+
+    def _update_cpp_inc_map(self, module: str, names: list[ast.alias]):
+        if module in self._py_modules or self._is_pure_lib(module):
+            inc: QInc = QInc.from_module(module)
+            for alias in names:
+                assert alias.asname is None, (
+                    f"'as' is not supported in import from. In {self._file_path}"
+                )
+                self._cpp_inc_map[alias.name] = inc
+
+    def _update_namespaces(self, module: str, names: list[ast.alias]):
+        if module in self._py_modules:
+            for alias in names:
+                self._namespaces[alias.name] = (
+                    self._namespace if self._namespace is not None else "me"
+                )
+        lib = calc_module_beginning(module)
+        if lib in self._lib_namespaces:
+            for alias in names:
+                self._namespaces[alias.name] = self._lib_namespaces[lib]
+
+    def _update_module_py_imports(self, module: str, names: list[ast.alias]):
+        name_strs = [n.name for n in names]
+        if module in self._module_py_imports.imp_from:
+            self._module_py_imports.imp_from[module].extend(name_strs)
         else:
-            break
-    return cpp_inc_map, i, module_py_imports, namespaces
+            self._module_py_imports.imp_from[module] = name_strs
 
-
-def _is_pure_lib(module: str, lib_namespaces: dict[str, str]) -> bool:
-    # For all pure libs, there is a key in the lib_namespaces dict.
-    return calc_module_beginning(module) in lib_namespaces
+    def _is_pure_lib(self, module: str) -> bool:
+        # For all pure libs, there is a key in the _lib_namespaces dict.
+        return calc_module_beginning(module) in self._lib_namespaces
