@@ -1,0 +1,10 @@
+{
+    "to_string": {
+        "crazy_name": {
+            "to": "crazy_name_extra",
+            "angle_includes": [
+                "utility"
+            ]
+        }
+    }
+}

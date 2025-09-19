@@ -3,7 +3,9 @@ from pathlib import Path
 
 from pypp_cli.do.transpile.calc_file_changes.z.cltr import PyFileChanges
 from pypp_cli.do.transpile.find_libs.z.find_all_libs import PyppLibsData
-from pypp_cli.do.transpile.load_bridge_json.node import BridgeJsonModels
+from pypp_cli.do.transpile.z_i.bridge_json_models import (
+    BridgeJsonModelsDict,
+)
 from pypp_cli.do.transpile.z_i.py_file_tracker import PyFilesTracker
 from pypp_cli.do.transpile.transpile.z.transpile_all import (
     transpile_all_changed_files,
@@ -17,7 +19,7 @@ class MainAndSrcTranspiler:
     _python_dir: Path
     _libs_data: PyppLibsData
     _py_files: list[Path]
-    _bridge_json_models: dict[str, BridgeJsonModels]
+    _bridge_json_models: BridgeJsonModelsDict
     _py_files_tracker: PyFilesTracker
 
     def transpile(

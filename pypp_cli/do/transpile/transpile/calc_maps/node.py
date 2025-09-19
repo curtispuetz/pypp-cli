@@ -1,14 +1,14 @@
 from dataclasses import dataclass
 
-from pypp_cli.do.transpile.load_bridge_json.z.models import (
+from pypp_cli.do.transpile.z_i.bridge_json_models import (
     AlwaysPassByValueModel,
     AnnAssignModel,
     AttrModel,
+    BridgeJsonModelsDict,
     CallModel,
     NameModel,
     SubscriptableTypeModel,
 )
-from pypp_cli.do.transpile.load_bridge_json.node import BridgeJsonModels
 from pypp_cli.do.transpile.transpile.z_i.d_types import PySpecificImport
 from pypp_cli.do.transpile.transpile.calc_maps.z.ann_assign import ANN_ASSIGN_MAP
 from pypp_cli.do.transpile.transpile.calc_maps.z.attr import ATTR_MAP
@@ -17,6 +17,7 @@ from pypp_cli.do.transpile.transpile.calc_maps.z.call.call import (
 )
 from pypp_cli.do.transpile.transpile.calc_maps.z.fn_arg_passed_by_value import (
     fn_arg_passed_by_value_warning_msg,
+    fn_arg_passed_by_value_warning_msg_local,
 )
 from pypp_cli.do.transpile.transpile.z_i.maps.primitive_types import PRIMITIVE_TYPES
 from pypp_cli.do.transpile.transpile.z_i.maps.d_types import (
@@ -32,6 +33,7 @@ from pypp_cli.do.transpile.transpile.calc_maps.z.name import NAME_MAP
 from pypp_cli.do.transpile.transpile.calc_maps.z.subscriptable_types import (
     SUBSCRIPTABLE_TYPE_MAP,
     subscriptable_type_warning_msg,
+    subscriptable_type_warning_msg_local,
 )
 from pypp_cli.do.transpile.transpile.calc_maps.z.model_to_d_types import (
     calc_custom_mapping_from_lib_entry,
@@ -46,7 +48,7 @@ from pypp_cli.do.transpile.transpile.calc_maps.z.model_to_d_types import (
 
 @dataclass(frozen=True, slots=True)
 class MapsCltr:
-    _bridge_json_models: dict[str, BridgeJsonModels]
+    _bridge_json_models: BridgeJsonModelsDict
 
     def calc_maps(self) -> Maps:
         name_map: NameMap = NAME_MAP.copy()
@@ -81,7 +83,7 @@ class MapsCltr:
             ann_assign_map,
         )
 
-    def _calc_call_map(self, lib: str, model: CallModel, ret: CallMap):
+    def _calc_call_map(self, lib: str | None, model: CallModel, ret: CallMap):
         if model.to_string is not None:
             self._add_mapping_entries_1(
                 model.to_string.root,
@@ -118,7 +120,7 @@ class MapsCltr:
                 ret,
             )
 
-    def _calc_name_map(self, lib: str, model: NameModel, ret: NameMap):
+    def _calc_name_map(self, lib: str | None, model: NameModel, ret: NameMap):
         if model.to_string is not None:
             self._add_mapping_entries_1(
                 model.to_string.root,
@@ -141,7 +143,7 @@ class MapsCltr:
                 ret,
             )
 
-    def _calc_attr_map(self, lib: str, model: AttrModel, ret: AttrMap):
+    def _calc_attr_map(self, lib: str | None, model: AttrModel, ret: AttrMap):
         if model.to_string is not None:
             self._add_mapping_entries_1(
                 model.to_string.root,
@@ -171,7 +173,9 @@ class MapsCltr:
                 ret,
             )
 
-    def _calc_ann_assign_map(self, lib: str, model: AnnAssignModel, ret: AnnAssignsMap):
+    def _calc_ann_assign_map(
+        self, lib: str | None, model: AnnAssignModel, ret: AnnAssignsMap
+    ):
         if model.custom_mapping is not None:
             self._add_mapping_entries_1(
                 model.custom_mapping.root,
@@ -188,20 +192,30 @@ class MapsCltr:
             )
 
     def _calc_fn_arg_passed_by_value(
-        self, lib: str, model: AlwaysPassByValueModel, ret: FnArgByValueMap
+        self, lib: str | None, model: AlwaysPassByValueModel, ret: FnArgByValueMap
     ):
         self._add_mapping_entries_2(
-            model.root, fn_arg_passed_by_value_warning_msg, lib, ret
+            model.root,
+            fn_arg_passed_by_value_warning_msg,
+            fn_arg_passed_by_value_warning_msg_local,
+            lib,
+            ret,
         )
 
     def _calc_subscriptable_type_map(
-        self, lib: str, model: SubscriptableTypeModel, ret: SubscriptableTypeMap
+        self, lib: str | None, model: SubscriptableTypeModel, ret: SubscriptableTypeMap
     ):
         self._add_mapping_entries_2(
-            model.root, subscriptable_type_warning_msg, lib, ret
+            model.root,
+            subscriptable_type_warning_msg,
+            subscriptable_type_warning_msg_local,
+            lib,
+            ret,
         )
 
-    def _add_mapping_entries_2(self, mapping_root, warning_msg, lib, ret):
+    def _add_mapping_entries_2(
+        self, mapping_root, warning_msg, warning_msg_local, lib, ret
+    ):
         # note: We don't need type hints here. If there is a problem with this
         # code, it runs each transpile, so errors will throw.
         for k, v in mapping_root.items():
@@ -210,7 +224,10 @@ class MapsCltr:
             )
             if k in ret:
                 if required_import in ret[k]:
-                    warning_msg(lib, f"{k}{calc_imp_str(required_import)}")
+                    if lib is None:
+                        warning_msg_local(f"{k}{calc_imp_str(required_import)}")
+                    else:
+                        warning_msg(lib, f"{k}{calc_imp_str(required_import)}")
                 ret[k].add(required_import)
             else:
                 ret[k] = {required_import}
@@ -223,7 +240,10 @@ class MapsCltr:
             entry = entry_func(value)
             if name in ret:
                 if required_import in ret[name]:
-                    self._override_mapping_warning(name, required_import, lib)
+                    if lib is None:
+                        self._override_mapping_warning_local(name, required_import)
+                    else:
+                        self._override_mapping_warning(name, required_import, lib)
                 ret[name][required_import] = entry
             else:
                 ret[name] = {required_import: entry}
