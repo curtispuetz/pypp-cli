@@ -5,7 +5,7 @@ from pypp_cli.do.build.node import pypp_build
 from pypp_cli.src.config import SHOULDNT_HAPPEN
 from pypp_cli.do.format.node import pypp_format
 from pypp_cli.do.run.node import pypp_run
-from pypp_cli.src.transpilers.proj.transpile import pypp_transpile
+from pypp_cli.do.transpile.node import pypp_transpile
 from pypp_cli.do.z.paths.do import DoTranspileDeps, create_do_pypp_paths
 
 
