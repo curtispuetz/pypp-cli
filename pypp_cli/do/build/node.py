@@ -11,6 +11,8 @@ def pypp_build(cpp_dir: Path):
     # Note: The first cmake command you wana do is something like:
     # cmake -S . -B build -G "Ninja" -DCMAKE_C_COMPILER=clang
     # -DCMAKE_CXX_COMPILER=clang++
+    # cmake -S . -B build -G "Ninja" -DCMAKE_C_COMPILER=clang
+    # -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_BUILD_TYPE=Release
     # because this sets up the build system to use the clang compiler.
     if shutil.which("cmake") is None:
         raise RuntimeError(
@@ -18,7 +20,19 @@ def pypp_build(cpp_dir: Path):
         )
     # cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
     subprocess.check_call(
-        ["cmake", "-S", ".", "-B", "build", "-DCMAKE_BUILD_TYPE=Release"], cwd=cpp_dir
+        [
+            "cmake",
+            "-S",
+            ".",
+            "-B",
+            "build",
+            "-G",
+            "Ninja",
+            "-DCMAKE_C_COMPILER=clang",
+            "-DCMAKE_CXX_COMPILER=clang++",
+            "-DCMAKE_BUILD_TYPE=Release",
+        ],
+        cwd=cpp_dir,
     )
     # cmake --build build --config Release
     subprocess.check_call(
