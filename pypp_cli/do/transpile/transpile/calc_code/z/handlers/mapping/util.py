@@ -20,10 +20,10 @@ def find_map_entry[T](_map: dict[PyImp | None, T], d: Deps) -> T | None:
 
 
 def calc_string_fn(info: MappingFnStr) -> types.FunctionType:
-    return _calc_funcs_in_str(info.mapping_fn_str)[0]
+    return _calc_mapping_fn(info.mapping_fn_str)
 
 
-def _calc_funcs_in_str(mapping_fn: str) -> list[types.FunctionType]:
+def _calc_mapping_fn(mapping_fn: str) -> types.FunctionType:
     namespace = {
         "ast": ast,
         "Deps": Deps,
@@ -32,4 +32,8 @@ def _calc_funcs_in_str(mapping_fn: str) -> list[types.FunctionType]:
         "PyImp": PyImp,
     }
     exec(mapping_fn, namespace)
-    return [obj for obj in namespace.values() if isinstance(obj, types.FunctionType)]
+    # Find the function named "mapping_fn" in the namespace
+    for obj in namespace.values():
+        if isinstance(obj, types.FunctionType) and obj.__name__ == "mapping_fn":
+            return obj
+    raise ValueError("No function named 'mapping_fn' found in mapping_functions file.")
