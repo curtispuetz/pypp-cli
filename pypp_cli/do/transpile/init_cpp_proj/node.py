@@ -20,7 +20,7 @@ class CppProjectInitializer:
             self._initialize()
         else:
             print(
-                "Not copying C++ template to the cpp project directory. Already copied."
+                "not copying C++ template to the cpp project directory. Already copied."
             )
 
     def _initialize(self):
@@ -44,7 +44,7 @@ class CppProjectInitializer:
             )
 
     def _copy_cpp_template_to_cpp_dir(self):
-        print("Copying the C++ template to the cpp project directory")
+        print("copying the C++ template to the cpp project directory")
         # Copy files and directories from the template
         template_root = files("pypp_cli.data.cpp_template")
         for item in template_root.iterdir():

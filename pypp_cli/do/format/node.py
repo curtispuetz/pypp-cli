@@ -20,6 +20,7 @@ def pypp_format(files_added_or_modified: list[Path], cpp_dir: Path):
             "install clang-format and ensure it is in "
             "your PATH."
         )
+    print("running clang-format to format generated C++ files...")
     num_cores = os.cpu_count() or 1  # Fallback to 1 if None
     with Pool(num_cores) as p:  # Adjust number of workers
         p.map(partial(_format_file, cpp_dir=cpp_dir), files_added_or_modified)

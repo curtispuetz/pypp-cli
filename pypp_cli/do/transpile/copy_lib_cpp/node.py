@@ -9,7 +9,7 @@ def copy_all_lib_cpp_files(
     copier = _CppLibCopier(cpp_libs_dir, site_packages_dir)
     copier.copy_all(new_libs)
     if len(new_libs) > 0:
-        print("Copied C++ lib files to cpp project directory for new libraries")
+        print("copied C++ lib files to cpp project directory for new libraries")
 
 
 @dataclass(slots=True)
