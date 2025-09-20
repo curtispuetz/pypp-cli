@@ -13,12 +13,12 @@ def pypp_init(target_dir: Path):
 
 
 PROJ_INFO_DEFAULTS = ProjInfo(
-    cpp_dir_is_dirty=True,
     namespace="me",
     override_cpp_write_dir=None,
     write_metadata_to_dir=None,
     ignored_files=[],
     cmake_minimum_required_version="4.0",
+    cpp_dir_is_dirty=True,
 )
 
 
