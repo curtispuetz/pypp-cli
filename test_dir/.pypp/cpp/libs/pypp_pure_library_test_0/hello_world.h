@@ -4,4 +4,4 @@
 
 namespace pure_test_0 {
 pypp::PyStr hello_world_fn();
-} // namespace pure_test_0
+}
