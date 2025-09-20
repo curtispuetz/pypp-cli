@@ -10,7 +10,7 @@ def find_new_libs(cpp_dir: Path, libs: PyppLibs) -> set[str]:
 
 
 def _print_new_libraries(new):
-    print("New libraries:", new)
+    print("new libraries:", new)
 
 
 @dataclass(frozen=True, slots=True)

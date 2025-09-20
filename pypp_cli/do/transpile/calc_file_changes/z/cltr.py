@@ -13,7 +13,7 @@ class PyFileChanges:
 
     def print_results(self):
         print(
-            f"Analysed file changes. changed files: {len(self.changed_files)}, "
+            f"analysed file changes. changed files: {len(self.changed_files)}, "
             f"new files: {len(self.new_files)}, "
             f"deleted files: {len(self.deleted_files)}, "
             f"ignored files: {list(self.ignored_file_stems)}"

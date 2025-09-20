@@ -16,7 +16,7 @@ for part in target_module.split("."):
 
 
 def calc_all_py_files_ignoring(root: Path, ignore: Path) -> list[Path]:
-    print("Calculating all .py files in", root, "ignoring", ignore)
+    print("calculating all .py files in", root, "ignoring", ignore)
     ret: list[Path] = []
     # TODO later: change to depth first search because that output is prefered.
     for path in root.rglob("*.py"):
