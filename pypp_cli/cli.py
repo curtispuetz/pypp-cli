@@ -3,10 +3,6 @@ import argparse
 
 from pypp_cli.do.node import pypp_do
 from pypp_cli.init.node import pypp_init
-from pypp_cli.init_bridge_lib.node import pypp_init_bridge_lib
-from pypp_cli.init_pure_lib.node import (
-    pypp_init_pure_lib,
-)
 from pypp_cli.delete_timestamps.node import pypp_delete_timestamps
 
 
@@ -41,32 +37,12 @@ def main_cli(absolute_dir: Path | None = None) -> None:
         "(required if 'run' is one of the tasks).",
         required=False,
     )
-    parser_init_bridge = subparsers.add_parser(
-        "init_bridge_lib",
-        help="Initialize a new Py++ bridge-library in the current directory.",
-    )
-    parser_init_bridge.add_argument(
-        "library_name",
-        help="The name of the bridge-library to initialize.",
-    )
-    parser_init_pure = subparsers.add_parser(
-        "init_pure_lib",
-        help="Initialize a new Py++ pure-library in the current directory.",
-    )
-    parser_init_pure.add_argument(
-        "library_name",
-        help="The name of the pure-library to initialize.",
-    )
 
     args = parser.parse_args()
     if absolute_dir is None:
         absolute_dir = Path.cwd()
     if args.mode == "init":
         pypp_init(absolute_dir)
-    elif args.mode == "init_bridge_lib":
-        pypp_init_bridge_lib(args.library_name, absolute_dir)
-    elif args.mode == "init_pure_lib":
-        pypp_init_pure_lib(args.library_name, absolute_dir)
     elif not (absolute_dir / ".pypp" / "proj_info.json").exists():
         parser.error(
             ".pypp/proj_info.json file not found. "
