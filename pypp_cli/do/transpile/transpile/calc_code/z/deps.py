@@ -82,6 +82,7 @@ class Deps:
     def is_imported(self, imp: PyImp) -> bool:
         return self._module_py_imports.is_imported(imp)
 
+    # TODO: make these just return a string and the callers can raise
     def value_err(self, msg: str, ast_node):
         raise ValueError(
             f"{msg} \n\nThe problem code "
