@@ -119,6 +119,7 @@ src/yields/first.cpp
 src/stl/math_library/first.cpp
 src/stl/os_library/first.cpp
 src/stl/random_library/first.cpp
+src/stl/shutil_library/first.cpp
 src/stl/time_library/first.cpp
 src/custom_libs/bridge_lib_test_0/first.cpp
 src/custom_libs/bridge_lib_test_1/first.cpp

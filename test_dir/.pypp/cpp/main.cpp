@@ -77,6 +77,7 @@
 #include "src/stl/math_library/first.h"
 #include "src/stl/os_library/first.h"
 #include "src/stl/random_library/first.h"
+#include "src/stl/shutil_library/first.h"
 #include "src/stl/time_library/first.h"
 #include "src/strings/exceptions.h"
 #include "src/strings/f_strings.h"
@@ -224,6 +225,7 @@ int main() {
         me::pure_lib_test_0_fn();
         me::transpiler_config_test_fn();
         me::os_library_fn();
+        me::shutil_library_fn();
         me::perlin_noise_fn();
         return 0;
     } catch (...) {
