@@ -1,6 +1,9 @@
 import ast
 from dataclasses import dataclass
 
+from ..util.check_primitive_type import is_primitive_type
+from pypp_cli.do.transpile.transpile.y.d_types import PyImp
+
 from ...deps import Deps
 from .h_tuple import handle_tuple_inner_args
 from ..mapping.subscript_value import lookup_cpp_subscript_value_type
@@ -12,6 +15,15 @@ class SubscriptHandler:
 
     def handle(self, node: ast.Subscript) -> str:
         value_cpp_str = self._d.handle_expr(node.value)
+        if value_cpp_str == "Ref" and self._d.is_imported(PyImp("pypp_python", "Ref")):
+            cpp_type: str = self._d.handle_expr(node.slice)
+            if is_primitive_type(cpp_type, self._d):
+                self._d.value_err(
+                    "Wrapping a primitive type in `Ref[]` is not supported",
+                    node,
+                )
+            return f"&{cpp_type}"
+
         if value_cpp_str == "pypp::PyDefaultDict":
             if not isinstance(node.slice, ast.Tuple):
                 self._d.value_err(

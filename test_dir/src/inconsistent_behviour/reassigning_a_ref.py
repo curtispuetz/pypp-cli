@@ -19,7 +19,7 @@ def modifying_a_ref(l: list[int]):
 def reassigning_a_ref_fn():
     print("REASSIGNING A REF RESULTS:")
     a: list[int] = [1, 2, 3]
-    b: Ref(list[int]) = a
+    b: Ref[list[int]] = a
     b.append(4)
     print(a)
     print(b)

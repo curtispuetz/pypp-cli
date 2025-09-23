@@ -97,7 +97,7 @@ def dict_fn():
     f: dict[int, dict[int, int]] = {0: {0: 1}, 1: {0: 1}}
     print(f)
     # modifying references
-    f0: Ref(dict[int, int]) = f[0]
+    f0: Ref[dict[int, int]] = f[0]
     f0[99] = 98
     print(f)
     f[1][77] = 76

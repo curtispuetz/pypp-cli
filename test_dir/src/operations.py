@@ -42,7 +42,7 @@ def operations_fn():
     print(f"invert: {l1}")
     # is
     t1: list[int] = [1, 2]
-    t2: Ref(list[int]) = t1
+    t2: Ref[list[int]] = t1
     m: bool = t1 is t2
     print(f"same objects: {m}")
     # is not
@@ -82,7 +82,7 @@ def operations_fn():
     x: bool = "abc" not in "zzxyz"
     print(f"not in string: {x}")
     print("printing reference:")
-    print(Ref(x))
+    print(Ref[x])
     # and
     y: bool = True and False
     print(f"and: {y}")
