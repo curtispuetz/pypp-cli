@@ -1,12 +1,10 @@
-import json
 import sys
 from dataclasses import dataclass
 from pathlib import Path
 
-from pydantic import ValidationError
 
 from pypp_cli.y.constants import TRANSPILER_CONFIG_DIR
-from pypp_cli.y.proj_info import ProjInfo
+from pypp_cli.y.proj_info import ProjInfo, load_proj_info
 
 
 @dataclass(frozen=True, slots=True)
@@ -30,7 +28,7 @@ class DoTranspileDeps:
 def create_do_pypp_paths(target_dir: Path) -> DoTranspileDeps:
     pypp_dir = target_dir / ".pypp"
     proj_info_file = pypp_dir / "proj_info.json"
-    proj_info: ProjInfo = _load_proj_info(proj_info_file)
+    proj_info: ProjInfo = load_proj_info(proj_info_file)
     if proj_info.override_cpp_write_dir is None:
         cpp_dir = pypp_dir / "cpp"
     else:
@@ -68,12 +66,3 @@ def _calc_sitepackages_dir(root_dir: Path) -> Path:
             f"Multiple python* directories found in {lib_dir}: {python_dirs}"
         )
     return python_dirs[0] / "site-packages"
-
-
-def _load_proj_info(proj_info_file: Path) -> ProjInfo:
-    with open(proj_info_file) as file:
-        proj_info = json.load(file)
-    try:
-        return ProjInfo(**proj_info)
-    except ValidationError as e:
-        raise ValueError(f"Issue found in proj_info.json file: {e}") from e
