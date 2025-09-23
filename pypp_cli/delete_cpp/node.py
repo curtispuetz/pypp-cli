@@ -2,6 +2,7 @@ import json
 from pathlib import Path
 
 from pypp_cli.delete_timestamps.node import pypp_delete_timestamps
+from pypp_cli.y.calc_cpp_dir import calc_cpp_dir
 from pypp_cli.y.proj_info import ProjInfo, load_proj_info
 import shutil
 
@@ -11,11 +12,7 @@ def pypp_delete_cpp(target_dir: Path):
     proj_info_file = pypp_dir / "proj_info.json"
     proj_info: ProjInfo = load_proj_info(proj_info_file)
 
-    cpp_dir: Path
-    if proj_info.override_cpp_write_dir is None:
-        cpp_dir = target_dir / ".pypp" / "cpp"
-    else:
-        cpp_dir = target_dir / proj_info.override_cpp_write_dir
+    cpp_dir: Path = calc_cpp_dir(proj_info, target_dir)
     if not cpp_dir.exists():
         print("cpp directory does not exist, nothing to remove")
     else:
