@@ -34,10 +34,10 @@ def pypp_union_fn():
     # passing union with mov
     e: Uni[int, float] = Uni(3.14)
     f: ClassWithUnionByValue = ClassWithUnionByValue(mov(e))
-    print(Ref(f))
+    print(Ref[f])
     # inline
     g: ClassWithUnionByValue = ClassWithUnionByValue(Uni[int, float](7))
-    print(Ref(g))
+    print(Ref[g])
     # with auto
     h: auto = Uni[int, float](2.71)
     print(h)

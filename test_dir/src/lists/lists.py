@@ -97,7 +97,7 @@ def list_fn():
     list_reserve(e, 10)
     # modifying references
     g: list[list[int]] = [[1, 2], [3, 4]]
-    g_0: Ref(list[int]) = g[0]
+    g_0: Ref[list[int]] = g[0]
     g_0.append(99)
     print(g)
     g[1].append(98)

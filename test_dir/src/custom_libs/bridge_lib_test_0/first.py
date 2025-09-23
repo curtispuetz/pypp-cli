@@ -55,4 +55,4 @@ def bridge_lib_test_0_fn():
     print(pseudo_fn_a())
     custom_print("aloha")
     k: PseudoCustomList[int] = PseudoCustomList([1, 2, 3])
-    print(Ref(k))
+    print(Ref[k])
