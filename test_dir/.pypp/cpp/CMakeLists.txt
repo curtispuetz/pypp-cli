@@ -90,13 +90,11 @@ src/loops/for_examples.cpp
 src/loops/reversed_.cpp
 src/loops/while_.cpp
 src/loops/zip_.cpp
-src/math_library/first.cpp
 src/numbers_test/first.cpp
 src/number_types/in_collections.cpp
 src/number_types/number_types.cpp
 src/printing/first.cpp
 src/pypp_union/first.cpp
-src/random_library/first.cpp
 src/ranges/first.cpp
 src/readme_examples/dataclasses.cpp
 src/readme_examples/first.cpp
@@ -115,10 +113,12 @@ src/strings/exceptions.cpp
 src/strings/first.cpp
 src/strings/f_strings.cpp
 src/strings/special_characters.cpp
-src/time_library/first.cpp
 src/tuples/exceptions.cpp
 src/tuples/first.cpp
 src/yields/first.cpp
+src/stl/math_library/first.cpp
+src/stl/random_library/first.cpp
+src/stl/time_library/first.cpp
 src/custom_libs/bridge_lib_test_0/first.cpp
 src/custom_libs/bridge_lib_test_1/first.cpp
 src/custom_libs/pure_lib_test_0/first.cpp
