@@ -1,5 +1,5 @@
 from pypp_python.interfaces import ABC, abstractmethod
-from pypp_python import Valu, dataclass
+from pypp_python import Val, dataclass
 
 
 class GreeterInterface(ABC):
@@ -10,7 +10,7 @@ class GreeterInterface(ABC):
 
 @dataclass
 class GreeterImpl(GreeterInterface):
-    name: Valu(str)
+    name: Val[str]
 
     def greet(self, a: int):
         print(f"{self.name} says hello {a} times!")

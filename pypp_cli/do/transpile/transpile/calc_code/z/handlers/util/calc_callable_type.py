@@ -16,14 +16,14 @@ class CallableTypeCalculator:
 
     def calc(self, node: ast.expr) -> str | None:
         if (
-            isinstance(node, ast.Call)
-            and isinstance(node.func, ast.Name)
-            and node.func.id == "Valu"
+            isinstance(node, ast.Subscript)
+            and isinstance(node.value, ast.Name)
+            and node.value.id == "Val"
         ):
-            arg1 = node.args[0]
-            if isinstance(arg1, ast.Subscript):
-                if _is_callable_type(arg1):
-                    return "Valu(" + self._calc_callable_type(arg1) + ")"
+            inner = node.slice
+            if isinstance(inner, ast.Subscript):
+                if _is_callable_type(inner):
+                    return "Val[" + self._calc_callable_type(inner) + "]"
         if isinstance(node, ast.Subscript):
             if _is_callable_type(node):
                 return self._calc_callable_type(node)

@@ -1,5 +1,5 @@
 from pypp_python.stl import math, Random
-from pypp_python import Valu, mov, tg, dataclass
+from pypp_python import Val, mov, tg, dataclass
 
 
 def _fade(t: float) -> float:
@@ -26,7 +26,7 @@ GRADIENTS: list[tuple[int, int]] = [
 @dataclass(frozen=True, slots=True)
 class PerlinNoise:
     _p_len: int
-    _p: Valu(list[int])
+    _p: Val[list[int]]
 
     def calc(
         self,

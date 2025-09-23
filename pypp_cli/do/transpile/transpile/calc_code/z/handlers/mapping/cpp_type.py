@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from pypp_cli.do.transpile.transpile.calc_code.z.deps import Deps
 from .util import is_imported
 from ..util.check_primitive_type import is_primitive_type
-from ..util.inner_strings import calc_inside_rd
+from ..util.inner_strings import calc_inside_sq
 
 
 # Note: It is for types of 1) function parameters and 2) class data members.
@@ -24,11 +24,11 @@ class CppTypeCalculator:
 
     def _is_pass_by_ref(self, cpp_arg_type: str) -> tuple[bool, str]:
         ret: bool = True
-        if cpp_arg_type.startswith("Valu(") and cpp_arg_type.endswith(")"):
-            cpp_arg_type = calc_inside_rd(cpp_arg_type)
+        if cpp_arg_type.startswith("Val[") and cpp_arg_type.endswith("]"):
+            cpp_arg_type = calc_inside_sq(cpp_arg_type)
             if is_primitive_type(cpp_arg_type, self._d):
                 self._d.value_err_no_ast(
-                    "Wrapping a primitive type in `Valu()` is not supported since it "
+                    "Wrapping a primitive type in `Val[]` is not supported since it "
                     "has no meaning. Primitive types are always pass-by-value.",
                 )
             ret = False

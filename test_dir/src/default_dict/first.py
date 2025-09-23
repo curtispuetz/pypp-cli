@@ -1,11 +1,11 @@
-from pypp_python import Ref, Valu, auto, dataclass, defaultdict
+from pypp_python import Ref, Val, auto, dataclass, defaultdict
 
 
 def _dict_factory() -> dict[int, int]:
     return {1: 2, 3: 4}
 
 
-def _default_dict_as_arg(a: Valu(defaultdict[int, int])):
+def _default_dict_as_arg(a: Val[defaultdict[int, int]]):
     print(a[0])
 
 

@@ -1,4 +1,4 @@
-from pypp_python import configclass, exception, Valu, dataclass
+from pypp_python import configclass, exception, Val, dataclass
 from pypp_python.interfaces import ABC, abstractmethod
 from src.transpiler_config_test import transpiler_config_test_fn
 from src.custom_libs.pure_lib_test_0.first import pure_lib_test_0_fn
@@ -118,7 +118,7 @@ class _MyCInterface(ABC):
 
 @dataclass
 class MyDataClassInMain:
-    my_list: Valu(list[int])
+    my_list: Val[list[int]]
 
     def calc_something(self) -> list[int]:
         return self.my_list * 4

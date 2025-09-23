@@ -1,4 +1,4 @@
-from pypp_python import auto, Valu, dataclass
+from pypp_python import auto, Val, dataclass
 
 
 def fn_that_uses_pass():
@@ -7,7 +7,7 @@ def fn_that_uses_pass():
 
 @dataclass
 class ClassWithMethodThatUsesPass:
-    my_list: Valu(list[int])
+    my_list: Val[list[int]]
 
     def method(self):
         pass

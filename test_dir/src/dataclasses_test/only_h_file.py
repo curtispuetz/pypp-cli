@@ -1,7 +1,7 @@
-from pypp_python import Valu, dataclass
+from pypp_python import Val, dataclass
 
 
 @dataclass
 class OnlyHDataClass:
-    field1: Valu(list[float])
-    field2: Valu(dict[str, set[int]])
+    field1: Val[list[float]]
+    field2: Val[dict[str, set[int]]]

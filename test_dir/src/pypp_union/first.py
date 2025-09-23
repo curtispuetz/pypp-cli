@@ -1,4 +1,4 @@
-from pypp_python import Uni, ug, isinst, is_none, Valu, mov, Ref, auto, dataclass
+from pypp_python import Uni, ug, isinst, is_none, Val, mov, Ref, auto, dataclass
 
 
 @dataclass
@@ -13,7 +13,7 @@ class ClassWithUnion:
 
 @dataclass
 class ClassWithUnionByValue:
-    value: Valu(Uni[int, float])
+    value: Val[Uni[int, float]]
 
 
 def pypp_union_fn():

@@ -34,10 +34,10 @@ class FnSignatureCalculator:
                 cpp_ret_type = f"pypp::Generator<{calc_inside_sq(cpp_ret_type)}>"
             elif cpp_ret_type.startswith("&"):
                 cpp_ret_type = cpp_ret_type[1:] + "&"
-            elif cpp_ret_type.startswith("Valu(") and cpp_ret_type.endswith(")"):
+            elif cpp_ret_type.startswith("Val[") and cpp_ret_type.endswith("]"):
                 self._d.value_err(
-                    "Wrapping a return type in `Valu()` is not supported since it has "
-                    "no meaning. Remove the `Valu()`.",
+                    "Wrapping a return type in `Val[]` is not supported since it has "
+                    "no meaning. Remove the `Val[]`.",
                     node.returns,
                 )
         cpp_args_str = self._calc_cpp_args_str(node, skip_first_arg)

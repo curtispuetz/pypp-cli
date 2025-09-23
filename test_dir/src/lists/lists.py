@@ -1,7 +1,7 @@
-from pypp_python import mov, Valu, Ref, list_reserve, lg
+from pypp_python import mov, Val, Ref, list_reserve, lg
 
 
-def _test_fn(arg1: Valu(list[str])):
+def _test_fn(arg1: Val[list[str]]):
     print(arg1)
 
 

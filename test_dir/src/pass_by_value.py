@@ -1,13 +1,13 @@
-from pypp_python import Valu, mov, dataclass
+from pypp_python import Val, mov, dataclass
 
 
 @dataclass(frozen=True, slots=True)
 class MyType:
-    field1: Valu(str)
-    field2: Valu(list[int])
+    field1: Val[str]
+    field2: Val[list[int]]
 
 
-def my_type_factory(a: Valu(list[int])) -> MyType:
+def my_type_factory(a: Val[list[int]]) -> MyType:
     return MyType("first arg", mov(a))
 
 

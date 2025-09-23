@@ -1,4 +1,4 @@
-from pypp_python import Valu, dataclass, Callable
+from pypp_python import Val, dataclass, Callable
 
 
 def _test_fn(a: int, b: int) -> str:
@@ -21,7 +21,7 @@ def _test_fn5():
     print("test fn5 called")
 
 
-def _test_fn6(fn: Valu(Callable[[int, int], str])):
+def _test_fn6(fn: Val[Callable[[int, int], str]]):
     print(fn(1, 2))
 
 
