@@ -1,5 +1,5 @@
-from pypp_python import Valu
+from pypp_python import Val
 
 
-def pass_by_value_fn(a: Valu(list[int]), _b: Valu(list[int])) -> list[int]:
+def pass_by_value_fn(a: Val[list[int]], _b: Val[list[int]]) -> list[int]:
     return a

@@ -1,9 +1,9 @@
-from pypp_python import mov, Valu, dataclass
+from pypp_python import mov, Val, dataclass
 
 
 @dataclass
 class FirstDataClass:
-    field1: Valu(str)
+    field1: Val[str]
     field2: int
 
 
@@ -20,7 +20,7 @@ class _PrivateDataClass:
 
 @dataclass(frozen=True)
 class FrozenDataClass:
-    field1: Valu(str)
+    field1: Val[str]
     field2: int
 
 

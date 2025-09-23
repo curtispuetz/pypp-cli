@@ -1,7 +1,7 @@
-from pypp_python import mov, Valu, Ref, dg
+from pypp_python import mov, Val, Ref, dg
 
 
-def _inline_dict(d: Valu(dict[int, int])):
+def _inline_dict(d: Val[dict[int, int]]):
     print(d)
 
 

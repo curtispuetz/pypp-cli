@@ -1,4 +1,4 @@
-from pypp_python import configclass, dataclass, Valu
+from pypp_python import configclass, dataclass, Val
 
 
 def a_function_i_like():
@@ -21,12 +21,12 @@ class _ConfigClassB:
 
 @dataclass
 class AnnAssignCustomType:
-    x: Valu(str)
+    x: Val[str]
 
 
 @dataclass
 class AnnAssignOtherType:
-    x: Valu(str)
+    x: Val[str]
 
 
 def transpiler_config_test_fn():

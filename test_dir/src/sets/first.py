@@ -1,7 +1,7 @@
-from pypp_python import mov, Valu, auto
+from pypp_python import mov, Val, auto
 
 
-def _inline_set(s: Valu(set[float])):
+def _inline_set(s: Val[set[float]]):
     print(s)
 
 

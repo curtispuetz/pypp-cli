@@ -1,7 +1,7 @@
-from pypp_python import tg, Valu
+from pypp_python import tg, Val
 
 
-def _inline_tuple(tup: Valu(tuple[float, str])):
+def _inline_tuple(tup: Val[tuple[float, str]]):
     print(tup)
 
 
