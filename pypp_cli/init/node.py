@@ -29,25 +29,21 @@ class _PyppInitHelper:
     def create_project_structure(
         self,
     ):
-        self._create_main_folders()
+        self._create_cpp_and_resources_dirs()
         self._create_python_main_file()
         self._create_proj_json_file()
 
-    def _create_main_folders(
+    def _create_cpp_and_resources_dirs(
         self,
     ):
         self._paths.cpp_dir.mkdir(parents=True, exist_ok=True)
-        self._paths.python_dir.mkdir(parents=True, exist_ok=True)
         self._paths.resources_dir.mkdir(parents=True, exist_ok=True)
-        self._paths.pypp_files_dir.mkdir(parents=True, exist_ok=True)
 
     def _create_python_main_file(self):
-        main_py_path = self._paths.python_dir / "main.py"
+        main_py_path = self._paths.root_dir / "main.py"
         main_py_path.write_text(
             "\n".join(
                 [
-                    "# Py++ main file example",
-                    "",
                     "if __name__ == '__main__':",
                     "    print('Hello from Py++ project!')",
                 ]
@@ -56,4 +52,4 @@ class _PyppInitHelper:
 
     def _create_proj_json_file(self):
         with open(self._paths.proj_info_file, "w") as file:
-            json.dump(asdict(PROJ_INFO_DEFAULTS), file, indent=4)
+            json.dump(PROJ_INFO_DEFAULTS.model_dump(), file, indent=4)
