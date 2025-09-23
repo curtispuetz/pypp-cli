@@ -75,6 +75,7 @@
 #include "src/sets/operations.h"
 #include "src/slices/first.h"
 #include "src/stl/math_library/first.h"
+#include "src/stl/os_library/first.h"
 #include "src/stl/random_library/first.h"
 #include "src/stl/time_library/first.h"
 #include "src/strings/exceptions.h"
@@ -222,6 +223,7 @@ int main() {
         me::dict_looping_fn();
         me::pure_lib_test_0_fn();
         me::transpiler_config_test_fn();
+        me::os_library_fn();
         me::perlin_noise_fn();
         return 0;
     } catch (...) {
