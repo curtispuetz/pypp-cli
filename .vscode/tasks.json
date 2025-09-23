@@ -153,9 +153,9 @@
             }
         },
         {
-            "label": "do pure",
+            "label": "delete libs",
             "type": "shell",
-            "command": "${workspaceFolder}/.venv/Scripts/python.exe -m util_scripts.calling_cli.transpile_and_format_pure_lib",
+            "command": "${workspaceFolder}/.venv/Scripts/python.exe -m util_scripts.calling_cli.delete_cpp_libs",
             "problemMatcher": [],
             "presentation": {
                 "echo": true,
