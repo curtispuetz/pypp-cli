@@ -4,6 +4,7 @@ import argparse
 from pypp_cli.do.node import pypp_do
 from pypp_cli.init.node import pypp_init
 from pypp_cli.delete_timestamps.node import pypp_delete_timestamps
+from pypp_cli.delete_cpp.node import pypp_delete_cpp
 
 
 def main_cli(absolute_dir: Path | None = None) -> None:
@@ -14,8 +15,14 @@ def main_cli(absolute_dir: Path | None = None) -> None:
     )
     subparsers.add_parser(
         "delete_timestamps",
-        help="Remove the file_timestamps.json file so that transpiling is done "
+        help="Delete the file_timestamps.json file so that the next transpile is done "
         "for all python files regardless of whether they were modified.",
+    )
+    subparsers.add_parser(
+        "delete_cpp",
+        help="Delete everything in the cpp directory so that all C++ code is "
+        "regenerated. This also deletes the file_timestamps.json file and sets "
+        "cpp_dir_is_dirty to true in proj_info.json.",
     )
     parser_do = subparsers.add_parser(
         "do", help="transpile, format, build, and/or run."
@@ -57,6 +64,8 @@ def main_cli(absolute_dir: Path | None = None) -> None:
         pypp_do(args.tasks, absolute_dir, args.exe_name)
     elif args.mode == "delete_timestamps":
         pypp_delete_timestamps(absolute_dir)
+    elif args.mode == "delete_cpp":
+        pypp_delete_cpp(absolute_dir)
 
 
 if __name__ == "__main__":
