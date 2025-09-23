@@ -87,6 +87,7 @@ from src.ternary_op import ternary_op_fn
 from src.lists.declaration import list_declaration_fn
 from src.lists.operations import list_operations_fn
 from src.using_pass import pass_fn
+from src.stl.os_library.first import os_library_fn
 
 
 # Show that functions, all the class types, type aliaes, and ann assigns work in
@@ -222,5 +223,6 @@ if __name__ == "__main__":
     dict_looping_fn()
     pure_lib_test_0_fn()
     transpiler_config_test_fn()
+    os_library_fn()
 
     perlin_noise_fn()
