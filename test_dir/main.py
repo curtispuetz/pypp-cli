@@ -31,7 +31,7 @@ from src.lambdas import lambdas_fn
 from src.lists.ownership import list_ownership_tests_fn
 from src.number_types.in_collections import number_types_in_collections_fn
 from src.pass_by_value import pass_by_value_test_fn
-from src.random_library.first import random_fn
+from src.stl.random_library.first import random_fn
 from src.second import return_friend
 from src.sets.operations import set_operations_fn
 from src.subscriptable_types import subscriptable_types_fn
@@ -69,8 +69,8 @@ from src.dicts.comprehensions import dict_comprehension_fn
 from src.exceptions.assert_ import assert_fn
 from src.type_aliases import type_aliases_fn
 from src.yields.first import yield_fn
-from src.math_library.first import math_library_fn
-from src.time_library.first import time_library_fn
+from src.stl.math_library.first import math_library_fn
+from src.stl.time_library.first import time_library_fn
 from src.sets.of_tuples import set_of_tuples_fn
 from src.ref_vars import ref_vars_fn
 from src.dataclasses_test.first import dataclass_fn
