@@ -1,4 +1,4 @@
-from pypp_bridge_lib_opengl import (
+from pypp_opengl import (
     gl_gen_buffer,
     gl_gen_vertex_array,
     gl_shader_source,
@@ -12,7 +12,7 @@ from pypp_bridge_lib_opengl import (
     np,
     GL,
 )
-from pypp_bridge_lib_glfw import GLFWwindowPtr, glfw
+from pypp_glfw import GLFWwindowPtr, glfw
 from pypp_python import to_c_string, NULL, float32
 from pypp_python.stl import ctypes
 
