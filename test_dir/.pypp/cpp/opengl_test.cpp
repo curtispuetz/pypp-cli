@@ -3,7 +3,7 @@
 #include "exceptions/exception.h"
 #include "py_list.h"
 #include "py_str.h"
-#include "pypp_bridge_lib_opengl/custom.h"
+#include "pypp_opengl/custom.h"
 #include "pypp_util/main_error_handler.h"
 #include <GLFW/glfw3.h>
 #include <glad/gl.h>
