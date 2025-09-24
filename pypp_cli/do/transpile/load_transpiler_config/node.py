@@ -16,20 +16,21 @@ from pypp_cli.y.constants import TRANSPILER_CONFIG_DIR
 
 
 def load_transpiler_config(
-    libs: PyppLibs, site_packages_dir: Path, proj_transpiler_config_dir: Path
+    libs: PyppLibs, site_packages_dir: Path | None, proj_transpiler_config_dir: Path
 ) -> TranspilerConfigModelsDict:
     ret: TranspilerConfigModelsDict = {}
-    for lib in libs:
-        ret[lib] = _load_val(
-            site_packages_dir,
-            _calc_transpiler_config_for_lib,
-            lib,
-            site_packages_dir
-            / lib
-            / "pypp_data"
-            / TRANSPILER_CONFIG_DIR
-            / "mapping_functions",
-        )
+    if site_packages_dir is not None:
+        for lib in libs:
+            ret[lib] = _load_val(
+                site_packages_dir,
+                _calc_transpiler_config_for_lib,
+                lib,
+                site_packages_dir
+                / lib
+                / "pypp_data"
+                / TRANSPILER_CONFIG_DIR
+                / "mapping_functions",
+            )
     ret[None] = _load_val(
         proj_transpiler_config_dir,
         _calc_transpiler_config_for_proj,
