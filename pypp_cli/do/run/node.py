@@ -15,7 +15,7 @@ def pypp_run(cpp_build_release_dir: Path, exe_name: str):
     if not exe_path.is_file():
         raise FileNotFoundError(f"Executable '{exe_name}' not found in cpp build dir")
 
-    print("running generated executable...")
+    print(f"running '{exe_name}' executable...")
     subprocess.check_call([str(exe_path)])
     # TODO later: uncomment this print later maybe
     # print("Py++ run finished")

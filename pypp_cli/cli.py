@@ -9,7 +9,7 @@ from pypp_cli.delete_cpp.node import pypp_delete_cpp
 
 
 def main_cli(absolute_dir: Path | None = None) -> None:
-    parser = argparse.ArgumentParser(description="pypp CLI tool.")
+    parser = argparse.ArgumentParser(description="The Py++ CLI tool.")
     subparsers = parser.add_subparsers(dest="mode", required=False)
     subparsers.add_parser(
         "init", help="Initialize a new Py++ project in the current directory."
@@ -27,7 +27,7 @@ def main_cli(absolute_dir: Path | None = None) -> None:
     )
     subparsers.add_parser(
         "delete_cpp_libs",
-        help="Delete everything in the C++ libs directory. so that the C++ code from "
+        help="Delete everything in the C++ libs directory so that the C++ code from "
         "libraries is recopied into it on the next transpile. This also deletes the "
         "file_timestamps.json file.",
     )
@@ -36,11 +36,10 @@ def main_cli(absolute_dir: Path | None = None) -> None:
     )
     parser_do.add_argument(
         "tasks",
-        help="Transpile your python code to C++, format the generated C++ code, build "
+        help="Transpile your Py++ code to C++, format the generated C++ code, build "
         "the C++ code, and/or run the resulting executable. You can choose one or "
         "multiple, and in any order (though, not every order makes sense)."
-        "For example, 'transpile format build run' will do everything and run the "
-        "resulting executable.'",
+        "For example, 'transpile format build' will transpile, format, and build ",
         choices=["transpile", "format", "build", "run"],
         nargs="+",
     )
