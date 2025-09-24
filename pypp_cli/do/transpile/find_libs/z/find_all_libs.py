@@ -16,8 +16,8 @@ class PyppLibsData:
     namespaces: dict[str, str]  # lib name -> namespace
 
 
-def find_all_libs(site_packages_dir: Path) -> PyppLibsData:
-    if not site_packages_dir.is_dir():
+def find_all_libs(site_packages_dir: Path | None) -> PyppLibsData:
+    if site_packages_dir is None or not site_packages_dir.is_dir():
         return PyppLibsData(libs={}, namespaces={})
     ret = PyppLibsData(libs={}, namespaces={})
     for entry in site_packages_dir.iterdir():

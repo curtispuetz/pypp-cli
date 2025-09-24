@@ -4,8 +4,10 @@ import shutil
 
 
 def copy_all_lib_cpp_files(
-    cpp_libs_dir: Path, site_packages_dir: Path, new_libs: set[str]
+    cpp_libs_dir: Path, site_packages_dir: Path | None, new_libs: set[str]
 ):
+    if site_packages_dir is None:
+        return
     copier = _CppLibCopier(cpp_libs_dir, site_packages_dir)
     copier.copy_all(new_libs)
     if len(new_libs) > 0:

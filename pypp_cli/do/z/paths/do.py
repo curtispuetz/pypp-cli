@@ -15,7 +15,7 @@ class DoPyppPaths:
     cpp_libs_dir: Path
     python_dir: Path
     timestamps_file: Path
-    site_packages_dir: Path
+    site_packages_dir: Path | None
     proj_transpiler_config_dir: Path
 
 
@@ -52,10 +52,13 @@ def create_do_pypp_paths(target_dir: Path) -> DoTranspileDeps:
     )
 
 
-def _calc_sitepackages_dir(root_dir: Path) -> Path:
+def _calc_sitepackages_dir(root_dir: Path) -> Path | None:
+    venv_dir = root_dir / ".venv"
+    if not venv_dir.is_dir():
+        return None
     if sys.platform == "win32":
-        return root_dir / ".venv" / "Lib" / "site-packages"
-    lib_dir = root_dir / ".venv" / "lib"
+        return venv_dir / "Lib" / "site-packages"
+    lib_dir = venv_dir / "lib"
     python_dirs = [
         d for d in lib_dir.iterdir() if d.is_dir() and d.name.startswith("python")
     ]
