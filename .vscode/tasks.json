@@ -10,6 +10,9 @@
             "osx": {
                 "command": "${workspaceFolder}/.venv/bin/python -m util_scripts.calling_cli.transpile_and_format"
             },
+            "linux": {
+                "command": "${workspaceFolder}/.venv/bin/python -m util_scripts.calling_cli.transpile_and_format"
+            },
             "problemMatcher": [],
             "presentation": {
                 "echo": true,
