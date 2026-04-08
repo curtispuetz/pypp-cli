@@ -36,6 +36,9 @@
             "label": "TFB&R",
             "type": "shell",
             "command": "${workspaceFolder}/.venv/Scripts/python.exe -m util_scripts.calling_cli.transpile_format_build_and_run",
+            "osx": {
+                "command": "${workspaceFolder}/.venv/bin/python -m util_scripts.calling_cli.transpile_format_build_and_run"
+            },
             "problemMatcher": [],
             "presentation": {
                 "echo": true,
